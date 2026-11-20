@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §4 Blender extension lab",
+  "label": "D-111 §5 tablero de madera",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "material_lab_d111_s5",
+    "surface": "timber",
+    "surfaceLabel": "tablero de madera",
+    "family": "wood",
+    "arms": [
+      {
+        "arm": "kenney_retro_textures_fantasy",
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/floor_wood_planks.png",
+        "license": "CC0-1.0",
+        "tileMeters": 0.6,
+        "channels": [
+          "color",
+          "depth_as_bump"
+        ],
+        "interpolation": "Closest",
+        "textureResolution": 64,
+        "objects": [
+          "timber_kenney_wall",
+          "timber_kenney_plinth",
+          "timber_kenney_frame"
+        ],
+        "texelsPerMeter": 106.7
+      },
+      {
+        "arm": "polyhaven",
+        "source": "blender_artist/staging/third_party/cc0/extracted/polyhaven/wood_planks_grey",
+        "license": "CC0-1.0",
+        "tileMeters": 2.0,
+        "channels": [
+          "diff_.jpg",
+          "disp_.png",
+          "nor_gl_.exr",
+          "rough_.jpg"
+        ],
+        "textureResolution": 4096,
+        "textures": [
+          "wood_planks_grey_diff_8k.png",
+          "wood_planks_grey_disp_8k.png",
+          "wood_planks_grey_nor_gl_8k.png",
+          "wood_planks_grey_rough_8k.png"
+        ],
+        "objects": [
+          "timber_polyhaven_wall",
+          "timber_polyhaven_plinth",
+          "timber_polyhaven_frame"
+        ],
+        "texelsPerMeter": 2048.0
+      },
+      {
+        "arm": "graphic_civic_procedural",
+        "source": "tools/art-pipeline/blender/runtime_asset.py:PALETTE + style_procedural_materials",
+        "license": "original",
+        "tileMeters": null,
+        "channels": [
+          "flat_albedo_tratado"
+        ],
+        "objects": [
+          "timber_civic_wall",
+          "timber_civic_plinth",
+          "timber_civic_frame"
+        ]
+      }
+    ],
+    "armOrder": [
+      "kenney_retro_textures_fantasy",
+      "polyhaven",
+      "graphic_civic_procedural"
+    ],
+    "geometry": "cupón idéntico por brazo (muro 2.0x0.28x2.6 + zócalo 2.2x0.40x0.34 + marco 1.05x0.34x1.35)",
+    "uvConvention": "UV = coordenada mundial en metros (proyección de caja por normal dominante)",
+    "surfaceSeconds": 6.78
+  },
+  "generated": {
+    "script": "tools/art-pipeline/blender/ext_lab/material_lab.py",
+    "surfaceSeconds": null
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 25.0,
+    "elevationDegrees": 30,
+    "orthoScale": 10.619999885559082,
+    "targetZ": 1.35
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 4.74,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 404,
+        "height": 614,
+        "offsetX": 310,
+        "offsetY": 212
+      },
+      "final": {
+        "width": 404,
+        "height": 614
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 108,
+    "meshObjects": 9,
+    "bounds": {
+      "min": [
+        -4.5,
+        -0.2,
+        0.0
+      ],
+      "max": [
+        4.5,
+        0.2,
+        2.6
+      ],
+      "size": [
+        9.0,
+        0.4,
+        2.6
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/timber.png",
+    "width": 404,
+    "height": 614,
+    "sha256": "d1a4e5de8908d9e5b4dbf10a4a574def3bfa8e7cc78d58f544cd10db2ee95525",
+    "bytes": 233188
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --mood=day_civic --samples=48 --resolution=1024"
+}

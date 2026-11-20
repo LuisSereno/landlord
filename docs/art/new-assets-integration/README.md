@@ -15,10 +15,10 @@ El estado `measured` significa geometría importada y medida, **no** compatibili
 | --- | ---: | ---: | ---: | ---: | --- |
 | Building Kit | 323 | 79 | 79 | 0 | Selección y prueba de fachada pendientes |
 | Modular Buildings | 441 | 108 | 108 | 0 | Escala y encaje de módulos pendientes |
-| Retro Urban Kit | 564 | 124 | 124 | 0 | Garajes sin cierre de puerta; encaje logístico pendiente |
+| Retro Urban Kit | 564 | 124 | 124 | 0 | Garajes medidos contra la caja de un camión: no cierran un muelle (D-111 §6.C) |
 | Ultimate Buildings | 318 | 102 | 102 | 2 | 44 Blend con atlas sin resolver; revisión visual pendiente |
 | Mini Characters | 176 | 43 | 43 | 0 | Presentación y compatibilidad de rig pendientes |
-| Retro Textures Fantasy | 119 | 0 | 0 | 0 | Comparación con paleta y Poly Haven pendiente |
+| Retro Textures Fantasy | 119 | 0 | 0 | 0 | Comparación por superficie hecha (D-111 §5); falta revisión humana |
 
 El duplicado exacto de City Kit Roads permanece fuera de este inventario y de la selección nueva.
 Los 1.941 recursos indexados son **archivos visuales**, incluidos formatos alternativos y previews;
@@ -46,7 +46,10 @@ Kenney geométricos.
   1 × 0,1 × 1. Sus previews muestran marco/hueco sin hoja o persiana. El camión de carga mide
   0,83 × 1,168 × 0,738 unidades. Una escala de pack que dé 2,2 m de alto al camión haría la puerta
   de unos 3 m de ancho, incompatible con las crujías actuales de 2 m. No se presentan esos huecos
-  como muelles terminados.
+  como muelles terminados. D-111 §6.C repitió la medida contra la caja real de un camión
+  (2,50 × 2,60 m) y la renderizó:
+  `../graphics-capabilities/evidence/warehouse/garage_probe.png`. Con la rejilla de 1 m del pack,
+  duplicar el módulo da 2 m de ancho y 1 m de alto; sigue sin cerrar un muelle.
 - Building Kit: `wall-window-wide-square-detailed` y `wall-doorway-wide-square` miden
   0,2 × 4 × 2,4 m. Requieren una crujía de 4 m o un adaptador geométrico; montarlos sobre las
   crujías actuales de 2 m superpondría ventanas y marcos.
@@ -64,8 +67,12 @@ Kenney geométricos.
   normal en el generador del índice y `animationSupport` permanece desactivado para esta fuente
   hasta validar su pipeline, aunque el GLB incluya clips. Los modelos fantásticos y armas están
   marcados `qa_rejected` en el inventario detallado.
-- Retro Textures Fantasy: 119 PNG clasificados como reserva. No hay selección de producción ni
-  afirmación de que el pixel art mejore el render actual.
+- Retro Textures Fantasy: 119 PNG clasificados como reserva. La comparación por superficie ya se hizo
+  en D-111 §5 sobre cupón, UV, cámara y luz idénticos
+  (`../graphics-capabilities/evidence/sheets/materials_sheet.png`): aporta relieve en teja, zócalo y
+  pavimento, y se rechaza en ladrillo y revoco porque el grano del pixel art no corresponde al
+  lenguaje mate de `graphic_civic`. Sigue sin selección de producción: la decisión es por superficie y
+  espera revisión humana.
 
 ## Uso real y límite artístico
 
@@ -94,6 +101,26 @@ las transformaciones y los hashes de cada imagen. La geometría importada es rea
 balcones no desembocan en puertas y el acceso no organiza una planta comercial creíble. La
 evaluación arquitectónica queda **parcial** y requiere rediseñar la fachada antes de pedir
 aprobación humana. Esto no equivale a una comparación Quaternius/Kenney/híbrida completa.
+
+### Qué cerró la ejecución de 2026-11-20 y qué sigue abierto
+
+La adenda D-111 produjo lo que aquí estaba pendiente, con la autoridad del Composer intacta:
+
+- `row_house` ya tiene comparativa A/B de una sola variable (control vs fachada Geometry Nodes,
+  mismo seed, huella y silueta) en `../graphics-capabilities/evidence/sheets/pilots_sheet.png`.
+- `warehouse` y `town_hall` **no** tienen candidata y el motivo está medido, no opinado: el módulo GN
+  declara `allowedFamilies: ["residential_low"]` y el Composer corta la composición antes del render.
+  Relajar esa lista habría sido falsificar la identidad de familia; se registró la restricción
+  (`../graphics-capabilities/evaluations/pilots.md`).
+- Contexto urbano a 1440×900 con calzada, acera, parcela, árbol, personaje y vehículo de escala, a 1×
+  y 0,5×, en `../graphics-capabilities/evidence/sheets/urban_context_sheet.png`.
+- Medidas de frame antes/después de cada efecto de Phaser 4, en
+  `../graphics-capabilities/evaluations/phaser-fx-lab.md`.
+
+Sigue abierto, y es lo que bloquea la promoción: el rediseño de la planta baja comercial del
+`mixed_tenement` (escaparates creíbles), la revisión visual humana de los dos candidatos y decidir si
+se autorizan módulos GN propios de `industrial_heavy` y `civic_landmark`, que es un WP nuevo con su
+propia medición.
 
 ## Validación conocida
 

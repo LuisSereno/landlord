@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §4 Blender extension lab",
+  "label": "D-111 §5 chapa metálica",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "material_lab_d111_s5",
+    "surface": "metal_sheet",
+    "surfaceLabel": "chapa metálica",
+    "family": "metal",
+    "arms": [
+      {
+        "arm": "polyhaven",
+        "source": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03",
+        "license": "CC0-1.0",
+        "tileMeters": 2.0,
+        "channels": [
+          "diff_.jpg",
+          "disp_.png",
+          "nor_gl_.exr",
+          "rough_.exr"
+        ],
+        "textureResolution": 2048,
+        "textures": [
+          "corrugated_iron_03_diff.png",
+          "corrugated_iron_03_disp.png",
+          "corrugated_iron_03_nor_gl.png",
+          "corrugated_iron_03_rough.png"
+        ],
+        "objects": [
+          "metal_sheet_polyhaven_wall",
+          "metal_sheet_polyhaven_plinth",
+          "metal_sheet_polyhaven_frame"
+        ],
+        "texelsPerMeter": 1024.0
+      },
+      {
+        "arm": "graphic_civic_procedural",
+        "source": "tools/art-pipeline/blender/runtime_asset.py:PALETTE + style_procedural_materials",
+        "license": "original",
+        "tileMeters": null,
+        "channels": [
+          "flat_albedo_tratado"
+        ],
+        "objects": [
+          "metal_sheet_civic_wall",
+          "metal_sheet_civic_plinth",
+          "metal_sheet_civic_frame"
+        ]
+      },
+      {
+        "arm": "kenney",
+        "absent": true,
+        "reason": "sin candidato en el pack"
+      }
+    ],
+    "armOrder": [
+      "polyhaven",
+      "graphic_civic_procedural"
+    ],
+    "geometry": "cupón idéntico por brazo (muro 2.0x0.28x2.6 + zócalo 2.2x0.40x0.34 + marco 1.05x0.34x1.35)",
+    "uvConvention": "UV = coordenada mundial en metros (proyección de caja por normal dominante)",
+    "surfaceSeconds": 4.9
+  },
+  "generated": {
+    "script": "tools/art-pipeline/blender/ext_lab/material_lab.py",
+    "surfaceSeconds": null
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 25.0,
+    "elevationDegrees": 30,
+    "orthoScale": 6.607999801635742,
+    "targetZ": 1.35
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 3.64,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 424,
+        "height": 747,
+        "offsetX": 300,
+        "offsetY": 150
+      },
+      "final": {
+        "width": 424,
+        "height": 747
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 72,
+    "meshObjects": 6,
+    "bounds": {
+      "min": [
+        -2.8,
+        -0.2,
+        0.0
+      ],
+      "max": [
+        2.8,
+        0.2,
+        2.6
+      ],
+      "size": [
+        5.6,
+        0.4,
+        2.6
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/metal_sheet.png",
+    "width": 424,
+    "height": 747,
+    "sha256": "9fa7c3b037f2599f400df6396f7828f9fbb7502e233ace21841cee65701ea28c",
+    "bytes": 290837
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --mood=day_civic --samples=48 --resolution=1024"
+}

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §5 A/B/C de materiales",
+  "mood": "day_civic",
+  "render": {
+    "resolution": 1024,
+    "samples": 48
+  },
+  "surfaces": [
+    {
+      "id": "brick_wall",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/brick_wall.png"
+    },
+    {
+      "id": "stucco_wall",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/stucco_wall.png"
+    },
+    {
+      "id": "stone_plinth",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/stone_plinth.png"
+    },
+    {
+      "id": "timber",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/timber.png"
+    },
+    {
+      "id": "clay_roof",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/clay_roof.png"
+    },
+    {
+      "id": "metal_sheet",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/metal_sheet.png"
+    },
+    {
+      "id": "window_glass",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/window_glass.png"
+    },
+    {
+      "id": "pavement",
+      "ok": true,
+      "png": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/pavement.png"
+    }
+  ],
+  "trianglesTotal": null
+}

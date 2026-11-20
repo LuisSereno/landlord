@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §5 — decisión por superficie (Kenney Retro Textures Fantasy vs Poly Haven vs control Graphic Civic)",
+  "generated": "2026-11-20",
+  "geometry": "cupón idéntico por brazo, UV métrico, cámara/luz/recorte del pipeline, mood day_civic, 1024 px, 48 muestras",
+  "evidence": "docs/art/graphics-capabilities/evidence/materials/ · hoja: docs/art/graphics-capabilities/evidence/sheets/materials_sheet.png",
+  "verdictLegend": {
+    "approved_for_candidate": "entra como candidato en una variante de exploración; sigue requiriendo revisión humana para producción",
+    "restricted_use": "válido sólo bajo condiciones explícitas (mood, familia o superficie)",
+    "rejected_for_style": "no se adopta: el resultado visual contradice el lenguaje Graphic Civic"
+  },
+  "nonNegotiable": [
+    "Ningún brazo sustituye automáticamente al Poly Haven ya en catálogo (§5).",
+    "material-assets.json NO se toca en D-111: su generador (tools/art-pipeline/blender/build_world_material_library.py) no tiene lista de categoría Kenney y `styleCompatibility` del pack sigue vacío. Rellenarlo es una promoción artística y corresponde al responsable.",
+    "src_kenney_retro_textures_fantasy sigue con runtimeReady:false hasta esa aprobación."
+  ],
+  "surfaces": [
+    {
+      "id": "brick_wall",
+      "kenney": {
+        "verdict": "rejected_for_style",
+        "asset": "wall_brick_stone_center.png + _depth (64 px, 0.5 m/loseta, 128 tex/m)",
+        "reason": "el dibujo de ladrillo es correcto pero el tono sale gris azulado: a 1× se lee sillería, no el ladrillo terroso del lenguaje cívico. El bump de `_depth` sí funciona."
+      },
+      "polyhaven": {
+        "verdict": "restricted_use",
+        "asset": "red_brick_03 4k (2 m/loseta, ≈1 tex/m)",
+        "reason": "gana con claridad en materialidad y relieve de junta, pero el albedo trae intemperie que el lenguaje plano no tiene. Sólo en mood de degradado aprobado y nunca sobre paño visible de un edificio hero."
+      },
+      "control": "mod_megakit_brick_wall_2m (atlas T_RedBrick_BaseColor tratado por la capa de estilo)"
+    },
+    {
+      "id": "stucco_wall",
+      "kenney": {"verdict": "no_candidate", "reason": "sin loseta de revoco liso en el pack"},
+      "polyhaven": {
+        "verdict": "rejected_for_style",
+        "asset": "concrete_wall_003",
+        "reason": "manchas oscuras de humedad sobre paño continuo: el edificio parece abandonado, no revocado. Es justo el estado que en Landlord comunica ruina, así que confundir los dos es un defecto de legibilidad, no de gusto."
+      },
+      "control": "mod_megakit_trim_wall_2m (paño crema limpio)"
+    },
+    {
+      "id": "stone_plinth",
+      "kenney": {
+        "verdict": "approved_for_candidate",
+        "asset": "wall_stone.png (64 px, 0.5 m/loseta, 128 tex/m)",
+        "reason": "sillar gris magro con junta legible; a 1× el zócalo se separa del muro sin ensuciar la paleta. Es la mejor coincidencia del lote entre dibujo y lenguaje."
+      },
+      "polyhaven": {
+        "verdict": "restricted_use",
+        "asset": "stone_wall_02 2k",
+        "reason": "relieve excelente pero variación de tono alta por loseta: en tramos cortos de zócalo aparece ruido de color."
+      },
+      "control": "mod_megakit_brick_bottom_trim_2m"
+    },
+    {
+      "id": "timber",
+      "kenney": {
+        "verdict": "approved_for_candidate",
+        "asset": "floor_wood_planks.png (0.5 m/loseta, 128 tex/m)",
+        "reason": "tablón dibujado con veta por loseta; lectura industrial limpia y coherente con entoldado y encofrado."
+      },
+      "polyhaven": {
+        "verdict": "restricted_use",
+        "asset": "wood_planks_grey",
+        "reason": "madera gris meteorizada: correcta para obra abandonada, demasiado oscura para carpintería en uso."
+      },
+      "control": "ocre plano de la paleta industrial"
+    },
+    {
+      "id": "clay_roof",
+      "kenney": {
+        "verdict": "approved_for_candidate",
+        "asset": "roof_clay_grey_center.png (0.5 m/loseta, 128 tex/m)",
+        "reason": "única candidata de teja del lote (no hay scan equivalente en Poly Haven). El dibujo de escama se lee como cubierta a 1× y 0,5×; el nombre del asset es gris y el resultado es gris, así que la decisión de tono queda en la capa de estilo, no en el pack."
+      },
+      "polyhaven": {"verdict": "no_candidate", "reason": "sin teja curva en los 11 materiales del catálogo"},
+      "control": "cubierta plana de la paleta"
+    },
+    {
+      "id": "metal_sheet",
+      "kenney": {"verdict": "no_candidate", "reason": "sin chapa perfilada en el pack"},
+      "polyhaven": {
+        "verdict": "approved_for_candidate",
+        "asset": "corrugated_iron_03",
+        "reason": "el canal de chapa se lee como relieve direccional y es lo único del lote que da materialidad de nave industrial sin pintar. Condicionado a day_industrial: en mood cívico el surco compite con la retícula de huecos."
+      },
+      "control": "mod_megakit_metal_wall_2m (chapa dibujada en atlas, sin relieve)"
+    },
+    {
+      "id": "window_glass",
+      "kenney": {
+        "verdict": "restricted_use",
+        "asset": "window_tall_divided.png + window_tall_divided_lit.png",
+        "reason": "el albedo da una retícula de carpintería útil, pero la acompañante `_lit` es emisión de noche: aplicada de día quema el cupón (medido en la primera pasada de material_lab.py, salida en blanco puro). Sólo válida con fuerza de emisión condicionada al mood, como ya hace el laboratorio."
+      },
+      "polyhaven": {"verdict": "no_candidate", "reason": "no hay vidrio de hueco en el catálogo; los scans son opacos"},
+      "control": "vidrio oscuro de día (0.055, 0.075, 0.098) de la paleta"
+    },
+    {
+      "id": "pavement",
+      "kenney": {
+        "verdict": "approved_for_candidate",
+        "asset": "floor_stone_pattern.png (0.5 m/loseta, 128 tex/m)",
+        "reason": "loseta de acera con junta clara; es la superficie donde la densidad de 64 px más conviene porque el tile coincide con la rejilla del sprite."
+      },
+      "polyhaven": {
+        "verdict": "restricted_use",
+        "asset": "cobblestone_pavement",
+        "reason": "adoquín con relieve muy legible pero grano alto y tono cálido: choca con el asfalto grano 14 fijado en D-105 y con las aceras fuera de blendEdges. Cualquier cambio de pavimento de vía reabre D-105 y no es decisión de D-111."
+      },
+      "control": "pavimento actual del ground painter"
+    }
+  ],
+  "summary": {
+    "kenneyApproved": ["stone_plinth", "timber", "clay_roof", "pavement"],
+    "kenneyRestricted": ["window_glass"],
+    "kenneyRejected": ["brick_wall"],
+    "polyhavenApproved": ["metal_sheet"],
+    "polyhavenRestricted": ["brick_wall", "stone_plinth", "timber", "pavement"],
+    "polyhavenRejected": ["stucco_wall"],
+    "noCandidate": {
+      "kenney": ["stucco_wall", "metal_sheet", "clay_roof"],
+      "polyhaven": ["clay_roof", "window_glass"]
+    }
+  }
+}

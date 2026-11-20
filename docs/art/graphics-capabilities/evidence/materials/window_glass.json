@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §4 Blender extension lab",
+  "label": "D-111 §5 hueco de ventana",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "material_lab_d111_s5",
+    "surface": "window_glass",
+    "surfaceLabel": "hueco de ventana",
+    "family": "window",
+    "arms": [
+      {
+        "arm": "kenney_retro_textures_fantasy",
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/window_tall_divided.png",
+        "license": "CC0-1.0",
+        "tileMeters": 0.8,
+        "channels": [
+          "color",
+          "lit_emissive"
+        ],
+        "interpolation": "Closest",
+        "textureResolution": 64,
+        "litSource": "window_tall_divided_lit.png",
+        "litMoodGated": true,
+        "emissionStrength": 0.0,
+        "objects": [
+          "window_glass_kenney_wall",
+          "window_glass_kenney_plinth",
+          "window_glass_kenney_frame"
+        ],
+        "texelsPerMeter": 80.0
+      },
+      {
+        "arm": "graphic_civic_procedural",
+        "source": "tools/art-pipeline/blender/runtime_asset.py:PALETTE + style_procedural_materials",
+        "license": "original",
+        "tileMeters": null,
+        "channels": [
+          "flat_albedo_tratado"
+        ],
+        "objects": [
+          "window_glass_civic_wall",
+          "window_glass_civic_plinth",
+          "window_glass_civic_frame"
+        ]
+      },
+      {
+        "arm": "polyhaven",
+        "absent": true,
+        "reason": "sin candidato en el pack"
+      }
+    ],
+    "armOrder": [
+      "kenney_retro_textures_fantasy",
+      "graphic_civic_procedural"
+    ],
+    "geometry": "cupón idéntico por brazo (muro 2.0x0.28x2.6 + zócalo 2.2x0.40x0.34 + marco 1.05x0.34x1.35)",
+    "uvConvention": "UV = coordenada mundial en metros (proyección de caja por normal dominante)",
+    "surfaceSeconds": 3.62
+  },
+  "generated": {
+    "script": "tools/art-pipeline/blender/ext_lab/material_lab.py",
+    "surfaceSeconds": null
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 25.0,
+    "elevationDegrees": 30,
+    "orthoScale": 6.607999801635742,
+    "targetZ": 1.35
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 2.87,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 424,
+        "height": 748,
+        "offsetX": 300,
+        "offsetY": 149
+      },
+      "final": {
+        "width": 424,
+        "height": 748
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 72,
+    "meshObjects": 6,
+    "bounds": {
+      "min": [
+        -2.8,
+        -0.2,
+        0.0
+      ],
+      "max": [
+        2.8,
+        0.2,
+        2.6
+      ],
+      "size": [
+        5.6,
+        0.4,
+        2.6
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/window_glass.png",
+    "width": 424,
+    "height": 748,
+    "sha256": "73439ebea6979c877df6cfa6eb7ad0a5a8cc560796e8a4cc57e4b98184edba74",
+    "bytes": 313770
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --mood=day_civic --samples=48 --resolution=1024"
+}

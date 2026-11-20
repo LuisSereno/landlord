@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §4 Blender extension lab",
+  "label": "D-111 §5 revoco / estuco",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "material_lab_d111_s5",
+    "surface": "stucco_wall",
+    "surfaceLabel": "revoco / estuco",
+    "family": "plaster",
+    "arms": [
+      {
+        "arm": "polyhaven",
+        "source": "blender_artist/staging/third_party/cc0/extracted/polyhaven/concrete_wall_003",
+        "license": "CC0-1.0",
+        "tileMeters": 2.0,
+        "channels": [
+          "diff_.jpg",
+          "disp_.png",
+          "nor_gl_.exr",
+          "rough_.jpg"
+        ],
+        "textureResolution": 4096,
+        "textures": [
+          "concrete_wall_003_diff_16k.png",
+          "concrete_wall_003_disp_16k.png",
+          "concrete_wall_003_nor_gl_16k.png",
+          "concrete_wall_003_rough_16k.png"
+        ],
+        "objects": [
+          "stucco_wall_polyhaven_wall",
+          "stucco_wall_polyhaven_plinth",
+          "stucco_wall_polyhaven_frame"
+        ],
+        "texelsPerMeter": 2048.0
+      },
+      {
+        "arm": "graphic_civic_procedural",
+        "source": "tools/art-pipeline/blender/runtime_asset.py:PALETTE + style_procedural_materials",
+        "license": "original",
+        "tileMeters": null,
+        "channels": [
+          "flat_albedo_tratado"
+        ],
+        "objects": [
+          "stucco_wall_civic_wall",
+          "stucco_wall_civic_plinth",
+          "stucco_wall_civic_frame"
+        ]
+      },
+      {
+        "arm": "kenney",
+        "absent": true,
+        "reason": "sin candidato en el pack"
+      }
+    ],
+    "armOrder": [
+      "polyhaven",
+      "graphic_civic_procedural"
+    ],
+    "geometry": "cupón idéntico por brazo (muro 2.0x0.28x2.6 + zócalo 2.2x0.40x0.34 + marco 1.05x0.34x1.35)",
+    "uvConvention": "UV = coordenada mundial en metros (proyección de caja por normal dominante)",
+    "surfaceSeconds": 8.3
+  },
+  "generated": {
+    "script": "tools/art-pipeline/blender/ext_lab/material_lab.py",
+    "surfaceSeconds": null
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 25.0,
+    "elevationDegrees": 30,
+    "orthoScale": 6.607999801635742,
+    "targetZ": 1.35
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 5.27,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 429,
+        "height": 750,
+        "offsetX": 295,
+        "offsetY": 147
+      },
+      "final": {
+        "width": 429,
+        "height": 750
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 72,
+    "meshObjects": 6,
+    "bounds": {
+      "min": [
+        -2.8,
+        -0.2,
+        0.0
+      ],
+      "max": [
+        2.8,
+        0.2,
+        2.6
+      ],
+      "size": [
+        5.6,
+        0.4,
+        2.6
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/stucco_wall.png",
+    "width": 429,
+    "height": 750,
+    "sha256": "d08bad81d1707adbf58edce09a371a54009441c417b673ef0547c47e010e44c5",
+    "bytes": 359702
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --mood=day_civic --samples=48 --resolution=1024"
+}

@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §4 Blender extension lab",
+  "label": "D-111 §5 fábrica de ladrillo",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "material_lab_d111_s5",
+    "surface": "brick_wall",
+    "surfaceLabel": "fábrica de ladrillo",
+    "family": "brick",
+    "arms": [
+      {
+        "arm": "kenney_retro_textures_fantasy",
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_brick_stone_center.png",
+        "license": "CC0-1.0",
+        "tileMeters": 0.5,
+        "channels": [
+          "color",
+          "depth_as_bump"
+        ],
+        "interpolation": "Closest",
+        "textureResolution": 64,
+        "objects": [
+          "brick_wall_kenney_wall",
+          "brick_wall_kenney_plinth",
+          "brick_wall_kenney_frame"
+        ],
+        "texelsPerMeter": 128.0
+      },
+      {
+        "arm": "polyhaven",
+        "source": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03",
+        "license": "CC0-1.0",
+        "tileMeters": 2.0,
+        "channels": [
+          "diff_.jpg",
+          "disp_.png",
+          "nor_gl_.exr",
+          "rough_.jpg"
+        ],
+        "textureResolution": 4096,
+        "textures": [
+          "red_brick_03_diff_4k.png",
+          "red_brick_03_disp_4k.png",
+          "red_brick_03_nor_4k.png",
+          "red_brick_03_rough_4k.png"
+        ],
+        "objects": [
+          "brick_wall_polyhaven_wall",
+          "brick_wall_polyhaven_plinth",
+          "brick_wall_polyhaven_frame"
+        ],
+        "texelsPerMeter": 2048.0
+      },
+      {
+        "arm": "graphic_civic_procedural",
+        "source": "tools/art-pipeline/blender/runtime_asset.py:PALETTE + style_procedural_materials",
+        "license": "original",
+        "tileMeters": null,
+        "channels": [
+          "flat_albedo_tratado"
+        ],
+        "objects": [
+          "brick_wall_civic_wall",
+          "brick_wall_civic_plinth",
+          "brick_wall_civic_frame"
+        ]
+      }
+    ],
+    "armOrder": [
+      "kenney_retro_textures_fantasy",
+      "polyhaven",
+      "graphic_civic_procedural"
+    ],
+    "geometry": "cupón idéntico por brazo (muro 2.0x0.28x2.6 + zócalo 2.2x0.40x0.34 + marco 1.05x0.34x1.35)",
+    "uvConvention": "UV = coordenada mundial en metros (proyección de caja por normal dominante)",
+    "surfaceSeconds": 7.11
+  },
+  "generated": {
+    "script": "tools/art-pipeline/blender/ext_lab/material_lab.py",
+    "surfaceSeconds": null
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 25.0,
+    "elevationDegrees": 30,
+    "orthoScale": 10.619999885559082,
+    "targetZ": 1.35
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 4.68,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 404,
+        "height": 614,
+        "offsetX": 310,
+        "offsetY": 212
+      },
+      "final": {
+        "width": 404,
+        "height": 614
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 108,
+    "meshObjects": 9,
+    "bounds": {
+      "min": [
+        -4.5,
+        -0.2,
+        0.0
+      ],
+      "max": [
+        4.5,
+        0.2,
+        2.6
+      ],
+      "size": [
+        9.0,
+        0.4,
+        2.6
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/materials/brick_wall.png",
+    "width": 404,
+    "height": 614,
+    "sha256": "95f7167f60bb4808049a49a6ab1ce67d1ced603f4e3b279f2fececcaab4a6449",
+    "bytes": 277256
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --mood=day_civic --samples=48 --resolution=1024"
+}

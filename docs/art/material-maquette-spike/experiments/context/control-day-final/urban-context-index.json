@@ -1,0 +1,104 @@
+[
+  {
+    "candidateId": "vf_row_house_1010",
+    "buildingType": "row_house",
+    "family": "residential_low",
+    "variantSeed": 1010,
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "moodId": "day_civic",
+    "zoom": "0.5x",
+    "orthoScale": 70.31,
+    "resolution": [
+      1280,
+      720
+    ],
+    "aspectRatio": 1.77778,
+    "image": "row_house-city-context-0.5x.png",
+    "materialExperiment": null
+  },
+  {
+    "candidateId": "vf_row_house_1010",
+    "buildingType": "row_house",
+    "family": "residential_low",
+    "variantSeed": 1010,
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "moodId": "day_civic",
+    "zoom": "1x",
+    "orthoScale": 35.155,
+    "resolution": [
+      1280,
+      720
+    ],
+    "aspectRatio": 1.77778,
+    "image": "row_house-city-context-1x.png",
+    "materialExperiment": null
+  },
+  {
+    "candidateId": "vf_mixed_tenement_1010",
+    "buildingType": "mixed_tenement",
+    "family": "residential_low",
+    "variantSeed": 1010,
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "moodId": "day_civic",
+    "zoom": "0.5x",
+    "orthoScale": 89.258,
+    "resolution": [
+      1280,
+      720
+    ],
+    "aspectRatio": 1.77778,
+    "image": "mixed_tenement-city-context-0.5x.png",
+    "materialExperiment": null
+  },
+  {
+    "candidateId": "vf_mixed_tenement_1010",
+    "buildingType": "mixed_tenement",
+    "family": "residential_low",
+    "variantSeed": 1010,
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "moodId": "day_civic",
+    "zoom": "1x",
+    "orthoScale": 44.629,
+    "resolution": [
+      1280,
+      720
+    ],
+    "aspectRatio": 1.77778,
+    "image": "mixed_tenement-city-context-1x.png",
+    "materialExperiment": null
+  },
+  {
+    "candidateId": "vf_warehouse_1010",
+    "buildingType": "warehouse",
+    "family": "industrial_heavy",
+    "variantSeed": 1010,
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "moodId": "day_civic",
+    "zoom": "0.5x",
+    "orthoScale": 63.408,
+    "resolution": [
+      1280,
+      720
+    ],
+    "aspectRatio": 1.77778,
+    "image": "warehouse-city-context-0.5x.png",
+    "materialExperiment": null
+  },
+  {
+    "candidateId": "vf_warehouse_1010",
+    "buildingType": "warehouse",
+    "family": "industrial_heavy",
+    "variantSeed": 1010,
+    "styleProfileId": "graphic_civic_buildings_v1",
+    "moodId": "day_civic",
+    "zoom": "1x",
+    "orthoScale": 31.704,
+    "resolution": [
+      1280,
+      720
+    ],
+    "aspectRatio": 1.77778,
+    "image": "warehouse-city-context-1x.png",
+    "materialExperiment": null
+  }
+]

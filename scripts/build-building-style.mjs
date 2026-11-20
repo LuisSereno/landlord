@@ -1656,7 +1656,34 @@ const output = {
     `Geometría: ${CATALOG_PATH} (medida en Blender). Materiales: ${measurementsPath} (nodos, factores y canales ORM ` +
     `reales). Color: ${PREVIEW_SCRIPT} aplica style_layer_math.style_pixels del style layer canónico a los colores ` +
     "medidos. Cámara y luz: metadato embarcado de los edificios de V.d.",
-  profiles: [profile],
+  profiles: [
+    profile,
+    {
+      ...structuredClone(profile),
+      id: "material_maquette_buildings_v1",
+      label: "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
+      renderMoodIds: ["material_maquette_day", "material_maquette_night"],
+      materialExperiment: {
+        status: "candidate",
+        method: "Poly Haven PBR materials applied to facade wall modules in Blender EEVEE",
+        assets: [
+          {
+            assetId: "wa_polyhaven_materials_red_brick_03_4k",
+            sourcePath: "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/red_brick_03_4k.blend",
+            license: "CC0-1.0",
+            appliesTo: ["row_house", "mixed_tenement"],
+          },
+          {
+            assetId: "wa_polyhaven_materials_corrugated_iron_03_2k",
+            sourcePath: "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+            license: "CC0-1.0",
+            appliesTo: ["warehouse"],
+          },
+        ],
+        geometryAndCamera: "same measured parameters as graphic_civic_buildings_v1 for controlled A/B",
+      },
+    },
+  ],
   counts: {
     modules: modules.length,
     texturesSampled: measurements.imageSamples.length,

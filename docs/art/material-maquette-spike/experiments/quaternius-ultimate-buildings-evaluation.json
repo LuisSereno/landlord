@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "candidate": "Quaternius Ultimate Buildings Pack",
+  "decision": "not-evaluated",
+  "officialPage": "https://quaternius.com/packs/ultimatetexturedbuildings.html",
+  "officialPageClaims": {
+    "models": 76,
+    "formats": ["FBX", "OBJ", "Blend"],
+    "license": "CC0",
+    "description": "modular buildings with palette atlas variations"
+  },
+  "retrievalAttempt": "The official download link opens a public Google Drive folder. A direct download of a sample file returned Google's quota-exceeded HTML instead of the asset; invalid responses were removed from staging.",
+  "decisionReason": "No sample geometry was acquired, so this pack is neither rejected nor selected. The gap for large warehouse doors remains open.",
+  "testedAt": "2026-11-19"
+}

@@ -197,8 +197,12 @@ function checkGrammars(grammars, catalog, profiles, errors) {
         `§17 ${buildingType}: la gramática no declara levelsFromDomain y el dominio manda sobre las plantas`,
       );
     }
-    const applicable = profiles.filter((profile) =>
-      profile.appliesToFamilies.includes(grammar.family),
+    // §10 conserva un perfil default único; los perfiles experimentales explícitos se
+    // seleccionan con --profile y no generan ambigüedad en la producción ordinaria.
+    const applicable = profiles.filter(
+      (profile) =>
+        profile.id === "graphic_civic_buildings_v1" &&
+        profile.appliesToFamilies.includes(grammar.family),
     );
     if (applicable.length !== 1) {
       errors.push(
@@ -709,8 +713,22 @@ function main() {
   const grammars = read(PATHS.grammars);
   const catalog = read(PATHS.modules);
   const profiles = read(PATHS.profiles).profiles;
-  const sourcesById = new Map(read(PATHS.sources).sources.map((source) => [source.id, source]));
   const errors = [];
+  const civicProfile = profiles.find((profile) => profile.id === "graphic_civic_buildings_v1");
+  const materialProfile = profiles.find((profile) => profile.id === "material_maquette_buildings_v1");
+  if (!materialProfile?.materialExperiment || !materialProfile.renderMoodIds) {
+    errors.push("D-111: falta el perfil material_maquette_buildings_v1 con procedencia experimental");
+  } else {
+    if (JSON.stringify(civicProfile?.parameters) !== JSON.stringify(materialProfile.parameters)) {
+      errors.push("D-111: el A/B material no conserva los parámetros geométricos/cámara de Graphic Civic");
+    }
+    for (const asset of materialProfile.materialExperiment.assets ?? []) {
+      if (asset.license !== "CC0-1.0" || !existsSync(join(REPO_ROOT, asset.sourcePath))) {
+        errors.push(`D-111: material experimental sin fuente CC0 disponible (${asset.assetId})`);
+      }
+    }
+  }
+  const sourcesById = new Map(read(PATHS.sources).sources.map((source) => [source.id, source]));
 
   const modulesById = checkGrammars(grammars, catalog, profiles, errors);
   checkDeterminism(grammars, errors);

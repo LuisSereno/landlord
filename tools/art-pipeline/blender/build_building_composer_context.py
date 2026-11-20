@@ -27,12 +27,13 @@ if str(HERE) not in sys.path:
 import bpy
 
 import runtime_asset as runtime
-from render_settings import active_mood, apply_render_settings
+from render_settings import active_mood, active_mood_id, apply_render_settings
 from building_composer.compose import compose_candidate
 from building_composer.grammar import GrammarDocument
 from building_composer.module_catalog import Catalog
 from building_composer.scene import (
     COMPOSITION_ROOT,
+    apply_material_maquette_pbr,
     add_supports,
     complete_style_reach,
     framing,
@@ -46,16 +47,18 @@ STYLE_LAYER_PATH = HERE / "style_layer_graphic_civic.json"
 
 # Un candidato representativo por familia: el seed cuyo secundario es identitario y el bounds pasa.
 FAMILIES = [
-    ("row_house", "residential_low", {"width": 4, "height": 1}, 2, 1003),
-    ("cement_plant", "industrial_heavy", {"width": 5, "height": 2}, 2, 1002),
-    ("town_hall", "civic_landmark", {"width": 4, "height": 3}, 4, 1000),
+    ("row_house", "residential_low", {"width": 4, "height": 1}, 2, 1010),
+    ("mixed_tenement", "residential_low", {"width": 4, "height": 2}, 3, 1010),
+    ("warehouse", "industrial_heavy", {"width": 4, "height": 3}, 1, 1010),
 ]
-ZOOMS = {"0.5x": 2.0, "1x": 1.0, "2x": 0.5}  # factor sobre ortho_scale: más zoom ⇒ menos escala
+ZOOMS = {"0.5x": 2.0, "1x": 1.0}  # evidencia inicial D-111: escalas de gameplay lejano y normal
 
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--outDir", required=True)
+    parser.add_argument("--profile", default="graphic_civic_buildings_v1")
+    parser.add_argument("--types", help="comma-separated pilot subset (defaults to all pilots)")
     values, _ = parser.parse_known_args(sys.argv[sys.argv.index("--") + 1 :])
     return values
 
@@ -117,6 +120,9 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
     root = bpy.data.objects.new(COMPOSITION_ROOT, None)
     bpy.context.collection.objects.link(root)
     groups, _imports = place_modules(composition, catalog, root)
+    material_experiment = None
+    if profile.id == "material_maquette_buildings_v1":
+        material_experiment = apply_material_maquette_pbr(groups, building_type, family)
     module_objects = [obj for _r, _m, children, _n in groups for obj in children]
     objects = list(module_objects) + add_supports(composition, support_materials(profile), root)
 
@@ -128,7 +134,19 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
 
     camera, target = runtime.place_camera(composition["envelopeMeters"]["z"] / 2.0, 40.0)
     bpy.context.view_layer.update()
-    base_scale = framing(composition, camera, profile)["orthoScale"]
+    framing_data = framing(composition, camera, profile)
+    # `orthoScale` is the camera's horizontal world width. Sprite jobs use a square
+    # canvas, while this street viewport is 16:9; accounting for the aspect ratio
+    # prevents tall pilots from being clipped vertically in context captures.
+    context_aspect = 1280 / 720
+    base_scale = round(
+        max(
+            framing_data["projectedWidthMeters"],
+            framing_data["projectedHeightMeters"] * context_aspect,
+        )
+        * framing_data["marginUsed"],
+        3,
+    )
     scene = bpy.context.scene
     scene.camera = camera
     runtime.apply_style_layer_lighting(scene, style_layer)
@@ -137,7 +155,9 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
 
     scene.render.engine = "BLENDER_EEVEE"
     scene.eevee.use_taa_reprojection = False
-    scene.eevee.taa_render_samples = 64
+    scene.eevee.taa_render_samples = 96 if profile.id == "material_maquette_buildings_v1" else 64
+    if profile.id == "material_maquette_buildings_v1":
+        scene.eevee.use_raytracing = True
     scene.render.use_persistent_data = True
     scene.render.resolution_x = 1280
     scene.render.resolution_y = 720
@@ -159,9 +179,14 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
                 "buildingType": building_type,
                 "family": family,
                 "variantSeed": seed,
+                "styleProfileId": profile.id,
+                "moodId": active_mood_id(style_layer),
                 "zoom": zoom_label,
                 "orthoScale": round(camera.data.ortho_scale, 3),
+                "resolution": [1280, 720],
+                "aspectRatio": round(context_aspect, 5),
                 "image": str(out_path),
+                "materialExperiment": material_experiment,
             }
         )
     print(f"OK contexto {building_type} seed {seed}")
@@ -175,10 +200,17 @@ def main():
     treatment = active_mood(style_layer)["externalTreatment"]
     catalog = Catalog()
     document = GrammarDocument()
-    profile = StyleProfile("graphic_civic_buildings_v1")
+    profile = StyleProfile(args.profile)
+
+    selected_types = set(args.types.split(",")) if args.types else None
+    families = [
+        row for row in FAMILIES if selected_types is None or row[0] in selected_types
+    ]
+    if not families or (selected_types and {row[0] for row in families} != selected_types):
+        raise SystemExit(f"tipos piloto desconocidos: {sorted(selected_types or [])}")
 
     index = []
-    for building_type, family, footprint, floors, seed in FAMILIES:
+    for building_type, family, footprint, floors, seed in families:
         render_family(building_type, family, footprint, floors, seed, style_layer, treatment,
                       catalog, document, profile, out_dir, index)
 

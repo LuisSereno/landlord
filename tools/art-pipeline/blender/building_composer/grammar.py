@@ -86,7 +86,7 @@ SILHOUETTE_KEYS = REQUIRED_SILHOUETTE_KEYS | {
     "corniceRightModule",
 }
 ROOF_KEYS = {"id", "kind", "cornice", "plateRole", "dormerBays", "ridgeAlong"}
-ACCESS_KEYS = {
+REQUIRED_ACCESS_KEYS = {
     "id",
     "label",
     "bayRule",
@@ -96,6 +96,7 @@ ACCESS_KEYS = {
     "projectionMeters",
     "steps",
 }
+ACCESS_KEYS = REQUIRED_ACCESS_KEYS | {"repeatEveryMeters"}
 PROP_KEYS = {"id", "label", "role", "module", "at", "offset"}
 SECONDARY_KEYS = {"id", "label", "role", "module", "optional", "atCell", "supports"}
 CORNER_KEYS = {"id", "label", "module", "widthMeters"}
@@ -122,7 +123,7 @@ SUPPORT_KINDS = {"base", "connector", "plinth", "pipe", "support"}
 # palés, contenedores, vegetación) es contextual y lo pone `property-grounds` de V.d-7C, así que no es
 # un destino de prop: aceptarlo aquí duplicaría el sistema que §22 prohíbe duplicar.
 PROP_AT = {"ridge", "roof"}
-BAY_RULES = {"center", "drawn"}
+BAY_RULES = {"center", "drawn", "repeat"}
 SEMANTIC_IDENTITY_KEYS = {
     "description",
     "requireRoles",
@@ -139,6 +140,7 @@ SEMANTIC_IDENTITY_KEYS = {
     "requireRhythmIds",
     "requireMassingIds",
     "requireSecondaryPlaced",
+    "requireAccessCount",
 }
 
 
@@ -305,9 +307,21 @@ class GrammarDocument:
             if roof["cornice"]:
                 catalog.pool(family, "slope_cornice")
         for access in record["accessOptions"]:
-            _require_keys(access, ACCESS_KEYS, access["id"], "accessOptions")
+            _require_mandatory_keys(
+                access, REQUIRED_ACCESS_KEYS, ACCESS_KEYS, access["id"], "accessOptions"
+            )
             if access["bayRule"] not in BAY_RULES:
                 raise GrammarError(f"{access['id']}: bayRule inexistente {access['bayRule']}")
+            if access["bayRule"] == "repeat":
+                spacing = access.get("repeatEveryMeters")
+                if not isinstance(spacing, (int, float)) or isinstance(spacing, bool) or spacing <= 0:
+                    raise GrammarError(
+                        f"{access['id']}: bayRule=repeat requiere repeatEveryMeters > 0"
+                    )
+            elif access.get("repeatEveryMeters") is not None:
+                raise GrammarError(
+                    f"{access['id']}: repeatEveryMeters sólo aplica a bayRule=repeat"
+                )
             for key in ("frameRole", "leafRole", "aboveRole"):
                 if access[key]:
                     catalog.pool(family, access[key])

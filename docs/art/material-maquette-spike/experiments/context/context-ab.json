@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "purpose": "D-111 street-context A/B camera parity",
+  "sameCameraComparisons": 12,
+  "comparisons": [
+    {
+      "period": "day",
+      "buildingType": "row_house",
+      "zoom": "0.5x",
+      "orthoScale": 70.31,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "day",
+      "buildingType": "row_house",
+      "zoom": "1x",
+      "orthoScale": 35.155,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "day",
+      "buildingType": "mixed_tenement",
+      "zoom": "0.5x",
+      "orthoScale": 89.258,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "day",
+      "buildingType": "mixed_tenement",
+      "zoom": "1x",
+      "orthoScale": 44.629,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "day",
+      "buildingType": "warehouse",
+      "zoom": "0.5x",
+      "orthoScale": 63.408,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "day",
+      "buildingType": "warehouse",
+      "zoom": "1x",
+      "orthoScale": 31.704,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "night",
+      "buildingType": "row_house",
+      "zoom": "0.5x",
+      "orthoScale": 70.31,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "night",
+      "buildingType": "row_house",
+      "zoom": "1x",
+      "orthoScale": 35.155,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "night",
+      "buildingType": "mixed_tenement",
+      "zoom": "0.5x",
+      "orthoScale": 89.258,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "night",
+      "buildingType": "mixed_tenement",
+      "zoom": "1x",
+      "orthoScale": 44.629,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "night",
+      "buildingType": "warehouse",
+      "zoom": "0.5x",
+      "orthoScale": 63.408,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    },
+    {
+      "period": "night",
+      "buildingType": "warehouse",
+      "zoom": "1x",
+      "orthoScale": 31.704,
+      "resolution": [
+        1280,
+        720
+      ],
+      "aspectRatio": 1.77778,
+      "sameCamera": true
+    }
+  ]
+}

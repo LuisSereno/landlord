@@ -381,6 +381,124 @@
         },
         "description": "Grade diurno para las familias industriales claras. Con day_civic el global 1.7 por near_white_trim 0.8 (neto 1.36 sobre albedo 0.85-1.00) y facade_blue_grey_to_warm_stone 0.72 (neto 1.22) empujaba el albedo por encima de 1.0: chimeneas, silos, cornisas y panos claros salian blancos, planos y sin volumen. Se bajan solo esas dos bandas; iluminacion, sombra, windowGlow y suelo de legibilidad del diurno quedan intactos."
       }
+    },
+    "material_maquette_day": {
+      "extends": "day_civic",
+      "lighting": {
+        "keyEnergy": 3.8,
+        "keyColor": [
+          1.0,
+          0.9,
+          0.76
+        ],
+        "fillEnergy": 1.35,
+        "fillColor": [
+          0.72,
+          0.68,
+          0.58
+        ],
+        "rimEnergy": 0.65,
+        "worldColor": [
+          0.62,
+          0.57,
+          0.47
+        ],
+        "worldStrength": 0.88,
+        "description": "D-111 pilot: warm, diffuse daylight for matte brick, plaster, stone and painted metal."
+      },
+      "rendering": {
+        "postProcessing": "Standard - Medium Contrast",
+        "exposure": -0.05
+      },
+      "externalTreatment": {
+        "global": {
+          "saturationScale": 0.92,
+          "valueScale": 1.35
+        },
+        "kindOverrides": {
+          "terrain": {
+            "saturationScale": 0.82,
+            "valueScale": 0.9
+          }
+        },
+        "bandOverrides": {
+          "facade_blue_grey_to_warm_stone": {
+            "valueScale": 0.68
+          },
+          "near_white_trim": {
+            "valueScale": 0.68
+          },
+          "warm_accents_muted": {
+            "valueScale": 0.62
+          }
+        },
+        "description": "D-111 candidate grade: warmer, quieter material response; inherited band floors retain readability."
+      },
+      "shadow": {
+        "keySunAngleDegrees": 1.5,
+        "strength": 0.66,
+        "colorSrgb": [
+          66,
+          58,
+          48
+        ]
+      }
+    },
+    "material_maquette_night": {
+      "extends": "night_civic",
+      "lighting": {
+        "keyEnergy": 2.45,
+        "keyColor": [
+          1.0,
+          0.86,
+          0.68
+        ],
+        "fillEnergy": 0.8,
+        "fillColor": [
+          0.64,
+          0.66,
+          0.69
+        ],
+        "rimEnergy": 0.8,
+        "worldColor": [
+          0.23,
+          0.24,
+          0.27
+        ],
+        "worldStrength": 0.46,
+        "description": "D-111 candidate: warm local light with restrained ambient fill for night facade readability."
+      },
+      "rendering": {
+        "postProcessing": "AgX - Medium High Contrast",
+        "exposure": -0.1
+      },
+      "externalTreatment": {
+        "global": {
+          "saturationScale": 0.95,
+          "valueScale": 1.5
+        },
+        "bandOverrides": {
+          "facade_blue_grey_to_warm_stone": {
+            "valueScale": 0.72
+          },
+          "near_white_trim": {
+            "valueScale": 0.72
+          },
+          "warm_accents_muted": {
+            "valueScale": 0.62
+          }
+        },
+        "description": "D-111 night candidate: warm practical light and readable matte facades, preserving the night value hierarchy."
+      },
+      "shadow": {
+        "keySunAngleDegrees": 1.5,
+        "strength": 0.44,
+        "colorSrgb": [
+          48,
+          43,
+          38
+        ]
+      }
     }
   },
   "styleLayerRule": "Quaternius/Kenney \u2192 geometry; Poly Haven \u2192 material base/PBR; Graphic Civic Style Layer \u2192 color grading + roughness + scale + lighting"

@@ -1,0 +1,290 @@
+[
+ {
+  "candidateId": "vf_row_house_1010",
+  "buildingType": "row_house",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "material_maquette_buildings_v1",
+  "moodId": "material_maquette_day",
+  "zoom": "0.5x",
+  "orthoScale": 70.31,
+  "resolution": [
+   1280,
+   720
+  ],
+  "aspectRatio": 1.77778,
+  "image": "docs/art/material-maquette-spike/experiments/context/material-day/row_house-city-context-0.5x.png",
+  "materialExperiment": {
+   "method": "Poly Haven PBR albedo + roughness + tangent normal, assigned to opaque facade panels",
+   "assetId": "wa_polyhaven_materials_red_brick_03_4k",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/red_brick_03_4k.blend",
+   "sourceSha256": "f715c369617a72e3c27ca81369f99d9ba97ced8d033d588419f5cf3ac620c491",
+   "textureFiles": [
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_diff_4k.jpg",
+     "sha256": "7c6b3e81a20efc8c53fe85b83aa9727d38a2b0fe29fbca4bcf100db711fe8cda"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_disp_4k.png",
+     "sha256": "8efd63f08848de4022843a97bdbaa1826d09a2a72a0ff088303dfa133b933e67"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_nor_gl_4k.exr",
+     "sha256": "cf27e9cb2a98d23ebc43f050f0d98ecb6f247d3081d81e41ec61f4c7c688026f"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_rough_4k.jpg",
+     "sha256": "6f22f26a1ddd593752f524c0c189a8c0f13233e77fd52907b62c2a5bbe4bf7fd"
+    }
+   ],
+   "license": "CC0-1.0",
+   "material": "red_brick_03",
+   "assignedMeshObjects": 12,
+   "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 96,
+    "screenRayTracing": true
+   }
+  }
+ },
+ {
+  "candidateId": "vf_row_house_1010",
+  "buildingType": "row_house",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "material_maquette_buildings_v1",
+  "moodId": "material_maquette_day",
+  "zoom": "1x",
+  "orthoScale": 35.155,
+  "resolution": [
+   1280,
+   720
+  ],
+  "aspectRatio": 1.77778,
+  "image": "docs/art/material-maquette-spike/experiments/context/material-day/row_house-city-context-1x.png",
+  "materialExperiment": {
+   "method": "Poly Haven PBR albedo + roughness + tangent normal, assigned to opaque facade panels",
+   "assetId": "wa_polyhaven_materials_red_brick_03_4k",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/red_brick_03_4k.blend",
+   "sourceSha256": "f715c369617a72e3c27ca81369f99d9ba97ced8d033d588419f5cf3ac620c491",
+   "textureFiles": [
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_diff_4k.jpg",
+     "sha256": "7c6b3e81a20efc8c53fe85b83aa9727d38a2b0fe29fbca4bcf100db711fe8cda"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_disp_4k.png",
+     "sha256": "8efd63f08848de4022843a97bdbaa1826d09a2a72a0ff088303dfa133b933e67"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_nor_gl_4k.exr",
+     "sha256": "cf27e9cb2a98d23ebc43f050f0d98ecb6f247d3081d81e41ec61f4c7c688026f"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_rough_4k.jpg",
+     "sha256": "6f22f26a1ddd593752f524c0c189a8c0f13233e77fd52907b62c2a5bbe4bf7fd"
+    }
+   ],
+   "license": "CC0-1.0",
+   "material": "red_brick_03",
+   "assignedMeshObjects": 12,
+   "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 96,
+    "screenRayTracing": true
+   }
+  }
+ },
+ {
+  "candidateId": "vf_mixed_tenement_1010",
+  "buildingType": "mixed_tenement",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "material_maquette_buildings_v1",
+  "moodId": "material_maquette_day",
+  "zoom": "0.5x",
+  "orthoScale": 89.258,
+  "resolution": [
+   1280,
+   720
+  ],
+  "aspectRatio": 1.77778,
+  "image": "docs/art/material-maquette-spike/experiments/context/material-day/mixed_tenement-city-context-0.5x.png",
+  "materialExperiment": {
+   "method": "Poly Haven PBR albedo + roughness + tangent normal, assigned to opaque facade panels",
+   "assetId": "wa_polyhaven_materials_red_brick_03_4k",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/red_brick_03_4k.blend",
+   "sourceSha256": "f715c369617a72e3c27ca81369f99d9ba97ced8d033d588419f5cf3ac620c491",
+   "textureFiles": [
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_diff_4k.jpg",
+     "sha256": "7c6b3e81a20efc8c53fe85b83aa9727d38a2b0fe29fbca4bcf100db711fe8cda"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_disp_4k.png",
+     "sha256": "8efd63f08848de4022843a97bdbaa1826d09a2a72a0ff088303dfa133b933e67"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_nor_gl_4k.exr",
+     "sha256": "cf27e9cb2a98d23ebc43f050f0d98ecb6f247d3081d81e41ec61f4c7c688026f"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_rough_4k.jpg",
+     "sha256": "6f22f26a1ddd593752f524c0c189a8c0f13233e77fd52907b62c2a5bbe4bf7fd"
+    }
+   ],
+   "license": "CC0-1.0",
+   "material": "red_brick_03",
+   "assignedMeshObjects": 26,
+   "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 96,
+    "screenRayTracing": true
+   }
+  }
+ },
+ {
+  "candidateId": "vf_mixed_tenement_1010",
+  "buildingType": "mixed_tenement",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "material_maquette_buildings_v1",
+  "moodId": "material_maquette_day",
+  "zoom": "1x",
+  "orthoScale": 44.629,
+  "resolution": [
+   1280,
+   720
+  ],
+  "aspectRatio": 1.77778,
+  "image": "docs/art/material-maquette-spike/experiments/context/material-day/mixed_tenement-city-context-1x.png",
+  "materialExperiment": {
+   "method": "Poly Haven PBR albedo + roughness + tangent normal, assigned to opaque facade panels",
+   "assetId": "wa_polyhaven_materials_red_brick_03_4k",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/red_brick_03_4k.blend",
+   "sourceSha256": "f715c369617a72e3c27ca81369f99d9ba97ced8d033d588419f5cf3ac620c491",
+   "textureFiles": [
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_diff_4k.jpg",
+     "sha256": "7c6b3e81a20efc8c53fe85b83aa9727d38a2b0fe29fbca4bcf100db711fe8cda"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_disp_4k.png",
+     "sha256": "8efd63f08848de4022843a97bdbaa1826d09a2a72a0ff088303dfa133b933e67"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_nor_gl_4k.exr",
+     "sha256": "cf27e9cb2a98d23ebc43f050f0d98ecb6f247d3081d81e41ec61f4c7c688026f"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/textures/red_brick_03_rough_4k.jpg",
+     "sha256": "6f22f26a1ddd593752f524c0c189a8c0f13233e77fd52907b62c2a5bbe4bf7fd"
+    }
+   ],
+   "license": "CC0-1.0",
+   "material": "red_brick_03",
+   "assignedMeshObjects": 26,
+   "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 96,
+    "screenRayTracing": true
+   }
+  }
+ },
+ {
+  "candidateId": "vf_warehouse_1010",
+  "buildingType": "warehouse",
+  "family": "industrial_heavy",
+  "variantSeed": 1010,
+  "styleProfileId": "material_maquette_buildings_v1",
+  "moodId": "material_maquette_day",
+  "zoom": "0.5x",
+  "orthoScale": 67.712,
+  "resolution": [
+   1280,
+   720
+  ],
+  "aspectRatio": 1.77778,
+  "image": "docs/art/material-maquette-spike/experiments/context/material-day/warehouse-city-context-0.5x.png",
+  "materialExperiment": {
+   "method": "Poly Haven PBR albedo + roughness + tangent normal, assigned to opaque facade panels",
+   "assetId": "wa_polyhaven_materials_corrugated_iron_03_2k",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+   "sourceSha256": "cc3eb289e2f65f6f14657cfe2a03ed4b67b5f2e52ed46c43469015fa46bf9790",
+   "textureFiles": [
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_diff_2k.jpg",
+     "sha256": "7b3f4f849dd634f54548b3b552ebeae723266f782163341185c94094e2eb7991"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_disp_2k.png",
+     "sha256": "29314e42351ee43ee248e82d732e997d02da87388558807085ba89e443632c0e"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_nor_gl_2k.exr",
+     "sha256": "507f54ea01f814c9c8c9ae205a0a6d3ae2d053895ca802c32b27118996da5b05"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_rough_2k.exr",
+     "sha256": "37e6397427ae60220f0b6c37d2523d52b669fc4d592d62d12441d337ffae2c30"
+    }
+   ],
+   "license": "CC0-1.0",
+   "material": "corrugated_iron_03",
+   "assignedMeshObjects": 17,
+   "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 96,
+    "screenRayTracing": true
+   }
+  }
+ },
+ {
+  "candidateId": "vf_warehouse_1010",
+  "buildingType": "warehouse",
+  "family": "industrial_heavy",
+  "variantSeed": 1010,
+  "styleProfileId": "material_maquette_buildings_v1",
+  "moodId": "material_maquette_day",
+  "zoom": "1x",
+  "orthoScale": 33.856,
+  "resolution": [
+   1280,
+   720
+  ],
+  "aspectRatio": 1.77778,
+  "image": "docs/art/material-maquette-spike/experiments/context/material-day/warehouse-city-context-1x.png",
+  "materialExperiment": {
+   "method": "Poly Haven PBR albedo + roughness + tangent normal, assigned to opaque facade panels",
+   "assetId": "wa_polyhaven_materials_corrugated_iron_03_2k",
+   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+   "sourceSha256": "cc3eb289e2f65f6f14657cfe2a03ed4b67b5f2e52ed46c43469015fa46bf9790",
+   "textureFiles": [
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_diff_2k.jpg",
+     "sha256": "7b3f4f849dd634f54548b3b552ebeae723266f782163341185c94094e2eb7991"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_disp_2k.png",
+     "sha256": "29314e42351ee43ee248e82d732e997d02da87388558807085ba89e443632c0e"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_nor_gl_2k.exr",
+     "sha256": "507f54ea01f814c9c8c9ae205a0a6d3ae2d053895ca802c32b27118996da5b05"
+    },
+    {
+     "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/textures/corrugated_iron_03_rough_2k.exr",
+     "sha256": "37e6397427ae60220f0b6c37d2523d52b669fc4d592d62d12441d337ffae2c30"
+    }
+   ],
+   "license": "CC0-1.0",
+   "material": "corrugated_iron_03",
+   "assignedMeshObjects": 17,
+   "renderSettings": {
+    "engine": "BLENDER_EEVEE",
+    "samples": 96,
+    "screenRayTracing": true
+   }
+  }
+ }
+]

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "purpose": "D-111 controlled geometry A/B: same seed, dimensions, axes and placed modules; material/render treatment differs",
+  "controlDirectory": "docs/art/material-maquette-spike/experiments/day-control-final",
+  "candidateDirectory": "docs/art/material-maquette-spike/experiments/day-material-final",
+  "comparisons": [
+    {
+      "buildingType": "row_house",
+      "variantSeed": 1010,
+      "control": {
+        "styleProfileId": "graphic_civic_buildings_v1",
+        "moodId": "day_civic",
+        "sha256": "19a8462df2c348a03578fc9000c353b26c363b4fe7bb7c4cf31a8a250f727a0f"
+      },
+      "candidate": {
+        "styleProfileId": "material_maquette_buildings_v1",
+        "moodId": "material_maquette_day",
+        "sha256": "14032c53d5bd2dacb366e58df705f92cc19ade6a60a517cf47e031c8e9a1279a"
+      },
+      "compositionSignature": {
+        "control": "77fd218ad2e35947ec3231b4292e4af6910076fa876e3bf772e1ac0f25270efa",
+        "candidate": "fc37e63ca1086bf85267413763d9a76a0be74f7c010b7ada71e5870ab04cdd7f"
+      },
+      "geometryTransformSha256": "d4143d57113fcfee9bf70e4cfa6502efcdf7ff72e395805424fcdc3be9e2fa38",
+      "transforms": 92,
+      "sameGeometry": true
+    },
+    {
+      "buildingType": "mixed_tenement",
+      "variantSeed": 1010,
+      "control": {
+        "styleProfileId": "graphic_civic_buildings_v1",
+        "moodId": "day_civic",
+        "sha256": "9379ea5cc1c4fa0823b5c6602ef3d31d994ba492e921b3e8683430d20b0774de"
+      },
+      "candidate": {
+        "styleProfileId": "material_maquette_buildings_v1",
+        "moodId": "material_maquette_day",
+        "sha256": "b7385c059ab9a098d4416051b937b660cb395390172eb10c48e16791c48d16b7"
+      },
+      "compositionSignature": {
+        "control": "7a0be61efd66d745dda0b9b9ff4aafcf9bdedd35359c4d5f0cf7f22e16e22491",
+        "candidate": "fdb3f7febcfd08a4db628af2f7a21e2d52cb9bedaa3f7c9cfcde296c44c898dd"
+      },
+      "geometryTransformSha256": "466f83492d82698a6d7915fcbe8d707f9783892a7fc4a1a545d36088b2c90ffe",
+      "transforms": 99,
+      "sameGeometry": true
+    },
+    {
+      "buildingType": "warehouse",
+      "variantSeed": 1010,
+      "control": {
+        "styleProfileId": "graphic_civic_buildings_v1",
+        "moodId": "day_civic",
+        "sha256": "00770695b58bceb05f0306f32a647fbf7402fbb5e2185c06a0c979d5f89833ae"
+      },
+      "candidate": {
+        "styleProfileId": "material_maquette_buildings_v1",
+        "moodId": "material_maquette_day",
+        "sha256": "dd4363cc7395571a9753854843f53b0421daac4a7fb96688e11ccf2c5781be83"
+      },
+      "compositionSignature": {
+        "control": "3b1c9a197bc29856ff11e31991d93829172c1ccad89bc23612be96410aa91317",
+        "candidate": "6bcc0099855d37bc451f801eae63bbc27ded32ddd920bd0ad05bb265fb5876c2"
+      },
+      "geometryTransformSha256": "fc4d89b7022cfce484ece1cac558e8899c437825b88699428a7f0daa3cc6026b",
+      "transforms": 80,
+      "sameGeometry": true
+    }
+  ]
+}

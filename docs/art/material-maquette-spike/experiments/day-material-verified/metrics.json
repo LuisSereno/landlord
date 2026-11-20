@@ -1,0 +1,142 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-19T16:38:13.618Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "material_maquette_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/material-maquette-spike/experiments/day-material-verified",
+ "requested": 3,
+ "rendered": 3,
+ "totalGenerationMs": 317810,
+ "blenderPeakRssMb": 5239.6,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef",
+   "after": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+   "after": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "d111_row_house_1010",
+   "buildingType": "row_house",
+   "family": "residential_low",
+   "variantSeed": 1010,
+   "compositionSignature": "fc37e63ca1086bf85267413763d9a76a0be74f7c010b7ada71e5870ab04cdd7f",
+   "triangleCount": 12384,
+   "objectCount": 92,
+   "moduleCount": 9,
+   "materials": 20,
+   "textures": 22,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -2.2,
+     "max": 2.0174000000000003
+    },
+    "z": {
+     "min": 0,
+     "max": 9.0281
+    }
+   },
+   "renderMs": 16659.38,
+   "pngBytes": 817889,
+   "pngPixels": [
+    996,
+    1172
+   ],
+   "pixelSha256": "6f2519182328e2764d4b64cf3ead772a1c31ea729370b12b050722ee12426359",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5713,
+    "y": 0.6931
+   }
+  },
+  {
+   "candidateId": "d111_mixed_tenement_1010",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1010,
+   "compositionSignature": "fdb3f7febcfd08a4db628af2f7a21e2d52cb9bedaa3f7c9cfcde296c44c898dd",
+   "triangleCount": 12186,
+   "objectCount": 99,
+   "moduleCount": 9,
+   "materials": 18,
+   "textures": 24,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.3999999999999995,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 22238.04,
+   "pngBytes": 1413088,
+   "pngPixels": [
+    1036,
+    1146
+   ],
+   "pixelSha256": "4b35286eaa95f5d74b93dd0571eccd1e29c6ff455ccf3bb7a6be235aa9ee9526",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5106,
+    "y": 0.7688
+   }
+  },
+  {
+   "candidateId": "d111_warehouse_1010",
+   "buildingType": "warehouse",
+   "family": "industrial_heavy",
+   "variantSeed": 1010,
+   "compositionSignature": "2d5a8bdec21e990fbf03d4a0dce78fb8f3337025f8df5f9d11678faf2b4bb805",
+   "triangleCount": 6604,
+   "objectCount": 57,
+   "moduleCount": 8,
+   "materials": 9,
+   "textures": 14,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 8
+    },
+    "y": {
+     "min": -6.3999999999999995,
+     "max": 4.5440000000000005
+    },
+    "z": {
+     "min": 0,
+     "max": 5.572
+    }
+   },
+   "renderMs": 14624.64,
+   "pngBytes": 1082953,
+   "pngPixels": [
+    1298,
+    991
+   ],
+   "pixelSha256": "623afc13ec9271ae060e35daef8862412fa8c76e60a53d3ae9cef05c732b8222",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5878,
+    "y": 0.5679
+   }
+  }
+ ],
+ "failures": []
+}

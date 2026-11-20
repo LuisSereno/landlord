@@ -28,3 +28,27 @@ mapas de normales y partículas requieren evidencia separada antes de entrar en 
 - Sin cambios en dominio, `GameState`, snapshots o saves por razones visuales.
 
 Ver `docs/art/MATERIAL-MAQUETTE-DIRECTION.md`.
+
+## Condición experimental añadida — 2026-11-19
+
+La renovación arquitectónica no se considera evaluada por nuevas seeds, combinaciones de módulos ya
+usados o cambios de color del suelo. Antes de aprobar la fase, la evidencia debe incluir por separado:
+
+1. Un A/B de materiales y render EEVEE sobre idénticas composiciones, semillas, cámara y resolución.
+   Todo material nuevo debe registrar licencia, asset ID, ruta/hash de fuente y superficies a las que
+   se asigna.
+2. Una prueba real de Geometry Nodes para repetición modular con geometría licenciada existente,
+   midiendo coincidencia de puntos/instancias y coste frente al control Python. El Composer conserva
+   autoridad sobre seed, receta, validación, procedencia y salida.
+3. Un A/B integrado de las gramáticas piloto y materiales seleccionados sobre contexto de calle con
+   suelo, carretera y vegetación, a 0,5× y 1×, de día y noche.
+
+Quaternius Ultimate Buildings, Kenney Modular Buildings y otras fuentes sólo se incorporan si el
+inventario evidencia una carencia que las piezas registradas no pueden cubrir. La evaluación de una
+fuente nueva debe pasar por staging, licencia e inventario antes de producir candidato. Si una
+técnica o fuente se descarta, el informe guarda su prueba y el motivo técnico. El gate no requiere
+instalar herramientas que no mejoren el resultado.
+
+Los efectos Phaser quedan para una fase posterior: sólo se prueban cuando la composición y el
+tratamiento de Blender superan estos pilotos; siguen siendo experimentales y no se activan en runtime
+por esta decisión.

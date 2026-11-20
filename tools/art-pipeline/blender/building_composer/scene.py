@@ -72,6 +72,20 @@ SUPPORT_PALETTE = {
     "pipe": "metal",
     "support": "metal",
 }
+MATERIAL_MAQUETTE_ASSETS = {
+    "residential_low": {
+        "assetId": "wa_polyhaven_materials_red_brick_03_4k",
+        "blend": "blender_artist/staging/third_party/cc0/extracted/polyhaven/red_brick_03/red_brick_03_4k.blend",
+        "material": "red_brick_03",
+        "license": "CC0-1.0",
+    },
+    "industrial_heavy": {
+        "assetId": "wa_polyhaven_materials_corrugated_iron_03_2k",
+        "blend": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+        "material": "corrugated_iron_03",
+        "license": "CC0-1.0",
+    },
+}
 
 
 class SceneError(RuntimeError):
@@ -102,6 +116,74 @@ def reset_scene():
     scene.render.resolution_x = 1920
     scene.render.resolution_y = 1080
     scene.render.resolution_percentage = 100
+
+
+def apply_material_maquette_pbr(groups, building_type, family):
+    """Prueba PBR CC0 acotada a paños opacos de fachada; no altera perfiles/runtime base."""
+    source = MATERIAL_MAQUETTE_ASSETS.get(family)
+    if source is None:
+        raise SceneError(f"D-111: no hay material PBR candidato para la familia {family}")
+    source_path = REPO_ROOT / source["blend"]
+    if not source_path.is_file():
+        raise SceneError(f"D-111: falta la fuente PBR registrada {source_path}")
+    with bpy.data.libraries.load(str(source_path), link=False) as (data_from, data_to):
+        if source["material"] not in data_from.materials:
+            raise SceneError(f"D-111: {source['material']} no existe en {source_path.name}")
+        data_to.materials = [source["material"]]
+    template = bpy.data.materials.get(source["material"])
+    if template is None or not template.use_nodes:
+        raise SceneError(f"D-111: material PBR incompleto {source['material']}")
+    material = template.copy()
+    material.name = f"material_maquette_{building_type}_{source['material']}"
+    texture_files = []
+    for node in material.node_tree.nodes:
+        if node.type == "TEX_IMAGE" and node.image:
+            image_path = bpy.path.abspath(node.image.filepath)
+            if not Path(image_path).is_file():
+                fallback = source_path.parent / "textures" / Path(node.image.filepath).name
+                if not fallback.is_file():
+                    raise SceneError(f"D-111: textura Poly Haven ausente {node.image.filepath}")
+                node.image.filepath = str(fallback)
+                image_path = str(fallback)
+            node.image.filepath = image_path
+            texture_path = Path(image_path).resolve()
+            texture_files.append(
+                {
+                    "path": str(texture_path.relative_to(REPO_ROOT)),
+                    "sha256": hashlib.sha256(texture_path.read_bytes()).hexdigest(),
+                }
+            )
+        elif node.type == "BSDF_PRINCIPLED":
+            # Mate urbano y legible a 1×; conservamos albedo/normal/roughness PBR y atenuamos
+            # reflejos metálicos para que la textura no convierta la maqueta en fotorealismo.
+            node.inputs["Roughness"].default_value = 0.78
+            node.inputs["Metallic"].default_value = 0.08 if family == "industrial_heavy" else 0.0
+        elif node.type == "NORMAL_MAP":
+            node.inputs["Strength"].default_value = 0.28
+    applied = 0
+    for record, _module, children, _normalization in groups:
+        target_roles = {"wall_panel", "ground_panel"}
+        if family == "industrial_heavy":
+            target_roles.add("hall")
+        if record["role"] not in target_roles:
+            continue
+        for obj in children:
+            obj.data.materials.clear()
+            obj.data.materials.append(material)
+            applied += 1
+    if not applied:
+        raise SceneError(f"D-111: ningún paño opaco de {building_type} recibió material PBR")
+    return {
+        "method": "Poly Haven PBR albedo + roughness + tangent normal, assigned to opaque facade panels",
+        "assetId": source["assetId"],
+        "sourcePath": source["blend"],
+        "sourceSha256": hashlib.sha256(source_path.read_bytes()).hexdigest(),
+        "textureFiles": sorted(texture_files, key=lambda item: item["path"]),
+        "license": source["license"],
+        "material": source["material"],
+        "assignedMeshObjects": applied,
+        "renderSettings": {"engine": "BLENDER_EEVEE", "samples": 96, "screenRayTracing": True},
+    }
 
 
 def base_color_images(material):
@@ -995,6 +1077,11 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
             "§11: materiales con color de origen sin tratar tras el remapeo profundo: "
             + ", ".join(f"{item['moduleId']}/{item['material']}" for item in unstyled[:6])
         )
+    material_experiment = None
+    if profile.id == "material_maquette_buildings_v1":
+        material_experiment = apply_material_maquette_pbr(
+            groups, composition["buildingType"], composition["family"]
+        )
     # V.j: hollín sobre el albedo ya tratado para los estados de daño/fuego (no afecta al complete).
     state = composition.get("state", "complete")
     if state in ("damaged", "burning"):
@@ -1010,7 +1097,9 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     # procesos. Se fija el muestreo y se congela el historial; el número de muestras se escribe aquí
     # aunque hoy sea el default de fábrica, para que un cambio de default no cuele aleatoriedad.
     scene.eevee.use_taa_reprojection = False
-    scene.eevee.taa_render_samples = 64
+    scene.eevee.taa_render_samples = 96 if material_experiment else 64
+    if material_experiment:
+        scene.eevee.use_raytracing = True
     scene.render.use_persistent_data = True
     # V.i quality pass: con renderScale 2 el supersample efectivo baja a 1 para que el presupuesto
     # absoluto de píxeles (pase principal + sombra 3×) no crezca con la densidad final; el AA lo
@@ -1091,6 +1180,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         # El mood no se deduce del artefacto: day_industrial hereda de day_civic y sólo cambia dos
         # bandas, así que sin este campo el manifiesto runtime dependería del prefijo del archivo.
         "moodId": active_mood_id(style_layer),
+        "materialExperiment": material_experiment,
         "compositionSignature": composition["compositionSignature"],
         "axisChoices": composition["axisChoices"],
         "footprintCells": composition["footprintCells"],

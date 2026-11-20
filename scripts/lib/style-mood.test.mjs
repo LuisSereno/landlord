@@ -11,7 +11,13 @@ const styleLayer = JSON.parse(
   ),
 );
 
-for (const moodId of ["night_civic", "day_civic", "day_industrial"]) {
+for (const moodId of [
+  "night_civic",
+  "day_civic",
+  "day_industrial",
+  "material_maquette_day",
+  "material_maquette_night",
+]) {
   const mood = resolveStyleMood(styleLayer, moodId);
   assert.ok(mood.lighting, `${moodId} inherits lighting`);
   assert.ok(mood.rendering, `${moodId} inherits render settings`);
@@ -22,6 +28,8 @@ for (const moodId of ["night_civic", "day_civic", "day_industrial"]) {
 const night = resolveStyleMood(styleLayer, "night_civic");
 const day = resolveStyleMood(styleLayer, "day_civic");
 const industrial = resolveStyleMood(styleLayer, "day_industrial");
+const material = resolveStyleMood(styleLayer, "material_maquette_day");
+const materialNight = resolveStyleMood(styleLayer, "material_maquette_night");
 const sourceNearWhite = styleLayer.moodProfiles.night_civic.externalTreatment.hueBands.find(
   (band) => band.id === "near_white_trim",
 );
@@ -32,6 +40,10 @@ assert.equal(
   undefined,
   "band overrides are applied and removed after resolution",
 );
+assert.equal(material.externalTreatment.global.saturationScale, 0.92);
+assert.equal(material.lighting.keyColor[2], 0.76);
+assert.equal(material.externalTreatment.hueBands.find((band) => band.id === "near_white_trim").valueScale, 0.68);
+assert.equal(materialNight.lighting.keyColor[2], 0.68);
 const industrialBand = industrial.externalTreatment.hueBands.find(
   (band) => band.id === "near_white_trim",
 );
@@ -68,5 +80,5 @@ const missingBand = {
 assert.throws(() => resolveStyleMood(missingBand, "broken"), /banda inexistente/u);
 
 console.log(
-  "style-mood: 3 moods, inheritance, overrides, missing profile, cycle and unknown band passed",
+  "style-mood: 5 moods, inheritance, overrides, missing profile, cycle and unknown band passed",
 );

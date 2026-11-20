@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "candidate": "Kenney Modular Buildings 2.1",
+  "decision": "not-selected-for-warehouse-loading-docks",
+  "reason": "The tested pack contains residential facade/door/window modules but no loading bay, dock leveler or truck-scale shutter. It does not close the specific warehouse gap.",
+  "officialPage": "https://kenney.nl/assets/modular-buildings",
+  "officialLicense": "CC0-1.0",
+  "author": "Kenney",
+  "archiveSource": "https://opengameart.org/content/modular-buildings",
+  "stagingArchive": "blender_artist/staging/third_party/cc0/downloads/kenney-modular-buildings/kenney_modular-buildings.zip",
+  "archiveSha256": "47e1614686b4c0fe55190e88b22ff2b8b10935edf61f37f478a9b6a99477edc6",
+  "archiveLicenseFile": "License.txt (CC0-1.0; Modular Buildings 2.1; created/distributed by Kenney)",
+  "testedFiles": [
+    {
+      "file": "Models/OBJ format/building-door.obj",
+      "dimensionsMeters": [1.0, 0.625, 1.0],
+      "assessment": "standard facade bay with pedestrian door"
+    },
+    {
+      "file": "Models/OBJ format/door-brown.obj",
+      "dimensionsMeters": [0.25, 0.5, 0.05],
+      "assessment": "small inset door leaf; not truck-scale"
+    },
+    {
+      "file": "Models/OBJ format/roof-flat-awning-a.obj",
+      "dimensionsMeters": [1.0, 0.2125, 1.11],
+      "assessment": "small domestic awning"
+    }
+  ],
+  "inventorySearch": ["loading", "dock", "garage", "industrial", "warehouse"],
+  "testedAt": "2026-11-19",
+  "notes": "The archive remains in ignored third-party staging and is not part of runtime or a promoted source selection. Kenney's official page records 100 models and CC0; the test archive includes its own CC0 License.txt."
+}

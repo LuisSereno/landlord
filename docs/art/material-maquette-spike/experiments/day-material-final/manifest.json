@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "purpose": "D-111 final controlled A/B evidence; corrected warehouse shell",
+  "styleProfileId": "material_maquette_buildings_v1",
+  "moodId": "material_maquette_day",
+  "variantSeed": 1010,
+  "candidates": [
+    {
+      "buildingType": "row_house",
+      "candidateId": "d111_row_house_1010",
+      "image": "d111_row_house_1010.png",
+      "metadata": "d111_row_house_1010.json",
+      "compositionSignature": "fc37e63ca1086bf85267413763d9a76a0be74f7c010b7ada71e5870ab04cdd7f",
+      "sha256": "14032c53d5bd2dacb366e58df705f92cc19ade6a60a517cf47e031c8e9a1279a",
+      "transformCount": 92,
+      "licensedGeometryRatio": 1.0
+    },
+    {
+      "buildingType": "mixed_tenement",
+      "candidateId": "d111_mixed_tenement_1010",
+      "image": "d111_mixed_tenement_1010.png",
+      "metadata": "d111_mixed_tenement_1010.json",
+      "compositionSignature": "fdb3f7febcfd08a4db628af2f7a21e2d52cb9bedaa3f7c9cfcde296c44c898dd",
+      "sha256": "b7385c059ab9a098d4416051b937b660cb395390172eb10c48e16791c48d16b7",
+      "transformCount": 99,
+      "licensedGeometryRatio": 1.0
+    },
+    {
+      "buildingType": "warehouse",
+      "candidateId": "d111_warehouse_1010",
+      "image": "d111_warehouse_1010.png",
+      "metadata": "d111_warehouse_1010.json",
+      "compositionSignature": "6bcc0099855d37bc451f801eae63bbc27ded32ddd920bd0ad05bb265fb5876c2",
+      "sha256": "dd4363cc7395571a9753854843f53b0421daac4a7fb96688e11ccf2c5781be83",
+      "transformCount": 80,
+      "licensedGeometryRatio": 1.0
+    }
+  ]
+}

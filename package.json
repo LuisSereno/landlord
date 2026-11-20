@@ -39,6 +39,7 @@
     "art:jobs:validate": "node scripts/validate-asset-jobs.mjs",
     "art:spike:validate": "node scripts/validate-visual-direction-spike.mjs",
     "art:direction:capture": "node scripts/material-maquette-ab-capture.mjs",
+    "art:material-maquette:geometry-check": "node scripts/compare-building-composer-geometry.mjs",
     "art:generate": "node scripts/generate-runtime-assets.mjs",
     "art:assets:check": "node scripts/generate-runtime-assets.mjs --check",
     "art:visual": "node scripts/art-visual-capture.mjs",

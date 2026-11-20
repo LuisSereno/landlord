@@ -1809,6 +1809,10 @@ Véase `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md`.
 Estado: aceptada el 2026-11-19; parámetros de producción pendientes del spike.
 El mundo y HUD adoptan materiales mates reconocibles, siluetas de época y luz cálida, con lectura
 económica clara. `graphic_civic` permanece como control. Antes de escalar se comparan `row_house`,
-`mixed_tenement` y `warehouse` en la escena real, día/noche y escalas de juego. Librerías, filtros,
-iluminación dinámica y partículas requieren evaluación propia. No hay cambios de dominio, `GameState`
-ni guardados por razones visuales. Véase `docs/engineering/adr/D-111-direccion-visual-maqueta-material.md`.
+`mixed_tenement` y `warehouse` en la escena real, día/noche y escalas de juego. La aceptación exige
+un A/B de materiales/render EEVEE sobre geometría idéntica, una prueba real de Geometry Nodes con
+geometría licenciada y un A/B integrado en contexto urbano 0,5×/1× día/noche. El Composer sigue
+gobernando seed, validación y salida. Las fuentes nuevas se prueban sólo si cubren una carencia
+concreta y pasan por staging/licencia/inventario; las técnicas descartadas quedan justificadas por
+evidencia. No hay cambios de dominio, `GameState` ni guardados por razones visuales. Véase
+`docs/engineering/adr/D-111-direccion-visual-maqueta-material.md`.

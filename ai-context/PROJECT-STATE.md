@@ -1036,3 +1036,8 @@ Los PNG de `docs/art/organization-headquarters/concepts/` son referencias genera
 La geometría del Building Composer, capturas de gameplay, presupuesto y promoción de ambas variantes
 siguen como gate artístico pendiente; el adapter las selecciona por el ID persistido y usa fallback
 semántico hasta tener assets aprobados. Véase D-110.
+
+
+## Spike visual D-111 (2026-11-19)
+
+Se corrigieron las gramáticas piloto del Building Composer y se comparan perfiles `graphic_civic` y PBR con igual semilla y geometría. `row_house` tiene cuatro accesos; `mixed_tenement` exige acceso comercial con toldo; `warehouse` es un solo volumen de bandas con cuatro huecos de carga frontales de 2×3 m. La persiana a escala de camión sigue pendiente. Geometry Nodes mantiene las ocho posiciones medidas, pero no justifica adopción por coste. Kenney Modular Buildings fue evaluado en staging CC0 y no resuelve puertas de carga; Quaternius Ultimate Buildings sigue sin evaluar porque la descarga oficial excedió cuota. Evidencia en `docs/art/material-maquette-spike/`; contexto urbano día/noche y revisión humana completan el gate. No se promueven sprites ni se alteran simulación o saves por D-111.

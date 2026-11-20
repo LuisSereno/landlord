@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-19T16:55:01.883Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "material_maquette_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/material-maquette-spike/experiments/day-material-warehouse-v2",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 67051,
+ "blenderPeakRssMb": 4034.9,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef",
+   "after": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+   "after": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "d111_warehouse_1010",
+   "buildingType": "warehouse",
+   "family": "industrial_heavy",
+   "variantSeed": 1010,
+   "compositionSignature": "6bcc0099855d37bc451f801eae63bbc27ded32ddd920bd0ad05bb265fb5876c2",
+   "triangleCount": 2516,
+   "objectCount": 80,
+   "moduleCount": 5,
+   "materials": 7,
+   "textures": 14,
+   "bounds": {
+    "x": {
+     "min": -8.2,
+     "max": 8
+    },
+    "y": {
+     "min": -6.199999999999999,
+     "max": 6
+    },
+    "z": {
+     "min": 0,
+     "max": 4
+    }
+   },
+   "renderMs": 19737.72,
+   "pngBytes": 1242610,
+   "pngPixels": [
+    1394,
+    944
+   ],
+   "pixelSha256": "85af7035f65abb8b39be537cee5318720cda444370e0639afd2407232c205dda",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5725,
+    "y": 0.5416
+   }
+  }
+ ],
+ "failures": []
+}

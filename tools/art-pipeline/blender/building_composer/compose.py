@@ -443,16 +443,34 @@ class Composition:
 
         # --- requireGroundCommercial (V.g): planta baja con lenguaje comercial real ---
         if rules.get("requireGroundCommercial"):
-            commercial_roles = {"curtain_wall", "awning", "shopfront", "window_bay"}
-            ground_commercial = any(
-                record["role"] in commercial_roles
+            # Una ventana de vivienda no demuestra uso comercial por llevar ese nombre en la
+            # gramática. Exigimos un elemento físico de comercio (toldo) unido a la puerta de
+            # acceso y a una crujía acristalada en planta baja.
+            has_awning = any(
+                record["role"] == "awning" and record.get("purpose") == "access:above"
+                for record in self.placements
+            )
+            has_ground_glazing = any(
+                record["role"] in {"window_bay", "curtain_wall"}
                 and record.get("purpose", "").startswith("band:front:level1:")
                 for record in self.placements
             )
+            has_storefront_access = access["id"] in {"shopfront_entrance", "canopied_shop"}
+            ground_commercial = has_awning and has_ground_glazing and has_storefront_access
             if not ground_commercial:
                 problems.append(
-                    "planta baja sin lenguaje comercial real "
-                    "(se exige curtain_wall, shopfront, awning o window_bay en band:front:level1)"
+                    "planta baja sin escaparate comercial físico "
+                    "(se exige acristalamiento, toldo físico sobre un acceso comercial y puerta)"
+                )
+
+        required_access_count = rules.get("requireAccessCount")
+        if required_access_count is not None:
+            placed_access_count = sum(
+                1 for record in self.placements if record.get("purpose") == "access:frame"
+            )
+            if placed_access_count != required_access_count:
+                problems.append(
+                    f"hay {placed_access_count} puertas de acceso y se exigen {required_access_count}"
                 )
 
         # --- prohibitRhythmIds (V.g): el rhythm sorteados no debe estar en la lista negra ---
@@ -1011,29 +1029,49 @@ class Composition:
         self.access_volume = volume
         rect = volume["rect"]
         bays = self.band_bays(rect, "front", corner)
-        index = len(bays) // 2 if access["bayRule"] == "center" else self.rng.below(len(bays))
-        self.access_bay = index
-        along = bays[index]
+        if access["bayRule"] == "repeat":
+            spacing = float(access["repeatEveryMeters"])
+            width = rect[2] - rect[0]
+            count = int(round(width / spacing))
+            if count < 1 or abs(count * spacing - width) > 1e-6:
+                raise CompositionError(
+                    f"§19: {access['id']} requiere un frente divisible por {spacing} m; mide {width} m"
+                )
+            # Cada acceso ocupa el centro de una crujía de fachada. El primer módulo queda
+            # desplazado media crujía respecto al centro de cada unidad de vivienda.
+            targets = [rect[0] + self.bay / 2 + spacing * index for index in range(count)]
+            indices = [min(range(len(bays)), key=lambda index: abs(bays[index] - target)) for target in targets]
+            if len(set(indices)) != len(indices) or any(abs(bays[index] - target) > 1e-6 for index, target in zip(indices, targets)):
+                raise CompositionError(
+                    f"§19: {access['id']} no puede repartir accesos cada {spacing} m sobre las crujías disponibles"
+                )
+        else:
+            indices = [len(bays) // 2 if access["bayRule"] == "center" else self.rng.below(len(bays))]
+        self.access_bays = set(indices)
+        # Conserva un eje de acceso canónico para los features simétricos y las firmas históricas.
+        self.access_bay = indices[len(indices) // 2]
         frame = self.catalog.pick(self.family, access["frameRole"])
-        has_infill = self._replace_front_bay(volume, along, frame, corner)
-        if access["leafRole"] and not has_infill:
-            leaf = self.catalog.pick(self.family, access["leafRole"])
-            self.add_on_face(
-                leaf, "front", along, rect[1], volume["base"], "access:leaf", projection=-0.02
-            )
-        if access["aboveRole"]:
-            module = self.catalog.pick(self.family, access["aboveRole"])
-            projection = float(access["projectionMeters"])
-            self._check_overhang(projection, f"elementos sobre {access['id']}")
-            self.add_on_face(
-                module,
-                "front",
-                along,
-                rect[1],
-                float(self.profile.door_scale["heightMeters"]) + volume["base"],
-                "access:above",
-                projection,
-            )
+        for index in indices:
+            along = bays[index]
+            has_infill = self._replace_front_bay(volume, along, frame, corner)
+            if access["leafRole"] and not has_infill:
+                leaf = self.catalog.pick(self.family, access["leafRole"])
+                self.add_on_face(
+                    leaf, "front", along, rect[1], volume["base"], "access:leaf", projection=-0.02
+                )
+            if access["aboveRole"]:
+                module = self.catalog.pick(self.family, access["aboveRole"])
+                projection = float(access["projectionMeters"])
+                self._check_overhang(projection, f"elementos sobre {access['id']}")
+                self.add_on_face(
+                    module,
+                    "front",
+                    along,
+                    rect[1],
+                    float(self.profile.door_scale["heightMeters"]) + volume["base"],
+                    "access:above",
+                    projection,
+                )
         if access["steps"]:
             if not self.front_strip:
                 raise CompositionError(
@@ -1316,7 +1354,7 @@ class Composition:
             return set()
         if access_bay >= total_bays:
             return set()
-        return {access_bay}
+        return set(getattr(self, "access_bays", {access_bay}))
 
     def _facade_feature_mirror_axis(self, side, volume, total_bays):
         """El eje de simetría de un facade feature es el bay del acceso si comparten
@@ -1329,7 +1367,9 @@ class Composition:
         access_bay = getattr(self, "access_bay", None)
         access_volume = getattr(self, "access_volume", None)
         if side == "front" and access_bay is not None and volume is access_volume:
-            return float(access_bay)
+            return sum(getattr(self, "access_bays", {access_bay})) / len(
+                getattr(self, "access_bays", {access_bay})
+            )
         return (total_bays - 1) / 2.0
 
     def _symmetric_indices(self, available_indices, mirror_axis, count):

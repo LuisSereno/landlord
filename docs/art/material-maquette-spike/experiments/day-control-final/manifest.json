@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "purpose": "D-111 final controlled A/B evidence; corrected warehouse shell",
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "moodId": "day_civic",
+  "variantSeed": 1010,
+  "candidates": [
+    {
+      "buildingType": "row_house",
+      "candidateId": "d111_row_house_1010",
+      "image": "d111_row_house_1010.png",
+      "metadata": "d111_row_house_1010.json",
+      "compositionSignature": "77fd218ad2e35947ec3231b4292e4af6910076fa876e3bf772e1ac0f25270efa",
+      "sha256": "19a8462df2c348a03578fc9000c353b26c363b4fe7bb7c4cf31a8a250f727a0f",
+      "transformCount": 92,
+      "licensedGeometryRatio": 1.0
+    },
+    {
+      "buildingType": "mixed_tenement",
+      "candidateId": "d111_mixed_tenement_1010",
+      "image": "d111_mixed_tenement_1010.png",
+      "metadata": "d111_mixed_tenement_1010.json",
+      "compositionSignature": "7a0be61efd66d745dda0b9b9ff4aafcf9bdedd35359c4d5f0cf7f22e16e22491",
+      "sha256": "9379ea5cc1c4fa0823b5c6602ef3d31d994ba492e921b3e8683430d20b0774de",
+      "transformCount": 99,
+      "licensedGeometryRatio": 1.0
+    },
+    {
+      "buildingType": "warehouse",
+      "candidateId": "d111_warehouse_1010",
+      "image": "d111_warehouse_1010.png",
+      "metadata": "d111_warehouse_1010.json",
+      "compositionSignature": "3b1c9a197bc29856ff11e31991d93829172c1ccad89bc23612be96410aa91317",
+      "sha256": "00770695b58bceb05f0306f32a647fbf7402fbb5e2185c06a0c979d5f89833ae",
+      "transformCount": 80,
+      "licensedGeometryRatio": 1.0
+    }
+  ]
+}

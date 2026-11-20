@@ -86,3 +86,40 @@ El primer A/B de edificios ya conserva tres propuestas deterministas del Compose
 `day_civic`; sirven para revisar variación arquitectónica y procedencia, no para afirmar que ya se
 aprobó el nuevo material de fachada. Falta revisarlos en la ciudad real, día/noche, escalas 0,5×, 1×,
 2× y 2,5×, orientaciones y estados. La promoción continúa cerrada hasta la revisión humana.
+
+## D-111: experimentos de material y composición — 2026-11-19
+
+Se corrigieron las gramáticas de los tres pilotos antes de promover nada: `row_house` reparte cuatro
+accesos a lo largo de la fachada; `mixed_tenement` exige un acceso comercial con toldo físico; y
+`warehouse` se construye como un único volumen de bandas con cuatro huecos frontales de 2×3 m, sin
+equipos en la cubierta. La persiana grande para cerrar los huecos sigue pendiente de un módulo
+adecuado.
+
+El perfil `material_maquette_buildings_v1` es un experimento aparte, con la misma semilla, huella,
+plantas, ejes y transformaciones que `graphic_civic_buildings_v1`. Añade materiales PBR CC0 de Poly
+Haven para ladrillo y chapa, con rugosidad alta y normal atenuada, además de comparar EEVEE a 96
+muestras con ray tracing frente al control. El informe de igualdad de geometría y las capturas están
+en `docs/art/material-maquette-spike/experiments/`; los manifiestos registran licencia y hashes de
+las fuentes y texturas. Esta variante no cambia sprites ni recursos de runtime.
+
+La prueba de Geometry Nodes repite ocho instancias del mismo módulo y verifica sus posiciones frente
+a la disposición determinista del Composer. La prueba funciona en Blender 5.2.2, pero no muestra una
+ventaja suficiente para integrarla: su preparación tarda más que enlazar los ocho objetos y el tiempo
+de render no mide una mejora de producción. El Composer continúa siendo responsable de semillas,
+validación y salida.
+
+Se evaluó Kenney Modular Buildings 2.1 en staging CC0. Sus módulos de puerta, ventana y toldo son
+domésticos y no incluyen puerta de carga, dock leveler ni persiana a escala de camión; por eso no se
+selecciona para `warehouse`. El inventario y el motivo están en
+`docs/art/material-maquette-spike/experiments/kenney-modular-buildings-evaluation.json`. No se añade
+ese archivo fuente al runtime ni a una selección de producción.
+
+Quaternius Ultimate Buildings permanece sin evaluar: su página oficial identifica 76 modelos CC0,
+pero el endpoint de descarga devolvió una respuesta de cuota excedida y no se pudo inspeccionar un
+archivo del pack. No se descarta ni se incorpora.
+
+Se generaron las capturas de los tres pilotos en contexto de calle, a 0,5× y 1×, de día y noche, para
+el control y el perfil material. Las capturas A/B de HUD y terreno se mantienen por separado, en
+`docs/art/material-maquette-spike/ab/`. Siguen pendientes la revisión humana, la combinación de HUD
+con ciudad poblada, escalas 2× y 2,5×, cuatro orientaciones, estados de obra/daño/incendio y medición
+de runtime. No se amplía el catálogo ni se activa Phaser FX hasta superar esos gates.

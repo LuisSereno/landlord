@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "purpose": "D-111 controlled repeat test; Geometry Nodes candidate vs Python linked-object control",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "renderer": "EEVEE"
+  },
+  "module": {
+    "moduleId": "mod_megakit_brick_wall_2m",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_3.gltf",
+    "license": "CC0-1.0"
+  },
+  "inputs": {
+    "count": 8,
+    "spacingMeters": 2.0,
+    "startXMeters": -7.0
+  },
+  "control": {
+    "linkedMeshObjects": 8,
+    "setupMs": 0.13
+  },
+  "candidate": {
+    "geometryNodesObjects": 1,
+    "evaluatedInstances": 8,
+    "setupMs": 2.199
+  },
+  "renderMs": 10377.205,
+  "positionsMatch": true,
+  "expectedInstanceX": [
+    -7.0,
+    -5.0,
+    -3.0,
+    -1.0,
+    1.0,
+    3.0,
+    5.0,
+    7.0
+  ],
+  "actualInstanceX": [
+    -7.0,
+    -5.0,
+    -3.0,
+    -1.0,
+    1.0,
+    3.0,
+    5.0,
+    7.0
+  ],
+  "decision": "evaluate integration only if further tests preserve seeded point layout and module provenance",
+  "image": "geometry-nodes-repeatability.png"
+}

@@ -62,6 +62,7 @@ function parseArgs(argv) {
     keepAttempts: false,
     prefix: "vf",
     mood: null,
+    profileId: null,
     orientations: [0],
     states: ["complete"],
   };
@@ -77,9 +78,10 @@ function parseArgs(argv) {
     else if (flag === "--keepAttempts") options.keepAttempts = true;
     else if (flag === "--prefix") options.prefix = value;
     else if (flag === "--mood") options.mood = value;
+    else if (flag === "--profile") options.profileId = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--mood=night_civic|day_civic|day_industrial] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--profile=graphic_civic_buildings_v1|material_maquette_buildings_v1] [--mood=night_civic|day_civic|day_industrial|material_maquette_day|material_maquette_night] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
@@ -87,8 +89,11 @@ function parseArgs(argv) {
   if (options.seeds.length === 0 || options.seeds.some((seed) => !Number.isInteger(seed))) {
     throw new Error("--seeds espera enteros separados por comas");
   }
-  if (options.mood && !["night_civic", "day_civic", "day_industrial"].includes(options.mood)) {
-    throw new Error("--mood espera night_civic, day_civic o day_industrial");
+  if (
+    options.mood &&
+    !["night_civic", "day_civic", "day_industrial", "material_maquette_day", "material_maquette_night"].includes(options.mood)
+  ) {
+    throw new Error("--mood espera night_civic, day_civic, day_industrial o material_maquette_day");
   }
   if (
     options.orientations.length === 0 ||
@@ -131,7 +136,7 @@ function domainGeometry(buildingType) {
 
 function profileFor(family) {
   const matches = read(PROFILES_PATH).profiles.filter((profile) =>
-    profile.appliesToFamilies.includes(family),
+    profile.id === "graphic_civic_buildings_v1" && profile.appliesToFamilies.includes(family),
   );
   if (matches.length !== 1) {
     throw new Error(
@@ -143,10 +148,16 @@ function profileFor(family) {
 
 function buildRequests(grammars, options) {
   const types = options.types ?? Object.keys(grammars.grammars);
+  const styleProfiles = read(PROFILES_PATH).profiles;
   const requests = [];
   for (const buildingType of types) {
     const grammar = grammars.grammars[buildingType];
     if (!grammar) throw new Error(`la gramática no declara ${buildingType}`);
+    const styleProfileId = options.profileId ?? profileFor(grammar.family);
+    const styleProfile = styleProfiles.find((profile) => profile.id === styleProfileId);
+    if (!styleProfile || !styleProfile.appliesToFamilies.includes(grammar.family)) {
+      throw new Error(`${buildingType}: el perfil ${styleProfileId} no se aplica a ${grammar.family}`);
+    }
     const domain = domainGeometry(buildingType);
     for (const variantSeed of options.seeds) {
       for (const stateToken of options.states) {
@@ -163,7 +174,7 @@ function buildRequests(grammars, options) {
             candidateId,
             buildingType,
             family: grammar.family,
-            styleProfileId: profileFor(grammar.family),
+            styleProfileId,
             variantSeed,
             orientation,
             composerVersion: grammars.composerVersion,

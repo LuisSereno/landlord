@@ -121,8 +121,8 @@ archivo del pack. No se descarta ni se incorpora.
 **Actualización 2026-11-20:** el propietario aportó posteriormente una carpeta de Ultimate Buildings.
 Está en staging con hash de árbol e indexada como candidata; el fallo de descarga anterior describe
 sólo la prueba D-111 del día 19. Todavía no se han medido ni probado sus módulos en Blender. La ficha
-específica dice CC0 y la página general QAL actual difiere, por lo que un gate de licencia bloquea
-su promoción. Retro Urban Kit también está disponible en staging y aporta piezas de garaje que
+específica dice CC0 y el propietario aceptó esa licencia para este pack; se retiró el bloqueo de
+licencia. Retro Urban Kit también está disponible en staging y aporta piezas de garaje que
 merecen un nuevo ensayo para `warehouse`. Véase
 [registro de paquetes nuevos](NEW-SOURCE-PACKS-2026-11-20.md).
 

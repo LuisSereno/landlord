@@ -14,7 +14,7 @@ versionado permite encontrarlos, pero no distribuye esos binarios ni promueve sp
 | Kenney Modular Buildings 2.1 | `src_kenney_modular_buildings` | 108 GLB, 108 OBJ, 108 FBX, 117 PNG | Fachadas, cubiertas, puertas y ventanas residenciales | Candidato; ya evaluado para muelles en D-111 |
 | Kenney Retro Textures Fantasy 1.0 | `src_kenney_retro_textures_fantasy` | 119 PNG | Sólo superficies puntuales que superen comparación con Poly Haven y la paleta del Art Bible | Reserva sin compatibilidad artística aprobada |
 | Kenney Retro Urban Kit 2.0 | `src_kenney_retro_urban_kit` | 124 GLB, 124 OBJ, 124 FBX, 192 PNG | Hueco de garaje, andamios, utilería, camiones y geometría vial visual | Candidato prioritario para el almacén |
-| Quaternius Ultimate Buildings (2019) | `src_quaternius_ultimate_buildings` | 102 Blend, 102 FBX, 102 OBJ y 12 PNG | Piezas de fachada y volúmenes de referencia; medir antes de componer | Candidato con revisión de licencia en promoción |
+| Quaternius Ultimate Buildings (2019) | `src_quaternius_ultimate_buildings` | 102 Blend, 102 FBX, 102 OBJ y 12 PNG | Piezas de fachada y volúmenes de referencia; medir antes de componer | CC0 aceptada; candidato a evaluación artística |
 | Kenney City Kit Roads 2.2 | `src_kenney_city_roads` **existente** | 487 archivos | Ya presente en el índice y en el render vial | Duplicado exacto; 487/487 hashes idénticos |
 
 La segunda copia de City Kit Roads se conserva localmente bajo
@@ -29,10 +29,12 @@ los identifican como CC0. El pack de Quaternius **no** incluye aviso local: su
 [ficha específica](https://quaternius.com/packs/ultimatetexturedbuildings.html) y la
 [FAQ](https://quaternius.com/faq.html) lo presentan como CC0. La página general de
 [licencia QAL](https://quaternius.com/license.html), actualizada en agosto de 2026, formula otras
-condiciones para activos publicados bajo esa licencia. Se registra la licencia CC0 mostrada en la
-ficha de este pack de 2019; antes de promover una pieza de Ultimate Buildings se debe conservar
-evidencia de que esa licencia específica rige el archivo recibido. En caso de discrepancia se detiene
-su promoción.
+condiciones para activos publicados bajo esa licencia. El propietario del proyecto decidió el
+2026-11-20 aceptar la licencia **CC0-1.0 indicada en la ficha específica de Ultimate Buildings**
+para el contenido recibido. La ficha oficial y su URL quedan registradas como evidencia de la
+clasificación; se retiró el bloqueo de licencia del manifiesto. Esta decisión se limita a este pack:
+otros activos de Quaternius se clasifican según su propia ficha. La selección, escala, composición y
+promoción de módulos siguen sujetas a las validaciones artísticas y técnicas ordinarias.
 
 Las carpetas nuevas se registran en `staging-sources.json` con un SHA-256 del árbol extraído y
 número de archivos. Se ordenan las rutas relativas POSIX y se concatena por archivo:

@@ -569,8 +569,7 @@
         "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
       },
       "registeredAt": "2026-11-20",
-      "downloadedAt": null,
-      "promotionGate": "pack-specific-cc0-evidence"
+      "downloadedAt": null
     }
   ],
   "quarantined": [

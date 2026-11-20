@@ -1050,6 +1050,6 @@ visuales candidatos). Kenney City Kit Roads era un duplicado exacto de los 487 a
 Building Kit, Mini Characters, Modular Buildings, Retro Textures Fantasy, Retro Urban Kit y
 Quaternius Ultimate Buildings quedan disponibles para curaduría, sin promoción a runtime y sin
 escala asumida. Retro Urban ofrece una pieza `wall-a-garage` que merece la próxima prueba del
-`warehouse`; Ultimate Buildings requiere conservar evidencia de CC0 específica antes de cualquier
-promoción por la discrepancia con la página general QAL actual. Véase
+`warehouse`; el propietario aceptó CC0 para Ultimate Buildings según la ficha específica y se
+retiró su bloqueo de licencia. La curaduría y validación técnica siguen pendientes. Véase
 `docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.

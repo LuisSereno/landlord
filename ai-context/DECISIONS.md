@@ -1816,3 +1816,9 @@ gobernando seed, validación y salida. Las fuentes nuevas se prueban sólo si cu
 concreta y pasan por staging/licencia/inventario; las técnicas descartadas quedan justificadas por
 evidencia. No hay cambios de dominio, `GameState` ni guardados por razones visuales. Véase
 `docs/engineering/adr/D-111-direccion-visual-maqueta-material.md`.
+
+Actualización de licencia (2026-11-20): el propietario decide aceptar como CC0-1.0 el pack
+Quaternius Ultimate Buildings recibido, conforme a su ficha oficial específica. Se retira el
+bloqueo de licencia de `src_quaternius_ultimate_buildings`; la decisión no se extiende a otros
+packs de Quaternius ni equivale a aprobación artística o promoción automática. Evidencia y alcance:
+`docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.

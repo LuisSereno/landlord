@@ -11,6 +11,7 @@ import runtimeAssets from "./generated/runtime-assets.json";
 import blenderBundle from "./generated/runtime-assets-blender.json";
 import { animationFrameFor, framesPerDirection } from "./isometric/building-sprites";
 import { mountDenseAssetScene } from "./isometric/DenseAssetScene";
+import { FxLabPanel } from "./fx-lab/FxLabPanel";
 
 const ASSETS = parseRuntimeAssetManifest(runtimeAssets);
 const BLENDER = parseRuntimeAssetManifest(blenderBundle);
@@ -336,6 +337,17 @@ function RuntimeAssetQa() {
 }
 
 export function ArtLab() {
+  /**
+   * D-111 §7 · el laboratorio de efectos sólo aparece con el flag de QA de siempre (`?artQa=1`) o con
+   * cualquier `?fx=…`. Sin flag la página del Art Lab es idéntica a antes y ningún efecto puede
+   * activarse en el juego: no hay ruta de gameplay que monte `FxLabPanel`.
+   */
+  const fxLabEnabled = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const params = new URLSearchParams(window.location.search);
+    return params.get("artQa") === "1" || params.has("fx");
+  }, []);
+
   return (
     <main className="art-lab-shell">
       <header className="art-lab-header">
@@ -351,6 +363,8 @@ export function ArtLab() {
           Volver al slice
         </a>
       </header>
+
+      {fxLabEnabled && <FxLabPanel />}
 
       <RuntimeAssetQa />
 

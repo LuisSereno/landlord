@@ -1,0 +1,242 @@
+/**
+ * Panel de QA del laboratorio D-111 §7.
+ *
+ * Sólo se monta desde `/art-lab?artQa=1` (o con cualquier `?fx=…`). Cada familia de efectos se
+ * enciende de una en una y el estado inicial son todos apagados. El reloj de los checkboxes es la
+ * escena, no React: `lightingNormals` necesita el rig y por eso lo enciende con él. Nada se
+ * persiste: no hay `localStorage`, ni preferencias, ni save — el único estado vive en la URL de la
+ * página de QA.
+ */
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { mountFxLab, type FxLabController } from "./mount";
+import "./fx-lab.css";
+import {
+  FX_EFFECTS,
+  FX_LABELS,
+  parseFxLabOptions,
+  type FxEffect,
+  type FxMood,
+  type FxRenderer,
+} from "./fx-lab-types";
+import type { FxLabProbeWindow } from "./mount";
+
+const CAPTURE_VIEWPORT = { width: 960, height: 540 };
+
+export function FxLabPanel() {
+  const initial = useMemo(
+    () => (typeof window === "undefined" ? null : parseFxLabOptions(window.location.search)),
+    [],
+  );
+  const [effects, setEffects] = useState<FxEffect[]>([...(initial?.effects ?? [])]);
+  const [mood, setMood] = useState<FxMood>(initial?.mood ?? "day");
+  const [zoom, setZoom] = useState<number>(initial?.zoom ?? 1);
+  const [renderer, setRenderer] = useState<FxRenderer>(initial?.renderer ?? "auto");
+  const perf = initial?.perf ?? true;
+  const container = useRef<HTMLDivElement>(null);
+  const controller = useRef<FxLabController | null>(null);
+  const [probe, setProbe] = useState<FxLabProbeWindow | null>(null);
+
+  /** El renderer se cambia remontando el juego: no se puede migrar de WebGL a CANVAS en caliente. */
+  useEffect(() => {
+    if (!container.current || !initial) return;
+    const mounted = mountFxLab(container.current, {
+      effects: initial.effects,
+      mood,
+      zoom,
+      perf,
+      renderer,
+      ...CAPTURE_VIEWPORT,
+    });
+    controller.current = mounted;
+    const poll = window.setInterval(() => {
+      setProbe(mounted.getProbe());
+    }, 400);
+    return () => {
+      window.clearInterval(poll);
+      controller.current = null;
+      mounted.destroy();
+    };
+    // mood/zoom se aplican por API; sólo el renderer y el estado inicial remontan.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [renderer]);
+
+  useEffect(() => {
+    controller.current?.setMood(mood);
+  }, [mood]);
+
+  useEffect(() => {
+    controller.current?.setZoom(zoom);
+  }, [zoom]);
+
+  /** Un toggle puede arrastrar a otro (`lightingNormals` pide el rig): manda lo que dice la escena. */
+  const toggle = useCallback((effect: FxEffect) => {
+    const mounted = controller.current;
+    if (!mounted) return;
+    const on = !mounted.getProbe().effects.includes(effect);
+    mounted.applyEffect(effect, on);
+    setEffects(mounted.getProbe().effects);
+  }, []);
+
+  const setAll = useCallback((on: boolean) => {
+    const mounted = controller.current;
+    if (!mounted) return;
+    for (const effect of FX_EFFECTS) mounted.applyEffect(effect, on);
+    setEffects(mounted.getProbe().effects);
+  }, []);
+
+  const stats = probe?.stats ?? null;
+
+  return (
+    <section aria-labelledby="fx-lab-title" className="art-lab-section" data-testid="fx-lab">
+      <header className="art-lab-section-header">
+        <div>
+          <p className="eyebrow">
+            D-111 §7 · candidatos de presentación, nada activado por defecto
+          </p>
+          <h2 id="fx-lab-title">FX Lab · Phaser 4.2.1</h2>
+        </div>
+        <span className="art-lab-status" data-testid="fx-lab-renderer">
+          {probe?.webgl ? "WebGL" : "CANVAS"} · {renderer}
+        </span>
+      </header>
+
+      <article className="art-lab-card">
+        <div className="fx-lab-controls">
+          <div role="group" aria-label="Efectos" className="fx-lab-toggles">
+            {FX_EFFECTS.map((effect) => (
+              <label key={effect} className="fx-lab-toggle">
+                <input
+                  type="checkbox"
+                  checked={(probe?.effects ?? effects).includes(effect)}
+                  onChange={() => toggle(effect)}
+                  data-testid={`fx-toggle-${effect}`}
+                />
+                {FX_LABELS[effect]}
+              </label>
+            ))}
+          </div>
+          <div role="group" aria-label="Condiciones" className="fx-lab-toggles">
+            <label className="fx-lab-toggle">
+              <input
+                type="radio"
+                name="fx-mood"
+                checked={mood === "day"}
+                onChange={() => setMood("day")}
+                data-testid="fx-mood-day"
+              />
+              Día
+            </label>
+            <label className="fx-lab-toggle">
+              <input
+                type="radio"
+                name="fx-mood"
+                checked={mood === "night"}
+                onChange={() => setMood("night")}
+                data-testid="fx-mood-night"
+              />
+              Noche
+            </label>
+            <label className="fx-lab-toggle">
+              <input
+                type="radio"
+                name="fx-renderer"
+                checked={renderer === "auto"}
+                onChange={() => setRenderer("auto")}
+                data-testid="fx-renderer-webgl"
+              />
+              WebGL
+            </label>
+            <label className="fx-lab-toggle">
+              <input
+                type="radio"
+                name="fx-renderer"
+                checked={renderer === "canvas"}
+                onChange={() => setRenderer("canvas")}
+                data-testid="fx-renderer-canvas"
+              />
+              CANVAS forzado
+            </label>
+            <label className="fx-lab-toggle">
+              Zoom
+              <input
+                type="range"
+                min={0.5}
+                max={2.5}
+                step={0.05}
+                value={zoom}
+                onChange={(event) => setZoom(Number(event.target.value))}
+                data-testid="fx-zoom"
+              />
+              {zoom.toFixed(2)}
+            </label>
+            <button type="button" onClick={() => setAll(true)} data-testid="fx-all-on">
+              Todo ON
+            </button>
+            <button type="button" onClick={() => setAll(false)} data-testid="fx-all-off">
+              Todo OFF
+            </button>
+          </div>
+        </div>
+
+        <div data-testid="fx-lab-scene" className="fx-lab-scene-canvas" ref={container} />
+
+        <dl className="technical-qa-grid" data-testid="fx-lab-metrics">
+          <div>
+            <dt>FPS (mínimo por rasterizado por software)</dt>
+            <dd>{stats ? stats.fps : "—"}</dd>
+          </div>
+          <div>
+            <dt>Frame p50 / p95 (ms)</dt>
+            <dd>{stats ? `${stats.frameTimeP50Ms} / ${stats.frameTimeP95Ms}` : "—"}</dd>
+          </div>
+          <div>
+            <dt>Draw calls</dt>
+            <dd>{stats?.drawCalls ?? "no expuesto por WebGL"}</dd>
+          </div>
+          <div>
+            <dt>Texturas vivas / bytes</dt>
+            <dd>
+              {stats && stats.gpuTextureBytes !== null
+                ? `${stats.texturesLive} · ${(stats.gpuTextureBytes / 1_048_576).toFixed(2)} MB`
+                : "—"}
+            </dd>
+          </div>
+          <div>
+            <dt>Emisivos / objetos iluminados / luces</dt>
+            <dd>{probe ? `${probe.emissive} · ${probe.litObjects} · ${probe.lights}` : "—"}</dd>
+          </div>
+          <div>
+            <dt>Partículas vivas</dt>
+            <dd>{probe?.particles ?? "—"}</dd>
+          </div>
+          <div>
+            <dt>Efectos activos</dt>
+            <dd data-testid="fx-lab-active">{probe?.effects.join(", ") || "ninguno"}</dd>
+          </div>
+          <div>
+            <dt>Errores de escena</dt>
+            <dd data-testid="fx-lab-errors">
+              {probe?.errors.length ? probe.errors.join(" | ") : "0"}
+            </dd>
+          </div>
+        </dl>
+
+        <p className="fx-lab-note" data-testid="fx-lab-gl-renderer">
+          GPU declarada por el navegador: {probe?.glRenderer ?? "desconocida"} · sin aceleración por
+          hardware: los FPS de esta página son un suelo, no una medida de producción.
+        </p>
+
+        <details className="fx-lab-api-evidence">
+          <summary>API real detectada en el SDK en runtime</summary>
+          <ul>
+            {Object.entries(probe?.capabilities ?? {}).map(([api, present]) => (
+              <li key={api} data-capability={api} data-present={present ? "yes" : "no"}>
+                <code>{api}</code> — {present ? "existe" : "NO existe"}
+              </li>
+            ))}
+          </ul>
+        </details>
+      </article>
+    </section>
+  );
+}

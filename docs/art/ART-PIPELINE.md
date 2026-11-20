@@ -1094,6 +1094,35 @@ Usuarios:
 - contributors;
 - visual regression.
 
+### 31.1 FX Lab — laboratorio de capacidades de Phaser 4 (D-111 §7)
+
+Superficie real hoy, montada sólo bajo `?artQa=1` en `/art-lab`:
+
+```text
+/art-lab?artQa=1&fxPerf=1&fxMood=day|night&fxZoom=1&fxRenderer=canvas&fx=grading,bloomThreshold,bloomObjects,lighting,lightingNormals,particles
+```
+
+- Cada familia de efectos tiene su toggle **independiente** y el estado inicial es todo apagado. Nada
+  se persiste: no hay `localStorage`, ni preferencias, ni save. El único estado vive en la URL.
+- El laboratorio no toca gameplay: la escena es una calle de QA con sprites reales del catálogo Blender
+  y semilla de colocación fija. Ninguna de estas banderas la lee el HUD ni la simulación, y
+  `GameState` no participa.
+- `fxRenderer=canvas` remonta el juego con el renderer CANVAS para probar la degradación sin filtros
+  WebGL. No se puede migrar de WebGL a CANVAS en caliente, por eso el renderer es la única bandera que
+  re-monta la escena.
+- La sonda vive en `window.__fxLab` (frame counter, efectos activos, luces, objetos iluminados,
+  partículas vivas, `defaultNormalTexture`, percentiles). El contador de fotogramas es obligatorio:
+  dos lecturas con el mismo número significan renderer congelado, no escena estable.
+- Harness: `node scripts/fx-lab-capture.mjs` produce los PNG por caso, `fx-lab-perf.json` (tabla
+  on/off) y `fx-lab-summary.json`, que además autodeclara `identicalFrameGroups` y `frozenRows` para
+  que una evidencia corrupta no pueda leerse como verde. `node scripts/fx-lab-smoke.mjs [day|night]`
+  comprueba diez invariantes de montaje, incluido el disposer idempotente (apagar las normales
+  devuelve el hash exacto del fotograma de `lighting`).
+- Corrida reproducible con build aislado, para no pisar el `dist/` de otros agentes:
+  `npx vite build --outDir dist-fxlab --emptyOutDir`, `npx vite preview --outDir dist-fxlab --host
+  127.0.0.1 --port 4311` y `FX_LAB_BASE_URL=http://127.0.0.1:4311 node scripts/fx-lab-capture.mjs`.
+- Veredicto y límites por familia: `docs/art/graphics-capabilities/evaluations/phaser-fx-lab.md`.
+
 ---
 
 ## 32. Golden scenes y visual regression

@@ -1,0 +1,306 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/fx-lab-capture.mjs",
+ "command": "node scripts/fx-lab-capture.mjs",
+ "baseUrl": "http://127.0.0.1:4311",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "page": "/art-lab?artQa=1",
+ "webglRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "canvasProbe": {
+  "webgl": false,
+  "effects": [
+   "grading",
+   "bloomThreshold",
+   "bloomObjects",
+   "lighting",
+   "lightingNormals",
+   "particles"
+  ],
+  "errors": []
+ },
+ "images": [
+  {
+   "case": "street_day_grading",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "grading"
+   ],
+   "active": [
+    "grading"
+   ],
+   "frames": 2458,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_grading.png",
+   "bytes": 217546,
+   "sha256": "6ecd65ff77277613551b63356cffa86e0fb1f10ddece7f743990da4ea9870293"
+  },
+  {
+   "case": "street_day_bloomThreshold",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "bloomThreshold"
+   ],
+   "active": [
+    "bloomThreshold"
+   ],
+   "frames": 2538,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_bloomThreshold.png",
+   "bytes": 183677,
+   "sha256": "811f2695d86c88d4e056b40558da62cfa11af976a740afb1a6cb202da90253d6"
+  },
+  {
+   "case": "street_day_bloomObjects",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "bloomObjects"
+   ],
+   "active": [
+    "bloomObjects"
+   ],
+   "frames": 2618,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_bloomObjects.png",
+   "bytes": 185349,
+   "sha256": "3485954914b9ea1dc3de9253a872bbdec0e8be83676775d2ad7e3cfa895e9b7c"
+  },
+  {
+   "case": "street_day_lighting",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "lighting"
+   ],
+   "active": [
+    "lighting"
+   ],
+   "frames": 2699,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_lighting.png",
+   "bytes": 183905,
+   "sha256": "4e93abee518fc3e0be3e8f512b8cd52e9a5fc7b772c3fc65f1a66b8bbcfcc2c5"
+  },
+  {
+   "case": "street_day_lightingNormals",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "lightingNormals"
+   ],
+   "active": [
+    "lighting",
+    "lightingNormals"
+   ],
+   "frames": 2779,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_lightingNormals.png",
+   "bytes": 187257,
+   "sha256": "3a3abee720378494a63c6dc9d8e2c63f6cb54f40a8cb2a6f338fcdd92e2eadd5"
+  },
+  {
+   "case": "street_day_particles",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "particles"
+   ],
+   "active": [
+    "particles"
+   ],
+   "frames": 2867,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_particles.png",
+   "bytes": 199913,
+   "sha256": "59c4242400220a3b7a3c8460c74201896dbb98e8b82d12cc5143099307ac322d"
+  },
+  {
+   "case": "street_day_all_effects",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "grading",
+    "bloomThreshold",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles"
+   ],
+   "active": [
+    "grading",
+    "bloomThreshold",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles"
+   ],
+   "frames": 2995,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_all_effects.png",
+   "bytes": 234549,
+   "sha256": "709d1674c06cee2acf0b4557454df8a26b1ad03ec1fd3de1a4027d02e25701b8"
+  },
+  {
+   "case": "street_day_control",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [],
+   "active": [],
+   "frames": 3100,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_control.png",
+   "bytes": 185250,
+   "sha256": "da1fa73e6fb8acc4aea839f71ce80951b19f40d82f05b6a0a3931abbde5a5e6a"
+  },
+  {
+   "case": "street_night_control",
+   "mood": "night",
+   "zoom": 1,
+   "fx": [],
+   "active": [],
+   "frames": 3218,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_night_control.png",
+   "bytes": 192035,
+   "sha256": "8998d395b8af0e1199051b040f8eac5ca3c9bcf219ec0177c83e378cd936467b"
+  },
+  {
+   "case": "street_night_lighting",
+   "mood": "night",
+   "zoom": 1,
+   "fx": [
+    "lighting"
+   ],
+   "active": [
+    "lighting"
+   ],
+   "frames": 3293,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_night_lighting.png",
+   "bytes": 154854,
+   "sha256": "f5b270fd60e7597b24e16da73bf9408e1d695831d866c1f2d59bb50208b7ce7d"
+  },
+  {
+   "case": "street_night_lightingNormals",
+   "mood": "night",
+   "zoom": 1,
+   "fx": [
+    "lightingNormals"
+   ],
+   "active": [
+    "lighting",
+    "lightingNormals"
+   ],
+   "frames": 3374,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_night_lightingNormals.png",
+   "bytes": 175626,
+   "sha256": "cb826cbefb03397dca043f29bc10e06a5731a877abf773b45b903df95cdd7f57"
+  },
+  {
+   "case": "street_night_bloomObjects",
+   "mood": "night",
+   "zoom": 1,
+   "fx": [
+    "bloomObjects"
+   ],
+   "active": [
+    "bloomObjects"
+   ],
+   "frames": 3457,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_night_bloomObjects.png",
+   "bytes": 193674,
+   "sha256": "b22a7d92702d10ed80d3b90245d1dfb27ae848b2b31721ecc599e8807d7428f3"
+  },
+  {
+   "case": "street_night_particles",
+   "mood": "night",
+   "zoom": 1,
+   "fx": [
+    "particles"
+   ],
+   "active": [
+    "particles"
+   ],
+   "frames": 3537,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_night_particles.png",
+   "bytes": 202890,
+   "sha256": "c8bdb03086af36f3478e2a64a1c56374018d1ee2365a1c6ea91fa1ffe662bbcc"
+  },
+  {
+   "case": "street_night_all_effects",
+   "mood": "night",
+   "zoom": 1,
+   "fx": [
+    "grading",
+    "bloomThreshold",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles"
+   ],
+   "active": [
+    "grading",
+    "bloomThreshold",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles"
+   ],
+   "frames": 3670,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_night_all_effects.png",
+   "bytes": 210092,
+   "sha256": "fb10dd598d0ac6ca9bbf58c68ce3ce1ade412fc21177b4d93b8a852ecb7c21b7"
+  },
+  {
+   "case": "street_day_zoom_1x",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [],
+   "active": [],
+   "frames": 3795,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_zoom_1x.png",
+   "bytes": 185250,
+   "sha256": "da1fa73e6fb8acc4aea839f71ce80951b19f40d82f05b6a0a3931abbde5a5e6a"
+  },
+  {
+   "case": "street_day_zoom_050x",
+   "mood": "day",
+   "zoom": 0.5,
+   "fx": [],
+   "active": [],
+   "frames": 3870,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/street_day_zoom_050x.png",
+   "bytes": 63353,
+   "sha256": "2319ad757e1a3691d94b503ab74ee17ebd53f8cf5da69472c1a0f8c956adfddd"
+  },
+  {
+   "case": "degrade_canvas_all_effects",
+   "mood": "day",
+   "zoom": 1,
+   "fx": [
+    "grading",
+    "bloomThreshold",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles"
+   ],
+   "active": [
+    "grading",
+    "bloomThreshold",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles"
+   ],
+   "frames": 3,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/degrade_canvas_all_effects.png",
+   "bytes": 194293,
+   "sha256": "0b70d2a4ca8cbdcf2dbf834156d0a2f1493a3bccf11634c21c0a6101e7a5bd3b"
+  }
+ ],
+ "pageErrors": [],
+ "distinctFrameCount": 16,
+ "identicalFrameGroups": [
+  [
+   "street_day_control",
+   "street_day_zoom_1x"
+  ]
+ ],
+ "frozenRows": []
+}

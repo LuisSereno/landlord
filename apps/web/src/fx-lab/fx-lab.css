@@ -1,0 +1,83 @@
+/* Estilos del laboratorio D-111 §7. Viven dentro de fx-lab/ para no tocar la hoja compartida
+   del Art Lab, que otros agentes editan en paralelo. Sólo se aplica a nodos .fx-lab-*. */
+
+.fx-lab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.fx-lab-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+}
+
+.fx-lab-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #b5c0d2;
+}
+
+.fx-lab-toggle input[type="range"] {
+  width: 110px;
+}
+
+.fx-lab-controls button {
+  padding: 6px 12px;
+  border: 1px solid #53647d;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.fx-lab-scene-canvas {
+  border: 1px solid #33415a;
+  border-radius: 10px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.fx-lab-note {
+  font-size: 12px;
+  color: #93a2b8;
+}
+
+.fx-lab-api-evidence {
+  margin-top: 12px;
+  font-size: 12px;
+}
+
+.fx-lab-api-evidence ul {
+  columns: 2;
+  gap: 28px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.fx-lab-api-evidence li[data-present="no"] {
+  color: #e08c7a;
+  text-decoration: line-through;
+}
+
+.fx-lab-capture-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 16px;
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #93a2b8;
+}
+
+.fx-lab-capture-note[data-ready="yes"] {
+  color: #7fd1a4;
+}

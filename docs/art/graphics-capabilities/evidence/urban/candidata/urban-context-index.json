@@ -1,0 +1,70 @@
+[
+ {
+  "candidateId": "vf_row_house_1010",
+  "buildingType": "row_house",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "moodId": "day_civic",
+  "zoom": "0.5x",
+  "orthoScale": 63.278,
+  "resolution": [
+   1440,
+   900
+  ],
+  "aspectRatio": 1.6,
+  "image": "docs/art/graphics-capabilities/evidence/urban/candidata/row_house-city-context-0.5x.png",
+  "materialExperiment": null
+ },
+ {
+  "candidateId": "vf_row_house_1010",
+  "buildingType": "row_house",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "moodId": "day_civic",
+  "zoom": "1x",
+  "orthoScale": 31.639,
+  "resolution": [
+   1440,
+   900
+  ],
+  "aspectRatio": 1.6,
+  "image": "docs/art/graphics-capabilities/evidence/urban/candidata/row_house-city-context-1x.png",
+  "materialExperiment": null
+ },
+ {
+  "candidateId": "vf_mixed_tenement_1010",
+  "buildingType": "mixed_tenement",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "moodId": "day_civic",
+  "zoom": "0.5x",
+  "orthoScale": 69.388,
+  "resolution": [
+   1440,
+   900
+  ],
+  "aspectRatio": 1.6,
+  "image": "docs/art/graphics-capabilities/evidence/urban/candidata/mixed_tenement-city-context-0.5x.png",
+  "materialExperiment": null
+ },
+ {
+  "candidateId": "vf_mixed_tenement_1010",
+  "buildingType": "mixed_tenement",
+  "family": "residential_low",
+  "variantSeed": 1010,
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "moodId": "day_civic",
+  "zoom": "1x",
+  "orthoScale": 34.694,
+  "resolution": [
+   1440,
+   900
+  ],
+  "aspectRatio": 1.6,
+  "image": "docs/art/graphics-capabilities/evidence/urban/candidata/mixed_tenement-city-context-1x.png",
+  "materialExperiment": null
+ }
+]

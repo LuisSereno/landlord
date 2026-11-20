@@ -1,0 +1,340 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §4 Blender extension lab",
+  "label": "D-111 §6.C garajes Retro Urban a escala",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "kenney_retro_urban_kit",
+    "question": "D-111 §6.C: ¿resuelven estas cuatro piezas una fachada industrial con muelle?",
+    "pieces": [
+      {
+        "id": "wall-a-garage",
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/wall-a-garage.glb",
+        "sourceBounds": {
+          "width": 1.0,
+          "depth": 1.0,
+          "height": 1.0,
+          "minZ": 0.0
+        },
+        "meters": {
+          "width": 1.0,
+          "depth": 1.0,
+          "height": 1.0
+        },
+        "boundsMin": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "unitScaleIsOneMeter": true,
+        "triangles": 28,
+        "materials": [
+          "concrete",
+          "wall",
+          "wall_garage"
+        ],
+        "unresolvedTextures": [],
+        "bayFit": {
+          "2m": {
+            "modulesPorCrujia": 2.0,
+            "sobraFaltan": 1.0
+          },
+          "4m": {
+            "modulesPorCrujia": 4.0,
+            "sobraFaltan": 3.0
+          }
+        },
+        "dockFit": {
+          "camionAncho": 2.5,
+          "camionAlto": 2.6,
+          "cubreAnchoDeCaja": false,
+          "cubreAltoDeCaja": false
+        },
+        "placedMin": [
+          -1.525,
+          -0.5,
+          0.0
+        ],
+        "placedSize": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "wall-a-flat-garage",
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/wall-a-flat-garage.glb",
+        "sourceBounds": {
+          "width": 1.0,
+          "depth": 0.1,
+          "height": 1.0,
+          "minZ": 0.0
+        },
+        "meters": {
+          "width": 1.0,
+          "depth": 0.1,
+          "height": 1.0
+        },
+        "boundsMin": [
+          -0.5,
+          -0.05,
+          0.0
+        ],
+        "unitScaleIsOneMeter": true,
+        "triangles": 14,
+        "materials": [
+          "concrete.001",
+          "wall.001",
+          "wall_garage.001"
+        ],
+        "unresolvedTextures": [],
+        "bayFit": {
+          "2m": {
+            "modulesPorCrujia": 2.0,
+            "sobraFaltan": 1.0
+          },
+          "4m": {
+            "modulesPorCrujia": 4.0,
+            "sobraFaltan": 3.0
+          }
+        },
+        "dockFit": {
+          "camionAncho": 2.5,
+          "camionAlto": 2.6,
+          "cubreAnchoDeCaja": false,
+          "cubreAltoDeCaja": false
+        },
+        "placedMin": [
+          -3.425,
+          -0.05,
+          0.0
+        ],
+        "placedSize": [
+          1.0,
+          0.1,
+          1.0
+        ]
+      },
+      {
+        "id": "wall-b-garage",
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/wall-b-garage.glb",
+        "sourceBounds": {
+          "width": 1.0,
+          "depth": 1.0,
+          "height": 1.0,
+          "minZ": 0.0
+        },
+        "meters": {
+          "width": 1.0,
+          "depth": 1.0,
+          "height": 1.0
+        },
+        "boundsMin": [
+          -0.5,
+          -0.5,
+          0.0
+        ],
+        "unitScaleIsOneMeter": true,
+        "triangles": 28,
+        "materials": [
+          "concrete.002",
+          "wall_garage.002",
+          "wall_metal"
+        ],
+        "unresolvedTextures": [],
+        "bayFit": {
+          "2m": {
+            "modulesPorCrujia": 2.0,
+            "sobraFaltan": 1.0
+          },
+          "4m": {
+            "modulesPorCrujia": 4.0,
+            "sobraFaltan": 3.0
+          }
+        },
+        "dockFit": {
+          "camionAncho": 2.5,
+          "camionAlto": 2.6,
+          "cubreAnchoDeCaja": false,
+          "cubreAltoDeCaja": false
+        },
+        "placedMin": [
+          -5.325,
+          -0.5,
+          0.0
+        ],
+        "placedSize": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "wall-b-flat-garage",
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/wall-b-flat-garage.glb",
+        "sourceBounds": {
+          "width": 1.0,
+          "depth": 0.1,
+          "height": 1.0,
+          "minZ": 0.0
+        },
+        "meters": {
+          "width": 1.0,
+          "depth": 0.1,
+          "height": 1.0
+        },
+        "boundsMin": [
+          -0.5,
+          -0.05,
+          0.0
+        ],
+        "unitScaleIsOneMeter": true,
+        "triangles": 14,
+        "materials": [
+          "wall_garage.003",
+          "wall_metal.001"
+        ],
+        "unresolvedTextures": [],
+        "bayFit": {
+          "2m": {
+            "modulesPorCrujia": 2.0,
+            "sobraFaltan": 1.0
+          },
+          "4m": {
+            "modulesPorCrujia": 4.0,
+            "sobraFaltan": 3.0
+          }
+        },
+        "dockFit": {
+          "camionAncho": 2.5,
+          "camionAlto": 2.6,
+          "cubreAnchoDeCaja": false,
+          "cubreAltoDeCaja": false
+        },
+        "placedMin": [
+          -7.225,
+          -0.05,
+          0.0
+        ],
+        "placedSize": [
+          1.0,
+          0.1,
+          1.0
+        ]
+      }
+    ],
+    "references": {
+      "truck": {
+        "width": 2.5,
+        "height": 2.6,
+        "depth": 1.2
+      },
+      "personHeightMeters": 1.75,
+      "bayFrameMeters": 2.0
+    },
+    "baysMeters": [
+      2.0,
+      4.0
+    ],
+    "referenceOrder": [
+      "REF_BAY_2M",
+      "REF_TRUCK",
+      "REF_PERSON",
+      "wall-a-garage",
+      "wall-a-flat-garage",
+      "wall-b-garage",
+      "wall-b-flat-garage"
+    ]
+  },
+  "generated": {
+    "script": "tools/art-pipeline/blender/ext_lab/garage_probe.py"
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 270.0,
+    "elevationDegrees": 30,
+    "orthoScale": 15.317000389099121,
+    "targetZ": 1.45
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1600,
+      1600
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 3.22,
+    "trim": {
+      "rendered": {
+        "width": 1600,
+        "height": 1600
+      },
+      "cropped": {
+        "width": 1512,
+        "height": 306,
+        "offsetX": 44,
+        "offsetY": 657
+      },
+      "final": {
+        "width": 1512,
+        "height": 306
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 120,
+    "meshObjects": 7,
+    "bounds": {
+      "min": [
+        -7.225,
+        -0.6,
+        0.0
+      ],
+      "max": [
+        7.225,
+        0.6,
+        3.0
+      ],
+      "size": [
+        14.45,
+        1.2,
+        3.0
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/warehouse/garage_probe.png",
+    "width": 1512,
+    "height": 306,
+    "sha256": "461e12d31bba469c3111fd426bb10e45e9561af256672ecb208e0d42e8508e76",
+    "bytes": 402240
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --resolution=1600"
+}

@@ -52,6 +52,8 @@ FAMILIES = [
     ("warehouse", "industrial_heavy", {"width": 4, "height": 3}, 1, 1010),
 ]
 ZOOMS = {"0.5x": 2.0, "1x": 1.0}  # evidencia inicial D-111: escalas de gameplay lejano y normal
+# §8.6 pide la ventana de lectura del juego, no un 16:9 cualquiera: 1440×900.
+RENDER_SIZE = (1440, 900)
 
 
 def parse_args():
@@ -138,7 +140,7 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
     # `orthoScale` is the camera's horizontal world width. Sprite jobs use a square
     # canvas, while this street viewport is 16:9; accounting for the aspect ratio
     # prevents tall pilots from being clipped vertically in context captures.
-    context_aspect = 1280 / 720
+    context_aspect = RENDER_SIZE[0] / RENDER_SIZE[1]
     base_scale = round(
         max(
             framing_data["projectedWidthMeters"],
@@ -159,8 +161,7 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
     if profile.id == "material_maquette_buildings_v1":
         scene.eevee.use_raytracing = True
     scene.render.use_persistent_data = True
-    scene.render.resolution_x = 1280
-    scene.render.resolution_y = 720
+    scene.render.resolution_x, scene.render.resolution_y = RENDER_SIZE
     scene.render.resolution_percentage = 100
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGBA"
@@ -183,7 +184,7 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
                 "moodId": active_mood_id(style_layer),
                 "zoom": zoom_label,
                 "orthoScale": round(camera.data.ortho_scale, 3),
-                "resolution": [1280, 720],
+                "resolution": list(RENDER_SIZE),
                 "aspectRatio": round(context_aspect, 5),
                 "image": str(out_path),
                 "materialExperiment": material_experiment,

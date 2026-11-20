@@ -1041,3 +1041,15 @@ semántico hasta tener assets aprobados. Véase D-110.
 ## Spike visual D-111 (2026-11-19)
 
 Se corrigieron las gramáticas piloto del Building Composer y se comparan perfiles `graphic_civic` y PBR con igual semilla y geometría. `row_house` tiene cuatro accesos; `mixed_tenement` exige acceso comercial con toldo; `warehouse` es un solo volumen de bandas con cuatro huecos de carga frontales de 2×3 m. La persiana a escala de camión sigue pendiente. Geometry Nodes mantiene las ocho posiciones medidas, pero no justifica adopción por coste. Kenney Modular Buildings fue evaluado en staging CC0 y no resuelve puertas de carga; Quaternius Ultimate Buildings sigue sin evaluar porque la descarga oficial excedió cuota. Evidencia en `docs/art/material-maquette-spike/`; contexto urbano día/noche y revisión humana completan el gate. No se promueven sprites ni se alteran simulación o saves por D-111.
+
+## Ampliación de fuentes visuales locales (2026-11-20)
+
+Seis packs distintos recibidos en `blender_artist/` fueron trasladados al staging CC0 y registrados
+con hash íntegro de árbol, licencia, URL y clasificación en `world-asset-index.json` (1.941 archivos
+visuales candidatos). Kenney City Kit Roads era un duplicado exacto de los 487 archivos ya presentes.
+Building Kit, Mini Characters, Modular Buildings, Retro Textures Fantasy, Retro Urban Kit y
+Quaternius Ultimate Buildings quedan disponibles para curaduría, sin promoción a runtime y sin
+escala asumida. Retro Urban ofrece una pieza `wall-a-garage` que merece la próxima prueba del
+`warehouse`; Ultimate Buildings requiere conservar evidencia de CC0 específica antes de cualquier
+promoción por la discrepancia con la página general QAL actual. Véase
+`docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.

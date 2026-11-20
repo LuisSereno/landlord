@@ -1,5 +1,12 @@
 # World Asset Coverage (V.h.12 · §27)
 
+> La tabla de V.h.12 inferior conserva la foto del 2026-11-06. El índice regenerado el 2026-11-20
+> tiene **6.511 recursos clasificados y 217 runtime-ready**. De ellos, 1.941 recursos proceden de
+> [seis packs recién registrados](../art/NEW-SOURCE-PACKS-2026-11-20.md) y ninguno está promovido.
+> El aumento de 198 a 217 runtime-ready procede de jobs anteriores ya existentes que el índice
+> antiguo no había reflejado. `world-asset-index.json` y sus subcatálogos son la fuente actual para
+> consultas y nuevas selecciones.
+
 Cobertura del World Asset Knowledge Base sobre `world-asset-index.json` (4554 assets, 17 fuentes).
 `Used by world` = assets con pipeline/runtime ID reales (catálogo de módulos u horneados en el atlas
 `runtime-assets-blender.json`); es el subconjunto que la presentación consume de verdad.

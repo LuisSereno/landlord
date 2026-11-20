@@ -52,3 +52,9 @@ instalar herramientas que no mejoren el resultado.
 Los efectos Phaser quedan para una fase posterior: sólo se prueban cuando la composición y el
 tratamiento de Blender superan estos pilotos; siguen siendo experimentales y no se activan en runtime
 por esta decisión.
+
+Actualización de fuentes (2026-11-20): cinco packs nuevos de Kenney y Quaternius Ultimate Buildings
+se registraron en staging e índice global como candidatos, sin promoción automática. Retro Urban Kit
+aporta una posible pieza de garaje para el piloto `warehouse`. La licencia específica CC0 de Ultimate
+Buildings requiere evidencia conservada antes de promoción por discrepancia con la página general
+QAL actual. Registro: `docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.

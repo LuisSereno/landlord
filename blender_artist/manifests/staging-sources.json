@@ -451,6 +451,126 @@
       "sourceUrl": "tools/art-pipeline/blender/create_original_flagpole.py",
       "unitScale": 1,
       "extractDir": null
+    },
+    {
+      "id": "src_kenney_building_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit",
+      "sha256": "43ff0da1574673e562a16817850a6359d01f31d6c65608059ad9ac84a47eba61",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+      "sourceUrl": "https://kenney.nl/assets/building-kit",
+      "version": "1.0",
+      "unitScale": null,
+      "extractDir": "kenney/building-kit",
+      "integrity": {
+        "type": "tree-sha256",
+        "fileCount": 407,
+        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+      },
+      "registeredAt": "2026-11-20",
+      "downloadedAt": null
+    },
+    {
+      "id": "src_kenney_mini_characters",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters",
+      "sha256": "335cec4dd9f007bbfadb1fe2f82b1c45f1683cffa1a49ebc8bc48568b5ece708",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+      "sourceUrl": "https://kenney.nl/assets/mini-characters",
+      "version": "2.0",
+      "unitScale": null,
+      "extractDir": "kenney/mini-characters",
+      "integrity": {
+        "type": "tree-sha256",
+        "fileCount": 224,
+        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+      },
+      "registeredAt": "2026-11-20",
+      "downloadedAt": null
+    },
+    {
+      "id": "src_kenney_modular_buildings",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/modular-buildings",
+      "sha256": "54cc58c0061ad45caed4a1357efcefec30cc4d08b266441f76afd0303b6039dc",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+      "sourceUrl": "https://kenney.nl/assets/modular-buildings",
+      "version": "2.1",
+      "unitScale": null,
+      "extractDir": "kenney/modular-buildings",
+      "integrity": {
+        "type": "tree-sha256",
+        "fileCount": 554,
+        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+      },
+      "archive": {
+        "path": "blender_artist/staging/third_party/cc0/downloads/kenney-modular-buildings/kenney_modular-buildings.zip",
+        "sha256": "47e1614686b4c0fe55190e88b22ff2b8b10935edf61f37f478a9b6a99477edc6",
+        "contentsMatchTree": true
+      },
+      "registeredAt": "2026-11-20",
+      "downloadedAt": null
+    },
+    {
+      "id": "src_kenney_retro_textures_fantasy",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy",
+      "sha256": "5490ff72a070d40aead1e61a4083b76adef3d4015323a4d9b60287b2000bc010",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+      "sourceUrl": "https://kenney.nl/assets/retro-textures-fantasy",
+      "version": "1.0",
+      "unitScale": null,
+      "extractDir": "kenney/retro-textures-fantasy",
+      "integrity": {
+        "type": "tree-sha256",
+        "fileCount": 122,
+        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+      },
+      "registeredAt": "2026-11-20",
+      "downloadedAt": null
+    },
+    {
+      "id": "src_kenney_retro_urban_kit",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit",
+      "sha256": "2730682cc922ef50af354ca9024d6aa40c0e35f615c1cfe24c584178a1d2913c",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+      "sourceUrl": "https://kenney.nl/assets/retro-urban-kit",
+      "version": "2.0",
+      "unitScale": null,
+      "extractDir": "kenney/retro-urban-kit",
+      "integrity": {
+        "type": "tree-sha256",
+        "fileCount": 693,
+        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+      },
+      "registeredAt": "2026-11-20",
+      "downloadedAt": null
+    },
+    {
+      "id": "src_quaternius_ultimate_buildings",
+      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings",
+      "sha256": "ef20dc675200e1cf3dec1bac082c4268e4877ba69d2245ec56aeccdaf89d8d64",
+      "origin": "licensed",
+      "license": "CC0-1.0",
+      "verification": "Pack-specific official page and Quaternius FAQ label this December 2019 release CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+      "sourceUrl": "https://quaternius.com/packs/ultimatetexturedbuildings.html",
+      "version": "2019",
+      "unitScale": null,
+      "extractDir": "quaternius/ultimate-buildings",
+      "integrity": {
+        "type": "tree-sha256",
+        "fileCount": 420,
+        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+      },
+      "registeredAt": "2026-11-20",
+      "downloadedAt": null,
+      "promotionGate": "pack-specific-cc0-evidence"
     }
   ],
   "quarantined": [

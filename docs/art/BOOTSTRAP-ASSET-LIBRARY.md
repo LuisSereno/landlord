@@ -178,6 +178,11 @@ Uso:
 Estado de licencia general de los game assets de Kenney:
 - CC0.
 
+Los packs recibidos después del bootstrap inicial (Building Kit, Mini Characters, Modular Buildings,
+Retro Textures Fantasy, Retro Urban Kit y Ultimate Buildings de Quaternius) y la copia duplicada de
+City Kit Roads se concilian en [Paquetes visuales 2026-11-20](NEW-SOURCE-PACKS-2026-11-20.md).
+Su presencia en staging e índice no implica aprobación de escala, estilo ni promoción a runtime.
+
 ### Poly Haven — fuentes 4K, derivados objetivo 2K
 
 El staging local verificado contiene fuentes `.blend.zip` 4K. El pipeline debe generar derivados

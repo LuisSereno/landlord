@@ -12,6 +12,7 @@ Esta carpeta contiene la especificación artística y la ingeniería de contenid
 - [WP2-14-CODEX-RUNBOOK.md](WP2-14-CODEX-RUNBOOK.md) — ejecución paso a paso con GPT-5.6 Sol High y checkpoints obligatorios Extra High.
 - [OPEN-DECISIONS.md](OPEN-DECISIONS.md) — matriz de parámetros todavía abiertos.
 - [BOOTSTRAP-ASSET-LIBRARY.md](BOOTSTRAP-ASSET-LIBRARY.md) — librería CC0 ya descargada, estrategia coste ~0, Building/Character Factory y reglas de staging.
+- [NEW-SOURCE-PACKS-2026-11-20.md](NEW-SOURCE-PACKS-2026-11-20.md) — paquetes nuevos conciliados con fuentes previas, licencia, inventario y selección futura.
 - [ASSET-NAMING.md](ASSET-NAMING.md) — referencia rápida de naming, anchors y atlases.
 - [PERFORMANCE-BUDGET.md](PERFORMANCE-BUDGET.md) — budgets preliminares.
 - [ASSET-CHECKLIST.md](ASSET-CHECKLIST.md) — Definition of Done.

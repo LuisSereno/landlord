@@ -56,6 +56,14 @@ Ya descargados localmente por el propietario:
 
 No asumir que esos binarios están en Git.
 
+El 2026-11-20 se registraron en staging local cinco packs nuevos de Kenney (Building Kit, Mini
+Characters, Modular Buildings, Retro Textures Fantasy y Retro Urban Kit) y Quaternius Ultimate
+Buildings. La segunda copia recibida de City Kit Roads coincide en 487/487 archivos con la fuente
+ya registrada. Los seis packs nuevos están clasificados en `world-asset-index.json` como candidatos,
+sin `runtimeReady` ni compatibilidad artística aprobada; escala y pivote requieren medición antes
+de entrar en Composer o el render del mundo. Ficha y matices de licencia en
+`docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.
+
 ## Lectura obligatoria
 
 1. `docs/art/README.md`

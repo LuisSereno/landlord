@@ -75,6 +75,11 @@ Kenney confirma que ese pack no resuelve esa carencia; Quaternius permanece cand
 Los materiales y las recetas permanecen en el pipeline de evidencia, sin promoción al catálogo de
 runtime.
 
+Actualización 2026-11-20: Ultimate Buildings y Retro Urban Kit llegaron después de estas pruebas.
+Ambos están inventariados como candidatos en el [registro de nuevos packs](../NEW-SOURCE-PACKS-2026-11-20.md);
+la pieza de garaje de Retro Urban es una siguiente prueba concreta. El resultado histórico de la
+descarga de Ultimate no cambia, pero el pack ya está disponible localmente para evaluación.
+
 Las capturas HUD/terreno están separadas de las capturas calle/pilotos: todavía falta combinarlas en
 una ciudad poblada. La aprobación visual humana también sigue pendiente.
 

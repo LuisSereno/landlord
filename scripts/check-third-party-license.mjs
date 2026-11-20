@@ -78,6 +78,9 @@ function checkProvenance(provenance, where) {
         `${where}: declara ${license} pero la fuente ${sourceId} está registrada como ${source.license}`,
       );
     }
+    if (source.promotionGate) {
+      errors.push(`${where}: fuente ${sourceId} pendiente de ${source.promotionGate}`);
+    }
   }
 
   if (needsAttribution.has(license)) {

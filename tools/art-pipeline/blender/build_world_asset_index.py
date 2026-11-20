@@ -45,6 +45,8 @@ def source_id_for(relpath):
         return "src_polyhaven_materials"
     if p.startswith("cc0/extracted/quaternius/downtown-city-megakit"):
         return "src_quaternius_downtown_city_megakit"
+    if p.startswith("cc0/extracted/quaternius/ultimate-buildings/"):
+        return "src_quaternius_ultimate_buildings"
     if p.startswith("cc0/extracted/quaternius/base-characters"):
         return "src_quaternius_base_characters"
     if p.startswith("cc0/extracted/quaternius/animation-library-2"):
@@ -55,6 +57,15 @@ def source_id_for(relpath):
         return "src_kaykit_city_builder_bits"
     if p.startswith("cc0/extracted/kenney/car-kit"):
         return "src_kenney_car_kit"
+    for pack, source_id in (
+        ("building-kit", "src_kenney_building_kit"),
+        ("mini-characters", "src_kenney_mini_characters"),
+        ("modular-buildings", "src_kenney_modular_buildings"),
+        ("retro-textures-fantasy", "src_kenney_retro_textures_fantasy"),
+        ("retro-urban-kit", "src_kenney_retro_urban_kit"),
+    ):
+        if p.startswith(f"cc0/extracted/kenney/{pack}/"):
+            return source_id
     if p.startswith("cc0/extracted/kenney/city-kit-commercial"):
         return "src_kenney_city_commercial"
     if p.startswith("cc0/extracted/kenney/city-kit-industrial"):
@@ -73,6 +84,14 @@ LICENSE_BY_SOURCE = {
     "src_original_civic_pediment": "original",
 }
 DEFAULT_LICENSE = "CC0-1.0"
+NEW_CANDIDATE_SOURCES = {
+    "src_kenney_building_kit",
+    "src_kenney_mini_characters",
+    "src_kenney_modular_buildings",
+    "src_kenney_retro_textures_fantasy",
+    "src_kenney_retro_urban_kit",
+    "src_quaternius_ultimate_buildings",
+}
 
 
 def classify(relpath, filename):
@@ -88,6 +107,34 @@ def classify(relpath, filename):
         return "actor", ["humanoid"], ["street", "plaza", "interior"]
     if p.startswith("cc0/extracted/kenney/car-kit"):
         return _vehicle_class(n)
+    if p.startswith("cc0/extracted/kenney/mini-characters/"):
+        if n.startswith("character-"):
+            if any(token in n for token in ("alien", "zombie", "knight", "raider", "soldier")):
+                return "actor", ["off_period_character"], ["none"]
+            return "actor", ["humanoid", "animated_character"], ["street", "plaza"]
+        if n.startswith(("wheelchair", "aid-", "item-")):
+            return "urban_prop", ["accessibility_or_personal_prop"], ["street", "plaza"]
+        return "urban_prop", ["off_period_prop"], ["none"]
+    if p.startswith("cc0/extracted/kenney/retro-urban-kit/"):
+        if n.startswith("road-"):
+            return _roads_class(n)
+        if n.startswith("truck-"):
+            return _vehicle_class(n)
+        if n.startswith(("tree-", "grass-", "rock-")):
+            return _nature_class(n)
+        if n.startswith(("scaffolding", "detail-", "fence-", "wall-fence")):
+            return "urban_prop", ["street_or_construction_prop"], ["street", "construction_site"]
+        return _megakit_class(n)
+    if p.startswith("cc0/extracted/kenney/building-kit/"):
+        return _megakit_class(n)
+    if p.startswith("cc0/extracted/kenney/modular-buildings/"):
+        if "building-sample" in n:
+            return "building_mass", ["sample_building", "reference_only"], ["building"]
+        return _megakit_class(n)
+    if p.startswith("cc0/extracted/quaternius/ultimate-buildings/"):
+        if "/base modular parts/" in p:
+            return _megakit_class(n)
+        return "building_mass", ["modular_building_reference"], ["building"]
     if p.startswith("cc0/extracted/kenney/nature-kit"):
         return _nature_class(n)
     if p.startswith("cc0/extracted/kenney/city-kit-roads"):
@@ -196,6 +243,10 @@ def actor_class_of(n, source_id):
     """actorClass del contrato §16; None para piezas de customización no colocables."""
     if source_id == "src_quaternius_base_characters" or is_actor_part(n):
         return None
+    if source_id == "src_kenney_mini_characters":
+        if not n.startswith("character-") or any(token in n for token in ("alien", "zombie", "knight", "raider", "soldier")):
+            return None
+        return "worker" if "worker" in n else "civilian"
     # Override curado: los avatares Rocketbox concretos horneados como profesionales (V.h.11).
     # El filename de Rocketbox es demográfico, no de profesión; la clase se asigna por avatar.
     override = ROCKETBOX_ACTOR_CLASS.get(n.lower().split(".")[0])
@@ -400,7 +451,10 @@ def main():
                 else:
                     placeable = None
 
-            asset_id = f"wa_{source_id.replace('src_', '')}_{re.sub(r'[^a-z0-9]+', '_', os.path.splitext(fn)[0].lower()).strip('_')}"
+            # En los packs nuevos hay FBX/OBJ/GLB del mismo modelo. La ruta completa evita que
+            # su ID dependa del orden os.walk y del sufijo incremental asignado al formato.
+            asset_key = staging_rel if source_id in NEW_CANDIDATE_SOURCES else os.path.splitext(fn)[0]
+            asset_id = f"wa_{source_id.replace('src_', '')}_{re.sub(r'[^a-z0-9]+', '_', asset_key.lower()).strip('_')}"
             base_id = asset_id
             counter = 1
             while asset_id in seen_ids:
@@ -419,7 +473,8 @@ def main():
                 "dimensions": dims,
                 "triangleCount": tris,
                 "modularity": "modular" if category == "architecture" else "whole_asset",
-                "styleCompatibility": ["graphic_civic"],
+                # Nuevas fuentes: clasificados y localizables, pero pendientes de curaduría visual.
+                "styleCompatibility": [] if source_id in NEW_CANDIDATE_SOURCES else ["graphic_civic"],
                 "recommendedUses": contexts,
                 "runtimeLayer": "blender_sprite" if runtime_ready else "none",
                 "qualityTier": "measured" if dims else "unmeasured",
@@ -446,6 +501,10 @@ def main():
             "name": name,
             "reason": "autorizado CC0 por el responsable pero el archivo no está en staging; sin path/hash no hay registro válido (provenance fail-closed). Permanece en cuarentena hasta adquirirse.",
         })
+
+    # Conservar el orden de IDs ya publicado; los packs recién ingresados se anexan al índice.
+    # Los IDs nuevos incorporan su ruta y no dependen del orden de os.walk.
+    assets.sort(key=lambda asset: asset["sourceId"] in NEW_CANDIDATE_SOURCES)
 
     index = {
         "schemaVersion": 1,

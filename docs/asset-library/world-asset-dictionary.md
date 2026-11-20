@@ -63,3 +63,9 @@ Todo asset declara `sourceId`, `sourcePath` y `license` (CC0-1.0 por defecto; MI
 `original` para obra del proyecto). Los 10 zips autorizados CC0 pero **no adquiridos** no se
 registran como activos (sin path/hash no hay registro válido): permanecen en cuarentena y se
 listan en `world-asset-audit.md` como "autorizados pero no adquiridos".
+
+Desde el 2026-11-20 hay seis packs adicionales en el índice como candidatos con
+`styleCompatibility: []` y `runtimeReady: false`. Los archivos y la licencia de cada fuente
+están descritos en [el registro de paquetes nuevos](../art/NEW-SOURCE-PACKS-2026-11-20.md).
+Las fuentes recibidas como carpetas usan integridad `tree-sha256`; una segunda copia idéntica de
+Kenney City Kit Roads queda fuera del índice para no duplicar vocabulario.

@@ -38,6 +38,17 @@ function hash(file) {
 function categoryFor(file, sourceId) {
   const value = relative(file).toLowerCase();
   const tokenized = value.replaceAll("/", "_");
+  if (
+    sourceId === "src_kenney_building_kit" ||
+    sourceId === "src_kenney_modular_buildings" ||
+    sourceId === "src_quaternius_ultimate_buildings"
+  )
+    return "architecture";
+  if (sourceId === "src_kenney_retro_urban_kit") {
+    if (/\/truck-/u.test(value)) return "vehicles";
+    if (/\/road-/u.test(value)) return "terrain";
+    if (/\/(?:wall|roof|window|door|balcony)-/u.test(value)) return "architecture";
+  }
   if (/avatar|character|people|human|animation|walk|idle/.test(value)) return "characters";
   if (/(?:^|[_-])(car|vehicle|truck|taxi|sedan|van)(?:[_-]|\.|$)/.test(tokenized))
     return "vehicles";

@@ -46,6 +46,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - art/VISUAL-DIRECTION-SPIKE.md — experimento que debe validar la dirección antes de producción masiva.
 - art/OPEN-DECISIONS.md — matriz de decisiones artísticas todavía no ratificadas.
 - art/BOOTSTRAP-ASSET-LIBRARY.md — librería CC0 descargada, estrategia coste ~0, Building/Character Factory y reglas de staging.
+- [Paquetes visuales recibidos en noviembre de 2026](art/NEW-SOURCE-PACKS-2026-11-20.md) — conciliación con fuentes existentes, licencias, inventario y criterios para usar los seis packs nuevos en el mundo.
 - [Visual asset purchase decision](art/VISUAL-ASSET-PURCHASE-DECISION.md) — cierre V.e: no se requiere compra.
 
 ## Planificación

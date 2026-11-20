@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import { access, readdir, readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const manifestUrl = new URL("../blender_artist/manifests/staging-sources.json", import.meta.url);
 const allowlistUrl = new URL("../blender_artist/manifests/license-allowlist.json", import.meta.url);
@@ -27,6 +29,36 @@ async function sha256Of(url) {
   return createHash("sha256")
     .update(await readFile(url))
     .digest("hex");
+}
+
+// Para packs recibidos como carpeta, fija el contenido completo sin fabricar un hash de ZIP.
+// Cada entrada aporta ruta relativa POSIX y hash de bytes; el orden queda estable entre SO.
+async function sha256OfTree(rootUrl) {
+  const root = fileURLToPath(rootUrl);
+  const files = [];
+  async function visit(directory, prefix = "") {
+    for (const entry of await readdir(directory, { withFileTypes: true })) {
+      const relative = `${prefix}${entry.name}`;
+      const full = join(directory, entry.name);
+      if (entry.isDirectory()) await visit(full, `${relative}/`);
+      else if (entry.isFile()) files.push([relative, full]);
+      else throw new Error(`Tipo de entrada no admitido: ${relative}`);
+    }
+  }
+  await visit(root);
+  files.sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
+  const tree = createHash("sha256");
+  for (const [relative, full] of files) {
+    tree.update(relative);
+    tree.update("\0");
+    tree.update(
+      createHash("sha256")
+        .update(await readFile(full))
+        .digest(),
+    );
+    tree.update("\n");
+  }
+  return { sha256: tree.digest("hex"), fileCount: files.length };
 }
 
 for (const source of manifest.sources) {
@@ -80,7 +112,22 @@ for (const source of manifest.sources) {
   // Tres anclas de integridad: el ZIP físico (D-054), el commit de origen más el hash del aviso de
   // licencia para fuentes clonadas sin archivo, y `archived` cuando el archivo ya no se retiene.
   const integrity = source.integrity ?? { type: "zip-sha256" };
-  if (integrity.type === "git-commit") {
+  if (integrity.type === "tree-sha256") {
+    const expectedPath = `${CC0_EXTRACTED_PREFIX}${source.extractDir}`;
+    if (!source.extractDir || source.path !== expectedPath) {
+      errors.push(`Árbol extraído fuera de su ruta canónica: ${source.id}`);
+    } else {
+      try {
+        const actual = await sha256OfTree(new URL(`../${source.path}/`, import.meta.url));
+        if (actual.fileCount === 0 || actual.fileCount !== integrity.fileCount) {
+          errors.push(`Tree file count mismatch: ${source.id}`);
+        }
+        if (actual.sha256 !== source.sha256) errors.push(`Tree checksum mismatch: ${source.id}`);
+      } catch (error) {
+        errors.push(`Cannot validate source tree ${source.id}: ${error.message}`);
+      }
+    }
+  } else if (integrity.type === "git-commit") {
     if (!/^[0-9a-f]{40}$/.test(integrity.commit ?? "")) {
       errors.push(`Integridad git-commit sin commit válido: ${source.id}`);
     }

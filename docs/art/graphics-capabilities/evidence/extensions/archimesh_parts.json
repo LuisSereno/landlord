@@ -1,0 +1,627 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "Archimesh vs Quaternius vs Kenney - puerta, ventana con alfeizar y cubierta a escala real",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "zip": "archimesh.zip",
+    "version": "1.2.5",
+    "license": "SPDX:GPL-2.0-or-later",
+    "registry_id": "archimesh",
+    "registry_url": "https://extensions.blender.org/add-ons/archimesh/",
+    "upstream_url": "https://projects.blender.org/extensions/archimesh",
+    "archive_sha256": "44745a86dd472e296e06cd45c511e002a1105512a73009cb0018c87611d18d87",
+    "archive_url": "https://extensions.blender.org/download/sha256:44745a86dd472e296e06cd45c511e002a1105512a73009cb0018c87611d18d87/add-on-archimesh-v1.2.5.zip",
+    "maintainer": "Community (Antonio Vazquez)",
+    "blender_version_min": "4.2.0",
+    "registryId": "archimesh",
+    "moduleId": "bl_ext.user_default.archimesh",
+    "mood": "day_civic",
+    "headless": true,
+    "invocation": "bpy.ops.mesh.archimesh_door()/archimesh_window() + Object.DoorObjectGenerator[0] / Object.WindowObjectGenerator[0] (el operador no expone props) + bpy.ops.mesh.archimesh_roof(model, roof_width, roof_height, roof_scale, roof_thick, roof_angle, crt_mat)",
+    "generatorCalls": 3,
+    "bundledInBlender": false
+  },
+  "generated": {
+    "grid": {
+      "columns": [
+        "archimesh",
+        "quaternius",
+        "kenney"
+      ],
+      "rows": [
+        "door",
+        "window",
+        "roof"
+      ],
+      "cellSpacingMeters": 6.0
+    },
+    "cells": [
+      {
+        "element": "mesh.archimesh_door",
+        "root": "DoorFrame",
+        "objects": [
+          "CTRL_Baseboard",
+          "CTRL_Hole",
+          "Door",
+          "DoorFrame",
+          "Door_Group",
+          "Handle_Back",
+          "Handle_Front"
+        ],
+        "autoholeControls": [
+          "CTRL_Baseboard",
+          "CTRL_Hole"
+        ],
+        "properties": {
+          "crt_mat": false,
+          "model": "2",
+          "openside": "1",
+          "factor": 0.5,
+          "frame_width": 1.1,
+          "frame_height": 2.2,
+          "frame_thick": 0.14,
+          "frame_size": 0.14,
+          "r": 0.0
+        },
+        "operator": "mesh.archimesh_door",
+        "column": "archimesh",
+        "row": "door",
+        "boundsMeters": {
+          "min": [
+            -6.55,
+            -6.102,
+            0.12
+          ],
+          "max": [
+            -5.45,
+            -5.898,
+            2.32
+          ],
+          "size": [
+            1.1,
+            0.205,
+            2.2
+          ]
+        },
+        "triangles": 763,
+        "meshObjects": 4,
+        "controller": "CELL_archimesh_door"
+      },
+      {
+        "element": "door",
+        "root": "CC0_ROOT_quaternius_door",
+        "objects": [
+          "CC0_ROOT_quaternius_door",
+          "DoorFrame_Trim"
+        ],
+        "source": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Trim.gltf",
+        "moduleId": "mod_megakit_doorframe_trim",
+        "unitScale": 1,
+        "normalization": {
+          "sourceBounds": {
+            "width": 2.0,
+            "depth": 0.2256,
+            "height": 3.0,
+            "minZ": 0.0
+          },
+          "importScale": 1,
+          "importOffset": [
+            -0.0,
+            -0.1128,
+            -0.0
+          ],
+          "hierarchy": {
+            "armatures": [],
+            "skinnedMeshes": 0
+          },
+          "normalizedSize": {
+            "width": 2.0,
+            "depth": 0.2256,
+            "height": 3.0
+          },
+          "unresolvedTextures": []
+        },
+        "note": "marco de puerta con moldura; el MegaKit no trae hoja con marco propio de 1 m",
+        "column": "quaternius",
+        "row": "door",
+        "boundsMeters": {
+          "min": [
+            -1.0,
+            -6.113,
+            0.12
+          ],
+          "max": [
+            1.0,
+            -5.887,
+            3.12
+          ],
+          "size": [
+            2.0,
+            0.226,
+            3.0
+          ]
+        },
+        "triangles": 860,
+        "meshObjects": 1,
+        "controller": "CELL_quaternius_door"
+      },
+      {
+        "element": "door",
+        "root": "CC0_ROOT_kenney_door",
+        "objects": [
+          "CC0_ROOT_kenney_door",
+          "door-type-a"
+        ],
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/door-type-a.glb",
+        "moduleId": "mod_kenney_retro_door_a",
+        "unitScale": 1,
+        "normalization": {
+          "sourceBounds": {
+            "width": 0.3978,
+            "depth": 0.05,
+            "height": 0.6278,
+            "minZ": 0.0
+          },
+          "importScale": 1,
+          "importOffset": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "hierarchy": {
+            "armatures": [],
+            "skinnedMeshes": 0
+          },
+          "normalizedSize": {
+            "width": 0.3978,
+            "depth": 0.05,
+            "height": 0.6278
+          },
+          "unresolvedTextures": []
+        },
+        "note": "el unitScale del Retro Urban Kit sigue sin resolver en el repo; se mide aqui",
+        "column": "kenney",
+        "row": "door",
+        "boundsMeters": {
+          "min": [
+            5.801,
+            -6.025,
+            0.12
+          ],
+          "max": [
+            6.199,
+            -5.975,
+            0.748
+          ],
+          "size": [
+            0.398,
+            0.05,
+            0.628
+          ]
+        },
+        "triangles": 26,
+        "meshObjects": 1,
+        "controller": "CELL_kenney_door"
+      },
+      {
+        "element": "mesh.archimesh_window",
+        "root": "WindowFrame",
+        "objects": [
+          "CTRL_Hole.001",
+          "Handle",
+          "Handle.001",
+          "Window.L",
+          "Window.R",
+          "WindowFrame",
+          "Window_Group",
+          "Windows_Sill"
+        ],
+        "autoholeControls": [
+          "CTRL_Hole.001"
+        ],
+        "properties": {
+          "crt_mat": false,
+          "opentype": "1",
+          "width": 1.4,
+          "height": 1.4,
+          "depth": 0.12,
+          "external": true,
+          "frame": 0.09,
+          "frame_L": 0.09,
+          "wf": 0.07,
+          "leafratio": 0.5,
+          "handle": true,
+          "sill": true,
+          "sill_thickness": 0.06,
+          "sill_front": 0.16,
+          "sill_back": 0.06,
+          "blind": false,
+          "r": 0.0
+        },
+        "operator": "mesh.archimesh_window",
+        "column": "archimesh",
+        "row": "window",
+        "boundsMeters": {
+          "min": [
+            -6.79,
+            -0.17,
+            0.12
+          ],
+          "max": [
+            -5.21,
+            0.17,
+            1.7
+          ],
+          "size": [
+            1.58,
+            0.34,
+            1.58
+          ]
+        },
+        "triangles": 1488,
+        "meshObjects": 6,
+        "controller": "CELL_archimesh_window"
+      },
+      {
+        "element": "window",
+        "root": "CC0_ROOT_quaternius_window",
+        "objects": [
+          "Brick_Window_Trim_Single",
+          "CC0_ROOT_quaternius_window"
+        ],
+        "source": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Window_Trim_Single.gltf",
+        "moduleId": "mod_megakit_brick_window_trim_2m",
+        "unitScale": 1,
+        "normalization": {
+          "sourceBounds": {
+            "width": 2.0,
+            "depth": 0.2769,
+            "height": 3.0,
+            "minZ": 0.0
+          },
+          "importScale": 1,
+          "importOffset": [
+            -0.0,
+            -0.0941,
+            -0.0
+          ],
+          "hierarchy": {
+            "armatures": [],
+            "skinnedMeshes": 0
+          },
+          "normalizedSize": {
+            "width": 2.0,
+            "depth": 0.2769,
+            "height": 3.0
+          },
+          "unresolvedTextures": []
+        },
+        "note": "ventana de 2 m con trim perimetral",
+        "column": "quaternius",
+        "row": "window",
+        "boundsMeters": {
+          "min": [
+            -1.0,
+            -0.138,
+            0.12
+          ],
+          "max": [
+            1.0,
+            0.138,
+            3.12
+          ],
+          "size": [
+            2.0,
+            0.277,
+            3.0
+          ]
+        },
+        "triangles": 426,
+        "meshObjects": 1,
+        "controller": "CELL_quaternius_window"
+      },
+      {
+        "element": "window",
+        "root": "CC0_ROOT_kenney_window",
+        "objects": [
+          "CC0_ROOT_kenney_window",
+          "window-wide-type-a"
+        ],
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/window-wide-type-a.glb",
+        "moduleId": "mod_kenney_retro_window_wide_a",
+        "unitScale": 1,
+        "normalization": {
+          "sourceBounds": {
+            "width": 0.5978,
+            "depth": 0.05,
+            "height": 0.5978,
+            "minZ": 0.0
+          },
+          "importScale": 1,
+          "importOffset": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "hierarchy": {
+            "armatures": [],
+            "skinnedMeshes": 0
+          },
+          "normalizedSize": {
+            "width": 0.5978,
+            "depth": 0.05,
+            "height": 0.5978
+          },
+          "unresolvedTextures": []
+        },
+        "note": "idem",
+        "column": "kenney",
+        "row": "window",
+        "boundsMeters": {
+          "min": [
+            5.701,
+            -0.025,
+            0.12
+          ],
+          "max": [
+            6.299,
+            0.025,
+            0.718
+          ],
+          "size": [
+            0.598,
+            0.05,
+            0.598
+          ]
+        },
+        "triangles": 36,
+        "meshObjects": 1,
+        "controller": "CELL_kenney_window"
+      },
+      {
+        "element": "roof",
+        "root": "Roof",
+        "objects": [
+          "Roof"
+        ],
+        "properties": {
+          "model": "3",
+          "roof_width": 11,
+          "roof_height": 6,
+          "roof_scale": 1.0,
+          "roof_thick": 0.02,
+          "roof_angle": 22.0,
+          "crt_mat": false
+        },
+        "operator": "mesh.archimesh_roof (esta YES expone propiedades de operador)",
+        "column": "archimesh",
+        "row": "roof",
+        "boundsMeters": {
+          "min": [
+            -7.051,
+            4.751,
+            0.12
+          ],
+          "max": [
+            -4.949,
+            7.249,
+            1.198
+          ],
+          "size": [
+            2.102,
+            2.498,
+            1.078
+          ]
+        },
+        "triangles": 82,
+        "meshObjects": 1,
+        "controller": "CELL_archimesh_roof"
+      },
+      {
+        "element": "roof",
+        "root": "CC0_ROOT_quaternius_roof",
+        "objects": [
+          "CC0_ROOT_quaternius_roof",
+          "Roof_Slate_Center"
+        ],
+        "source": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_Slate_Center.gltf",
+        "moduleId": "mod_megakit_roof_slate_center_2m",
+        "unitScale": 1,
+        "normalization": {
+          "sourceBounds": {
+            "width": 2.0,
+            "depth": 2.0,
+            "height": 3.0,
+            "minZ": 0.0
+          },
+          "importScale": 1,
+          "importOffset": [
+            -0.0,
+            -1.0,
+            -0.0
+          ],
+          "hierarchy": {
+            "armatures": [],
+            "skinnedMeshes": 0
+          },
+          "normalizedSize": {
+            "width": 2.0,
+            "depth": 2.0,
+            "height": 3.0
+          },
+          "unresolvedTextures": []
+        },
+        "note": "tramo central de pizarra, modulo de 2 m",
+        "column": "quaternius",
+        "row": "roof",
+        "boundsMeters": {
+          "min": [
+            -1.0,
+            5.0,
+            0.12
+          ],
+          "max": [
+            1.0,
+            7.0,
+            3.12
+          ],
+          "size": [
+            2.0,
+            2.0,
+            3.0
+          ]
+        },
+        "triangles": 6,
+        "meshObjects": 1,
+        "controller": "CELL_quaternius_roof"
+      },
+      {
+        "element": "roof",
+        "root": "CC0_ROOT_kenney_roof",
+        "objects": [
+          "CC0_ROOT_kenney_roof",
+          "roof-metal-type-a"
+        ],
+        "source": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/roof-metal-type-a.glb",
+        "moduleId": "mod_kenney_retro_roof_metal_a",
+        "unitScale": 1,
+        "normalization": {
+          "sourceBounds": {
+            "width": 1.1372,
+            "depth": 1.0,
+            "height": 0.5,
+            "minZ": 0.0
+          },
+          "importScale": 1,
+          "importOffset": [
+            -0.0,
+            -0.0,
+            -0.0
+          ],
+          "hierarchy": {
+            "armatures": [],
+            "skinnedMeshes": 0
+          },
+          "normalizedSize": {
+            "width": 1.1372,
+            "depth": 1.0,
+            "height": 0.5
+          },
+          "unresolvedTextures": []
+        },
+        "note": "idem",
+        "column": "kenney",
+        "row": "roof",
+        "boundsMeters": {
+          "min": [
+            5.431,
+            5.5,
+            0.12
+          ],
+          "max": [
+            6.569,
+            6.5,
+            0.62
+          ],
+          "size": [
+            1.137,
+            1.0,
+            0.5
+          ]
+        },
+        "triangles": 36,
+        "meshObjects": 1,
+        "controller": "CELL_kenney_roof"
+      }
+    ],
+    "note": "Los tres componentes de Archimesh se pintan con la paleta mate del laboratorio para que la imagen compare geometria; los modulos CC0 conservan sus materiales propios porque asi es como entran hoy en el pipeline. Cada celda esta a escala real (1 BU = 1 m) sobre un pad de 5 x 5 m."
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 45.0,
+    "elevationDegrees": 30,
+    "orthoScale": 23.0,
+    "targetZ": 1.9
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 5.27,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 1024,
+        "height": 545,
+        "offsetX": 0,
+        "offsetY": 308
+      },
+      "final": {
+        "width": 1024,
+        "height": 545
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 244373,
+    "meshObjects": 26,
+    "bounds": {
+      "min": [
+        -8.5,
+        -8.5,
+        0.0
+      ],
+      "max": [
+        8.5,
+        8.5,
+        3.12
+      ],
+      "size": [
+        17.0,
+        17.0,
+        3.12
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/extensions/archimesh_parts.png",
+    "width": 1024,
+    "height": 545,
+    "sha256": "afe737bad0a97608580379d4d9f3daf118e335e52e70e46966330f9dc90df127",
+    "bytes": 497675
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --output docs/art/graphics-capabilities/evidence/extensions/archimesh_parts.png --metadata docs/art/graphics-capabilities/evidence/extensions/archimesh_parts.json --mood day_civic"
+}

@@ -60,8 +60,11 @@ El 2026-11-20 se registraron en staging local cinco packs nuevos de Kenney (Buil
 Characters, Modular Buildings, Retro Textures Fantasy y Retro Urban Kit) y Quaternius Ultimate
 Buildings. La segunda copia recibida de City Kit Roads coincide en 487/487 archivos con la fuente
 ya registrada. Los seis packs nuevos están clasificados en `world-asset-index.json` como candidatos,
-sin `runtimeReady` ni compatibilidad artística aprobada; escala y pivote requieren medición antes
-de entrar en Composer o el render del mundo. Ficha y matices de licencia en
+sin `runtimeReady` ni compatibilidad artística aprobada. Desde 2026-11-20, Ultimate Buildings
+usa `unitScale=2` con 102 modelos medidos y dos módulos seleccionados para un piloto de
+`mixed_tenement`; Mini Characters usa `unitScale=1` con 43 GLB medidos y jobs de QA.
+Building Kit, Modular Buildings y Retro Urban mantienen escala de pack pendiente. Ficha y
+matices de licencia en
 `docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.
 
 ## Lectura obligatoria

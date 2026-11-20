@@ -42,7 +42,16 @@
     "why": "§15: las primitivas originales sólo valen como conector, conducto, zócalo o apoyo. El techo se fija sobre los triángulos medidos del catálogo: un candidato industrial ronda los 20.000 triángulos licenciados, así que ocho conductos de 8 segmentos (32 triángulos cada uno) no llegan al 1%. Pasar del techo significa que la masa volvería a ser cubos, y §2 lo prohíbe.",
     "forbidden": ["masa principal", "volumen visible", "sustituto de un módulo del catálogo"]
   },
-  "variantAxes": ["massing", "facade", "bay_sequence", "silhouette", "roof", "access", "intrinsic_props", "secondary_volume"],
+  "variantAxes": [
+    "massing",
+    "facade",
+    "bay_sequence",
+    "silhouette",
+    "roof",
+    "access",
+    "intrinsic_props",
+    "secondary_volume"
+  ],
   "minimumChangedAxes": 2,
   "grammars": {
     "row_house": {
@@ -241,9 +250,7 @@
       "semanticIdentity": {
         "description": "R3/V.g: una casa adosada se reconoce por puerta doméstica, cubierta inclinada, ritmo residencial y ausencia total de lenguaje comercial o industrial. Se prohíbe el rhythm shopfront (escaparate comercial) y los accesos comerciales. El responsable documentó en c1a635b una hilera con chimenea Kenney Industrial plantada a 6 m del edificio: geométricamente válida, semánticamente absurda. La fachada de 16 m representa cuatro viviendas de 4 m, cada una con acceso propio.",
         "requireRoles": ["door", "doorframe"],
-        "requireRoofKinds": [
-          ["gable", "hip", "valley", "dormer", "mansard"]
-        ],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
         "prohibitRhythmIds": ["shopfront", "commercial_strip", "glazed_ground"],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
@@ -253,7 +260,13 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": ["shopfront_canopy", "shopfront_entrance", "canopied_dock", "glazed_lobby", "monumental_stairs"],
+        "prohibitAccessIds": [
+          "shopfront_canopy",
+          "shopfront_entrance",
+          "canopied_dock",
+          "glazed_lobby",
+          "monumental_stairs"
+        ],
         "requireAccessCount": 4
       },
       "renderScale": 2
@@ -690,9 +703,7 @@
       "semanticIdentity": {
         "description": "R3/V.g: una cementera se reconoce por su maquinaria de proceso. Exige nave industrial (hall) Y al menos un elemento de proceso (tank, chimney o extractor). Sin silo, chimenea o extractor visible, el jugador lee 'nave comercial acristalada' y el edificio pierde identidad. Test de regresión: cement_plant sólo hall → FAIL.",
         "requireRoles": ["hall"],
-        "requireAnyRoles": [
-          ["tank", "chimney", "extractor"]
-        ],
+        "requireAnyRoles": [["tank", "chimney", "extractor"]],
         "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
       },
       "renderScale": 2
@@ -1295,7 +1306,12 @@
           "mod_kenney_ind_tank_large",
           "mod_kaykit_util_watertower"
         ],
-        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock", "apparatus_door", "rollup_door"]
+        "prohibitAccessIds": [
+          "shopfront_entrance",
+          "canopied_dock",
+          "apparatus_door",
+          "rollup_door"
+        ]
       },
       "renderScale": 2
     },
@@ -1536,9 +1552,7 @@
       "semanticIdentity": {
         "description": "V.g: casa doméstica compacta. Se reconoce por escala reducida, cubierta inclinada, entrada doméstica clara y ausencia total de lenguaje industrial o comercial. El patio o muro bajo puede aparecer como massing pero no como volumen secundario industrial.",
         "requireRoles": ["door", "doorframe"],
-        "requireRoofKinds": [
-          ["gable", "hip", "valley", "dormer", "mansard"]
-        ],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -1857,7 +1871,12 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": ["shopfront_canopy", "canopied_dock", "monumental_stairs", "glazed_lobby"]
+        "prohibitAccessIds": [
+          "shopfront_canopy",
+          "canopied_dock",
+          "monumental_stairs",
+          "glazed_lobby"
+        ]
       },
       "renderScale": 2
     },
@@ -1865,7 +1884,7 @@
       "buildingType": "mixed_tenement",
       "family": "residential_low",
       "label": "Inmueble mixto (4×2 celdas, 3 plantas)",
-      "notes": "V.g: comercio en planta baja + vivienda en plantas superiores. La planta baja se resuelve con shopfronts, toldos y accesos comerciales; las plantas superiores con ventanas residenciales. Una cornisa marca la transición entre ambos. Debe ser imposible confundirlo con apartment_block desde 1×. Iteración D-111: un toldo físico sobre el acceso comercial, junto a acristalamiento de planta baja; se retira la opción hip_roof mal etiquetada.",
+      "notes": "V.g: comercio en planta baja + vivienda en plantas superiores. La planta baja se resuelve con shopfronts, toldos y accesos comerciales; las plantas superiores con ventanas residenciales. Una cornisa marca la transición entre ambos. Debe ser imposible confundirlo con apartment_block desde 1×. Iteración D-111: un toldo físico sobre el acceso comercial, junto a acristalamiento de planta baja; se retira la opción hip_roof mal etiquetada. Piloto nuevo: cubierta plana de inmueble urbano, balcón y puerta comercial doble de Ultimate Buildings.",
       "yard": {
         "leftCells": 0,
         "rightCells": 0,
@@ -2072,6 +2091,14 @@
           "plateRole": null,
           "dormerBays": 2,
           "ridgeAlong": "x"
+        },
+        {
+          "id": "flat_tenement",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
         }
       ],
       "accessOptions": [
@@ -2081,6 +2108,17 @@
           "bayRule": "center",
           "frameRole": "doorframe",
           "leafRole": "door",
+          "aboveRole": "awning",
+          "projectionMeters": 0.4,
+          "steps": false
+        },
+        {
+          "id": "canopied_shop_quaternius",
+          "label": "entrada comercial doble bajo toldo",
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "leafModule": "mod_quat_ultimate_double_door",
           "aboveRole": "awning",
           "projectionMeters": 0.4,
           "steps": false
@@ -2118,9 +2156,40 @@
           "mod_kenney_ind_tank_small",
           "mod_kenney_ind_tank_large"
         ],
-        "requireAccessIds": ["canopied_shop"]
+        "requireAccessIds": ["canopied_shop", "canopied_shop_quaternius"]
       },
-      "renderScale": 2
+      "renderScale": 2,
+      "recipes": [
+        {
+          "id": "existing_commercial",
+          "label": "Inmueble mixto con composición existente"
+        },
+        {
+          "id": "quaternius_balcony",
+          "label": "Inmueble mixto con balcones Quaternius y comercio en planta baja",
+          "massingIds": ["uniform_block"],
+          "facadeIds": ["brick_commercial"],
+          "rhythmIds": ["shopfront_residential"],
+          "roofIds": ["flat_tenement"],
+          "accessIds": ["canopied_shop_quaternius"],
+          "cornerModeIds": ["flush"],
+          "requiredFeatures": [
+            {
+              "kind": "facade",
+              "id": "upper_balconies_quaternius",
+              "role": "balcony",
+              "module": "mod_quat_ultimate_balcony",
+              "side": "front",
+              "count": 2,
+              "levels": 1,
+              "distribution": "symmetric",
+              "targetVolume": 0,
+              "startLevel": 1,
+              "projectionMeters": 0.15
+            }
+          ]
+        }
+      ]
     },
     "workshop": {
       "buildingType": "workshop",
@@ -2405,10 +2474,12 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: un taller urbano se reconoce por su escala menor (1 planta), gran puerta de taller y ausencia de muelles de carga repetidos. Debe distinguirse de warehouse por no tener repetición de puertas de muelle ni escala longitudinal. No debe parecer gran fábrica: sin silos, sin chimeneas altas, sin torres de proceso. Se prohíben accesos monumentales y comerciales.",
-        "requireAnyRoles": [
-          ["hall", "door"]
+        "requireAnyRoles": [["hall", "door"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_tank_large",
+          "mod_kenney_ind_water_tower"
         ],
-        "prohibitSecondaryModules": ["mod_kenney_ind_chimney_large", "mod_kenney_ind_tank_large", "mod_kenney_ind_water_tower"],
         "prohibitAccessIds": [
           "canopied_dock",
           "glazed_lobby",
@@ -2603,12 +2674,20 @@
       ],
       "semanticIdentity": {
         "description": "D-111: un almacén logístico se reconoce por un solo volumen continuo de chapa (4×3, una planta), cuatro huecos de carga de 2 m en la misma fachada, cubierta plana despejada y ausencia de fachada comercial, volúmenes secundarios o equipos de proceso. Debe distinguirse de workshop por mayor huella y repetición de huecos. Debe distinguirse de market_hall por opacidad y ausencia de actividad comercial.",
-        "requireAnyRoles": [
-          ["wall_panel", "door"]
-        ],
+        "requireAnyRoles": [["wall_panel", "door"]],
         "prohibitRhythmIds": ["transparent_market", "arcade_rhythm"],
-        "prohibitSecondaryModules": ["mod_kenney_ind_chimney_large", "mod_kenney_ind_chimney_medium", "mod_kenney_ind_water_tower"],
-        "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance", "multiple_entries", "arcade_entry"],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_water_tower"
+        ],
+        "prohibitAccessIds": [
+          "monumental_stairs",
+          "loggia_entrance",
+          "shopfront_entrance",
+          "multiple_entries",
+          "arcade_entry"
+        ],
         "requireAccessCount": 4,
         "requireMassingIds": ["logistics_shell"]
       },
@@ -2940,9 +3019,7 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una ladrillera se reconoce por nave de hornos (hall) Y chimenea de ladrillo (chimney). Ambos son obligatorios. Test de regresión: brickworks sin chimney → FAIL. Debe distinguirse de cement_plant por menos silos y más ladrillo. Debe distinguirse de steelworks por más ladrillo y menos acero.",
-        "requireAll": [
-          ["hall", "chimney"]
-        ],
+        "requireAll": [["hall", "chimney"]],
         "prohibitSecondaryModules": ["mod_kenney_ind_water_tower", "mod_kenney_ind_tank_large"],
         "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
       },
@@ -3318,9 +3395,7 @@
       "semanticIdentity": {
         "description": "R3/V.g: una acería se reconoce por nave industrial (hall) Y al menos un elemento de proceso pesado (chimney, extractor o civic_tower como torre de proceso). Test de regresión: steelworks sólo hall → FAIL. Debe distinguirse de cement_plant por más estructura metálica. Debe distinguirse de brickworks por más acero y menos ladrillo. Debe distinguirse de warehouse por proceso industrial visible.",
         "requireRoles": ["hall"],
-        "requireAnyRoles": [
-          ["chimney", "extractor", "civic_tower"]
-        ],
+        "requireAnyRoles": [["chimney", "extractor", "civic_tower"]],
         "prohibitSecondaryModules": ["mod_kenney_ind_water_tower"],
         "prohibitAccessIds": ["monumental_stairs", "loggia_entrance", "shopfront_entrance"]
       },
@@ -3580,9 +3655,7 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: un colegio se reconoce por su cuerpo longitudinal, repetición uniforme de ventanas de aula, entrada institucional y lenguaje cívico (ladrillo/piedra). Debe distinguirse de town_hall por mayor longitud y menos monumentalidad. Debe distinguirse de apartment_block por ritmo de ventanas uniforme, acceso público marcado y elementos institucionales. No se aceptan módulos mal etiquetados (flag_pole → AC unit). V.i remediation: cupula/linterna original sobre el pabellón central (REQUIRED), alas de aulas repetitivas y entrada institucional; el clon de town_hall queda retirado.",
-        "requireAnyRoles": [
-          ["door", "curtain_wall"]
-        ],
+        "requireAnyRoles": [["door", "curtain_wall"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -3591,7 +3664,12 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock", "apparatus_door", "rollup_door"],
+        "prohibitAccessIds": [
+          "shopfront_entrance",
+          "canopied_dock",
+          "apparatus_door",
+          "rollup_door"
+        ],
         "requireRoles": ["civic_tower"]
       },
       "recipes": [
@@ -3880,9 +3958,7 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: una clínica se reconoce por arquitectura limpia, ventanales amplios (curtain_wall), marquesina de acceso y paleta blanca/piedra clara. Debe distinguirse de police_station por lenguaje sanitario (limpio, amplios ventanales, marquesina) en vez de institucional-seguridad. Se exige al menos uno de: acceso cubierto (canopied_entrance, recessed_entry) o muro cortina (curtain_wall). Debe distinguirse de town_hall por escala menor y menos monumentalidad.",
-        "requireAnyRoles": [
-          ["door", "curtain_wall", "canopy", "overhang"]
-        ],
+        "requireAnyRoles": [["door", "curtain_wall", "canopy", "overhang"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -3891,7 +3967,13 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock", "monumental_stairs", "apparatus_door", "rollup_door"]
+        "prohibitAccessIds": [
+          "shopfront_entrance",
+          "canopied_dock",
+          "monumental_stairs",
+          "apparatus_door",
+          "rollup_door"
+        ]
       },
       "renderScale": 2
     },
@@ -4199,9 +4281,7 @@
       "semanticIdentity": {
         "description": "R3/V.g: una comisaría se reconoce por arquitectura institucional robusta, entrada pública marcada (con escalinata o marquesina), lenguaje de seguridad. Debe sentirse INSTITUCIONAL + SEGURIDAD sin parecer cárcel ni fortaleza. Se exige acceso institucional (monumental_stairs, canopied_entrance o recessed_entry) y una entrada construida o elemento cívico robusto (doorframe, plinth, civic_block, civic_tower o canopy). Debe distinguirse de town_hall por escala menor y lenguaje más robusto. Debe distinguirse de clinic por lenguaje de seguridad en vez de sanitario.",
         "requireAccessIds": ["monumental_stairs", "canopied_entrance", "recessed_entry"],
-        "requireAnyRoles": [
-          ["doorframe", "plinth", "civic_block", "civic_tower", "canopy"]
-        ],
+        "requireAnyRoles": [["doorframe", "plinth", "civic_block", "civic_tower", "canopy"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -4520,9 +4600,7 @@
         "requireRoleCount": {
           "doorframe": ">= 2"
         },
-        "requireAnyRoles": [
-          ["door", "doorframe"]
-        ],
+        "requireAnyRoles": [["door", "doorframe"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -4884,9 +4962,7 @@
       ],
       "semanticIdentity": {
         "description": "R3/V.g: un mercado se reconoce por gran nave urbana con transparencia (curtain_wall), múltiples accesos públicos, grandes ventanales, toldos de puestos y actividad exterior. Test de regresión: market hall opaco + una puerta → FAIL. Debe diferenciarse de warehouse por transparencia, accesos públicos, toldos y detalle comercial. Debe distinguirse de town_hall por mayor longitud y actividad comercial visible. Debe distinguirse de mixed_tenement por escala mayor y gran nave de mercado. La transparencia o el toldo de mercado son la identidad mínima; el volumen cívico auxiliar es variación opcional, no requisito.",
-        "requireAnyRoles": [
-          ["curtain_wall", "awning"]
-        ],
+        "requireAnyRoles": [["curtain_wall", "awning"]],
         "prohibitRhythmIds": ["blind_siding", "blind_steel"],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
@@ -5154,9 +5230,7 @@
       ],
       "semanticIdentity": {
         "description": "Sede urbana con mirador central reconocible, ala lateral y accesos legibles; no es un equipamiento municipal.",
-        "requireAnyRoles": [
-          ["door", "curtain_wall"]
-        ],
+        "requireAnyRoles": [["door", "curtain_wall"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",
@@ -5165,7 +5239,12 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": ["shopfront_entrance", "canopied_dock", "apparatus_door", "rollup_door"],
+        "prohibitAccessIds": [
+          "shopfront_entrance",
+          "canopied_dock",
+          "apparatus_door",
+          "rollup_door"
+        ],
         "requireRoles": ["civic_tower"]
       },
       "renderScale": 2
@@ -5392,9 +5471,7 @@
       "semanticIdentity": {
         "description": "Residencia de organización en U, con patio central de servicio y silueta distinta del mirador urbano.",
         "requireRoles": ["door", "doorframe"],
-        "requireRoofKinds": [
-          ["gable", "hip", "valley", "dormer", "mansard"]
-        ],
+        "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
           "mod_kenney_ind_chimney_medium",

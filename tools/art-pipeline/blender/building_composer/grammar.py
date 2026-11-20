@@ -96,7 +96,7 @@ REQUIRED_ACCESS_KEYS = {
     "projectionMeters",
     "steps",
 }
-ACCESS_KEYS = REQUIRED_ACCESS_KEYS | {"repeatEveryMeters"}
+ACCESS_KEYS = REQUIRED_ACCESS_KEYS | {"repeatEveryMeters", "leafModule"}
 PROP_KEYS = {"id", "label", "role", "module", "at", "offset"}
 SECONDARY_KEYS = {"id", "label", "role", "module", "optional", "atCell", "supports"}
 CORNER_KEYS = {"id", "label", "module", "widthMeters"}
@@ -325,6 +325,10 @@ class GrammarDocument:
             for key in ("frameRole", "leafRole", "aboveRole"):
                 if access[key]:
                     catalog.pool(family, access[key])
+            if access.get("leafModule"):
+                if not access["leafRole"]:
+                    raise GrammarError(f"{access['id']}: leafModule requiere leafRole")
+                catalog.pick(family, access["leafRole"], access["leafModule"])
             if access["steps"]:
                 catalog.pool(family, "access")
         for prop in record["propOptions"]:

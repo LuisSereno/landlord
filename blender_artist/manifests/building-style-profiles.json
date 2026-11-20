@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "304e19f8a7d6738120227cbe63dfc7e1ea5cb00a43e632f5b4aee8a7a1dbe3c3",
-      "selectionSha256": "9e1a295364c8f2f58c012b58b4c62b47bc2a4ec42658fad98a090ffb6c250ecd",
+      "moduleCatalogSha256": "47c4e436b01c05a3bbdeb05ab8fb042f8416d9ce8f199e0cc4ebbdfab5a58272",
+      "selectionSha256": "01887a7da21d5e2b03399a2bccdaa827b22d60d850633e6ca699e7dd951d27ef",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -126,7 +126,8 @@
               "measured": [
                 "mod_megakit_door_1: 1×2.2 m",
                 "mod_megakit_door_2: 1×2.2 m",
-                "mod_megakit_door_3: 1×2.2 m"
+                "mod_megakit_door_3: 1×2.2 m",
+                "mod_quat_ultimate_double_door: 1.499×1.935 m"
               ],
               "how": "hueco de puerta medido sobre la hoja real importada",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds"
@@ -930,6 +931,27 @@
                   "warm_accents_muted"
                 ],
                 "windowGlow": false
+              },
+              {
+                "image": "Texture_Green.png.001",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+                "dominantPredicted": {
+                  "hueDegrees": 62.3,
+                  "saturation": 0.236,
+                  "value": 0.396
+                },
+                "dominantInput": {
+                  "hueDegrees": 65.3,
+                  "saturation": 0.334,
+                  "value": 0.489
+                },
+                "bandsClaimingIt": [
+                  "facade_blue_grey_to_warm_stone",
+                  "neutral_dark_asphalt",
+                  "roof_and_verge_green_to_slate",
+                  "warm_accents_muted"
+                ],
+                "windowGlow": false
               }
             ]
           },
@@ -950,7 +972,8 @@
                 "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow 0.67→H47.6 S0.223 V0.574, grey 0.294→Hn/a S0.101 V0.603, orange 0.035→H25.2 S0.176 V0.35",
                 "T_RedBrick_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png: orange 0.94→H21.2 S0.421 V0.43, grey 0.06→Hn/a S0.034 V0.43",
                 "T_RoofSlate_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png: grey 1→Hn/a S0.001 V0.287",
-                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow 0.834→H48.9 S0.258 V0.635, orange 0.166→H29.6 S0.862 V0.262"
+                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow 0.834→H48.9 S0.258 V0.635, orange 0.166→H29.6 S0.862 V0.262",
+                "Texture_Green.png.001 ← blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png: grey 0.25→Hn/a S0 V0.269, orange 0.25→H21.3 S0.537 V0.463, cyan 0.25→H169.9 S0.238 V0.447, red 0.125→H357.7 S0.882 V0.929, green 0.062→H73 S0.224 V0.647, blue 0.062→H206.2 S0.252 V0.608"
               ],
               "how": "media HSV por familia de texeles (buckets ≥ 2 % del atlas), con media de tono circular",
               "source": "/tmp/landlord-vf-style/measurements.json → imageSamples[].statistics.hueBuckets"
@@ -970,7 +993,8 @@
                 "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow unclassified_night_fallback→V0.42, grey pale_neutral→V0.58, orange neutral_dark_asphalt→V0.4",
                 "T_RedBrick_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png: orange warm_accents_muted→V0.55, grey neutral_dark_asphalt→V0.4",
                 "T_RoofSlate_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png: grey neutral_dark_asphalt→V0.4",
-                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow headlamp_yellow→V0.42, orange warm_accents_muted→V0.55"
+                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow headlamp_yellow→V0.42, orange warm_accents_muted→V0.55",
+                "Texture_Green.png.001 ← blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png: grey neutral_dark_asphalt→V0.4, orange warm_accents_muted→V0.55, cyan roof_and_verge_green_to_slate→V0.152, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.221, blue facade_blue_grey_to_warm_stone→V0.61"
               ],
               "how": "destino después de pasar por `style_pixels(…, kind=building)`, es decir el mismo código del render",
               "source": "tools/art-pipeline/blender/preview_building_style.py → claimedByBand / predicted"
@@ -982,7 +1006,7 @@
           "value": {
             "trianglesPerModule": {
               "p50": 112,
-              "p90": 1064.8,
+              "p90": 1053,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -3748,6 +3772,15 @@
               "pack": "src_original_fire_smoke",
               "colorTextures": [],
               "colorTextureFiles": []
+            },
+            {
+              "pack": "src_quaternius_ultimate_buildings",
+              "colorTextures": [
+                "Texture_Green.png.001"
+              ],
+              "colorTextureFiles": [
+                "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+              ]
             }
           ],
           "pbrPacks": [
@@ -3820,7 +3853,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_construction_scaffold, src_original_damage_debris) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_construction_scaffold, src_original_damage_debris) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -5065,6 +5098,57 @@
             "shippedJobs": [
               "bld_downtown (sin metadato embarcado)"
             ]
+          },
+          {
+            "pack": "src_quaternius_ultimate_buildings",
+            "license": "CC0-1.0",
+            "moduleCount": 2,
+            "materials": 1,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "Texture"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 2,
+            "rawModuleExamples": [
+              "Balcony.blend: 1 de 1 materiales en bruto",
+              "Door_Double.blend: 1 de 1 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "sin Principled BSDF"
+            ],
+            "materialReach": [
+              {
+                "material": "Texture",
+                "family": "atlas",
+                "baseColorChains": [
+                  "sin Principled BSDF ×2"
+                ],
+                "colorTextures": [
+                  "Texture_Green.png.001"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 2,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [
+              "Texture_Green.png.001"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+            ],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [],
+            "shippedJobs": []
           }
         ],
         "packsPartlyRaw": [
@@ -5151,7 +5235,9 @@
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_FirstFloor_Window_Columns.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Plain_3.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Wall_Guard.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
-          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda"
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Balcony.blend (src_quaternius_ultimate_buildings): 1 de 1 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Door_Double.blend (src_quaternius_ultimate_buildings): 1 de 1 materiales con Base Color fuera de la banda"
         ],
         "atlasOnlyPacks": [
           {
@@ -5213,6 +5299,15 @@
             "pack": "src_original_fire_smoke",
             "colorTextures": [],
             "colorTextureFiles": []
+          },
+          {
+            "pack": "src_quaternius_ultimate_buildings",
+            "colorTextures": [
+              "Texture_Green.png.001"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+            ]
           }
         ],
         "pbrPacks": [
@@ -5263,6 +5358,16 @@
               "inputValue": 0.602,
               "predictedValue": 0.61,
               "predictedSaturation": 0.4
+            },
+            {
+              "image": "Texture_Green.png.001",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+              "band": "facade_blue_grey_to_warm_stone",
+              "hueBucket": "blue",
+              "share": 0.062,
+              "inputValue": 0.608,
+              "predictedValue": 0.61,
+              "predictedSaturation": 0.391
             }
           ],
           "textureReach": [
@@ -5686,9 +5791,28 @@
               "inputValue": 0.287,
               "treatedValue": 0.4,
               "rawIsBrighterBy": -0.113
+            },
+            {
+              "image": "Texture_Green.png.001",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_quat_ultimate_balcony",
+                "mod_quat_ultimate_double_door"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 2,
+              "inputValue": 0.489,
+              "treatedValue": 0.396,
+              "rawIsBrighterBy": 0.093
             }
           ],
-          "texturesNeverReachedByTreatment": [],
+          "texturesNeverReachedByTreatment": [
+            "Texture_Green.png.001"
+          ],
           "texturesSplitAcrossModules": [
             "T_Concrete_BaseColor",
             "T_MarbleFloor_BaseColor",
@@ -5814,6 +5938,14 @@
               "windowGlow": false,
               "modulesWithAtlasDirect": 13,
               "modulesWithAtlasMixed": 0
+            },
+            {
+              "pack": "src_quaternius_ultimate_buildings",
+              "image": "Texture_Green.png.001",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 2
             }
           ],
           "litWindowsObserved": [
@@ -5874,7 +6006,8 @@
             "src_quaternius_downtown_city_megakit/MI_Trim: Base Color MIX:sin imagen ×24, TEX_IMAGE:T_Trim_BaseColor ×17; atlas de color T_Trim_BaseColor; módulos alcanzados 17, en bruto 24",
             "src_quaternius_downtown_city_megakit/MI_Trim_Dark: Base Color MIX:sin imagen ×4; atlas de color T_Trim_BaseColor; módulos alcanzados 0, en bruto 4",
             "src_quaternius_downtown_city_megakit/MI_Trim_Green: Base Color MIX:sin imagen ×3; atlas de color T_Trim_BaseColor; módulos alcanzados 0, en bruto 3",
-            "src_quaternius_downtown_city_megakit/MI_Trim_MetalConcrete: Base Color MIX:sin imagen ×17, TEX_IMAGE:T_MetalConcrete_BaseColor ×21; atlas de color T_MetalConcrete_BaseColor; módulos alcanzados 21, en bruto 17"
+            "src_quaternius_downtown_city_megakit/MI_Trim_MetalConcrete: Base Color MIX:sin imagen ×17, TEX_IMAGE:T_MetalConcrete_BaseColor ×21; atlas de color T_MetalConcrete_BaseColor; módulos alcanzados 21, en bruto 17",
+            "src_quaternius_ultimate_buildings/Texture: Base Color sin Principled BSDF ×2; atlas de color Texture_Green.png.001; módulos alcanzados 0, en bruto 2"
           ],
           "gap": "El `windowGlow` canónico se calcula por texeles del atlas que el tratamiento alcanza, así que sólo enciende en las instancias con Base Color directo. Los materiales de `materialsWithRawInstances` sacan ventana encendida en unos módulos y en otros no, y donde el factor Roughness es plano el override canónico lo unifica, apagando el brillo del vidrio.",
           "decisionNeeded": "El compositor debe dar emisión a las caras de los materiales de vidrio sin atlas (familia glass en materialFamilies) con el color canónico `paletteOverrides.window` y la misma fracción encendida (litFraction) por hash de baricentro, o renunciar a la firma de ventana encendida en ese pack. Se decide en V.f.4 y lo juzga el humano en V.f.5."
@@ -5884,6 +6017,7 @@
         "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales scaffold_plank, wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
         "nombres de textura que no identifican un archivo (colormap ×4): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
         "metal vs stone: sólo los separa el shading (rugosidad o metallic), no el albedo. Si V.f.4 aplanara esos canales, esas familias colapsarían.",
+        "atlas que el tratamiento no alcanza en NINGÚN módulo (Texture_Green.png.001 (2 módulos)): su destino en este perfil es un objetivo para V.f.4, medido sobre la misma textura pero por una cadena de nodos que el render actual no recorre.",
         "atlas alcanzados sólo en parte (T_Concrete_BaseColor: 3 módulos directos / 1 con Base Color mezclado; T_MarbleFloor_BaseColor: 2 módulos directos / 1 con Base Color mezclado; T_MetalConcrete_BaseColor: 21 módulos directos / 17 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 41 con Base Color mezclado; T_Trim_BaseColor: 17 módulos directos / 29 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
         "El bucket medio de un atlas no decide el windowGlow texel a texel: la media de una familia de tono puede caer bajo el umbral de la banda de cristal y aun así dejar texeles encendidos (ventanas observadas en los renders embarcados: 2–10 por edificio).",
         "proportions.doorHeight del style layer (2.1 m) queda desactualizado contra la hoja medida (2.2 m); se corrige en la documentación tras la revisión humana, no a mano en el JSON canónico."
@@ -5898,8 +6032,8 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "304e19f8a7d6738120227cbe63dfc7e1ea5cb00a43e632f5b4aee8a7a1dbe3c3",
-      "selectionSha256": "9e1a295364c8f2f58c012b58b4c62b47bc2a4ec42658fad98a090ffb6c250ecd",
+      "moduleCatalogSha256": "47c4e436b01c05a3bbdeb05ab8fb042f8416d9ce8f199e0cc4ebbdfab5a58272",
+      "selectionSha256": "01887a7da21d5e2b03399a2bccdaa827b22d60d850633e6ca699e7dd951d27ef",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -6001,7 +6135,8 @@
               "measured": [
                 "mod_megakit_door_1: 1×2.2 m",
                 "mod_megakit_door_2: 1×2.2 m",
-                "mod_megakit_door_3: 1×2.2 m"
+                "mod_megakit_door_3: 1×2.2 m",
+                "mod_quat_ultimate_double_door: 1.499×1.935 m"
               ],
               "how": "hueco de puerta medido sobre la hoja real importada",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds"
@@ -6805,6 +6940,27 @@
                   "warm_accents_muted"
                 ],
                 "windowGlow": false
+              },
+              {
+                "image": "Texture_Green.png.001",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+                "dominantPredicted": {
+                  "hueDegrees": 62.3,
+                  "saturation": 0.236,
+                  "value": 0.396
+                },
+                "dominantInput": {
+                  "hueDegrees": 65.3,
+                  "saturation": 0.334,
+                  "value": 0.489
+                },
+                "bandsClaimingIt": [
+                  "facade_blue_grey_to_warm_stone",
+                  "neutral_dark_asphalt",
+                  "roof_and_verge_green_to_slate",
+                  "warm_accents_muted"
+                ],
+                "windowGlow": false
               }
             ]
           },
@@ -6825,7 +6981,8 @@
                 "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow 0.67→H47.6 S0.223 V0.574, grey 0.294→Hn/a S0.101 V0.603, orange 0.035→H25.2 S0.176 V0.35",
                 "T_RedBrick_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png: orange 0.94→H21.2 S0.421 V0.43, grey 0.06→Hn/a S0.034 V0.43",
                 "T_RoofSlate_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png: grey 1→Hn/a S0.001 V0.287",
-                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow 0.834→H48.9 S0.258 V0.635, orange 0.166→H29.6 S0.862 V0.262"
+                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow 0.834→H48.9 S0.258 V0.635, orange 0.166→H29.6 S0.862 V0.262",
+                "Texture_Green.png.001 ← blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png: grey 0.25→Hn/a S0 V0.269, orange 0.25→H21.3 S0.537 V0.463, cyan 0.25→H169.9 S0.238 V0.447, red 0.125→H357.7 S0.882 V0.929, green 0.062→H73 S0.224 V0.647, blue 0.062→H206.2 S0.252 V0.608"
               ],
               "how": "media HSV por familia de texeles (buckets ≥ 2 % del atlas), con media de tono circular",
               "source": "/tmp/landlord-vf-style/measurements.json → imageSamples[].statistics.hueBuckets"
@@ -6845,7 +7002,8 @@
                 "T_Ornaments_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Ornaments_BaseColor.png: yellow unclassified_night_fallback→V0.42, grey pale_neutral→V0.58, orange neutral_dark_asphalt→V0.4",
                 "T_RedBrick_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RedBrick_BaseColor.png: orange warm_accents_muted→V0.55, grey neutral_dark_asphalt→V0.4",
                 "T_RoofSlate_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_RoofSlate_BaseColor.png: grey neutral_dark_asphalt→V0.4",
-                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow headlamp_yellow→V0.42, orange warm_accents_muted→V0.55"
+                "T_Trim_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_BaseColor.png: yellow headlamp_yellow→V0.42, orange warm_accents_muted→V0.55",
+                "Texture_Green.png.001 ← blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png: grey neutral_dark_asphalt→V0.4, orange warm_accents_muted→V0.55, cyan roof_and_verge_green_to_slate→V0.152, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.221, blue facade_blue_grey_to_warm_stone→V0.61"
               ],
               "how": "destino después de pasar por `style_pixels(…, kind=building)`, es decir el mismo código del render",
               "source": "tools/art-pipeline/blender/preview_building_style.py → claimedByBand / predicted"
@@ -6857,7 +7015,7 @@
           "value": {
             "trianglesPerModule": {
               "p50": 112,
-              "p90": 1064.8,
+              "p90": 1053,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -9623,6 +9781,15 @@
               "pack": "src_original_fire_smoke",
               "colorTextures": [],
               "colorTextureFiles": []
+            },
+            {
+              "pack": "src_quaternius_ultimate_buildings",
+              "colorTextures": [
+                "Texture_Green.png.001"
+              ],
+              "colorTextureFiles": [
+                "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+              ]
             }
           ],
           "pbrPacks": [
@@ -9695,7 +9862,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_construction_scaffold, src_original_damage_debris) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_construction_scaffold, src_original_damage_debris) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -10940,6 +11107,57 @@
             "shippedJobs": [
               "bld_downtown (sin metadato embarcado)"
             ]
+          },
+          {
+            "pack": "src_quaternius_ultimate_buildings",
+            "license": "CC0-1.0",
+            "moduleCount": 2,
+            "materials": 1,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "Texture"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 2,
+            "rawModuleExamples": [
+              "Balcony.blend: 1 de 1 materiales en bruto",
+              "Door_Double.blend: 1 de 1 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "sin Principled BSDF"
+            ],
+            "materialReach": [
+              {
+                "material": "Texture",
+                "family": "atlas",
+                "baseColorChains": [
+                  "sin Principled BSDF ×2"
+                ],
+                "colorTextures": [
+                  "Texture_Green.png.001"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 2,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [
+              "Texture_Green.png.001"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+            ],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [],
+            "shippedJobs": []
           }
         ],
         "packsPartlyRaw": [
@@ -11026,7 +11244,9 @@
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_FirstFloor_Window_Columns.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Plain_3.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Wall_Guard.gltf (src_quaternius_downtown_city_megakit): 1 de 1 materiales con Base Color fuera de la banda",
-          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda"
+          "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Trim_Window.gltf (src_quaternius_downtown_city_megakit): 5 de 5 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Balcony.blend (src_quaternius_ultimate_buildings): 1 de 1 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Door_Double.blend (src_quaternius_ultimate_buildings): 1 de 1 materiales con Base Color fuera de la banda"
         ],
         "atlasOnlyPacks": [
           {
@@ -11088,6 +11308,15 @@
             "pack": "src_original_fire_smoke",
             "colorTextures": [],
             "colorTextureFiles": []
+          },
+          {
+            "pack": "src_quaternius_ultimate_buildings",
+            "colorTextures": [
+              "Texture_Green.png.001"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+            ]
           }
         ],
         "pbrPacks": [
@@ -11138,6 +11367,16 @@
               "inputValue": 0.602,
               "predictedValue": 0.61,
               "predictedSaturation": 0.4
+            },
+            {
+              "image": "Texture_Green.png.001",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+              "band": "facade_blue_grey_to_warm_stone",
+              "hueBucket": "blue",
+              "share": 0.062,
+              "inputValue": 0.608,
+              "predictedValue": 0.61,
+              "predictedSaturation": 0.391
             }
           ],
           "textureReach": [
@@ -11561,9 +11800,28 @@
               "inputValue": 0.287,
               "treatedValue": 0.4,
               "rawIsBrighterBy": -0.113
+            },
+            {
+              "image": "Texture_Green.png.001",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_quat_ultimate_balcony",
+                "mod_quat_ultimate_double_door"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 2,
+              "inputValue": 0.489,
+              "treatedValue": 0.396,
+              "rawIsBrighterBy": 0.093
             }
           ],
-          "texturesNeverReachedByTreatment": [],
+          "texturesNeverReachedByTreatment": [
+            "Texture_Green.png.001"
+          ],
           "texturesSplitAcrossModules": [
             "T_Concrete_BaseColor",
             "T_MarbleFloor_BaseColor",
@@ -11689,6 +11947,14 @@
               "windowGlow": false,
               "modulesWithAtlasDirect": 13,
               "modulesWithAtlasMixed": 0
+            },
+            {
+              "pack": "src_quaternius_ultimate_buildings",
+              "image": "Texture_Green.png.001",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 2
             }
           ],
           "litWindowsObserved": [
@@ -11749,7 +12015,8 @@
             "src_quaternius_downtown_city_megakit/MI_Trim: Base Color MIX:sin imagen ×24, TEX_IMAGE:T_Trim_BaseColor ×17; atlas de color T_Trim_BaseColor; módulos alcanzados 17, en bruto 24",
             "src_quaternius_downtown_city_megakit/MI_Trim_Dark: Base Color MIX:sin imagen ×4; atlas de color T_Trim_BaseColor; módulos alcanzados 0, en bruto 4",
             "src_quaternius_downtown_city_megakit/MI_Trim_Green: Base Color MIX:sin imagen ×3; atlas de color T_Trim_BaseColor; módulos alcanzados 0, en bruto 3",
-            "src_quaternius_downtown_city_megakit/MI_Trim_MetalConcrete: Base Color MIX:sin imagen ×17, TEX_IMAGE:T_MetalConcrete_BaseColor ×21; atlas de color T_MetalConcrete_BaseColor; módulos alcanzados 21, en bruto 17"
+            "src_quaternius_downtown_city_megakit/MI_Trim_MetalConcrete: Base Color MIX:sin imagen ×17, TEX_IMAGE:T_MetalConcrete_BaseColor ×21; atlas de color T_MetalConcrete_BaseColor; módulos alcanzados 21, en bruto 17",
+            "src_quaternius_ultimate_buildings/Texture: Base Color sin Principled BSDF ×2; atlas de color Texture_Green.png.001; módulos alcanzados 0, en bruto 2"
           ],
           "gap": "El `windowGlow` canónico se calcula por texeles del atlas que el tratamiento alcanza, así que sólo enciende en las instancias con Base Color directo. Los materiales de `materialsWithRawInstances` sacan ventana encendida en unos módulos y en otros no, y donde el factor Roughness es plano el override canónico lo unifica, apagando el brillo del vidrio.",
           "decisionNeeded": "El compositor debe dar emisión a las caras de los materiales de vidrio sin atlas (familia glass en materialFamilies) con el color canónico `paletteOverrides.window` y la misma fracción encendida (litFraction) por hash de baricentro, o renunciar a la firma de ventana encendida en ese pack. Se decide en V.f.4 y lo juzga el humano en V.f.5."
@@ -11759,6 +12026,7 @@
         "glass (materiales MI_Glass sin textura de color mapeable); wood (materiales scaffold_plank, wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
         "nombres de textura que no identifican un archivo (colormap ×4): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
         "metal vs stone: sólo los separa el shading (rugosidad o metallic), no el albedo. Si V.f.4 aplanara esos canales, esas familias colapsarían.",
+        "atlas que el tratamiento no alcanza en NINGÚN módulo (Texture_Green.png.001 (2 módulos)): su destino en este perfil es un objetivo para V.f.4, medido sobre la misma textura pero por una cadena de nodos que el render actual no recorre.",
         "atlas alcanzados sólo en parte (T_Concrete_BaseColor: 3 módulos directos / 1 con Base Color mezclado; T_MarbleFloor_BaseColor: 2 módulos directos / 1 con Base Color mezclado; T_MetalConcrete_BaseColor: 21 módulos directos / 17 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 41 con Base Color mezclado; T_Trim_BaseColor: 17 módulos directos / 29 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
         "El bucket medio de un atlas no decide el windowGlow texel a texel: la media de una familia de tono puede caer bajo el umbral de la banda de cristal y aun así dejar texeles encendidos (ventanas observadas en los renders embarcados: 2–10 por edificio).",
         "proportions.doorHeight del style layer (2.1 m) queda desactualizado contra la hoja medida (2.2 m); se corrige en la documentación tras la revisión humana, no a mano en el JSON canónico."
@@ -11799,14 +12067,14 @@
     }
   ],
   "counts": {
-    "modules": 179,
-    "texturesSampled": 30,
+    "modules": 181,
+    "texturesSampled": 31,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
     "modulesFullyTreatedToday": 98,
-    "modulesWithRawMaterial": 81,
+    "modulesWithRawMaterial": 83,
     "texturesSplitAcrossModules": 5
   }
 }

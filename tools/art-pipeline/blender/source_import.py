@@ -16,7 +16,7 @@ from pathlib import Path
 import bpy
 import mathutils
 
-SUPPORTED_SUFFIXES = (".glb", ".gltf", ".fbx")
+SUPPORTED_SUFFIXES = (".glb", ".gltf", ".fbx", ".blend")
 
 
 class SourceImportError(RuntimeError):
@@ -24,7 +24,7 @@ class SourceImportError(RuntimeError):
 
 
 def import_source(path):
-    """Importa un GLB/glTF/FBX y devuelve los objetos recién creados.
+    """Importa un GLB/glTF/FBX o anexa objetos de un Blend y devuelve los objetos creados.
 
     GLB es la ruta preferida: Kenney y KayKit empaquetan texturas dentro del
     archivo y la clase de bug de rutas absolutas de Windows desaparece.
@@ -38,7 +38,13 @@ def import_source(path):
         raise SourceImportError(f"formato no soportado: {suffix} ({source.name})")
 
     before = set(bpy.data.objects)
-    if suffix == ".fbx":
+    if suffix == ".blend":
+        with bpy.data.libraries.load(str(source), link=False) as (available, loaded):
+            loaded.objects = list(available.objects)
+        for obj in loaded.objects:
+            if obj is not None:
+                bpy.context.collection.objects.link(obj)
+    elif suffix == ".fbx":
         bpy.ops.import_scene.fbx(filepath=str(source))
     else:
         # import_scene.gltf acepta .glb y .gltf; los .bin/.png relativos se

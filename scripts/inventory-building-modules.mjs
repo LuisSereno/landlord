@@ -38,6 +38,46 @@ const EXTRACTED = "blender_artist/staging/third_party/cc0/extracted";
  */
 const SCOPE = [
   {
+    sourceId: "src_kenney_building_kit",
+    directory: `${EXTRACTED}/kenney/building-kit/Models/GLB format`,
+    pattern: "\\.glb$",
+  },
+  {
+    sourceId: "src_kenney_modular_buildings",
+    directory: `${EXTRACTED}/kenney/modular-buildings/Models/GLB format`,
+    pattern: "\\.glb$",
+  },
+  {
+    sourceId: "src_kenney_retro_urban_kit",
+    directory: `${EXTRACTED}/kenney/retro-urban-kit/Models/GLB format`,
+    pattern: "\\.glb$",
+  },
+  {
+    sourceId: "src_kenney_mini_characters",
+    directory: `${EXTRACTED}/kenney/mini-characters/Models/GLB format`,
+    pattern: "\\.glb$",
+  },
+  {
+    sourceId: "src_quaternius_ultimate_buildings",
+    directory: `${EXTRACTED}/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends`,
+    pattern: "\\.blend$",
+  },
+  {
+    sourceId: "src_quaternius_ultimate_buildings",
+    directory: `${EXTRACTED}/quaternius/ultimate-buildings/Textured Models/Base Modular Buildings/Blends`,
+    pattern: "\\.blend$",
+  },
+  {
+    sourceId: "src_quaternius_ultimate_buildings",
+    directory: `${EXTRACTED}/quaternius/ultimate-buildings/Textured Models/Finished Textured Buildings/Blends`,
+    pattern: "\\.blend$",
+  },
+  {
+    sourceId: "src_quaternius_ultimate_buildings",
+    directory: `${EXTRACTED}/quaternius/ultimate-buildings/Models with Materials/Blends`,
+    pattern: "\\.blend$",
+  },
+  {
     sourceId: "src_kenney_city_suburban",
     directory: `${EXTRACTED}/kenney/city-kit-suburban/Models/GLB format`,
     pattern: "\\.glb$",

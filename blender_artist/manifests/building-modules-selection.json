@@ -289,7 +289,7 @@
       "note": "losa de cubierta plana de 2×2 m",
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_2x2.gltf",
       "meshes": ["Roof_2x2"],
-      "allowedFamilies": ["industrial_heavy", "civic_landmark"],
+      "allowedFamilies": ["industrial_heavy", "civic_landmark", "residential_low"],
       "extractionStrategy": "whole_asset"
     },
     {
@@ -1820,6 +1820,26 @@
       "sourcePath": "blender_artist/sources/original/fire_smoke.glb",
       "meshes": ["FireSmoke"],
       "allowedFamilies": ["residential_low", "industrial_heavy", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_quat_ultimate_balcony",
+      "category": "balcony",
+      "role": "balcony",
+      "note": "Balcón de viviendas, medido a escala 2×; piloto mixed_tenement",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Balcony.blend",
+      "meshes": ["Balcony"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_quat_ultimate_double_door",
+      "category": "door",
+      "role": "door",
+      "note": "Puerta comercial doble de Ultimate Buildings a escala 2×, medida 1,50 × 1,94 m",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Door_Double.blend",
+      "meshes": ["Door_Double"],
+      "allowedFamilies": ["residential_low", "civic_landmark"],
       "extractionStrategy": "whole_asset"
     }
   ]

@@ -109,9 +109,10 @@ def classify(relpath, filename):
         return _vehicle_class(n)
     if p.startswith("cc0/extracted/kenney/mini-characters/"):
         if n.startswith("character-"):
-            if any(token in n for token in ("alien", "zombie", "knight", "raider", "soldier")):
+            if any(token in n for token in ("alien", "zombie", "knight", "raider", "soldier", "robot")):
                 return "actor", ["off_period_character"], ["none"]
-            return "actor", ["humanoid", "animated_character"], ["street", "plaza"]
+            # El nombre del modelo no demuestra rig ni clips utilizables por Character Factory.
+            return "actor", ["humanoid"], ["street", "plaza"]
         if n.startswith(("wheelchair", "aid-", "item-")):
             return "urban_prop", ["accessibility_or_personal_prop"], ["street", "plaza"]
         return "urban_prop", ["off_period_prop"], ["none"]
@@ -244,7 +245,7 @@ def actor_class_of(n, source_id):
     if source_id == "src_quaternius_base_characters" or is_actor_part(n):
         return None
     if source_id == "src_kenney_mini_characters":
-        if not n.startswith("character-") or any(token in n for token in ("alien", "zombie", "knight", "raider", "soldier")):
+        if not n.startswith("character-") or any(token in n for token in ("alien", "zombie", "knight", "raider", "soldier", "robot")):
             return None
         return "worker" if "worker" in n else "civilian"
     # Override curado: los avatares Rocketbox concretos horneados como profesionales (V.h.11).
@@ -439,8 +440,11 @@ def main():
                 m = measured.get(rel)
                 dims = m["dimensions"] if m else None
                 tris = m["triangleCount"] if m else None
-                # runtime_ready: promovido al catálogo de edificios O horneado en el atlas vía job.
-                runtime_ready = rel in catalog_roles or rel in job_runtime
+                # Las nuevas fuentes seleccionadas en el Composer son pilotos locales; un módulo
+                # medido no equivale a un sprite promovido al runtime principal.
+                runtime_ready = rel in job_runtime or (
+                    rel in catalog_roles and source_id not in NEW_CANDIDATE_SOURCES
+                )
                 vclass = vehicle_class_of(fn) if category == "vehicle" else None
                 aclass = actor_class_of(fn, source_id) if category == "actor" else None
                 clip = animation_clip_of(fn) if category == "animation" else None
@@ -479,7 +483,7 @@ def main():
                 "runtimeLayer": "blender_sprite" if runtime_ready else "none",
                 "qualityTier": "measured" if dims else "unmeasured",
                 "orientationSupport": [0, 90, 180, 270] if category in ("urban_prop", "vehicle", "environment") else [0],
-                "animationSupport": category in ("actor", "animation"),
+                "animationSupport": category in ("actor", "animation") and source_id != "src_kenney_mini_characters",
                 "runtimeReady": runtime_ready,
                 "state": "runtime_ready" if runtime_ready else "classified",
                 **({"vehicleClass": vclass} if vclass else {}),

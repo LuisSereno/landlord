@@ -455,7 +455,9 @@ class Composition:
                 and record.get("purpose", "").startswith("band:front:level1:")
                 for record in self.placements
             )
-            has_storefront_access = access["id"] in {"shopfront_entrance", "canopied_shop"}
+            has_storefront_access = access["id"] in {
+                "shopfront_entrance", "canopied_shop", "canopied_shop_quaternius"
+            }
             ground_commercial = has_awning and has_ground_glazing and has_storefront_access
             if not ground_commercial:
                 problems.append(
@@ -1055,7 +1057,7 @@ class Composition:
             along = bays[index]
             has_infill = self._replace_front_bay(volume, along, frame, corner)
             if access["leafRole"] and not has_infill:
-                leaf = self.catalog.pick(self.family, access["leafRole"])
+                leaf = self.catalog.pick(self.family, access["leafRole"], access.get("leafModule"))
                 self.add_on_face(
                     leaf, "front", along, rect[1], volume["base"], "access:leaf", projection=-0.02
                 )

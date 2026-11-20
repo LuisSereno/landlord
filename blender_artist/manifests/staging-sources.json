@@ -480,7 +480,7 @@
       "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
       "sourceUrl": "https://kenney.nl/assets/mini-characters",
       "version": "2.0",
-      "unitScale": null,
+      "unitScale": 1,
       "extractDir": "kenney/mini-characters",
       "integrity": {
         "type": "tree-sha256",
@@ -561,7 +561,7 @@
       "verification": "Pack-specific official page and Quaternius FAQ label this December 2019 release CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
       "sourceUrl": "https://quaternius.com/packs/ultimatetexturedbuildings.html",
       "version": "2019",
-      "unitScale": null,
+      "unitScale": 2,
       "extractDir": "quaternius/ultimate-buildings",
       "integrity": {
         "type": "tree-sha256",

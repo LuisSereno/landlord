@@ -75,7 +75,16 @@ medir escala/pivote/triángulos en Blender, verificar texturas y licencia, compa
 `graphic_civic` y la maqueta material, asignar el rol semántico y el contexto, y añadirla a la
 selección curada del Composer o al catálogo de utilería/actores. Después ejecutar los gates de
 composición, tamaño, procedencia y captura en los nueve distritos. `unitScale` permanece `null`
-en estas seis fuentes hasta esa medición: aplicar 4 m por unidad a todo Kenney sería incorrecto.
+en Building Kit, Modular Buildings y Retro Urban Kit hasta acordar una escala de pack.
+Mini Characters usa `unitScale: 1` tras medir los 43 GLB: los personajes alcanzan 2 m de caja
+y las sillas de ruedas aproximadamente 0,5 m de alto; sus renders siguen en QA.
+Ultimate Buildings se midió en Blender
+5.2.2 y usa `unitScale: 2`: sus puertas de 0,91–0,97 unidades pasan a 1,82–1,94 m y el edificio
+`4Story_Wide_2Doors` alcanza 10,30 m. La inspección de los 102 FBX encontró que los modelos
+texturizados pierden la conexión al atlas al importar; para producción experimental se prefieren
+los 102 `.blend` equivalentes, anexados como objetos por el importador. De estos, 44 aún tienen
+texturas sin resolver y quedan fuera del render hasta reparar esa procedencia. El registro completo
+de medidas, selección y rechazos está en `docs/art/new-assets-integration/`.
 
 La regeneración del índice recogió además 19 assets **anteriores** que los jobs actuales ya tienen
 como `runtime_ready` (198 → 217). Ese cambio refleja deriva previa entre jobs e índice; no es una

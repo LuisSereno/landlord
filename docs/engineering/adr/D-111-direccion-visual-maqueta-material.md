@@ -58,3 +58,9 @@ se registraron en staging e índice global como candidatos, sin promoción autom
 aporta una posible pieza de garaje para el piloto `warehouse`. La licencia específica CC0 de Ultimate
 Buildings fue aceptado por el propietario bajo el CC0 indicado en su ficha específica; se retiró
 el bloqueo de licencia. Registro: `docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.
+
+Ejecución de la adenda del propietario (2026-11-20): se midieron los 102 modelos de Ultimate
+Buildings en Blender y se habilitó la importación de sus `.blend` para conservar texturas. Se
+seleccionó un balcón medido y se añadió una receta candidata para `mixed_tenement`. El catálogo
+principal de sprites permanece intacto hasta revisión visual humana. Registro de cobertura y
+limitaciones: `docs/art/new-assets-integration/README.md`.

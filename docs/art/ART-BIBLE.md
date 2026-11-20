@@ -955,3 +955,13 @@ Una Art Bible útil permite a un nuevo artista responder sin depender del creado
 La Art Bible define **qué** producir.
 
 El Art Pipeline Specification define **cómo** producirlo de forma reproducible.
+
+## Piloto Material Maquette con fuentes nuevas (2026-11-20)
+
+Ultimate Buildings (2019) está aceptado como CC0 para este proyecto. Su geometría se evalúa en el
+Building Composer sin promover sprites al runtime. El piloto actual de `mixed_tenement` incorpora
+una puerta doble y dos balcones reales del pack, con una cubierta plana más contenida. La puerta y
+los balcones mantienen procedencia y escala medidos; el render de QA está en
+[`new-assets-integration/`](new-assets-integration/README.md). La fachada comercial aún necesita
+escaparates claros y los balcones deben alinearse con huecos de acceso. Esta variante **no está
+aprobada como dirección final**. `graphic_civic` sigue siendo el control de comparación.

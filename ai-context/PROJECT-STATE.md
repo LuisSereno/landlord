@@ -1053,3 +1053,11 @@ escala asumida. Retro Urban ofrece una pieza `wall-a-garage` que merece la próx
 `warehouse`; el propietario aceptó CC0 para Ultimate Buildings según la ficha específica y se
 retiró su bloqueo de licencia. La curaduría y validación técnica siguen pendientes. Véase
 `docs/art/NEW-SOURCE-PACKS-2026-11-20.md`.
+
+Ejecución posterior del piloto: Ultimate Buildings CC0 se midió en sus 102 modelos FBX y Blend;
+el importador del Composer admite ahora `.blend` porque conserva el enlace al atlas que FBX pierde.
+`unitScale=2` se apoya en puertas de 1,82–1,94 m y edificio de cuatro plantas de 10,30 m. Hay un
+balcón y una puerta doble Quaternius seleccionados para una receta experimental de `mixed_tenement`;
+la nueva silueta usa cubierta plana. Sigue pendiente
+la revisión visual humana y no se promueve ningún sprite al runtime. Inventario y pruebas en
+`docs/art/new-assets-integration/`.

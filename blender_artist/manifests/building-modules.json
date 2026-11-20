@@ -68,12 +68,12 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 179,
-    "sources": 178,
+    "modules": 181,
+    "sources": 180,
     "byCategory": {
       "facade": 31,
       "window": 9,
-      "door": 6,
+      "door": 7,
       "roof": 14,
       "civic": 69,
       "canopy": 5,
@@ -81,12 +81,13 @@
       "mass": 25,
       "utility": 6,
       "chimney": 4,
-      "industrial": 5
+      "industrial": 5,
+      "balcony": 1
     },
     "byFamily": {
-      "residential_low": 54,
+      "residential_low": 57,
       "industrial_heavy": 50,
-      "civic_landmark": 153
+      "civic_landmark": 155
     },
     "bySource": {
       "src_quaternius_downtown_city_megakit": 102,
@@ -102,7 +103,8 @@
       "src_original_construction_barrier": 1,
       "src_original_damage_debris": 1,
       "src_original_fire_flame": 1,
-      "src_original_fire_smoke": 1
+      "src_original_fire_smoke": 1,
+      "src_quaternius_ultimate_buildings": 2
     }
   },
   "modules": [
@@ -3676,7 +3678,8 @@
       },
       "allowedFamilies": [
         "industrial_heavy",
-        "civic_landmark"
+        "civic_landmark",
+        "residential_low"
       ],
       "extraction": {
         "strategy": "whole_asset",
@@ -24794,6 +24797,276 @@
         "fileTriangles": 560,
         "fileHierarchy": [
           "FireSmoke:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_quat_ultimate_balcony",
+      "category": "balcony",
+      "role": "balcony",
+      "note": "Balcón de viviendas, medido a escala 2×; piloto mixed_tenement",
+      "sourceId": "src_quaternius_ultimate_buildings",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Balcony.blend",
+      "license": "CC0-1.0",
+      "unitScale": 2,
+      "objectSelector": {
+        "meshes": [
+          "Balcony"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 15 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.669,
+        "depthMeters": 0.95,
+        "heightMeters": 0.54
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Balcony",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "centered"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.834,
+            "max": 0.834
+          },
+          "y": {
+            "min": -0.475,
+            "max": 0.475
+          },
+          "z": {
+            "min": -0.27,
+            "max": 0.27
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0.27
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.8344,
+            "max": 0.8344
+          },
+          "y": {
+            "min": -0.4747,
+            "max": 0.4747
+          },
+          "z": {
+            "min": 0,
+            "max": 0.5405
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 120,
+        "triangles": 176,
+        "shells": 15,
+        "materials": [
+          "Texture"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+        ],
+        "selectedObjects": [
+          "Balcony"
+        ],
+        "baseColorChains": [
+          "Texture=sin_superficie"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.8344,
+          "depth": 0.4747,
+          "height": 0.2702,
+          "minZ": -0.1351
+        },
+        "importScale": 2,
+        "importOffset": [
+          0,
+          0,
+          0.2702
+        ],
+        "fileTriangles": 176,
+        "fileHierarchy": [
+          "Balcony:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_quat_ultimate_double_door",
+      "category": "door",
+      "role": "door",
+      "note": "Puerta comercial doble de Ultimate Buildings a escala 2×, medida 1,50 × 1,94 m",
+      "sourceId": "src_quaternius_ultimate_buildings",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Base Modular Parts/Blends/Door_Double.blend",
+      "license": "CC0-1.0",
+      "unitScale": 2,
+      "objectSelector": {
+        "meshes": [
+          "Door_Double"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 3 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.499,
+        "depthMeters": 0.245,
+        "heightMeters": 1.935
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "Door_Double",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "offset"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.75,
+            "max": 0.749
+          },
+          "y": {
+            "min": -0.127,
+            "max": 0.118
+          },
+          "z": {
+            "min": -0.031,
+            "max": 1.904
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0.001,
+          0.005,
+          0.031
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.7496,
+            "max": 0.7496
+          },
+          "y": {
+            "min": -0.1227,
+            "max": 0.1227
+          },
+          "z": {
+            "min": 0,
+            "max": 1.9354
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 180,
+        "triangles": 332,
+        "shells": 3,
+        "materials": [
+          "Texture"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
+        ],
+        "selectedObjects": [
+          "Door_Double"
+        ],
+        "baseColorChains": [
+          "Texture=sin_superficie"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.7496,
+          "depth": 0.1227,
+          "height": 0.9677,
+          "minZ": -0.0155
+        },
+        "importScale": 2,
+        "importOffset": [
+          0.0007,
+          0.0046,
+          0.0311
+        ],
+        "fileTriangles": 332,
+        "fileHierarchy": [
+          "Door_Double:MESH"
         ]
       }
     }

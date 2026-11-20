@@ -107,6 +107,14 @@ aprobación humana. Esto no equivale a una comparación Quaternius/Kenney/híbri
   compositor y generan manifiestos separados; las cifras son de producción offline, no de Phaser.
 - `pnpm art:world-catalog:validate`, `pnpm art:character-factory:validate` y
   `pnpm art:licenses:check`: pasan.
+- `pnpm art:building-composer:validate:test` (52 casos),
+  `pnpm art:building-composer:geometry:test`, `pnpm art:building-style:build:check`,
+  `pnpm art:building-modules:build:check`, `pnpm typecheck` y `pnpm build`: pasan.
+- `pnpm test` no termina verde: al repetir aislados, hay un fallo en
+  `market-actionability.test.ts` (espera una fusión, obtiene dos) y cuatro en
+  `vd7a-multiparcel.test.ts` (aceptación/IA de acería). El commit de arte no modifica
+  `packages/simulation`; se registran como fallos de la rama, sin atribuirles una causa
+  sin investigación específica.
 - `pnpm art:building-modules:validate`: 60 errores existentes del catálogo general; el módulo
   Quaternius nuevo no figura entre ellos. Se registran por separado de esta incorporación.
 - `pnpm art:staging:validate`: ocho fallos anteriores (siete procedencias originales incompletas y

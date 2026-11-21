@@ -182,6 +182,28 @@ const SCOPE = [
     directory: "blender_artist/sources/original",
     pattern: "gn_balcony_door_bay_2m\\.glb$",
   },
+  // D-111.2 WP05: las cuatro partes industriales de 4 m. Mismo motivo que WP02 —sin estas líneas el
+  // selector las rechaza con "no está en el inventario"— y mismo generador.
+  {
+    sourceId: "src_original_gn_metal_siding_bay",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_metal_siding_bay_4m\\.glb$",
+  },
+  {
+    sourceId: "src_original_gn_metal_window_bay",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_metal_window_bay_4m\\.glb$",
+  },
+  {
+    sourceId: "src_original_gn_truck_dock_bay",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_truck_dock_bay_4m\\.glb$",
+  },
+  {
+    sourceId: "src_original_gn_metal_parapet",
+    directory: "blender_artist/sources/original",
+    pattern: "gn_metal_parapet_4m\\.glb$",
+  },
   // D-111.2 WP02: el vano cívico horneado desde Arch Generator entra en el inventario como fuente
   // original propia; sin esta línea el selector lo rechaza con "no está en el inventario".
   {

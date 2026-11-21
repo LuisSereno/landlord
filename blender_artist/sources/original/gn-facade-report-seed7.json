@@ -5,7 +5,17 @@
  "construction": "objeto vacío + modificador Geometry Nodes evaluado en headless; el GLB se exporta con export_apply (instancias realizadas por el propio árbol) y el .blend conserva el modificador vivo",
  "seed": 7,
  "grid": {
-  "bayMeters": 2.0,
+  "bayMetersByPart": {
+   "window_bay": 2.0,
+   "shopfront_bay": 2.0,
+   "plinth": 2.0,
+   "cornice": 2.0,
+   "balcony_door_bay": 2.0,
+   "metal_siding_bay": 4.0,
+   "metal_window_bay": 4.0,
+   "truck_dock_bay": 4.0,
+   "metal_parapet": 4.0
+  },
   "floorHeightMeters": 3.0,
   "wallThicknessMeters": 0.2
  },
@@ -13,6 +23,7 @@
   {
    "part": "window_bay",
    "moduleId": "mod_gn_window_bay_2m",
+   "bayMeters": 2.0,
    "role": "window_bay",
    "category": "window",
    "objectName": "GnWindowBay",
@@ -45,8 +56,8 @@
     "transom",
     "wallThickness"
    ],
-   "setupMs": 21.23,
-   "evaluateMs": 5.96,
+   "setupMs": 16.86,
+   "evaluateMs": 4.21,
    "materials": [
     "gn_brick_wall",
     "gn_dark_glass",
@@ -89,7 +100,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 3.57
+     "evaluateMs": 2.97
     },
     {
      "parameter": "mullions",
@@ -110,7 +121,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 3.24
+     "evaluateMs": 2.84
     },
     {
      "parameter": "mullions",
@@ -131,13 +142,14 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 3.33
+     "evaluateMs": 2.78
     }
    ]
   },
   {
    "part": "shopfront_bay",
    "moduleId": "mod_gn_shopfront_bay_2m",
+   "bayMeters": 2.0,
    "role": "shopfront",
    "category": "facade",
    "objectName": "GnShopfrontBay",
@@ -168,8 +180,8 @@
     "sillHeight",
     "wallThickness"
    ],
-   "setupMs": 19.04,
-   "evaluateMs": 4.11,
+   "setupMs": 14.76,
+   "evaluateMs": 3.5,
    "materials": [
     "gn_brick_wall",
     "gn_dark_glass",
@@ -197,6 +209,7 @@
   {
    "part": "plinth",
    "moduleId": "mod_gn_plinth_2m",
+   "bayMeters": 2.0,
    "role": "wainscot",
    "category": "facade",
    "objectName": "GnPlinth",
@@ -221,8 +234,8 @@
     "socleHeight",
     "socleProjection"
    ],
-   "setupMs": 3.73,
-   "evaluateMs": 2.26,
+   "setupMs": 3.22,
+   "evaluateMs": 2.2,
    "materials": [
     "gn_stone_trim"
    ],
@@ -247,6 +260,7 @@
   {
    "part": "cornice",
    "moduleId": "mod_gn_cornice_2m",
+   "bayMeters": 2.0,
    "role": "cornice",
    "category": "facade",
    "objectName": "GnCornice",
@@ -267,8 +281,8 @@
     "bayWidth",
     "depthMeters"
    ],
-   "setupMs": 4.64,
-   "evaluateMs": 2.89,
+   "setupMs": 3.87,
+   "evaluateMs": 2.39,
    "materials": [
     "gn_brick_wall",
     "gn_stone_trim"
@@ -310,7 +324,7 @@
        "max": 1.0
       }
      },
-     "evaluateMs": 1.91
+     "evaluateMs": 1.73
     },
     {
      "parameter": "dentils",
@@ -331,7 +345,7 @@
        "max": 1.0
       }
      },
-     "evaluateMs": 2.82
+     "evaluateMs": 2.27
     },
     {
      "parameter": "dentils",
@@ -352,13 +366,14 @@
        "max": 1.0
       }
      },
-     "evaluateMs": 4.21
+     "evaluateMs": 2.41
     }
    ]
   },
   {
    "part": "balcony_door_bay",
    "moduleId": "mod_gn_balcony_door_bay_2m",
+   "bayMeters": 2.0,
    "role": "balcony",
    "category": "balcony",
    "objectName": "GnBalconyDoorBay",
@@ -393,8 +408,8 @@
     "slabHeight",
     "wallThickness"
    ],
-   "setupMs": 70.52,
-   "evaluateMs": 7.19,
+   "setupMs": 57.44,
+   "evaluateMs": 7.32,
    "materials": [
     "gn_dark_glass",
     "gn_joinery_dark",
@@ -438,7 +453,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 6.36
+     "evaluateMs": 4.78
     },
     {
      "parameter": "balusters",
@@ -459,7 +474,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.93
+     "evaluateMs": 5.67
     },
     {
      "parameter": "balusters",
@@ -480,7 +495,546 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 7.25
+     "evaluateMs": 5.38
+    }
+   ]
+  },
+  {
+   "part": "metal_siding_bay",
+   "moduleId": "mod_gn_metal_siding_bay_4m",
+   "bayMeters": 4.0,
+   "role": "wall_panel",
+   "category": "facade",
+   "objectName": "GnMetalSidingBay",
+   "note": "paño de chapa perfilada de nave de 4 m: nervaduras verticales instanciadas, traverse horizontales con goterón, solera de hormigón, coronación de alero, junta de nave en el canto y bajante en la línea de pilar; el origen autor queda en la cara posterior del muro y el plano exterior a 0,20 m, la misma convención de caja del panel megakit que sustituye",
+   "parameters": {
+    "bayWidth": 4.0,
+    "bayHeight": 3.0,
+    "panelThickness": 0.172,
+    "ribDepth": 0.026,
+    "ribWidth": 0.14,
+    "ribs": 9,
+    "kerbHeight": 0.35,
+    "eavesHeight": 0.12,
+    "seamLevels": 2,
+    "seamHeight": 0.05,
+    "jointWidth": 0.075,
+    "downspoutSize": 0.11
+   },
+   "nodeGroup": "D111_Facade_Metal_Siding_Bay",
+   "nodeCount": 37,
+   "liveParameters": [
+    "ribs"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "downspoutSize",
+    "eavesHeight",
+    "jointWidth",
+    "kerbHeight",
+    "panelThickness",
+    "ribDepth",
+    "ribWidth",
+    "seamHeight",
+    "seamLevels"
+   ],
+   "setupMs": 8.22,
+   "evaluateMs": 4.59,
+   "materials": [
+    "gn_metal_trim",
+    "gn_painted_metal",
+    "gn_rubber_dark"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+   "vertices": 144,
+   "triangles": 216,
+   "boundsMeters": {
+    "x": {
+     "min": -2.0,
+     "max": 2.0
+    },
+    "y": {
+     "min": 0.0,
+     "max": 0.2
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "parametricProbe": [
+    {
+     "parameter": "ribs",
+     "value": 6,
+     "vertices": 120,
+     "triangles": 180,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 2.95
+    },
+    {
+     "parameter": "ribs",
+     "value": 10,
+     "vertices": 152,
+     "triangles": 228,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 3.21
+    },
+    {
+     "parameter": "ribs",
+     "value": 14,
+     "vertices": 184,
+     "triangles": 276,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 3.21
+    }
+   ]
+  },
+  {
+   "part": "metal_window_bay",
+   "moduleId": "mod_gn_metal_window_bay_4m",
+   "bayMeters": 4.0,
+   "role": "window_bay",
+   "category": "window",
+   "objectName": "GnMetalWindowBay",
+   "note": "crujía de chapa de 4 m con franja alta de vidrios de 2,60 × 0,75 m: hueco atravesado de verdad con reveco de cuatro caras, montantes instanciados, chapa de alféizar con goterón y nervaduras que se cortan en el hueco; autoría propia porque el único window_bay de 4 m del catálogo enlaza MI_RedBrick y asoma ladrillo en la paleta steel_cladding",
+   "parameters": {
+    "bayWidth": 4.0,
+    "bayHeight": 3.0,
+    "panelThickness": 0.172,
+    "ribDepth": 0.026,
+    "ribWidth": 0.14,
+    "ribs": 9,
+    "kerbHeight": 0.35,
+    "eavesHeight": 0.12,
+    "seamLevels": 2,
+    "seamHeight": 0.05,
+    "jointWidth": 0.075,
+    "downspoutSize": 0.11,
+    "openingWidth": 2.6,
+    "openingHeight": 0.75,
+    "sillZ": 1.95,
+    "frameBar": 0.09,
+    "mullions": 2
+   },
+   "nodeGroup": "D111_Facade_Metal_Window_Bay",
+   "nodeCount": 88,
+   "liveParameters": [
+    "mullions",
+    "ribs"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "downspoutSize",
+    "eavesHeight",
+    "frameBar",
+    "jointWidth",
+    "kerbHeight",
+    "openingHeight",
+    "openingWidth",
+    "panelThickness",
+    "ribDepth",
+    "ribWidth",
+    "seamHeight",
+    "seamLevels",
+    "sillZ"
+   ],
+   "setupMs": 49.01,
+   "evaluateMs": 6.61,
+   "materials": [
+    "gn_dark_glass",
+    "gn_metal_trim",
+    "gn_painted_metal",
+    "gn_rubber_dark"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_metal_window_bay_4m.glb",
+   "vertices": 352,
+   "triangles": 528,
+   "boundsMeters": {
+    "x": {
+     "min": -2.0,
+     "max": 2.0
+    },
+    "y": {
+     "min": 0.0,
+     "max": 0.2
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "parametricProbe": [
+    {
+     "parameter": "mullions",
+     "value": 2,
+     "vertices": 352,
+     "triangles": 528,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 5.32
+    },
+    {
+     "parameter": "mullions",
+     "value": 3,
+     "vertices": 360,
+     "triangles": 540,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 5.63
+    },
+    {
+     "parameter": "mullions",
+     "value": 4,
+     "vertices": 368,
+     "triangles": 552,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 5.41
+    }
+   ]
+  },
+  {
+   "part": "truck_dock_bay",
+   "moduleId": "mod_gn_truck_dock_bay_4m",
+   "bayMeters": 4.0,
+   "role": "dock_doorframe",
+   "category": "door",
+   "objectName": "GnTruckDockBay",
+   "note": "portón de muelle de 4 m con hueco estructural de 2,60 × 2,74 m (camión rígido: caja 2,50 × 2,60), hoja seccionada instanciada en lamas, guías de rollo, pletina de niveladora, puerta de personal de 0,85 × 2,05 integrada en la hoja y topes de goma salientes; sustituye el hueco abierto de 2 m que el control presentaba como muelle completo",
+   "parameters": {
+    "bayWidth": 4.0,
+    "bayHeight": 3.0,
+    "panelThickness": 0.172,
+    "pierWidth": 0.7,
+    "headerHeight": 0.26,
+    "sillPlateHeight": 0.06,
+    "slats": 16,
+    "slatGap": 0.015,
+    "shutterRecess": 0.055,
+    "guideWidth": 0.085,
+    "leafWidth": 0.85,
+    "leafHeight": 2.05,
+    "leafFrame": 0.055,
+    "bumperWidth": 0.16,
+    "bumperHeight": 0.75,
+    "bumperSill": 0.3
+   },
+   "nodeGroup": "D111_Facade_Truck_Dock_Bay",
+   "nodeCount": 64,
+   "liveParameters": [
+    "slats"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "bumperHeight",
+    "bumperSill",
+    "bumperWidth",
+    "guideWidth",
+    "headerHeight",
+    "leafFrame",
+    "leafHeight",
+    "leafWidth",
+    "panelThickness",
+    "pierWidth",
+    "shutterRecess",
+    "sillPlateHeight",
+    "slatGap"
+   ],
+   "setupMs": 26.94,
+   "evaluateMs": 5.76,
+   "materials": [
+    "gn_dark_glass",
+    "gn_dock_shutter",
+    "gn_metal_trim",
+    "gn_painted_metal",
+    "gn_rubber_dark"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
+   "vertices": 280,
+   "triangles": 420,
+   "boundsMeters": {
+    "x": {
+     "min": -2.0,
+     "max": 2.0
+    },
+    "y": {
+     "min": 0.0,
+     "max": 0.2
+    },
+    "z": {
+     "min": 0.0,
+     "max": 3.0
+    }
+   },
+   "parametricProbe": [
+    {
+     "parameter": "slats",
+     "value": 12,
+     "vertices": 248,
+     "triangles": 372,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 4.4
+    },
+    {
+     "parameter": "slats",
+     "value": 17,
+     "vertices": 288,
+     "triangles": 432,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 5.02
+    },
+    {
+     "parameter": "slats",
+     "value": 24,
+     "vertices": 344,
+     "triangles": 516,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 3.0
+      }
+     },
+     "evaluateMs": 4.75
+    }
+   ]
+  },
+  {
+   "part": "metal_parapet",
+   "moduleId": "mod_gn_metal_parapet_4m",
+   "bayMeters": 4.0,
+   "role": "cornice",
+   "category": "facade",
+   "objectName": "GnMetalParapet",
+   "note": "pretil ciego de chapa de 4 m con capa plegada volada, junta de dilatación instanciada en la capa, banda de sombra bajo el canto y bajante alineado con el del paño: es la cubierta coherente que la opción `parapet` de la gramática declaraba con nombre pero sin módulo",
+   "parameters": {
+    "bayWidth": 4.0,
+    "bayHeight": 1.0,
+    "wallThickness": 0.162,
+    "ribDepth": 0.022,
+    "ribWidth": 0.14,
+    "ribs": 7,
+    "capDepth": 0.2,
+    "capHeight": 0.12,
+    "joints": 3,
+    "shadowHeight": 0.035,
+    "downspoutSize": 0.11
+   },
+   "nodeGroup": "D111_Facade_Metal_Parapet",
+   "nodeCount": 39,
+   "liveParameters": [
+    "joints",
+    "ribs"
+   ],
+   "bakedParameters": [
+    "bayHeight",
+    "bayWidth",
+    "capDepth",
+    "capHeight",
+    "downspoutSize",
+    "ribDepth",
+    "ribWidth",
+    "shadowHeight",
+    "wallThickness"
+   ],
+   "setupMs": 9.2,
+   "evaluateMs": 4.05,
+   "materials": [
+    "gn_metal_trim",
+    "gn_painted_metal",
+    "gn_rubber_dark"
+   ],
+   "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_metal_parapet_4m.glb",
+   "vertices": 120,
+   "triangles": 180,
+   "boundsMeters": {
+    "x": {
+     "min": -2.0,
+     "max": 2.0
+    },
+    "y": {
+     "min": 0.0,
+     "max": 0.2
+    },
+    "z": {
+     "min": 0.0,
+     "max": 1.0
+    }
+   },
+   "parametricProbe": [
+    {
+     "parameter": "joints",
+     "value": 2,
+     "vertices": 112,
+     "triangles": 168,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 1.0
+      }
+     },
+     "evaluateMs": 2.86
+    },
+    {
+     "parameter": "joints",
+     "value": 4,
+     "vertices": 128,
+     "triangles": 192,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 1.0
+      }
+     },
+     "evaluateMs": 3.39
+    },
+    {
+     "parameter": "joints",
+     "value": 7,
+     "vertices": 152,
+     "triangles": 228,
+     "boundsMeters": {
+      "x": {
+       "min": -2.0,
+       "max": 2.0
+      },
+      "y": {
+       "min": 0.0,
+       "max": 0.2
+      },
+      "z": {
+       "min": 0.0,
+       "max": 1.0
+      }
+     },
+     "evaluateMs": 3.5
     }
    ]
   }

@@ -1901,6 +1901,46 @@
       "meshes": ["GnBalconyDoorBay"],
       "allowedFamilies": ["residential_low"],
       "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_metal_siding_bay_4m",
+      "category": "facade",
+      "role": "wall_panel",
+      "note": "D-111.2 WP05: paño de chapa perfilada de nave sobre la celda completa de 4 m; nervaduras verticales instanciadas (número = parámetro vivo), travesaños con goterón, solera de hormigón, banda de alero, junta de nave en el canto y bajante en línea de pilar",
+      "sourcePath": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+      "meshes": ["GnMetalSidingBay"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_metal_window_bay_4m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "D-111.2 WP05: crujía de chapa de 4 m con franja alta de vidrios 2,60 × 0,75 m (machones de 0,70 m a cada lado, los mismos del portón), hueco atravesado con reveco de cuatro caras, montantes instanciados (parámetro vivo), chapa de alféizar con goterón y nervaduras que se cortan en el hueco. Autoría propia porque el único `window_bay` de 4 m del catálogo (`mod_megakit_metal_window_4m`) mide `MI_RedBrick` entre sus materiales y al pasar la rejilla industrial a 4 m metería ladrillo en la paleta `steel_cladding`: falsear la familia para no re-autorar 352 vértices. Peligro conocido: `module_catalog.py:88` ordena el pool por id, así que este módulo es `pool[0]` de (industrial_heavy, window_bay) delante de los megakit — no hay ruta implícita que lo consuma porque las diez paletas industriales pinchan `window_bay` en `roleModule` y `compose.py:692` pasa ese id; si una octava deja de pincharlo, éste entra sin tocar manifiesto.",
+      "sourcePath": "blender_artist/sources/original/gn_metal_window_bay_4m.glb",
+      "meshes": ["GnMetalWindowBay"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_truck_dock_bay_4m",
+      "category": "door",
+      "role": "dock_doorframe",
+      "note": "D-111.2 WP05: portón de muelle de 4 m con hueco estructural libre de 2,60 × 2,68 m (medido cara a cara en ext_lab/dock_probe.py, no deducido de los parámetros), hoja seccionada de lamas vivas, guías, dintel, pletina de niveladora, puerta personal con mirilla y topes de goma. Rol PROPIO, no `doorframe`: `compose.py:1055` resuelve `accessOptions.frameRole` sin id y `module_catalog.py:116` devuelve `pool[0]`, y `module_catalog.py:88` construye el pool `sorted(modules, key=id)` — bajo `doorframe` este módulo de 4 m (`gn` < `megakit`) hubiera reemplazado el marco peatonal de 2 m en las cinco gramáticas industriales aprobadas sin tocar ningún manifiesto (medido: `§17: el contacto con el suelo se sale del solar por x min`). Un muelle tampoco puede confundirse con una puerta en el tipo de dato.",
+      "sourcePath": "blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
+      "meshes": ["GnTruckDockBay"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
+      "id": "mod_gn_metal_parapet_4m",
+      "category": "facade",
+      "role": "cornice",
+      "note": "D-111.2 WP05: pretil ciego de chapa de 4 m con capa volada de 0,20 m, banda de sombra, juntas verticales instanciadas (número = parámetro vivo) y bajante continua con la del paño; es la silueta `parapet` que en la gramática existía sin geometría",
+      "sourcePath": "blender_artist/sources/original/gn_metal_parapet_4m.glb",
+      "meshes": ["GnMetalParapet"],
+      "allowedFamilies": ["industrial_heavy"],
+      "extractionStrategy": "whole_asset"
     }
   ]
 }

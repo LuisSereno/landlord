@@ -44,12 +44,52 @@ CORNICE_FAMILIES = {"row_house", "mixed_tenement", "town_hall"}
 # town_hall el catálogo lo rechaza: la ruta cívica no se puede filtrar por error a un residencial.
 AG_BY_ROLE = {"window_bay": "mod_ag_arcade_bay_2m"}
 
+# D-111.2 WP05: la nave en rejilla de 4 m. Los roles que consume `warehouse` cambian de desarrollo,
+# así que van juntos: `compose.py:696` (§17) aborta si el ancho de un módulo de banda no coincide con
+# `rhythm.bayMeters`, y con `bayMeters: 2` los módulos de 4 m estarían prohibidos.
+#   - `wall_panel`: autoría propia GN (paño de chapa sobre la celda completa).
+#   - `window_bay`: también autoría propia GN. El CC0 de 4 m existe (`mod_megakit_metal_window_4m`)
+#     y se midió: `building-modules.json` le registra `MI_RedBrick` entre sus materiales, así que al
+#     regriduar la nave a 4 m metería ladrillo en `steel_cladding` (su variante de 2 m no lo lleva).
+INDUSTRIAL_BY_ROLE = {
+    "wall_panel": "mod_gn_metal_siding_bay_4m",
+    "window_bay": "mod_gn_metal_window_bay_4m",
+}
+INDUSTRIAL_BAY_METERS = 4
+
+# El marco de acceso NO se enruta por la paleta: `compose.py:1055` pide `accessOptions.frameRole`
+# sin id y `module_catalog.py:116` devuelve `pool[0]` de un pool que `module_catalog.py:88` ordena por
+# id — `mod_gn_*` gana a `mod_megakit_*`. Por eso el portón declara su propio rol `dock_doorframe` y
+# el parche cambia el rol del acceso: así el brazo de control conserva el marco peatonal de 2 m de la
+# gramática aprobada y el hueco de camión sólo aparece donde una gramática lo pide explícitamente.
+INDUSTRIAL_FRAME_ROLE = "dock_doorframe"
+
+# `cornice` es el único rol de remate que publica el perfil, y en HEAD dos de las tres siluetas
+# (`plain` y `parapet`) declaraban `corniceRole: null`: `_build_cornice` (`compose.py:735`) no
+# llegaba a ejecutarse y ambas opciones eran geométricamente idénticas. El pretil GN de 4 m da remate
+# real a las dos y las separa por vuelo; a 4 m el módulo de 2 m dejaría huecos, que era el defecto.
+INDUSTRIAL_SILHOUETTES = {
+    "metal_cornice": {"module": "mod_gn_metal_parapet_4m", "projectionMeters": 0.35},
+    "parapet": {"module": "mod_gn_metal_parapet_4m", "projectionMeters": 0.2},
+}
+
+# La rejilla de 4 m es una decisión de la familia industrial, no un parche universal: aplicada a un
+# residencial regriduaría fachadas que nunca se diseñaron para crujías de 4 m.
+INDUSTRIAL_FAMILIES = {"warehouse"}
+
 FACADE_SOURCES = {
     # `commercial`: sólo la autoría GN tiene escaparate de planta baja; la cívica no lo necesita y
     # enrutarlo sería inventar comercio donde la identidad aprobada del ayuntamiento no lo declara.
     "gn": {"byRole": GN_BY_ROLE, "cornice": True, "featureModules": GN_BY_FEATURE_MODULE,
-           "commercial": True},
-    "ag": {"byRole": AG_BY_ROLE, "cornice": False, "featureModules": {}, "commercial": False},
+           "commercial": True, "bayMeters": None, "frameRole": None,
+           "silhouetteModules": {}, "families": None},
+    "ag": {"byRole": AG_BY_ROLE, "cornice": False, "featureModules": {}, "commercial": False,
+           "bayMeters": None, "frameRole": None, "silhouetteModules": {}, "families": None},
+    "industrial": {"byRole": INDUSTRIAL_BY_ROLE, "cornice": False, "featureModules": {},
+                   "commercial": False, "bayMeters": INDUSTRIAL_BAY_METERS,
+                   "frameRole": INDUSTRIAL_FRAME_ROLE,
+                   "silhouetteModules": INDUSTRIAL_SILHOUETTES,
+                   "families": INDUSTRIAL_FAMILIES},
 }
 
 
@@ -73,6 +113,12 @@ def main():
         BACKUP.write_text(GRAMMAR.read_text(encoding="utf-8"), encoding="utf-8")
     for family in families:
         grammar = data["grammars"][family]
+        allowed = source["families"]
+        if allowed is not None and family not in allowed:
+            sys.exit(
+                f"--source=industrial sólo regridúa {sorted(allowed)}; {family} se quedaría con "
+                "módulos de 4 m en bandas de 2 y §17 lo abortaría, o peor: cambiaría su arquitectura"
+            )
         changed = []
         by_role = dict(source["byRole"])
         if source["commercial"] and grammar.get("semanticIdentity", {}).get("requireGroundCommercial"):
@@ -104,11 +150,28 @@ def main():
                 }:
                     rhythm["groundRole"] = COMMERCIAL_ROLE[0]
                     changed.append(f"rhythm.{rhythm['id']}.groundRole")
+        if source["bayMeters"]:
+            # El número de opciones de cada eje no cambia, así que el sorteo de las nueve decisiones
+            # del manifiesto sale idéntico al control: la A/B sigue atribuyendo sólo a los módulos.
+            for rhythm in grammar["rhythms"]:
+                rhythm["bayMeters"] = source["bayMeters"]
+                changed.append(f"rhythm.{rhythm['id']}.bayMeters")
+        if source["frameRole"]:
+            for access in grammar["accessOptions"]:
+                access["frameRole"] = source["frameRole"]
+                changed.append(f"access.{access['id']}.frameRole")
         if source["cornice"] and family in CORNICE_FAMILIES:
             for option in grammar["silhouetteOptions"]:
                 if (option.get("corniceModule") or "").startswith("mod_megakit_"):
                     option["corniceModule"] = "mod_gn_cornice_2m"
                     changed.append(f"silhouette.{option['id']}.corniceModule")
+        for silhouette_id, override in source["silhouetteModules"].items():
+            option = next(o for o in grammar["silhouetteOptions"] if o["id"] == silhouette_id)
+            # `parapet` no declaraba módulo: se le da el rol que su propia etiqueta ya prometía.
+            option["corniceRole"] = "cornice"
+            option["corniceModule"] = override["module"]
+            option["projectionMeters"] = override["projectionMeters"]
+            changed.append(f"silhouette.{silhouette_id}")
         print(f"parche {family}:", ", ".join(changed) or "NADA QUE CAMBIAR")
     GRAMMAR.write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 

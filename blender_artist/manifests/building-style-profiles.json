@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "58e070ef5183758138b74d5fb6c3f3fdea78abe875effd3ba28534539b2327a8",
-      "selectionSha256": "4e1e2d914a5fbc5813a4d0b3f8b9356d2e26a20e3b424c213847eb9cd55c4d1c",
+      "moduleCatalogSha256": "f68d666edc11137e178ef7344c2bda8164b22d0840bb8ee29f11e4fc9cce54d0",
+      "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -40,9 +40,9 @@
               "measured": [
                 {
                   "value": 3,
-                  "count": 24,
+                  "count": 26,
                   "moduleIds": [
-                    "mod_gn_plinth_2m (3 m)"
+                    "mod_gn_metal_window_bay_4m (3 m)"
                   ]
                 },
                 {
@@ -102,9 +102,9 @@
                 },
                 {
                   "value": 4,
-                  "count": 5,
+                  "count": 7,
                   "moduleIds": [
-                    "mod_megakit_metal_window_4m"
+                    "mod_gn_metal_window_bay_4m"
                   ]
                 }
               ],
@@ -152,8 +152,8 @@
         "windowScale": {
           "value": {
             "rule": "sustituir módulo, nunca escalar",
-            "windowBaysMeasured": 14,
-            "windowBaysAtFloorHeight": 14,
+            "windowBaysMeasured": 15,
+            "windowBaysAtFloorHeight": 15,
             "widthsMeters": [
               2,
               4
@@ -175,6 +175,7 @@
             },
             {
               "measured": [
+                0.2,
                 0.224,
                 0.229,
                 0.231,
@@ -192,7 +193,7 @@
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.depthMeters"
             }
           ],
-          "rationale": "14 de 14 crujías acristaladas miden exactamente la altura de piso. La variedad se consigue cambiando de módulo (14 crujías licenciadas distintas en el catálogo), así que el compositor no escala ventanas en Z: escalarlas rompería el dintel contra el marco de 3 m."
+          "rationale": "15 de 15 crujías acristaladas miden exactamente la altura de piso. La variedad se consigue cambiando de módulo (15 crujías licenciadas distintas en el catálogo), así que el compositor no escala ventanas en Z: escalarlas rompería el dintel contra el marco de 3 m."
         },
         "bevel": {
           "value": {
@@ -233,9 +234,9 @@
               "measured": [
                 {
                   "value": 0.2,
-                  "count": 6,
+                  "count": 8,
                   "moduleIds": [
-                    "mod_megakit_metal_wall_2m"
+                    "mod_gn_metal_window_bay_4m"
                   ]
                 },
                 {
@@ -417,7 +418,11 @@
               "src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86",
               "src_original_gn_plinth: 0.74",
               "src_original_gn_cornice: 0.74/0.86",
-              "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74"
+              "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74",
+              "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
+              "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
+              "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
+              "src_original_gn_metal_parapet: 0.55/0.62/0.92"
             ],
             "perFamily": {
               "brick": {
@@ -443,7 +448,8 @@
                   0.827
                 ],
                 "scalarFactor": [
-                  0.55
+                  0.55,
+                  0.62
                 ],
                 "preservedWhenLinked": true
               },
@@ -511,13 +517,17 @@
                 "src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86",
                 "src_original_gn_plinth: 0.74",
                 "src_original_gn_cornice: 0.74/0.86",
-                "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74"
+                "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74",
+                "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
+                "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
+                "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
+                "src_original_gn_metal_parapet: 0.55/0.62/0.92"
               ],
               "how": "factores de Roughness por pack donde el socket NO está enlazado: son los únicos que el override toca",
               "source": "/tmp/landlord-vf-style/measurements.json → materialReport[].surface.Roughness.value"
             }
           ],
-          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
+          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74; src_original_gn_metal_siding_bay: 0.55/0.62/0.92; src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92; src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92; src_original_gn_metal_parapet: 0.55/0.62/0.92) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
         },
         "materialMetallic": {
           "value": {
@@ -1034,13 +1044,13 @@
         "detailDensity": {
           "value": {
             "trianglesPerModule": {
-              "p50": 116,
-              "p90": 1076.6,
+              "p50": 120,
+              "p90": 1053,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
               "p50": 28.45,
-              "p90": 82.9
+              "p90": 78.14
             },
             "budgetReference": {
               "maxBinaryBytes": 1048576,
@@ -3284,17 +3294,22 @@
           "present": true,
           "measuredMaterials": [
             "MI_Trim_MetalConcrete",
+            "gn_metal_trim",
             "gn_painted_metal"
           ],
-          "moduleCount": 39,
+          "moduleCount": 43,
           "moduleExamples": [
             "mod_gn_balcony_door_bay_2m",
-            "mod_megakit_brick_window_curved_4m",
-            "mod_megakit_brick_window_redwhite_4m",
-            "mod_megakit_civic_bollard"
+            "mod_gn_metal_parapet_4m",
+            "mod_gn_metal_siding_bay_4m",
+            "mod_gn_metal_window_bay_4m"
           ],
           "sourceIds": [
             "src_original_gn_balcony_door_bay",
+            "src_original_gn_metal_parapet",
+            "src_original_gn_metal_siding_bay",
+            "src_original_gn_metal_window_bay",
+            "src_original_gn_truck_dock_bay",
             "src_quaternius_downtown_city_megakit"
           ],
           "baseColorChain": [
@@ -3310,7 +3325,8 @@
               0.827
             ],
             "scalarFactor": [
-              0.55
+              0.55,
+              0.62
             ]
           },
           "metallicMeasured": {
@@ -3380,17 +3396,19 @@
             "MI_Glass",
             "gn_dark_glass"
           ],
-          "moduleCount": 25,
+          "moduleCount": 27,
           "moduleExamples": [
             "mod_ag_arcade_bay_2m",
             "mod_gn_balcony_door_bay_2m",
-            "mod_gn_shopfront_bay_2m",
-            "mod_gn_window_bay_2m"
+            "mod_gn_metal_window_bay_4m",
+            "mod_gn_shopfront_bay_2m"
           ],
           "sourceIds": [
             "src_original_ag_arcade_bay",
             "src_original_gn_balcony_door_bay",
+            "src_original_gn_metal_window_bay",
             "src_original_gn_shopfront_bay",
+            "src_original_gn_truck_dock_bay",
             "src_original_gn_window_bay",
             "src_quaternius_downtown_city_megakit"
           ],
@@ -3851,7 +3869,11 @@
             "src_original_gn_shopfront_bay",
             "src_original_gn_plinth",
             "src_original_gn_cornice",
-            "src_original_gn_balcony_door_bay"
+            "src_original_gn_balcony_door_bay",
+            "src_original_gn_metal_siding_bay",
+            "src_original_gn_metal_window_bay",
+            "src_original_gn_truck_dock_bay",
+            "src_original_gn_metal_parapet"
           ],
           "familiesPartlyTreated": [
             {
@@ -3917,7 +3939,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay, src_original_gn_metal_siding_bay, src_original_gn_metal_window_bay, src_original_gn_truck_dock_bay, src_original_gn_metal_parapet) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -5012,6 +5034,270 @@
             "shippedJobs": []
           },
           {
+            "pack": "src_original_gn_metal_parapet",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_metal_parapet_4m.glb: 3 de 3 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.55,
+              0.62,
+              0.92
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_gn_metal_siding_bay",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_metal_siding_bay_4m.glb: 3 de 3 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.55,
+              0.62,
+              0.92
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_gn_metal_window_bay",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 4,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_dark_glass",
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_metal_window_bay_4m.glb: 4 de 4 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_dark_glass",
+                "family": "glass",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.14
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.14,
+              0.55,
+              0.62,
+              0.92
+            ],
+            "shippedJobs": []
+          },
+          {
             "pack": "src_original_gn_plinth",
             "license": "original",
             "moduleCount": 1,
@@ -5154,6 +5440,124 @@
               0.68,
               0.74,
               0.86
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_gn_truck_dock_bay",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 5,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_dark_glass",
+              "gn_dock_shutter",
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_truck_dock_bay_4m.glb: 5 de 5 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_dark_glass",
+                "family": "glass",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.14
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_dock_shutter",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.48
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.14,
+              0.48,
+              0.55,
+              0.62,
+              0.92
             ],
             "shippedJobs": []
           },
@@ -5719,8 +6123,12 @@
           "blender_artist/sources/original/fire_smoke.glb (src_original_fire_smoke): 1 de 1 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_balcony_door_bay_2m.glb (src_original_gn_balcony_door_bay): 4 de 4 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_cornice_2m.glb (src_original_gn_cornice): 2 de 2 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_metal_parapet_4m.glb (src_original_gn_metal_parapet): 3 de 3 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_metal_siding_bay_4m.glb (src_original_gn_metal_siding_bay): 3 de 3 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_metal_window_bay_4m.glb (src_original_gn_metal_window_bay): 4 de 4 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_plinth_2m.glb (src_original_gn_plinth): 1 de 1 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_shopfront_bay_2m.glb (src_original_gn_shopfront_bay): 4 de 4 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_truck_dock_bay_4m.glb (src_original_gn_truck_dock_bay): 5 de 5 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_window_bay_2m.glb (src_original_gn_window_bay): 3 de 3 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
@@ -5864,7 +6272,11 @@
           "src_original_gn_shopfront_bay",
           "src_original_gn_plinth",
           "src_original_gn_cornice",
-          "src_original_gn_balcony_door_bay"
+          "src_original_gn_balcony_door_bay",
+          "src_original_gn_metal_siding_bay",
+          "src_original_gn_metal_window_bay",
+          "src_original_gn_truck_dock_bay",
+          "src_original_gn_metal_parapet"
         ],
         "requiredWork": "V.f.4 debe extender el traversal hasta la TEX_IMAGE real que alimenta el MIX (o aplicar las bandas sobre la imagen de entrada del mezclador) para que las instancias en bruto entren en la misma escalera de valor. Sin eso hay que listar módulos: los de `modulesRawList` quedan fuera de los alzados que se juzguen tratados.",
         "measuredBrightnessGap": {
@@ -6555,11 +6967,26 @@
             "src_original_gn_balcony_door_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_cornice/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_cornice/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_parapet/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_parapet/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_parapet/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_siding_bay/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_siding_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_siding_bay/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_plinth/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_joinery_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_dock_shutter: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_window_bay/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_window_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_window_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
@@ -6599,8 +7026,8 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "58e070ef5183758138b74d5fb6c3f3fdea78abe875effd3ba28534539b2327a8",
-      "selectionSha256": "4e1e2d914a5fbc5813a4d0b3f8b9356d2e26a20e3b424c213847eb9cd55c4d1c",
+      "moduleCatalogSha256": "f68d666edc11137e178ef7344c2bda8164b22d0840bb8ee29f11e4fc9cce54d0",
+      "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -6616,9 +7043,9 @@
               "measured": [
                 {
                   "value": 3,
-                  "count": 24,
+                  "count": 26,
                   "moduleIds": [
-                    "mod_gn_plinth_2m (3 m)"
+                    "mod_gn_metal_window_bay_4m (3 m)"
                   ]
                 },
                 {
@@ -6678,9 +7105,9 @@
                 },
                 {
                   "value": 4,
-                  "count": 5,
+                  "count": 7,
                   "moduleIds": [
-                    "mod_megakit_metal_window_4m"
+                    "mod_gn_metal_window_bay_4m"
                   ]
                 }
               ],
@@ -6728,8 +7155,8 @@
         "windowScale": {
           "value": {
             "rule": "sustituir módulo, nunca escalar",
-            "windowBaysMeasured": 14,
-            "windowBaysAtFloorHeight": 14,
+            "windowBaysMeasured": 15,
+            "windowBaysAtFloorHeight": 15,
             "widthsMeters": [
               2,
               4
@@ -6751,6 +7178,7 @@
             },
             {
               "measured": [
+                0.2,
                 0.224,
                 0.229,
                 0.231,
@@ -6768,7 +7196,7 @@
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.depthMeters"
             }
           ],
-          "rationale": "14 de 14 crujías acristaladas miden exactamente la altura de piso. La variedad se consigue cambiando de módulo (14 crujías licenciadas distintas en el catálogo), así que el compositor no escala ventanas en Z: escalarlas rompería el dintel contra el marco de 3 m."
+          "rationale": "15 de 15 crujías acristaladas miden exactamente la altura de piso. La variedad se consigue cambiando de módulo (15 crujías licenciadas distintas en el catálogo), así que el compositor no escala ventanas en Z: escalarlas rompería el dintel contra el marco de 3 m."
         },
         "bevel": {
           "value": {
@@ -6809,9 +7237,9 @@
               "measured": [
                 {
                   "value": 0.2,
-                  "count": 6,
+                  "count": 8,
                   "moduleIds": [
-                    "mod_megakit_metal_wall_2m"
+                    "mod_gn_metal_window_bay_4m"
                   ]
                 },
                 {
@@ -6993,7 +7421,11 @@
               "src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86",
               "src_original_gn_plinth: 0.74",
               "src_original_gn_cornice: 0.74/0.86",
-              "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74"
+              "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74",
+              "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
+              "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
+              "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
+              "src_original_gn_metal_parapet: 0.55/0.62/0.92"
             ],
             "perFamily": {
               "brick": {
@@ -7019,7 +7451,8 @@
                   0.827
                 ],
                 "scalarFactor": [
-                  0.55
+                  0.55,
+                  0.62
                 ],
                 "preservedWhenLinked": true
               },
@@ -7087,13 +7520,17 @@
                 "src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86",
                 "src_original_gn_plinth: 0.74",
                 "src_original_gn_cornice: 0.74/0.86",
-                "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74"
+                "src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74",
+                "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
+                "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
+                "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
+                "src_original_gn_metal_parapet: 0.55/0.62/0.92"
               ],
               "how": "factores de Roughness por pack donde el socket NO está enlazado: son los únicos que el override toca",
               "source": "/tmp/landlord-vf-style/measurements.json → materialReport[].surface.Roughness.value"
             }
           ],
-          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
+          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74; src_original_gn_metal_siding_bay: 0.55/0.62/0.92; src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92; src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92; src_original_gn_metal_parapet: 0.55/0.62/0.92) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
         },
         "materialMetallic": {
           "value": {
@@ -7610,13 +8047,13 @@
         "detailDensity": {
           "value": {
             "trianglesPerModule": {
-              "p50": 116,
-              "p90": 1076.6,
+              "p50": 120,
+              "p90": 1053,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
               "p50": 28.45,
-              "p90": 82.9
+              "p90": 78.14
             },
             "budgetReference": {
               "maxBinaryBytes": 1048576,
@@ -9860,17 +10297,22 @@
           "present": true,
           "measuredMaterials": [
             "MI_Trim_MetalConcrete",
+            "gn_metal_trim",
             "gn_painted_metal"
           ],
-          "moduleCount": 39,
+          "moduleCount": 43,
           "moduleExamples": [
             "mod_gn_balcony_door_bay_2m",
-            "mod_megakit_brick_window_curved_4m",
-            "mod_megakit_brick_window_redwhite_4m",
-            "mod_megakit_civic_bollard"
+            "mod_gn_metal_parapet_4m",
+            "mod_gn_metal_siding_bay_4m",
+            "mod_gn_metal_window_bay_4m"
           ],
           "sourceIds": [
             "src_original_gn_balcony_door_bay",
+            "src_original_gn_metal_parapet",
+            "src_original_gn_metal_siding_bay",
+            "src_original_gn_metal_window_bay",
+            "src_original_gn_truck_dock_bay",
             "src_quaternius_downtown_city_megakit"
           ],
           "baseColorChain": [
@@ -9886,7 +10328,8 @@
               0.827
             ],
             "scalarFactor": [
-              0.55
+              0.55,
+              0.62
             ]
           },
           "metallicMeasured": {
@@ -9956,17 +10399,19 @@
             "MI_Glass",
             "gn_dark_glass"
           ],
-          "moduleCount": 25,
+          "moduleCount": 27,
           "moduleExamples": [
             "mod_ag_arcade_bay_2m",
             "mod_gn_balcony_door_bay_2m",
-            "mod_gn_shopfront_bay_2m",
-            "mod_gn_window_bay_2m"
+            "mod_gn_metal_window_bay_4m",
+            "mod_gn_shopfront_bay_2m"
           ],
           "sourceIds": [
             "src_original_ag_arcade_bay",
             "src_original_gn_balcony_door_bay",
+            "src_original_gn_metal_window_bay",
             "src_original_gn_shopfront_bay",
+            "src_original_gn_truck_dock_bay",
             "src_original_gn_window_bay",
             "src_quaternius_downtown_city_megakit"
           ],
@@ -10427,7 +10872,11 @@
             "src_original_gn_shopfront_bay",
             "src_original_gn_plinth",
             "src_original_gn_cornice",
-            "src_original_gn_balcony_door_bay"
+            "src_original_gn_balcony_door_bay",
+            "src_original_gn_metal_siding_bay",
+            "src_original_gn_metal_window_bay",
+            "src_original_gn_truck_dock_bay",
+            "src_original_gn_metal_parapet"
           ],
           "familiesPartlyTreated": [
             {
@@ -10493,7 +10942,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay, src_original_gn_metal_siding_bay, src_original_gn_metal_window_bay, src_original_gn_truck_dock_bay, src_original_gn_metal_parapet) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -11588,6 +12037,270 @@
             "shippedJobs": []
           },
           {
+            "pack": "src_original_gn_metal_parapet",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_metal_parapet_4m.glb: 3 de 3 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.55,
+              0.62,
+              0.92
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_gn_metal_siding_bay",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_metal_siding_bay_4m.glb: 3 de 3 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.55,
+              0.62,
+              0.92
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_gn_metal_window_bay",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 4,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_dark_glass",
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_metal_window_bay_4m.glb: 4 de 4 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_dark_glass",
+                "family": "glass",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.14
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.14,
+              0.55,
+              0.62,
+              0.92
+            ],
+            "shippedJobs": []
+          },
+          {
             "pack": "src_original_gn_plinth",
             "license": "original",
             "moduleCount": 1,
@@ -11730,6 +12443,124 @@
               0.68,
               0.74,
               0.86
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_original_gn_truck_dock_bay",
+            "license": "original",
+            "moduleCount": 1,
+            "materials": 5,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "gn_dark_glass",
+              "gn_dock_shutter",
+              "gn_metal_trim",
+              "gn_painted_metal",
+              "gn_rubber_dark"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 1,
+            "rawModuleExamples": [
+              "gn_truck_dock_bay_4m.glb: 5 de 5 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "factor plano"
+            ],
+            "materialReach": [
+              {
+                "material": "gn_dark_glass",
+                "family": "glass",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.14
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_dock_shutter",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.48
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_metal_trim",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.62
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_painted_metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.55
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "gn_rubber_dark",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.92
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [],
+            "colorTextureFiles": [],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              0.14,
+              0.48,
+              0.55,
+              0.62,
+              0.92
             ],
             "shippedJobs": []
           },
@@ -12295,8 +13126,12 @@
           "blender_artist/sources/original/fire_smoke.glb (src_original_fire_smoke): 1 de 1 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_balcony_door_bay_2m.glb (src_original_gn_balcony_door_bay): 4 de 4 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_cornice_2m.glb (src_original_gn_cornice): 2 de 2 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_metal_parapet_4m.glb (src_original_gn_metal_parapet): 3 de 3 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_metal_siding_bay_4m.glb (src_original_gn_metal_siding_bay): 3 de 3 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_metal_window_bay_4m.glb (src_original_gn_metal_window_bay): 4 de 4 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_plinth_2m.glb (src_original_gn_plinth): 1 de 1 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_shopfront_bay_2m.glb (src_original_gn_shopfront_bay): 4 de 4 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/gn_truck_dock_bay_4m.glb (src_original_gn_truck_dock_bay): 5 de 5 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_window_bay_2m.glb (src_original_gn_window_bay): 3 de 3 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_L.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_90Angle_R.gltf (src_quaternius_downtown_city_megakit): 2 de 2 materiales con Base Color fuera de la banda",
@@ -12440,7 +13275,11 @@
           "src_original_gn_shopfront_bay",
           "src_original_gn_plinth",
           "src_original_gn_cornice",
-          "src_original_gn_balcony_door_bay"
+          "src_original_gn_balcony_door_bay",
+          "src_original_gn_metal_siding_bay",
+          "src_original_gn_metal_window_bay",
+          "src_original_gn_truck_dock_bay",
+          "src_original_gn_metal_parapet"
         ],
         "requiredWork": "V.f.4 debe extender el traversal hasta la TEX_IMAGE real que alimenta el MIX (o aplicar las bandas sobre la imagen de entrada del mezclador) para que las instancias en bruto entren en la misma escalera de valor. Sin eso hay que listar módulos: los de `modulesRawList` quedan fuera de los alzados que se juzguen tratados.",
         "measuredBrightnessGap": {
@@ -13131,11 +13970,26 @@
             "src_original_gn_balcony_door_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_cornice/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_cornice/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_parapet/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_parapet/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_parapet/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_siding_bay/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_siding_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_siding_bay/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_metal_window_bay/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_plinth/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_joinery_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_shopfront_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_dock_shutter: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_metal_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_gn_truck_dock_bay/gn_rubber_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_window_bay/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_window_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_window_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
@@ -13201,14 +14055,14 @@
     }
   ],
   "counts": {
-    "modules": 187,
+    "modules": 191,
     "texturesSampled": 31,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
     "modulesFullyTreatedToday": 98,
-    "modulesWithRawMaterial": 89,
+    "modulesWithRawMaterial": 93,
     "texturesSplitAcrossModules": 5
   }
 }

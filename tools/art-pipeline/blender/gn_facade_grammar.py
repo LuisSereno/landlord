@@ -14,9 +14,18 @@ Convención de marco (compatível con `module_catalog`):
   Y = profundidad; la pared ocupa [-T/2, +T/2] y la calle mira a +Y.
   Z = 0 en el nivel de la losa.
 
+Dos rejillas conviven en el mismo sistema (D-111.2 WP05): las partes residencial y comercial
+trabajan sobre crujía de 2 m; las tres partes industriales, sobre 4 m, que es la celda completa
+del Composer y la única donde un portón de muelle cabe de verdad. El tag de salida
+(`gn_<parte>_<ancho>m.glb`) sale del parámetro `bayWidth` de cada parte, no de una constante, así
+que ninguna de las dos rejillas pisa el id de la otra.
+
 Uso:
   blender -b --factory-startup -P tools/art-pipeline/blender/gn_facade_grammar.py -- \
       --out-dir=/tmp/gn --seed=7 --parts=window_bay,shopfront_bay,plinth,cornice,balcony_door_bay
+  # D-111.2 WP05, las tres piezas de la nave (crujía 4 m):
+  blender -b --factory-startup -P tools/art-pipeline/blender/gn_facade_grammar.py -- \
+      --out-dir=/tmp/gn --seed=7 --parts=metal_siding_bay,truck_dock_bay,metal_parapet
 """
 
 import json
@@ -32,7 +41,9 @@ GROUP_PREFIX = "D111_Facade"
 # ---------------------------------------------------------------------------
 # Vocabulario de partes. Comparten constructor y rejilla (crujía 2 m, planta 3 m)
 # para que una regla escrita para `row_house` sirva a `mixed_tenement` sin tocar
-# el núcleo del Composer.
+# el núcleo del Composer. Las tres partes de WP05 son la excepción medida: crujía de
+# 4 m (una celda) y familia `industrial_heavy`, que ningún módulo residencial puede
+# suplantar porque `allowedFamilies` lo impide en el catálogo.
 # ---------------------------------------------------------------------------
 
 PARTS = {
@@ -71,6 +82,42 @@ PARTS = {
         "note": "balcón con puerta balconera doble acristalada, trasdós, losa volada con canto "
         "retranqueado y barandilla con balaustres instanciados; el balcón nace de la puerta, no flota",
     },
+    # --- D-111.2 WP05: familia industrial pesada, rejilla de 4 m (una celda) -------------
+    "metal_siding_bay": {
+        "role": "wall_panel",
+        "category": "facade",
+        "objectName": "GnMetalSidingBay",
+        "note": "paño de chapa perfilada de nave de 4 m: nervaduras verticales instanciadas, traverse "
+        "horizontales con goterón, solera de hormigón, coronación de alero, junta de nave en el canto "
+        "y bajante en la línea de pilar; el origen autor queda en la cara posterior del muro y el "
+        "plano exterior a 0,20 m, la misma convención de caja del panel megakit que sustituye",
+    },
+    "metal_window_bay": {
+        "role": "window_bay",
+        "category": "window",
+        "objectName": "GnMetalWindowBay",
+        "note": "crujía de chapa de 4 m con franja alta de vidrios de 2,60 × 0,75 m: hueco atravesado "
+        "de verdad con reveco de cuatro caras, montantes instanciados, chapa de alféizar con goterón "
+        "y nervaduras que se cortan en el hueco; autoría propia porque el único window_bay de 4 m del "
+        "catálogo enlaza MI_RedBrick y asoma ladrillo en la paleta steel_cladding",
+    },
+    "truck_dock_bay": {
+        "role": "dock_doorframe",
+        "category": "door",
+        "objectName": "GnTruckDockBay",
+        "note": "portón de muelle de 4 m con hueco estructural de 2,60 × 2,74 m (camión rígido: caja "
+        "2,50 × 2,60), hoja seccionada instanciada en lamas, guías de rollo, pletina de niveladora, "
+        "puerta de personal de 0,85 × 2,05 integrada en la hoja y topes de goma salientes; sustituye "
+        "el hueco abierto de 2 m que el control presentaba como muelle completo",
+    },
+    "metal_parapet": {
+        "role": "cornice",
+        "category": "facade",
+        "objectName": "GnMetalParapet",
+        "note": "pretil ciego de chapa de 4 m con capa plegada volada, junta de dilatación instanciada "
+        "en la capa, banda de sombra bajo el canto y bajante alineado con el del paño: es la cubierta "
+        "coherente que la opción `parapet` de la gramática declaraba con nombre pero sin módulo",
+    },
 }
 
 # Paleta plana. D-111.2 WP01: estos colores **no se eligen a mano**, se derivan con
@@ -92,6 +139,14 @@ MATERIALS = {
     "metal": {"name": "gn_painted_metal", "color": (0.1775, 0.1775, 0.1775), "roughness": 0.55},
     "glass": {"name": "gn_dark_glass", "color": (0.0395, 0.0761, 0.0801), "roughness": 0.14},
     "shop": {"name": "gn_joinery_dark", "color": (0.0692, 0.0143, 0.0032), "roughness": 0.68},
+    # WP05: los tres flats de la nave salen de las bandas de valor medidas sobre el mismo atlas
+    # licenciado que usa el control para ese paño (T_MetalConcrete), con share real de píxel
+    # 10,34 % / 2,44 % / 4,04 %. El paño reutiliza `metal`: es el cluster dominante 28,26 % del
+    # mismo atlas, el que ya se midió en WP01. Evidencia:
+    # `docs/art/graphics-capabilities/evidence/v2/gn/palette_industrial_day_civic.json`.
+    "trim": {"name": "gn_metal_trim", "color": (0.2547, 0.2547, 0.2547), "roughness": 0.62},
+    "shutter": {"name": "gn_dock_shutter", "color": (0.116, 0.116, 0.116), "roughness": 0.48},
+    "dark": {"name": "gn_rubber_dark", "color": (0.0358, 0.0358, 0.0358), "roughness": 0.92},
 }
 
 
@@ -160,6 +215,92 @@ def part_parameters(part, seed):
             "railingHeight": 0.92,
             "balusters": 9 + int(round(cycle * 4)),
             "leafBars": 3,
+        },
+        # --- D-111.2 WP05: rejilla industrial de 4 m ------------------------------------
+        # Dos marcos hay que mantener a la vez, y no son el mismo.
+        # Marco AUTORADO: y ∈ [0, 0,20] con el origen en la cara posterior del muro, como los paños
+        # megakit. No es cosmética: el catálogo deriva `frontAxis` de esa asimetría, y un módulo
+        # simétrico se clasifica `symmetric-Y` (= 270° locales) con lo que en la banda frontal no
+        # gira y enseña el dorso a la cámara.
+        # Marco de COLOCACIÓN: y ∈ [-0,10, +0,10], exactamente la caja medida de los módulos que
+        # sustituyen (panel 2×0,2×3, doorframe 2×0,2×3, cornisa 2×0,2×1). `anchors.inward_offset`
+        # apoya la cara más saliente sobre la línea de fachada, así que conservar el máximo en 0,20
+        # autorados es lo que impide que el envelope -y con él el encuadre derivado y el margen de
+        # recorte alfa del sprite- cambie por culpa de la autoría nueva y no de la arquitectura.
+        "metal_siding_bay": {
+            "bayWidth": 4.0,
+            "bayHeight": 3.0,
+            "panelThickness": 0.172,
+            "ribDepth": 0.026,
+            "ribWidth": 0.14,
+            "ribs": 8 + int(round(cycle * 4)),
+            "kerbHeight": 0.35,
+            "eavesHeight": 0.12,
+            "seamLevels": 2,
+            "seamHeight": 0.05,
+            "jointWidth": 0.075,
+            "downspoutSize": 0.11,
+        },
+        "metal_window_bay": {
+            "bayWidth": 4.0,
+            "bayHeight": 3.0,
+            "panelThickness": 0.172,
+            "ribDepth": 0.026,
+            "ribWidth": 0.14,
+            "ribs": 8 + int(round(cycle * 4)),
+            "kerbHeight": 0.35,
+            "eavesHeight": 0.12,
+            "seamLevels": 2,
+            "seamHeight": 0.05,
+            "jointWidth": 0.075,
+            "downspoutSize": 0.11,
+            # 0,70 + 2,60 + 0,70 = 4,00: el mismo machón que el portón, así que el hueco de la
+            # ventana cae en el centro exacto de la crujía y el ritmo de 4 m no se rompe.
+            "openingWidth": 2.60,
+            # 1,95 → 2,70 con la coronación de alero en 2,76: franja alta, por debajo de la línea de
+            # pilar superior y por encima del alcance de una carretilla.
+            "openingHeight": 0.75,
+            "sillZ": 1.95,
+            "frameBar": 0.09,
+            "mullions": 2 + int(round(cycle * 2)),
+        },
+        "truck_dock_bay": {
+            "bayWidth": 4.0,
+            "bayHeight": 3.0,
+            "panelThickness": 0.172,
+            # 4,00 − 2×0,70 = 2,60 m libres de ancho: la caja del camión de referencia del repo
+            # (`ext_lab/garage_probe.py`: 2,50 × 2,60) pasa con 5 cm por lado. Con 0,55 de
+            # machón el hueco sería de 2,90, pero el dintel dejaría de apoyarse en la línea de
+            # pilar de la junta de nave y el paño perdería su ritmo de 4 m.
+            "pierWidth": 0.70,
+            "headerHeight": 0.26,
+            "sillPlateHeight": 0.06,
+            "slats": 15 + int(round(cycle * 3)),
+            "slatGap": 0.015,
+            "shutterRecess": 0.055,
+            "guideWidth": 0.085,
+            "leafWidth": 0.85,
+            "leafHeight": 2.05,
+            "leafFrame": 0.055,
+            "bumperWidth": 0.16,
+            "bumperHeight": 0.75,
+            "bumperSill": 0.30,
+        },
+        "metal_parapet": {
+            "bayWidth": 4.0,
+            # 1,00 m = la altura de `mod_megakit_cornice_metal_center_2m`: el pretil arranca en la
+            # cota superior de la banda y remata ahí, así que la envolvente Z del control (3,00 →
+            # 4,00) se conserva sin retocar la gramática.
+            "bayHeight": 1.0,
+            "wallThickness": 0.162,
+            "ribDepth": 0.022,
+            "ribWidth": 0.14,
+            "ribs": 6 + int(round(cycle * 3)),
+            "capDepth": 0.20,
+            "capHeight": 0.12,
+            "joints": 3 + int(round(cycle * 2)),
+            "shadowHeight": 0.035,
+            "downspoutSize": 0.11,
         },
     }
     return table[part]
@@ -231,45 +372,89 @@ class GrammarTree:
             self.box((bar, depth, max(outer_h - 2 * bar, 1e-4)), (half_w - bar / 2.0, y, centre_z)),
         ]
 
-    def points_row(self, width, count, location):
-        """Fila de `count` puntos que reparten `width` en tramos iguales.
+    def points_row(self, span, count, location, axis="x", tile=False):
+        """Fila de `count` puntos que reparten `span` sobre `axis` ("x" o "z").
 
         `count` puede ser el *nombre* de una entrada de grupo: entonces el reparto se calcula dentro
         del árbol (paso = width/(count+1), primer punto = -width/2 + paso), así que cambiar el número
         de montantes, dentillos o balaustres es un parámetro vivo del módulo y no una regeneración
         en Python. Con entero, el mismo reparto se resuelve en Python y queda grabado en la malla.
+
+        `tile=True` cambia el reparto para que los elementos **lasquen** el tramo de borde a borde
+        (paso = span/count, el primero a medio paso): es lo que necesitan las lamas de un portón o
+        las hiladas de una chapa, donde un hueco de un paso en cada extremo deja ver el fondo. Con
+        `tile=False` queda el reparto histórico de las partes de 2 m, que es el correcto para
+        dentillos y balaustres empotrados en los extremos.
         """
+        span = float(span)
+        index = {"x": 0, "z": 2}[axis]
+        letter = "XYZ"
         line = self._node("GeometryNodeMeshLine")
         if isinstance(count, str):
             source = self.input(count)
             self.links.new(source, line.inputs["Count"])
-            plus = self._math("ADD", 1.0)
-            self.links.new(source, plus.inputs[0])
+            divisor = source
+            if not tile:
+                plus = self._math("ADD", 1.0)
+                self.links.new(source, plus.inputs[0])
+                divisor = plus.outputs[0]
             step = self._math("DIVIDE")
-            step.inputs[0].default_value = float(width)
-            self.links.new(plus.outputs[0], step.inputs[1])
+            step.inputs[0].default_value = span
+            self.links.new(divisor, step.inputs[1])
+            lead = step.outputs[0]
+            if tile:
+                half = self._math("MULTIPLY", 0.5)
+                self.links.new(step.outputs[0], half.inputs[0])
+                lead = half.outputs[0]
             first = self._math("ADD")
-            first.inputs[1].default_value = float(location[0]) - float(width) / 2.0
-            self.links.new(step.outputs[0], first.inputs[0])
+            first.inputs[1].default_value = float(location[index]) - span / 2.0
+            self.links.new(lead, first.inputs[0])
             start = self._node("ShaderNodeCombineXYZ")
-            start.inputs["Y"].default_value = float(location[1])
-            start.inputs["Z"].default_value = float(location[2])
-            self.links.new(first.outputs[0], start.inputs["X"])
+            for other in range(3):
+                if other != index:
+                    start.inputs[letter[other]].default_value = float(location[other])
+            self.links.new(first.outputs[0], start.inputs[letter[index]])
             self.links.new(start.outputs["Vector"], line.inputs["Start Location"])
             offset = self._node("ShaderNodeCombineXYZ")
-            self.links.new(step.outputs[0], offset.inputs["X"])
+            self.links.new(step.outputs[0], offset.inputs[letter[index]])
             self.links.new(offset.outputs["Vector"], line.inputs["Offset"])
         else:
             count = max(int(count), 1)
-            step = float(width) / (count + 1)
+            step = span / (count if tile else count + 1)
             line.inputs["Count"].default_value = count
-            line.inputs["Start Location"].default_value = (
-                float(location[0]) - float(width) / 2.0 + step,
-                float(location[1]),
-                float(location[2]),
-            )
-            line.inputs["Offset"].default_value = (step, 0.0, 0.0)
+            start = [float(v) for v in location]
+            start[index] = start[index] - span / 2.0 + (step / 2.0 if tile else step)
+            line.inputs["Start Location"].default_value = tuple(start)
+            vector = [0.0, 0.0, 0.0]
+            vector[index] = step
+            line.inputs["Offset"].default_value = tuple(vector)
         return line.outputs["Mesh"]
+
+    def span_step(self, span, count):
+        """Salida de un DIVIDE `span / count` con `count` como entrada viva del grupo."""
+        step = self._math("DIVIDE")
+        step.inputs[0].default_value = float(span)
+        self.links.new(self.input(count), step.inputs[1])
+        return step.outputs[0]
+
+    def box_live_height(self, width, depth, height, min_height=0.02):
+        """Cubo centrado en el origen con la **altura enlazada desde el propio grafo**.
+
+        Cuando el recuento es un parámetro vivo, el paso también lo es: si la altura de la pieza se
+        hornea en Python con el valor por defecto, un recuento alto hace que la primera pieza cruce
+        el plano de solera y el módulo salga de su caja de colocación (medido en la sonda de
+        `truck_dock_bay`: −21 mm con 24 lamas). Derivándola del paso vivo, el borde inferior queda
+        siempre a media junta sobre la solera para cualquier recuento.
+        """
+        floor = self._math("MAXIMUM", min_height)
+        self.links.new(height, floor.inputs[0])
+        size = self._node("ShaderNodeCombineXYZ")
+        size.inputs["X"].default_value = float(width)
+        size.inputs["Y"].default_value = float(depth)
+        self.links.new(floor.outputs[0], size.inputs["Z"])
+        cube = self._node("GeometryNodeMeshCube")
+        self.links.new(size.outputs["Vector"], cube.inputs["Size"])
+        return cube.outputs["Mesh"]
 
     def _math(self, operation, value=None):
         node = self._node("ShaderNodeMath")
@@ -540,12 +725,347 @@ def _build_balcony_door_bay(params):
     return tree
 
 
+# ---------------------------------------------------------------------------
+# Las tres partes industriales de D-111.2 WP05 (crujía = celda de 4 m)
+# ---------------------------------------------------------------------------
+
+FACADE_PLANE = 0.20
+# El plano más saliente de cualquier módulo de fachada queda a 0,20 m del ORIGEN AUTORADO, no a 0,10:
+# las tres partes industriales nacen en la cara posterior del muro (y ∈ [0, 0,20]) exactamente igual
+# que los paños megakit que sustituyen. Es una cuestión de semántica medida, no de gusto: el catálogo
+# deriva `frontAxis` de la simetría de la caja respecto al origen, y un módulo simétrico en Y se
+# clasifica `symmetric-Y`, que en `anchors.MODULE_FRONT_DEGREES` vale 270° y por tanto NO gira en la
+# banda frontal. Con el origen centrado el relieve de chapa habría mirado hacia el interior de la
+# nave y la calle habría visto el dorso. Ya en [0, 0,20] la clasificación sale `+Y`, el frente gira
+# 180° y la caja de colocación medida vuelve a y ∈ [-0,10, +0,10]: el envelope del sprite y el
+# encuadre derivado del control no se mueven.
+
+
+def _build_metal_siding_bay(params):
+    """Paño de chapa perfilada de 4 m con solera, alero, junta de nave y bajante.
+
+    El cambio no es decorativo: `mod_megakit_metal_wall_2m` —el único panel metálico de 2 m del
+    catálogo— enlaza 6 de sus 18 triángulos a `MI_InteriorWall`, cuya base de color es
+    T_RedBrick. La gramática declara `steel_cladding` y el render devolvía ladrillo (medido en los
+    dos brazos de control de WP05). Aquí el paño es chapa de principio a fin, y la junta de nave
+    cae donde la propia gramática dice que hay un pilar: en el canto de la celda.
+    """
+    tree = GrammarTree(f"{GROUP_PREFIX}_Metal_Siding_Bay")
+    tree.declare_inputs(params)
+    w = params["bayWidth"]
+    h = params["bayHeight"]
+    outer = FACADE_PLANE
+    rib = params["ribDepth"]
+    skin_out = outer - rib
+    t = params["panelThickness"]
+    skin_y = skin_out - t / 2.0
+    kerb = params["kerbHeight"]
+    eaves = params["eavesHeight"]
+    rib_h = h - kerb - eaves
+    rib_z = kerb + rib_h / 2.0
+    ds = params["downspoutSize"]
+    joint = params["jointWidth"]
+
+    panel = [
+        tree.box((w, t, h), (0.0, skin_y, h / 2.0)),
+        tree.instance_on_row(
+            tree.box((params["ribWidth"], rib, rib_h), (0.0, 0.0, 0.0)),
+            tree.points_row(w, "ribs", (0.0, skin_out + rib / 2.0, rib_z)),
+        ),
+    ]
+    # Traverses horizontales: van por detrás de la punta de las nervaduras para que los cruces no
+    # dejen dos caras coplanares (a 60 px/m eso parpadea como ruido, no como relieve).
+    for level in range(1, int(params["seamLevels"]) + 1):
+        z = kerb + rib_h * level / (params["seamLevels"] + 1.0)
+        panel.append(
+            tree.box((w, 0.024, params["seamHeight"]), (0.0, skin_out + 0.012, z))
+        )
+    formed = [
+        tree.box((w, outer, kerb), (0.0, outer / 2.0, kerb / 2.0)),
+        tree.box((w, outer, eaves), (0.0, outer / 2.0, h - eaves / 2.0)),
+        tree.box((ds, ds, rib_h + 0.02), (w / 2.0 - joint - 0.02 - ds / 2.0, outer - ds / 2.0, rib_z)),
+    ]
+    detail = [
+        # junta de nave en el canto: el único elemento oscuro del paño, para que el ritmo de 4 m se
+        # lea como línea de pilar y no como suciedad.
+        tree.box((joint, 0.024, rib_h), (w / 2.0 - joint / 2.0, skin_out + 0.012, rib_z)),
+        tree.box((ds + 0.08, 0.04, 0.05), (w / 2.0 - joint - 0.02 - ds / 2.0, outer - 0.03, kerb + 0.35)),
+        tree.box((ds + 0.08, 0.04, 0.05), (w / 2.0 - joint - 0.02 - ds / 2.0, outer - 0.03, h - eaves - 0.20)),
+    ]
+    tree.finish(
+        tree.join(
+            [
+                tree.with_material(tree.join(panel), MATERIALS["metal"]["name"]),
+                tree.with_material(tree.join(formed), MATERIALS["trim"]["name"]),
+                tree.with_material(tree.join(detail), MATERIALS["dark"]["name"]),
+            ]
+        )
+    )
+    return tree
+
+
+def _build_metal_window_bay(params):
+    """Crujía de chapa de 4 m con franja alta de vidrios: la `ventana alta` que declaran los ritmos.
+
+    El `window_bay` de 4 m del catálogo CC0 (`mod_megakit_metal_window_4m`) enlaza `MI_RedBrick`:
+    en la paleta `steel_cladding` asoma ladrillo en medio del chapa, que es exactamente el paño
+    equivocado en el sitio equivocado que WP05 prohíbe. El de 2 m no lleva ladrillo pero mide 2 m,
+    así que en rejilla de 4 m no hay módulo metálico válido: se autoría. Los ritmos aprobados no
+    piden un hueco doméstico, piden `dock_windows` = "chapa con ventanas **altas**" y `strip_windows`
+    = "**franja** de huecos": aquí la franja va alta y corrido, como en una nave real.
+
+    El hueco es atravesado de verdad (montantes, bajo y antepecho dejan el paso libre) y el marco
+    queda a flor del relieve: el máximo en y sigue siendo `FACADE_PLANE`, así que la caja de
+    colocación medida y el encuadre del sprite no cambian por autoría nueva.
+    """
+    tree = GrammarTree(f"{GROUP_PREFIX}_Metal_Window_Bay")
+    tree.declare_inputs(params)
+    w = params["bayWidth"]
+    h = params["bayHeight"]
+    outer = FACADE_PLANE
+    rib = params["ribDepth"]
+    skin_out = outer - rib
+    t = params["panelThickness"]
+    skin_y = skin_out - t / 2.0
+    kerb = params["kerbHeight"]
+    eaves = params["eavesHeight"]
+    rib_h = h - kerb - eaves
+    ds = params["downspoutSize"]
+    joint = params["jointWidth"]
+    ow, oh = params["openingWidth"], params["openingHeight"]
+    sill = params["sillZ"]
+    head = sill + oh
+    bar = params["frameBar"]
+    half_w = w / 2.0
+    pier_w = half_w - ow / 2.0
+    centre_z = sill + oh / 2.0
+
+    # Pared en cuatro piezas, no un paño con la ventana pintada: el reveco se ilumina porque hay
+    # 0,172 m de espesor que recorrer, igual que en `window_bay` residencial (§WP01).
+    wall = [
+        tree.box((pier_w, t, h), (-half_w + pier_w / 2.0, skin_y, h / 2.0)),
+        tree.box((pier_w, t, h), (half_w - pier_w / 2.0, skin_y, h / 2.0)),
+        tree.box((ow, t, sill), (0.0, skin_y, sill / 2.0)),
+        tree.box((ow, t, h - head), (0.0, skin_y, head + (h - head) / 2.0)),
+    ]
+    # Las nervaduras se cortan en el hueco: una chapa perfilada no sigue subiendo por encima del
+    # vidrio, y una nervadura a 0,026 m sobre el marco se leería como un defecto de modelado.
+    lower_h = sill - kerb
+    upper_h = (h - eaves) - head
+    ribs = [
+        tree.instance_on_row(
+            tree.box((params["ribWidth"], rib, lower_h), (0.0, 0.0, 0.0)),
+            tree.points_row(w, "ribs", (0.0, skin_out + rib / 2.0, kerb + lower_h / 2.0)),
+        ),
+        tree.instance_on_row(
+            tree.box((params["ribWidth"], rib, upper_h), (0.0, 0.0, 0.0)),
+            tree.points_row(w, "ribs", (0.0, skin_out + rib / 2.0, head + upper_h / 2.0)),
+        ),
+    ]
+    seams = []
+    for level in range(1, int(params["seamLevels"]) + 1):
+        z = kerb + rib_h * level / (params["seamLevels"] + 1.0)
+        if sill <= z < head:
+            # El traverse no cruza el hueco: se interrumpe en los montantes, como en el paño real.
+            for sign in (-1.0, 1.0):
+                seams.append(
+                    tree.box(
+                        (pier_w, 0.024, params["seamHeight"]),
+                        (sign * (ow / 2.0 + pier_w / 2.0), skin_out + 0.012, z),
+                    )
+                )
+        else:
+            seams.append(tree.box((w, 0.024, params["seamHeight"]), (0.0, skin_out + 0.012, z)))
+    panel = wall + ribs + seams
+    formed = [
+        tree.box((w, outer, kerb), (0.0, outer / 2.0, kerb / 2.0)),
+        tree.box((w, outer, eaves), (0.0, outer / 2.0, h - eaves / 2.0)),
+        tree.box((ds, ds, rib_h + 0.02), (half_w - joint - 0.02 - ds / 2.0, outer - ds / 2.0, kerb + rib_h / 2.0)),
+    ]
+    # Marco, montantes y alféizar de chapa plegada, todo a flor del relieve (y ≤ 0,20 autorados).
+    joinery = tree.frame_rect(ow, oh, 0.03, t - 0.06, centre_z, skin_y)
+    joinery += tree.frame_rect(ow + 2 * bar, oh + 2 * bar, bar, rib, centre_z, skin_out + rib / 2.0)
+    joinery += [
+        tree.instance_on_row(
+            tree.box((0.045, rib, oh - 0.06), (0.0, 0.0, 0.0)),
+            tree.points_row(ow, "mullions", (0.0, skin_out + rib / 2.0, centre_z)),
+        ),
+        tree.box((ow + 2 * bar + 0.12, rib, 0.06), (0.0, skin_out + rib / 2.0, sill - bar - 0.03)),
+    ]
+    glass = tree.box((ow - 0.05, 0.02, oh - 0.05), (0.0, skin_out - 0.01, centre_z))
+    detail = [
+        tree.box((joint, 0.024, rib_h), (half_w - joint / 2.0, skin_out + 0.012, kerb + rib_h / 2.0)),
+        tree.box((ds + 0.08, 0.04, 0.05), (half_w - joint - 0.02 - ds / 2.0, outer - 0.03, kerb + 0.35)),
+        tree.box((ds + 0.08, 0.04, 0.05), (half_w - joint - 0.02 - ds / 2.0, outer - 0.03, h - eaves - 0.20)),
+        # Fondo del hueco: sin él la franja sería un agujero al vacío del volumen. Es el mismo
+        # reveco `gn_rubber_dark` del portón, y `ext_lab/dock_probe.py` lo excluye por material.
+        tree.box((ow - 0.02, 0.02, oh - 0.02), (0.0, skin_y - t / 2.0 + 0.015, centre_z)),
+    ]
+    tree.finish(
+        tree.join(
+            [
+                tree.with_material(tree.join(panel), MATERIALS["metal"]["name"]),
+                tree.with_material(tree.join(formed + joinery), MATERIALS["trim"]["name"]),
+                tree.with_material(tree.join(detail), MATERIALS["dark"]["name"]),
+                tree.with_material(glass, MATERIALS["glass"]["name"]),
+            ]
+        )
+    )
+    return tree
+
+
+def _build_truck_dock_bay(params):
+    """Portón de muelle: hueco estructural de 2,60 × 2,74 m con hoja seccionada y puerta personal.
+
+    El control presenta como "muelle" un `doorframe` de 2 m abierto de arriba abajo: sin hoja, sin
+    guías y sin niveladora, así que el píxel devolvía el interior del volumen como un agujero más
+    estrecho que la caja de un camión (la referencia del propio repo, `ext_lab/garage_probe.py`:
+    2,50 × 2,60 m). Aquí el hueco es utilizable y está **cerrado por una hoja**, que es justamente
+    lo que lo convierte en muelle en vez de en un fallo de modelado.
+    """
+    tree = GrammarTree(f"{GROUP_PREFIX}_Truck_Dock_Bay")
+    tree.declare_inputs(params)
+    outer = FACADE_PLANE
+    w, h = params["bayWidth"], params["bayHeight"]
+    t = params["panelThickness"]
+    pier, header = params["pierWidth"], params["headerHeight"]
+    ap_w, ap_h = w - 2 * pier, h - header
+    guide, recess = params["guideWidth"], params["shutterRecess"]
+    leaf_w, leaf_h, frame = params["leafWidth"], params["leafHeight"], params["leafFrame"]
+    bumper = params["bumperWidth"]
+    skin = outer - 0.028  # los machones quedan 2,8 cm por detrás del plano de fachada
+    shutter_y = outer - recess  # punta de las lamas: 5,5 cm de retranqueo dentro del hueco
+
+    structure = [
+        tree.box((pier, t, h), (-(w - pier) / 2.0, skin - t / 2.0, h / 2.0)),
+        tree.box((pier, t, h), ((w - pier) / 2.0, skin - t / 2.0, h / 2.0)),
+        tree.box((ap_w, t, header), (0.0, skin - t / 2.0, ap_h + header / 2.0)),
+        # los machones llevan la nervadura del paño, para que el portón lea como un hueco abierto
+        # EN EL MISMO MURO y no como un artefacto pegado delante de él.
+        tree.box((0.13, 0.026, ap_h), (-1.765, outer - 0.013, ap_h / 2.0)),
+        tree.box((0.13, 0.026, ap_h), (1.765, outer - 0.013, ap_h / 2.0)),
+    ]
+    formed = [
+        # guías del rollo: nacen en la cara del machón y sobresalen hasta el plano de fachada, así
+        # que el hueco estructural sigue midiendo 2,60 m (las guías caen a x > ap_w/2).
+        tree.box((guide, 0.045, ap_h), (-(ap_w + guide) / 2.0, outer - 0.0225, ap_h / 2.0)),
+        tree.box((guide, 0.045, ap_h), ((ap_w + guide) / 2.0, outer - 0.0225, ap_h / 2.0)),
+        # dintel chapeado POR ENCIMA del hueco: no le quita un centímetro de paso al camión.
+        tree.box((ap_w + 2 * guide, 0.045, 0.09), (0.0, outer - 0.0225, ap_h + 0.045)),
+        # pletina de niveladora a nivel de solera: es lo que hace que el umbral sea de muelle.
+        tree.box((ap_w, 0.09, params["sillPlateHeight"]), (0.0, outer - 0.045, params["sillPlateHeight"] / 2.0)),
+    ]
+    # La lama mide `paso − junta`, y el paso se lee del parámetro vivo dentro del grafo: con la altura
+    # horneada en Python el recuento alto cruzaba el plano de solera (ver `box_live_height`).
+    pitch = tree.span_step(ap_h, "slats")
+    slat_height = tree._math("SUBTRACT")
+    slat_height.inputs[1].default_value = params["slatGap"]
+    tree.links.new(pitch, slat_height.inputs[0])
+    slats = tree.instance_on_row(
+        tree.box_live_height(ap_w - 0.04, 0.03, slat_height.outputs[0]),
+        tree.points_row(ap_h, "slats", (0.0, shutter_y - 0.015, ap_h / 2.0), axis="z", tile=True),
+    )
+    leaf_x = -(ap_w - leaf_w) / 2.0 + 0.05
+    leaf = [
+        tree.box((leaf_w - 2 * frame, 0.02, leaf_h - 2 * frame), (leaf_x, shutter_y + 0.01, leaf_h / 2.0)),
+        tree.box((frame, 0.03, leaf_h), (leaf_x - leaf_w / 2.0 + frame / 2.0, shutter_y + 0.03, leaf_h / 2.0)),
+        tree.box((frame, 0.03, leaf_h), (leaf_x + leaf_w / 2.0 - frame / 2.0, shutter_y + 0.03, leaf_h / 2.0)),
+        tree.box((leaf_w, 0.03, frame), (leaf_x, shutter_y + 0.03, leaf_h - frame / 2.0)),
+        tree.box((leaf_w, 0.03, frame), (leaf_x, shutter_y + 0.03, frame / 2.0)),
+    ]
+    lite = [tree.box((0.36, 0.012, 0.42), (leaf_x, shutter_y + 0.035, leaf_h - 0.42))]
+    hardware = [
+        tree.box((0.50, 0.025, 0.05), (leaf_x + 0.06, shutter_y + 0.04, 1.05)),
+        # topes de goma: llegan al plano de fachada pegados a las guías; el camión apoya aquí y no
+        # sobre la chapa, que es la diferencia entre un muelle y un hueco en la pared.
+        tree.box((bumper, 0.03, params["bumperHeight"]), (-(ap_w / 2.0 + guide + bumper / 2.0), outer - 0.015, params["bumperSill"] + params["bumperHeight"] / 2.0)),
+        tree.box((bumper, 0.03, params["bumperHeight"]), ((ap_w / 2.0 + guide + bumper / 2.0), outer - 0.015, params["bumperSill"] + params["bumperHeight"] / 2.0)),
+        # fondo del hueco: sin él, los 15 mm de junta entre lamas mostrarían la pared del fondo de
+        # la nave y el portón volvería a leerse como un agujero.
+        # En el plano medio del muro (los machones van de y = 0 a y = skin), no a mitad del
+        # presupuesto autorad: así el fondo no asoma por ninguno de los dos planos.
+        tree.box((ap_w - 0.02, 0.02, ap_h), (0.0, skin - t / 2.0, ap_h / 2.0)),
+    ]
+    tree.finish(
+        tree.join(
+            [
+                tree.with_material(tree.join(structure), MATERIALS["metal"]["name"]),
+                # La hoja se pinta Entera con el material de las lamas, marco incluido: es lo que
+                # permite medir el hueco de paso excluyendo lo que se recoge. La sonda
+                # `ext_lab/dock_probe.py` separa estático/móvil por material, no por convención.
+                tree.with_material(tree.join(formed), MATERIALS["trim"]["name"]),
+                tree.with_material(tree.join([slats] + leaf), MATERIALS["shutter"]["name"]),
+                tree.with_material(tree.join(lite), MATERIALS["glass"]["name"]),
+                tree.with_material(tree.join(hardware), MATERIALS["dark"]["name"]),
+            ]
+        )
+    )
+    return tree
+
+
+def _build_metal_parapet(params):
+    """Pretil ciego de chapa: la `silhouetteOption` que en la gramática existía de nombre y no de geometría.
+
+    La capa volada es lo que da la sombra horizontal que un pretil de chapa necesita para no leerse
+    como un simple crecimiento del muro; el canto inferior y las juntas van en el mismo plano que las
+    nervaduras del paño, y la bajante continua exactamente sobre la del muro de debajo.
+    """
+    tree = GrammarTree(f"{GROUP_PREFIX}_Metal_Parapet")
+    tree.declare_inputs(params)
+    w = params["bayWidth"]
+    h = params["bayHeight"]
+    outer = FACADE_PLANE
+    t = params["wallThickness"]
+    rib = params["ribDepth"]
+    cap_h, cap_d = params["capHeight"], params["capDepth"]
+    wall_h = h - cap_h
+    skin_out = outer - 0.038
+    ds = params["downspoutSize"]
+    shadow_y = skin_out + 0.009
+
+    panel = [
+        tree.box((w, t, wall_h), (0.0, skin_out - t / 2.0, wall_h / 2.0)),
+        tree.instance_on_row(
+            tree.box((params["ribWidth"], rib, wall_h - 0.02), (0.0, 0.0, 0.0)),
+            tree.points_row(w, "ribs", (0.0, skin_out + rib / 2.0, wall_h / 2.0)),
+        ),
+    ]
+    # La capa no pasa de z = 1,00 ni de y = 0,20: son las cotas del módulo megakit que reemplaza, y
+    # son justamente las que sujetan el envelope (y el encuadre derivado) del sprite de control.
+    cap = [tree.box((w, cap_d, cap_h), (0.0, outer - cap_d / 2.0, wall_h + cap_h / 2.0))]
+    joint = [
+        # banda de sombra bajo el canto, junta de dilatación en el mismo canto que el paño y juntas
+        # verticales instanciadas: el ritmo de 4 m no se corta en la cubierta.
+        tree.box((w, 0.018, params["shadowHeight"]), (0.0, shadow_y, wall_h - params["shadowHeight"] / 2.0)),
+        tree.instance_on_row(
+            tree.box((0.03, 0.018, wall_h - 0.02), (0.0, 0.0, 0.0)),
+            tree.points_row(w, "joints", (0.0, shadow_y, wall_h / 2.0)),
+        ),
+        tree.box((0.075, 0.018, wall_h - 0.02), (w / 2.0 - 0.0375, shadow_y, wall_h / 2.0)),
+    ]
+    formed = [tree.box((ds, ds, h), (w / 2.0 - 0.075 - 0.02 - ds / 2.0, outer - ds / 2.0, h / 2.0))]
+    tree.finish(
+        tree.join(
+            [
+                tree.with_material(tree.join(panel), MATERIALS["metal"]["name"]),
+                tree.with_material(tree.join(cap + formed), MATERIALS["trim"]["name"]),
+                tree.with_material(tree.join(joint), MATERIALS["dark"]["name"]),
+            ]
+        )
+    )
+    return tree
+
+
 BUILDERS = {
     "window_bay": _build_window_bay,
     "shopfront_bay": _build_shopfront_bay,
     "plinth": _build_plinth,
     "cornice": _build_cornice,
     "balcony_door_bay": _build_balcony_door_bay,
+    "metal_siding_bay": _build_metal_siding_bay,
+    "metal_window_bay": _build_metal_window_bay,
+    "truck_dock_bay": _build_truck_dock_bay,
+    "metal_parapet": _build_metal_parapet,
 }
 
 
@@ -663,6 +1183,12 @@ PROBES = {
     "window_bay": ("mullions", (1, 2, 3)),
     "cornice": ("dentils", (4, 8, 12)),
     "balcony_door_bay": ("balusters", (6, 11, 16)),
+    # WP05: en la nave la repetición también es viva, y es la que de verdad cuesta dinero: nervaduras
+    # del paño, lamas del portón y juntas del pretil se re-miden cambiando UN número del modificador.
+    "metal_siding_bay": ("ribs", (6, 10, 14)),
+    "metal_window_bay": ("mullions", (2, 3, 4)),
+    "truck_dock_bay": ("slats", (12, 17, 24)),
+    "metal_parapet": ("joints", (2, 4, 7)),
 }
 
 
@@ -682,12 +1208,20 @@ def generate(parts=None, seed=7, out_dir=None, report_dir=None):
         "exporta con export_apply (instancias realizadas por el propio árbol) y el .blend conserva "
         "el modificador vivo",
         "seed": seed,
-        "grid": {"bayMeters": 2.0, "floorHeightMeters": 3.0, "wallThicknessMeters": 0.20},
+        "grid": {
+            # Dos rejillas en el mismo sistema (WP05): el tag del archivo y el id del módulo salen del
+            # `bayWidth` de cada parte, no de una constante, así que las piezas de 4 m de la nave no
+            # pueden pisar el id de las cinco piezas de 2 m ya publicadas.
+            "bayMetersByPart": {part: part_parameters(part, seed)["bayWidth"] for part in parts},
+            "floorHeightMeters": 3.0,
+            "wallThicknessMeters": 0.20,
+        },
         "parts": [],
     }
     for part in parts:
         meta = PARTS[part]
         params = part_parameters(part, seed)
+        tag = f"{params['bayWidth']:g}m"
         started = time.perf_counter()
         tree = BUILDERS[part](params)
         setup_ms = round((time.perf_counter() - started) * 1000, 2)
@@ -697,14 +1231,15 @@ def generate(parts=None, seed=7, out_dir=None, report_dir=None):
         evaluate_ms = round((time.perf_counter() - started) * 1000, 2)
         if not mesh.polygons:
             raise RuntimeError(f"{part}: Geometry Nodes no produjo ninguna cara")
-        glb = os.path.join(out_dir, f"gn_{part}_2m.glb")
+        glb = os.path.join(out_dir, f"gn_{part}_{tag}.glb")
         bpy.ops.object.select_all(action="DESELECT")
         host.select_set(True)
         bpy.context.view_layer.objects.active = host
         bpy.ops.export_scene.gltf(filepath=glb, export_format="GLB", use_selection=True, export_apply=True)
         entry = {
             "part": part,
-            "moduleId": f"mod_gn_{part}_2m",
+            "moduleId": f"mod_gn_{part}_{tag}",
+            "bayMeters": params["bayWidth"],
             "role": meta["role"],
             "category": meta["category"],
             "objectName": meta["objectName"],

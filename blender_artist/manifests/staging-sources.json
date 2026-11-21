@@ -627,6 +627,50 @@
       "extractDir": null
     },
     {
+      "id": "src_original_gn_metal_siding_bay",
+      "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_siding_bay: paño de chapa perfilada de nave de 4 m con nervaduras instanciadas, travesaños, solera, alero, junta de nave y bajante) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_gn_metal_window_bay",
+      "path": "blender_artist/sources/original/gn_metal_window_bay_4m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_window_bay: crujía de chapa de 4 m con franja alta de vidrios de 2,60 × 0,75 m, hueco atravesado con reveco de cuatro caras, montantes instanciados, chapa de alféizar con goterón y nervaduras cortadas en el hueco) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_gn_truck_dock_bay",
+      "path": "blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte truck_dock_bay: portón de muelle de 4 m con hueco libre de 2,60 × 2,68 m medido cara a cara en ext_lab/dock_probe.py —de Z 0,06 a 2,74—, hoja seccionada de lamas vivas, guías, dintel, pletina de niveladora, puerta personal de 0,85 × 2,05 m con mirilla y topes de goma) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
+      "id": "src_original_gn_metal_parapet",
+      "path": "blender_artist/sources/original/gn_metal_parapet_4m.glb",
+      "sha256": null,
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_parapet: pretil ciego de chapa de 4 m con capa volada, banda de sombra, juntas verticales instanciadas y continuidad de la bajante del paño) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+      "sourceUrl": null,
+      "unitScale": 1,
+      "extractDir": null
+    },
+    {
       "id": "src_original_ag_arcade_bay",
       "path": "blender_artist/sources/original/ag_arcade_bay_2m.glb",
       "sha256": "cd84ed402a5100b8d41338a586214abd6d42bf1b2955ea66a0a8ec447a2b31a1",

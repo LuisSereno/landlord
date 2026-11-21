@@ -17,7 +17,7 @@ Carpeta **nueva**, como pide WP00. Nada de aquí regenera el control de D-111.1:
 Manifiestos de referencia: `../../capabilities.json`, `../../material-decisions.json`,
 `blender_artist/manifests/building-composer-grammars.json` (`sha256` del árbol aprobada, se
 verifica tras cada corrida) y `blender_artist/manifests/building-modules.json` (186 módulos en la baseline; 187 tras el vano cívico
-de WP02).
+de WP02; **191** tras las cuatro piezas industriales de WP05).
 
 Versiones medidas: Phaser **4.2.1**, Blender **5.2.2 LTS**
 (`blender_artist/toolchain/blender-5.2.2-linux-x64/blender`), `composerVersion: vf-3`.
@@ -31,8 +31,8 @@ recibe del dominio y no las toca — `authority.footprintAndFloors`). 1 celda = 
 | --- | --- | --- | --- | --- | --- |
 | `row_house` | `residential_low` | 4×1 | 16×4 | 2 | candidata GN existente (§A) |
 | `mixed_tenement` | `residential_low` | 4×2 | 16×8 | 3 | candidata GN existente (§B) |
-| `warehouse` | `industrial_heavy` | 4×3 | 16×12 | 1 | **sin candidata**: el GN residencial está vetado por `allowedFamilies` |
-| `town_hall` | `civic_landmark` | 5×3 (+1 celda frontal de escalinata) | 20×12 | 4 | **sin candidata**: mismo veto |
+| `warehouse` | `industrial_heavy` | 4×3 | 16×12 | 1 | candidata GN de 4 m con portón, ventana de banda y pretil propios (§WP05) |
+| `town_hall` | `civic_landmark` | 5×3 (+1 celda frontal de escalinata) | 20×12 | 4 | **sin candidata integrada**: el vano cívico AG existe y está medido (WP02), falta el paquete de integración (WP06) |
 
 `warehouse` y `town_hall` no se desbloquean relajando `allowedFamilies`: se desbloquean escribiendo
 módulos GN **propios de su familia** (WP05 industrial, WP02/WP06 cívico).
@@ -50,11 +50,25 @@ $BLENDER -b --factory-startup -P tools/art-pipeline/blender/gn_facade_grammar.py
 # A/B del Composer (sin tocar el manifiesto aprobado: el parche se revierte)
 #   --source=gn  sustituye los roles por módulos Geometry Nodes (WP01)
 #   --source=ag  sustituye el rol window_bay por el vano cívico horneado (WP02)
-python3 tools/art-pipeline/blender/ext_lab/ab_grammar_patch.py --source=<gn|ag> <tipo>
+#   --source=industrial  regridúa SÓLO `warehouse` a 4 m y cambia su rol de acceso y sus siluetas (WP05)
+python3 tools/art-pipeline/blender/ext_lab/ab_grammar_patch.py --source=<gn|ag|industrial> <tipo>
 node scripts/build-building-composer.mjs --types=<tipo> --seeds=2 \
   --prefix=d111cnd_<tipo> --outDir=/tmp/ab2/<tipo>/cnd \
   --metrics=/tmp/ab2/<tipo>-cnd-metrics.json --mood=day_civic
 python3 tools/art-pipeline/blender/ext_lab/ab_grammar_patch.py revert
+
+# Hueco libre de cada pieza industrial (WP05): rectángulo máximo realmente pasable, medido sobre las
+# caras de la malla exportada y excluyendo por material la hoja móvil, el fondo de nave y la carpintería.
+# Escribe `industrial/dock_aperture_scale.{png,json}` salvo que se le dé otro `--dir=`.
+$BLENDER -b --factory-startup -P tools/art-pipeline/blender/ext_lab/dock_probe.py -- \
+  --resolution=1600 --samples=48
+
+# Paleta de los flats GN (WP01/WP05): sin Blender. `--authored` es la tabla lineal publicada en
+# `gn_facade_grammar.MATERIALS`; `deltaStyledL1` = 0 significa que el color de autor, tras el
+# tratamiento, coincide con el píxel del atlas licenciado que usa el control de ese rol.
+python3 tools/art-pipeline/blender/ext_lab/gn_palette.py --mood=day_civic \
+  --json=docs/art/graphics-capabilities/evidence/v2/gn/palette_industrial_day_civic.json \
+  --authored="gn_brick_wall=0.116,0.0692,0.0358;gn_stone_trim=0.3485,0.3485,0.1775;gn_painted_metal=0.1775,0.1775,0.1775;gn_dark_glass=0.0395,0.0761,0.0801;gn_joinery_dark=0.0692,0.0143,0.0032;gn_metal_trim=0.2547,0.2547,0.2547;gn_dock_shutter=0.116,0.116,0.116;gn_rubber_dark=0.0358,0.0358,0.0358"
 
 # Módulo cívico horneado desde Arch Generator (WP02): GLB + informe de medidas + render de evidencia
 export BLENDER_USER_CONFIG=/tmp/d111-ext-lab/config/cfg
@@ -451,6 +465,103 @@ rugosidad y emisión — o sea que la hoja dice con qué receta se renderizó si
   recetas sin tocar el manifiesto publicado — las cuatro sondas de esta sección se generaron así — y el
   orquestador lee la misma variable para no validar contra un archivo y renderizar contra otro.
 
+## WP05 — Nave industrial con módulos de su propia familia (medido)
+
+Hojas: [`sheets/industrial_warehouse_ab.png`](sheets/industrial_warehouse_ab.png) y su lectura a 0,5×
+[`sheets/industrial_warehouse_ab_half.png`](sheets/industrial_warehouse_ab_half.png). Evidencia:
+[`industrial/dock_aperture_scale.png`](industrial/dock_aperture_scale.png) + `.json` (franja de escala y
+huecos medidos), `industrial/warehouse-control.{png,json}`, `industrial/warehouse-candidata.{png,json}`
+y [`gn/palette_industrial_day_civic.json`](gn/palette_industrial_day_civic.json).
+
+Cuatro módulos nuevos, todos `original`, todos generados por `tools/art-pipeline/blender/gn_facade_grammar.py`
+y ninguno con `allowedFamilies` ajeno a `industrial_heavy`. Medidas del GLB entregado, no del parámetro:
+
+| módulo | crujía | vértices / triángulos | cáscaras | materiales | GLB | `sha256` (12) |
+| --- | --- | --- | --- | --- | --- | --- |
+| `mod_gn_metal_siding_bay_4m` | 4×0,20×3 m | 432 / **216** | 108 | chapa, canto, goma | 13 832 B | `486f3e3b63a3` |
+| `mod_gn_metal_window_bay_4m` | 4×0,20×3 m | 1 056 / **528** | 264 | chapa, canto, vidrio, goma | 31 836 B | `4160fa341148` |
+| `mod_gn_truck_dock_bay_4m` | 4×0,20×3 m | 840 / **420** | 210 | chapa, canto, hoja, vidrio, goma | 26 412 B | `f784811ff802` |
+| `mod_gn_metal_parapet_4m` | 4×0,20×1 m | 360 / **180** | 90 | chapa, canto, goma | 12 220 B | `e3f0417ee200` |
+
+| brazo (seed 2, day_civic, huella 4×3, 1 planta) | colocaciones | triángulos | módulos | fuentes | envelope z | PNG |
+| --- | --- | --- | --- | --- | --- | --- |
+| control aprobado (`steel_cladding`, `strip_windows@6`, `parapet`) | 52 | 4 616 | 5 | 1 | 3,00 m | 1 383×873 · 915 213 B |
+| candidata GN 4 m | 52 | **7 896** | 6 | 5 | **4,00 m** | 1 394×944 · 958 124 B |
+
+- **El veto no se relajó.** `allowedFamilies` del GN residencial sigue sin admitir `industrial_heavy` y la
+  candidata no usa ninguno de esos módulos: la nave se desbloquea escribiendo su propia familia de piezas,
+  que era lo que el runbook pedía. Las cuatro entran por la misma cadena de registro que el resto del
+  catálogo (`staging-sources` → `inventory` → `selection` → `building-modules.json` → perfiles de estilo →
+  anclas del contrato de envejecido) y el catálogo pasa de 187 a **191** módulos.
+- **WP05-D1 · el hueco de carga se midió, no se declaró.** `ext_lab/dock_probe.py` calcula el rectángulo
+  libre máximo sobre la proyección (x,z) de las caras de la malla exportada, excluyendo por material la hoja
+  móvil, el fondo de nave y la carpintería (cada módulo declara sus clases en el propio JSON). Con la caja
+  de referencia del repo (**2,50 × 2,60 m**): el `doorframe` metálico de 2 m aprobado deja **1,00 × 2,20 m**
+  de paso → `sobranAncho −1,50`, `sobranAlto −0,40`, es decir **el camión no entra; hoy los muelles son
+  puertas peatonales** (una persona de 1,75 sí cabe). El portón GN deja **2,60 × 2,68 m desde z = 0,06** →
+  caben los dos ejes con 0,10 m de ancho y 0,08 m de gálibo de sobra. La ventana de banda deja **2,60 ×
+  0,75 m a z = 1,95**: pasa el ancho, no la altura, que es lo que le toca a una ventana.
+- **La variante CC0 de 4 m existe y se descartó midiendo su paleta.** `mod_megakit_metal_window_4m` lleva
+  `MI_RedBrick` entre sus materiales: regriduar la nave a 4 m con él habría metido ladrillo en la paleta
+  `steel_cladding`. No es un gusto: el control YA mete ladrillo por otra vía, y se midió en el brazo
+  aprobado — `deepStyledAtlases = [T_MetalConcrete_BaseColor, T_RedBrick_BaseColor]` (el ladrillo llega a
+  través de `MI_InteriorWall` del paño megakit) más tres materiales `linkedWithoutColorSource`
+  (`MI_FakeInterior`, `MI_Glass`, `MI_Glass.001`). La candidata cierra las dos cosas: `deepStyledAtlases = []`
+  y `linkedWithoutColorSource = []`. Los atlas de suelo/asphalt del `directReach` son los mismos en los dos
+  brazos, así que la comparación de fachada sigue siendo manzana con manzana.
+- **Los flats GN no se eligieron a ojo.** `gn/palette_industrial_day_civic.json` deriva el color de las tres
+  superficies nuevas del **mismo atlas licenciado** que usa el control (`T_MetalConcrete`) cogiendo el cluster
+  dominante de cada banda de valor — shares reales 10,34 % / 4,04 % / 2,44 % de sus píxeles—; el paño
+  reutiliza el cluster de WP01 (28,26 %). Con la tabla publicada como `--authored`, `deltaStyledL1 = 0,0` en
+  los siete planos y 0,0637 en el vidrio, y el residuo contra `night_civic` y `day_industrial` es 0,0: la
+  coincidencia es estructural, no por captura. Dato nuevo y honesto: tras el tratamiento los cuatro planos
+  industriales **colapsan a dos valores** (día 0,66 / 0,358 / 0,34 / 0,34), así que la hoja del portón y el
+  reveco de goma acaban en la misma banda; lo que separa la hoja del hueco es el relieve de las lamas y el
+  canto claro del marco, no el color. Se ve en el recorte a 1× de la hoja.
+- **WP05-D2 · el eje de silueta de la nave no existía.** En HEAD `plain` y `parapet` declaraban
+  `corniceRole: null`, o sea dos opciones geométricamente idénticas: el sorteo de silueta no cambiaba nada.
+  El pretil GN le da remate real a las dos y las separa por vuelo (0,20 m el pretil ciego frente a 0,35 m de
+  la banda volada). Su altura es **1,00 m** porque es la convención del catálogo: de los 18 módulos con rol
+  `cornice`, 12 miden 1,00 m y 5 miden 0,998 (los trims, por redondeo de la malla); el único distinto es un
+  remate plano de 0,02 m del cívico. Por eso el envelope del brazo candidato sube de 3,00 a 4,00 m y el
+  lienzo de 873 a 944 px; la cubierta no se toca —es el mismo `mod_megakit_roof_flat_4m` a z = 3,0 en los dos
+  brazos y el píxel de su paño sale idéntico (65, 66, 69)—.
+- **El A/B atribuye a los módulos, con una excepción declarada.** De los nueve ejes sorteados, ocho son
+  idénticos entre brazos; difiere `access`, y su sufijo no es un sorteo nuevo sino el índice de crujía por
+  donde empieza la hilada (`compose.py:353` → `f"{access['id']}@{self.access_bay}"`). Al pasar la retícula de
+  2 a 4 m la hilada corre **1,00 m en X** (−7, −3, +1, +5 → −6, −2, +2, +6) conservando los cuatro huecos y
+  el paso de 4 m que declara `repeatEveryMeters`: son los mismos muelles centrados en la retícula nueva, no
+  otro edificio. El seed 1002 (ritmo `blind_siding`, paleta `metal_brick_mix`, silueta `metal_cornice`) es el
+  caso ciego sin ventanas: allí la candidata también cambia (80→52 colocaciones, 2 516→6 648 tri) porque
+  paño, portón y pretil no dependen del ritmo — la retícula de 4 m divide las colocaciones a la mitad y cada
+  una lleva más geometría.
+- **Ningún sprite aprobado se regenera.** Con los cuatro módulos ya registrados, el brazo de control
+  reproduce las firmas de HEAD `59f0c437e1c2` (seed 2) y `3b1c9a197bc2` (seed 1002) byte a byte, y las anclas
+  del contrato de envejecido se re-fijaron sin re-serializar el JSON (diff de 2 líneas, no de 437).
+- **Trampa evitada y documentada (es la que más fácil se repite).** `compose.py:1055` resuelve el marco del
+  acceso **sin id** y `module_catalog.py:116` devuelve `pool[0]` de un pool que `module_catalog.py:88`
+  construye `sorted(modules, key=id)`: un módulo GN de 4 m con rol `doorframe` habría sustituido el marco
+  peatonal de 2 m en las cinco gramáticas industriales sin tocar un solo manifiesto (medido: §17 aborta por
+  contacto con el suelo fuera de solar). Por eso el portón declara su propio rol `dock_doorframe` y el parche
+  lo pide explícitamente. El mismo mecanismo deja `mod_gn_metal_window_bay_4m` como `pool[0]` de
+  (`industrial_heavy`, `window_bay`) por delante de los megakit: hoy es inalcanzable porque las diez paletas
+  industriales pinchan ese rol en `roleModule` y `compose.py:692` pasa el id, pero si una undécima deja de
+  pincharlo entra sin avisar. Queda escrito en la nota del módulo y en el parche.
+- **Coste aceptado porque la mejora es visible y el gasto es offline.** 4 616 → 7 896 tri (×1,71) con las
+  mismas 52 colocaciones; el entregable sigue siendo un PNG (958 KB, dentro del presupuesto de archivo
+  único). El lote de la candidata tardó **31,8 s** de total (8,8 s de render, 3,63 GB pico) frente a 62,3 s
+  del control en la misma máquina sin GPU; la sonda de huecos cuesta 4,67 s.
+- **Deuda que se va a WP06 con nombre.** (1) `metal_brick_mix` es un **no-op en HEAD**: ningún ritmo
+  industrial declara `groundRole`, así que sus dos paletas resuelven exactamente los mismos módulos y la que
+  se llama "con zócalo industrial" no tiene zócalo; en la candidata el ladrillo desaparece también en esa
+  paleta, que es justo la que lo promete por nombre. Arreglarlo es enmienda de gramática (decisión del
+  responsable), no de módulo. (2) La candidata es 100 % flats GN, y WP04 midió `metal` como la familia
+  tratada más débil (−5,40/255): el tier `aged` sobre chapa hay que medirlo antes de promocionarlo. (3) El
+  pretil entra por `flatStyledMaterials`, sin atlas, así que el envejecido no lo toca por la vía profunda.
+- **Cierre: ACEPTADO.** Hay candidata industrial reconocible —portón de camión medido, puerta de personal
+  con mirilla, junta de nave, cubierta y remate coherentes, chapa sin ladrillo— y ningún hueco se presenta
+  como muelle completo: la prueba es la franja de escala, donde el control no pasa la caja y la candidata sí.
+
 ## Ledger
 
 | WP | commit | estado | artefacto principal | bloqueo |
@@ -460,3 +571,4 @@ rugosidad y emisión — o sea que la hoja dice con qué receta se renderizó si
 | WP02 | (este) | DONE | `sheets/ag_civic_ab.png` (+ `_half`) · `mod_ag_arcade_bay_2m` | cierre de crujía en esquina y profundidad 0,50 m → WP06 |
 | WP03 | (este) | DONE | `sheets/ext_window_columns.png` (+ `_half`) · `sheets/hifi_grid_ab.png` (+ `_half`) | ningún vano de extensión adoptado (motivo geométrico medido); HiFi se queda como herramienta de receta |
 | WP04 | (este) | DONE | `sheets/weathering_states.png` (+ `_half`) · `building-weathering-contract.json@22a02a14` | WP04-D1 (cornisa sobrevive a la sección) y runtime `condition < 60 → damaged`: dos decisiones del responsable, no ajustes de esta hoja |
+| WP05 | (este) | DONE · ACEPTADA | `sheets/industrial_warehouse_ab.png` (+ `_half`) · 4 módulos `mod_gn_*_4m` (catálogo 191) · `industrial/dock_aperture_scale.json` | `metal_brick_mix` es no-op en HEAD (enmienda de gramática → responsable), tier `aged` sobre chapa GN sin medir y hoja/pretil en la misma banda tratada → WP06 |

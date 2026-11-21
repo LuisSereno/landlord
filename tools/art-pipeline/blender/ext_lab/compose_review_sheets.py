@@ -1260,6 +1260,114 @@ def weathering_sheet():
     return first, second
 
 
+def industrial_warehouse_sheet():
+    """WP05: la nave en crujía de 4 m con portón de camión, ventana de banda y pretil propios."""
+    strip = V2 / "industrial/dock_aperture_scale.png"
+    ctl = V2 / "industrial/warehouse-control.png"
+    cnd = V2 / "industrial/warehouse-candidata.png"
+    ctl_meta, cnd_meta = load_json(ctl), load_json(cnd)
+    title = (
+        "D-111.2 WP05 · Nave industrial original a 4 m: portón de muelle, ventana de banda y pretil "
+        "de chapa, contra el almacén aprobado"
+    )
+    subtitle = (
+        "Fila superior: la franja de escala (módulos sueltos, no un edificio) y la decisión medida. Fila "
+        "inferior: el MISMO warehouse seed 2, misma parcela 4×3 celdas (16×12 m), misma luz day_civic y "
+        "mismo encuadre; cambian los módulos que resuelven `wall_panel`, `window_bay`, el rol de acceso y "
+        "la silueta. Los sprites se pegan a escala nativa y la lectura al 50 % redibuja a la mitad de píxeles."
+    )
+
+    def aperture(png: Path, module_id: str) -> tuple:
+        for entry in load_json(png)["extension"]["modules"]:
+            if entry["moduleId"] == module_id:
+                rect = entry.get("largestFreeRect") or {}
+                return rect, entry.get("vsTruckBox", {})
+        raise KeyError(f"{module_id} no está en {png}")
+
+    def build(sprite_height: int, out_path: Path):
+        dock_rect, dock_vs = aperture(strip, "mod_gn_truck_dock_bay_4m")
+        frame_rect, _ = aperture(strip, "mod_megakit_doorframe_metal_2m")
+        window_rect, _ = aperture(strip, "mod_gn_metal_window_bay_4m")
+        box = load_json(strip)["extension"]["references"]["truckBox"]
+        ctl_deep = load_json(ctl)["style"]["deepReach"]["deepStyledAtlases"]
+        cnd_deep = load_json(cnd)["style"]["deepReach"]["deepStyledAtlases"]
+        same_axes = [
+            key
+            for key, value in ctl_meta["axisChoices"].items()
+            if cnd_meta["axisChoices"].get(key) == value
+        ]
+        diff_axes = [k for k in ctl_meta["axisChoices"] if k not in same_axes]
+
+        def dock_x(meta, role):
+            return sorted(round(t["position"][0], 2) for t in meta["transforms"] if t["role"] == role)
+
+        ctl_docks, cnd_docks = dock_x(ctl_meta, "doorframe"), dock_x(cnd_meta, "dock_doorframe")
+        decision = [
+            f"Hueco de carga: el marco aprobado mide {frame_rect['widthMeters']} × "
+            f"{frame_rect['heightMeters']} m de paso libre, la caja de referencia del repo es de "
+            f"{box['width']} × {box['height']} m → el camión NO entra; hoy los muelles son puertas "
+            f"peatinales. El portón GN deja {dock_rect['widthMeters']} × {dock_rect['heightMeters']} m "
+            f"desde z={dock_rect['z'][0]} (gálibo {dock_vs['sobranAlto']} m y ancho {dock_vs['sobranAncho']} m "
+            "de sobra), medido sobre las caras de la malla exportada con la hoja excluida por material, "
+            "no deducido de los parámetros.",
+            f"Ventana de banda: {window_rect['widthMeters']} × {window_rect['heightMeters']} m de recorte "
+            "estructural con los mismos machones de 0,70 m del portón, así que la fachada lee una sola "
+            "retícula. La variante CC0 de 4 m no se usó: su paleta enlaza `MI_RedBrick` y metería ladrillo "
+            "en `steel_cladding`. Y el control ya lo mete: `deepStyledAtlases` del brazo aprobado es "
+            f"{ctl_deep} (ladrillo vía `MI_InteriorWall` del paño megakit), el de la candidata es "
+            f"{cnd_deep} y además cierra los 3 materiales `linkedWithoutColorSource` del vidrio megakit. "
+            "Los 15 flats GN de la candidata entran por `flatStyledMaterials` con color derivado del mismo "
+            "atlas licenciado (evidencia `gn/palette_industrial_day_civic.json`).",
+            "Silueta: en HEAD `plain` y `parapet` declaraban `corniceRole: null`, es decir eran "
+            "geométricamente idénticas y el eje de silueta no existía en la nave. El pretil GN de 4 m da "
+            "remate real a las dos y las separa por vuelo (0,20 m frente a 0,35 m).",
+            f"Ejes: {len(same_axes)} de las {len(ctl_meta['axisChoices'])} decisiones de la gramática "
+            f"salen idénticas; difiere {', '.join(f'`{k}`' for k in diff_axes)} y su sufijo no es un sorteo "
+            "nuevo sino el índice de crujía por donde empieza la hilada "
+            "(`compose.py:353` → `f\"{{access['id']}}@{{self.access_bay}}\"`). Al pasar la retícula de 2 a 4 m "
+            f"la hilada corre {abs(cnd_docks[0] - ctl_docks[0]):.2f} m en X "
+            f"({', '.join(f'{v:+.0f}' for v in ctl_docks)} → {', '.join(f'{v:+.0f}' for v in cnd_docks)}) "
+            "conservando los cuatro huecos y el paso de 4 m que declara `repeatEveryMeters`: son los mismos "
+            "muelles centrados en la retícula nueva, no otro edificio.",
+            f"Coste: {ctl_meta['triangleCount']} tri del control contra {cnd_meta['triangleCount']} tri "
+            f"({cnd_meta['checks']['distinctModuleIds']} módulos, {cnd_meta['checks']['distinctSources']} "
+            "fuentes, licenciado 100 %). Es offline y se acepta: el sprite sigue siendo un PNG y el "
+            "presupuesto de navegador no cambia.",
+            "No se toca ningún sprite aprobado: con los cuatro módulos ya registrados, el brazo de control "
+            "reproduce las firmas de HEAD `59f0c437e1c2` (seed 2) y `3b1c9a197bc2` (seed 1002) byte a byte. "
+            "El seed 1002 es el caso ciego (`blind_siding`: paño sin ventanas, paleta `metal_brick_mix`, "
+            "silueta `metal_cornice`) y allí la candidata también cambia (`c21d74c47e22`, 80→52 "
+            "colocaciones, 2 516→6 648 tri) porque el paño, el portón y el pretil no dependen del ritmo: "
+            "la retícula de 4 m divide las colocaciones a la mitad y cada una lleva más geometría.",
+            "Trampa evitada: `compose.py:1055` resuelve el marco del acceso SIN id y "
+            "`module_catalog.py:88` ordena el pool por id, así que un módulo GN de 4 m con rol `doorframe` "
+            "hubiera sustituido el marco peatonal de 2 m en las cinco gramáticas industriales sin tocar "
+            "ningún manifiesto (medido: §17 de contacto con el suelo). El portón declara su propio rol "
+            "`dock_doorframe` y el parche lo pide explícitamente.",
+        ]
+        rows = [
+            panel(
+                strip,
+                "A · franja de escala ortogonal (nativa, sin agrandar: es una tira de 1541 px y subirla "
+                "deformaría el px/m con el que se compara el camión). De izquierda a derecha: marco de 4 m, "
+                "caja de camión 2,50 × 2,60, persona de 1,75, control CC0, paño, ventana, portón, pretil y "
+                "el camión real de Kenney.",
+                max_height=560,
+                big=17,
+            )
+            if strip.exists()
+            else placeholder("A · franja de escala · SIN EVIDENCIA", 460, 320),
+            text_panel("B · qué se midió y qué se decidió", decision, width=900),
+            v2_panel("industrial", "warehouse-control", "warehouse seed 2 · control aprobado", sprite_height),
+            v2_panel("industrial", "warehouse-candidata", "warehouse seed 2 · candidata GN 4 m", sprite_height),
+        ]
+        return sheet(out_path, title, subtitle, rows, columns=2)
+
+    first = build(980, V2_SHEETS / "industrial_warehouse_ab.png")
+    second = build(490, V2_SHEETS / "industrial_warehouse_ab_half.png")
+    return first, second
+
+
 def main() -> None:
     if not SHEETS.exists():
         SHEETS.mkdir(parents=True)
@@ -1276,6 +1384,7 @@ def main() -> None:
         ("WP03 componentes ext", ext_window_columns_sheet),
         ("WP03 fachada hifi grid", hifi_grid_sheet),
         ("WP04 estados de conservación", weathering_sheet),
+        ("WP05 nave industrial", industrial_warehouse_sheet),
     ):
         if only and not any(key in name for key in only):
             continue

@@ -81,10 +81,41 @@ SURFACES = [
     },
     {
         "gn": "gn_painted_metal",
-        "role": "barandillas y chapa",
+        "role": "barandillas, chapa de fachada y montantes del portón",
         "atlas": "T_MetalConcrete_BaseColor.png",
         "hue": (0, 360),
         "value": (0.35, 0.65),
+        "maxSaturation": 0.08,
+    },
+    # D-111.2 WP05: las tres superficies nuevas de la nave industrial. No tienen contrapartida en el
+    # control (el `doorframe` de 2 m es un hueco sin hoja y el `parapet` no declara módulo), así que
+    # la regla 1 no puede aplicarse como coincidencia: se mide el **mismo atlas** que usa el control
+    # para ese paño — T_MetalConcrete — y se elige el cluster dominante de cada banda de valor, que
+    # es un color realmente presente en la textura licenciada (compartido 4,04 % / 2,44 % / 10,34 %
+    # de sus píxeles). La escalera claro→oscuro sale de la medición, no del gusto, y los nombres
+    # evitan `leaf|green|bark|wood|trunk|default` para no caer en `flatMaterials` de nature-kit.
+    {
+        "gn": "gn_metal_trim",
+        "role": "solera de hormigón, canto de cubierta y chapa plegada del pretil",
+        "atlas": "T_MetalConcrete_BaseColor.png",
+        "hue": (0, 360),
+        "value": (0.51, 0.60),
+        "maxSaturation": 0.08,
+    },
+    {
+        "gn": "gn_dock_shutter",
+        "role": "hoja seccionada del portón de muelle",
+        "atlas": "T_MetalConcrete_BaseColor.png",
+        "hue": (0, 360),
+        "value": (0.34, 0.42),
+        "maxSaturation": 0.08,
+    },
+    {
+        "gn": "gn_rubber_dark",
+        "role": "topes de goma, juntas de nave y reveiscos",
+        "atlas": "T_MetalConcrete_BaseColor.png",
+        "hue": (0, 360),
+        "value": (0.18, 0.25),
         "maxSaturation": 0.08,
     },
     {
@@ -319,8 +350,19 @@ def main() -> None:
             entry["styledSrgb"] = [round(float(v), 4) for v in styled(authored, treatment)]
         if name in current:
             before = current[name]
-            entry["previouslyAuthoredSrgb"] = [round(float(v), 4) for v in linear_to_srgb(before)]
-            entry["styledPreviously"] = [round(float(v), 4) for v in styled(before, treatment)]
+            # `--authored` se pasa en lineal (así está escrito en `gn_facade_grammar.MATERIALS`), pero
+            # `styled` y `flat_rule_result` trabajan en sRGB: sin convertir, `deltaBeforeL1` compara el
+            # mismo color en dos espacios y sale un residuo falso.
+            before_srgb = linear_to_srgb(before)
+            entry["previouslyAuthoredSrgb"] = [round(float(v), 4) for v in before_srgb]
+            entry["styledPreviously"] = [
+                round(float(v), 4)
+                for v in (
+                    flat_rule_result(name, before_srgb, treatment)[0]
+                    if path == "flatMaterials_por_nombre"
+                    else styled(before_srgb, treatment)
+                )
+            ]
             entry["styledNow"] = [
                 round(float(v), 4)
                 for v in (

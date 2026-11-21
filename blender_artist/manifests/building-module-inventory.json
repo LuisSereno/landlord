@@ -152,6 +152,26 @@
       "pattern": "gn_balcony_door_bay_2m\\.glb$"
     },
     {
+      "sourceId": "src_original_gn_metal_siding_bay",
+      "directory": "blender_artist/sources/original",
+      "pattern": "gn_metal_siding_bay_4m\\.glb$"
+    },
+    {
+      "sourceId": "src_original_gn_metal_window_bay",
+      "directory": "blender_artist/sources/original",
+      "pattern": "gn_metal_window_bay_4m\\.glb$"
+    },
+    {
+      "sourceId": "src_original_gn_truck_dock_bay",
+      "directory": "blender_artist/sources/original",
+      "pattern": "gn_truck_dock_bay_4m\\.glb$"
+    },
+    {
+      "sourceId": "src_original_gn_metal_parapet",
+      "directory": "blender_artist/sources/original",
+      "pattern": "gn_metal_parapet_4m\\.glb$"
+    },
+    {
       "sourceId": "src_original_ag_arcade_bay",
       "directory": "blender_artist/sources/original",
       "pattern": "ag_arcade_bay_2m\\.glb$"
@@ -172,7 +192,7 @@
     "note": "La modularidad de un pack puede estar a nivel de ARCHIVO (MegaKit, KayKit: un módulo por gltf) y no a nivel de objeto dentro del archivo; por eso el catálogo de módulos referencia rutas de archivo, no sólo selecciones de nodo."
   },
   "counts": {
-    "sources": 1255,
+    "sources": 1259,
     "withUnresolvedTextures": 44,
     "bySource": {
       "src_kenney_building_kit": 79,
@@ -200,12 +220,16 @@
       "src_original_gn_plinth": 1,
       "src_original_gn_cornice": 1,
       "src_original_gn_balcony_door_bay": 1,
+      "src_original_gn_metal_siding_bay": 1,
+      "src_original_gn_metal_window_bay": 1,
+      "src_original_gn_truck_dock_bay": 1,
+      "src_original_gn_metal_parapet": 1,
       "src_original_ag_arcade_bay": 1
     },
     "byClassification": {
       "modular": 40,
       "partially_modular": 31,
-      "whole_asset_only": 1138,
+      "whole_asset_only": 1142,
       "unsuitable": 46
     }
   },
@@ -144655,6 +144679,448 @@
         "convention": {
           "x": "centered",
           "y": "offset",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_gn_metal_siding_bay",
+      "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 432,
+      "triangles": 216,
+      "materials": [
+        "gn_metal_trim",
+        "gn_painted_metal",
+        "gn_rubber_dark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "GnMetalSidingBay",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "gn_painted_metal",
+            "gn_metal_trim",
+            "gn_rubber_dark"
+          ],
+          "vertices": 432,
+          "triangles": 216,
+          "looseParts": 108
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "GnMetalSidingBay"
+        ],
+        "dominantShare": 1,
+        "shells": 108,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 108 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "GnMetalSidingBay",
+        "origin": [
+          0,
+          -0.1,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          -0.1,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_gn_metal_window_bay",
+      "path": "blender_artist/sources/original/gn_metal_window_bay_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 1056,
+      "triangles": 528,
+      "materials": [
+        "gn_dark_glass",
+        "gn_metal_trim",
+        "gn_painted_metal",
+        "gn_rubber_dark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "GnMetalWindowBay",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "gn_painted_metal",
+            "gn_metal_trim",
+            "gn_rubber_dark",
+            "gn_dark_glass"
+          ],
+          "vertices": 1056,
+          "triangles": 528,
+          "looseParts": 264
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "GnMetalWindowBay"
+        ],
+        "dominantShare": 1,
+        "shells": 264,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 264 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "GnMetalWindowBay",
+        "origin": [
+          0,
+          -0.1,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          -0.1,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_gn_truck_dock_bay",
+      "path": "blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 840,
+      "triangles": 420,
+      "materials": [
+        "gn_dark_glass",
+        "gn_dock_shutter",
+        "gn_metal_trim",
+        "gn_painted_metal",
+        "gn_rubber_dark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "GnTruckDockBay",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "gn_painted_metal",
+            "gn_metal_trim",
+            "gn_dock_shutter",
+            "gn_dark_glass",
+            "gn_rubber_dark"
+          ],
+          "vertices": 840,
+          "triangles": 420,
+          "looseParts": 210
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "GnTruckDockBay"
+        ],
+        "dominantShare": 1,
+        "shells": 210,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 210 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "GnTruckDockBay",
+        "origin": [
+          0,
+          -0.1,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          -0.1,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "positive-from-origin"
+        }
+      }
+    },
+    {
+      "sourceId": "src_original_gn_metal_parapet",
+      "path": "blender_artist/sources/original/gn_metal_parapet_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "exists": true,
+      "objectCount": 1,
+      "meshCount": 1,
+      "armatureCount": 0,
+      "vertices": 360,
+      "triangles": 180,
+      "materials": [
+        "gn_metal_trim",
+        "gn_painted_metal",
+        "gn_rubber_dark"
+      ],
+      "images": [],
+      "unresolvedTextures": [],
+      "hierarchy": [
+        {
+          "name": "GnMetalParapet",
+          "type": "MESH",
+          "parent": "IMPORT_ROOT",
+          "materials": [
+            "gn_painted_metal",
+            "gn_metal_trim",
+            "gn_rubber_dark"
+          ],
+          "vertices": 360,
+          "triangles": 180,
+          "looseParts": 90
+        }
+      ],
+      "normalized": {
+        "sizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 1
+        },
+        "worldMinZ": 0,
+        "worldCenterXY": [
+          0,
+          0
+        ],
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ]
+      },
+      "separation": {
+        "unitKind": "objects",
+        "unitCount": 1,
+        "unitNames": [
+          "GnMetalParapet"
+        ],
+        "dominantShare": 1,
+        "shells": 90,
+        "pieceCandidates": 0,
+        "largestPieceTriangleShare": 0,
+        "topPieces": []
+      },
+      "classification": "whole_asset_only",
+      "classificationReason": "una sola unidad sustancial (100% de los triángulos, 90 cáscaras): usable como módulo de masa completo",
+      "pivot": {
+        "object": "GnMetalParapet",
+        "origin": [
+          0,
+          -0.1,
+          0
+        ],
+        "offsetFromGroundCenter": [
+          0,
+          -0.1,
+          0
+        ],
+        "localSizeMeters": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 1
+        },
+        "boundsRelativeToOrigin": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
           "z": "positive-from-origin"
         }
       }

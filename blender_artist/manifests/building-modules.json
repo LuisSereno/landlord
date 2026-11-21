@@ -68,12 +68,12 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 187,
-    "sources": 186,
+    "modules": 191,
+    "sources": 190,
     "byCategory": {
-      "facade": 34,
-      "window": 11,
-      "door": 7,
+      "facade": 36,
+      "window": 12,
+      "door": 8,
       "roof": 14,
       "civic": 69,
       "canopy": 5,
@@ -86,7 +86,7 @@
     },
     "byFamily": {
       "residential_low": 62,
-      "industrial_heavy": 50,
+      "industrial_heavy": 54,
       "civic_landmark": 156
     },
     "bySource": {
@@ -110,7 +110,11 @@
       "src_original_gn_shopfront_bay": 1,
       "src_original_gn_plinth": 1,
       "src_original_gn_cornice": 1,
-      "src_original_gn_balcony_door_bay": 1
+      "src_original_gn_balcony_door_bay": 1,
+      "src_original_gn_metal_siding_bay": 1,
+      "src_original_gn_metal_window_bay": 1,
+      "src_original_gn_truck_dock_bay": 1,
+      "src_original_gn_metal_parapet": 1
     }
   },
   "modules": [
@@ -25887,6 +25891,556 @@
         "fileTriangles": 528,
         "fileHierarchy": [
           "GnBalconyDoorBay:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_metal_siding_bay_4m",
+      "category": "facade",
+      "role": "wall_panel",
+      "note": "D-111.2 WP05: paño de chapa perfilada de nave sobre la celda completa de 4 m; nervaduras verticales instanciadas (número = parámetro vivo), travesaños con goterón, solera de hormigón, banda de alero, junta de nave en el canto y bajante en línea de pilar",
+      "sourceId": "src_original_gn_metal_siding_bay",
+      "sourcePath": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnMetalSidingBay"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "industrial_heavy"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 108 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 0.2,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnMetalSidingBay",
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.1,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 432,
+        "triangles": 216,
+        "shells": 108,
+        "materials": [
+          "gn_metal_trim",
+          "gn_painted_metal",
+          "gn_rubber_dark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnMetalSidingBay"
+        ],
+        "baseColorChains": [
+          "gn_metal_trim=plano",
+          "gn_painted_metal=plano",
+          "gn_rubber_dark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ],
+        "fileTriangles": 216,
+        "fileHierarchy": [
+          "GnMetalSidingBay:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_metal_window_bay_4m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "D-111.2 WP05: crujía de chapa de 4 m con franja alta de vidrios 2,60 × 0,75 m (machones de 0,70 m a cada lado, los mismos del portón), hueco atravesado con reveco de cuatro caras, montantes instanciados (parámetro vivo), chapa de alféizar con goterón y nervaduras que se cortan en el hueco. Autoría propia porque el único `window_bay` de 4 m del catálogo (`mod_megakit_metal_window_4m`) mide `MI_RedBrick` entre sus materiales y al pasar la rejilla industrial a 4 m metería ladrillo en la paleta `steel_cladding`: falsear la familia para no re-autorar 352 vértices. Peligro conocido: `module_catalog.py:88` ordena el pool por id, así que este módulo es `pool[0]` de (industrial_heavy, window_bay) delante de los megakit — no hay ruta implícita que lo consuma porque las diez paletas industriales pinchan `window_bay` en `roleModule` y `compose.py:692` pasa ese id; si una octava deja de pincharlo, éste entra sin tocar manifiesto.",
+      "sourceId": "src_original_gn_metal_window_bay",
+      "sourcePath": "blender_artist/sources/original/gn_metal_window_bay_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnMetalWindowBay"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "industrial_heavy"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 264 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 0.2,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnMetalWindowBay",
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.1,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 1056,
+        "triangles": 528,
+        "shells": 264,
+        "materials": [
+          "gn_dark_glass",
+          "gn_metal_trim",
+          "gn_painted_metal",
+          "gn_rubber_dark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnMetalWindowBay"
+        ],
+        "baseColorChains": [
+          "gn_dark_glass=plano",
+          "gn_metal_trim=plano",
+          "gn_painted_metal=plano",
+          "gn_rubber_dark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ],
+        "fileTriangles": 528,
+        "fileHierarchy": [
+          "GnMetalWindowBay:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_truck_dock_bay_4m",
+      "category": "door",
+      "role": "dock_doorframe",
+      "note": "D-111.2 WP05: portón de muelle de 4 m con hueco estructural libre de 2,60 × 2,68 m (medido cara a cara en ext_lab/dock_probe.py, no deducido de los parámetros), hoja seccionada de lamas vivas, guías, dintel, pletina de niveladora, puerta personal con mirilla y topes de goma. Rol PROPIO, no `doorframe`: `compose.py:1055` resuelve `accessOptions.frameRole` sin id y `module_catalog.py:116` devuelve `pool[0]`, y `module_catalog.py:88` construye el pool `sorted(modules, key=id)` — bajo `doorframe` este módulo de 4 m (`gn` < `megakit`) hubiera reemplazado el marco peatonal de 2 m en las cinco gramáticas industriales aprobadas sin tocar ningún manifiesto (medido: `§17: el contacto con el suelo se sale del solar por x min`). Un muelle tampoco puede confundirse con una puerta en el tipo de dato.",
+      "sourceId": "src_original_gn_truck_dock_bay",
+      "sourcePath": "blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnTruckDockBay"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "industrial_heavy"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 210 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 0.2,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnTruckDockBay",
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.1,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 840,
+        "triangles": 420,
+        "shells": 210,
+        "materials": [
+          "gn_dark_glass",
+          "gn_dock_shutter",
+          "gn_metal_trim",
+          "gn_painted_metal",
+          "gn_rubber_dark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnTruckDockBay"
+        ],
+        "baseColorChains": [
+          "gn_dark_glass=plano",
+          "gn_dock_shutter=plano",
+          "gn_metal_trim=plano",
+          "gn_painted_metal=plano",
+          "gn_rubber_dark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ],
+        "fileTriangles": 420,
+        "fileHierarchy": [
+          "GnTruckDockBay:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_gn_metal_parapet_4m",
+      "category": "facade",
+      "role": "cornice",
+      "note": "D-111.2 WP05: pretil ciego de chapa de 4 m con capa volada de 0,20 m, banda de sombra, juntas verticales instanciadas (número = parámetro vivo) y bajante continua con la del paño; es la silueta `parapet` que en la gramática existía sin geometría",
+      "sourceId": "src_original_gn_metal_parapet",
+      "sourcePath": "blender_artist/sources/original/gn_metal_parapet_4m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "GnMetalParapet"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "industrial_heavy"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 90 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 4,
+        "depthMeters": 0.2,
+        "heightMeters": 1
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "GnMetalParapet",
+        "convention": {
+          "x": "centered",
+          "y": "positive-from-origin",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": 0,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.1,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -2,
+            "max": 2
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.1
+          },
+          "z": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 360,
+        "triangles": 180,
+        "shells": 90,
+        "materials": [
+          "gn_metal_trim",
+          "gn_painted_metal",
+          "gn_rubber_dark"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "GnMetalParapet"
+        ],
+        "baseColorChains": [
+          "gn_metal_trim=plano",
+          "gn_painted_metal=plano",
+          "gn_rubber_dark=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 4,
+          "depth": 0.2,
+          "height": 1,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ],
+        "fileTriangles": 180,
+        "fileHierarchy": [
+          "GnMetalParapet:MESH"
         ]
       }
     }

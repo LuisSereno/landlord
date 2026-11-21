@@ -1,0 +1,447 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 §4 Blender extension lab",
+  "label": "D-111.2 WP05 hueco de muelle GN de 4 m contra la caja de 2,50 × 2,60",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "geometry_nodes_dock_4m",
+    "question": "D-111.2 WP05: ¿el portón GN de 4 m deja pasar la caja de 2,50 × 2,60, qué hueco real deja su ventana de banda y qué midió el control de 2 m?",
+    "method": "rectángulo libre máximo sobre la proyección (x,z) de las caras de la carpintería fija; hoja móvil y fondo de nave excluidos por material (declarado en cada módulo)",
+    "references": {
+      "truckBox": {
+        "width": 2.5,
+        "depth": 1.2,
+        "height": 2.6
+      },
+      "personHeightMeters": 1.75,
+      "bayFrameMeters": 4.0,
+      "kenneyTruck": {
+        "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/car-kit/Models/GLB format/truck.glb",
+        "widthMeters": 2.95
+      }
+    },
+    "modules": [
+      {
+        "moduleId": "mod_megakit_doorframe_metal_2m",
+        "role": "doorframe (control)",
+        "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+        "envelopeMeters": {
+          "x": [
+            -1.0,
+            1.0
+          ],
+          "y": [
+            -0.1,
+            0.1
+          ],
+          "z": [
+            0.0,
+            3.0
+          ]
+        },
+        "faces": 239,
+        "materials": {
+          "MI_Glass": {
+            "faces": 7,
+            "class": "structure"
+          },
+          "MI_Trim_MetalConcrete": {
+            "faces": 232,
+            "class": "structure"
+          }
+        },
+        "excludedFromOpening": [],
+        "largestFreeRect": {
+          "widthMeters": 1.0,
+          "heightMeters": 2.2,
+          "x": [
+            -0.5,
+            0.5
+          ],
+          "z": [
+            0.0,
+            2.2
+          ],
+          "areaM2": 2.2
+        },
+        "vsTruckBox": {
+          "caja": {
+            "width": 2.5,
+            "depth": 1.2,
+            "height": 2.6
+          },
+          "cabeAncho": false,
+          "cabeAlto": false,
+          "sobranAncho": -1.5,
+          "sobranAlto": -0.4,
+          "cabePersona": true
+        },
+        "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+        "bytes": 4713
+      },
+      {
+        "moduleId": "mod_gn_metal_siding_bay_4m",
+        "role": "wall_panel (candidata)",
+        "sourcePath": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+        "envelopeMeters": {
+          "x": [
+            -2.0,
+            2.0
+          ],
+          "y": [
+            -0.1,
+            0.1
+          ],
+          "z": [
+            0.0,
+            3.0
+          ]
+        },
+        "faces": 216,
+        "materials": {
+          "gn_metal_trim": {
+            "faces": 36,
+            "class": "structure"
+          },
+          "gn_painted_metal": {
+            "faces": 144,
+            "class": "structure"
+          },
+          "gn_rubber_dark": {
+            "faces": 36,
+            "class": "interior"
+          }
+        },
+        "excludedFromOpening": [
+          "gn_rubber_dark"
+        ],
+        "largestFreeRect": null,
+        "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+        "bytes": 13832
+      },
+      {
+        "moduleId": "mod_gn_metal_window_bay_4m",
+        "role": "window_bay (candidata)",
+        "sourcePath": "blender_artist/sources/original/gn_metal_window_bay_4m.glb",
+        "envelopeMeters": {
+          "x": [
+            -2.0,
+            2.0
+          ],
+          "y": [
+            -0.1,
+            0.1
+          ],
+          "z": [
+            0.0,
+            3.0
+          ]
+        },
+        "faces": 528,
+        "materials": {
+          "gn_dark_glass": {
+            "faces": 12,
+            "class": "joinery"
+          },
+          "gn_metal_trim": {
+            "faces": 168,
+            "class": "joinery"
+          },
+          "gn_painted_metal": {
+            "faces": 300,
+            "class": "structure"
+          },
+          "gn_rubber_dark": {
+            "faces": 48,
+            "class": "interior"
+          }
+        },
+        "excludedFromOpening": [
+          "gn_dark_glass",
+          "gn_metal_trim",
+          "gn_rubber_dark"
+        ],
+        "largestFreeRect": {
+          "widthMeters": 2.6,
+          "heightMeters": 0.75,
+          "x": [
+            -1.3,
+            1.3
+          ],
+          "z": [
+            1.95,
+            2.7
+          ],
+          "areaM2": 1.95
+        },
+        "vsTruckBox": {
+          "caja": {
+            "width": 2.5,
+            "depth": 1.2,
+            "height": 2.6
+          },
+          "cabeAncho": true,
+          "cabeAlto": false,
+          "sobranAncho": 0.1,
+          "sobranAlto": -1.85,
+          "cabePersona": false
+        },
+        "sha256": "4160fa341148ca8a00c1edddaa18fb620d2bcd84734348c571136d504b6c3aa2",
+        "bytes": 31836
+      },
+      {
+        "moduleId": "mod_gn_truck_dock_bay_4m",
+        "role": "dock_doorframe (candidata)",
+        "sourcePath": "blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
+        "envelopeMeters": {
+          "x": [
+            -2.0,
+            2.0
+          ],
+          "y": [
+            -0.1,
+            0.1
+          ],
+          "z": [
+            0.0,
+            3.0
+          ]
+        },
+        "faces": 420,
+        "materials": {
+          "gn_dark_glass": {
+            "faces": 12,
+            "class": "moving"
+          },
+          "gn_dock_shutter": {
+            "faces": 252,
+            "class": "moving"
+          },
+          "gn_metal_trim": {
+            "faces": 48,
+            "class": "structure"
+          },
+          "gn_painted_metal": {
+            "faces": 60,
+            "class": "structure"
+          },
+          "gn_rubber_dark": {
+            "faces": 48,
+            "class": "interior"
+          }
+        },
+        "excludedFromOpening": [
+          "gn_dark_glass",
+          "gn_dock_shutter",
+          "gn_rubber_dark"
+        ],
+        "largestFreeRect": {
+          "widthMeters": 2.6,
+          "heightMeters": 2.68,
+          "x": [
+            -1.3,
+            1.3
+          ],
+          "z": [
+            0.06,
+            2.74
+          ],
+          "areaM2": 6.968
+        },
+        "vsTruckBox": {
+          "caja": {
+            "width": 2.5,
+            "depth": 1.2,
+            "height": 2.6
+          },
+          "cabeAncho": true,
+          "cabeAlto": true,
+          "sobranAncho": 0.1,
+          "sobranAlto": 0.08,
+          "cabePersona": true
+        },
+        "sha256": "f784811ff80244415b1ef701918d9f65bf969872a6c51d57a938a1dffb1de6e7",
+        "bytes": 26412
+      },
+      {
+        "moduleId": "mod_gn_metal_parapet_4m",
+        "role": "cornice (candidata)",
+        "sourcePath": "blender_artist/sources/original/gn_metal_parapet_4m.glb",
+        "envelopeMeters": {
+          "x": [
+            -2.0,
+            2.0
+          ],
+          "y": [
+            -0.1,
+            0.1
+          ],
+          "z": [
+            0.0,
+            1.0
+          ]
+        },
+        "faces": 180,
+        "materials": {
+          "gn_metal_trim": {
+            "faces": 24,
+            "class": "structure"
+          },
+          "gn_painted_metal": {
+            "faces": 96,
+            "class": "structure"
+          },
+          "gn_rubber_dark": {
+            "faces": 60,
+            "class": "interior"
+          }
+        },
+        "excludedFromOpening": [
+          "gn_rubber_dark"
+        ],
+        "largestFreeRect": null,
+        "sha256": "e3f0417ee2005153e572bcc8c23b92c560575468b8f331258dfb1840883b38ae",
+        "bytes": 12220
+      }
+    ],
+    "stripOrder": [
+      {
+        "object": "REF_BAY_4M",
+        "widthMeters": 4.0,
+        "xCentre": 15.6
+      },
+      {
+        "object": "REF_TRUCK_BOX",
+        "widthMeters": 2.5,
+        "xCentre": 11.45
+      },
+      {
+        "object": "REF_PERSON",
+        "widthMeters": 0.55,
+        "xCentre": 9.025
+      },
+      {
+        "object": "CC0_ROOT_mod_megakit_doorframe_metal_2m",
+        "widthMeters": 2.0,
+        "xCentre": 6.85
+      },
+      {
+        "object": "CC0_ROOT_mod_gn_metal_siding_bay_4m",
+        "widthMeters": 4.0,
+        "xCentre": 2.95
+      },
+      {
+        "object": "CC0_ROOT_mod_gn_metal_window_bay_4m",
+        "widthMeters": 4.0,
+        "xCentre": -1.95
+      },
+      {
+        "object": "CC0_ROOT_mod_gn_truck_dock_bay_4m",
+        "widthMeters": 4.0,
+        "xCentre": -6.85
+      },
+      {
+        "object": "CC0_ROOT_mod_gn_metal_parapet_4m",
+        "widthMeters": 4.0,
+        "xCentre": -11.75
+      },
+      {
+        "object": "CC0_ROOT_kenney_truck",
+        "widthMeters": 2.95,
+        "xCentre": -16.125
+      }
+    ],
+    "materials": "los módulos GN conservan sus flats autorados y el camión su material CC0: la franja mide escala, no acabado, así que no se aplica `style_procedural_materials` a ninguno."
+  },
+  "generated": {
+    "script": "tools/art-pipeline/blender/ext_lab/dock_probe.py"
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 270.0,
+    "elevationDegrees": 30,
+    "orthoScale": 36.608001708984375,
+    "targetZ": 1.55
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1600,
+      1600
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 4.67,
+    "trim": {
+      "rendered": {
+        "width": 1600,
+        "height": 1600
+      },
+      "cropped": {
+        "width": 1541,
+        "height": 131,
+        "offsetX": 30,
+        "offsetY": 742
+      },
+      "final": {
+        "width": 1541,
+        "height": 131
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 3701,
+    "meshObjects": 13,
+    "bounds": {
+      "min": [
+        -17.625,
+        -0.775,
+        0.0
+      ],
+      "max": [
+        17.6,
+        0.725,
+        3.0
+      ],
+      "size": [
+        35.225,
+        1.5,
+        3.0
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/industrial/dock_aperture_scale.png",
+    "width": 1541,
+    "height": 131,
+    "sha256": "2f967ec678361571d54b3f41c7e82e4d2aee73eb4db74480a949d004c068c1c6",
+    "bytes": 189537
+  },
+  "command": "/home/luis/RepositorioGitHub/landlord/blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/dock_probe.py -- --resolution=1600 --samples=48"
+}

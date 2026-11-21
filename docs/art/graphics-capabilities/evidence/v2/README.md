@@ -612,7 +612,11 @@ Tres guardas impiden el silencio, que era el defecto real del parche:
 
 La misma bandera existe en el conductor de contexto urbano (`build_building_composer_context.py
 --candidate=`), con guarda previa sobre las familias declaradas para no dejar un `outDir` a medias.
-Medido: `urban-context-index.json` registra `candidateProfile: gn_residential_v2` en ambos fotogramas.
+**Comprobado sólo como sonda**: la corrida `--types=row_house,mixed_tenement --candidate=gn_residential_v2`
+deja `candidateProfile: gn_residential_v2` en las dos filas de su `urban-context-index.json` (1× y 0,5×),
+pero sus PNG viven en `/tmp` y no se han versionado. La evidencia de contexto versionada con el perfil
+real corresponde a WP08, que es donde el encargo pide la calle poblada; aquí se registra el mecanismo y
+su guarda, no una captura que no está en el repositorio.
 
 `pnpm art:building-composer:candidates:test`
 (`tools/art-pipeline/blender/test_building_composer_candidates.py`) compone los cuatro brazos **sin
@@ -771,10 +775,10 @@ Evidencia: `candidates/wp06_<tipo>-candidata.{png,json}` (los JSON llevan `candi
 
 | WP | commit | estado | artefacto principal | bloqueo |
 | --- | --- | --- | --- | --- |
-| WP00 | (este) | DONE | este índice | — |
-| WP01 | (este) | DONE | `sheets/gn_v2_ab.png` (+ `_half`) | sombra recortada preexistente, declarada |
-| WP02 | (este) | DONE | `sheets/ag_civic_ab.png` (+ `_half`) · `mod_ag_arcade_bay_2m` | cierre de crujía en esquina y profundidad 0,50 m → WP06 |
-| WP03 | (este) | DONE | `sheets/ext_window_columns.png` (+ `_half`) · `sheets/hifi_grid_ab.png` (+ `_half`) | ningún vano de extensión adoptado (motivo geométrico medido); HiFi se queda como herramienta de receta |
-| WP04 | (este) | DONE | `sheets/weathering_states.png` (+ `_half`) · `building-weathering-contract.json@22a02a14` | WP04-D1 (cornisa sobrevive a la sección) y runtime `condition < 60 → damaged`: dos decisiones del responsable, no ajustes de esta hoja |
-| WP05 | (este) | DONE · ACEPTADA | `sheets/industrial_warehouse_ab.png` (+ `_half`) · 4 módulos `mod_gn_*_4m` (catálogo 191) · `industrial/dock_aperture_scale.json` | `metal_brick_mix` es no-op en HEAD (enmienda de gramática → responsable), tier `aged` sobre chapa GN sin medir y hoja/pretil en la misma banda tratada → WP06 |
-| WP06 | (este) | DONE · CUATRO CANDIDATAS REVISABLES | `candidates/wp06_{row_house,mixed_tenement,warehouse,town_hall}-candidata.png` (+ JSON) · `sheets/wp06_candidates_ab.png` (+ `_half`) · `building-composer-candidates.json` (3 perfiles) · `pnpm art:building-composer:candidates:test` · `gn_facade_grammar.py` con el origen en el plano posterior | nada bloquea el cierre: la esquina cívica pide geometría nueva (no gramática), `mod_gn_shopfront_bay_2m` sigue sin ruta legal y `metal_brick_mix` sigue no-op en HEAD (dos enmiendas del responsable), el tier `aged` sobre chapa GN sigue sin medir y `deterministic_crop_rect` deja 1–2 px de margen → WP07/WP09 |
+| WP00 | `5543cc9` | DONE | este índice | — |
+| WP01 | `0aa8ed2` | DONE | `sheets/gn_v2_ab.png` (+ `_half`) | sombra recortada preexistente, declarada |
+| WP02 | `9a48fee` | DONE | `sheets/ag_civic_ab.png` (+ `_half`) · `mod_ag_arcade_bay_2m` | cierre de crujía en esquina y profundidad 0,50 m → WP06 |
+| WP03 | `464608f` | DONE | `sheets/ext_window_columns.png` (+ `_half`) · `sheets/hifi_grid_ab.png` (+ `_half`) | ningún vano de extensión adoptado (motivo geométrico medido); HiFi se queda como herramienta de receta |
+| WP04 | `4ef6afa` | DONE | `sheets/weathering_states.png` (+ `_half`) · `building-weathering-contract.json@22a02a14` | WP04-D1 (cornisa sobrevive a la sección) y runtime `condition < 60 → damaged`: dos decisiones del responsable, no ajustes de esta hoja |
+| WP05 | `348eb78` | DONE · ACEPTADA | `sheets/industrial_warehouse_ab.png` (+ `_half`) · 4 módulos `mod_gn_*_4m` (catálogo 191) · `industrial/dock_aperture_scale.json` | `metal_brick_mix` es no-op en HEAD (enmienda de gramática → responsable), tier `aged` sobre chapa GN sin medir y hoja/pretil en la misma banda tratada → WP06 |
+| WP06 | `c5bd69d` + `c6824dc` | DONE · CUATRO CANDIDATAS REVISABLES | `candidates/wp06_{row_house,mixed_tenement,warehouse,town_hall}-candidata.png` (+ JSON) · `sheets/wp06_candidates_ab.png` (+ `_half`) · `building-composer-candidates.json` (3 perfiles) · `pnpm art:building-composer:candidates:test` · `gn_facade_grammar.py` con el origen en el plano posterior | nada bloquea el cierre: la esquina cívica pide geometría nueva (no gramática), `mod_gn_shopfront_bay_2m` sigue sin ruta legal y `metal_brick_mix` sigue no-op en HEAD (dos enmiendas del responsable), el tier `aged` sobre chapa GN sigue sin medir y `deterministic_crop_rect` deja 1–2 px de margen → WP07/WP09 |

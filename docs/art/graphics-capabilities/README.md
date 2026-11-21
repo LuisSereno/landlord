@@ -11,7 +11,7 @@ Abierto por D-111 (§2). La pregunta que responde cada entrada no es «¿existe?
 
 ## Cómo se lee
 
-- `capabilities.json` es la fuente de verdad. Cada una de las 19 entradas lleva los 17 campos obligatorios:
+- `capabilities.json` es la fuente de verdad. Cada una de las 22 entradas lleva los 17 campos obligatorios:
   `id`, `kind`, `technology`, `versionTested`, `officialSource`, `license`, `hostCompatibility`,
   `state`, `scriptOrModule`, `objectTypeUse`, `reproducibleExample`, `inputResources`,
   `outputResources`, `evidenceCaptures`, `visualResult`, `limitations`, `integrationDecision`.
@@ -47,13 +47,20 @@ Ninguna entrada pasa de `tested` a `production_ready` por decisión del agente: 
 
 ## Resultado de la pasada
 
+Estados y veredictos tras **D-111.2 WP00–WP06** (evidencia en [`evidence/v2/`](evidence/v2/README.md)).
+Las tres extensiones arquitectónicas se reevaluaron por instrucción del propietario: el conteo de
+triángulos dejó de ser criterio de rechazo **offline**, así que los motivos que figuraban en D-111.1 se
+retiran donde eran geométricamente falsos y se conservan donde la medida los sostiene.
+
 | Capacidad / pack | Tipo | Estado | Veredicto en una línea |
 | --- | --- | --- | --- |
 | `building_composer` | capacidad | `production_ready` | autoridad de composición; nada se le subordina |
-| `blender_geometry_nodes` | capacidad | `tested` | **MEJORA VISUAL** en hueco de fachada; aceptada como generador especializado |
-| `hifi_architecture_builder` | capacidad | `tested` | SIN MEJORA; 2 356 tri; rechazada |
-| `arch_generator` | capacidad | `tested` | la mejor arquitectura de las tres, 35 452 tri; rechazada para producción |
-| `archimesh` | capacidad | `tested` | 244 373 tri para puerta+ventana+cubierta; rechazada |
+| `blender_geometry_nodes` | capacidad | `qa_integrated` | **MEJORA VISUAL** medida; generador de módulos integrado en el pipeline offline experimental (WP01 + WP05) |
+| `building_weathering_contract` | capacidad | `qa_integrated` | contrato de conservación/envejecimiento en QA offline: tono −11,1/255 midiendo el mismo edificio (WP04) |
+| `composer_candidate_profiles` | capacidad | `qa_integrated` | selección de autoría sin parchear gramáticas; reproduce la firma del brazo que sustituye (WP06) |
+| `hifi_architecture_builder` | capacidad | `tested` | evaluada, **sin módulo adoptado todavía**: la retícula se arregla por receta, pero `WINDOW_FLAT` no divide el hueco (WP03) |
+| `arch_generator` | capacidad | `tested` | evaluada y **utilizada**: `mod_ag_arcade_bay_2m` (1 810 tri horneados) dentro del perfil `ag_civic_v2` (WP02) |
+| `archimesh` | capacidad | `tested` | evaluada, **sin módulo adoptado todavía**: sus 0,54 m de fondo dejan la carpintería dentro del paño de 0,10 m (WP03) |
 | `eevee` | capacidad | `production_ready` | estable; hay que declarar su umbral de ruido entre procesos |
 | `polyhaven_pbr` | pack | `tested` | gana en relieve donde existe el scan; **RESTRINGIDO** |
 | `kenney_retro_textures_fantasy` | pack | `tested` | **MEJORA** en teja, zócalo y pavimento; rechazado en ladrillo y revoco |
@@ -62,12 +69,16 @@ Ninguna entrada pasa de `tested` a `production_ready` por decisión del agente: 
 | `kenney_modular_buildings` | pack | `available` | no abierto en D-111 |
 | `kenney_retro_urban_kit` | pack | `tested` | garajes medidos a 1,00 m: no resuelven un muelle; rechazado para `warehouse` |
 | `kenney_mini_characters` | pack | `available` | rechazado para personajes jugables |
+| `phaser_fx_lab` | capacidad | `qa_integrated` | laboratorio disponible y medido brazo a brazo; **sin presets y sin validación visual nueva** |
 | `phaser_filters` | capacidad | `qa_integrated` | grading cálido candidato (+33,3 ms p95 medido); nada activado por defecto |
 | `phaser_bloom` | capacidad | `qa_integrated` | por objeto barato y útil de noche (+6,7 ms); por umbral caro (+118,3 ms) y prohibido global |
 | `phaser_dynamic_lighting` | capacidad | `qa_integrated` | MEJORA de noche con radios calibrados, SIN MEJORA de día (+60/67 ms) |
 | `normal_maps` | capacidad | `tested` | es lo que hace legible la junta a zoom reducido; restringido a QA |
 | `phaser_particles` | capacidad | `qa_integrated` | **MEJORA** de legibilidad de estado (humo, polvo) |
 | `tilemap_gpu_layer` | capacidad | `available` | condicionada a un problema real de terreno |
+
+Ninguna de las tres entradas `qa_integrated` nuevas está promovida: funcionan en el pipeline offline de
+QA y `runtime-promotions.json` no se tocó en WP00–WP06.
 
 ## Evaluaciones
 
@@ -105,6 +116,21 @@ individual y su JSON de hermanastro (herramienta, cámara, luz, triángulos, pro
 | `warehouse/garage_probe.png` | las cuatro piezas de garaje a escala (§6.C) | `blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/garage_probe.py -- --resolution=1600` |
 | `phaser/` | laboratorio de efectos (§7) | `node scripts/fx-lab-capture.mjs` (monta su propia vista previa; `FX_LAB_BASE_URL` para reutilizar una) |
 
+### Hojas de la segunda pasada (D-111.2)
+
+Viven en `evidence/v2/sheets/`, cada una con su lectura a 0,5× (`_half`) y su JSON de procedencia en la
+carpera del brazo (`v2/gn/`, `v2/ag/`, `v2/ext/`, `v2/industrial/`, `v2/weathering/`, `v2/candidates/`).
+El índice con los mandos completos es [`evidence/v2/README.md`](evidence/v2/README.md).
+
+| Hoja | Contenido |
+| --- | --- |
+| `v2/sheets/gn_v2_ab.png` | los cinco módulos GN v2 con paleta derivada del atlas, encuadre y corte medidos (WP01) |
+| `v2/sheets/ag_civic_ab.png` | `town_hall` control vs arcada horneada desde Arch Generator (WP02) |
+| `v2/sheets/ext_window_columns.png` · `v2/sheets/hifi_grid_ab.png` | el mismo vano resuelto por GN / HiFi / Archimesh y la receta HiFi sobre retícula (WP03) |
+| `v2/sheets/weathering_states.png` | el mismo edificio en conservado / envejecido / dañado / ardiendo, de día y de noche (WP04) |
+| `v2/sheets/industrial_warehouse_ab.png` | nave en crujía de 4 m con el portón de camión medido (WP05) |
+| `v2/sheets/wp06_candidates_ab.png` | las cuatro candidatas con su control, por perfil de candidato (WP06) |
+
 El laboratorio de extensiones corre **aislado** del perfil de usuario real:
 
 ```sh
@@ -124,7 +150,9 @@ herramientas que describe: sólo impide que el catálogo mienta sobre lo que hay
 - No modificó `blender_artist/manifests/world-catalogs/material-assets.json`. La biblioteca
   semántica de materiales es una decisión de estilo del propietario, y `src_kenney_retro_textures_fantasy`
   conserva `runtimeReady: false`.
-- No cambió la gramática aprobada del Composer. La variante GN se probó sobre una copia de trabajo
-  parcheada y revertida; promocionarla volvería a derivar todas las variantes de producción.
+- No cambió la gramática aprobada del Composer. En D-111.1 la variante GN se probó sobre una copia de
+  trabajo parcheada y revertida; desde WP06 la misma ruta existe como **perfil candidato** en memoria,
+  validado por las guardas de §11/§17 y medido neutro en el camino por defecto. Promocionar un perfil
+  volvería a derivar todas las variantes de producción del tipo.
 - Los `blocked` y los `rejected` se registran con su motivo medido. No se sustituye una imagen que no
   se pudo producir por una imagen parecida.

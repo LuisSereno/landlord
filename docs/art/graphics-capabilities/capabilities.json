@@ -52,8 +52,8 @@
       "officialSource": "https://docs.blender.org/manual/en/latest/modeling/modifiers/generate/geometry_nodes.html",
       "license": "la capacidad es de Blender (GPL); la geometría resultante es original de Landlord",
       "hostCompatibility": "Blender 5.2.2; el GLB horneado lo consume el Composer sin GN en runtime",
-      "state": "tested",
-      "scriptOrModule": "tools/art-pipeline/blender/gn_facade_grammar.py (5 constructores: window_bay, shopfront_bay, plinth, cornice, balcony_door_bay) + tools/art-pipeline/blender/ext_lab/gn_sheet.py",
+      "state": "qa_integrated",
+      "scriptOrModule": "tools/art-pipeline/blender/gn_facade_grammar.py (5 constructores: window_bay, shopfront_bay, plinth, cornice, balcony_door_bay; el zócalo y la cornisa se autorean con el origen en el plano posterior) + tools/art-pipeline/blender/ext_lab/gn_palette.py (paleta derivada del atlas) + tools/art-pipeline/blender/ext_lab/gn_sheet.py",
       "objectTypeUse": "crujías de fachada: hueco con alfiz + dintel + alféizar + tramos, escaparate, zócalo sillar, cornisa con dentículos, puerta-balcón",
       "reproducibleExample": "blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/gn_sheet.py -- --mood=day_civic --samples=48 --resolution=1024",
       "inputResources": "ningún asset de terceros: parámetros numéricos por pieza (bayWidth, openingWidth, mullions, sillHeight, coronaProjection…)",
@@ -61,11 +61,14 @@
       "evidenceCaptures": [
         "docs/art/graphics-capabilities/evidence/geometry-nodes/gn_parts.png",
         "docs/art/graphics-capabilities/evidence/geometry-nodes/gn_params.png",
-        "docs/art/graphics-capabilities/evidence/sheets/gn_facade_ab.png"
+        "docs/art/graphics-capabilities/evidence/sheets/gn_facade_ab.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/gn_v2_ab.png",
+        "docs/art/graphics-capabilities/evidence/v2/gn/gn_parts.png",
+        "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png"
       ],
-      "visualResult": "MEJORA VISUAL reconocible en fachada y profundidad: la ventana GN sale con marco en relieve, alféizar, dintel, tramos y vidrio hundido; el control megakit sale como paño plano con cristal empotrado. Legibilidad a escala de juego claramente mayor (13272 tri frente a 9522).",
-      "limitations": "los módulos GN traen su propia paleta plana (gn_brick_wall, gn_stone_trim, gn_dark_glass) que `complete_style_reach` trata por escalera distinta del atlas de megakit: el A/B difiere también en matiz de ladrillo, no sólo en relieve. La cornisa GN mide 0.55 m y el parapeto megakit 1.0 m, así que el envelope baja de 10.00 a 9.55 m. El color de la cornisa sale casi blanco contra un muro terroso. Los parámetros sólo se hornean en el GLB: cambiar el ritmo de hueco exige regenerar el módulo, no reconfigurar el runtime.",
-      "integrationDecision": "ACEPTADA como generador especializado invocado desde el Composer (los módulos se registran aditivos en el manifiesto aprobado; la gramática del repo NO cambia). Requiere dos sintonizaciones antes de promoción: alinear el matiz de `gn_brick_wall` con el rol `wall_panel` y llevar la cornisa al color de trim aprobado."
+      "visualResult": "MEJORA VISUAL reconocible en fachada y profundidad (D-111.1): el hueco GN sale con marco en relieve, alféizar, dintel, tramos y vidrio hundido frente al paño plano del megakit. WP01 cierra los tres defectos que se imputaban a la técnica y lo mide: la paleta se deriva del atlas licenciado (`deltaStyledL1 = 0,0` en ladrillo, piedra, metal y madera; sólo el vidrio se separa 0,064), la cornisa vuelve a 1,00 m con parapeto en ladrillo y dentículos vivos, y el envelope de `mixed_tenement` sube de 9,55 a 10,00 m —idéntico al control— con márgenes de recorte idénticos y 0 px de geometría opaca en el borde (14 264 tri frente a 9 522 del control, seed 2). `c5bd69d` corrige además el eje del zócalo y la cornisa: el relieve mira a la calle en vez de hacia el volumen.",
+      "limitations": "los parámetros sólo se hornean en el GLB: cambiar el ritmo de hueco exige regenerar el módulo, no reconfigurar el runtime. Las juntas del sillar miden 0,028 m ≈ 1,4 px a escala de hoja, así que el zócalo sigue leyendo como paño liso a 0,5× (WP06 corrigió el eje, no la escala de junta). La sombra del lienzo toca el borde en `row_house` por el `deterministic_crop_rect` preexistente, igual que en 5 de las 6 muestras de la baseline. Y el consumo es aditivo: ningún perfil candidato promovido toca la gramática de producción.",
+      "integrationDecision": "GENERADOR DE MÓDULOS INTEGRADO EN EL PIPELINE OFFLINE EXPERIMENTAL. Los 5 módulos + los 4 de crujía industrial de 4 m (WP05) están registrados aditivamente en el catálogo aprobado y se consumen desde los perfiles candidato de `building-composer-candidates.json`, que es QA: el estado NO es `production_ready` porque ninguna gramática de producción los sortea y falta la revisión humana. El Composer conserva la autoridad sobre semilla, roles, huella y salida."
     },
     {
       "id": "hifi_architecture_builder",
@@ -83,11 +86,14 @@
       "outputResources": "mallas en escena; no se exportan GLB a staging (licencia GPL y origen externo)",
       "evidenceCaptures": [
         "docs/art/graphics-capabilities/evidence/extensions/hifi_facade.png",
-        "docs/art/graphics-capabilities/evidence/sheets/extensions_sheet.png"
+        "docs/art/graphics-capabilities/evidence/sheets/extensions_sheet.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/hifi_grid_ab.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/ext_window_columns.png",
+        "docs/art/graphics-capabilities/evidence/v2/ext/hifi_window_bay_2m_high.png"
       ],
-      "visualResult": "SIN MEJORA frente a GN. Genera una fachada de 3 plantas correcta de composición (2356 tri) pero con proporciones de arquitectura contemporánea genérica: los huecos no respetan el paso de crujía de Landlord y el conjunto no se lee como la ciudad Graphic Civic.",
+      "visualResult": "D-111.1: fachada de 3 plantas correcta de composición (2 356 tri) pero de arquitectura contemporánea genérica. WP03 separa las dos preguntas. (a) Retícula: la misma receta escrita sobre el paso de crujía del perfil baja el desvío máximo al centro de crujía de 0,70 a 0,00 m y el de poste a junta de 1,00 a 0,00 m (37 huecos auditados, 135 llamadas, 5 976 tri, 5,15 s) —el problema de proporción era de receta, no de la extensión. (b) Componente: el vano HiFi horneado mide 98 tri y NO divide el hueco; se lee como un solo ojo frente a los 216 tri del control GN, que traen marco con retranqueo, dos montantes, travesero, alféizar con retorno y dintel. La pilastra `PILLAR` resulta ser una columna exenta de 0,34 m que queda 0,42 m por delante del paño.",
       "limitations": "GPL-3.0; la geometría nace de código de terceros y su procedencia no es auditable con el contrato de `original`; no expone un modo headless estable (hay que instanciar por operador con contexto de ventana falso); el perfil de extensión debe aislarse o contamina el toolchain.",
-      "integrationDecision": "RECHAZADA para producción. Sirve como referencia de composición; no se añaden dependencias permanentes."
+      "integrationDecision": "EVALUADA; SIN MÓDULO ADOPTADO TODAVÍA. El rechazo de D-111.1 se matiza con medida: la proporción ya no es bloqueo (la receta sobre retícula la corrige) y el coste geométrico dejó de ser criterio offline. Lo que impide adoptarla es un bloqueo funcional —`WINDOW_FLAT` expone ancho, alto, profundidad, grosor de marco y cota, y ningún parámetro genera montantes ni travesero— y la procedencia GPL-3.0 del código que genera la malla. Queda reevaluable con `tools/art-pipeline/blender/ext_lab/ext_module_bake.py`, que audita el corte pieza a pieza. Sirve como herramienta de receta mientras el módulo adoptado siga siendo `mod_gn_window_bay_2m`."
     },
     {
       "id": "arch_generator",
@@ -105,11 +111,14 @@
       "outputResources": "mallas en escena; sin exportación a staging",
       "evidenceCaptures": [
         "docs/art/graphics-capabilities/evidence/extensions/archgen_sections.png",
-        "docs/art/graphics-capabilities/evidence/sheets/extensions_sheet.png"
+        "docs/art/graphics-capabilities/evidence/sheets/extensions_sheet.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/ag_civic_ab.png",
+        "docs/art/graphics-capabilities/evidence/v2/ag/ag_arcade_bay_2m.png",
+        "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.png"
       ],
-      "visualResult": "SIN MEJORA para el juego. La calidad arquitectónica es la más alta de las tres (pórtico arcado, frontón, 120 objetos) pero 35452 triángulos para un sprite y una salida sin material asignado: todo blanco. No hay lectura de ciudad a 1×.",
-      "limitations": "35452 tri en la hoja de evidencia (≈3,7× la candidata GN y 7× el control); sin paleta; GPL-3.0; la API expone estilos históricos que no coinciden con el vocabulario de Landlord.",
-      "integrationDecision": "RECHAZADA para producción. Registrada como referencia de composición cívica para el autor de GN."
+      "visualResult": "D-111.1: la salida arquitectónicamente más rica de las tres (pórtico arcado, frontón, 120 objetos, 35 452 tri) pero sin material asignado, todo blanco. WP02 cambia el signo del veredicto porque cambia el objeto medido: horneando SÓLO el vano a la caja canónica de 2 m se obtiene `mod_ag_arcade_bay_2m` con 920 vértices / 1 810 triángulos, caja x[-1,1] · y[-0,15;0,35] · z[0,3], arcade cortada por el eje del estribo para que dos bays contiguos reconstruyan un pilar (comprobado tileando tres copias: 5 430 = 3 × 1 810). En `town_hall` seed 2: 18 418 → 44 374 tri con el mismo envelope (9,998 m), la misma huella y los mismos nueve ejes; las 21 colocaciones `window_bay` se convierten 1:1.",
+      "limitations": "GPL-3.0: sólo se publica el GLB horneado y su procedencia, nunca el código de la extensión (que vive instalada en el perfil aislado `/tmp/d111-ext-lab`). Su vocabulario es de estilos históricos y no entiende `Graphic Civic`, así que el material lo pone el Composer, no la extensión. Quedan abiertos el cierre de la crujía en esquina y los 0,50 m de profundidad del vano (piden geometría nueva, no gramática → WP06 lo declara). 44 374 tri en el sprite: asumible offline, sin medir en navegador.",
+      "integrationDecision": "EVALUADA Y UTILIZADA como herramienta de autoría offline: su geometría horneada alimenta el módulo `mod_ag_arcade_bay_2m`, que está integrado en el perfil candidato `ag_civic_v2`. Se RETIRA el motivo de rechazo de D-111.1 («35 452 tri = 3,7× el presupuesto»): esa cifra medía la escena histórica completa, no el módulo, y el propietario decidió que el conteo de triángulos no es criterio de rechazo offline. El historial anterior se conserva en `visualResult`. NO promovida al runtime: sigue faltando la aprobación humana y el perfil es QA."
     },
     {
       "id": "archimesh",
@@ -127,11 +136,13 @@
       "outputResources": "mallas en escena comparadas a escala real contra Quaternius y Kenney",
       "evidenceCaptures": [
         "docs/art/graphics-capabilities/evidence/extensions/archimesh_parts.png",
-        "docs/art/graphics-capabilities/evidence/sheets/extensions_sheet.png"
+        "docs/art/graphics-capabilities/evidence/sheets/extensions_sheet.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/ext_window_columns.png",
+        "docs/art/graphics-capabilities/evidence/v2/ext/archimesh_window_bay_2m_high.png"
       ],
-      "visualResult": "SIN MEJORA y coste altísimo: 244373 triángulos para puerta + ventana + cubierta. A escala real la ventana Archimesh es arquitectónicamente más rica que la de megakit, pero el Sprite Budget D-100/D-102 no lo admite y el estilo realista choca con la ciudad plana.",
+      "visualResult": "D-111.1: a escala real la ventana es arquitectónicamente más rica que la de megakit, pero 244 373 tri para puerta+ventana+cubierta y un realismo que no se lee a zoom 1×. WP03 hornea el mismo vano y localiza el fallo con precisión: 1 358 tri superviventes de 1 488 pedidos, de los que 912 (61,3 %) son las dos manijas, 356 las hojas y 208 el marco. El componente mide 0,54 m de fondo y el paño canónico 0,10 m, así que asentado por detrás deja hojas en y = −0,105/−0,055 y manijas en −0,146/−0,097, todas dentro del muro: en el fotograma el hueco muestra ladrillo, no vidrio. Está oculta por construcción, no «demasiado pequeña». Los presets `model=2` y `model=1` generan el mismo lote medido al milímetro.",
       "limitations": "244373 tri (25× la candidata GN); GPL-2.0; componentes pensados para render arquitectónico, no para lectura a zoom 1× de juego.",
-      "integrationDecision": "RECHAZADA. La comparación a escala real de la hoja sí se conserva como referencia de proporción."
+      "integrationDecision": "EVALUADA; SIN MÓDULO ADOPTADO TODAVÍA. Se retira «244 373 triángulos» como motivo aislado (no es criterio offline desde la decisión del propietario) y queda el bloqueo real: la pieza nace para un muro de obra de 0,54 m, no para el paño de 0,10 m del perfil; adelantarla para ver el vidrio saca el alféizar (+0,39 m pedidos) de la caja canónica. Se conservan como reutilizables la comparación a escala real y la auditoría de corte (`trianglesRequested` / `trianglesSurviving` / `maxRequestedFrontYMeters`) que el adaptador aplica a cualquier extensión."
     },
     {
       "id": "eevee",
@@ -211,7 +222,9 @@
       "reproducibleExample": "node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=2 --mood=day_civic --prefix=control --outDir=/tmp/control --metrics=/tmp/control.json",
       "inputResources": "blender_artist/staging/third_party/cc0/extracted/quaternius/**.glb (rutas de textura absolutas de Windows: hay que remapear a Textures/ locales o el render sale magenta)",
       "outputResources": "sprites del catálogo runtime aprobado",
-      "evidenceCaptures": ["docs/art/graphics-capabilities/evidence/sheets/gn_facade_ab.png"],
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/sheets/gn_facade_ab.png"
+      ],
       "visualResult": "control actual: silueta y proporción correctas, fachada plana (el hueco es un cristal empotrado sin marco)",
       "limitations": "atlas de color único por pack: la variación de fachada pasa por elegir módulo, no por parametrizar. El relieve del hueco no existe, que es justo lo que D-111 §3 venía a comprobar.",
       "integrationDecision": "se conserva como base; la capa GN se superpone por rol, no la sustituye en bloque."
@@ -230,7 +243,9 @@
       "reproducibleExample": "los pilotos del Composer ya los instancian: ver evidence/sheets/pilots_sheet.png",
       "inputResources": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-*/Models/GLB format/*.glb",
       "outputResources": "módulos del catálogo runtime",
-      "evidenceCaptures": ["docs/art/graphics-capabilities/evidence/sheets/pilots_sheet.png"],
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/sheets/pilots_sheet.png"
+      ],
       "visualResult": "legible a 1×; la marquesina Kenney es el único acceso cubierto del catálogo residencial",
       "limitations": "escala de los módulos de detalle no siempre coincide con el paso de crujía del perfil de estilo (D-111 no reabre ese ajuste)",
       "integrationDecision": "sin cambios en D-111"
@@ -330,7 +345,9 @@
       "reproducibleExample": "node scripts/fx-lab-capture.mjs con fx=bloomThreshold y fx=bloomObjects",
       "inputResources": "capa emisiva inyectada aparte de los sprites de fachada",
       "outputResources": "pares de fotograma con/ sin efecto en evidence/phaser/",
-      "evidenceCaptures": ["docs/art/graphics-capabilities/evidence/sheets/phaser_sheet.png"],
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/sheets/phaser_sheet.png"
+      ],
       "visualResult": "de noche el bloom por objeto hace legible dónde está la luz sin recortar el resto y es barato (+6,7 ms de p95 sobre el control); el bloom por umbral hace lo mismo sobre toda la cámara pero cuesta +118,3 ms y de día no aporta, sólo ensucia",
       "limitations": "Phaser 4.2.1 no trae filtro Bloom: el sustituto oficial es la Action. Limitación documentada en el propio SDK (src/actions/AddEffectBloom.js): sobre un objeto con regiones alfa el glow no puede sumar contra el fondo porque el objeto se compone en NORMAL y el bloom en ADD — se mitiga con `filters.internal` (caja del objeto) y textura emisiva casi opaca. El umbral es un proxy de la lista de objetos: cualquier píxel por encima de edge1 entra en el pase difuso.",
       "integrationDecision": "CANDIDATO de QA nocturno. Prohibido activarlo globalmente por defecto (§7.2)."
@@ -371,7 +388,9 @@
       "reproducibleExample": "material_lab.py brazo B; en Phaser, fx=lights activa el normal map derivado",
       "inputResources": "textures/<name>_nor_gl_*.png; en runtime, el canvas derivado de la luminancia del albedo",
       "outputResources": "releves visibles en los brazos B de evidence/materials/",
-      "evidenceCaptures": ["docs/art/graphics-capabilities/evidence/sheets/materials_sheet.png"],
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/sheets/materials_sheet.png"
+      ],
       "visualResult": "el normal map es lo que hace legible la junta del ladrillo a zoom reducido; Kenney no aporta canal normal, así que su relieve depende del patrón dibujado + `_depth` como bump",
       "limitations": "Phaser resuelve el normal map en SubmitterQuad.setRenderOptions: si el objeto tiene `lighting` y su textura tiene `dataSource[sourceIndex]` usa ese, si no cae en el `__NORMAL` plano del renderer. Es decir: el normal map sólo existe donde hay luz dinámica, que es justo la capacidad peor valorada de §7.3.",
       "integrationDecision": "RESTRINGIDO a QA. No se añaden canales normales a los sprites de producción sin una decisión de iluminación global."
@@ -390,7 +409,9 @@
       "reproducibleExample": "node scripts/fx-lab-capture.mjs con fx=particles",
       "inputResources": "texturas de partícula generadas en el propio laboratorio; ningún estado de juego se copia en la escena de partículas",
       "outputResources": "evidence/phaser/ con la capa de partículas activa",
-      "evidenceCaptures": ["docs/art/graphics-capabilities/evidence/sheets/phaser_sheet.png"],
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/sheets/phaser_sheet.png"
+      ],
       "visualResult": "MEJORA VISUAL de legibilidad de estado: una chimenea con humo y un solar con polvo se leen como lo que son a 1× sin mirar la interfaz. Medido con 58 partículas vivas: +21,7 ms de p95 sobre el control de la misma corrida.",
       "limitations": "mandato §7.4: las partículas NO pueden simular eventos que no existan en el estado del juego. Son presentación derivada; D-111 no introduce lógica artística en GameState ni duplica reglas de simulación en Phaser.",
       "integrationDecision": "CANDIDATO de QA. Su activación en producción depende de que exista el evento de dominio correspondiente, no del render."
@@ -413,6 +434,77 @@
       "visualResult": "no evaluado — no cambia la imagen, sólo el coste de dibujado",
       "limitations": "el presupuesto de D-111 no permite migrar el pintado de suelo para demostrar otra tecnología",
       "integrationDecision": "OPCIÓN CONDICIONADA (§7.6): se abre sólo si el perfilado detecta un problema real del terreno. No sustituir el ground painter únicamente para demostrar otra tecnología."
+    },
+    {
+      "id": "building_weathering_contract",
+      "kind": "capability",
+      "technology": "Contrato de conservación: tiers de envejecimiento MATERIAL aplicados por el Composer offline sobre el mismo edificio (conserved / aged), separados del daño geométrico",
+      "versionTested": "graphic_civic_weathering_v1 · sha256 22a02a14a4f3… · D-111.2 WP04",
+      "officialSource": "repo propio: blender_artist/manifests/building-weathering-contract.json",
+      "license": "original (Landlord); las superficies muestreadas conservan su licencia de origen (Kenney CC0, Poly Haven CC0)",
+      "hostCompatibility": "Blender 5.2.2 offline; ninguna capa de envejecimiento llega al runtime",
+      "state": "qa_integrated",
+      "scriptOrModule": "tools/art-pipeline/blender/building_composer/weathering.py + tools/art-pipeline/blender/test_building_weathering_contract.py",
+      "objectTypeUse": "los mismos triángulos del edificio sano reinterpretados como envejecidos; el dañado y el ardiendo siguen siendo geometría del compositor",
+      "reproducibleExample": "node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=2 --states=complete --weathering=conserved,aged --mood=day_civic --outDir=/tmp/wp04 --metrics=/tmp/wp04/metrics.json",
+      "inputResources": "building-weathering-contract.json + building-modules.json y building-style-profiles.json, con los dos `sha256` fijados en `pins` del propio contrato",
+      "outputResources": "bloque `weathering` en la metadata de cada sprite (contractSha256, materialsChanged, skipped y por material la receta efectiva, el BSDF, la fuente de color y las cotas before/after de rugosidad y emisión)",
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/v2/sheets/weathering_states.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_aged.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_damaged.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_burning.png"
+      ],
+      "visualResult": "MEJORA VISUAL medida sobre UN solo edificio. Conservado vs request sin clave: |Δ| medio 0,0/255 (proyección declarada, cero capas). Envejecido de día: 20 de 23 materiales tratados, |Δ| medio 11,3/255 con TONO −11,1 y el 88,5 % del lienzo sobre la cota de ruido de §13 —es tono, no grano de alta frecuencia promediando a cero, que era el fallo de la primera corrida (8,1/255 con mediana 0). La rampa de gravedad se ve franja a franja: −6,0 · −10,8 · −13,8/255 de cubierta a planta baja. El hueco encendido de noche conserva la señal de uso (luma 140,05 → 140,01, 91,5 % byte-idéntico). Dañado y ardiendo son otra capa: 115 → 105 y 115 → 112 colocaciones, −564 y +1 096 tri, hollín 0,45/0,70.",
+      "limitations": "WP04-D3: la palanca `emissionScale` es INERTE en este encuadre medido brazo contra brazo (0,0 / 0,78 / 1,0 dan el mismo raster) porque los únicos materiales con emisión cableada por el mood son los toldos Kenney, no el `MI_Glass` que ilumina el hueco residencial; no es una palanca de legibilidad nocturna. El tier `aged` sobre chapa GN (WP05) sigue sin medir. Y la proyección runtime `condition < 60 → damaged` mezcla desgaste con estructura: es decisión del responsable, no de este contrato.",
+      "integrationDecision": "CANDIDATO de QA offline. El contrato valida los pins del catálogo y del perfil de estilo al cargar y aborta si un tier declara `strength > 0` con `baseSoiling = 0` (o al revés), que eran las dos formas de escribir una receta que no se aplica. No toca GameState, guardados ni los manifiestos runtime aprobados: `--weathering` es una arista de variante más, y sin la bandera el sprite firma el brazo de producción."
+    },
+    {
+      "id": "composer_candidate_profiles",
+      "kind": "capability",
+      "technology": "Perfiles de candidato: overlay EN MEMORIA sobre la receta de un tipo, validado por las guardas de producción del Composer antes de renderizar",
+      "versionTested": "building-composer-candidates.json · 3 perfiles · D-111.2 WP06",
+      "officialSource": "repo propio: blender_artist/manifests/building-composer-candidates.json",
+      "license": "original (Landlord)",
+      "hostCompatibility": "Node 24 (orquestador) + Blender 5.2.2 (composición); nada en el navegador",
+      "state": "qa_integrated",
+      "scriptOrModule": "tools/art-pipeline/blender/building_composer/candidates.py aplicado desde tools/art-pipeline/blender/building_composer/grammar.py + tools/art-pipeline/blender/test_building_composer_candidates.py",
+      "objectTypeUse": "sustituir los módulos de un rol en un tipo concreto sin editar el manifiesto de gramáticas de producción",
+      "reproducibleExample": "pnpm art:building-composer:candidates:test && node scripts/build-building-composer.mjs --types=row_house,mixed_tenement --candidate=gn_residential_v2 --seeds=2 --prefix=cnd --outDir=/tmp/cnd --metrics=/tmp/cnd.json --mood=day_civic",
+      "inputResources": "building-composer-candidates.json (perfiles con `families`, `palettes`, `corniceModule`, `corniceRole` y cambios por rol) + los tres manifiestos que ya lee la gramática",
+      "outputResources": "misas de salida con `candidateProfile` en request, métricas y manifiesto, y `compositionSignature` derivada del documento ya sobreescrito",
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/v2/sheets/wp06_candidates_ab.png",
+        "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+        "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+        "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
+        "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.png"
+      ],
+      "visualResult": "Las cuatro candidatas revisables de WP06 salen por este mecanismo y reproducen el brazo que sustituyen: `mixed_tenement` firma `94f1106d02e6` con el parche y con el perfil, y el PNG coincide con el publicado (0 px sobre Δ>8, Δ máximo 2/255, 99,98 % idéntico). Huella, orientación, plantas y pivote idénticos al control en las cuatro (el pivote de la nave sube con el pretil de 4 m que declaró WP05) y los nueve ejes sorteados sin moverse: lo único que cambia es qué módulo resuelve cada rol —40 `moduleId` en row_house, 65 en mixed_tenement, 21 en town_hall, y en la nave roles nuevos (`dock_doorframe`, `metal_cornice`).",
+      "limitations": "es sustitución, no adición: un perfil no puede declarar una paleta nueva ni una opción de eje, porque eso desplazaría el sorteo de §16 y la A/B compararía dos espacios de variantes en vez de dos autorías (por eso el brazo v1 de §3 quedó como histórico y la esquina cívica de `town_hall` no es alcanzable por perfil). La comparación de equivalencia se mide en píxeles, no en hash de PNG: EEVEE no es bit-estable. Un perfil correcto pero ausente del gate de Node seguiría colando por omisión hasta WP09.",
+      "integrationDecision": "CAPACIDAD OPERATIVA DE QA, adoptada en lugar del parche de gramática. Sustituye a los dos drivers que reescribían el manifiesto en el árbol (retirados en `c6824dc`). El camino por defecto es neutro y está medido: sin `--candidate` las cuatro gramáticas siguen firmando el lote aprobado (`9e90ea10ba92`, `b85340a2c0a8`, `59f0c437e1c2`, `b23ff442da1d`). Ninguna de las cuatro está promovida: `runtime-promotions.json` no se tocó."
+    },
+    {
+      "id": "phaser_fx_lab",
+      "kind": "capability",
+      "technology": "Laboratorio de efectos Phaser 4: escena de QA aislada con dos mood y seis brazos con/sin, captura headless y smoke propio",
+      "versionTested": "phaser@4.2.1 · D-111 §7 y D-111.2 WP07",
+      "officialSource": "repo propio: apps/web/src/fx-lab/",
+      "license": "MIT (Phaser) sobre código original de Landlord",
+      "hostCompatibility": "Phaser 4.2.1 WebGL; con fallback CANVAS forzado para la misma escena",
+      "state": "qa_integrated",
+      "scriptOrModule": "apps/web/src/fx-lab/FxLabScene.ts + fx-effects.ts + fx-particles.ts + fx-textures.ts + scripts/fx-lab-capture.mjs + scripts/fx-lab-smoke.mjs",
+      "objectTypeUse": "una calle de QA sintética: fachadas, ventanas, farolas, obra, industria e incendio, sin copiar ningún estado de la partida",
+      "reproducibleExample": "node scripts/fx-lab-capture.mjs && node scripts/fx-lab-smoke.mjs",
+      "inputResources": "un catálogo sintético con semilla fija dentro del propio laboratorio; ningún manifiesto runtime ni GameState alimentan la escena",
+      "outputResources": "pares de fotograma con/sin cada efecto en evidence/phaser/ y la hoja `sheets/phaser_sheet.png` compuesta por tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/sheets/phaser_sheet.png",
+        "docs/art/graphics-capabilities/evidence/phaser/defect_night_lighting_saturado.png"
+      ],
+      "visualResult": "El laboratorio es lo que permitió separar los brazos y medirlos uno a uno en vez de opinar sobre la escena entera: bloom por objeto +6,7 ms de p95 frente a +118,3 del bloom por umbral, luz dinámica +66,7 ms, normales +60,0, grading +33,3 y partículas +21,7 con 58 partículas vivas. Conserva además el fotograma del error de parametrización (la manzana entera quemada a blanco por apilar cuatro discos de 190 px sobre el glow horneado).",
+      "limitations": "PENDIENTE, y es lo que WP07 no cerró: no existen presets reutilizables —la escena se maneja con `fxMood` más seis toggles, así que «noche equilibrada» es una combinación manual que nadie puede invocar—, los anclajes de partícula son aproximados sobre el sprite y no derivan de la composición Blender, el incendio depende de la textura de brasas en vez de tener cuerpo de llama propio, y la hoja versionada es la de 2026-11-20: no hay validación visual nueva. Los costes citados son de SwiftShader sin GPU local y con la máquina ocupada.",
+      "integrationDecision": "DISPONIBLE en QA y nada activado en el juego. Ningún brazo se promociona sin presets nombrados y sin revisión humana de la hoja nueva. Es el contenedor donde se ejecutan las fases de incendio animado, no un sistema paralelo al render de la partida."
     }
   ]
 }

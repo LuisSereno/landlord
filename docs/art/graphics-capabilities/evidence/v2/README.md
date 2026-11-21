@@ -788,4 +788,4 @@ Evidencia: `candidates/wp06_<tipo>-candidata.{png,json}` (los JSON llevan `candi
 | fase | commit | estado | artefacto principal | bloqueo |
 | --- | --- | --- | --- | --- |
 | FASE 1 | `8b42a64` | DONE | `capabilities.json` (22 entradas) · `graphics-capabilities/README.md` · `evaluations/extensions.md` · ledger con hashes reales | — |
-| FASE 2 | pendiente en este commit | DONE · DIAGNÓSTICO | `fire/DIAGNOSIS.md` · `fire/control_{mixed_tenement,warehouse}_{day,night}.png` (+ JSON) · `fire/fire_control_sheet.png` · `fire/fire_control_detail.png` | nada: es fase de lectura, no de producción; los diez defectos quedan medidos y atribuidos a línea |
+| FASE 2 | `9e95206` DONE · DIAGNÓSTICO | `fire/DIAGNOSIS.md` · `fire/control_{mixed_tenement,warehouse}_{day,night}.png` (+ JSON) · `fire/fire_control_sheet.png` · `fire/fire_control_detail.png` | nada: es fase de lectura, no de producción; los diez defectos quedan medidos y atribuidos a línea |

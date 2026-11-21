@@ -1,0 +1,944 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/fx-presets-capture.mjs",
+ "command": "node scripts/fx-presets-capture.mjs",
+ "task": "D-111.2 FASE 5 · presets, balance de exposición, desmontaje y fallback CANVAS",
+ "baseUrl": "http://127.0.0.1:4313",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "webglRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "cyclesPerEffect": 5,
+ "settleStalls": [],
+ "presetFromUrl": {
+  "preset": "night_fire",
+  "via": "URL fxPreset=",
+  "probe": {
+   "effects": [
+    "grading",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles",
+    "fire"
+   ],
+   "preset": "night_fire",
+   "sceneObjects": 60,
+   "emissiveObjects": 15,
+   "litObjects": 8,
+   "lights": 4,
+   "particlesAlive": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "drawCalls": null,
+   "frameTimeP50Ms": 16.65,
+   "frameTimeP95Ms": 16.67,
+   "fps": 0,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 2,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "errors": []
+  }
+ },
+ "presets": [
+  {
+   "preset": "day_balanced",
+   "via": "botón",
+   "probe": {
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "particles"
+    ],
+    "preset": "day_balanced",
+    "sceneObjects": 60,
+    "emissiveObjects": 15,
+    "litObjects": 8,
+    "lights": 4,
+    "particlesAlive": 16,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "drawCalls": null,
+    "frameTimeP50Ms": 43.34,
+    "frameTimeP95Ms": 48.34,
+    "fps": 22,
+    "fire": {
+     "foci": 2,
+     "flameImages": 10,
+     "emitters": 8,
+     "particlesAlive": 0,
+     "lights": 0,
+     "glowImages": 2
+    },
+    "errors": []
+   },
+   "expectedMood": "day",
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/preset_day_balanced.png",
+   "bytes": 216595,
+   "sha256": "7c4182b3280f59db556b037692b844227c1579f26c0f933dc344150580da8651"
+  },
+  {
+   "preset": "night_balanced",
+   "via": "botón",
+   "probe": {
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles"
+    ],
+    "preset": "night_balanced",
+    "sceneObjects": 60,
+    "emissiveObjects": 15,
+    "litObjects": 8,
+    "lights": 4,
+    "particlesAlive": 15,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "drawCalls": null,
+    "frameTimeP50Ms": 43.33,
+    "frameTimeP95Ms": 48.33,
+    "fps": 23,
+    "fire": {
+     "foci": 2,
+     "flameImages": 10,
+     "emitters": 8,
+     "particlesAlive": 0,
+     "lights": 0,
+     "glowImages": 2
+    },
+    "errors": []
+   },
+   "expectedMood": "night",
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/preset_night_balanced.png",
+   "bytes": 215078,
+   "sha256": "d70b8640079295ea295ff22edfe2d78b4f5bcdb047113d000260a5388a7ea4e0"
+  },
+  {
+   "preset": "night_fire",
+   "via": "botón",
+   "probe": {
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ],
+    "preset": "night_fire",
+    "sceneObjects": 60,
+    "emissiveObjects": 15,
+    "litObjects": 8,
+    "lights": 4,
+    "particlesAlive": 17,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "drawCalls": null,
+    "frameTimeP50Ms": 43.33,
+    "frameTimeP95Ms": 43.33,
+    "fps": 23,
+    "fire": {
+     "foci": 2,
+     "flameImages": 10,
+     "emitters": 8,
+     "particlesAlive": 50,
+     "lights": 0,
+     "glowImages": 2
+    },
+    "errors": []
+   },
+   "expectedMood": "night",
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/preset_night_fire.png",
+   "bytes": 216943,
+   "sha256": "03141c001ba4b6a95e1ca8514dda5c79f09e613a0418d48b1c4bb674b41e30fc"
+  },
+  {
+   "preset": "night_fire",
+   "via": "botón + zoom 0,5",
+   "probe": {
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ],
+    "preset": "night_fire",
+    "sceneObjects": 60,
+    "emissiveObjects": 15,
+    "litObjects": 8,
+    "lights": 4,
+    "particlesAlive": 17,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "drawCalls": null,
+    "frameTimeP50Ms": 43.33,
+    "frameTimeP95Ms": 43.33,
+    "fps": 23,
+    "fire": {
+     "foci": 2,
+     "flameImages": 10,
+     "emitters": 8,
+     "particlesAlive": 53,
+     "lights": 0,
+     "glowImages": 2
+    },
+    "errors": []
+   },
+   "expectedMood": "night",
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/preset_night_fire_050x.png",
+   "bytes": 88099,
+   "sha256": "2507d704c5aeebfab8691d1fb5559c5a7500026a04780a4f5624062e2b4caf76"
+  },
+  {
+   "preset": null,
+   "via": "control nocturno apagado",
+   "probe": {
+    "effects": [],
+    "preset": null,
+    "sceneObjects": 60,
+    "emissiveObjects": 15,
+    "litObjects": 0,
+    "lights": 0,
+    "particlesAlive": 0,
+    "texturesLive": null,
+    "gpuTextureBytes": null,
+    "drawCalls": null,
+    "frameTimeP50Ms": null,
+    "frameTimeP95Ms": null,
+    "fps": null,
+    "fire": {
+     "foci": 2,
+     "flameImages": 10,
+     "emitters": 8,
+     "particlesAlive": 0,
+     "lights": 0,
+     "glowImages": 2
+    },
+    "errors": []
+   },
+   "expectedMood": "night",
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/control_night.png",
+   "bytes": 191132,
+   "sha256": "5462fa65439bab649ccbb7bde9c85eb2cbe2ed61c448dfd14d9e430437448619"
+  }
+ ],
+ "controlDay": {
+  "case": "control_day",
+  "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/control_day.png",
+  "bytes": 187664,
+  "sha256": "250e9c7cd799c8525f5c214f4ab8e1450bb41b4f51a402a4f7950cfc6fe7bf3f",
+  "effects": [],
+  "preset": null,
+  "sceneObjects": 60,
+  "emissiveObjects": 15,
+  "litObjects": 0,
+  "lights": 0,
+  "particlesAlive": 0,
+  "texturesLive": 28,
+  "gpuTextureBytes": 23705444,
+  "drawCalls": null,
+  "frameTimeP50Ms": 43.34,
+  "frameTimeP95Ms": 50,
+  "fps": 26,
+  "fire": {
+   "foci": 2,
+   "flameImages": 10,
+   "emitters": 8,
+   "particlesAlive": 0,
+   "lights": 0,
+   "glowImages": 2
+  },
+  "errors": []
+ },
+ "teardown": {
+  "cycles": [
+   {
+    "effect": "grading",
+    "cycles": 5,
+    "primeraLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 43.33,
+     "frameTimeP95Ms": 78.33,
+     "fps": 24,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "ultimaLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 60.01,
+     "frameTimeP95Ms": 78.33,
+     "fps": 17,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "bloomThreshold",
+    "cycles": 5,
+    "primeraLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 68.33,
+     "frameTimeP95Ms": 184.98,
+     "fps": 12,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "ultimaLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 99.99,
+     "frameTimeP95Ms": 171.66,
+     "fps": 10,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "bloomObjects",
+    "cycles": 5,
+    "primeraLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 46.66,
+     "frameTimeP95Ms": 170,
+     "fps": 13,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "ultimaLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 43.34,
+     "frameTimeP95Ms": 48.34,
+     "fps": 22,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "lighting",
+    "cycles": 5,
+    "primeraLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 45,
+     "frameTimeP95Ms": 104.99,
+     "fps": 17,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "ultimaLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 70,
+     "frameTimeP95Ms": 118.32,
+     "fps": 13,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "lightingNormals",
+    "cycles": 5,
+    "primeraLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 66.66,
+     "frameTimeP95Ms": 118.32,
+     "fps": 14,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "ultimaLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 78.33,
+     "frameTimeP95Ms": 106.66,
+     "fps": 14,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "particles",
+    "cycles": 5,
+    "primeraLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 46.66,
+     "frameTimeP95Ms": 103.32,
+     "fps": 17,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "ultimaLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 45.01,
+     "frameTimeP95Ms": 53.33,
+     "fps": 21,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "fire",
+    "cycles": 5,
+    "primeraLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 48.33,
+     "frameTimeP95Ms": 58.33,
+     "fps": 20,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "ultimaLectura": {
+     "effects": [],
+     "preset": null,
+     "sceneObjects": 60,
+     "emissiveObjects": 15,
+     "litObjects": 0,
+     "lights": 0,
+     "particlesAlive": 0,
+     "texturesLive": 28,
+     "gpuTextureBytes": 23705444,
+     "drawCalls": null,
+     "frameTimeP50Ms": 46.66,
+     "frameTimeP95Ms": 51.67,
+     "fps": 21,
+     "fire": {
+      "foci": 2,
+      "flameImages": 10,
+      "emitters": 8,
+      "particlesAlive": 0,
+      "lights": 0,
+      "glowImages": 2
+     },
+     "errors": []
+    },
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   }
+  ],
+  "baseline": {
+   "effects": [],
+   "preset": null,
+   "sceneObjects": 60,
+   "emissiveObjects": 15,
+   "litObjects": 0,
+   "lights": 0,
+   "particlesAlive": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "drawCalls": null,
+   "frameTimeP50Ms": 43.34,
+   "frameTimeP95Ms": 50,
+   "fps": 26,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "errors": []
+  },
+  "final": {
+   "effects": [],
+   "preset": null,
+   "sceneObjects": 60,
+   "emissiveObjects": 15,
+   "litObjects": 0,
+   "lights": 0,
+   "particlesAlive": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "drawCalls": null,
+   "frameTimeP50Ms": 45,
+   "frameTimeP95Ms": 53.33,
+   "fps": 22,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "errors": []
+  },
+  "before": {
+   "effects": [],
+   "preset": null,
+   "sceneObjects": 60,
+   "emissiveObjects": 15,
+   "litObjects": 0,
+   "lights": 0,
+   "particlesAlive": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "drawCalls": null,
+   "frameTimeP50Ms": 16.67,
+   "frameTimeP95Ms": 46.66,
+   "fps": 52,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "errors": []
+  },
+  "recovered": [
+   {
+    "effect": "grading",
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "bloomThreshold",
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "bloomObjects",
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "lighting",
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "lightingNormals",
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "particles",
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   },
+   {
+    "effect": "fire",
+    "deriva": {
+     "sceneObjects": 0,
+     "emissiveObjects": 0,
+     "lights": 0,
+     "litObjects": 0,
+     "particlesAlive": 0,
+     "texturesLive": 0,
+     "gpuTextureBytes": 0
+    }
+   }
+  ],
+  "p95BaselineMs": 46.66,
+  "p95AfterCyclesMs": 53.33
+ },
+ "canvasFallback": [
+  {
+   "case": "fallback_canvas_night_control",
+   "probe": {
+    "effects": [],
+    "preset": null,
+    "sceneObjects": 60,
+    "emissiveObjects": 15,
+    "litObjects": 0,
+    "lights": 0,
+    "particlesAlive": 0,
+    "texturesLive": 29,
+    "gpuTextureBytes": 23967588,
+    "drawCalls": 48,
+    "frameTimeP50Ms": 16.65,
+    "frameTimeP95Ms": 16.65,
+    "fps": 61,
+    "fire": {
+     "foci": 2,
+     "flameImages": 10,
+     "emitters": 8,
+     "particlesAlive": 0,
+     "lights": 0,
+     "glowImages": 2
+    },
+    "errors": []
+   },
+   "buildings": true,
+   "rendererType": "CANVAS",
+   "capabilitiesWebGlOnly": {
+    "filters": true,
+    "applied": []
+   },
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/fallback_canvas_night_control.png",
+   "bytes": 196673,
+   "sha256": "06040a05960d57bfaa87be49e8e3baef01d50de8e1ff37e3f3ef7d889923dcc4"
+  },
+  {
+   "case": "fallback_canvas_night_fire",
+   "probe": {
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ],
+    "preset": "night_fire",
+    "sceneObjects": 60,
+    "emissiveObjects": 15,
+    "litObjects": 0,
+    "lights": 0,
+    "particlesAlive": 13,
+    "texturesLive": 29,
+    "gpuTextureBytes": 23967588,
+    "drawCalls": 60,
+    "frameTimeP50Ms": 16.64,
+    "frameTimeP95Ms": 16.65,
+    "fps": 61,
+    "fire": {
+     "foci": 2,
+     "flameImages": 10,
+     "emitters": 8,
+     "particlesAlive": 31,
+     "lights": 0,
+     "glowImages": 2
+    },
+    "errors": []
+   },
+   "buildings": true,
+   "rendererType": "CANVAS",
+   "capabilitiesWebGlOnly": {
+    "filters": true,
+    "applied": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ]
+   },
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/fallback_canvas_night_fire.png",
+   "bytes": 206154,
+   "sha256": "92dbb5a00e098233e66ceb53b9901f071813b8583de1a3b2bfefa384c6a055d3"
+  }
+ ],
+ "pageErrors": []
+}

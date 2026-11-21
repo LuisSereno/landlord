@@ -53,12 +53,44 @@ import { clearFireAnchorCache, fireAnchorsFor, type FireFocus } from "./fx-fire-
 import { makeSoftDisc } from "./fx-textures";
 import { buildNormalMapFromSprite, makeFlatNormal } from "./fx-normal-map";
 import { depthForAsset, footprintCenter } from "../isometric/building-sprites";
-import { FX_EFFECTS, type FxEffect, type FxFrameStats, type FxMood } from "./fx-lab-types";
+import {
+  FX_EFFECTS,
+  FX_PRESET_TABLE,
+  type FxEffect,
+  type FxFrameStats,
+  type FxMood,
+  type FxPreset,
+} from "./fx-lab-types";
 
 const FRAME_WINDOW = 180;
 const LAMP_GLOW_TEXTURE = "fx-tex-lamp-glow";
 /** Escala de farolas y vegetación: el pack está densificado y la calle de QA se mira de cerca. */
 const SCENERY_BOOST = 2.1;
+/** De día la calle la sostiene el bake: la capa emisiva sólo insinúa. */
+const DAY_EMISSIVE_ALPHA = 0.08;
+/**
+ * §5.2 — emisión nocturna por fuente. La ventana es un rectángulo de pocos píxeles y a 0,62 sigue
+ * leyéndose como foco encendido sin quemarse; el disco de farola ocupa ~100 px en ADD y por eso baja
+ * más; la capa cálida del edificio ardiendo es precisamente el estado que hay que reconocer.
+ *
+ * La farola sube de 0,5 a 0,7 al retirar el `PointLight` del rig: el disco horneado pasa a ser la
+ * única fuente de calidez visible del poste y es la que escala sin recortar a blanco (medido: con el
+ * halo el filamento llegaba a (255,255,255); con sólo este disco queda en ámbar).
+ *
+ * §5.2 (hoja `phaser_fx_v2_sheet.png` del 21-11): con 0,7 el disco del cabezal seguía leyendo como
+ * BOLA FLUTANTE —un círculo de ~100 px en ADD cuyo núcleo recorta— mientras la calzada seguía oscura.
+ * El halo baja a 0,5 y la luz se reparte en una charca aplastada sobre el pavimento (`lampPool`), que
+ * es lo que el encargo pide al hablar de «radios de luz» y de «calles demasiado oscuras».
+ */
+const NIGHT_EMISSIVE_ALPHA: Record<EmissiveOverlay["kind"], number> = {
+  window: 0.62,
+  lamp: 0.5,
+  /** ~190×60 px de disco: al repartir la misma energía sobre área, el centro no recorta. */
+  lampPool: 0.34,
+  fire: 0.85,
+  /** Lo manda el rig de fuego fotograma a fotograma; este valor no se usa. */
+  fireGlow: 1,
+};
 /**
  * Semilla de PRESENTACIÓN del incendio. Es fija para que la hoja de animación sea repetible; no
  * entra en la simulación, en el save ni en GameState (FASE 4.3 lo permite explícitamente).
@@ -85,10 +117,14 @@ export type FxLabSceneOptions = {
   mood: FxMood;
   zoom: number;
   perf: boolean;
+  /** El preset con el que se montó (o se pidió) la escena; `null` si es una combinación suelta. */
+  preset: FxPreset | null;
 };
 
 export type FxLabProbeData = {
   effects: FxEffect[];
+  /** Qué preset está puesto de verdad: si un toggle se movió a mano, la sonda dice `null`. */
+  preset: FxPreset | null;
   /** La escena no es interpretable sin saber con qué se montó: el arnés de captura cambia mood y
    *  zoom por URL y necesita verificar que el cambio llegó al juego, no sólo al React state. */
   mood: FxMood;
@@ -109,6 +145,8 @@ export type FxLabProbeData = {
   /** Dónde ancló el fuego: sin estos números la evidencia no puede decir si el foco cayó en la cubierta. */
   fireAnchors: { kind: string; x: number; y: number; flameWorldPx: number }[];
   sceneObjects: number;
+  /** Colocaciones sin sprite montado: una calle vacía no puede pasar por evidencia. */
+  missingPlacements: string[];
   webgl: boolean;
   /** `false` = el `__NORMAL` de Phaser no llegó al GL y el rig necesita su propia normal plana. */
   defaultNormalTexture: boolean;
@@ -128,6 +166,7 @@ export class FxLabScene extends Phaser.Scene {
   private readonly handles = new Map<FxEffect, EffectHandles>();
   private readonly errorLog: string[] = [];
   private buildings: BuildingEntry[] = [];
+  private missingPlacements: string[] = [];
   private overlays: EmissiveOverlay[] = [];
   private lamps: LampAnchor[] = [];
   private ground: Phaser.GameObjects.Graphics | null = null;
@@ -152,6 +191,8 @@ export class FxLabScene extends Phaser.Scene {
    * lo pedido.
    */
   private booted = false;
+  /** `applyPreset()` apaga y enciende por dentro: esos `applyEffect` no deben borrar el preset. */
+  private applyingPreset = false;
 
   constructor(options: FxLabSceneOptions) {
     super("fx-lab");
@@ -185,10 +226,34 @@ export class FxLabScene extends Phaser.Scene {
     this.cameras.main.centerOn(528, 288);
     this.cameras.main.setZoom(this.options.zoom);
 
-    /** Efectos APAGADOS por defecto: sólo se monta lo que la URL o el panel pidan explícitamente. */
+    /**
+     * Efectos APAGADOS por defecto: sólo se monta lo que la URL o el panel pidan explícitamente.
+     * `applyingPreset` protege el arranque: estos no son toggles manuales. Y si la combinación que
+     * queda en pantalla no es la de la tabla (URL con `fx=` y `fxPreset=` a la vez) el preset se
+     * descuelga: la sonda no puede decir que está puesto lo que no está puesto.
+     */
+    this.applyingPreset = true;
     for (const effect of this.options.effects) this.applyEffect(effect, true);
+    this.applyingPreset = false;
+    if (this.options.preset && !this.matchesPreset(this.options.preset)) this.options.preset = null;
     this.syncEmissiveVisibility();
     this.ready = true;
+  }
+
+  /**
+   * Si lo que hay montado coincide con la tabla del preset, mood incluido. Se compara como CONJUNTO:
+   * `activeEffects` sale en el orden canónico de `FX_EFFECTS` y la tabla lo da en el orden en que hay
+   * que montar las cosas (`lighting` antes que `lightingNormals`, que lo pide prestado), así que una
+   * comparación de cadenas diría que un preset puesto a mano no coincide consigo mismo.
+   */
+  private matchesPreset(preset: FxPreset): boolean {
+    const config = FX_PRESET_TABLE[preset];
+    if (this.options.mood !== config.mood) return false;
+    const active = new Set(this.activeEffects);
+    return (
+      active.size === new Set(config.effects).size &&
+      FX_EFFECTS.every((effect) => active.has(effect) === config.effects.includes(effect))
+    );
   }
 
   override update(time: number, delta: number): void {
@@ -225,12 +290,35 @@ export class FxLabScene extends Phaser.Scene {
     return this.handles.has("fire");
   }
 
+  /**
+   * §5.1 — aplicar un preset es una configuración, no una macro de clicks: fija el mood, apaga todo
+   * lo que el preset no menciona y enciende lo suyo en el orden de la tabla. Si alguien mueve un
+   * toggle a mano después, el preset deja de ser el que se está viendo y la sonda lo dice.
+   */
+  applyPreset(preset: FxPreset): void {
+    const config = FX_PRESET_TABLE[preset];
+    this.applyingPreset = true;
+    this.options.preset = preset;
+    if (!this.booted) {
+      this.options.mood = config.mood;
+      this.options.effects = [...config.effects];
+      this.applyingPreset = false;
+      return;
+    }
+    this.setMood(config.mood);
+    for (const effect of FX_EFFECTS) this.applyEffect(effect, false);
+    for (const effect of config.effects) this.applyEffect(effect, true);
+    this.applyingPreset = false;
+  }
+
   /** Enciende o apaga UNA familia sin tocar las demás: es el requisito de toggles independientes. */
   applyEffect(effect: FxEffect, on: boolean): void {
     if (!this.booted) {
       this.rememberEffect(effect, on);
       return;
     }
+    /** Un toggle manual rompe la identidad del preset: la sonda tiene que decir lo que hay, no lo que se pidió. */
+    if (!this.applyingPreset) this.options.preset = null;
     if (on) {
       if (this.handles.has(effect)) return;
       this.handles.set(effect, this.buildEffect(effect));
@@ -254,23 +342,50 @@ export class FxLabScene extends Phaser.Scene {
   setMood(mood: FxMood): void {
     this.options.mood = mood;
     if (!this.booted) return;
+    /**
+     * Mover el mood a mano también rompe el preset: la tabla fija el suyo. Se comprueba sólo con la
+     * escena arrancada porque antes de `create()` los efectos viven en `options.effects` y no en los
+     * handles, así que comparar contra la tabla daría falso justo en el arranque desde URL.
+     */
+    if (!this.applyingPreset && this.options.preset && !this.matchesPreset(this.options.preset)) {
+      this.options.preset = null;
+    }
     this.cameras.main.setBackgroundColor(mood === "night" ? "#141a26" : "#2b3542");
     this.ground?.destroy();
     this.ground = paintGround(this, this.palette());
     this.syncEmissiveVisibility();
-    /** La luz dinámica depende del mood (ambiente e intensidad): se reconstruye si estaba activa. */
-    if (this.handles.has("lighting")) {
-      const withNormals = this.handles.has("lightingNormals");
-      this.applyEffect("lighting", false);
-      this.applyEffect("lighting", true);
-      if (withNormals) this.applyEffect("lightingNormals", true);
-    }
-    if (this.handles.has("grading")) {
-      this.applyEffect("grading", false);
-      this.applyEffect("grading", true);
-    }
+    /**
+     * La luz dinámica y el grading dependen del mood (ambiente, intensidad, curva y viñeta): se
+     * reconstruyen si estaban activos. El re-montaje va dentro de `rebuildInternal` porque cada
+     * `applyEffect` de estos dos bloques es suyo, no del usuario: si se leyera como un toggle manual,
+     * aplicar un preset nocturno borraría su propia identidad en cuanto React replicara el mood en la
+     * escena — que es exactamente lo que medía la sonda el 2026-11-21 con `night_balanced: null`.
+     */
+    this.rebuildInternal(() => {
+      if (this.handles.has("lighting")) {
+        const withNormals = this.handles.has("lightingNormals");
+        this.applyEffect("lighting", false);
+        this.applyEffect("lighting", true);
+        if (withNormals) this.applyEffect("lightingNormals", true);
+      }
+      if (this.handles.has("grading")) {
+        this.applyEffect("grading", false);
+        this.applyEffect("grading", true);
+      }
+    });
     /** El halo y la luz del fuego dependen del mood: se rehace el rig conservando el toggle. */
     if (this.fire) this.placeFireRigs();
+  }
+
+  /** Ejecuta un re-montaje interno sin que la escena lo confunda con un cambio manual de efectos. */
+  private rebuildInternal(action: () => void): void {
+    const before = this.applyingPreset;
+    this.applyingPreset = true;
+    try {
+      action();
+    } finally {
+      this.applyingPreset = before;
+    }
   }
 
   setZoom(zoom: number): void {
@@ -281,6 +396,7 @@ export class FxLabScene extends Phaser.Scene {
 
   /** Antes de `create()` un toggle no puede montar nada: se anota y `create()` lo aplicará. */
   private rememberEffect(effect: FxEffect, on: boolean): void {
+    if (!this.applyingPreset) this.options.preset = null;
     const next = new Set<FxEffect>(this.options.effects);
     if (on) next.add(effect);
     else next.delete(effect);
@@ -302,6 +418,7 @@ export class FxLabScene extends Phaser.Scene {
     }
     return {
       effects: this.activeEffects,
+      preset: this.options.preset,
       mood: this.options.mood,
       zoom: this.cameras.main.zoom,
       ready: this.buildings.length > 0,
@@ -320,6 +437,7 @@ export class FxLabScene extends Phaser.Scene {
         flameWorldPx: Math.round(focus.flameWorldPx * 100) / 100,
       })),
       sceneObjects: this.children.list.length,
+      missingPlacements: [...this.missingPlacements],
       webgl: isWebGL(this),
       /** `false` aquí explica por qué el rig necesita su propia normal plana: ver `case "lighting"`. */
       defaultNormalTexture: Boolean(renderer.normalTexture),
@@ -486,7 +604,7 @@ export class FxLabScene extends Phaser.Scene {
     if (this.textures.exists(LAMP_GLOW_TEXTURE)) return;
     this.textures.addCanvas(
       LAMP_GLOW_TEXTURE,
-      makeSoftDisc(96, "rgba(255,206,140,0.95)", "rgba(255,150,60,0)"),
+      makeSoftDisc(96, "rgba(255,206,140,0.7)", "rgba(255,150,60,0)"),
     );
   }
 
@@ -494,7 +612,10 @@ export class FxLabScene extends Phaser.Scene {
     for (const placement of BUILDING_PLACEMENTS) {
       const key = textureKeyForBuilding(placement.type, placement.state);
       const asset = buildingMetadata(placement.type);
-      if (!this.textures.exists(key) || !asset) continue;
+      if (!this.textures.exists(key) || !asset) {
+        this.missingPlacements.push(`${placement.key}:${placement.type}/${placement.state}`);
+        continue;
+      }
       const center = gridToScreen(
         footprintCenter(placement.cell, asset.footprint),
         REFERENCE_LAYOUT,
@@ -561,6 +682,15 @@ export class FxLabScene extends Phaser.Scene {
       glow.setDepth(lamp.depth + EMISSIVE_DEPTH_OFFSET);
       glow.setBlendMode(Phaser.BlendModes.ADD);
       this.overlays.push({ image: glow, kind: "lamp" });
+      /**
+       * Charca de luz sobre el pavimento: el mismo disco, aplastado y centrado en la línea de tierra
+       * del poste. Sin ella la calidez de la farola vive sólo en el aire y la calzada sigue oscura.
+       */
+      const pool = this.add.image(lamp.x, lamp.y, LAMP_GLOW_TEXTURE);
+      pool.setScale(1.7, 0.55);
+      pool.setDepth(lamp.depth - 1);
+      pool.setBlendMode(Phaser.BlendModes.ADD);
+      this.overlays.push({ image: pool, kind: "lampPool" });
     }
     for (const tree of TREE_CELLS) {
       placeScenery(this, REFERENCE_LAYOUT, `fx-${tree.type}`, tree.cell, 10, SCENERY_BOOST);
@@ -630,14 +760,20 @@ export class FxLabScene extends Phaser.Scene {
     this.fire.setLights(this.handles.has("lighting"));
   }
 
-  /** De día la capa emisiva casi no existe; de noche es lo que sostiene la lectura de la calle. */
+  /**
+   * De día la capa emisiva casi no existe; de noche es lo que sostiene la lectura de la calle.
+   *
+   * §5.2 — el alfa nocturno va POR TIPO de emisivo. Con un único 0,95 para todo (medido en
+   * `street_night_fire.png` de la FASE 4) las ventanas salían a blanco plano y el disco de farola
+   * saturaba las fachadas de su lado. La capa es mezcla ADD, así que bajarla aquí es bajar la EMISIÓN
+   * de cada fuente — que es lo que pide el encargo — y no tocar la exposición global.
+   */
   private syncEmissiveVisibility(): void {
     const night = this.options.mood === "night";
     for (const overlay of this.overlays) {
       /** El halo del incendio se lo apunta el rig cada frame: la escena no le toca el alfa. */
       if (overlay.kind === "fireGlow") continue;
-      const boost = overlay.kind === "fire" ? 1 : overlay.kind === "lamp" ? 1 : 0.9;
-      overlay.image.setAlpha(night ? 0.95 * boost : 0.08 * boost);
+      overlay.image.setAlpha(night ? NIGHT_EMISSIVE_ALPHA[overlay.kind] : DAY_EMISSIVE_ALPHA);
     }
   }
 

@@ -8,7 +8,7 @@
  */
 import Phaser from "phaser";
 import { FxLabScene, type FxLabProbeData } from "./FxLabScene";
-import type { FxEffect, FxMood } from "./fx-lab-types";
+import type { FxEffect, FxMood, FxPreset } from "./fx-lab-types";
 
 declare global {
   interface Window {
@@ -21,6 +21,8 @@ export type FxLabMountOptions = {
   mood: FxMood;
   zoom: number;
   perf: boolean;
+  /** Preset con el que se monta: `null` = la combinación exacta de `effects`. */
+  preset?: FxPreset | null;
   /** `canvas` fuerza el renderer 2D: es la prueba real de §7.5, no una simulación. */
   renderer: "auto" | "canvas";
   width?: number;
@@ -47,6 +49,7 @@ export type FxLabController = {
   destroy(): void;
   setMood(mood: FxMood): void;
   applyEffect(effect: FxEffect, on: boolean): void;
+  applyPreset(preset: FxPreset): void;
   setZoom(zoom: number): void;
   getProbe(): FxLabProbeWindow;
   readonly glRenderer: string | null;
@@ -60,6 +63,7 @@ export function mountFxLab(container: HTMLElement, options: FxLabMountOptions): 
     mood: options.mood,
     zoom: options.zoom,
     perf: options.perf,
+    preset: options.preset ?? null,
   });
   const game = new Phaser.Game({
     type: options.renderer === "canvas" ? Phaser.CANVAS : Phaser.AUTO,
@@ -82,6 +86,7 @@ export function mountFxLab(container: HTMLElement, options: FxLabMountOptions): 
     glRenderer,
     setMood: (mood) => scene.setMood(mood),
     applyEffect: (effect, on) => scene.applyEffect(effect, on),
+    applyPreset: (preset) => scene.applyPreset(preset),
     setZoom: (zoom) => scene.setZoom(zoom),
     getProbe: () => ({ ...scene.getProbe(), glRenderer }),
     destroy: () => {

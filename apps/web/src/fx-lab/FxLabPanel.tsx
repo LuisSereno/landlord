@@ -13,9 +13,12 @@ import "./fx-lab.css";
 import {
   FX_EFFECTS,
   FX_LABELS,
+  FX_PRESETS,
+  FX_PRESET_TABLE,
   parseFxLabOptions,
   type FxEffect,
   type FxMood,
+  type FxPreset,
   type FxRenderer,
 } from "./fx-lab-types";
 import type { FxLabProbeWindow } from "./mount";
@@ -31,6 +34,8 @@ export function FxLabPanel() {
   const [mood, setMood] = useState<FxMood>(initial?.mood ?? "day");
   const [zoom, setZoom] = useState<number>(initial?.zoom ?? 1);
   const [renderer, setRenderer] = useState<FxRenderer>(initial?.renderer ?? "auto");
+  /** Preset puesto: el estado manda en la escena, así que se re-sincroniza desde la sonda. */
+  const [preset, setPreset] = useState<FxPreset | null>(initial?.preset ?? null);
   const perf = initial?.perf ?? true;
   const container = useRef<HTMLDivElement>(null);
   const controller = useRef<FxLabController | null>(null);
@@ -41,6 +46,7 @@ export function FxLabPanel() {
     if (!container.current || !initial) return;
     const mounted = mountFxLab(container.current, {
       effects: initial.effects,
+      preset: initial.preset,
       mood,
       zoom,
       perf,
@@ -74,7 +80,9 @@ export function FxLabPanel() {
     if (!mounted) return;
     const on = !mounted.getProbe().effects.includes(effect);
     mounted.applyEffect(effect, on);
-    setEffects(mounted.getProbe().effects);
+    const probe = mounted.getProbe();
+    setEffects(probe.effects);
+    setPreset(probe.preset);
   }, []);
 
   const setAll = useCallback((on: boolean) => {
@@ -82,6 +90,18 @@ export function FxLabPanel() {
     if (!mounted) return;
     for (const effect of FX_EFFECTS) mounted.applyEffect(effect, on);
     setEffects(mounted.getProbe().effects);
+    setPreset(mounted.getProbe().preset);
+  }, []);
+
+  /** Un preset fija mood y lista de efectos en la escena; React sólo re-sincroniza lo que ve. */
+  const pickPreset = useCallback((name: FxPreset) => {
+    const mounted = controller.current;
+    if (!mounted) return;
+    mounted.applyPreset(name);
+    const probe = mounted.getProbe();
+    setEffects(probe.effects);
+    setMood(probe.mood);
+    setPreset(probe.preset);
   }, []);
 
   const stats = probe?.stats ?? null;
@@ -102,6 +122,29 @@ export function FxLabPanel() {
 
       <article className="art-lab-card">
         <div className="fx-lab-controls">
+          <div role="group" aria-label="Presets" className="fx-lab-toggles">
+            {FX_PRESETS.map((name) => {
+              const config = FX_PRESET_TABLE[name];
+              const active = (probe?.preset ?? preset) === name;
+              return (
+                <button
+                  key={name}
+                  type="button"
+                  onClick={() => pickPreset(name)}
+                  aria-pressed={active}
+                  title={config.nota}
+                  data-testid={`fx-preset-${name}`}
+                  data-active={active ? "yes" : "no"}
+                >
+                  {config.label}
+                </button>
+              );
+            })}
+            <span className="fx-lab-note">
+              Preset = configuración guardada (mood + lista de efectos), no una macro de clicks.
+              Ninguno lleva bloom por umbral.
+            </span>
+          </div>
           <div role="group" aria-label="Efectos" className="fx-lab-toggles">
             {FX_EFFECTS.map((effect) => (
               <label key={effect} className="fx-lab-toggle">
@@ -212,6 +255,12 @@ export function FxLabPanel() {
           <div>
             <dt>Efectos activos</dt>
             <dd data-testid="fx-lab-active">{probe?.effects.join(", ") || "ninguno"}</dd>
+          </div>
+          <div>
+            <dt>Preset puesto</dt>
+            <dd data-testid="fx-lab-preset">
+              {probe?.preset ?? preset ?? "ninguno (combinación suelta)"}
+            </dd>
           </div>
           <div>
             <dt>Errores de escena</dt>

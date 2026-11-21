@@ -339,13 +339,14 @@ function RuntimeAssetQa() {
 export function ArtLab() {
   /**
    * D-111 §7 · el laboratorio de efectos sólo aparece con el flag de QA de siempre (`?artQa=1`) o con
-   * cualquier `?fx=…`. Sin flag la página del Art Lab es idéntica a antes y ningún efecto puede
-   * activarse en el juego: no hay ruta de gameplay que monte `FxLabPanel`.
+   * cualquier `?fx=…` / `?fxPreset=…` (§5.1: una captura reproducible no puede exigir pasar por el
+   * ratón). Sin flag la página del Art Lab es idéntica a antes y ningún efecto puede activarse en el
+   * juego: no hay ruta de gameplay que monte `FxLabPanel`.
    */
   const fxLabEnabled = useMemo(() => {
     if (typeof window === "undefined") return false;
     const params = new URLSearchParams(window.location.search);
-    return params.get("artQa") === "1" || params.has("fx");
+    return params.get("artQa") === "1" || params.has("fx") || params.has("fxPreset");
   }, []);
 
   return (

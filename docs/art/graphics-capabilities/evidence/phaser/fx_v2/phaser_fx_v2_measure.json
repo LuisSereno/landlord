@@ -1,0 +1,362 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/fx-presets-sheet-assemble.py",
+ "command": "python3 scripts/fx-presets-sheet-assemble.py",
+ "task": "D-111.2 FASE 5 · hoja de presets, exposición y desmontaje",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "webglRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "thresholds": {
+  "canalRecortado": 250,
+  "blancoFrioLuma": 200.0,
+  "blancoFrioSaturacion": 45,
+  "negroAplastadoLuma": 8.0
+ },
+ "panels": [
+  {
+   "panel": "control_day.png",
+   "label": "control diurno · sin efectos",
+   "sha256": "250e9c7cd799c8525f5c214f4ab8e1450bb41b4f51a402a4f7950cfc6fe7bf3f",
+   "size": [
+    1298,
+    543
+   ],
+   "lumaMedia": 55.44,
+   "recortados": 0,
+   "recortadosPorcentaje": 0.0,
+   "blancoFrio": 0,
+   "negrosAplastadosPorcentaje": 0.0,
+   "parcheLadrillo": [
+    545,
+    105,
+    725,
+    215
+   ],
+   "lumaParcheLadrillo": 60.07,
+   "desviacionParcheLadrillo": 18.79,
+   "gradienteVecinoParcheLadrillo": 4.499
+  },
+  {
+   "panel": "preset_day_balanced.png",
+   "label": "preset day_balanced",
+   "sha256": "7c4182b3280f59db556b037692b844227c1579f26c0f933dc344150580da8651",
+   "size": [
+    1298,
+    543
+   ],
+   "lumaMedia": 50.69,
+   "recortados": 0,
+   "recortadosPorcentaje": 0.0,
+   "blancoFrio": 0,
+   "negrosAplastadosPorcentaje": 0.021,
+   "parcheLadrillo": [
+    545,
+    105,
+    725,
+    215
+   ],
+   "lumaParcheLadrillo": 52.93,
+   "desviacionParcheLadrillo": 17.03,
+   "gradienteVecinoParcheLadrillo": 3.822
+  },
+  {
+   "panel": "control_night.png",
+   "label": "control nocturno · sin efectos",
+   "sha256": "5462fa65439bab649ccbb7bde9c85eb2cbe2ed61c448dfd14d9e430437448619",
+   "size": [
+    1298,
+    543
+   ],
+   "lumaMedia": 38.51,
+   "recortados": 0,
+   "recortadosPorcentaje": 0.0,
+   "blancoFrio": 0,
+   "negrosAplastadosPorcentaje": 0.0,
+   "parcheLadrillo": [
+    545,
+    105,
+    725,
+    215
+   ],
+   "lumaParcheLadrillo": 51.45,
+   "desviacionParcheLadrillo": 24.11,
+   "gradienteVecinoParcheLadrillo": 4.549
+  },
+  {
+   "panel": "preset_night_balanced.png",
+   "label": "preset night_balanced · farolas",
+   "sha256": "d70b8640079295ea295ff22edfe2d78b4f5bcdb047113d000260a5388a7ea4e0",
+   "size": [
+    1298,
+    543
+   ],
+   "lumaMedia": 33.79,
+   "recortados": 0,
+   "recortadosPorcentaje": 0.0,
+   "blancoFrio": 0,
+   "negrosAplastadosPorcentaje": 0.055,
+   "parcheLadrillo": [
+    545,
+    105,
+    725,
+    215
+   ],
+   "lumaParcheLadrillo": 32.84,
+   "desviacionParcheLadrillo": 13.7,
+   "gradienteVecinoParcheLadrillo": 2.713
+  },
+  {
+   "panel": "preset_night_fire.png",
+   "label": "preset night_fire · incendio",
+   "sha256": "03141c001ba4b6a95e1ca8514dda5c79f09e613a0418d48b1c4bb674b41e30fc",
+   "size": [
+    1298,
+    543
+   ],
+   "lumaMedia": 33.91,
+   "recortados": 0,
+   "recortadosPorcentaje": 0.0,
+   "blancoFrio": 64,
+   "negrosAplastadosPorcentaje": 0.055,
+   "parcheLadrillo": [
+    545,
+    105,
+    725,
+    215
+   ],
+   "lumaParcheLadrillo": 33.38,
+   "desviacionParcheLadrillo": 14.0,
+   "gradienteVecinoParcheLadrillo": 2.736
+  },
+  {
+   "panel": "preset_night_fire_050x.png",
+   "label": "night_fire · zoom 0,5×",
+   "sha256": "2507d704c5aeebfab8691d1fb5559c5a7500026a04780a4f5624062e2b4caf76",
+   "size": [
+    1298,
+    543
+   ],
+   "lumaMedia": 27.58,
+   "recortados": 0,
+   "recortadosPorcentaje": 0.0,
+   "blancoFrio": 6,
+   "negrosAplastadosPorcentaje": 0.013,
+   "parcheLadrillo": [
+    545,
+    105,
+    725,
+    215
+   ],
+   "lumaParcheLadrillo": 28.97,
+   "desviacionParcheLadrillo": 13.66,
+   "gradienteVecinoParcheLadrillo": 0.503
+  }
+ ],
+ "presetsProbados": [
+  {
+   "preset": "day_balanced",
+   "via": "botón",
+   "effects": [
+    "grading",
+    "bloomObjects",
+    "lighting",
+    "particles"
+   ],
+   "moodEsperado": "day",
+   "errors": [],
+   "fps": 22,
+   "frameTimeP95Ms": 48.34,
+   "sha256": "7c4182b3280f59db556b037692b844227c1579f26c0f933dc344150580da8651"
+  },
+  {
+   "preset": "night_balanced",
+   "via": "botón",
+   "effects": [
+    "grading",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles"
+   ],
+   "moodEsperado": "night",
+   "errors": [],
+   "fps": 23,
+   "frameTimeP95Ms": 48.33,
+   "sha256": "d70b8640079295ea295ff22edfe2d78b4f5bcdb047113d000260a5388a7ea4e0"
+  },
+  {
+   "preset": "night_fire",
+   "via": "botón",
+   "effects": [
+    "grading",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles",
+    "fire"
+   ],
+   "moodEsperado": "night",
+   "errors": [],
+   "fps": 23,
+   "frameTimeP95Ms": 43.33,
+   "sha256": "03141c001ba4b6a95e1ca8514dda5c79f09e613a0418d48b1c4bb674b41e30fc"
+  },
+  {
+   "preset": "night_fire",
+   "via": "botón + zoom 0,5",
+   "effects": [
+    "grading",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles",
+    "fire"
+   ],
+   "moodEsperado": "night",
+   "errors": [],
+   "fps": 23,
+   "frameTimeP95Ms": 43.33,
+   "sha256": "2507d704c5aeebfab8691d1fb5559c5a7500026a04780a4f5624062e2b4caf76"
+  },
+  {
+   "preset": null,
+   "via": "control nocturno apagado",
+   "effects": [],
+   "moodEsperado": "night",
+   "errors": [],
+   "fps": null,
+   "frameTimeP95Ms": null,
+   "sha256": "5462fa65439bab649ccbb7bde9c85eb2cbe2ed61c448dfd14d9e430437448619"
+  }
+ ],
+ "presetDesdeUrl": {
+  "preset": "night_fire",
+  "via": "URL fxPreset=",
+  "effects": [
+   "grading",
+   "bloomObjects",
+   "lighting",
+   "lightingNormals",
+   "particles",
+   "fire"
+  ]
+ },
+ "desmontaje": {
+  "ciclosPorEfecto": 5,
+  "derivaMaximaAbsolutaPorRecurso": {
+   "sceneObjects": 0,
+   "emissiveObjects": 0,
+   "lights": 0,
+   "litObjects": 0,
+   "particlesAlive": 0,
+   "texturesLive": 0,
+   "gpuTextureBytes": 0
+  },
+  "escenaAntes": {
+   "effects": [],
+   "preset": null,
+   "sceneObjects": 60,
+   "emissiveObjects": 15,
+   "litObjects": 0,
+   "lights": 0,
+   "particlesAlive": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "drawCalls": null,
+   "frameTimeP50Ms": 16.67,
+   "frameTimeP95Ms": 46.66,
+   "fps": 52,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "errors": []
+  },
+  "escenaDespues": {
+   "effects": [],
+   "preset": null,
+   "sceneObjects": 60,
+   "emissiveObjects": 15,
+   "litObjects": 0,
+   "lights": 0,
+   "particlesAlive": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "drawCalls": null,
+   "frameTimeP50Ms": 45,
+   "frameTimeP95Ms": 53.33,
+   "fps": 22,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "errors": []
+  },
+  "p95LeidoEnLosCiclosMs": [
+   46.66,
+   53.33
+  ]
+ },
+ "degradacionCanvas": [
+  {
+   "case": "fallback_canvas_night_control",
+   "renderer": "CANVAS",
+   "errors": [],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "filtrosAplicados": [],
+   "sha256": "06040a05960d57bfaa87be49e8e3baef01d50de8e1ff37e3f3ef7d889923dcc4"
+  },
+  {
+   "case": "fallback_canvas_night_fire",
+   "renderer": "CANVAS",
+   "errors": [],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 31,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "filtrosAplicados": [
+    "grading",
+    "bloomObjects",
+    "lighting",
+    "lightingNormals",
+    "particles",
+    "fire"
+   ],
+   "sha256": "92dbb5a00e098233e66ceb53b9901f071813b8583de1a3b2bfefa384c6a055d3"
+  }
+ ],
+ "pageErrors": [],
+ "sheet": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/phaser_fx_v2_sheet.png",
+ "sheetSize": [
+  3942,
+  1276
+ ],
+ "controlDeRendimiento": {
+  "ocioDeltaP95Ms": 0,
+  "ciclosDeltaP95Ms": -8.33,
+  "ciclosTrasReposoDeltaP95Ms": -9.99,
+  "framesDeEquivalencia": 2100,
+  "fuente": "docs/art/graphics-capabilities/evidence/phaser/fx_v2/p95_attribution.json"
+ }
+}

@@ -71,12 +71,17 @@ export function probeFxCapabilities(scene: Phaser.Scene): Record<string, boolean
  * todo-o-nada), así que el viraje de época se aplica como ganancia por canal sobre la matriz ya
  * compuesta: R +7 %, G neutro, B −10 %. Es la misma corrección que haría una sepia al ~16 % sin el
  * naranja plano de `sepia()` completo.
+ *
+ * §5.2 — de NOCHE el levantado de negros se recorta y el contraste sube. Con 0,045/0,14 (los valores
+ * del pase diurno) la calle nocturna salía lechosa: el negro elevado se sumaba al ambiente bajo y la
+ * fachada perdía el relieve. Aquí se toca la CURVA, no la exposición: la oscuridad de la calle se
+ * resolvió con el color de ambiente y los radios de luz, no levantando todo el fotograma.
  */
-function warmGrade(matrix: Phaser.Display.ColorMatrix): void {
+function warmGrade(matrix: Phaser.Display.ColorMatrix, mood: "day" | "night"): void {
   matrix.reset();
   /** Levantado de negros + contraste suave + ligera desaturación: la maqueta es mate. */
-  matrix.brightness(0.045);
-  matrix.contrast(0.14);
+  matrix.brightness(mood === "night" ? 0.02 : 0.045);
+  matrix.contrast(mood === "night" ? 0.2 : 0.14);
   matrix.saturate(-0.1);
   const data = matrix.getData();
   data[0] = (data[0] ?? 1) * 1.07;
@@ -92,7 +97,7 @@ export function applyGrading(
   if (!isWebGL(scene)) return null;
   const camera = scene.cameras.main;
   const color = camera.filters.internal.addColorMatrix();
-  warmGrade(color.colorMatrix);
+  warmGrade(color.colorMatrix, mood);
   /**
    * La viñeta entra como MULTIPLY suave: empuja la mirada al centro de la calzada y disimula el
    * borde del viewport sin tocar la legibilidad de los edificios de la esquina.
@@ -103,8 +108,11 @@ export function applyGrading(
     // `radius` es el radio NORMALIZADO dentro del cual no hay efecto y `strength` la opacidad del
     // borde (semántica de Phaser 4, no la de v3). Con 0,5/0,28 la calzada quedaba dentro de un
     // óvalo pequeño y las esquinas casi negras: se ensancha el radio y se baja la fuerza.
-    mood === "night" ? 0.78 : 0.85,
-    mood === "night" ? 0.3 : 0.18,
+    // §5.2 segunda pasada: a 0,78/0,3 nocturno el edificio de la esquina izquierda —el que arde—
+    // perdía lectura de paño. El radio pasa a 0,92/0,9 (casi todo el viewport limpio) y la fuerza
+    // baja a 0,12/0,1: la viñeta deja de ser información tapada y pasa a ser sólo encuadre.
+    mood === "night" ? 0.92 : 0.9,
+    mood === "night" ? 0.12 : 0.1,
     mood === "night" ? 0x101828 : 0x2a2118,
     Phaser.BlendModes.MULTIPLY,
   );
@@ -123,8 +131,12 @@ export type EmissiveOverlay = {
   /**
    * `fireGlow` es el halo del incendio: entra en la lista para que el bloom por objeto lo pesque,
    * pero su alfa lo manda el rig de fuego (varía con la llama), no el mood de la calle.
+   *
+   * `lampPool` es la charca de luz sobre el pavimento: mismo disco que `lamp` pero aplastado a la
+   * altura de la calzada. Se declara aparte porque no va en el aire y porque el bloom se le niega
+   * por el mismo motivo que a la cabeza de la farola (§7.2: agrandaría un disco ya pintado).
    */
-  readonly kind: "window" | "lamp" | "fire" | "fireGlow";
+  readonly kind: "window" | "lamp" | "lampPool" | "fire" | "fireGlow";
 };
 
 /**
@@ -167,7 +179,21 @@ export function applyThresholdBloom(
  * cabecera): aplicado sobre un objeto con regiones alfa, el glow no puede sumar contra el fondo
  * porque el objeto se compone en NORMAL y el bloom en ADD. Se usa `filters.internal` para ceñirse a
  * la caja del objeto y una textura emisiva casi opaca para minimizar el artefacto.
+ *
+ * §5.2 — umbral 0,35 → 0,5 y mezcla 0,9 → 0,55. Con los valores antiguos el pase difuso se comía
+ * también el marco de las ventanas y el borde del disco de farola, y al sumar al 0,9 sobre la propia
+ * capa ADD el resultado era un blanco plano de dos o tres edificios (`street_night_fire.png`).
+ *
+ * Y §5.2 — sólo se bloomiza lo que tiene ESTRUCTURA que difuminar: las capas emisivas derivadas del
+ * bake (ventanas y el paño caliente del edificio que arde). `lamp` y `fireGlow` son discos suaves
+ * pintados por construcción, sin detalle interior: un pase difuso sobre ellos no puede añadir glow,
+ * sólo agrandar el disco ya pintado, y éso es el «halo que satura varios edificios» del encargo. La
+ * prueba en el otro sentido es `fallback_canvas_night_fire.png`: esos mismos discos, sin ningún
+ * filtro, leen como charcas cálidas. El encargo pide «glow localizado, no halo de distrito», y el
+ * glow localizado lo dan las ventanas y el incendio.
  */
+const BLOOMED_KINDS = new Set<EmissiveOverlay["kind"]>(["window", "fire"]);
+
 export function applyObjectBloom(
   scene: Phaser.Scene,
   overlays: readonly EmissiveOverlay[],
@@ -175,13 +201,13 @@ export function applyObjectBloom(
   if (!isWebGL(scene)) return null;
   const created: Phaser.Types.Actions.AddEffectBloomReturn[] = [];
   for (const overlay of overlays) {
-    if (!overlay.image.active) continue;
+    if (!overlay.image.active || !BLOOMED_KINDS.has(overlay.kind)) continue;
     const entry = Phaser.Actions.AddEffectBloom(overlay.image, {
-      threshold: 0.35,
+      threshold: 0.5,
       blurRadius: 2,
       blurSteps: 3,
       blurQuality: 0,
-      blendAmount: 0.9,
+      blendAmount: 0.55,
       useInternal: true,
     })[0];
     if (entry) created.push(entry);
@@ -215,9 +241,19 @@ export type LampAnchor = { readonly x: number; readonly y: number; readonly dept
  *    difuso (`ApplyLighting.glsl` → `uLights[]` + `uAmbientLightColor`) de los objetos con
  *    `setLighting(true)`. No dibuja nada por sí misma.
  * 2. `lights.addPointLight()` devuelve un GameObject `PointLight` que se rasteriza con su propio
- *    shader de caída radial: es el HALO VISIBLE, no una fuente difusa. Convive con la capa emisiva
- *    horneada del sprite (`LAMP_GLOW_TEXTURE`), así que se dimensiona pequeña: si cubre el doble de
- *    la separación entre farolas, las cuatro sumas saturan la manzana y el A/B deja de ser legible.
+ *    shader de caída radial: es el HALO VISIBLE, no una fuente difusa.
+ *
+ * §5.2 — el halo NO se usa. Atribución medida en la misma escena, encendiendo `lighting` sobre
+ * `fire`: sin rig el filamento de la farola mide RGB (161,153,141) —el disco horneado en ADD— y con
+ * `lighting` encima medía (255,255,255) en las TRES farolas, incluso con el radio ya bajado a 12 px y
+ * la intensidad a 0,28 (`fx_v2/atribucion/halo_sin_lighting.png` vs `halo_con_pointlight.png`). El
+ * `PointLight` es el ÚNICO objeto del rig que se dibuja en el aire —la difusa sólo actúa sobre los
+ * objetos con `setLighting(true)`, es decir las fachadas—, así que la bola blanca flotante era suya:
+ * recorta a blanco puro por debajo de la caída, no hay radio ni intensidad que lo evite, tapa dos
+ * fachadas y encima se confunde con un segundo incendio. Retirado, la misma escena vuelve a ámbar y
+ * los píxeles totalmente recortados de la toma pasan de 932 a 51 (`halo_retirado_fire_lighting.png`).
+ * La calidez visible de la farola la lleva el disco horneado (`LAMP_GLOW_TEXTURE`, en ADD), que sí
+ * escala sin recortar; por eso su alfa nocturno sube de 0,5 a 0,7 en la escena.
  *
  * `setAmbientColor()` multiplica el resultado: con los sprites ya horneados, bajar el ambiente de
  * noche oscurece el bake (que ya venía iluminado) en lugar de volverlo a iluminar. Ese es el punto
@@ -234,8 +270,26 @@ export function applyLighting(
   /**
    * De día el ambiente se deja casi blanco para que la prueba sea aditiva: si no, la luz dinámica
    * también resta y el A/B no permite atribuir el cambio a la farola.
+   *
+   * §5.2 — de noche el ambiente era `0x30384e` (≈0,19·0,22·0,31 sobre el bake) y ésa es la causa
+   * directa de «calles demasiado oscuras / fachadas sin detalle»: el multiplicador se comía el paño
+   * antes de que ninguna farola llegara. Es LUZ AMBIENTAL, no exposición: actúa sólo sobre los
+   * objetos con `setLighting(true)` —las fachadas— y deja el suelo pintado y los props intactos, así
+   * que el contraste de la escena sobrevive.
+   *
+   * Medido sobre el paño de ladrillo del bloque grande (ventana 180×110 auto-localizada en el control
+   * diurno, `scripts/fx-presets-sheet-assemble.py` → `phaser_fx_v2_measure.json`), de noche:
+   *   sin rig            luma 54,1 · desviación 23,3 · salto entre vecinos 4,83
+   *   ambiente 0x7a86a0  luma 30,9 · desviación 13,3 · salto entre vecinos 2,63
+   *   ambiente 0x8f97a6  luma 34,2 · desviación 14,1 · salto entre vecinos 2,94
+   * El tono se eligió por el canal rojo: `0x7a86a0` era azul luna y restaba justo lo que el ladrillo
+   * necesita (0,48 de rojo). Con 0,56 el paño vuelve a leerse sin que la escena entera suba (media
+   * 34,2 → 34,6) y sin ni un píxel recortado. La diferencia que queda contra el control sin rig NO es
+   * un ajuste pendiente: es el coste de multiplicar un bake que ya venía iluminado, el punto de
+   * fricción que §7.3 obliga a documentar. Bajarlo a blanco devolvería el paño al nivel del control y
+   * mataría el charco de las farolas, que es lo único que da profundidad a la calle.
    */
-  scene.lights.setAmbientColor(mood === "night" ? 0x30384e : 0xdfe3ea);
+  scene.lights.setAmbientColor(mood === "night" ? 0x8f97a6 : 0xdfe3ea);
   /**
    * Radios calibrados contra la separación real de las farolas: 3 celdas con `tileWidth` 64 son
    * ~107 px en pantalla. Con 240/190 los cuatro discos se solapaban más de dos veces y, en mezcla
@@ -244,30 +298,26 @@ export function applyLighting(
    * fachada; la intensidad difusa sube porque a 0,9 el levantado sobre el horneado no se veía. El
    * halo se deja pequeño porque la escena ya lleva su glow horneado (`LAMP_GLOW_TEXTURE`): dos
    * halos apilados sobre el mismo punto saturan el centro a blanco.
+   *
+   * §5.2: con el ambiente nocturno ya levantado, la difusa vuelve a bajar de 1,6 a 1,25 y el radio de
+   * 150 a 132 para que la SUMA (ambiente + charca + emisivo + bloom) no recorte otra vez a blanco.
+   * Es el equilibrio que pide el encargo: se reparte entre las cuatro fuentes en vez de subir una.
    */
   const diffuse = lampAnchors.map((anchor) =>
-    scene.lights.addLight(anchor.x, anchor.y, 150, LAMP_LIGHT_COLOR, mood === "night" ? 1.6 : 0.35),
-  );
-  const halos = lampAnchors.map((anchor) => {
-    const halo = scene.lights.addPointLight(
+    scene.lights.addLight(
       anchor.x,
       anchor.y,
+      132,
       LAMP_LIGHT_COLOR,
-      26,
-      mood === "night" ? 0.5 : 0.1,
-      0.22,
-    );
-    halo.setVisible(mood === "night");
-    halo.setDepth(anchor.depth + 2);
-    return halo;
-  });
+      mood === "night" ? 1.25 : 0.35,
+    ),
+  );
   for (const facade of facades) facade.setLighting(true);
   return {
     lights: diffuse.length,
     litObjects: facades.length,
     dispose: () => {
       for (const light of diffuse) scene.lights.removeLight(light);
-      for (const halo of halos) halo.destroy();
       for (const facade of facades) facade.setLighting(false);
       scene.lights.disable();
       scene.lights.setAmbientColor(0xffffff);

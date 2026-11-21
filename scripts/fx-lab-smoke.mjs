@@ -7,7 +7,8 @@
  *  - que ningún toggle lanza dentro del batcher WebGL,
  *  - que apagar un efecto devuelve EXACTAMENTE el fotograma anterior (disposer idempotente),
  *  - que cambiar el zoom cambia el canvas: si no cambia, el compositor está congelado y cualquier
- *    PNG de la batería grande sería una evidencia falsa.
+ *    PNG de la batería grande sería una evidencia falsa,
+ *  - que los presets de §5.1 se quedan puestos después de que el cambio de mood reconstruya el rig.
  *
  * Los tres primeros se rompieron el 2026-11-20 al iluminar la escena; la batería larga los detectaba
  * nueve minutos tarde y sin decir cuál.
@@ -100,7 +101,48 @@ try {
   });
   await settle(60);
   check("el zoom llega al canvas", (await shot()) !== before, "compositor vivo a 0,5×");
-  check("sin errores de escena", restored.errors.length === 0, restored.errors.join(" | ") || "0");
+
+  /**
+   * §5.1 — la IDENTIDAD del preset en vivo se comprueba aquí y no en el test unitario porque lo que se
+   * rompió el 2026-11-21 fue la interacción: al aplicar un preset nocturno React replicaba el mood en
+   * la escena, `setMood` reconstruía rig y grading con `applyEffect`, y la escena se borraba el preset
+   * creyendo que el usuario había tocado un toggle. La sonda mentía (`preset: null` con la tabla
+   * puesta) y ninguna otra prueba lo veía.
+   */
+  for (const [preset, moodExpected] of [
+    ["day_balanced", "day"],
+    ["night_balanced", "night"],
+    ["night_fire", "night"],
+  ]) {
+    await page
+      .getByTestId(`fx-preset-${preset}`)
+      .evaluate((node) => node.click())
+      .catch(() => undefined);
+    await page
+      .waitForFunction((name) => window.__fxLab?.preset === name, preset, { timeout: 20000 })
+      .catch(() => undefined);
+    await settle(90);
+    const row = await probe();
+    check(
+      `preset ${preset} sigue puesto tras reconstruir el mood`,
+      row.preset === preset &&
+        row.mood === moodExpected &&
+        !row.effects.includes("bloomThreshold") &&
+        (preset !== "night_fire" || row.fireActive),
+      `preset=${row.preset} mood=${row.mood} fx=${row.effects.join(",")} fire=${row.fireActive}`,
+    );
+  }
+  /** Un toggle manual sí rompe la identidad: la sonda dice lo que hay, no lo que se pidió. */
+  await toggle("bloomThreshold");
+  await settle(90);
+  const manual = await probe();
+  check(
+    "un toggle manual quita el preset",
+    manual.preset === null && manual.effects.includes("bloomThreshold"),
+    `preset=${manual.preset} fx=${manual.effects.join(",")}`,
+  );
+
+  check("sin errores de escena", manual.errors.length === 0, manual.errors.join(" | ") || "0");
   check("sin errores de página", pageErrors.length === 0, pageErrors.join(" | ") || "0");
 } finally {
   await browser.close();

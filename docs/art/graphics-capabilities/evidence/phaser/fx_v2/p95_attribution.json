@@ -1,0 +1,92 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/fx-p95-attribution.mjs",
+ "task": "D-111.2 FASE 5.3 — ¿la subida de p95 tras los ciclos es del desmontaje o del entorno?",
+ "baseUrl": "http://127.0.0.1:4314",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "windowFrames": 240,
+ "idleEquivalentFrames": 2100,
+ "extraSettleFrames": 600,
+ "cycles": 5,
+ "effects": [
+  "grading",
+  "bloomThreshold",
+  "bloomObjects",
+  "lighting",
+  "lightingNormals",
+  "particles",
+  "fire"
+ ],
+ "ocio": {
+  "baseline": {
+   "effects": [],
+   "sceneObjects": 60,
+   "lights": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "frameTimeP50Ms": 43.34,
+   "frameTimeP95Ms": 48.34,
+   "fps": 22,
+   "samples": 180,
+   "errors": []
+  },
+  "despues": {
+   "effects": [],
+   "sceneObjects": 60,
+   "lights": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "frameTimeP50Ms": 43.34,
+   "frameTimeP95Ms": 48.34,
+   "fps": 23,
+   "samples": 180,
+   "errors": []
+  },
+  "deltaP95Ms": 0
+ },
+ "ciclos": {
+  "baseline": {
+   "effects": [],
+   "sceneObjects": 60,
+   "lights": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "frameTimeP50Ms": 50,
+   "frameTimeP95Ms": 56.66,
+   "fps": 20,
+   "samples": 180,
+   "errors": []
+  },
+  "despuesDeCiclos": {
+   "effects": [],
+   "sceneObjects": 60,
+   "lights": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "frameTimeP50Ms": 44.99,
+   "frameTimeP95Ms": 48.33,
+   "fps": 22,
+   "samples": 180,
+   "errors": []
+  },
+  "tras600FramesMas": {
+   "effects": [],
+   "sceneObjects": 60,
+   "lights": 0,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444,
+   "frameTimeP50Ms": 45,
+   "frameTimeP95Ms": 46.67,
+   "fps": 22,
+   "samples": 180,
+   "errors": []
+  },
+  "deltaP95Ms": -8.33,
+  "deltaTrasReposoMs": -9.99
+ },
+ "stalls": [],
+ "pageErrors": []
+}

@@ -63,6 +63,23 @@ $BLENDER -b --factory-startup -P tools/art-pipeline/blender/ext_lab/ag_module_ba
   --out-glb=/tmp/wp02/ag_arcade_bay_2m.glb --report=/tmp/wp02/report.json \
   --evidence-png=/tmp/wp02/module.png --evidence-json=/tmp/wp02/module.json --quality=high
 
+# Componente de extensión horneado a la crujía canónica de 2 m (WP03).
+#   --tool=control|hifi|archimesh  (control = el módulo GN del repo, es la vara de medir)
+#   --quality=high|simplified      (simplified = el mismo receta con el preset ligero de la extensión)
+$BLENDER -b --factory-startup -P tools/art-pipeline/blender/ext_lab/ext_module_bake.py -- \
+  --tool=hifi --quality=high \
+  --out-glb=/tmp/wp03/hifi_window_bay_2m_high.glb \
+  --report=/tmp/wp03/hifi_window_bay_2m_high-report.json \
+  --evidence-png=docs/art/graphics-capabilities/evidence/v2/ext/hifi_window_bay_2m_high.png \
+  --evidence-json=docs/art/graphics-capabilities/evidence/v2/ext/hifi_window_bay_2m_high.json
+
+# Fachada HiFi completa (WP03): `--layout=grid` es la receta corregida, `free` la original.
+# La diferencia entre las dos medidas ES el hallazgo, así que se guardan ambas evidencias.
+$BLENDER -b --factory-startup -P tools/art-pipeline/blender/ext_lab/hifi_lab.py -- \
+  --layout=grid --materials=atlas --mood=day_civic --ortho-scale=23.6 --target-z=5.4 \
+  --output=docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_grid.png \
+  --metadata=docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_grid.json
+
 # Hojas comparativas
 python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py [filtro]
 
@@ -70,6 +87,13 @@ python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py [filtro]
 export BLENDER_USER_CONFIG=/tmp/d111-ext-lab/config/cfg
 export BLENDER_USER_EXTENSIONS=/tmp/d111-ext-lab/config/ext
 ```
+
+> **El campo `command` de la evidencia.** Cada JSON guarda la corrida que lo produjo para poder
+> relanzarla desde sí mismo. `lab_common._command_line()` leía el script de `sys.argv[1]`, que bajo
+> `-b --factory-startup -P` es literalmente `-b`, así que las evidencias de WP01 y WP02 registran
+> `…/ext_lab/-b` y no son ejecutables tal cual: para re-hacer esas corridas usa el bloque de arriba.
+> Corregido en WP03; desde aquí el campo vuelve a coincidir con el comando real y el script queda
+> relativo al repo.
 
 ## WP01 — Geometry Nodes v2 (medido)
 
@@ -155,7 +179,7 @@ triángulos**, caja `x[-1,1] · y[-0,15;0,35] · z[0,3]` m, sha256
   cuatro alzados, así que el apilamiento ocurre y se declara. Como el entregable de runtime es un PNG,
   el coste es de generación; si algún día el cívico se dibuja con geometría viva, este número es el
   que hay que revisar primero.
-- **Brazo de calidad registrado.** `simplified` (938 tri, −48 %) se hornea y se compara
+- **Brazo de calidad registrado.** `simplified` (938 tri, -48 %) se hornea y se compara
   ([`ag/ag_arcade_bay_2m_simplified.png`](ag/ag_arcade_bay_2m_simplified.png)): pierde el estriado
   del fuste y el óvolo del capitel, que son justo las siluetas que sostienen la lectura a 0,5×. Se
   adopta `high` y el alternativo queda medido por si un futuro lote industrial lo necesita.
@@ -176,6 +200,116 @@ triángulos**, caja `x[-1,1] · y[-0,15;0,35] · z[0,3]` m, sha256
   maquetación: los PNG/JSON de los sprites no se han vuelto a renderizar, así que
   `sheets/gn_v2_ab*.png` de WP01 muestran el mismo contenido con el pie completo.
 
+## WP03 — HiFi y Archimesh como componentes (medido)
+
+Hojas: [`sheets/ext_window_columns.png`](sheets/ext_window_columns.png) (control / HiFi / Archimesh
+resolviendo el mismo vano) y su lectura a 0,5×
+[`sheets/ext_window_columns_half.png`](sheets/ext_window_columns_half.png);
+[`sheets/hifi_grid_ab.png`](sheets/hifi_grid_ab.png) (receta libre vs receta sobre retícula) y
+[`sheets/hifi_grid_ab_half.png`](sheets/hifi_grid_ab_half.png). Fotogramas sueltos:
+[`ext/control_gn_window_bay.png`](ext/control_gn_window_bay.png),
+`ext/hifi_window_bay_2m_{high,simplified}.png`,
+`ext/archimesh_window_bay_2m_{high,simplified}.png`,
+[`hifi/hifi_facade_free.png`](hifi/hifi_facade_free.png),
+[`hifi/hifi_facade_grid.png`](hifi/hifi_facade_grid.png).
+
+| brazo del vano (crujía 2 m · banda 3 m) | tri del módulo | caja medida | relieve: pide → entrega | materiales | veredicto |
+| --- | --- | --- | --- | --- | --- |
+| control `mod_gn_window_bay_2m` | **216** | x[-1,1] y[-0,2;0,2] z[0,3] | ya dentro de caja (3 hojas: paño, vidrio, trim) | atlas ×3 | **se queda**: es lo que el catálogo publica hoy |
+| HiFi `high` (5 llamadas) | **98** | x[-1,1] y[-0,15;0,35] z[0,3] | +0,37 → +0,35 m (cada pilastra pierde 4 de 12 tri) | atlas ×3 | descartado: hueco sin dividir |
+| HiFi `simplified` (decimate 0,45) | **44** | id | id | id | descartado: el marco se colapsa |
+| Archimesh `high` | **1 358** (pide 1 488) | id | +0,39 → +0,35 m (alféizar pierde 2 de 12 tri) | atlas ×4 | descartado: hojas y manijas quedan dentro del paño |
+| Archimesh `simplified` (decimate 0,45) | **610** | id | id | id | sin pérdida visible: la **técnica** sí se registra |
+
+- **Los dos vanos se descartan, y el motivo es geométrico, no de gusto — pero por razones distintas.**
+  - *HiFi*: `WINDOW_FLAT` expone cinco propiedades (ancho, alto, profundidad, grosor de marco y cota
+    de base); **ninguna divide el hueco**, así que no hay montantes ni travesero y el vano se lee como
+    un solo ojo. El control GN resuelve marco con retranqueo, dos montantes, travesero, alféizar con
+    retorno y dintel en 216 tri.
+  - *Archimesh*: sí divide (genera `Window.L` y `Window.R` con su manija), pero la carpintería **cae
+    dentro del volumen del paño**. El paño canónico mide 0,10 m (y ∈ [-0,15; -0,05]) y el lote de
+    Archimesh es un componente de 0,54 m de fondo pensado para un muro de obra: asentado por detrás,
+    sus hojas quedan en y = -0,105 y -0,055 y las manijas en -0,146 y -0,097, todas por detrás de la
+    cara del paño. En el fotograma el hueco muestra el color del ladrillo, no vidrio: la carpintería
+    está oculta por construcción, no "demasiado pequeña". Para que el vidrio quedara visto habría que
+    adelantar el componente, y entonces el alféizar (que ya pide +0,39 m) saldría aún más de la caja.
+- **Despiece medido, no estimado.** `partsBreakdown` en cada JSON lista por pieza material, triángulos
+  pedidos, triángulos que sobreviven al corte y su cota y: Archimesh produce 1 488 tri de los que
+  **912 (61,3 %) son las dos manijas**, 356 las hojas y 208 el marco; HiFi produce 80 tri (marco 32,
+  alféizar 12, dintel 12, dos pilastras 12 cada una). Es el dato que cierra la pregunta
+  "¿aportan detalle visible?" con la respuesta de arriba.
+- **La pilastra de HiFi no es una pilastra.** `PILLAR` genera una columna exenta de 0,34×0,34 m con su
+  base y su capitel. Las dos pilastras miden **+0,37 m** de frente, **0,42 m por delante de la cara del
+  paño** (-0,05) y 0,10 m más que el propio marco (+0,27); en el fotograma se leen como soportes sueltos
+  que bajan hasta el suelo de la banda, no como el retranqueo de junta que se pretendía. Y el relieve
+  está invertido: el alféizar (+0,33) y el dintel (+0,30) salen más que el marco, porque se resuelven
+  con bloques `CEILING`.
+- **Auditoría del corte (`cutAudit`), que es lo reutilizable del adaptador.** Cada evidencia registra
+  `trianglesRequested`, `trianglesSurviving`, `maxRequestedFrontYMeters` y el límite canónico
+  `frontLimitMeters` = +0,35 m. Con eso se decide en un minuto si una pieza de extensión cabe: HiFi
+  pide 80 y entrega 72 (las dos pilastras pierden 4 tri cada una), Archimesh pide 1 488 y entrega
+  1 346. Ninguna de las dos se recorta por capricho del adaptador: se recorta porque **no caben**.
+- **Los presets de Archimesh no hacen nada en esta receta (medido).** Los brazos `high`
+  (`model=2`, `frame=0,09`) y `simplified` (`model=1`, `frame=0,07`) generan **el mismo lote**:
+  1 488 triángulos repartidos igual por pieza y las mismas cotas y al milímetro. Lo único que cambia
+  el GLB exportado es el decimate posterior al corte (1 346 → 610). WP05/WP06 no deben contar con
+  `model` como palanca de calidad.
+- **Por qué el relieve por pieza se mide con grupos de vértice y no con `matrix_world`.** La primera
+  versión medía cada pieza antes del `join` y daba un alféizar de Archimesh en +0,91 m, contradiciendo
+  los +0,39 m de `seating.projectedFrontMeters`: `build_archimesh` re-parenta y gira sus objetos 180° y
+  `build_hifi` los padrea a un Empty girado, así que el espacio de mundo de cada pieza y el espacio
+  local del lote unido no coinciden. Ahora cada pieza se etiqueta con un grupo de vértices antes del
+  `join` y se mide sobre la malla ya asentada y sobre la ya cortada; la guarda es la identidad
+  `max(pieza) == projectedFrontMeters`, que en los cuatro brazos horneados se cumple exacta.
+- **Receta HiFi sobre la retícula del Composer (`hifi_lab.py --layout=grid`).** La diferencia entre la
+  muestra vieja y la nueva no es de encuadre ni de luz —misma extensión, misma cámara (ortogonal az
+  45°, escala 23,6, target 5,4), mismo mood `day_civic`, mismos materiales del atlas— sino de receta,
+  y está medida por `gridAudit` sobre la geometría construida:
+
+  | métrica | `free` (baseline) | `grid` (WP03) |
+  | --- | --- | --- |
+  | huecos auditados | 11 | **37** |
+  | desvío máx. al centro de crujía | 0,70 m | **0,00 m** |
+  | líneas de banda auditadas | 3 | 3 |
+  | desvío máx. a la línea de forjado | 0,55 m | **0,00 m** |
+  | postes de balaustrada / paso | 17 / 1,0562 m | **10 / 2,0000 m** |
+  | desvío máx. de poste a junta | 1,00 m | **0,00 m** |
+  | barandillas de balcón | 0 postes | 25 postes en 5 tramos, cada tramo centrado en su crujía (0,00 m) |
+  | llamadas a la extensión | 38 | 135 |
+  | piezas de laboratorio (masa, cubierta, hojas, cristales) | 11 | 29 |
+  | triángulos de escena | 2 356 | 5 976 |
+  | segundos de render | 4,82 | 5,15 |
+
+- **Límites de capacidad medidos en la propia extensión** (son la razón por la que HiFi se queda como
+  herramienta de receta y no como fuente de módulos): `WINDOW_FLAT` = 5 propiedades, sin división de
+  hueco; `BALCONY` = 7 propiedades, **no genera balaustres**; `FENCE` sí expone `fence_posts` (INT) y
+  reparte los postes desde su origen hasta `length`, así que la balaustrada y las barandillas de los
+  balcones se resuelven con `FENCE` apoyado en la cota medida del forjado — técnica reutilizable que
+  nace de este paquete.
+- **Cuatro defectos de la primera corrida `grid`, corregidos con medida** (cada uno visible en la hoja
+  anterior a la que está versionada): lesenas colocadas en `x = ±7` en vez de sobre las juntas
+  extremas; antepecho de balcón macio que tapaba el hueco (sustituido por un bordillo de 0,12 m más
+  barandilla `FENCE`); bandeja de cubierta flotando sobre la cornisa (la losa se apoyó en
+  `top + 0,05`); paleta rosa del laboratorio (ahora `--materials=atlas`).
+- **Integridad de los fotogramas.** `geometry_border_hit` (alfa ≥ 200) sobre los siete PNG de WP03:
+  **0 píxeles sólidos en los cuatro bordes** en todos. Ninguna muestra está recortada.
+- **Determinismo verificado en tres re-corridas.** Al cerrar WP03 los cinco brazos se regeneraron tres
+  veces (corregir el campo `command`, medir el despiece pieza a pieza, corregir la nota de
+  procedencia) y el `sha256` de los cinco PNG no cambió en ninguna: `e6b56b8f…`, `2af2d1d3…`,
+  `bb6c5112…`, `a665cc36…`, `7d9250e0…`. Lo que sí movió el fotograma antes de eso (el vidrio pegado a
+  la cara interior del paño y la pintura por rol en vez de todo en piedra) está registrado arriba como
+  hallazgo, no como deriva.
+- **Normalización.** Como no se adopta ningún componente, no entran `sourceId` nuevos en
+  `building-modules.json` y el catálogo sigue en 187 módulos. Lo que sí queda normalizado es el
+  **camino**: `ext_module_bake.py` convierte la salida de cualquier extensión en la caja canónica
+  (crujía 2 m, banda 3 m, `y ∈ [-0,15; +0,35]`, asiento medido por `seat_in_bay`, corte a junta y
+  brazo decimado), que es el adaptador que WP05/WP06 reutilizarían si una pieza industrial o cívica
+  saliera de una extensión.
+- **Licencia separada.** HiFi 4.6.7 (GPL-3.0-or-later) y Archimesh 1.2.5 (GPL-2.0-or-later) se
+  instalan sólo en el perfil aislado `/tmp/d111-ext-lab` con `sha256` fijado en
+  `lab_common.EXTENSIONS`; en este repo no hay ni una línea de su fuente. La geometría horneada se
+  registra como `original` del proyecto y cada JSON embarca `licenceNote` con esa distinción.
+
 ## Ledger
 
 | WP | commit | estado | artefacto principal | bloqueo |
@@ -183,3 +317,4 @@ triángulos**, caja `x[-1,1] · y[-0,15;0,35] · z[0,3]` m, sha256
 | WP00 | (este) | DONE | este índice | — |
 | WP01 | (este) | DONE | `sheets/gn_v2_ab.png` (+ `_half`) | sombra recortada preexistente, declarada |
 | WP02 | (este) | DONE | `sheets/ag_civic_ab.png` (+ `_half`) · `mod_ag_arcade_bay_2m` | cierre de crujía en esquina y profundidad 0,50 m → WP06 |
+| WP03 | (este) | DONE | `sheets/ext_window_columns.png` (+ `_half`) · `sheets/hifi_grid_ab.png` (+ `_half`) | ningún vano de extensión adoptado (motivo geométrico medido); HiFi se queda como herramienta de receta |

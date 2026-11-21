@@ -1,0 +1,303 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "hifi - vano de ventana con molduras 2x3 m (simplified), tileado 3 veces",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "zip": "hifi.zip",
+    "version": "4.6.7",
+    "license": "SPDX:GPL-3.0-or-later",
+    "registry_id": "hifi_builder",
+    "registry_url": "https://extensions.blender.org/add-ons/hifi-builder/",
+    "archive_sha256": "0ad3f685fa736bccf82b9d302dfc97a82ef6490f71f88038889c8e412e67f290",
+    "archive_url": "https://extensions.blender.org/download/sha256:0ad3f685fa736bccf82b9d302dfc97a82ef6490f71f88038889c8e412e67f290/add-on-hifi-builder-v4.6.7.zip",
+    "maintainer": "Malik Nomi",
+    "blender_version_min": "4.2.0",
+    "registryId": "hifi_builder",
+    "moduleId": "bl_ext.user_default.hifi_builder",
+    "mood": "day_civic",
+    "invocation": "scene.hifi_props + preview_logic.update_preview() + bpy.ops.hifi.generate()",
+    "adaptador": "tools/art-pipeline/blender/ext_lab/ext_module_bake.py",
+    "glbSha256": "709310b2bd0e644d764a998523db644fa2751ff5fb42e68bdbf0ebf61e53f178",
+    "licenceNote": "SPDX:GPL-3.0-or-later es la licencia del CODIGO de la extension. La geometria exportada se registra como authored-original del proyecto porque este repo no redistribuye el add-on: se instala en un perfil aislado de /tmp y solo se publica el GLB resultante."
+  },
+  "generated": {
+    "recipe": [
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "marco",
+        "controller": "HFM_marco",
+        "offset": [
+          0.0,
+          0.0,
+          0.95
+        ],
+        "params": {
+          "win_f_width_ft": 1.4,
+          "win_f_height_ft": 1.45,
+          "win_f_depth_ft": 0.42,
+          "win_f_frame_thick_ft": 0.17,
+          "win_f_base_z_ft": 0.0
+        },
+        "objects": [
+          "hifi_window_flat"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "alfeniz",
+        "controller": "HFM_alfeniz",
+        "offset": [
+          0.0,
+          0.1,
+          0.84
+        ],
+        "params": {
+          "ceiling_length_ft": 1.7999999999999998,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.11,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "dintel",
+        "controller": "HFM_dintel",
+        "offset": [
+          0.0,
+          0.09,
+          2.42
+        ],
+        "params": {
+          "ceiling_length_ft": 1.7,
+          "ceiling_width_ft": 0.3,
+          "ceiling_thickness_ft": 0.14,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.001"
+        ]
+      },
+      {
+        "generator": "PILLAR",
+        "label": "pilastra_izq",
+        "controller": "HFM_pilastra_izq",
+        "offset": [
+          -1.0,
+          0.14,
+          0.0
+        ],
+        "params": {
+          "pillar_height_ft": 3.0,
+          "pillar_radius_ft": 0.17,
+          "pillar_shape": "SQUARE",
+          "pillar_resolution": 4
+        },
+        "objects": [
+          "hifi_pillar"
+        ]
+      },
+      {
+        "generator": "PILLAR",
+        "label": "pilastra_der",
+        "controller": "HFM_pilastra_der",
+        "offset": [
+          1.0,
+          0.14,
+          0.0
+        ],
+        "params": {
+          "pillar_height_ft": 3.0,
+          "pillar_radius_ft": 0.17,
+          "pillar_shape": "SQUARE",
+          "pillar_resolution": 4
+        },
+        "objects": [
+          "hifi_pillar.001"
+        ]
+      }
+    ],
+    "measured": {
+      "vertices": 37,
+      "triangles": 44,
+      "bounds": {
+        "x": [
+          -1.0,
+          1.0
+        ],
+        "y": [
+          -0.15,
+          0.35
+        ],
+        "z": [
+          0.0,
+          3.0
+        ]
+      },
+      "materials": [
+        "gn_brick_wall",
+        "gn_dark_glass",
+        "gn_stone_trim"
+      ]
+    },
+    "partsBreakdown": [
+      {
+        "object": "hifi_window_flat",
+        "material": "gn_stone_trim",
+        "triangles": 32,
+        "label": "marco",
+        "requestedFrontYMeters": 0.27,
+        "trianglesAfterCut": 32,
+        "trianglesCutOff": 0,
+        "frontYMeters": 0.27
+      },
+      {
+        "object": "hifi_ceiling",
+        "material": "gn_stone_trim",
+        "triangles": 12,
+        "label": "alfeniz",
+        "requestedFrontYMeters": 0.33,
+        "trianglesAfterCut": 12,
+        "trianglesCutOff": 0,
+        "frontYMeters": 0.33
+      },
+      {
+        "object": "hifi_ceiling.001",
+        "material": "gn_stone_trim",
+        "triangles": 12,
+        "label": "dintel",
+        "requestedFrontYMeters": 0.3,
+        "trianglesAfterCut": 12,
+        "trianglesCutOff": 0,
+        "frontYMeters": 0.3
+      },
+      {
+        "object": "hifi_pillar",
+        "material": "gn_stone_trim",
+        "triangles": 12,
+        "label": "pilastra_izq",
+        "requestedFrontYMeters": 0.37,
+        "trianglesAfterCut": 8,
+        "trianglesCutOff": 4,
+        "frontYMeters": 0.35
+      },
+      {
+        "object": "hifi_pillar.001",
+        "material": "gn_stone_trim",
+        "triangles": 12,
+        "label": "pilastra_der",
+        "requestedFrontYMeters": 0.37,
+        "trianglesAfterCut": 8,
+        "trianglesCutOff": 4,
+        "frontYMeters": 0.35
+      }
+    ],
+    "seating": {
+      "shiftXMeters": -0.0,
+      "shiftYMeters": 0.06,
+      "projectedFrontMeters": 0.37
+    },
+    "cutAudit": {
+      "frontLimitMeters": 0.35,
+      "trianglesRequested": 80,
+      "trianglesSurviving": 72,
+      "maxRequestedFrontYMeters": 0.37
+    },
+    "backing": {
+      "wallBackMeters": -0.15,
+      "wallFrontMeters": -0.05,
+      "glazingAdded": true
+    },
+    "note": "Las tres instancias comparten la pilastra de la junta. Materiales del atlas licenciado, los mismos buckets de WP01 y WP02, aplicados por rol: gn_brick_wall en el pa\u00f1o, gn_stone_trim en molduras y marco, gn_dark_glass en el cerramiento y gn_painted_metal solo en las manijas de Archimesh, que el control no tiene. HiFi no genera vidrio, as\u00ed que su hoja lleva la l\u00e1mina del adaptador pegada a la cara interior del pa\u00f1o. Archimesh no recibe l\u00e1mina porque trae sus dos hojas: el error estuvo en suponer que eso basta, porque `partsBreakdown` mide esas hojas y sus manijas por detr\u00e1s de la cara del pa\u00f1o (-0,05), es decir ocultas por el propio muro. La hoja de revisi\u00f3n lo muestra: el vano sale con color de ladrillo dentro del marco."
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 225.0,
+    "elevationDegrees": 30,
+    "orthoScale": 8.600000381469727,
+    "targetZ": 1.6
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 3.23,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 549,
+        "height": 596,
+        "offsetX": 229,
+        "offsetY": 138
+      },
+      "final": {
+        "width": 549,
+        "height": 596
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 129,
+    "meshObjects": 3,
+    "bounds": {
+      "min": [
+        -3.0,
+        -0.15,
+        0.0
+      ],
+      "max": [
+        3.0,
+        0.35,
+        3.95
+      ],
+      "size": [
+        6.0,
+        0.5,
+        3.95
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/ext/hifi_window_bay_2m_simplified.png",
+    "width": 549,
+    "height": 596,
+    "sha256": "bb6c5112cd14aadf3ac6f947c8cc92f343f85c4eb05c9a19690ea4397df62c3e",
+    "bytes": 327596
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/ext_module_bake.py -- --tool=hifi --quality=simplified --out-glb=/tmp/wp03/hifi_window_bay_2m_simplified.glb --report=/tmp/wp03/hifi_window_bay_2m_simplified-report.json --evidence-png=docs/art/graphics-capabilities/evidence/v2/ext/hifi_window_bay_2m_simplified.png --evidence-json=docs/art/graphics-capabilities/evidence/v2/ext/hifi_window_bay_2m_simplified.json"
+}

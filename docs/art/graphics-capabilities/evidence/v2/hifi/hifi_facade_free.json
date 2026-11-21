@@ -1,0 +1,1864 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "HiFi Architecture Builder - fachada mixta de 3 plantas (cornisa, marcos, balcones)",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "zip": "hifi.zip",
+    "version": "4.6.7",
+    "license": "SPDX:GPL-3.0-or-later",
+    "registry_id": "hifi_builder",
+    "registry_url": "https://extensions.blender.org/add-ons/hifi-builder/",
+    "archive_sha256": "0ad3f685fa736bccf82b9d302dfc97a82ef6490f71f88038889c8e412e67f290",
+    "archive_url": "https://extensions.blender.org/download/sha256:0ad3f685fa736bccf82b9d302dfc97a82ef6490f71f88038889c8e412e67f290/add-on-hifi-builder-v4.6.7.zip",
+    "maintainer": "Malik Nomi",
+    "blender_version_min": "4.2.0",
+    "registryId": "hifi_builder",
+    "moduleId": "bl_ext.user_default.hifi_builder",
+    "mood": "day_civic",
+    "headless": true,
+    "layout": "free",
+    "materials": "atlas",
+    "invocation": "scene.hifi_props + preview_logic.update_preview() + bpy.ops.hifi.generate()",
+    "generatorCalls": 38,
+    "generatorTypes": [
+      "BALCONY",
+      "CEILING",
+      "DOOR_FLAT",
+      "FENCE",
+      "PILLAR",
+      "WALL",
+      "WINDOW_FLAT"
+    ]
+  },
+  "generated": {
+    "layout": "free",
+    "grid": {
+      "bayMeters": 2.0,
+      "bandMeters": 3.0,
+      "bays": 9,
+      "floors": 3,
+      "widthMeters": 18.0,
+      "rhythms": {
+        "window_bay": {
+          "width": 1.05,
+          "height": 1.45,
+          "sill": 0.95,
+          "frame": 0.085,
+          "depth": 0.3
+        },
+        "shopfront_bay": {
+          "width": 1.44,
+          "height": 2.0,
+          "sill": 0.42,
+          "frame": 0.16,
+          "depth": 0.4,
+          "pilaster": 0.28,
+          "fascia": 0.3
+        },
+        "door": {
+          "width": 1.1,
+          "height": 2.1,
+          "frame": 0.1,
+          "depth": 0.4
+        },
+        "balcony": {
+          "projection": 0.72,
+          "railHeight": 0.92,
+          "slab": 0.12
+        },
+        "cornice": {
+          "height": 1.0,
+          "depth": 0.4
+        }
+      }
+    },
+    "recipe": [
+      {
+        "generator": "WALL",
+        "label": "zocalo",
+        "controller": "HF_zocalo_1",
+        "offset": [
+          0.0,
+          -0.1,
+          0.0
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "wall_length_ft": 16.7,
+          "wall_height_ft": 0.55,
+          "wall_thickness_ft": 0.5
+        },
+        "objects": [
+          "hifi_wall"
+        ]
+      },
+      {
+        "generator": "WALL",
+        "label": "muro_planta_0",
+        "controller": "HF_muro_planta_0_1",
+        "offset": [
+          0.0,
+          0.0,
+          0.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "wall_length_ft": 16.0,
+          "wall_height_ft": 3.0,
+          "wall_thickness_ft": 0.3
+        },
+        "objects": [
+          "hifi_wall.001"
+        ]
+      },
+      {
+        "generator": "DOOR_FLAT",
+        "label": "portal_comercial",
+        "controller": "HF_portal_comercial_1",
+        "offset": [
+          0.0,
+          -0.16,
+          0.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "door_f_width_ft": 2.6,
+          "door_f_height_ft": 2.9,
+          "door_f_depth_ft": 0.6,
+          "door_f_frame_thick_ft": 0.24
+        },
+        "objects": [
+          "hifi_door_flat"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "escaparate_0",
+        "controller": "HF_escaparate_0_1",
+        "offset": [
+          -5.3,
+          -0.16,
+          0.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 3.4,
+          "win_f_height_ft": 2.3,
+          "win_f_depth_ft": 0.55,
+          "win_f_frame_thick_ft": 0.24,
+          "win_f_base_z_ft": 0.45
+        },
+        "objects": [
+          "hifi_window_flat"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "escaparate_1",
+        "controller": "HF_escaparate_1_1",
+        "offset": [
+          5.3,
+          -0.16,
+          0.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 3.4,
+          "win_f_height_ft": 2.3,
+          "win_f_depth_ft": 0.55,
+          "win_f_frame_thick_ft": 0.24,
+          "win_f_base_z_ft": 0.45
+        },
+        "objects": [
+          "hifi_window_flat.001"
+        ]
+      },
+      {
+        "generator": "WALL",
+        "label": "muro_planta_1",
+        "controller": "HF_muro_planta_1_1",
+        "offset": [
+          0.0,
+          0.0,
+          3.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "wall_length_ft": 16.0,
+          "wall_height_ft": 3.0,
+          "wall_thickness_ft": 0.3
+        },
+        "objects": [
+          "hifi_wall.002"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "impasta_1",
+        "controller": "HF_impasta_1_1",
+        "offset": [
+          0.0,
+          -0.22,
+          3.47
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 16.6,
+          "ceiling_width_ft": 0.5,
+          "ceiling_thickness_ft": 0.16,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "ventana_1_0",
+        "controller": "HF_ventana_1_0_1",
+        "offset": [
+          -5.3,
+          -0.14,
+          3.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 1.5,
+          "win_f_height_ft": 1.5,
+          "win_f_depth_ft": 0.45,
+          "win_f_frame_thick_ft": 0.17,
+          "win_f_base_z_ft": 0.95
+        },
+        "objects": [
+          "hifi_window_flat.002"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "fronton_1_0",
+        "controller": "HF_fronton_1_0_1",
+        "offset": [
+          -5.3,
+          -0.18,
+          6.04
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 2.1,
+          "ceiling_width_ft": 0.36,
+          "ceiling_thickness_ft": 0.15,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.001"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "alfeniz_1_0",
+        "controller": "HF_alfeniz_1_0_1",
+        "offset": [
+          -5.3,
+          -0.17,
+          4.38
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 1.95,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.1,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.002"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "ventana_1_1",
+        "controller": "HF_ventana_1_1_1",
+        "offset": [
+          0.0,
+          -0.14,
+          3.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 1.5,
+          "win_f_height_ft": 1.5,
+          "win_f_depth_ft": 0.45,
+          "win_f_frame_thick_ft": 0.17,
+          "win_f_base_z_ft": 0.95
+        },
+        "objects": [
+          "hifi_window_flat.003"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "fronton_1_1",
+        "controller": "HF_fronton_1_1_1",
+        "offset": [
+          0.0,
+          -0.18,
+          6.04
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 2.1,
+          "ceiling_width_ft": 0.36,
+          "ceiling_thickness_ft": 0.15,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.003"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "alfeniz_1_1",
+        "controller": "HF_alfeniz_1_1_1",
+        "offset": [
+          0.0,
+          -0.17,
+          4.38
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 1.95,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.1,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.004"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "ventana_1_2",
+        "controller": "HF_ventana_1_2_1",
+        "offset": [
+          5.3,
+          -0.14,
+          3.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 1.5,
+          "win_f_height_ft": 1.5,
+          "win_f_depth_ft": 0.45,
+          "win_f_frame_thick_ft": 0.17,
+          "win_f_base_z_ft": 0.95
+        },
+        "objects": [
+          "hifi_window_flat.004"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "fronton_1_2",
+        "controller": "HF_fronton_1_2_1",
+        "offset": [
+          5.3,
+          -0.18,
+          6.04
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 2.1,
+          "ceiling_width_ft": 0.36,
+          "ceiling_thickness_ft": 0.15,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.005"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "alfeniz_1_2",
+        "controller": "HF_alfeniz_1_2_1",
+        "offset": [
+          5.3,
+          -0.17,
+          4.38
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 1.95,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.1,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.006"
+        ]
+      },
+      {
+        "generator": "BALCONY",
+        "label": "balcon_0",
+        "controller": "HF_balcon_0_1",
+        "offset": [
+          -5.3,
+          -0.3,
+          4.32
+        ],
+        "rotationZDegrees": -90.0,
+        "params": {
+          "bal_width_ft": 2.4,
+          "bal_depth_ft": 0.85,
+          "bal_height_ft": 0.0,
+          "bal_thickness_ft": 0.14,
+          "bal_rail_height_ft": 0.95,
+          "bal_rail_thick_ft": 0.09,
+          "bal_rail_back": false
+        },
+        "objects": [
+          "hifi_balcony_rail_f",
+          "hifi_balcony_rail_l",
+          "hifi_balcony_rail_r",
+          "hifi_balcony_slab"
+        ]
+      },
+      {
+        "generator": "BALCONY",
+        "label": "balcon_1",
+        "controller": "HF_balcon_1_1",
+        "offset": [
+          5.3,
+          -0.3,
+          4.32
+        ],
+        "rotationZDegrees": -90.0,
+        "params": {
+          "bal_width_ft": 2.4,
+          "bal_depth_ft": 0.85,
+          "bal_height_ft": 0.0,
+          "bal_thickness_ft": 0.14,
+          "bal_rail_height_ft": 0.95,
+          "bal_rail_thick_ft": 0.09,
+          "bal_rail_back": false
+        },
+        "objects": [
+          "hifi_balcony_rail_f.001",
+          "hifi_balcony_rail_l.001",
+          "hifi_balcony_rail_r.001",
+          "hifi_balcony_slab.001"
+        ]
+      },
+      {
+        "generator": "WALL",
+        "label": "muro_planta_2",
+        "controller": "HF_muro_planta_2_1",
+        "offset": [
+          0.0,
+          0.0,
+          6.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "wall_length_ft": 16.0,
+          "wall_height_ft": 3.0,
+          "wall_thickness_ft": 0.3
+        },
+        "objects": [
+          "hifi_wall.003"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "impasta_2",
+        "controller": "HF_impasta_2_1",
+        "offset": [
+          0.0,
+          -0.22,
+          6.47
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 16.6,
+          "ceiling_width_ft": 0.5,
+          "ceiling_thickness_ft": 0.16,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.007"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "ventana_2_0",
+        "controller": "HF_ventana_2_0_1",
+        "offset": [
+          -5.3,
+          -0.14,
+          6.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 1.5,
+          "win_f_height_ft": 1.5,
+          "win_f_depth_ft": 0.45,
+          "win_f_frame_thick_ft": 0.17,
+          "win_f_base_z_ft": 0.95
+        },
+        "objects": [
+          "hifi_window_flat.005"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "fronton_2_0",
+        "controller": "HF_fronton_2_0_1",
+        "offset": [
+          -5.3,
+          -0.18,
+          9.04
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 2.1,
+          "ceiling_width_ft": 0.36,
+          "ceiling_thickness_ft": 0.15,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.008"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "alfeniz_2_0",
+        "controller": "HF_alfeniz_2_0_1",
+        "offset": [
+          -5.3,
+          -0.17,
+          7.38
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 1.95,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.1,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.009"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "ventana_2_1",
+        "controller": "HF_ventana_2_1_1",
+        "offset": [
+          0.0,
+          -0.14,
+          6.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 1.5,
+          "win_f_height_ft": 1.5,
+          "win_f_depth_ft": 0.45,
+          "win_f_frame_thick_ft": 0.17,
+          "win_f_base_z_ft": 0.95
+        },
+        "objects": [
+          "hifi_window_flat.006"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "fronton_2_1",
+        "controller": "HF_fronton_2_1_1",
+        "offset": [
+          0.0,
+          -0.18,
+          9.04
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 2.1,
+          "ceiling_width_ft": 0.36,
+          "ceiling_thickness_ft": 0.15,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.010"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "alfeniz_2_1",
+        "controller": "HF_alfeniz_2_1_1",
+        "offset": [
+          0.0,
+          -0.17,
+          7.38
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 1.95,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.1,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.011"
+        ]
+      },
+      {
+        "generator": "WINDOW_FLAT",
+        "label": "ventana_2_2",
+        "controller": "HF_ventana_2_2_1",
+        "offset": [
+          5.3,
+          -0.14,
+          6.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "win_f_width_ft": 1.5,
+          "win_f_height_ft": 1.5,
+          "win_f_depth_ft": 0.45,
+          "win_f_frame_thick_ft": 0.17,
+          "win_f_base_z_ft": 0.95
+        },
+        "objects": [
+          "hifi_window_flat.007"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "fronton_2_2",
+        "controller": "HF_fronton_2_2_1",
+        "offset": [
+          5.3,
+          -0.18,
+          9.04
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 2.1,
+          "ceiling_width_ft": 0.36,
+          "ceiling_thickness_ft": 0.15,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.012"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "alfeniz_2_2",
+        "controller": "HF_alfeniz_2_2_1",
+        "offset": [
+          5.3,
+          -0.17,
+          7.38
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 1.95,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.1,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.013"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "cornisa_inferior",
+        "controller": "HF_cornisa_inferior_1",
+        "offset": [
+          0.0,
+          -0.42,
+          9.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 17.3,
+          "ceiling_width_ft": 0.95,
+          "ceiling_thickness_ft": 0.24,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.014"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "cornisa_superior",
+        "controller": "HF_cornisa_superior_1",
+        "offset": [
+          0.0,
+          -0.25,
+          9.79
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 16.85,
+          "ceiling_width_ft": 0.62,
+          "ceiling_thickness_ft": 0.18,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.015"
+        ]
+      },
+      {
+        "generator": "WALL",
+        "label": "antepecho",
+        "controller": "HF_antepecho_1",
+        "offset": [
+          0.0,
+          0.05,
+          9.97
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "wall_length_ft": 16.5,
+          "wall_height_ft": 0.55,
+          "wall_thickness_ft": 0.22
+        },
+        "objects": [
+          "hifi_wall.004"
+        ]
+      },
+      {
+        "generator": "PILLAR",
+        "label": "pilastra_0",
+        "controller": "HF_pilastra_0_1",
+        "offset": [
+          -8.1,
+          -0.12,
+          0.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "pillar_height_ft": 9.35,
+          "pillar_radius_ft": 0.45,
+          "pillar_shape": "SQUARE",
+          "pillar_resolution": 4
+        },
+        "objects": [
+          "hifi_pillar"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "capitel_pilastra_0",
+        "controller": "HF_capitel_pilastra_0_1",
+        "offset": [
+          -8.1,
+          -0.2,
+          9.9
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 0.95,
+          "ceiling_width_ft": 0.7,
+          "ceiling_thickness_ft": 0.2,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.016"
+        ]
+      },
+      {
+        "generator": "PILLAR",
+        "label": "pilastra_1",
+        "controller": "HF_pilastra_1_1",
+        "offset": [
+          8.1,
+          -0.12,
+          0.55
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "pillar_height_ft": 9.35,
+          "pillar_radius_ft": 0.45,
+          "pillar_shape": "SQUARE",
+          "pillar_resolution": 4
+        },
+        "objects": [
+          "hifi_pillar.001"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "capitel_pilastra_1",
+        "controller": "HF_capitel_pilastra_1_1",
+        "offset": [
+          8.1,
+          -0.2,
+          9.9
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 0.95,
+          "ceiling_width_ft": 0.7,
+          "ceiling_thickness_ft": 0.2,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.017"
+        ]
+      },
+      {
+        "generator": "FENCE",
+        "label": "balaustrada",
+        "controller": "HF_balaustrada_1",
+        "offset": [
+          -8.45,
+          0.05,
+          10.52
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "fence_length_ft": 16.9,
+          "fence_height_ft": 0.8,
+          "fence_posts": 17,
+          "fence_shape": "ROUND",
+          "fence_resolution": 8
+        },
+        "objects": [
+          "hifi_fence_post_0",
+          "hifi_fence_post_1",
+          "hifi_fence_post_10",
+          "hifi_fence_post_11",
+          "hifi_fence_post_12",
+          "hifi_fence_post_13",
+          "hifi_fence_post_14",
+          "hifi_fence_post_15",
+          "hifi_fence_post_16",
+          "hifi_fence_post_2",
+          "hifi_fence_post_3",
+          "hifi_fence_post_4",
+          "hifi_fence_post_5",
+          "hifi_fence_post_6",
+          "hifi_fence_post_7",
+          "hifi_fence_post_8",
+          "hifi_fence_post_9"
+        ]
+      },
+      {
+        "generator": "CEILING",
+        "label": "manopostigo",
+        "controller": "HF_manopostigo_1",
+        "offset": [
+          0.0,
+          0.05,
+          11.32
+        ],
+        "rotationZDegrees": 0.0,
+        "params": {
+          "ceiling_length_ft": 17.2,
+          "ceiling_width_ft": 0.34,
+          "ceiling_thickness_ft": 0.12,
+          "ceiling_height_ft": 0.0
+        },
+        "objects": [
+          "hifi_ceiling.018"
+        ]
+      }
+    ],
+    "gridAudit": {
+      "bayMeters": 2.0,
+      "bandMeters": 3.0,
+      "openingsAudited": 11,
+      "bandLinesAudited": 3,
+      "maxOpeningOffsetFromBayCenterMeters": 0.7,
+      "maxLineOffsetFromBandMeters": 0.55,
+      "maxOpeningDeviationFromDeclaredMeters": 0.0,
+      "balustradePosts": {
+        "railings": 1,
+        "posts": 17,
+        "spacingMeters": {
+          "min": 1.0562,
+          "max": 1.0563
+        },
+        "maxOffsetFromJointMeters": 1.0,
+        "samples": [
+          {
+            "controller": "HF_balaustrada_1",
+            "posts": 17,
+            "firstX": -8.45,
+            "lastX": 8.45
+          }
+        ]
+      },
+      "balconyRailPosts": {
+        "railings": 0,
+        "posts": 0,
+        "spacingMeters": null,
+        "maxOffsetFromJointMeters": null,
+        "samples": []
+      },
+      "openings": [
+        {
+          "label": "portal_comercial",
+          "generator": "DOOR_FLAT",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -1.3,
+            -0.46,
+            0.55
+          ],
+          "boundsMaxMeters": [
+            1.3,
+            0.14,
+            3.45
+          ],
+          "sizeMeters": [
+            2.6,
+            0.6,
+            2.9
+          ],
+          "offsetFromBayCenterMeters": 0.0
+        },
+        {
+          "label": "escaparate_0",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -7.0,
+            -0.435,
+            1.0
+          ],
+          "boundsMaxMeters": [
+            -3.6,
+            0.115,
+            3.3
+          ],
+          "sizeMeters": [
+            3.4,
+            0.55,
+            2.3
+          ],
+          "offsetFromBayCenterMeters": 0.7
+        },
+        {
+          "label": "escaparate_1",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            3.6,
+            -0.435,
+            1.0
+          ],
+          "boundsMaxMeters": [
+            7.0,
+            0.115,
+            3.3
+          ],
+          "sizeMeters": [
+            3.4,
+            0.55,
+            2.3
+          ],
+          "offsetFromBayCenterMeters": -0.7
+        },
+        {
+          "label": "ventana_1_0",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -6.05,
+            -0.365,
+            4.5
+          ],
+          "boundsMaxMeters": [
+            -4.55,
+            0.085,
+            6.0
+          ],
+          "sizeMeters": [
+            1.5,
+            0.45,
+            1.5
+          ],
+          "offsetFromBayCenterMeters": 0.7
+        },
+        {
+          "label": "ventana_1_1",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -0.75,
+            -0.365,
+            4.5
+          ],
+          "boundsMaxMeters": [
+            0.75,
+            0.085,
+            6.0
+          ],
+          "sizeMeters": [
+            1.5,
+            0.45,
+            1.5
+          ],
+          "offsetFromBayCenterMeters": 0.0
+        },
+        {
+          "label": "ventana_1_2",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            4.55,
+            -0.365,
+            4.5
+          ],
+          "boundsMaxMeters": [
+            6.05,
+            0.085,
+            6.0
+          ],
+          "sizeMeters": [
+            1.5,
+            0.45,
+            1.5
+          ],
+          "offsetFromBayCenterMeters": -0.7
+        },
+        {
+          "label": "balcon_0",
+          "generator": "BALCONY",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -6.5,
+            -1.15,
+            4.32
+          ],
+          "boundsMaxMeters": [
+            -4.1,
+            -0.3,
+            5.41
+          ],
+          "sizeMeters": [
+            2.4,
+            0.85,
+            1.09
+          ],
+          "offsetFromBayCenterMeters": 0.7
+        },
+        {
+          "label": "balcon_1",
+          "generator": "BALCONY",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            4.1,
+            -1.15,
+            4.32
+          ],
+          "boundsMaxMeters": [
+            6.5,
+            -0.3,
+            5.41
+          ],
+          "sizeMeters": [
+            2.4,
+            0.85,
+            1.09
+          ],
+          "offsetFromBayCenterMeters": -0.7
+        },
+        {
+          "label": "ventana_2_0",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -6.05,
+            -0.365,
+            7.5
+          ],
+          "boundsMaxMeters": [
+            -4.55,
+            0.085,
+            9.0
+          ],
+          "sizeMeters": [
+            1.5,
+            0.45,
+            1.5
+          ],
+          "offsetFromBayCenterMeters": 0.7
+        },
+        {
+          "label": "ventana_2_1",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -0.75,
+            -0.365,
+            7.5
+          ],
+          "boundsMaxMeters": [
+            0.75,
+            0.085,
+            9.0
+          ],
+          "sizeMeters": [
+            1.5,
+            0.45,
+            1.5
+          ],
+          "offsetFromBayCenterMeters": 0.0
+        },
+        {
+          "label": "ventana_2_2",
+          "generator": "WINDOW_FLAT",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            4.55,
+            -0.365,
+            7.5
+          ],
+          "boundsMaxMeters": [
+            6.05,
+            0.085,
+            9.0
+          ],
+          "sizeMeters": [
+            1.5,
+            0.45,
+            1.5
+          ],
+          "offsetFromBayCenterMeters": -0.7
+        }
+      ],
+      "bandLines": [
+        {
+          "label": "impasta_1",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.3,
+            -0.47,
+            3.47
+          ],
+          "boundsMaxMeters": [
+            8.3,
+            0.03,
+            3.63
+          ],
+          "sizeMeters": [
+            16.6,
+            0.5,
+            0.16
+          ],
+          "measuredBottomZMeters": 3.47,
+          "offsetFromBandLineMeters": 0.47
+        },
+        {
+          "label": "impasta_2",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.3,
+            -0.47,
+            6.47
+          ],
+          "boundsMaxMeters": [
+            8.3,
+            0.03,
+            6.63
+          ],
+          "sizeMeters": [
+            16.6,
+            0.5,
+            0.16
+          ],
+          "measuredBottomZMeters": 6.47,
+          "offsetFromBandLineMeters": 0.47
+        },
+        {
+          "label": "cornisa_inferior",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.65,
+            -0.895,
+            9.55
+          ],
+          "boundsMaxMeters": [
+            8.65,
+            0.055,
+            9.79
+          ],
+          "sizeMeters": [
+            17.3,
+            0.95,
+            0.24
+          ],
+          "measuredBottomZMeters": 9.55,
+          "offsetFromBandLineMeters": 0.55
+        }
+      ],
+      "otherSteps": [
+        {
+          "label": "zocalo",
+          "generator": "WALL",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.35,
+            -0.35,
+            0.0
+          ],
+          "boundsMaxMeters": [
+            8.35,
+            0.15,
+            0.55
+          ],
+          "sizeMeters": [
+            16.7,
+            0.5,
+            0.55
+          ]
+        },
+        {
+          "label": "muro_planta_0",
+          "generator": "WALL",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.0,
+            -0.15,
+            0.55
+          ],
+          "boundsMaxMeters": [
+            8.0,
+            0.15,
+            3.55
+          ],
+          "sizeMeters": [
+            16.0,
+            0.3,
+            3.0
+          ]
+        },
+        {
+          "label": "muro_planta_1",
+          "generator": "WALL",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.0,
+            -0.15,
+            3.55
+          ],
+          "boundsMaxMeters": [
+            8.0,
+            0.15,
+            6.55
+          ],
+          "sizeMeters": [
+            16.0,
+            0.3,
+            3.0
+          ]
+        },
+        {
+          "label": "fronton_1_0",
+          "generator": "CEILING",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -6.35,
+            -0.36,
+            6.04
+          ],
+          "boundsMaxMeters": [
+            -4.25,
+            0.0,
+            6.19
+          ],
+          "sizeMeters": [
+            2.1,
+            0.36,
+            0.15
+          ]
+        },
+        {
+          "label": "alfeniz_1_0",
+          "generator": "CEILING",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": -0.0,
+          "boundsMinMeters": [
+            -6.275,
+            -0.34,
+            4.38
+          ],
+          "boundsMaxMeters": [
+            -4.325,
+            0.0,
+            4.48
+          ],
+          "sizeMeters": [
+            1.95,
+            0.34,
+            0.1
+          ]
+        },
+        {
+          "label": "fronton_1_1",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -1.05,
+            -0.36,
+            6.04
+          ],
+          "boundsMaxMeters": [
+            1.05,
+            0.0,
+            6.19
+          ],
+          "sizeMeters": [
+            2.1,
+            0.36,
+            0.15
+          ]
+        },
+        {
+          "label": "alfeniz_1_1",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -0.975,
+            -0.34,
+            4.38
+          ],
+          "boundsMaxMeters": [
+            0.975,
+            0.0,
+            4.48
+          ],
+          "sizeMeters": [
+            1.95,
+            0.34,
+            0.1
+          ]
+        },
+        {
+          "label": "fronton_1_2",
+          "generator": "CEILING",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            4.25,
+            -0.36,
+            6.04
+          ],
+          "boundsMaxMeters": [
+            6.35,
+            0.0,
+            6.19
+          ],
+          "sizeMeters": [
+            2.1,
+            0.36,
+            0.15
+          ]
+        },
+        {
+          "label": "alfeniz_1_2",
+          "generator": "CEILING",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            4.325,
+            -0.34,
+            4.38
+          ],
+          "boundsMaxMeters": [
+            6.275,
+            0.0,
+            4.48
+          ],
+          "sizeMeters": [
+            1.95,
+            0.34,
+            0.1
+          ]
+        },
+        {
+          "label": "muro_planta_2",
+          "generator": "WALL",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.0,
+            -0.15,
+            6.55
+          ],
+          "boundsMaxMeters": [
+            8.0,
+            0.15,
+            9.55
+          ],
+          "sizeMeters": [
+            16.0,
+            0.3,
+            3.0
+          ]
+        },
+        {
+          "label": "fronton_2_0",
+          "generator": "CEILING",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -6.35,
+            -0.36,
+            9.04
+          ],
+          "boundsMaxMeters": [
+            -4.25,
+            0.0,
+            9.19
+          ],
+          "sizeMeters": [
+            2.1,
+            0.36,
+            0.15
+          ]
+        },
+        {
+          "label": "alfeniz_2_0",
+          "generator": "CEILING",
+          "declaredXMeters": -5.3,
+          "measuredCenterXMeters": -5.3,
+          "deviationFromDeclaredMeters": -0.0,
+          "boundsMinMeters": [
+            -6.275,
+            -0.34,
+            7.38
+          ],
+          "boundsMaxMeters": [
+            -4.325,
+            0.0,
+            7.48
+          ],
+          "sizeMeters": [
+            1.95,
+            0.34,
+            0.1
+          ]
+        },
+        {
+          "label": "fronton_2_1",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -1.05,
+            -0.36,
+            9.04
+          ],
+          "boundsMaxMeters": [
+            1.05,
+            0.0,
+            9.19
+          ],
+          "sizeMeters": [
+            2.1,
+            0.36,
+            0.15
+          ]
+        },
+        {
+          "label": "alfeniz_2_1",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -0.975,
+            -0.34,
+            7.38
+          ],
+          "boundsMaxMeters": [
+            0.975,
+            0.0,
+            7.48
+          ],
+          "sizeMeters": [
+            1.95,
+            0.34,
+            0.1
+          ]
+        },
+        {
+          "label": "fronton_2_2",
+          "generator": "CEILING",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            4.25,
+            -0.36,
+            9.04
+          ],
+          "boundsMaxMeters": [
+            6.35,
+            0.0,
+            9.19
+          ],
+          "sizeMeters": [
+            2.1,
+            0.36,
+            0.15
+          ]
+        },
+        {
+          "label": "alfeniz_2_2",
+          "generator": "CEILING",
+          "declaredXMeters": 5.3,
+          "measuredCenterXMeters": 5.3,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            4.325,
+            -0.34,
+            7.38
+          ],
+          "boundsMaxMeters": [
+            6.275,
+            0.0,
+            7.48
+          ],
+          "sizeMeters": [
+            1.95,
+            0.34,
+            0.1
+          ]
+        },
+        {
+          "label": "cornisa_superior",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.425,
+            -0.56,
+            9.79
+          ],
+          "boundsMaxMeters": [
+            8.425,
+            0.06,
+            9.97
+          ],
+          "sizeMeters": [
+            16.85,
+            0.62,
+            0.18
+          ]
+        },
+        {
+          "label": "antepecho",
+          "generator": "WALL",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.25,
+            -0.06,
+            9.97
+          ],
+          "boundsMaxMeters": [
+            8.25,
+            0.16,
+            10.52
+          ],
+          "sizeMeters": [
+            16.5,
+            0.22,
+            0.55
+          ]
+        },
+        {
+          "label": "pilastra_0",
+          "generator": "PILLAR",
+          "declaredXMeters": -8.1,
+          "measuredCenterXMeters": -8.1,
+          "deviationFromDeclaredMeters": -0.0,
+          "boundsMinMeters": [
+            -8.55,
+            -0.57,
+            0.55
+          ],
+          "boundsMaxMeters": [
+            -7.65,
+            0.33,
+            9.9
+          ],
+          "sizeMeters": [
+            0.9,
+            0.9,
+            9.35
+          ]
+        },
+        {
+          "label": "capitel_pilastra_0",
+          "generator": "CEILING",
+          "declaredXMeters": -8.1,
+          "measuredCenterXMeters": -8.1,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.575,
+            -0.55,
+            9.9
+          ],
+          "boundsMaxMeters": [
+            -7.625,
+            0.15,
+            10.1
+          ],
+          "sizeMeters": [
+            0.95,
+            0.7,
+            0.2
+          ]
+        },
+        {
+          "label": "pilastra_1",
+          "generator": "PILLAR",
+          "declaredXMeters": 8.1,
+          "measuredCenterXMeters": 8.1,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            7.65,
+            -0.57,
+            0.55
+          ],
+          "boundsMaxMeters": [
+            8.55,
+            0.33,
+            9.9
+          ],
+          "sizeMeters": [
+            0.9,
+            0.9,
+            9.35
+          ]
+        },
+        {
+          "label": "capitel_pilastra_1",
+          "generator": "CEILING",
+          "declaredXMeters": 8.1,
+          "measuredCenterXMeters": 8.1,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            7.625,
+            -0.55,
+            9.9
+          ],
+          "boundsMaxMeters": [
+            8.575,
+            0.15,
+            10.1
+          ],
+          "sizeMeters": [
+            0.95,
+            0.7,
+            0.2
+          ]
+        },
+        {
+          "label": "balaustrada",
+          "generator": "FENCE",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.5,
+            0.0,
+            10.52
+          ],
+          "boundsMaxMeters": [
+            8.5,
+            0.1,
+            11.32
+          ],
+          "sizeMeters": [
+            17.0,
+            0.1,
+            0.8
+          ]
+        },
+        {
+          "label": "manopostigo",
+          "generator": "CEILING",
+          "declaredXMeters": 0.0,
+          "measuredCenterXMeters": 0.0,
+          "deviationFromDeclaredMeters": 0.0,
+          "boundsMinMeters": [
+            -8.6,
+            -0.12,
+            11.32
+          ],
+          "boundsMaxMeters": [
+            8.6,
+            0.22,
+            11.44
+          ],
+          "sizeMeters": [
+            17.2,
+            0.34,
+            0.12
+          ]
+        }
+      ]
+    },
+    "labFiller": [
+      "lab_body",
+      "lab_door_leaf",
+      "lab_glass_1_0",
+      "lab_glass_1_1",
+      "lab_glass_1_2",
+      "lab_glass_2_0",
+      "lab_glass_2_1",
+      "lab_glass_2_2",
+      "lab_glass_shop_0",
+      "lab_glass_shop_1",
+      "lab_roof_deck"
+    ],
+    "note": "Todo objeto cuyo atributo custom `ext_lab_author` vale 'hifi_builder' proviene de un generador de la extension. `lab_filler` son las piezas de masa, cubierta, hojas y cristales que HiFi no genera. En el layout `grid` cada cota de hueco es un centro de crujia y cada linea horizontal una banda de 3,00 m; `gridAudit` lo mide sobre la geometria construida, no sobre la receta."
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 45.0,
+    "elevationDegrees": 30,
+    "orthoScale": 23.600000381469727,
+    "targetZ": 5.4
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 6.91,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 755,
+        "height": 750,
+        "offsetX": 218,
+        "offsetY": 99
+      },
+      "final": {
+        "width": 755,
+        "height": 750
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 2356,
+    "meshObjects": 71,
+    "bounds": {
+      "min": [
+        -8.65,
+        -1.15,
+        0.0
+      ],
+      "max": [
+        8.65,
+        6.9,
+        11.44
+      ],
+      "size": [
+        17.3,
+        8.05,
+        11.44
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_free.png",
+    "width": 755,
+    "height": 750,
+    "sha256": "f72ad1e72150be938e3be6231a9349409f72105d708197119b1f604b14f49c33",
+    "bytes": 553520
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/hifi_lab.py -- --layout=free --materials=atlas --mood=day_civic --ortho-scale=23.6 --target-z=5.4 --output=docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_free.png --metadata=docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_free.json"
+}

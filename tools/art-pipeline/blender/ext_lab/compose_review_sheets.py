@@ -451,6 +451,226 @@ def ag_civic_sheet():
     return first, second
 
 
+def text_panel(heading: str, lines: list[str], width: int, big: int = 17,
+               body: int = 15) -> Image.Image:
+    """Panel de texto para lo que no es una imagen: la decisión tomada sobre lo fotografiado.
+
+    Una hoja de revisión humana que sólo muestra muestras obliga a leer otro archivo para saber qué
+    se decidió con ellas. El pie de foto tiene poco espacio, así que el veredicto va en su propio
+    panel, dentro de la misma rejilla.
+
+    El alto se deriva del texto, no se fija: un veredicto que no cabe es un veredicto no entregado.
+    El ancho sí es fijo y no depende de la escala de la hoja, porque la lectura al 50 % reduce los
+    sprites (que son los que entran en pantalla) pero la letra de una decisión nunca se encoge.
+    """
+    typeface, small = font(big), font(body)
+    ascent, descent = small.getmetrics()
+    line_height = ascent + descent
+    wrapped = [entry for source in lines for entry in wrap_caption(source, width - 28, small, max_lines=40)]
+    canvas = Image.new("RGBA", (width, 12 + big + 18 + len(wrapped) * (line_height + 4) + 8), PANEL)
+    draw = ImageDraw.Draw(canvas)
+    draw.text((14, 12), heading, fill=TITLE, font=typeface)
+    y = 12 + big + 18
+    for entry in wrapped:
+        draw.text((14, y), entry, fill=MUTED, font=small)
+        y += line_height + 4
+    return canvas
+
+
+def ext_module_note(png: Path) -> str:
+    """Pie de un brazo horneado: la caja del MÓDULO (no la de la escena) y su procedencia.
+
+    `geometry` del JSON de evidencia es el bounding de toda la escena, incluidos los Empty de
+    control que dejan las extensiones: por eso un módulo de 3,00 m aparece con 3,95 m de alto en el
+    fotograma. La caja que hay que citar es la que midió el adaptador sobre el lote exportado.
+    """
+    meta = load_json(png)
+    module = (meta.get("generated") or {}).get("measured") or {}
+    bounds = module.get("bounds") or {}
+    axis = lambda name: bounds.get(name) or [0, 0]
+    span = lambda name: round(axis(name)[1] - axis(name)[0], 3)
+    box = lambda name: f"[{axis(name)[0]};{axis(name)[1]}]"
+    ext = meta.get("extension") or {}
+    cam = meta.get("camera") or {}
+    final = (meta.get("render") or {}).get("trim", {}).get("final", {})
+    seat = (meta.get("generated") or {}).get("seating") or {}
+    back = (meta.get("generated") or {}).get("backing") or {}
+    relief = (f" · relieve +{seat.get('projectedFrontMeters')} m antes de cortar "
+              f"(paño en {back.get('wallFrontMeters')} m)"
+              if seat.get("projectedFrontMeters") is not None else "")
+    # Lo que decide el descarte es si la pieza CABE, así que el pie muestra el balance del corte:
+    # triángulos pedidos contra triángulos entregados dentro de la caja canónica.
+    cut = (meta.get("generated") or {}).get("cutAudit") or {}
+    cut_note = (f" · corte {cut.get('trianglesRequested')}->{cut.get('trianglesSurviving')} tri "
+                f"(limite +{cut.get('frontLimitMeters')} m)" if cut else "")
+    return (
+        f"modulo {module.get('triangles', '?')} tri / {module.get('vertices', '?')} vert · "
+        f"caja {span('x')}x{span('y')}x{span('z')} m (x{box('x')} y{box('y')} z{box('z')}){relief}"
+        f"{cut_note} · "
+        f"{ext.get('registry_id') or ext.get('moduleId') or '-'} v{ext.get('version', '-')} "
+        f"({ext.get('license', '-')}) · ortogonal az {cam.get('azimuthDegrees')}° "
+        f"escala {round(cam.get('orthoScale') or 0, 2)} · fotograma {final.get('width')}×{final.get('height')} px"
+    )
+
+
+def hifi_audit_note(png: Path) -> str:
+    """Pie de una muestra HiFi: los desvíos medidos contra la retícula del Composer.
+
+    La última cifra no sale del `gridAudit` sino de los tramos de barandilla ya muestreados: un
+    balcón de 1,60 m no tiene por qué caer sobre una junta, lo que tiene que hacer es quedar
+    centrado en SU crujía. Medir sus balaustres contra la junta devolvía 1,00 m de "desvío" que
+    era un artefacto del indicador, no un defecto de la fachada.
+    """
+    meta = load_json(png)
+    ext = meta.get("extension") or {}
+    generated = meta.get("generated") or {}
+    audit = generated.get("gridAudit") or {}
+    posts = audit.get("balustradePosts") or {}
+    rail = audit.get("balconyRailPosts") or {}
+    spacing = posts.get("spacingMeters") or {}
+    rail_spacing = rail.get("spacingMeters") or {}
+    bay = audit.get("bayMeters") or 2.0
+    rails = [(s["firstX"] + s["lastX"]) / 2.0 for s in rail.get("samples", [])]
+    rail_off = min((abs(((r + bay / 2.0) % bay) - bay / 2.0) for r in rails), default=None)
+    railings = (
+        f"barandillas {rail.get('posts', 0)} postes en {rail.get('railings', 0)} tramos de paso "
+        f"{rail_spacing.get('min', '?')} m, cada tramo centrado en su crucia con desvio max "
+        f"{round(rail_off, 4) if rail_off is not None else '-'} m"
+        if rail.get("posts")
+        else "sin barandillas de balcon"
+    )
+    return (
+        f"{meta.get('geometry', {}).get('triangles', '?')} tri en {meta.get('geometry', {}).get('meshObjects', '?')} "
+        f"objetos · receta {ext.get('layout', '-')} · materiales {ext.get('materials', '-')} · "
+        f"{ext.get('generatorCalls', '?')} llamadas a la extension + {len(generated.get('labFiller') or [])} piezas "
+        f"de laboratorio que HiFi no genera · "
+        f"{audit.get('openingsAudited', '?')} huecos: desvio max al centro de crucia "
+        f"{audit.get('maxOpeningOffsetFromBayCenterMeters', '?')} m · "
+        f"{audit.get('bandLinesAudited', '?')} lineas de banda: desvio max "
+        f"{audit.get('maxLineOffsetFromBandMeters', '?')} m · desvio max cota construida vs pedida "
+        f"{audit.get('maxOpeningDeviationFromDeclaredMeters', '?')} m · "
+        f"balaustrada {posts.get('posts', 0)} postes sobre las juntas (paso {spacing.get('min', '?')}-"
+        f"{spacing.get('max', '?')} m, desvio max {posts.get('maxOffsetFromJointMeters', '?')} m) · "
+        f"{railings}"
+    )
+
+
+def ext_window_columns_sheet():
+    """WP03: control, HiFi y Archimesh resolviendo el MISMO vano de ventana de 2×3 m."""
+    folder = V2 / "ext"
+
+    def arm(stem: str, caption: str, height: int):
+        png = folder / f"{stem}.png"
+        if not png.exists():
+            return placeholder(f"{caption} · SIN EVIDENCIA", 460, 320)
+        return panel(png, f"{caption} · {ext_module_note(png)}", max_height=height, big=16,
+                     upscale=True, max_lines=14)
+
+    decision = [
+        "NINGUNO de los dos vanos se adopta como modulo del Catalogo. Motivos medidos:",
+        "HiFi: WINDOW_FLAT expone 5 propiedades (ancho, alto, profundidad, grosor de marco y cota "
+        "de base) y ninguna divide el hueco, asi que el vano sale sin montantes ni travesero. El "
+        "control GN resuelve marco con retranqueo, 2 montantes, travesero, alféizar con retorno y "
+        "dintel en 216 tri; HiFi necesita 5 llamadas (marco + alféizar + dintel + 2 pilastras) para "
+        "una caja de 98 tri en la que el hueco sigue siendo un agujero unico. Y la pilastra no es "
+        "tal: PILLAR genera una columna exenta de 0,34x0,34 cuyo relieve llega a +0,37 m (0,42 m por "
+        "delante de la cara del pano), asi que en fachada se lee como soporte suelto, no como "
+        "retranqueo.",
+        "Archimesh: si divide el hueco (genera Window.L y Window.R con su manija) y si aporta moldura "
+        "perimetral y alféizar volado, pero la carpinteria queda DENTRO del paño. El paño canonico mide "
+        "0,10 m (y entre -0,15 y -0,05) y el lote es un componente de 0,54 m de fondo pensado para muro "
+        "de obra: asentado por detras, sus hojas caen en y=-0,105 y -0,055 y las manijas en -0,146 y "
+        "-0,097, todas por detras de la cara del paño, asi que en el fotograma el hueco sale con color "
+        "de ladrillo. Nada que ver con el tamano: a 120 px de crujia (2 m x 60,2 px/m) el detalle no se "
+        "veria igual, pero es que ademas esta oculto por construccion. Y cuesta 1358 tri (6,3x el "
+        "control), 912 de ellos (61%) en las dos manijas. El preset no ayuda: high (model 2, frame 0,09) "
+        "y simplified (model 1, frame 0,07) generan el MISMO lote de 1488 tri con las mismas cotas; lo "
+        "unico que cambia es el decimate (1346 -> 610).",
+        "LO QUE SI SE QUEDA DE WP03: (1) el adaptador ext_module_bake.py, que normaliza la salida de "
+        "cualquier extension a la caja canonica (crujia 2 m, banda 3 m, y [-0,15; +0,35]) con asiento "
+        "medido, corte a junta y brazo decimado, y sobre todo su cutAudit: triangulos pedidos contra "
+        "triangulos entregados, que es la prueba de que un componente no cabe (HiFi 80 -> 72, "
+        "Archimesh 1488 -> 1346); (2) la receta de fachada HiFi sobre reticula, que es lo que se podra "
+        "usar en WP06; (3) la tecnica de barandilla: BALCONY no genera balaustres, pero FENCE si, y se "
+        "apoya en la cota medida del forjado.",
+    ]
+
+    def build(height: int, out_path: Path):
+        panels = [
+            arm("control_gn_window_bay",
+                "A · CONTROL GN mod_gn_window_bay_2m: marco con retranqueo, 2 montantes, travesero, "
+                "alféizar con retorno y dintel", height),
+            arm("hifi_window_bay_2m_high",
+                "B · HiFi high: marco en relieve + alféizar + dintel + pilastras en las juntas; "
+                "hueco sin dividir", height),
+            arm("archimesh_window_bay_2m_high",
+                "C · Archimesh high: moldura perimetral, hoja partida con manija y alféizar volado; "
+                "las hojas y las manijas quedan dentro del paño, el hueco sale con color de ladrillo",
+                height),
+            arm("hifi_window_bay_2m_simplified",
+                "D · HiFi simplified (decimate 0,45): el marco se colapsa y las pilastras quedan "
+                "como aletas sueltas - la simplificacion no es admisible aqui", height),
+            arm("archimesh_window_bay_2m_simplified",
+                "E · Archimesh simplified (decimate 0,45): sin perdida visible a esta escala; el "
+                "bake con decimador SI es una via util para otras piezas", height),
+            text_panel("WP03 · decision por herramienta", decision, width=560),
+        ]
+        return sheet(out_path, title, subtitle, panels, columns=3)
+
+    title = (
+        "D-111.2 WP03 · Componente de ventana: control Geometry Nodes vs HiFi vs Archimesh, "
+        "misma crujía de 2 m y misma banda de 3 m"
+    )
+    subtitle = (
+        "Los tres brazos se hornean con el mismo adaptador, dentro de la misma caja canónica "
+        "(y ∈ [-0,15; +0,35]), con los buckets del atlas que usan WP01/WP02 -el adaptador pinta por rol "
+        "y sólo pone metal en las manijas de Archimesh- y la misma cámara ortogonal (az 225°, escala "
+        "8,6), y se tilean tres veces para juzgar la junta. La comparación es geométrica y se cierra "
+        "con números medidos: qué cota y alcanza cada pieza, cuántos triángulos pide y cuántos le "
+        "sobreviven al corte a la caja canónica, y qué queda realmente por delante de la cara del paño."
+    )
+    first = build(560, V2_SHEETS / "ext_window_columns.png")
+    second = build(280, V2_SHEETS / "ext_window_columns_half.png")
+    return first, second
+
+
+def hifi_grid_sheet():
+    """WP03: la receta libre del laboratorio contra la receta montada sobre la retícula del Composer."""
+    folder = V2 / "hifi"
+
+    def arm(stem: str, caption: str, height: int):
+        png = folder / f"{stem}.png"
+        if not png.exists():
+            return placeholder(f"{caption} · SIN EVIDENCIA", 460, 320)
+        return panel(png, f"{caption} · {hifi_audit_note(png)}", max_height=height, big=16, max_lines=14)
+
+    def build(height: int, out_path: Path):
+        panels = [
+            arm("hifi_facade_free",
+                "A · receta libre (la que habia): huecos en x = -5,3 / 0 / 5,3 y plantas en "
+                "z = 0,55 + 3k. No es traducible a modulos", height),
+            arm("hifi_facade_grid",
+                "B · receta sobre reticula: 9 crucias x 3 bandas, hueco 1,05x1,45 en el centro de "
+                "cada crucia y lineas de forjado exactas", height),
+        ]
+        return sheet(out_path, title, subtitle, panels, columns=2)
+
+    title = (
+        "D-111.2 WP03 · HiFi Architecture Builder: muestra de fachada residencial/comercial coherente "
+        "con la retícula de Landlord"
+    )
+    subtitle = (
+        "Misma extensión, misma luz, misma cámara ortogonal (escala 23,6 · target 5,4) y los mismos "
+        "materiales del atlas; lo único que cambia es la receta. `gridAudit` no declara la coherencia, "
+        "la mide sobre la geometría construida: cada hueco auditado contra el centro de crujía más "
+        "cercano y cada línea de forjado contra la banda de 3,00 m. Los postes de la balaustrada se "
+        "miden uno a uno contra las juntas."
+    )
+    first = build(760, V2_SHEETS / "hifi_grid_ab.png")
+    second = build(380, V2_SHEETS / "hifi_grid_ab_half.png")
+    return first, second
+
+
 def pilots_sheet():
     """§8.1: control y candidata por familia piloto, mismo encuadre y mismo seed."""
     pairs = [
@@ -623,6 +843,8 @@ def main() -> None:
         ("§8.6 contexto urbano", urban_sheet),
         ("WP01 geometry nodes v2", gn_v2_sheet),
         ("WP02 arcada civica ag", ag_civic_sheet),
+        ("WP03 componentes ext", ext_window_columns_sheet),
+        ("WP03 fachada hifi grid", hifi_grid_sheet),
     ):
         if only and not any(key in name for key in only):
             continue

@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "control GN - vano de ventana 2x3 m (high), tileado 3 veces",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "tool": "control",
+    "authorship": "Geometry Nodes del proyecto (D-111.2 WP01)",
+    "license": "original",
+    "moduleId": "mod_gn_window_bay_2m",
+    "sourcePath": "blender_artist/sources/original/gn_window_bay_2m.glb",
+    "mood": "day_civic",
+    "invocation": "modulo del catalogo: mod_gn_window_bay_2m -> blender_artist/sources/original/gn_window_bay_2m.glb",
+    "adaptador": "tools/art-pipeline/blender/ext_lab/ext_module_bake.py",
+    "licensedReference": {
+      "id": "mod_megakit_trim_window_2m",
+      "trianglesDeclared": 574
+    }
+  },
+  "generated": {
+    "measured": {
+      "vertices": 432,
+      "triangles": 216,
+      "bounds": {
+        "x": [
+          -1.0,
+          1.0
+        ],
+        "y": [
+          -0.2,
+          0.2
+        ],
+        "z": [
+          0.0,
+          3.0
+        ]
+      },
+      "materials": [
+        "gn_brick_wall",
+        "gn_dark_glass",
+        "gn_stone_trim"
+      ]
+    },
+    "normalization": {
+      "sourceBounds": {
+        "width": 2.0,
+        "depth": 0.4,
+        "height": 3.0,
+        "minZ": 0.0
+      },
+      "importScale": 1.0,
+      "importOffset": [
+        -0.0,
+        -0.05,
+        -0.0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 2.0,
+        "depth": 0.4,
+        "height": 3.0
+      },
+      "unresolvedTextures": []
+    },
+    "note": "El control se importa tal cual lo publica el cat\u00e1logo: sin corte y sin simplificar. Comparten atlas (gn_stone_trim / gn_brick_wall / gn_dark_glass), cruj\u00eda, banda y c\u00e1mara con los brazos horneados de HiFi y Archimesh."
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 225.0,
+    "elevationDegrees": 30,
+    "orthoScale": 8.600000381469727,
+    "targetZ": 1.6
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 3.34,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 524,
+        "height": 572,
+        "offsetX": 254,
+        "offsetY": 234
+      },
+      "final": {
+        "width": 524,
+        "height": 572
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 648,
+    "meshObjects": 3,
+    "bounds": {
+      "min": [
+        -3.0,
+        -0.2,
+        0.0
+      ],
+      "max": [
+        3.0,
+        0.2,
+        3.0
+      ],
+      "size": [
+        6.0,
+        0.4,
+        3.0
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/ext/control_gn_window_bay.png",
+    "width": 524,
+    "height": 572,
+    "sha256": "e6b56b8f1d9dc370c686747c6b6b24d064dbd84e715e0e6914d07b234523a354",
+    "bytes": 289135
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/ext_module_bake.py -- --tool=control --quality=high --out-glb=/tmp/wp03/control_gn_window_bay.glb --report=/tmp/wp03/control_gn_window_bay-report.json --evidence-png=docs/art/graphics-capabilities/evidence/v2/ext/control_gn_window_bay.png --evidence-json=docs/art/graphics-capabilities/evidence/v2/ext/control_gn_window_bay.json"
+}

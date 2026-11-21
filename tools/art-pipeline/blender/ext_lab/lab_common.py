@@ -442,10 +442,17 @@ def _command_line():
 
     Recortar `sys.argv` dejaba fuera `--output`/`--metadata`, que son justamente las rutas que
     dicen qué archivo produjo la imagen: el JSON de evidencia no podía relanzarse desde sí mismo.
+    El script vive DESPUES del flag `-P`, no en `argv[1]` (que bajo `-b --factory-startup -P` es
+    literalmente `-b`), y se guarda relativo al repo para que la línea siga valiendo en otra máquina.
     """
-    script = HERE / Path(sys.argv[1]).name if len(sys.argv) > 1 else Path("lab")
-    tail = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else sys.argv[2:]
-    return " ".join([BLENDER_LABEL, "-b", "--factory-startup", "-P", str(script), "--"] + tail)
+    argv = [str(token) for token in sys.argv]
+    script = argv[argv.index("-P") + 1] if "-P" in argv else str(HERE / "lab")
+    try:
+        script = str(Path(script).resolve().relative_to(REPO_ROOT))
+    except ValueError:
+        pass
+    tail = argv[argv.index("--") + 1 :] if "--" in argv else []
+    return " ".join([BLENDER_LABEL, "-b", "--factory-startup", "-P", script, "--"] + tail)
 
 
 def summarize(items):

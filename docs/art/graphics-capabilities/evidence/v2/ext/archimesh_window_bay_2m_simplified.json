@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "archimesh - vano de ventana con molduras 2x3 m (simplified), tileado 3 veces",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "zip": "archimesh.zip",
+    "version": "1.2.5",
+    "license": "SPDX:GPL-2.0-or-later",
+    "registry_id": "archimesh",
+    "registry_url": "https://extensions.blender.org/add-ons/archimesh/",
+    "upstream_url": "https://projects.blender.org/extensions/archimesh",
+    "archive_sha256": "44745a86dd472e296e06cd45c511e002a1105512a73009cb0018c87611d18d87",
+    "archive_url": "https://extensions.blender.org/download/sha256:44745a86dd472e296e06cd45c511e002a1105512a73009cb0018c87611d18d87/add-on-archimesh-v1.2.5.zip",
+    "maintainer": "Community (Antonio Vazquez)",
+    "blender_version_min": "4.2.0",
+    "registryId": "archimesh",
+    "moduleId": "bl_ext.user_default.archimesh",
+    "mood": "day_civic",
+    "invocation": "bpy.ops.mesh.archimesh_window() + Object.WindowObjectGenerator[0]",
+    "adaptador": "tools/art-pipeline/blender/ext_lab/ext_module_bake.py",
+    "glbSha256": "b7c07e9efcf10269cab63816acd4b3f0366479d3abf35e1af4447a66611689e7",
+    "licenceNote": "SPDX:GPL-2.0-or-later es la licencia del CODIGO de la extension. La geometria exportada se registra como authored-original del proyecto porque este repo no redistribuye el add-on: se instala en un perfil aislado de /tmp y solo se publica el GLB resultante."
+  },
+  "generated": {
+    "recipe": [
+      {
+        "element": "window",
+        "root": "WindowFrame",
+        "properties": {
+          "crt_mat": false,
+          "opentype": "1",
+          "width": 1.4,
+          "height": 1.45,
+          "depth": 0.12,
+          "external": true,
+          "frame": 0.07,
+          "frame_L": 0.07,
+          "wf": 0.07,
+          "leafratio": 0.5,
+          "handle": true,
+          "sill": true,
+          "sill_thickness": 0.06,
+          "sill_front": 0.16,
+          "sill_back": 0.06,
+          "blind": false,
+          "model": "1",
+          "r": 0.0
+        },
+        "objects": [
+          "Handle",
+          "Handle.001",
+          "Window.L",
+          "Window.R",
+          "WindowFrame",
+          "Windows_Sill"
+        ]
+      }
+    ],
+    "measured": {
+      "vertices": 367,
+      "triangles": 610,
+      "bounds": {
+        "x": [
+          -1.0,
+          1.0
+        ],
+        "y": [
+          -0.15,
+          0.35
+        ],
+        "z": [
+          0.0,
+          3.0
+        ]
+      },
+      "materials": [
+        "gn_brick_wall",
+        "gn_dark_glass",
+        "gn_painted_metal",
+        "gn_stone_trim"
+      ]
+    },
+    "partsBreakdown": [
+      {
+        "object": "Handle",
+        "material": "gn_painted_metal",
+        "triangles": 456,
+        "requestedFrontYMeters": -0.1462,
+        "trianglesAfterCut": 456,
+        "trianglesCutOff": 0,
+        "frontYMeters": -0.1462
+      },
+      {
+        "object": "Handle.001",
+        "material": "gn_painted_metal",
+        "triangles": 456,
+        "requestedFrontYMeters": -0.0967,
+        "trianglesAfterCut": 456,
+        "trianglesCutOff": 0,
+        "frontYMeters": -0.0967
+      },
+      {
+        "object": "WindowFrame",
+        "material": "gn_stone_trim",
+        "triangles": 208,
+        "requestedFrontYMeters": -0.0055,
+        "trianglesAfterCut": 208,
+        "trianglesCutOff": 0,
+        "frontYMeters": -0.0055
+      },
+      {
+        "object": "Window.L",
+        "material": "gn_dark_glass",
+        "triangles": 178,
+        "requestedFrontYMeters": -0.1045,
+        "trianglesAfterCut": 108,
+        "trianglesCutOff": 70,
+        "frontYMeters": -0.1045
+      },
+      {
+        "object": "Window.R",
+        "material": "gn_dark_glass",
+        "triangles": 178,
+        "requestedFrontYMeters": -0.055,
+        "trianglesAfterCut": 108,
+        "trianglesCutOff": 70,
+        "frontYMeters": -0.055
+      },
+      {
+        "object": "Windows_Sill",
+        "material": "gn_stone_trim",
+        "triangles": 12,
+        "requestedFrontYMeters": 0.3925,
+        "trianglesAfterCut": 10,
+        "trianglesCutOff": 2,
+        "frontYMeters": 0.35
+      }
+    ],
+    "seating": {
+      "shiftXMeters": -1.404,
+      "shiftYMeters": 0.3925,
+      "projectedFrontMeters": 0.3925
+    },
+    "cutAudit": {
+      "frontLimitMeters": 0.35,
+      "trianglesRequested": 1488,
+      "trianglesSurviving": 1346,
+      "maxRequestedFrontYMeters": 0.3925
+    },
+    "backing": {
+      "wallBackMeters": -0.15,
+      "wallFrontMeters": -0.05,
+      "glazingAdded": false
+    },
+    "note": "Las tres instancias comparten la pilastra de la junta. Materiales del atlas licenciado, los mismos buckets de WP01 y WP02, aplicados por rol: gn_brick_wall en el pa\u00f1o, gn_stone_trim en molduras y marco, gn_dark_glass en el cerramiento y gn_painted_metal solo en las manijas de Archimesh, que el control no tiene. HiFi no genera vidrio, as\u00ed que su hoja lleva la l\u00e1mina del adaptador pegada a la cara interior del pa\u00f1o. Archimesh no recibe l\u00e1mina porque trae sus dos hojas: el error estuvo en suponer que eso basta, porque `partsBreakdown` mide esas hojas y sus manijas por detr\u00e1s de la cara del pa\u00f1o (-0,05), es decir ocultas por el propio muro. La hoja de revisi\u00f3n lo muestra: el vano sale con color de ladrillo dentro del marco."
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 225.0,
+    "elevationDegrees": 30,
+    "orthoScale": 8.600000381469727,
+    "targetZ": 1.6
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 3.42,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 524,
+        "height": 568,
+        "offsetX": 254,
+        "offsetY": 234
+      },
+      "final": {
+        "width": 524,
+        "height": 568
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 1830,
+    "meshObjects": 3,
+    "bounds": {
+      "min": [
+        -3.0,
+        -0.15,
+        0.0
+      ],
+      "max": [
+        3.0,
+        0.35,
+        3.0
+      ],
+      "size": [
+        6.0,
+        0.5,
+        3.0
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/ext/archimesh_window_bay_2m_simplified.png",
+    "width": 524,
+    "height": 568,
+    "sha256": "7d9250e018af74b603d4ab0e825d12b92679d41bbf37962dd2cc479ce417d505",
+    "bytes": 279545
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/ext_module_bake.py -- --tool=archimesh --quality=simplified --out-glb=/tmp/wp03/archimesh_window_bay_2m_simplified.glb --report=/tmp/wp03/archimesh_window_bay_2m_simplified-report.json --evidence-png=docs/art/graphics-capabilities/evidence/v2/ext/archimesh_window_bay_2m_simplified.png --evidence-json=docs/art/graphics-capabilities/evidence/v2/ext/archimesh_window_bay_2m_simplified.json"
+}

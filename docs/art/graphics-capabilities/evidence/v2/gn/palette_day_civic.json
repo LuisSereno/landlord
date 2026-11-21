@@ -1,0 +1,350 @@
+{
+ "schemaVersion": 1,
+ "generator": "tools/art-pipeline/blender/ext_lab/gn_palette.py",
+ "mood": "day_civic",
+ "styleLayer": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+ "rule": "color de autor = cluster dominante medido en el atlas del control; misma banda => mismas escalas en todos los moods. El vidrio se invierte numéricamente porque en el control no tiene albedo de textura y escapa al tratamiento.",
+ "surfaces": [
+  {
+   "gnMaterial": "gn_brick_wall",
+   "role": "paño de fábrica",
+   "derivation": "cluster dominante del atlas de control",
+   "treatmentPath": "escalera_de_bandas",
+   "controlMeasured": {
+    "atlas": "T_RedBrick_BaseColor.png",
+    "authoredSrgb": [
+     0.375,
+     0.2917,
+     0.2083
+    ],
+    "authoredLinear": [
+     0.116,
+     0.0692,
+     0.0358
+    ],
+    "share": 0.347,
+    "hue": 30.0,
+    "saturation": 0.444,
+    "value": 0.375
+   },
+   "authoredLinear": [
+    0.116,
+    0.0692,
+    0.0358
+   ],
+   "authoredSrgb": [
+    0.375,
+    0.2917,
+    0.2083
+   ],
+   "styledSrgb": [
+    0.66,
+    0.5427,
+    0.4253
+   ],
+   "previouslyAuthoredSrgb": [
+    0.68,
+    0.4492,
+    0.3811
+   ],
+   "styledPreviously": [
+    0.66,
+    0.3457,
+    0.2829
+   ],
+   "styledNow": [
+    0.66,
+    0.5427,
+    0.4253
+   ],
+   "controlStyledReference": [
+    0.66,
+    0.5427,
+    0.4253
+   ],
+   "deltaStyledL1": 0.0,
+   "deltaBeforeL1": 0.3394,
+   "moodResidual": {
+    "night_civic": 0.0,
+    "day_industrial": 0.0
+   }
+  },
+  {
+   "gnMaterial": "gn_stone_trim",
+   "role": "encofrado, dintel, alfiz y cornisa",
+   "derivation": "cluster dominante del atlas de control",
+   "treatmentPath": "escalera_de_bandas",
+   "controlMeasured": {
+    "atlas": "T_Trim_BaseColor.png",
+    "authoredSrgb": [
+     0.625,
+     0.625,
+     0.4583
+    ],
+    "authoredLinear": [
+     0.3485,
+     0.3485,
+     0.1775
+    ],
+    "share": 0.6779,
+    "hue": 60.0,
+    "saturation": 0.267,
+    "value": 0.625
+   },
+   "authoredLinear": [
+    0.3485,
+    0.3485,
+    0.1775
+   ],
+   "authoredSrgb": [
+    0.625,
+    0.625,
+    0.4583
+   ],
+   "styledSrgb": [
+    0.78,
+    0.7426,
+    0.5928
+   ],
+   "previouslyAuthoredSrgb": [
+    0.865,
+    0.8434,
+    0.7858
+   ],
+   "styledPreviously": [
+    0.6365,
+    0.61,
+    0.5437
+   ],
+   "styledNow": [
+    0.78,
+    0.7426,
+    0.5928
+   ],
+   "controlStyledReference": [
+    0.78,
+    0.7426,
+    0.5928
+   ],
+   "deltaStyledL1": 0.0,
+   "deltaBeforeL1": 0.3252,
+   "moodResidual": {
+    "night_civic": 0.0,
+    "day_industrial": 0.0
+   }
+  },
+  {
+   "gnMaterial": "gn_joinery_dark",
+   "role": "carpintería y frentes de tienda",
+   "derivation": "cluster dominante del atlas de control",
+   "treatmentPath": "escalera_de_bandas",
+   "controlMeasured": {
+    "atlas": "T_Trim_BaseColor.png",
+    "authoredSrgb": [
+     0.2917,
+     0.125,
+     0.0417
+    ],
+    "authoredLinear": [
+     0.0692,
+     0.0143,
+     0.0032
+    ],
+    "share": 0.1231,
+    "hue": 20.0,
+    "saturation": 0.857,
+    "value": 0.292
+   },
+   "authoredLinear": [
+    0.0692,
+    0.0143,
+    0.0032
+   ],
+   "authoredSrgb": [
+    0.2917,
+    0.125,
+    0.0417
+   ],
+   "styledSrgb": [
+    0.66,
+    0.3583,
+    0.2075
+   ],
+   "previouslyAuthoredSrgb": [
+    0.5271,
+    0.41,
+    0.3318
+   ],
+   "styledPreviously": [
+    0.66,
+    0.44,
+    0.33
+   ],
+   "styledNow": [
+    0.66,
+    0.3583,
+    0.2075
+   ],
+   "controlStyledReference": [
+    0.66,
+    0.3583,
+    0.2075
+   ],
+   "deltaStyledL1": 0.0,
+   "deltaBeforeL1": 0.2042,
+   "moodResidual": {
+    "night_civic": 0.0,
+    "day_industrial": 0.0
+   }
+  },
+  {
+   "gnMaterial": "gn_painted_metal",
+   "role": "barandillas y chapa",
+   "derivation": "cluster dominante del atlas de control",
+   "treatmentPath": "escalera_de_bandas",
+   "controlMeasured": {
+    "atlas": "T_MetalConcrete_BaseColor.png",
+    "authoredSrgb": [
+     0.4583,
+     0.4583,
+     0.4583
+    ],
+    "authoredLinear": [
+     0.1775,
+     0.1775,
+     0.1775
+    ],
+    "share": 0.2826,
+    "hue": 0.0,
+    "saturation": 0.0,
+    "value": 0.458
+   },
+   "authoredLinear": [
+    0.1775,
+    0.1775,
+    0.1775
+   ],
+   "authoredSrgb": [
+    0.4583,
+    0.4583,
+    0.4583
+   ],
+   "styledSrgb": [
+    0.3584,
+    0.3584,
+    0.3584
+   ],
+   "previouslyAuthoredSrgb": [
+    0.4366,
+    0.5271,
+    0.5657
+   ],
+   "styledPreviously": [
+    0.3529,
+    0.4643,
+    0.52
+   ],
+   "styledNow": [
+    0.3584,
+    0.3584,
+    0.3584
+   ],
+   "controlStyledReference": [
+    0.3584,
+    0.3584,
+    0.3584
+   ],
+   "deltaStyledL1": 0.0,
+   "deltaBeforeL1": 0.273,
+   "moodResidual": {
+    "night_civic": 0.0,
+    "day_industrial": 0.0
+   }
+  },
+  {
+   "gnMaterial": "gn_dark_glass",
+   "role": "acristalamiento",
+   "derivation": "MI_Glass no tiene albedo de textura: el control escapa al tratamiento, así que se invierte la escalera minimizando el residuo en los tres moods a la vez",
+   "treatmentPath": "escalera_de_bandas",
+   "controlMeasured": {
+    "gltfMaterial": "MI_Glass",
+    "authoredLinear": [
+     0.0522,
+     0.0522,
+     0.0522
+    ],
+    "authoredSrgb": [
+     0.2532,
+     0.2532,
+     0.2532
+    ],
+    "alpha": 0.5864,
+    "untreatedTargetSrgb": [
+     0.2532,
+     0.2532,
+     0.2532
+    ],
+    "solved": {
+     "objectiveMood": "day_civic",
+     "authoredSrgb": [
+      0.2194,
+      0.3057,
+      0.3135
+     ],
+     "authoredLinear": [
+      0.0395,
+      0.0761,
+      0.0801
+     ],
+     "residualByMood": {
+      "day_civic": 0.0636,
+      "night_civic": 0.3694,
+      "day_industrial": 0.0636
+     },
+     "objectiveL1": 0.0636
+    }
+   },
+   "authoredLinear": [
+    0.0395,
+    0.0761,
+    0.0801
+   ],
+   "authoredSrgb": [
+    0.2194,
+    0.3057,
+    0.3135
+   ],
+   "styledSrgb": [
+    0.2105,
+    0.2609,
+    0.2665
+   ],
+   "previouslyAuthoredSrgb": [
+    0.2934,
+    0.3959,
+    0.5064
+   ],
+   "styledPreviously": [
+    0.2541,
+    0.3605,
+    0.52
+   ],
+   "styledNow": [
+    0.2105,
+    0.2609,
+    0.2665
+   ],
+   "controlStyledReference": [
+    0.2532,
+    0.2532,
+    0.2532
+   ],
+   "deltaStyledL1": 0.0637,
+   "deltaBeforeL1": 0.375,
+   "moodResidual": {
+    "night_civic": 0.3694,
+    "day_industrial": 0.0637
+   }
+  }
+ ]
+}

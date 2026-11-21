@@ -25,6 +25,10 @@ CAPS = REPO / "docs/art/graphics-capabilities"
 EVIDENCE = CAPS / "evidence"
 SHEETS = EVIDENCE / "sheets"
 PILOTS = EVIDENCE / "pilots"
+# D-111.2: la segunda iteración no pisa la baseline. Sus hojas nacen en su propia carpeta y los
+# fotogramas que comparan viven en `evidence/v2/<wp>/`, cada uno con su JSON hermano.
+V2 = EVIDENCE / "v2"
+V2_SHEETS = V2 / "sheets"
 
 BACKGROUND = "#0b1422"
 PANEL = "#111d2e"
@@ -242,6 +246,136 @@ def geometry_nodes_sheet():
     )
 
 
+def crop_margins(meta: dict) -> tuple[int, int, int, int] | None:
+    """Márgenes de recorte alfa reales (L, T, R, B) del sprite sobre el lienzo renderizado.
+
+    `trim.cropped` es la caja de píxeles opacos. Si coincide con el ancho o el alto de
+    `trim.rendered`, el contenido tocó el borde del lienzo y **no se puede saber** si lo que había
+    fuera se cortó: es el defecto que D-111.1 registró como limitación 3 del A/B de Geometry Nodes.
+    WP01 lo vuelve una medida, no una impresión visual.
+    """
+    trim = meta.get("trim") or {}
+    rendered, cropped = trim.get("rendered"), trim.get("cropped")
+    if not rendered or not cropped:
+        return None
+    return (
+        cropped["offsetX"],
+        cropped["offsetY"],
+        rendered["width"] - cropped["offsetX"] - cropped["width"],
+        rendered["height"] - cropped["offsetY"] - cropped["height"],
+    )
+
+
+def geometry_border_hit(png: Path, threshold: int = 200) -> tuple[int, int, int, int] | None:
+    """Píxeles de geometría opaca (alfa >= `threshold`) que tocan cada borde del sprite final.
+
+    Hay que distinguir dos cortes que el JSON hermano no separa. La caja que mide `trim` incluye
+    la sombra proyectada, y una sombra suave que llega al borde del lienzo no invalida un sprite;
+    lo que lo invalida es que la alfa sólida lo haga, porque entonces falta un trozo de edificio
+    y su tamaño real es desconocido. WP01 exige "el sprite no esté recortado", así que se comprueba
+    sobre el PNG entregado, no sobre la estimación del encuadre.
+    """
+    with Image.open(png) as im:
+        alpha = im.convert("L")
+    w, h = alpha.size
+    solid = alpha.point(lambda a: 255 if a >= threshold else 0).load()
+    return (
+        sum(1 for y in range(h) if solid[0, y]),
+        sum(1 for x in range(w) if solid[x, 0]),
+        sum(1 for y in range(h) if solid[w - 1, y]),
+        sum(1 for x in range(w) if solid[x, h - 1]),
+    )
+
+
+def crop_verdict(meta: dict, png: Path | None = None) -> str:
+    """Veredicto de recorte: primero la geometría (la que ve el jugador), luego la sombra."""
+    margins = crop_margins(meta)
+    hits = geometry_border_hit(png) if png is not None and png.exists() else None
+    if hits is None:
+        return "recorte sin medir" if margins is None else (
+            "geometría sin medir · márgenes de lienzo " + "/".join(str(m) for m in margins) + " px"
+        )
+    cut = [side for side, value in zip(("izq", "sup", "der", "inf"), hits) if value > 0]
+    if cut:
+        return "GEOMETRÍA RECORTADA por " + ",".join(cut) + f" ({hits} px sólidos en el borde)"
+    if margins is None:
+        return "geometría íntegra · márgenes de lienzo sin medir"
+    shadow_cut = [side for side, value in zip(("izq", "sup", "der", "inf"), margins) if value <= 0]
+    if shadow_cut:
+        return (
+            "geometría íntegra · sombra recortada por " + ",".join(shadow_cut) + " · márgenes "
+            + "/".join(str(m) for m in margins) + " px"
+        )
+    return "SIN CORTE · márgenes " + "/".join(str(m) for m in margins) + " px"
+
+
+def framing_note(meta: dict, png: Path | None = None) -> str:
+    """Pie de un sprite del Composer: geometría, encuadre derivado y veredicto del recorte."""
+    framing = meta.get("framing", {})
+    axes = meta.get("axisChoices", {})
+    return (
+        f"seed {meta.get('variantSeed')} · {meta.get('triangleCount')} tri · "
+        f"h {meta.get('envelopeMeters', {}).get('z')} m · "
+        f"{framing.get('pixelsPerMeter')} px/m · margen {framing.get('marginUsed')} · "
+        f"{crop_verdict(meta, png)} · "
+        f"fachada {axes.get('facade', '-')} · ritmo {axes.get('bay_sequence', '-')} · "
+        f"receta {axes.get('recipe', '-')}"
+    )
+
+
+def v2_panel(folder: str, stem: str, caption: str, max_height: int, big: int = 22):
+    """Un fotograma de `evidence/v2/<folder>/` con su pie leído del JSON hermano (§8.3)."""
+    png = V2 / folder / f"{stem}.png"
+    if not png.exists():
+        return placeholder(f"{caption} · SIN EVIDENCIA", 460, 320)
+    return panel(png, f"{caption} · {framing_note(load_json(png), png)}", max_height=max_height, big=big)
+
+
+def v2_sheet(
+    path_stem: Path,
+    title: str,
+    subtitle: str,
+    rows: list[tuple[str, str, str]],
+    columns: int = 2,
+    height: int = 980,
+):
+    """Hoja WP con sus dos lecturas obligatorias: 1x y 0,5x (escala de juego).
+
+    `rows` son tripletas (carpeta, raiz-del-archivo, pie). La variante `_half` no es un zoom out
+    del PNG final: se redibuja con los sprites a la mitad de píxeles y el pie a tamaño legible,
+    porque lo que hay que juzgar es si la mejora sobrevive a la escala real del juego.
+    """
+    def build(scale: float, out_path: Path):
+        panels = []
+        for folder, stem, label in rows:
+            panels.append(v2_panel(folder, f"{stem}-control", f"{stem} · {label} · control", round(height * scale)))
+            panels.append(v2_panel(folder, f"{stem}-candidata", f"{stem} · {label} · candidata", round(height * scale)))
+        return sheet(out_path, title, subtitle, panels, columns=columns)
+
+    first = build(1.0, path_stem.with_suffix(".png"))
+    second = build(0.5, path_stem.parent / f"{path_stem.name}_half.png")
+    return first, second
+
+
+def gn_v2_sheet():
+    """WP01: las fábricas GN corregidas (paleta derivada, bandas a 3 m/1 m) contra su control."""
+    rows = (
+        ("commercial", "mixed_tenement", "comercio abajo + viviendas arriba (crujía, cornisa, puerta-balcón)"),
+        ("residential", "row_house", "adosado con zócalo de sillar (crujía, zócalo, cornisa)"),
+    )
+    return v2_sheet(
+        V2_SHEETS / "gn_v2_ab",
+        "D-111.2 WP01 · Geometry Nodes v2: misma parcela, mismos pisos, misma semilla, misma luz",
+        "Correcciones declaradas: los colores de las fábricas GN se derivan del atlas licenciado con "
+        "`ext_lab/gn_palette.py` (ya no se eligen a mano), el zócalo rellena los 3 m de la banda que "
+        "sustituye y la cornisa vuelve a medir 1 m con piedra del atlas en vez de casi blanco. "
+        "Eje a eje, control y candidata son idénticos (medido sin Blender con `ext_lab/axis_probe.py`): "
+        "lo único que cambia es qué módulo resuelve cada rol. El pie mide dos cortes distintos sobre el "
+        "PNG entregado: la geometría opaca (alfa>=200) y la caja de sombra del lienzo.",
+        rows,
+    )
+
+
 def pilots_sheet():
     """§8.1: control y candidata por familia piloto, mismo encuadre y mismo seed."""
     pairs = [
@@ -412,12 +546,17 @@ def main() -> None:
         ("§8.2 geometry nodes", geometry_nodes_sheet),
         ("§8.5 phaser", phaser_sheet),
         ("§8.6 contexto urbano", urban_sheet),
+        ("WP01 geometry nodes v2", gn_v2_sheet),
     ):
         if only and not any(key in name for key in only):
             continue
         try:
             size = fn()
-            print(f"{name}: {size[0]}x{size[1]}")
+            # Una hoja simple devuelve (ancho, alto); las WP devuelven además su lectura al 50 %.
+            text = "x".join(str(v) for v in size)
+            if len(size) == 2 and isinstance(size[0], tuple):
+                text = "1x " + "x".join(map(str, size[0])) + " · 0,5x " + "x".join(map(str, size[1]))
+            print(f"{name}: {text}")
         except Exception as error:  # noqa: BLE001 - la hoja no debe tumbar el lote
             print(f"{name}: ERROR {type(error).__name__}: {error}")
 

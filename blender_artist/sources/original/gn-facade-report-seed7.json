@@ -45,8 +45,8 @@
     "transom",
     "wallThickness"
    ],
-   "setupMs": 16.34,
-   "evaluateMs": 4.24,
+   "setupMs": 21.23,
+   "evaluateMs": 5.96,
    "materials": [
     "gn_brick_wall",
     "gn_dark_glass",
@@ -89,7 +89,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 3.01
+     "evaluateMs": 3.57
     },
     {
      "parameter": "mullions",
@@ -110,7 +110,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 2.92
+     "evaluateMs": 3.24
     },
     {
      "parameter": "mullions",
@@ -131,7 +131,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 2.85
+     "evaluateMs": 3.33
     }
    ]
   },
@@ -168,12 +168,12 @@
     "sillHeight",
     "wallThickness"
    ],
-   "setupMs": 14.65,
-   "evaluateMs": 3.29,
+   "setupMs": 19.04,
+   "evaluateMs": 4.11,
    "materials": [
     "gn_brick_wall",
     "gn_dark_glass",
-    "gn_shopfront_wood",
+    "gn_joinery_dark",
     "gn_stone_trim"
    ],
    "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_shopfront_bay_2m.glb",
@@ -200,45 +200,47 @@
    "role": "wainscot",
    "category": "facade",
    "objectName": "GnPlinth",
-   "note": "zócalo de 2 m con soclo saliente, labio superior y juntas de sillar instanciadas",
+   "note": "banda de planta baja de 3 m con zócalo de sillar saliente hasta 0,90 m, labio superior y juntas instanciadas: rellena el paso de forjado del rol que sustituye",
    "parameters": {
     "bayWidth": 2.0,
-    "bayHeight": 0.9,
-    "wallThickness": 0.3,
-    "socleProjection": 0.06,
+    "bayHeight": 3.0,
+    "socleHeight": 0.9,
+    "depthMeters": 0.229,
+    "socleProjection": 0.1,
     "joints": 3
    },
    "nodeGroup": "D111_Facade_Plinth",
-   "nodeCount": 20,
+   "nodeCount": 22,
    "liveParameters": [
     "joints"
    ],
    "bakedParameters": [
     "bayHeight",
     "bayWidth",
-    "socleProjection",
-    "wallThickness"
+    "depthMeters",
+    "socleHeight",
+    "socleProjection"
    ],
-   "setupMs": 2.85,
-   "evaluateMs": 1.81,
+   "setupMs": 3.73,
+   "evaluateMs": 2.26,
    "materials": [
     "gn_stone_trim"
    ],
    "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_plinth_2m.glb",
-   "vertices": 48,
-   "triangles": 72,
+   "vertices": 56,
+   "triangles": 84,
    "boundsMeters": {
     "x": {
      "min": -1.0,
      "max": 1.0
     },
     "y": {
-     "min": -0.21,
-     "max": 0.21
+     "min": -0.1145,
+     "max": 0.1145
     },
     "z": {
      "min": 0.0,
-     "max": 0.9
+     "max": 3.0
     }
    }
   },
@@ -248,110 +250,109 @@
    "role": "cornice",
    "category": "facade",
    "objectName": "GnCornice",
-   "note": "cornisa de 2 m con cama, dentillos instanciados, corona volada, friso y sima",
+   "note": "pretil de 1 m con cornisa clásica leída de abajo arriba (cama, dentillos, corona volada, friso y sima): mismo alto y mismo vuelo que el módulo megakit que reemplaza",
    "parameters": {
     "bayWidth": 2.0,
-    "bayHeight": 0.55,
-    "wallThickness": 0.26,
-    "coronaProjection": 0.21,
+    "bayHeight": 1.0,
+    "depthMeters": 0.4,
     "dentils": 6
    },
    "nodeGroup": "D111_Facade_Cornice",
-   "nodeCount": 22,
+   "nodeCount": 26,
    "liveParameters": [
     "dentils"
    ],
    "bakedParameters": [
     "bayHeight",
     "bayWidth",
-    "coronaProjection",
-    "wallThickness"
+    "depthMeters"
    ],
-   "setupMs": 3.2,
-   "evaluateMs": 2.15,
+   "setupMs": 4.64,
+   "evaluateMs": 2.89,
    "materials": [
+    "gn_brick_wall",
     "gn_stone_trim"
    ],
    "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_cornice_2m.glb",
-   "vertices": 80,
-   "triangles": 120,
+   "vertices": 88,
+   "triangles": 132,
    "boundsMeters": {
     "x": {
      "min": -1.0,
      "max": 1.0
     },
     "y": {
-     "min": -0.235,
-     "max": 0.445
+     "min": -0.2,
+     "max": 0.2
     },
     "z": {
      "min": 0.0,
-     "max": 0.55
+     "max": 1.0
     }
    },
    "parametricProbe": [
     {
      "parameter": "dentils",
      "value": 4,
-     "vertices": 64,
-     "triangles": 96,
+     "vertices": 72,
+     "triangles": 108,
      "boundsMeters": {
       "x": {
        "min": -1.0,
        "max": 1.0
       },
       "y": {
-       "min": -0.235,
-       "max": 0.445
+       "min": -0.2,
+       "max": 0.2
       },
       "z": {
        "min": 0.0,
-       "max": 0.55
+       "max": 1.0
       }
      },
-     "evaluateMs": 1.54
+     "evaluateMs": 1.91
     },
     {
      "parameter": "dentils",
      "value": 8,
-     "vertices": 96,
-     "triangles": 144,
+     "vertices": 104,
+     "triangles": 156,
      "boundsMeters": {
       "x": {
        "min": -1.0,
        "max": 1.0
       },
       "y": {
-       "min": -0.235,
-       "max": 0.445
+       "min": -0.2,
+       "max": 0.2
       },
       "z": {
        "min": 0.0,
-       "max": 0.55
+       "max": 1.0
       }
      },
-     "evaluateMs": 2.11
+     "evaluateMs": 2.82
     },
     {
      "parameter": "dentils",
      "value": 12,
-     "vertices": 128,
-     "triangles": 192,
+     "vertices": 136,
+     "triangles": 204,
      "boundsMeters": {
       "x": {
        "min": -1.0,
        "max": 1.0
       },
       "y": {
-       "min": -0.235,
-       "max": 0.445
+       "min": -0.2,
+       "max": 0.2
       },
       "z": {
        "min": 0.0,
-       "max": 0.55
+       "max": 1.0
       }
      },
-     "evaluateMs": 2.3
+     "evaluateMs": 4.21
     }
    ]
   },
@@ -392,12 +393,12 @@
     "slabHeight",
     "wallThickness"
    ],
-   "setupMs": 57.15,
-   "evaluateMs": 6.6,
+   "setupMs": 70.52,
+   "evaluateMs": 7.19,
    "materials": [
     "gn_dark_glass",
+    "gn_joinery_dark",
     "gn_painted_metal",
-    "gn_shopfront_wood",
     "gn_stone_trim"
    ],
    "glb": "/home/luis/RepositorioGitHub/landlord/blender_artist/sources/original/gn_balcony_door_bay_2m.glb",
@@ -437,7 +438,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.51
+     "evaluateMs": 6.36
     },
     {
      "parameter": "balusters",
@@ -458,7 +459,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 6.05
+     "evaluateMs": 5.93
     },
     {
      "parameter": "balusters",
@@ -479,7 +480,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 6.33
+     "evaluateMs": 7.25
     }
    ]
   }

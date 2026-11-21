@@ -25316,7 +25316,7 @@
         "materials": [
           "gn_brick_wall",
           "gn_dark_glass",
-          "gn_shopfront_wood",
+          "gn_joinery_dark",
           "gn_stone_trim"
         ],
         "images": [],
@@ -25326,7 +25326,7 @@
         "baseColorChains": [
           "gn_brick_wall=plano",
           "gn_dark_glass=plano",
-          "gn_shopfront_wood=plano",
+          "gn_joinery_dark=plano",
           "gn_stone_trim=plano"
         ]
       },
@@ -25377,8 +25377,8 @@
       },
       "nominalBounds": {
         "widthMeters": 2,
-        "depthMeters": 0.42,
-        "heightMeters": 0.9
+        "depthMeters": 0.229,
+        "heightMeters": 3
       },
       "anchor": {
         "datum": "authored_object_origin",
@@ -25415,12 +25415,12 @@
             "max": 1
           },
           "y": {
-            "min": -0.21,
-            "max": 0.21
+            "min": -0.1145,
+            "max": 0.1145
           },
           "z": {
             "min": 0,
-            "max": 0.9
+            "max": 3
           }
         },
         "originToGroundMeters": 0,
@@ -25448,9 +25448,9 @@
       },
       "measured": {
         "meshObjects": 1,
-        "vertices": 144,
-        "triangles": 72,
-        "shells": 36,
+        "vertices": 168,
+        "triangles": 84,
+        "shells": 42,
         "materials": [
           "gn_stone_trim"
         ],
@@ -25465,8 +25465,8 @@
       "provenance": {
         "sourceBounds": {
           "width": 2,
-          "depth": 0.42,
-          "height": 0.9,
+          "depth": 0.229,
+          "height": 3,
           "minZ": 0
         },
         "importScale": 1,
@@ -25509,8 +25509,8 @@
       },
       "nominalBounds": {
         "widthMeters": 2,
-        "depthMeters": 0.68,
-        "heightMeters": 0.55
+        "depthMeters": 0.4,
+        "heightMeters": 1
       },
       "anchor": {
         "datum": "authored_object_origin",
@@ -25547,12 +25547,12 @@
             "max": 1
           },
           "y": {
-            "min": -0.34,
-            "max": 0.34
+            "min": -0.2,
+            "max": 0.2
           },
           "z": {
             "min": 0,
-            "max": 0.55
+            "max": 1
           }
         },
         "originToGroundMeters": 0,
@@ -25580,10 +25580,11 @@
       },
       "measured": {
         "meshObjects": 1,
-        "vertices": 240,
-        "triangles": 120,
-        "shells": 60,
+        "vertices": 264,
+        "triangles": 132,
+        "shells": 66,
         "materials": [
+          "gn_brick_wall",
           "gn_stone_trim"
         ],
         "images": [],
@@ -25591,20 +25592,21 @@
           "GnCornice"
         ],
         "baseColorChains": [
+          "gn_brick_wall=plano",
           "gn_stone_trim=plano"
         ]
       },
       "provenance": {
         "sourceBounds": {
           "width": 2,
-          "depth": 0.68,
-          "height": 0.55,
+          "depth": 0.4,
+          "height": 1,
           "minZ": 0
         },
         "importScale": 1,
         "importOffset": [
           0,
-          -0.105,
+          0,
           0
         ],
         "fileTriangles": 120,
@@ -25717,8 +25719,8 @@
         "shells": 264,
         "materials": [
           "gn_dark_glass",
+          "gn_joinery_dark",
           "gn_painted_metal",
-          "gn_shopfront_wood",
           "gn_stone_trim"
         ],
         "images": [],
@@ -25727,8 +25729,8 @@
         ],
         "baseColorChains": [
           "gn_dark_glass=plano",
+          "gn_joinery_dark=plano",
           "gn_painted_metal=plano",
-          "gn_shopfront_wood=plano",
           "gn_stone_trim=plano"
         ]
       },

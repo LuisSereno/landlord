@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "D-111 \u00a78.2 cinco cruj\u00edas del sistema GN",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "mood": "day_civic",
+    "capability": "geometry_nodes_facade_grammar",
+    "sheet": "parts",
+    "grid": {
+      "bayMeters": 2.0,
+      "floorHeightMeters": 3.0
+    },
+    "parts": [
+      {
+        "part": "window_bay",
+        "vertices": 144,
+        "triangles": 216,
+        "boundsMeters": {
+          "x": {
+            "min": -1.0,
+            "max": 1.0
+          },
+          "y": {
+            "min": -0.15,
+            "max": 0.25
+          },
+          "z": {
+            "min": 0.0,
+            "max": 3.0
+          }
+        }
+      },
+      {
+        "part": "shopfront_bay",
+        "vertices": 128,
+        "triangles": 192,
+        "boundsMeters": {
+          "x": {
+            "min": -1.0,
+            "max": 1.0
+          },
+          "y": {
+            "min": -0.13,
+            "max": 0.27
+          },
+          "z": {
+            "min": 0.0,
+            "max": 3.0
+          }
+        }
+      },
+      {
+        "part": "plinth",
+        "vertices": 56,
+        "triangles": 84,
+        "boundsMeters": {
+          "x": {
+            "min": -1.0,
+            "max": 1.0
+          },
+          "y": {
+            "min": -0.1145,
+            "max": 0.1145
+          },
+          "z": {
+            "min": 0.0,
+            "max": 3.0
+          }
+        }
+      },
+      {
+        "part": "cornice",
+        "vertices": 88,
+        "triangles": 132,
+        "boundsMeters": {
+          "x": {
+            "min": -1.0,
+            "max": 1.0
+          },
+          "y": {
+            "min": -0.2,
+            "max": 0.2
+          },
+          "z": {
+            "min": 0.0,
+            "max": 1.0
+          }
+        }
+      },
+      {
+        "part": "balcony_door_bay",
+        "vertices": 352,
+        "triangles": 528,
+        "boundsMeters": {
+          "x": {
+            "min": -1.0,
+            "max": 1.0
+          },
+          "y": {
+            "min": -0.1,
+            "max": 0.75
+          },
+          "z": {
+            "min": 0.0,
+            "max": 3.0
+          }
+        }
+      }
+    ]
+  },
+  "generated": null,
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 30.0,
+    "elevationDegrees": 30,
+    "orthoScale": 15.0,
+    "targetZ": 1.5
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 3.23,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 468,
+        "height": 549,
+        "offsetX": 471,
+        "offsetY": 391
+      },
+      "final": {
+        "width": 468,
+        "height": 549
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 1152,
+    "meshObjects": 5,
+    "bounds": {
+      "min": [
+        -1.0,
+        -0.2,
+        0.0
+      ],
+      "max": [
+        11.4,
+        0.75,
+        3.0
+      ],
+      "size": [
+        12.4,
+        0.95,
+        3.0
+      ]
+    }
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/gn/gn_parts.png",
+    "width": 468,
+    "height": 549,
+    "sha256": "b538f1fb320ce393c607c052f0b30a14f73340542c5e40a2c36a1ffe0dea2fbb",
+    "bytes": 203592
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --outDir=docs/art/graphics-capabilities/evidence/v2/gn --mood=day_civic --resolution=1024 --samples=48"
+}

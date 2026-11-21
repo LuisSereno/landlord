@@ -54,13 +54,15 @@ PARTS = {
         "role": "wainscot",
         "category": "facade",
         "objectName": "GnPlinth",
-        "note": "zócalo de 2 m con soclo saliente, labio superior y juntas de sillar instanciadas",
+        "note": "banda de planta baja de 3 m con zócalo de sillar saliente hasta 0,90 m, labio "
+        "superior y juntas instanciadas: rellena el paso de forjado del rol que sustituye",
     },
     "cornice": {
         "role": "cornice",
         "category": "facade",
         "objectName": "GnCornice",
-        "note": "cornisa de 2 m con cama, dentillos instanciados, corona volada, friso y sima",
+        "note": "pretil de 1 m con cornisa clásica leída de abajo arriba (cama, dentillos, corona "
+        "volada, friso y sima): mismo alto y mismo vuelo que el módulo megakit que reemplaza",
     },
     "balcony_door_bay": {
         "role": "balcony",
@@ -71,16 +73,25 @@ PARTS = {
     },
 }
 
-# Paleta plana. `complete_style_reach` (building_composer/scene.py:277) trata automáticamente
-# cualquier material plano sin regla de nombre, así que estos colores entran en la escalera Graphic
-# Civic sin tocar la capa de estilo. El matiz importa: azul de hueco (banda
-# `window_blue_to_dark_glass`), ocre de ladrillo, claro de piedra.
+# Paleta plana. D-111.2 WP01: estos colores **no se eligen a mano**, se derivan con
+# `ext_lab/gn_palette.py` del atlas licenciado que usa el módulo de control de cada rol
+# (T_RedBrick, T_Trim, T_MetalConcrete) y del `baseColorFactor` de MI_Glass en el glTF. Con el
+# color de origen coincidente, el píxel lo reclama la misma banda de `externalTreatment`, así que
+# recibe las mismas escalas en **todos** los moods: el A/B deja de comparar tratamientos de color y
+# compara arquitectura. La evidencia numérica es
+# `docs/art/graphics-capabilities/evidence/v2/gn/palette_day_civic.json`.
+#
+# Los nombres también se miden: `apply_external_treatment` trata los planos por nombre antes que
+# nadie y esa rama no pasa por `global` ni por las bandas. El material de carpintería se llamaba
+# `gn_shopfront_wood` y caía en la regla de la madera de nature-kit (valueScale 0,42 sin el 1,7
+# diurno), de ahí el tono opaco del frente de tienda. `gn_joinery_dark` no casa con ninguna regla
+# y entra por la escalera común.
 MATERIALS = {
-    "wall": {"name": "gn_brick_wall", "color": (0.42, 0.17, 0.12), "roughness": 0.86},
-    "render": {"name": "gn_stone_trim", "color": (0.72, 0.68, 0.58), "roughness": 0.74},
-    "metal": {"name": "gn_painted_metal", "color": (0.16, 0.24, 0.28), "roughness": 0.55},
-    "glass": {"name": "gn_dark_glass", "color": (0.07, 0.13, 0.22), "roughness": 0.14},
-    "shop": {"name": "gn_shopfront_wood", "color": (0.24, 0.14, 0.09), "roughness": 0.68},
+    "wall": {"name": "gn_brick_wall", "color": (0.116, 0.0692, 0.0358), "roughness": 0.86},
+    "render": {"name": "gn_stone_trim", "color": (0.3485, 0.3485, 0.1775), "roughness": 0.74},
+    "metal": {"name": "gn_painted_metal", "color": (0.1775, 0.1775, 0.1775), "roughness": 0.55},
+    "glass": {"name": "gn_dark_glass", "color": (0.0395, 0.0761, 0.0801), "roughness": 0.14},
+    "shop": {"name": "gn_joinery_dark", "color": (0.0692, 0.0143, 0.0032), "roughness": 0.68},
 }
 
 
@@ -113,16 +124,25 @@ def part_parameters(part, seed):
         },
         "plinth": {
             "bayWidth": 2.0,
-            "bayHeight": 0.90,
-            "wallThickness": 0.30,
-            "socleProjection": 0.06,
+            # D-111.2 WP01: el rol `wainscot` sustituye el token de TODA la planta baja y el
+            # Composer sólo valida el desarrollo horizontal de la banda
+            # (`compose.py:693§17`), no la altura. Con 0,90 m quedaban 2,1 m de hueco pasivo
+            # sobre el zócalo: el sprite se recortaba contra el vacío y la banda se leía rota.
+            # La banda vuelve a medir el paso de forjado y el saliente pasa a ser la parte baja.
+            "bayHeight": 3.0,
+            "socleHeight": 0.90,
+            "depthMeters": 0.229,  # = mod_megakit_brick_bottom_trim_2m: el plano de fachada no se mueve
+            "socleProjection": 0.10,
             "joints": 3,
         },
         "cornice": {
             "bayWidth": 2.0,
-            "bayHeight": 0.55,
-            "wallThickness": 0.26,
-            "coronaProjection": 0.21,
+            # D-111.2 WP01: 1,00 m de alto y 0,40 m de fondo son las medidas de
+            # `mod_megakit_cornice_brick_center_2m`, el módulo que este reemplaza en la silueta.
+            # Con 0,55 m el pretil bajaba 45 cm, el `targetZ` derivado pasaba de 5,00 a 4,775 y
+            # el recorte alfa apretaba hasta que el sprite tocaba el borde del lienzo.
+            "bayHeight": 1.0,
+            "depthMeters": 0.40,
             "dentils": 5 + int(round(cycle * 3)),
         },
         "balcony_door_bay": {
@@ -382,34 +402,69 @@ def _build_shopfront_bay(params):
 
 
 def _build_plinth(params):
+    """Banda completa de planta baja: paño replanteado hacia dentro y zócalo de sillar saliente.
+
+    La cara exterior del módulo cae en el mismo plano que el panel megakit que sustituye
+    (`depthMeters`), así que lo único que cambia respecto al control es el relieve. El labio
+    superior es lo que le devuelve la sombra horizontal que el zócalo necesita para leerse.
+    """
     tree = GrammarTree(f"{GROUP_PREFIX}_Plinth")
     tree.declare_inputs(params)
-    t = params["wallThickness"]
+    w = params["bayWidth"]
+    d = params["depthMeters"]
     h = params["bayHeight"]
-    body = tree.box((params["bayWidth"], t, h - 0.17), (0.0, 0.0, (h - 0.17) / 2.0))
-    socle = tree.box((params["bayWidth"], t + params["socleProjection"] * 2, 0.10), (0.0, 0.0, 0.05))
-    lip = tree.box((params["bayWidth"], t + 0.08, 0.07), (0.0, 0.02, h - 0.035))
-    pts = tree.points_row(params["bayWidth"] - 0.4, "joints", (0.0, t / 2.0 + 0.006, (h - 0.17) / 2.0))
-    joints = tree.instance_on_row(tree.box((0.028, 0.014, h - 0.24), (0.0, 0.0, 0.0)), pts)
-    stone = tree.with_material(tree.join([body, socle, lip, joints]), MATERIALS["render"]["name"])
-    tree.finish(stone)
+    socle = params["socleHeight"]
+    proj = params["socleProjection"]
+    back, front = -d / 2.0, d / 2.0
+    body_t = d - proj
+    lip_t = proj + 0.05
+    ashlar_h = socle - lip_t - 0.08
+    stone = [
+        # paño de la banda, retraído: es lo que hace que el zócalo sobresalga del muro
+        tree.box((w, body_t, h), (0.0, back + body_t / 2.0, h / 2.0)),
+        # dadillo de arranque, a pleno
+        tree.box((w, d, 0.08), (0.0, 0.0, 0.04)),
+        # hiladas de sillar
+        tree.box((w, d - 0.05, ashlar_h), (0.0, back + (d - 0.05) / 2.0, 0.08 + ashlar_h / 2.0)),
+        # labio (cobija) que corona el zócalo
+        tree.box((w, d, lip_t), (0.0, 0.0, socle - lip_t / 2.0)),
+    ]
+    pts = tree.points_row(w - 0.4, "joints", (0.0, front - 0.025, 0.08 + ashlar_h / 2.0))
+    stone.append(
+        tree.instance_on_row(tree.box((0.028, 0.05, ashlar_h - 0.08), (0.0, 0.0, 0.0)), pts)
+    )
+    result = tree.with_material(tree.join(stone), MATERIALS["render"]["name"])
+    tree.finish(result)
     return tree
 
 
 def _build_cornice(params):
+    """Pretil de 1 m con el perfil clásico construido de abajo arriba dentro del vuelo medido.
+
+    El perfil se apoya en el dintel del último forjado y remata exactamente en `bayHeight`: así el
+    envelope del edificio no se mueve cuando este módulo sustituye a la cornisa del control, y con
+    él se conserva el encuadre derivado y el margen de recorte alfa del sprite.
+    """
     tree = GrammarTree(f"{GROUP_PREFIX}_Cornice")
     tree.declare_inputs(params)
-    t = params["wallThickness"]
-    proj = params["coronaProjection"]
     w = params["bayWidth"]
-    bed = tree.box((w, t, 0.10), (0.0, 0.0, 0.05))
-    dentil_pts = tree.points_row(1.72, "dentils", (0.0, t / 2.0 + 0.02, 0.165))
-    dentils = tree.instance_on_row(tree.box((0.10, proj + 0.02, 0.13), (0.0, 0.0, 0.0)), dentil_pts)
-    corona = tree.box((w, t + proj * 2, 0.15), (0.0, proj / 2.0, 0.315))
-    fascia = tree.box((w, t + 0.04, 0.13), (0.0, 0.01, 0.455))
-    cyma = tree.box((w, t + 0.12, 0.09), (0.0, 0.03, 0.505))
-    stone = tree.with_material(tree.join([bed, dentils, corona, fascia, cyma]), MATERIALS["render"]["name"])
-    tree.finish(stone)
+    d = params["depthMeters"]
+    h = params["bayHeight"]
+    back = -d / 2.0
+    wall_t = 0.20
+    # El parapeto va en ladrillo, igual que el paño: la cornisa de piedra es el remate, no el muro.
+    wall = tree.box((w, wall_t, h), (0.0, back + wall_t / 2.0, h / 2.0))
+    bed = tree.box((w, 0.30, 0.15), (0.0, back + 0.15, 0.375))
+    dentil_pts = tree.points_row(w - 0.28, "dentils", (0.0, back + 0.18, 0.54))
+    dentils = tree.instance_on_row(tree.box((0.10, 0.36, 0.18), (0.0, 0.0, 0.0)), dentil_pts)
+    corona = tree.box((w, d, 0.17), (0.0, 0.0, 0.715))
+    fascia = tree.box((w, 0.32, 0.11), (0.0, back + 0.16, 0.855))
+    cyma = tree.box((w, 0.26, 0.09), (0.0, back + 0.13, 0.955))
+    brick = tree.with_material(wall, MATERIALS["wall"]["name"])
+    stone = tree.with_material(
+        tree.join([bed, dentils, corona, fascia, cyma]), MATERIALS["render"]["name"]
+    )
+    tree.finish(tree.join([brick, stone]))
     return tree
 
 

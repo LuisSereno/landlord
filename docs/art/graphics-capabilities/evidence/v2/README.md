@@ -782,3 +782,10 @@ Evidencia: `candidates/wp06_<tipo>-candidata.{png,json}` (los JSON llevan `candi
 | WP04 | `4ef6afa` | DONE | `sheets/weathering_states.png` (+ `_half`) · `building-weathering-contract.json@22a02a14` | WP04-D1 (cornisa sobrevive a la sección) y runtime `condition < 60 → damaged`: dos decisiones del responsable, no ajustes de esta hoja |
 | WP05 | `348eb78` | DONE · ACEPTADA | `sheets/industrial_warehouse_ab.png` (+ `_half`) · 4 módulos `mod_gn_*_4m` (catálogo 191) · `industrial/dock_aperture_scale.json` | `metal_brick_mix` es no-op en HEAD (enmienda de gramática → responsable), tier `aged` sobre chapa GN sin medir y hoja/pretil en la misma banda tratada → WP06 |
 | WP06 | `c5bd69d` + `c6824dc` | DONE · CUATRO CANDIDATAS REVISABLES | `candidates/wp06_{row_house,mixed_tenement,warehouse,town_hall}-candidata.png` (+ JSON) · `sheets/wp06_candidates_ab.png` (+ `_half`) · `building-composer-candidates.json` (3 perfiles) · `pnpm art:building-composer:candidates:test` · `gn_facade_grammar.py` con el origen en el plano posterior | nada bloquea el cierre: la esquina cívica pide geometría nueva (no gramática), `mod_gn_shopfront_bay_2m` sigue sin ruta legal y `metal_brick_mix` sigue no-op en HEAD (dos enmiendas del responsable), el tier `aged` sobre chapa GN sigue sin medir y `deterministic_crop_rect` deja 1–2 px de margen → WP07/WP09 |
+
+### Fases del cierre (D-111.2, orden de finalización)
+
+| fase | commit | estado | artefacto principal | bloqueo |
+| --- | --- | --- | --- | --- |
+| FASE 1 | `8b42a64` | DONE | `capabilities.json` (22 entradas) · `graphics-capabilities/README.md` · `evaluations/extensions.md` · ledger con hashes reales | — |
+| FASE 2 | pendiente en este commit | DONE · DIAGNÓSTICO | `fire/DIAGNOSIS.md` · `fire/control_{mixed_tenement,warehouse}_{day,night}.png` (+ JSON) · `fire/fire_control_sheet.png` · `fire/fire_control_detail.png` | nada: es fase de lectura, no de producción; los diez defectos quedan medidos y atribuidos a línea |

@@ -64,8 +64,13 @@ def placeholder(text: str, width: int = 400, height: int = 300):
     return blank
 
 
-def wrap_caption(caption: str, width: int, typeface) -> list[str]:
-    """El pie se parte en líneas: una decisión recortada a media palabra no es revisable (§9.9)."""
+def wrap_caption(caption: str, width: int, typeface, max_lines: int = 4) -> list[str]:
+    """El pie se parte en líneas: una decisión recortada a media palabra no es revisable (§9.9).
+
+    `max_lines` es configurable porque el pie de un sprite del Composer lleva siete datos (seed, tri,
+    altura, px/m, margen, veredicto de recorte y ejes) y a 0,5× la columna es la mitad de ancha: con el
+    tope fijo en 4 se perdía justo la línea que declara qué eje cambió.
+    """
     lines: list[str] = []
     for word in caption.split():
         candidate = f"{lines[-1]} {word}" if lines else word
@@ -77,23 +82,28 @@ def wrap_caption(caption: str, width: int, typeface) -> list[str]:
             lines.append(word)
     # Un token más ancho que la columna invadiría el panel vecino: ése sí se recorta.
     wrapped = []
-    for line in lines[:4]:
+    for line in lines[:max_lines]:
         while line and draw_textlength(line, typeface) > width:
             line = line[:-1]
         wrapped.append(line)
     return wrapped
 
 
-def panel(png: Path, caption: str, max_height: int, big: int = 15):
-    """Un recuadro de la hoja: imagen escalada + pie de foto con los números del JSON hermano."""
+def panel(png: Path, caption: str, max_height: int, big: int = 15, upscale: bool = False, max_lines: int = 4):
+    """Un recuadro de la hoja: imagen escalada + pie de foto con los números del JSON hermano.
+
+    `upscale` es para la evidencia de componente (un módulo suelto de 549 px sería ilegible al lado
+    de un sprite de 1487 px); los sprites de edificio nunca se agrandan, porque su lectura obligatoria
+    es la escala nativa de juego.
+    """
     image = Image.open(png).convert("RGBA")
-    scale = min(1.0, max_height / image.size[1])
+    scale = max_height / image.size[1] if upscale else min(1.0, max_height / image.size[1])
     size = (max(1, round(image.size[0] * scale)), max(1, round(image.size[1] * scale)))
     resized = image.resize(size, Image.LANCZOS)
     typeface = font(big)
     ascent, descent = typeface.getmetrics()
     line_height = ascent + descent
-    lines = wrap_caption(caption, size[0] - 14, typeface)
+    lines = wrap_caption(caption, size[0] - 14, typeface, max_lines)
     band = 6 + len(lines) * line_height + 4
     canvas = Image.new("RGBA", (size[0], size[1] + band), BACKGROUND)
     canvas.paste(resized, (0, 0), resized)
@@ -328,7 +338,9 @@ def v2_panel(folder: str, stem: str, caption: str, max_height: int, big: int = 2
     png = V2 / folder / f"{stem}.png"
     if not png.exists():
         return placeholder(f"{caption} · SIN EVIDENCIA", 460, 320)
-    return panel(png, f"{caption} · {framing_note(load_json(png), png)}", max_height=max_height, big=big)
+    return panel(
+        png, f"{caption} · {framing_note(load_json(png), png)}", max_height=max_height, big=big, max_lines=7
+    )
 
 
 def v2_sheet(
@@ -374,6 +386,69 @@ def gn_v2_sheet():
         "PNG entregado: la geometría opaca (alfa>=200) y la caja de sombra del lienzo.",
         rows,
     )
+
+
+def ag_module_note(png: Path) -> str:
+    """Pie de un fotograma de horneado Arch Generator: geometría medida, cámara y procedencia."""
+    meta = load_json(png)
+    geo = meta.get("geometry", {})
+    bounds = geo.get("bounds", {}).get("size", [0, 0, 0])
+    ext = meta.get("extension", {})
+    cam = meta.get("camera", {})
+    trim = meta.get("render", {}).get("trim", {})
+    final = trim.get("final", {})
+    return (
+        f"{geo.get('triangles', '?')} tri en {geo.get('meshObjects', '?')} objetos · "
+        f"caja {bounds[0]}×{bounds[1]}×{bounds[2]} m · ortogonal az {cam.get('azimuthDegrees')}° "
+        f"escala {round(cam.get('orthoScale', 0), 2)} · sprite {final.get('width')}×{final.get('height')} px · "
+        f"{ext.get('registry_id', '-')} v{ext.get('version', '?')} ({ext.get('license', '?')})"
+    )
+
+
+def ag_civic_sheet():
+    """WP02: el vano cívico horneado, su brazo de calidad y el A/B del town_hall a escala de juego."""
+    module = V2 / "ag/ag_arcade_bay_2m.png"
+    quality = V2 / "ag/quality_ab.png"
+    title = (
+        "D-111.2 WP02 · Arch Generator como autoría cívica: vano de arcada horneado a la crujía del Composer"
+    )
+    subtitle = (
+        "Arriba, el componente; abajo, el mismo town_hall seed 2, misma parcela, mismos pisos, misma luz: "
+        "sólo cambia el módulo que resuelve el rol `window_bay` (21 colocaciones 1:1, ejes idénticos). "
+        "El sprite se pega a escala nativa (60,2 px/m en ambos brazos). La lectura al 50 % se aplica a los "
+        "sprites de edificio, que son los que entran en pantalla; el componente no es un artefacto de juego."
+    )
+
+    def build(sprite_height: int, out_path: Path):
+        rows = [
+            panel(
+                module,
+                "A · módulo horneado tileado 3× (5430 tri = 3×1810) · paso de crujía 2,00 m: "
+                "las juntas reconstruyen UN pilar por eje, no dos. " + ag_module_note(module),
+                max_height=560,
+                big=17,
+                upscale=True,
+            )
+            if module.exists()
+            else placeholder("A · módulo horneado · SIN EVIDENCIA", 460, 320),
+            panel(
+                quality,
+                "B · brazo de calidad: high 1810 tri vs simplified 938 tri. La simplificación ahorra "
+                "un 48 % pero pierde el estriado del fuste y el óvolo del capitel, que es lo que hace "
+                "que el vano se lea a 0,5×. Se adopta high y se registra el alternativo.",
+                max_height=560,
+                big=17,
+            )
+            if quality.exists()
+            else placeholder("B · brazo de calidad · SIN EVIDENCIA", 460, 320),
+            v2_panel("civic", "town_hall-control", "town_hall · control Graphic Civic", sprite_height),
+            v2_panel("civic", "town_hall-candidata", "town_hall · candidata arcada AG", sprite_height),
+        ]
+        return sheet(out_path, title, subtitle, rows, columns=2)
+
+    first = build(980, V2_SHEETS / "ag_civic_ab.png")
+    second = build(490, V2_SHEETS / "ag_civic_ab_half.png")
+    return first, second
 
 
 def pilots_sheet():
@@ -547,6 +622,7 @@ def main() -> None:
         ("§8.5 phaser", phaser_sheet),
         ("§8.6 contexto urbano", urban_sheet),
         ("WP01 geometry nodes v2", gn_v2_sheet),
+        ("WP02 arcada civica ag", ag_civic_sheet),
     ):
         if only and not any(key in name for key in only):
             continue

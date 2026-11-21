@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 \u00a74 Blender extension lab",
+  "label": "Arch Generator - vano civico de arcada 2x3 m (simplified), tileado 3 veces",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "extension": {
+    "zip": "archgen.zip",
+    "version": "1.0.1",
+    "license": "SPDX:GPL-3.0-or-later",
+    "registry_id": "arch_generator",
+    "registry_url": "https://extensions.blender.org/add-ons/arch-generator/",
+    "upstream_url": "https://github.com/Aniruddhyagoswami/arch_generator",
+    "archive_sha256": "b0a902ee3c0ff7b5360c3056bc9a084ba8e9d9f94882f68151abffb8df5abb4c",
+    "archive_url": "https://extensions.blender.org/download/sha256:b0a902ee3c0ff7b5360c3056bc9a084ba8e9d9f94882f68151abffb8df5abb4c/add-on-arch-generator-v1.0.1.zip",
+    "maintainer": "Aniruddhya Goswami",
+    "blender_version_min": "5.0.0",
+    "registryId": "arch_generator",
+    "moduleId": "bl_ext.user_default.arch_generator",
+    "mood": "day_civic",
+    "invocation": "bpy.ops.mesh.arch_create() + obj.arch_props + builders.rebuild_mesh()",
+    "adaptador": "tools/art-pipeline/blender/ext_lab/ag_module_bake.py",
+    "glbSha256": "b394d43eed2fac90b87293fe0f8d89b0c37de41fd6a113606024eba99c34dd9b",
+    "licenceNote": "GPL-3.0-or-later es la licencia del CODIGO de la extension. La geometria exportada se registra como authored-original del proyecto porque este repo no redistribuye el add-on: se instala en un perfil aislado de /tmp y solo se publica el GLB resultante."
+  },
+  "generated": {
+    "recipe": {
+      "schemaVersion": 1,
+      "generator": "tools/art-pipeline/blender/ext_lab/ag_module_bake.py",
+      "blender": "5.2.2 LTS",
+      "quality": "simplified",
+      "mood": "day_civic",
+      "grid": {
+        "bayMeters": 2.0,
+        "bandMeters": 3.0,
+        "wallBackMeters": -0.15,
+        "projectionFrontMeters": 0.35,
+        "parapetMeters": 0.9
+      },
+      "stambhaConvergence": [
+        {
+          "stambhaHeight": 2.3,
+          "measuredTop": 3.3
+        },
+        {
+          "stambhaHeight": 2.0,
+          "measuredTop": 3.0
+        }
+      ],
+      "stambhaHeight": 2.0000000476837156,
+      "archProps": {
+        "mode": "SINGLE",
+        "frame_type": "FULL",
+        "multi_stambha_mode": "SHARED",
+        "arch_style": "ROMAN",
+        "arch_segments": 12,
+        "width": 1.4,
+        "gap_between_arches": 0.0,
+        "height": 1.0,
+        "depth": 0.6,
+        "thickness": 0.3,
+        "stambha_width": 0.6,
+        "stambha_depth": 0.6,
+        "stambha_height": 2.0000000476837156,
+        "pillar_style": "FLUTED",
+        "flute_count": 6,
+        "flute_depth": 0.07,
+        "base_style": "ATTIC",
+        "base_width": 0.72,
+        "base_depth": 0.72,
+        "base_height": 0.22,
+        "capital_style": "IONIC",
+        "capital_width": 0.72,
+        "capital_depth": 0.66,
+        "capital_height": 0.34,
+        "trim_resolution": 12,
+        "enable_support_beam": true,
+        "frame_beam_height": 0.34,
+        "enable_spring_block": true,
+        "enable_arch_root": true
+      },
+      "buildSeconds": 0.35,
+      "glb": "/tmp/wp02/ag_arcade_bay_2m_simplified.glb",
+      "measured": {
+        "vertices": 542,
+        "triangles": 938,
+        "bounds": {
+          "x": [
+            -1.0,
+            1.0
+          ],
+          "y": [
+            -0.15,
+            0.35
+          ],
+          "z": [
+            0.0,
+            3.0
+          ]
+        },
+        "materials": [
+          "gn_brick_wall",
+          "gn_dark_glass",
+          "gn_stone_trim"
+        ]
+      },
+      "provenance": {
+        "zip": "archgen.zip",
+        "version": "1.0.1",
+        "license": "SPDX:GPL-3.0-or-later",
+        "registry_id": "arch_generator",
+        "registry_url": "https://extensions.blender.org/add-ons/arch-generator/",
+        "upstream_url": "https://github.com/Aniruddhyagoswami/arch_generator",
+        "archive_sha256": "b0a902ee3c0ff7b5360c3056bc9a084ba8e9d9f94882f68151abffb8df5abb4c",
+        "archive_url": "https://extensions.blender.org/download/sha256:b0a902ee3c0ff7b5360c3056bc9a084ba8e9d9f94882f68151abffb8df5abb4c/add-on-arch-generator-v1.0.1.zip",
+        "maintainer": "Aniruddhya Goswami",
+        "blender_version_min": "5.0.0",
+        "registryId": "arch_generator",
+        "moduleId": "bl_ext.user_default.arch_generator",
+        "mood": "day_civic",
+        "invocation": "bpy.ops.mesh.arch_create() + obj.arch_props + builders.rebuild_mesh()",
+        "adaptador": "tools/art-pipeline/blender/ext_lab/ag_module_bake.py",
+        "glbSha256": "b394d43eed2fac90b87293fe0f8d89b0c37de41fd6a113606024eba99c34dd9b",
+        "licenceNote": "GPL-3.0-or-later es la licencia del CODIGO de la extension. La geometria exportada se registra como authored-original del proyecto porque este repo no redistribuye el add-on: se instala en un perfil aislado de /tmp y solo se publica el GLB resultante."
+      }
+    },
+    "note": "Las tres instancias comparten el pilar de la junta: la crujia de 2 m se mantiene sin dosificar la extension. Materiales: piedra del atlas (gn_stone_trim) en arco, pilastra y antepecho; ladrillo (gn_brick_wall) en el trasero; vidrio oscuro en el hueco."
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 225.0,
+    "elevationDegrees": 30,
+    "orthoScale": 8.600000381469727,
+    "targetZ": 1.6
+  },
+  "lighting": {
+    "moodId": "day_civic",
+    "keyEnergy": 4.2,
+    "keyColor": [
+      1.0,
+      0.96,
+      0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+      0.52,
+      0.6,
+      0.7
+    ],
+    "worldStrength": 0.9,
+    "viewTransform": "Standard",
+    "look": "Medium Contrast",
+    "exposure": 0.0
+  },
+  "render": {
+    "resolution": [
+      1024,
+      1024
+    ],
+    "taaRenderSamples": 48,
+    "taaReprojection": false,
+    "filmTransparent": true,
+    "seconds": 4.24,
+    "trim": {
+      "rendered": {
+        "width": 1024,
+        "height": 1024
+      },
+      "cropped": {
+        "width": 549,
+        "height": 585,
+        "offsetX": 229,
+        "offsetY": 234
+      },
+      "final": {
+        "width": 549,
+        "height": 585
+      },
+      "supersample": 1
+    }
+  },
+  "geometry": {
+    "triangles": 2814,
+    "meshObjects": 3,
+    "bounds": {
+      "min": [
+        -3.0,
+        -0.15,
+        0.0
+      ],
+      "max": [
+        3.0,
+        0.35,
+        3.0
+      ],
+      "size": [
+        6.0,
+        0.5,
+        3.0
+      ]
+    }
+  },
+  "image": {
+    "path": "/tmp/wp02/module_simplified.png",
+    "width": 549,
+    "height": 585,
+    "sha256": "cead9b530f1c3083b499048744ff423f30d393b2c018dfe9d97bc6e3092dea49",
+    "bytes": 311426
+  },
+  "command": "blender_artist/toolchain/blender-5.2.2-linux-x64/blender -b --factory-startup -P /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/ext_lab/-b -- --out-glb=/tmp/wp02/ag_arcade_bay_2m_simplified.glb --report=/tmp/wp02/report_simplified.json --evidence-png=/tmp/wp02/module_simplified.png --evidence-json=/tmp/wp02/module_simplified.json --quality=simplified --mood=day_civic"
+}

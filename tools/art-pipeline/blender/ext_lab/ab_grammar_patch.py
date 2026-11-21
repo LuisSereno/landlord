@@ -38,6 +38,20 @@ GN_BY_FEATURE_MODULE = {"mod_quat_ultimate_balcony": "mod_gn_balcony_door_bay_2m
 # `parapet` se quedan como están porque no declaran módulo.
 CORNICE_FAMILIES = {"row_house", "mixed_tenement", "town_hall"}
 
+# D-111.2 WP02: el vano cívico horneado desde Arch Generator. `--source=ag` enruta SOLO `window_bay`
+# y no toca la cornisa, para que la A/B attribuya el cambio al módulo de la extensión y no a una
+# mezcla de dos autorías. El módulo declara `allowedFamilies: ["civic_landmark"]`, así que fuera de
+# town_hall el catálogo lo rechaza: la ruta cívica no se puede filtrar por error a un residencial.
+AG_BY_ROLE = {"window_bay": "mod_ag_arcade_bay_2m"}
+
+FACADE_SOURCES = {
+    # `commercial`: sólo la autoría GN tiene escaparate de planta baja; la cívica no lo necesita y
+    # enrutarlo sería inventar comercio donde la identidad aprobada del ayuntamiento no lo declara.
+    "gn": {"byRole": GN_BY_ROLE, "cornice": True, "featureModules": GN_BY_FEATURE_MODULE,
+           "commercial": True},
+    "ag": {"byRole": AG_BY_ROLE, "cornice": False, "featureModules": {}, "commercial": False},
+}
+
 
 def main():
     argv = sys.argv[1:]
@@ -51,6 +65,7 @@ def main():
         print("grammar revertido a HEAD")
         return
     options = {t.split("=", 1)[0][2:]: t.split("=", 1)[1] for t in argv if t.startswith("--")}
+    source = FACADE_SOURCES[options.get("source", "gn")]
     families = [t for t in argv if not t.startswith("--")]
     data = json.loads(GRAMMAR.read_text(encoding="utf-8"))
     if not BACKUP.exists():
@@ -59,8 +74,8 @@ def main():
     for family in families:
         grammar = data["grammars"][family]
         changed = []
-        by_role = dict(GN_BY_ROLE)
-        if grammar.get("semanticIdentity", {}).get("requireGroundCommercial"):
+        by_role = dict(source["byRole"])
+        if source["commercial"] and grammar.get("semanticIdentity", {}).get("requireGroundCommercial"):
             by_role[COMMERCIAL_ROLE[0]] = COMMERCIAL_ROLE[1]
         for palette in grammar["facadePalettes"]:
             roles = palette["roleModule"]
@@ -72,7 +87,7 @@ def main():
             # `warehouse` no publica `wainscot`: si el rol no está en la paleta, no se inventa.
         for recipe in grammar.get("recipes", []):
             for feature in recipe.get("requiredFeatures", []):
-                replacement = GN_BY_FEATURE_MODULE.get(feature.get("module"))
+                replacement = source["featureModules"].get(feature.get("module"))
                 if replacement:
                     feature["module"] = replacement
                     changed.append(f"recipe.{recipe['id']}.{feature['id']}")
@@ -89,7 +104,7 @@ def main():
                 }:
                     rhythm["groundRole"] = COMMERCIAL_ROLE[0]
                     changed.append(f"rhythm.{rhythm['id']}.groundRole")
-        if family in CORNICE_FAMILIES:
+        if source["cornice"] and family in CORNICE_FAMILIES:
             for option in grammar["silhouetteOptions"]:
                 if (option.get("corniceModule") or "").startswith("mod_megakit_"):
                     option["corniceModule"] = "mod_gn_cornice_2m"

@@ -625,6 +625,17 @@
       "sourceUrl": null,
       "unitScale": 1,
       "extractDir": null
+    },
+    {
+      "id": "src_original_ag_arcade_bay",
+      "path": "blender_artist/sources/original/ag_arcade_bay_2m.glb",
+      "sha256": "cd84ed402a5100b8d41338a586214abd6d42bf1b2955ea66a0a8ec447a2b31a1",
+      "origin": "original",
+      "license": "original",
+      "verification": "geometría propia horneada por tools/art-pipeline/blender/ext_lab/ag_module_bake.py llamando a bpy.ops.mesh.arch_create() + arch_props de Arch Generator 1.0.1 (instalada en un perfil aislado de /tmp, sin redistribuir el add-on) y recortada a la crujía de 2 m; los materiales son los flats autorados de gn_facade_grammar.py",
+      "sourceUrl": "tools/art-pipeline/blender/ext_lab/ag_module_bake.py",
+      "unitScale": 1,
+      "extractDir": null
     }
   ],
   "quarantined": [

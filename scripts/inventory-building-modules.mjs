@@ -182,6 +182,13 @@ const SCOPE = [
     directory: "blender_artist/sources/original",
     pattern: "gn_balcony_door_bay_2m\\.glb$",
   },
+  // D-111.2 WP02: el vano cívico horneado desde Arch Generator entra en el inventario como fuente
+  // original propia; sin esta línea el selector lo rechaza con "no está en el inventario".
+  {
+    sourceId: "src_original_ag_arcade_bay",
+    directory: "blender_artist/sources/original",
+    pattern: "ag_arcade_bay_2m\\.glb$",
+  },
 ];
 
 const CLASSIFICATION_RULE = {

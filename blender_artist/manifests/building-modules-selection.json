@@ -1693,6 +1693,16 @@
       "extractionStrategy": "whole_asset"
     },
     {
+      "id": "mod_ag_arcade_bay_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "D-111.2 WP02: vano de arcada cívico horneado desde Arch Generator (pilastra jónica acanalada, arco romano, impostas y trasero de muro con antepecho y vidrio); cortado a la crujía de 2 m por el eje del estribo para tilear sin pilar doble",
+      "sourcePath": "blender_artist/sources/original/ag_arcade_bay_2m.glb",
+      "meshes": ["AGArcadeBay2m"],
+      "allowedFamilies": ["civic_landmark"],
+      "extractionStrategy": "whole_asset"
+    },
+    {
       "id": "mod_nature_tree_pine_tall",
       "category": "civic",
       "role": "tree",

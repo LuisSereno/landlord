@@ -68,11 +68,11 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 186,
-    "sources": 185,
+    "modules": 187,
+    "sources": 186,
     "byCategory": {
       "facade": 34,
-      "window": 10,
+      "window": 11,
       "door": 7,
       "roof": 14,
       "civic": 69,
@@ -87,7 +87,7 @@
     "byFamily": {
       "residential_low": 62,
       "industrial_heavy": 50,
-      "civic_landmark": 155
+      "civic_landmark": 156
     },
     "bySource": {
       "src_quaternius_downtown_city_megakit": 102,
@@ -98,6 +98,7 @@
       "src_kenney_nature_kit": 18,
       "src_kenney_city_roads": 13,
       "src_original_civic_pediment": 1,
+      "src_original_ag_arcade_bay": 1,
       "src_original_school_cupola": 1,
       "src_original_construction_scaffold": 1,
       "src_original_construction_barrier": 1,
@@ -23053,6 +23054,142 @@
       }
     },
     {
+      "id": "mod_ag_arcade_bay_2m",
+      "category": "window",
+      "role": "window_bay",
+      "note": "D-111.2 WP02: vano de arcada cívico horneado desde Arch Generator (pilastra jónica acanalada, arco romano, impostas y trasero de muro con antepecho y vidrio); cortado a la crujía de 2 m por el eje del estribo para tilear sin pilar doble",
+      "sourceId": "src_original_ag_arcade_bay",
+      "sourcePath": "blender_artist/sources/original/ag_arcade_bay_2m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "AGArcadeBay2m"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 593 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.5,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "AGArcadeBay2m",
+        "convention": {
+          "x": "centered",
+          "y": "offset",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.15,
+            "max": 0.35
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          -0.1,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.25,
+            "max": 0.25
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": false
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 3000,
+        "triangles": 1810,
+        "shells": 593,
+        "materials": [
+          "gn_brick_wall",
+          "gn_dark_glass",
+          "gn_stone_trim"
+        ],
+        "images": [],
+        "selectedObjects": [
+          "AGArcadeBay2m"
+        ],
+        "baseColorChains": [
+          "gn_brick_wall=plano",
+          "gn_dark_glass=plano",
+          "gn_stone_trim=plano"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.5,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          -0.1,
+          0
+        ],
+        "fileTriangles": 1810,
+        "fileHierarchy": [
+          "AGArcadeBay2m:MESH"
+        ]
+      }
+    },
+    {
       "id": "mod_nature_tree_pine_tall",
       "category": "civic",
       "role": "tree",
@@ -25373,7 +25510,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 42 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -25396,12 +25533,12 @@
             "max": 1
           },
           "y": {
-            "min": -0.21,
-            "max": 0.21
+            "min": -0.115,
+            "max": 0.115
           },
           "z": {
             "min": 0,
-            "max": 0.9
+            "max": 3
           }
         },
         "datumOffsetFromGroundCenterMeters": [
@@ -25475,7 +25612,7 @@
           0,
           0
         ],
-        "fileTriangles": 72,
+        "fileTriangles": 84,
         "fileHierarchy": [
           "GnPlinth:MESH"
         ]
@@ -25505,7 +25642,7 @@
       "extraction": {
         "strategy": "whole_asset",
         "classification": "whole_asset_only",
-        "reason": "una sola unidad sustancial (100% de los triángulos, 60 cáscaras): usable como módulo de masa completo"
+        "reason": "una sola unidad sustancial (100% de los triángulos, 66 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
         "widthMeters": 2,
@@ -25517,28 +25654,28 @@
         "datumObject": "GnCornice",
         "convention": {
           "x": "centered",
-          "y": "offset",
+          "y": "centered",
           "z": "positive-from-origin"
         },
-        "frontAxis": "+Y",
-        "symmetricAboutFront": false,
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
         "boundsRelativeToOriginMeters": {
           "x": {
             "min": -1,
             "max": 1
           },
           "y": {
-            "min": -0.235,
-            "max": 0.445
+            "min": -0.2,
+            "max": 0.2
           },
           "z": {
             "min": 0,
-            "max": 0.55
+            "max": 1
           }
         },
         "datumOffsetFromGroundCenterMeters": [
           0,
-          -0.105,
+          0,
           0
         ],
         "moduleBoundsInPlacementFrameMeters": {
@@ -25576,7 +25713,7 @@
           180,
           270
         ],
-        "symmetricAboutFront": false
+        "symmetricAboutFront": true
       },
       "measured": {
         "meshObjects": 1,
@@ -25609,7 +25746,7 @@
           0,
           0
         ],
-        "fileTriangles": 120,
+        "fileTriangles": 132,
         "fileHierarchy": [
           "GnCornice:MESH"
         ]

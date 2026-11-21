@@ -12,11 +12,12 @@
   ],
   "pins": {
     "styleProfileId": "graphic_civic_buildings_v1",
-    "styleProfilesSha256": "a693dd26da9231ba65482f2af08a04feae836f3afb48579e2cdce760b5faa17a",
-    "moduleCatalogSha256": "f68d666edc11137e178ef7344c2bda8164b22d0840bb8ee29f11e4fc9cce54d0",
+    "styleProfilesSha256": "175e9b6f752f89d01b5374f2c456321977ac53f695267fcd379022871d8f7935",
+    "moduleCatalogSha256": "3d159acc9685accf532ce7c703ecd11abd9aa53ce114fc14892f1f8cfc950c2d",
     "styleLayer": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
     "materialDecisions": "docs/art/graphics-capabilities/material-decisions.json",
-    "evidence": "Por qué los tres hashes: el vocabulario de familias semánticas no lo declara este contrato, lo mide `building-style-profiles.json` sobre `building-modules.json`. Sin el pin, añadir un módulo con un material nuevo dejaría el contrato incompleto en silencio y el render mezclaría paños tratados con paños en bruto (§11)."
+    "evidence": "Por qué los tres hashes: el vocabulario de familias semánticas no lo declara este contrato, lo mide `building-style-profiles.json` sobre `building-modules.json`. Sin el pin, añadir un módulo con un material nuevo dejaría el contrato incompleto en silencio y el render mezclaría paños tratados con paños en bruto (§11).",
+    "restamped": "2026-11-21, D-111.2 WP06: los dos hashes suben sin re-medir nada, y lo que lo autoriza es la medición, no la conveniencia. El arreglo de orientación de `mod_gn_plinth_2m` y `mod_gn_cornice_2m` (origen en el plano posterior para que `frontAxis` salga `+Y` en vez de `symmetric-Y`) toca del catálogo sólo `pivot.convention`, `anchor` y `measured.importOffset` de esos dos módulos; `moduleBoundsInPlacementFrameMeters` —lo que el compositor consume— no cambia. Y el diff de `building-style-profiles.json` son las dos líneas de `moduleCatalogSha256` y nada más: ningún albedo, bucket ni `materialReach` medido se movió, así que no hay familia nueva que cubrir. El pin es un tripwire, no la guarda: `check_family_coverage` compara las claves de `materials` con `StyleProfile.material_family` del archivo vivo en cada corrida, de modo que un re-estampado que sí escondiera una familia nueva sigue fallando igual."
   },
   "semanticMaterials": "Las claves de `materials` son las familias del perfil (`materialReach[].family` de `building-style-profiles.json`), que es como el compositor clasifica un material de origen: `MI_RedBrick`→brick, `MI_Trim`→plaster, `MI_Roof_Slate`→stone, `colormap`→atlas. No se introduce un vocabulario propio: si el contrato y el perfil difieren, `weathering.py` aborta.",
   "weatheringTokens": ["conserved", "aged"],

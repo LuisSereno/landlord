@@ -592,6 +592,13 @@ def _build_plinth(params):
     La cara exterior del módulo cae en el mismo plano que el panel megakit que sustituye
     (`depthMeters`), así que lo único que cambia respecto al control es el relieve. El labio
     superior es lo que le devuelve la sombra horizontal que el zócalo necesita para leerse.
+
+    El origen autorá en el plano POSTERIOR (y ∈ [0, d]), no en el centro: es la convención de
+    `FACADE_PLANE` de WP05. El catálogo deriva `frontAxis` de la asimetría de la caja respecto al
+    origen, y con la caja centrada salía `symmetric-Y` → `anchors.rotation_for` no lo gira en la banda
+    frontal y el zócalo enseñaba a la calle el paño retraído, dejando las juntas de sillar y el labio
+    mirando al interior (medido en WP06: era la causa de que el zócalo leyera como paño liso a 0,5×).
+    La caja de COLOCACIÓN se re-centra al medir, así que el envelope y el encuadre no se mueven.
     """
     tree = GrammarTree(f"{GROUP_PREFIX}_Plinth")
     tree.declare_inputs(params)
@@ -600,7 +607,7 @@ def _build_plinth(params):
     h = params["bayHeight"]
     socle = params["socleHeight"]
     proj = params["socleProjection"]
-    back, front = -d / 2.0, d / 2.0
+    back, front = 0.0, d
     body_t = d - proj
     lip_t = proj + 0.05
     ashlar_h = socle - lip_t - 0.08
@@ -608,11 +615,11 @@ def _build_plinth(params):
         # paño de la banda, retraído: es lo que hace que el zócalo sobresalga del muro
         tree.box((w, body_t, h), (0.0, back + body_t / 2.0, h / 2.0)),
         # dadillo de arranque, a pleno
-        tree.box((w, d, 0.08), (0.0, 0.0, 0.04)),
+        tree.box((w, d, 0.08), (0.0, back + d / 2.0, 0.04)),
         # hiladas de sillar
         tree.box((w, d - 0.05, ashlar_h), (0.0, back + (d - 0.05) / 2.0, 0.08 + ashlar_h / 2.0)),
         # labio (cobija) que corona el zócalo
-        tree.box((w, d, lip_t), (0.0, 0.0, socle - lip_t / 2.0)),
+        tree.box((w, d, lip_t), (0.0, back + d / 2.0, socle - lip_t / 2.0)),
     ]
     pts = tree.points_row(w - 0.4, "joints", (0.0, front - 0.025, 0.08 + ashlar_h / 2.0))
     stone.append(
@@ -629,20 +636,24 @@ def _build_cornice(params):
     El perfil se apoya en el dintel del último forjado y remata exactamente en `bayHeight`: así el
     envelope del edificio no se mueve cuando este módulo sustituye a la cornisa del control, y con
     él se conserva el encuadre derivado y el margen de recorte alfa del sprite.
+
+    Mismo origen en el plano posterior que el zócalo (ver `_build_plinth`): la caja centrada se
+    clasificaba `symmetric-Y` y el frente montaba el pretil con el dorso a la calle, con los
+    dentículos y la cornisa volada escondidos dentro del edificio.
     """
     tree = GrammarTree(f"{GROUP_PREFIX}_Cornice")
     tree.declare_inputs(params)
     w = params["bayWidth"]
     d = params["depthMeters"]
     h = params["bayHeight"]
-    back = -d / 2.0
+    back = 0.0
     wall_t = 0.20
     # El parapeto va en ladrillo, igual que el paño: la cornisa de piedra es el remate, no el muro.
     wall = tree.box((w, wall_t, h), (0.0, back + wall_t / 2.0, h / 2.0))
     bed = tree.box((w, 0.30, 0.15), (0.0, back + 0.15, 0.375))
     dentil_pts = tree.points_row(w - 0.28, "dentils", (0.0, back + 0.18, 0.54))
     dentils = tree.instance_on_row(tree.box((0.10, 0.36, 0.18), (0.0, 0.0, 0.0)), dentil_pts)
-    corona = tree.box((w, d, 0.17), (0.0, 0.0, 0.715))
+    corona = tree.box((w, d, 0.17), (0.0, back + d / 2.0, 0.715))
     fascia = tree.box((w, 0.32, 0.11), (0.0, back + 0.16, 0.855))
     cyma = tree.box((w, 0.26, 0.09), (0.0, back + 0.13, 0.955))
     brick = tree.with_material(wall, MATERIALS["wall"]["name"])

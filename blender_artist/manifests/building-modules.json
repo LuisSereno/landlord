@@ -25526,19 +25526,19 @@
         "datumObject": "GnPlinth",
         "convention": {
           "x": "centered",
-          "y": "centered",
+          "y": "positive-from-origin",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
-        "symmetricAboutFront": true,
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
             "min": -1,
             "max": 1
           },
           "y": {
-            "min": -0.115,
-            "max": 0.115
+            "min": 0,
+            "max": 0.229
           },
           "z": {
             "min": 0,
@@ -25547,7 +25547,7 @@
         },
         "datumOffsetFromGroundCenterMeters": [
           0,
-          0,
+          -0.115,
           0
         ],
         "moduleBoundsInPlacementFrameMeters": {
@@ -25585,7 +25585,7 @@
           180,
           270
         ],
-        "symmetricAboutFront": true
+        "symmetricAboutFront": false
       },
       "measured": {
         "meshObjects": 1,
@@ -25613,7 +25613,7 @@
         "importScale": 1,
         "importOffset": [
           0,
-          0,
+          -0.1145,
           0
         ],
         "fileTriangles": 84,
@@ -25658,19 +25658,19 @@
         "datumObject": "GnCornice",
         "convention": {
           "x": "centered",
-          "y": "centered",
+          "y": "positive-from-origin",
           "z": "positive-from-origin"
         },
-        "frontAxis": "symmetric-Y",
-        "symmetricAboutFront": true,
+        "frontAxis": "+Y",
+        "symmetricAboutFront": false,
         "boundsRelativeToOriginMeters": {
           "x": {
             "min": -1,
             "max": 1
           },
           "y": {
-            "min": -0.2,
-            "max": 0.2
+            "min": 0,
+            "max": 0.4
           },
           "z": {
             "min": 0,
@@ -25679,7 +25679,7 @@
         },
         "datumOffsetFromGroundCenterMeters": [
           0,
-          0,
+          -0.2,
           0
         ],
         "moduleBoundsInPlacementFrameMeters": {
@@ -25717,7 +25717,7 @@
           180,
           270
         ],
-        "symmetricAboutFront": true
+        "symmetricAboutFront": false
       },
       "measured": {
         "meshObjects": 1,
@@ -25747,7 +25747,7 @@
         "importScale": 1,
         "importOffset": [
           0,
-          0,
+          -0.2,
           0
         ],
         "fileTriangles": 132,

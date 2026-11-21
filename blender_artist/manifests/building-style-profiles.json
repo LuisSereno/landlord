@@ -23,7 +23,7 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "f68d666edc11137e178ef7344c2bda8164b22d0840bb8ee29f11e4fc9cce54d0",
+      "moduleCatalogSha256": "3d159acc9685accf532ce7c703ecd11abd9aa53ce114fc14892f1f8cfc950c2d",
       "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
       "appliesToFamilies": [
         "residential_low",
@@ -7026,7 +7026,7 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "f68d666edc11137e178ef7344c2bda8164b22d0840bb8ee29f11e4fc9cce54d0",
+      "moduleCatalogSha256": "3d159acc9685accf532ce7c703ecd11abd9aa53ce114fc14892f1f8cfc950c2d",
       "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
       "appliesToFamilies": [
         "residential_low",

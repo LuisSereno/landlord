@@ -144409,7 +144409,7 @@
         "importScale": 1,
         "importOffset": [
           0,
-          0,
+          -0.1145,
           0
         ]
       },
@@ -144431,12 +144431,12 @@
         "object": "GnPlinth",
         "origin": [
           0,
-          0,
+          -0.115,
           0
         ],
         "offsetFromGroundCenter": [
           0,
-          0,
+          -0.115,
           0
         ],
         "localSizeMeters": {
@@ -144450,8 +144450,8 @@
             "max": 1
           },
           "y": {
-            "min": -0.115,
-            "max": 0.115
+            "min": 0,
+            "max": 0.229
           },
           "z": {
             "min": 0,
@@ -144460,7 +144460,7 @@
         },
         "convention": {
           "x": "centered",
-          "y": "centered",
+          "y": "positive-from-origin",
           "z": "positive-from-origin"
         }
       }
@@ -144516,7 +144516,7 @@
         "importScale": 1,
         "importOffset": [
           0,
-          0,
+          -0.2,
           0
         ]
       },
@@ -144538,12 +144538,12 @@
         "object": "GnCornice",
         "origin": [
           0,
-          0,
+          -0.2,
           0
         ],
         "offsetFromGroundCenter": [
           0,
-          0,
+          -0.2,
           0
         ],
         "localSizeMeters": {
@@ -144557,8 +144557,8 @@
             "max": 1
           },
           "y": {
-            "min": -0.2,
-            "max": 0.2
+            "min": 0,
+            "max": 0.4
           },
           "z": {
             "min": 0,
@@ -144567,7 +144567,7 @@
         },
         "convention": {
           "x": "centered",
-          "y": "centered",
+          "y": "positive-from-origin",
           "z": "positive-from-origin"
         }
       }

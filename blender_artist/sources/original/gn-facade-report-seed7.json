@@ -56,8 +56,8 @@
     "transom",
     "wallThickness"
    ],
-   "setupMs": 16.86,
-   "evaluateMs": 4.21,
+   "setupMs": 20.72,
+   "evaluateMs": 4.44,
    "materials": [
     "gn_brick_wall",
     "gn_dark_glass",
@@ -100,7 +100,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 2.97
+     "evaluateMs": 3.09
     },
     {
      "parameter": "mullions",
@@ -121,7 +121,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 2.84
+     "evaluateMs": 2.89
     },
     {
      "parameter": "mullions",
@@ -142,7 +142,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 2.78
+     "evaluateMs": 3.09
     }
    ]
   },
@@ -180,8 +180,8 @@
     "sillHeight",
     "wallThickness"
    ],
-   "setupMs": 14.76,
-   "evaluateMs": 3.5,
+   "setupMs": 17.86,
+   "evaluateMs": 5.22,
    "materials": [
     "gn_brick_wall",
     "gn_dark_glass",
@@ -234,8 +234,8 @@
     "socleHeight",
     "socleProjection"
    ],
-   "setupMs": 3.22,
-   "evaluateMs": 2.2,
+   "setupMs": 3.63,
+   "evaluateMs": 2.45,
    "materials": [
     "gn_stone_trim"
    ],
@@ -248,8 +248,8 @@
      "max": 1.0
     },
     "y": {
-     "min": -0.1145,
-     "max": 0.1145
+     "min": 0.0,
+     "max": 0.229
     },
     "z": {
      "min": 0.0,
@@ -281,8 +281,8 @@
     "bayWidth",
     "depthMeters"
    ],
-   "setupMs": 3.87,
-   "evaluateMs": 2.39,
+   "setupMs": 4.37,
+   "evaluateMs": 2.59,
    "materials": [
     "gn_brick_wall",
     "gn_stone_trim"
@@ -296,8 +296,8 @@
      "max": 1.0
     },
     "y": {
-     "min": -0.2,
-     "max": 0.2
+     "min": 0.0,
+     "max": 0.4
     },
     "z": {
      "min": 0.0,
@@ -316,15 +316,15 @@
        "max": 1.0
       },
       "y": {
-       "min": -0.2,
-       "max": 0.2
+       "min": 0.0,
+       "max": 0.4
       },
       "z": {
        "min": 0.0,
        "max": 1.0
       }
      },
-     "evaluateMs": 1.73
+     "evaluateMs": 1.43
     },
     {
      "parameter": "dentils",
@@ -337,15 +337,15 @@
        "max": 1.0
       },
       "y": {
-       "min": -0.2,
-       "max": 0.2
+       "min": 0.0,
+       "max": 0.4
       },
       "z": {
        "min": 0.0,
        "max": 1.0
       }
      },
-     "evaluateMs": 2.27
+     "evaluateMs": 2.41
     },
     {
      "parameter": "dentils",
@@ -358,15 +358,15 @@
        "max": 1.0
       },
       "y": {
-       "min": -0.2,
-       "max": 0.2
+       "min": 0.0,
+       "max": 0.4
       },
       "z": {
        "min": 0.0,
        "max": 1.0
       }
      },
-     "evaluateMs": 2.41
+     "evaluateMs": 2.94
     }
    ]
   },
@@ -408,8 +408,8 @@
     "slabHeight",
     "wallThickness"
    ],
-   "setupMs": 57.44,
-   "evaluateMs": 7.32,
+   "setupMs": 68.82,
+   "evaluateMs": 8.77,
    "materials": [
     "gn_dark_glass",
     "gn_joinery_dark",
@@ -453,7 +453,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 4.78
+     "evaluateMs": 5.74
     },
     {
      "parameter": "balusters",
@@ -474,7 +474,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.67
+     "evaluateMs": 7.16
     },
     {
      "parameter": "balusters",
@@ -495,7 +495,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.38
+     "evaluateMs": 5.69
     }
    ]
   },
@@ -539,8 +539,8 @@
     "seamHeight",
     "seamLevels"
    ],
-   "setupMs": 8.22,
-   "evaluateMs": 4.59,
+   "setupMs": 11.01,
+   "evaluateMs": 4.61,
    "materials": [
     "gn_metal_trim",
     "gn_painted_metal",
@@ -583,7 +583,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 2.95
+     "evaluateMs": 2.83
     },
     {
      "parameter": "ribs",
@@ -604,7 +604,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 3.21
+     "evaluateMs": 4.86
     },
     {
      "parameter": "ribs",
@@ -625,7 +625,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 3.21
+     "evaluateMs": 4.18
     }
    ]
   },
@@ -679,8 +679,8 @@
     "seamLevels",
     "sillZ"
    ],
-   "setupMs": 49.01,
-   "evaluateMs": 6.61,
+   "setupMs": 54.25,
+   "evaluateMs": 9.52,
    "materials": [
     "gn_dark_glass",
     "gn_metal_trim",
@@ -724,7 +724,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.32
+     "evaluateMs": 7.12
     },
     {
      "parameter": "mullions",
@@ -745,7 +745,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.63
+     "evaluateMs": 6.43
     },
     {
      "parameter": "mullions",
@@ -766,7 +766,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.41
+     "evaluateMs": 6.56
     }
    ]
   },
@@ -818,8 +818,8 @@
     "sillPlateHeight",
     "slatGap"
    ],
-   "setupMs": 26.94,
-   "evaluateMs": 5.76,
+   "setupMs": 37.18,
+   "evaluateMs": 6.99,
    "materials": [
     "gn_dark_glass",
     "gn_dock_shutter",
@@ -885,7 +885,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 5.02
+     "evaluateMs": 6.55
     },
     {
      "parameter": "slats",
@@ -906,7 +906,7 @@
        "max": 3.0
       }
      },
-     "evaluateMs": 4.75
+     "evaluateMs": 7.45
     }
    ]
   },
@@ -948,8 +948,8 @@
     "shadowHeight",
     "wallThickness"
    ],
-   "setupMs": 9.2,
-   "evaluateMs": 4.05,
+   "setupMs": 11.25,
+   "evaluateMs": 5.49,
    "materials": [
     "gn_metal_trim",
     "gn_painted_metal",
@@ -992,7 +992,7 @@
        "max": 1.0
       }
      },
-     "evaluateMs": 2.86
+     "evaluateMs": 1.9
     },
     {
      "parameter": "joints",
@@ -1013,7 +1013,7 @@
        "max": 1.0
       }
      },
-     "evaluateMs": 3.39
+     "evaluateMs": 3.49
     },
     {
      "parameter": "joints",
@@ -1034,7 +1034,7 @@
        "max": 1.0
       }
      },
-     "evaluateMs": 3.5
+     "evaluateMs": 4.93
     }
    ]
   }

@@ -52,8 +52,28 @@ def rotate_box(box, rotation_degrees):
     raise ValueError(f"rotación no ortogonal: {rotation_degrees}")
 
 
-def placed_bounds(module, rotation_degrees, position):
-    rotated = rotate_box(module.placement_bounds, rotation_degrees)
+def scale_box(box, scale):
+    """Escala uniforme o por eje, aplicada ANTES del giro.
+
+    Es el orden de Blender: la matriz del empty es T·R·S, así que el escalado vive en el espacio
+    local del módulo. Si se escalara después del giro, un `scaleY` de 0,8 sobre un módulo rotado
+    90° comprimiría el eje equivocado y la caja firmada no coincidiría con la escena.
+    """
+    sx, sy, sz = (scale, scale, scale) if isinstance(scale, (int, float)) else scale
+    return {
+        "x": {"min": box["x"]["min"] * sx, "max": box["x"]["max"] * sx},
+        "y": {"min": box["y"]["min"] * sy, "max": box["y"]["max"] * sy},
+        "z": {"min": box["z"]["min"] * sz, "max": box["z"]["max"] * sz},
+    }
+
+
+def placed_bounds(module, rotation_degrees, position, scale=1.0):
+    """Caja firmada de una colocación. `scale` ≠ 1 sólo la usan los VFX de incendio (FASE 3)."""
+    if isinstance(scale, (int, float)):
+        scale = (scale, scale, scale)
+    if any(value <= 0.0 for value in scale):
+        raise ValueError(f"escala no positiva en {module.id}: {scale}")
+    rotated = rotate_box(scale_box(module.placement_bounds, scale), rotation_degrees)
     return {
         "x": {"min": rotated["x"]["min"] + position[0], "max": rotated["x"]["max"] + position[0]},
         "y": {"min": rotated["y"]["min"] + position[1], "max": rotated["y"]["max"] + position[1]},

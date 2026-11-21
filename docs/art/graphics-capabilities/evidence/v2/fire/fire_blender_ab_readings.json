@@ -1,0 +1,482 @@
+{
+ "mixed_tenement-day-control": {
+  "focosDeclarados": 5,
+  "focosVisibles": 2,
+  "focoMayorPx": 1321,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1428,
+   1402
+  ],
+  "spritePx": [
+   1082,
+   1063
+  ],
+  "pesoKiB": 1432,
+  "luzDelFuego": null,
+  "mallasSinSombra": 0,
+  "picoRGB": [
+   255,
+   255,
+   165
+  ],
+  "saturacionCalida": 114,
+  "cotaLlamaMin": 1.65,
+  "cotaLlamaMax": 2.95,
+  "alturasLlamaDistintas": 1,
+  "topeHumoM": 6.42,
+  "envoltoriaM": 10.0,
+  "cotaPretilM": 10.0,
+  "humoSobrePretilM": -3.58,
+  "arranqueHumoBajoPuntaM": 0.4,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 24,
+   "localizado": false,
+   "opacidadNucleo": null
+  },
+  "llamaEmission": {
+   "pico": 2.0,
+   "materiales": 2,
+   "zonas": []
+  },
+  "firma": "04301fb482e9bedfb3bea9c968750843d2b77311bb4f3ae4d03e525652233cd3"
+ },
+ "mixed_tenement-day-candidata": {
+  "focosDeclarados": 16,
+  "focosVisibles": 11,
+  "focoMayorPx": 11906,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1428,
+   1626
+  ],
+  "spritePx": [
+   1082,
+   1233
+  ],
+  "pesoKiB": 1583,
+  "luzDelFuego": {
+   "lights": 2,
+   "wattsEach": 412.3,
+   "keyEnergyReference": 4.2,
+   "shareOfKey": 1.25,
+   "reachMeters": 2.5,
+   "cutoffMeters": 7.5,
+   "softSizeMeters": 0.35,
+   "colourLinear": [
+    1.0,
+    0.47,
+    0.22
+   ],
+   "heightFractionOfFlame": 0.85,
+   "shadowCasting": true,
+   "focos": 13,
+   "posiciones": [
+    [
+     2.48,
+     -2.32,
+     7.61
+    ],
+    [
+     5.5,
+     1.63,
+     7.93
+    ]
+   ]
+  },
+  "mallasSinSombra": 19,
+  "picoRGB": [
+   255,
+   255,
+   171
+  ],
+  "saturacionCalida": 122,
+  "cotaLlamaMin": 3.0,
+  "cotaLlamaMax": 9.65,
+  "alturasLlamaDistintas": 14,
+  "topeHumoM": 13.25,
+  "envoltoriaM": 13.25,
+  "cotaPretilM": 9.0,
+  "humoSobrePretilM": 4.25,
+  "arranqueHumoBajoPuntaM": 1.2,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 16,
+   "localizado": true,
+   "opacidadNucleo": 0.63
+  },
+  "llamaEmission": {
+   "pico": 1.35,
+   "materiales": 3,
+   "zonas": [
+    0.987,
+    1.35,
+    0.519
+   ]
+  },
+  "firma": "76e58dc5fb4e8aa4c1e806348d5abddfcfe84864424306470cb0a912e4826162"
+ },
+ "mixed_tenement-night-control": {
+  "focosDeclarados": 5,
+  "focosVisibles": 2,
+  "focoMayorPx": 1289,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1428,
+   1402
+  ],
+  "spritePx": [
+   1082,
+   1063
+  ],
+  "pesoKiB": 1261,
+  "luzDelFuego": null,
+  "mallasSinSombra": 0,
+  "picoRGB": [
+   233,
+   211,
+   173
+  ],
+  "saturacionCalida": 78,
+  "cotaLlamaMin": 1.65,
+  "cotaLlamaMax": 2.95,
+  "alturasLlamaDistintas": 1,
+  "topeHumoM": 6.42,
+  "envoltoriaM": 10.0,
+  "cotaPretilM": 10.0,
+  "humoSobrePretilM": -3.58,
+  "arranqueHumoBajoPuntaM": 0.4,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 24,
+   "localizado": false,
+   "opacidadNucleo": null
+  },
+  "llamaEmission": {
+   "pico": 2.0,
+   "materiales": 2,
+   "zonas": []
+  },
+  "firma": "04301fb482e9bedfb3bea9c968750843d2b77311bb4f3ae4d03e525652233cd3"
+ },
+ "mixed_tenement-night-candidata": {
+  "focosDeclarados": 16,
+  "focosVisibles": 10,
+  "focoMayorPx": 7988,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1428,
+   1626
+  ],
+  "spritePx": [
+   1082,
+   1233
+  ],
+  "pesoKiB": 1382,
+  "luzDelFuego": {
+   "lights": 2,
+   "wattsEach": 230.7,
+   "keyEnergyReference": 2.35,
+   "shareOfKey": 1.25,
+   "reachMeters": 2.5,
+   "cutoffMeters": 7.5,
+   "softSizeMeters": 0.35,
+   "colourLinear": [
+    1.0,
+    0.47,
+    0.22
+   ],
+   "heightFractionOfFlame": 0.85,
+   "shadowCasting": true,
+   "focos": 13,
+   "posiciones": [
+    [
+     2.48,
+     -2.32,
+     7.61
+    ],
+    [
+     5.5,
+     1.63,
+     7.93
+    ]
+   ]
+  },
+  "mallasSinSombra": 19,
+  "picoRGB": [
+   252,
+   198,
+   171
+  ],
+  "saturacionCalida": 121,
+  "cotaLlamaMin": 3.0,
+  "cotaLlamaMax": 9.65,
+  "alturasLlamaDistintas": 14,
+  "topeHumoM": 13.25,
+  "envoltoriaM": 13.25,
+  "cotaPretilM": 9.0,
+  "humoSobrePretilM": 4.25,
+  "arranqueHumoBajoPuntaM": 1.2,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 16,
+   "localizado": true,
+   "opacidadNucleo": 0.63
+  },
+  "llamaEmission": {
+   "pico": 1.35,
+   "materiales": 3,
+   "zonas": [
+    0.987,
+    1.35,
+    0.519
+   ]
+  },
+  "firma": "76e58dc5fb4e8aa4c1e806348d5abddfcfe84864424306470cb0a912e4826162"
+ },
+ "warehouse-day-control": {
+  "focosDeclarados": 5,
+  "focosVisibles": 5,
+  "focoMayorPx": 1322,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1641,
+   1263
+  ],
+  "spritePx": [
+   1417,
+   1097
+  ],
+  "pesoKiB": 1283,
+  "luzDelFuego": null,
+  "mallasSinSombra": 0,
+  "picoRGB": [
+   255,
+   255,
+   181
+  ],
+  "saturacionCalida": 109,
+  "cotaLlamaMin": 1.65,
+  "cotaLlamaMax": 2.95,
+  "alturasLlamaDistintas": 1,
+  "topeHumoM": 6.42,
+  "envoltoriaM": 6.42,
+  "cotaPretilM": 6.42,
+  "humoSobrePretilM": 0.0,
+  "arranqueHumoBajoPuntaM": 0.4,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 16,
+   "localizado": false,
+   "opacidadNucleo": null
+  },
+  "llamaEmission": {
+   "pico": 2.0,
+   "materiales": 2,
+   "zonas": []
+  },
+  "firma": "05e5b738ec0e42a28f2b63296382b933702cb6a4c6e6553f4c44c82247794d49"
+ },
+ "warehouse-day-candidata": {
+  "focosDeclarados": 19,
+  "focosVisibles": 5,
+  "focoMayorPx": 49268,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1641,
+   1288
+  ],
+  "spritePx": [
+   1417,
+   1119
+  ],
+  "pesoKiB": 1350,
+  "luzDelFuego": {
+   "lights": 2,
+   "wattsEach": 412.3,
+   "keyEnergyReference": 4.2,
+   "shareOfKey": 1.25,
+   "reachMeters": 2.5,
+   "cutoffMeters": 7.5,
+   "softSizeMeters": 0.35,
+   "colourLinear": [
+    1.0,
+    0.47,
+    0.22
+   ],
+   "heightFractionOfFlame": 0.85,
+   "shadowCasting": true,
+   "focos": 19,
+   "posiciones": [
+    [
+     4.32,
+     -2.74,
+     1.63
+    ],
+    [
+     3.92,
+     1.98,
+     1.66
+    ]
+   ]
+  },
+  "mallasSinSombra": 22,
+  "picoRGB": [
+   255,
+   252,
+   196
+  ],
+  "saturacionCalida": 109,
+  "cotaLlamaMin": 0.1,
+  "cotaLlamaMax": 3.65,
+  "alturasLlamaDistintas": 18,
+  "topeHumoM": 6.79,
+  "envoltoriaM": 6.79,
+  "cotaPretilM": 3.0,
+  "humoSobrePretilM": 3.79,
+  "arranqueHumoBajoPuntaM": 1.5,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 10,
+   "localizado": true,
+   "opacidadNucleo": 0.546
+  },
+  "llamaEmission": {
+   "pico": 1.35,
+   "materiales": 3,
+   "zonas": [
+    0.987,
+    1.35,
+    0.519
+   ]
+  },
+  "firma": "bb2e478890f0ffb9a192881f23941bef2323cf6c07cd10489f0cfb263de9ee60"
+ },
+ "warehouse-night-control": {
+  "focosDeclarados": 5,
+  "focosVisibles": 5,
+  "focoMayorPx": 1291,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1641,
+   1263
+  ],
+  "spritePx": [
+   1417,
+   1097
+  ],
+  "pesoKiB": 968,
+  "luzDelFuego": null,
+  "mallasSinSombra": 0,
+  "picoRGB": [
+   237,
+   213,
+   177
+  ],
+  "saturacionCalida": 76,
+  "cotaLlamaMin": 1.65,
+  "cotaLlamaMax": 2.95,
+  "alturasLlamaDistintas": 1,
+  "topeHumoM": 6.42,
+  "envoltoriaM": 6.42,
+  "cotaPretilM": 6.42,
+  "humoSobrePretilM": 0.0,
+  "arranqueHumoBajoPuntaM": 0.4,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 16,
+   "localizado": false,
+   "opacidadNucleo": null
+  },
+  "llamaEmission": {
+   "pico": 2.0,
+   "materiales": 2,
+   "zonas": []
+  },
+  "firma": "05e5b738ec0e42a28f2b63296382b933702cb6a4c6e6553f4c44c82247794d49"
+ },
+ "warehouse-night-candidata": {
+  "focosDeclarados": 19,
+  "focosVisibles": 7,
+  "focoMayorPx": 10307,
+  "píxelesRecortados": 0,
+  "recortePorciento": 0.0,
+  "lienzoPx": [
+   1641,
+   1288
+  ],
+  "spritePx": [
+   1417,
+   1119
+  ],
+  "pesoKiB": 1027,
+  "luzDelFuego": {
+   "lights": 2,
+   "wattsEach": 230.7,
+   "keyEnergyReference": 2.35,
+   "shareOfKey": 1.25,
+   "reachMeters": 2.5,
+   "cutoffMeters": 7.5,
+   "softSizeMeters": 0.35,
+   "colourLinear": [
+    1.0,
+    0.47,
+    0.22
+   ],
+   "heightFractionOfFlame": 0.85,
+   "shadowCasting": true,
+   "focos": 19,
+   "posiciones": [
+    [
+     4.32,
+     -2.74,
+     1.63
+    ],
+    [
+     3.92,
+     1.98,
+     1.66
+    ]
+   ]
+  },
+  "mallasSinSombra": 22,
+  "picoRGB": [
+   222,
+   197,
+   155
+  ],
+  "saturacionCalida": 114,
+  "cotaLlamaMin": 0.1,
+  "cotaLlamaMax": 3.65,
+  "alturasLlamaDistintas": 18,
+  "topeHumoM": 6.79,
+  "envoltoriaM": 6.79,
+  "cotaPretilM": 3.0,
+  "humoSobrePretilM": 3.79,
+  "arranqueHumoBajoPuntaM": 1.5,
+  "hollin": {
+   "strength": 0.7,
+   "materiales": 10,
+   "localizado": true,
+   "opacidadNucleo": 0.546
+  },
+  "llamaEmission": {
+   "pico": 1.35,
+   "materiales": 3,
+   "zonas": [
+    0.987,
+    1.35,
+    0.519
+   ]
+  },
+  "firma": "bb2e478890f0ffb9a192881f23941bef2323cf6c07cd10489f0cfb263de9ee60"
+ }
+}

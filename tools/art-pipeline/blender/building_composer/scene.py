@@ -367,18 +367,114 @@ def complete_style_reach(objects, treatment, kind):
     }
 
 
-def apply_soot(objects, strength):
-    """V.j: hollín para damaged/burning. Oscurece y tiñe de marrón-negro el albedo del edificio.
+# Cuánto prende el hollín en cada familia medida del perfil (`materialFamilies`). La madera es
+# combustible y el yeso se descascara; un vidrio a esa distancia se ahúma pero sigue siendo vidrio.
+# Sin esta tabla los paños viraban todos al mismo marrón y la silueta quemada perdía la lectura de
+# qué era cada superficie (medido en FASE 2: 24/24 materiales al mismo factor 0,7).
+SOOT_FAMILY_BIAS = {
+    "wood": 1.0,
+    "brick": 0.9,
+    "plaster": 0.85,
+    "stone": 0.78,
+    "atlas": 0.72,
+    "metal": 0.6,
+    # El interior va por encima del yeso: es la cara que da a la sala que arde, y con el sesgo viejo
+    # (0,5) el forjado quemado se seguía viendo claro entre las lenguas. Hollín de sala incendiada, no
+    # de fachada.
+    "interior": 0.66,
+    "glass": 0.35,
+    "default": 0.72,
+}
+# Techo del Fac: por debajo de él el paño más quemado conserva algo de su propio color, que es la
+# diferencia entre "fachada carbonizada" y "masa negra". El encargo lo pide explícito.
+SOOT_CAP = 0.85
 
-    `strength` 0..1 controla cuánto quema (damaged moderado, burning intenso). Se aplica como un
-    multiply sobre el Base Color ya tratado: para atlas se inserta un MixRGB entre la textura y el
-    BSDF (no modifica la imagen compartida); para colores planos se multiplica el default. Los
-    materiales de equipo (andamio/valla/escombros) y VFX (llama/humo) se conservan sin quemar.
+
+def _soot_field(tree, region, feather, rise, fall):
+    """Socket escalar (0..1): 1 dentro de la caja quemada, 0 a `feather` metros de ella.
+
+    Se construye una cadena POR MATERIAL: los nodos viven dentro del `node_tree` de cada material y
+    no se pueden compartir entre árboles. Trabaja sobre `Geometry→Position` (metros de mundo), así
+    que localiza el quemado sin tocar un vértice de la fuente — 〔R2〕 y §32 siguen midiendo la misma
+    geometría. Dentro de la caja la distancia exterior es 0 por construcción, de modo que el campo no
+    necesita los semiejes de la sección: el incendio ES la caja y alrededor cae la pluma.
+
+    El eje Z usa dos radios distintos (`rise` > `fall`) porque la mancha de humo trepa por la fachada
+    y no baja; con un solo radio el resultado es una sombra esférica centrada en el hueco.
+    """
+    x0, y0, z0 = region["x"]["min"], region["y"]["min"], region["z"]["min"]
+    x1, y1, z1 = region["x"]["max"], region["y"]["max"], region["z"]["max"]
+    geometry = tree.nodes.new("ShaderNodeNewGeometry")
+
+    def vector(operation, a, b):
+        node = tree.nodes.new("ShaderNodeVectorMath")
+        node.operation = operation
+        for slot, value in ((0, a), (1, b)):
+            if isinstance(value, tuple):
+                # Los sockets de VectorMath son de tres componentes: con el cuarto componente alfa de
+                # un color Blender responde `sequences of dimension 0 should contain 3 items, not 4`.
+                node.inputs[slot].default_value = (float(value[0]), float(value[1]), float(value[2]))
+            elif value is not None:
+                tree.links.new(value, node.inputs[slot])
+        # `outputs[0]` y no `outputs["Vector"]`: LENGTH y DOT PRODUCT sacan el resultado por un socket
+        # escalar llamado "Value", y el nombre cambia con la operación.
+        return node.outputs[0]
+
+    def math(operation, a, b):
+        node = tree.nodes.new("ShaderNodeMath")
+        node.operation = operation
+        for slot, value in ((0, a), (1, b)):
+            if isinstance(value, (int, float)):
+                node.inputs[slot].default_value = float(value)
+            else:
+                tree.links.new(value, node.inputs[slot])
+        return node.outputs["Value"]
+
+    position = geometry.outputs["Position"]
+    outside_max = vector("MAXIMUM", vector("SUBTRACT", position, (x1, y1, z1)), (0.0, 0.0, 0.0))
+    outside_min = vector("MAXIMUM", vector("SUBTRACT", (x0, y0, z0), position), (0.0, 0.0, 0.0))
+    spread = vector(
+        "ADD",
+        vector("MULTIPLY", outside_max, (1.0 / feather, 1.0 / feather, 1.0 / rise)),
+        vector("MULTIPLY", outside_min, (1.0 / feather, 1.0 / feather, 1.0 / fall)),
+    )
+    # t = clamp01(1 - d) con suavizado de Hermite t²(3-2t): el borde de la mancha no sale a corte.
+    t = math("MAXIMUM", math("SUBTRACT", 1.0, vector("LENGTH", spread, None)), 0.0)
+    return math("MULTIPLY", math("MULTIPLY", t, t), math("SUBTRACT", 3.0, math("MULTIPLY", 2.0, t)))
+
+
+def apply_soot(objects, strength, region=None, family_of=None):
+    """V.j / FASE 3.4: hollín localizado sobre el albedo ya tratado de damaged/burning.
+
+    El control (evidence/v2/fire/DIAGNOSIS.md) multiplicaba los 24 materiales del edificio por el mismo
+    marrón con Fac=1: el resultado era un bloque uniforme donde ya no se leía qué paño era fachada y
+    cuál cornisa, y el envejecimiento de D-111 WP04 quedaba borrado por encima. Aquí el factor sale
+    del campo de `region` —cero fuera del incendio, de modo que lo que no arde conserva exactamente su
+    albedo envejecido, que es la separación envejecido≠quemado que pedía el pase de estados— y la
+    amplitud, de la familia del material.
+
+    `strength` sigue siendo la escala del estado (damaged 0,45 / burning 0,7) recortada por `SOOT_CAP`.
+    Atlas y color plano reciben el mismo trato: la textura compartida no se modifica, se inserta un
+    Mix entre la fuente y el BSDF. Los materiales de equipo (andamio/valla/escombros) y VFX
+    (llama/humo) se conservan intactos.
     """
     skip_prefixes = ("flame_", "fire_", "scaffold_", "debris_", "barrier_")
-    scorch = np.array([0.30, 0.26, 0.24], dtype=np.float32)
-    tint = np.clip(scorch * strength + np.ones(3, dtype=np.float32) * (1.0 - strength), 0.0, 1.0)
+    scorch = np.array([0.26, 0.22, 0.20], dtype=np.float32)
+    feather = 0.0
+    rise = 0.0
+    fall = 0.0
+    if region is not None:
+        span = max(region["x"]["max"] - region["x"]["min"], region["y"]["max"] - region["y"]["min"], 1.0)
+        feather = max(1.4, min(3.4, 0.45 * span))
+        # El trecho vertical lo mide la propia caja del daño (el piso quemado), no la envoltoria:
+        # la envoltoria incluye la pluma de humo, que no es superficie y no tiene nada que tiznar.
+        height = max(1.0, region["z"]["max"] - region["z"]["min"])
+        rise = max(1.2, min(2.6, 0.45 * height))
+        fall = max(1.2, feather * 0.55)
     seen = set()
+    scorched = 0
+    skipped = 0
+    peaks = {}
     for obj in objects:
         if obj.type != "MESH":
             continue
@@ -388,33 +484,92 @@ def apply_soot(objects, strength):
                 continue
             seen.add(material.name)
             if material.name.startswith(skip_prefixes):
+                skipped += 1
                 continue
             tree = material.node_tree
             bsdf = next((n for n in tree.nodes if n.type == "BSDF_PRINCIPLED"), None)
             if bsdf is None:
+                skipped += 1
                 continue
+            family = (family_of(material.name) if family_of else None) or "default"
+            peak = min(SOOT_CAP, strength * SOOT_FAMILY_BIAS.get(family, SOOT_FAMILY_BIAS["default"]))
+            peaks[family] = round(peak, 3)
+            tint = np.clip(scorch * peak + np.ones(3, dtype=np.float32) * (1.0 - peak), 0.0, 1.0)
             base = bsdf.inputs["Base Color"]
-            if base.is_linked:
-                source = base.links[0].from_socket
-                mix = tree.nodes.new("ShaderNodeMixRGB")
-                mix.blend_type = "MULTIPLY"
-                mix.inputs["Fac"].default_value = 1.0
-                mix.inputs["Color2"].default_value = (*tint, 1.0)
-                tree.links.new(source, mix.inputs["Color1"])
-                tree.links.new(mix.outputs["Color"], base)
+            mix = tree.nodes.new("ShaderNodeMixRGB")
+            mix.blend_type = "MULTIPLY"
+            mix.inputs["Color2"].default_value = (*tint, 1.0)
+            if region is not None:
+                tree.links.new(_soot_field(tree, region, feather, rise, fall), mix.inputs["Fac"])
             else:
-                linear = np.array(base.default_value[:3], dtype=np.float32)
-                base.default_value = (*np.clip(linear * tint, 0.0, 1.0), 1.0)
-    return {"sootStrength": round(strength, 3), "materialsScorched": len(seen)}
+                mix.inputs["Fac"].default_value = 1.0
+            if base.is_linked:
+                tree.links.new(base.links[0].from_socket, mix.inputs["Color1"])
+            else:
+                mix.inputs["Color1"].default_value = (*base.default_value[:3], 1.0)
+            tree.links.new(mix.outputs["Color"], base)
+            scorched += 1
+    return {
+        "sootStrength": round(strength, 3),
+        "localized": region is not None,
+        "materialsScorched": scorched,
+        "materialsSkipped": skipped,
+        "coreOpacity": round(max(peaks.values()), 3) if peaks else 0.0,
+        "familyPeaks": dict(sorted(peaks.items())),
+        "scorchTintLinear": [round(float(value), 3) for value in scorch],
+        **(
+            {"fieldMeters": {"feather": round(feather, 3), "rise": round(rise, 3), "fall": round(fall, 3)}}
+            if region
+            else {}
+        ),
+        **(
+            {"regionMeters": {axis: [region[axis]["min"], region[axis]["max"]] for axis in ("x", "y", "z")}}
+            if region
+            else {}
+        ),
+    }
 
 
-def boost_flame_emission(objects, strength):
-    """V.j: convierte la llama en emisión pura naranja para que lea como fuego bajo AgX.
+def _authored_input(bsdf, name, fallback):
+    """Valor real de un input del BSDF, aunque el import glTF lo haya cableado a un nodo.
 
-    El Base Color iluminado daba un cuerpo pálido y la emisión alta se lavaba a blanco (AgX desatura
-    highlights). Con Base Color negro (sin contribución iluminada) y emisión naranja rojo-dominante a
-    strength moderado, el cono brilla naranja saturado. Sólo afecta a materiales `flame_` (VFX).
+    El importador de glTF cuelga `Base Color`/`Emission Color` de un RGB y `Emission Strength` de un
+    Value antes de escribirlos en el default. Leer sólo `default_value` devolvía el color de fábrica
+    (blanco / 1.0) y reescalar sobre eso borraba el gradiente que el módulo trae autorado.
     """
+    socket = bsdf.inputs.get(name)
+    if socket is None:
+        return fallback
+    if socket.is_linked:
+        node = socket.links[0].from_node
+        if node.type == "VALUE":
+            return float(node.outputs[0].default_value)
+        if node.type in ("RGB", "RGBA"):
+            return tuple(node.outputs[0].default_value)
+    if socket.type == "VALUE":
+        return float(socket.default_value)
+    return tuple(socket.default_value)
+
+
+# El difuso de la llama se apaga, no se borra: con el albedo naranja que dejó el control, la luz clave
+# sumaba una capa clara por encima de la emisión y ese era el blanco del pico medido (255,255,165).
+FLAME_BASE_ALBEDO = 0.16
+
+
+def boost_flame_emission(objects, peak_strength):
+    """FASE 3.4: sube la llama conservando el gradiente de zonas que el módulo ya trae autorado.
+
+    El control escribía el MISMO `Emission Strength` en todos los materiales `flame_` y elegía el
+    color por un sufijo `_inner` que ya no existe; con núcleo/cuerpo/borde el resultado volvía a ser
+    una masa naranja plana. Aquí se lee la emisión con la que cada zona fue esculpida y todas se
+    reescalan por el mismo factor, así que `peak_strength` manda sobre la más caliente y el resto cae
+    proporcionalmente detrás: amarillo dentro, naranja en el cuerpo, rojo en el filo.
+
+    Sólo toca materiales `flame_` (VFX); el humo (`fire_smoke_*`) y el hollín del edificio viven en
+    otros pases a propósito: que la columna no se vea afectada por lo que haga el fuego es parte de
+    que se lean como dos cosas distintas.
+    """
+    zones = []
     seen = set()
     for obj in objects:
         if obj.type != "MESH":
@@ -427,24 +582,172 @@ def boost_flame_emission(objects, strength):
             bsdf = next((n for n in material.node_tree.nodes if n.type == "BSDF_PRINCIPLED"), None)
             if bsdf is None:
                 continue
-            # El import glTF puede cablear Base Color/Emission a un nodo; hay que desenlazar para que
-            # los default_value manden (si no, el color original sigue dominando y la llama queda pálida).
-            tree = material.node_tree
-            for inp in ("Base Color", "Emission Color", "Emission Strength"):
-                if inp in bsdf.inputs:
-                    for link in list(bsdf.inputs[inp].links):
-                        tree.links.remove(link)
-            bsdf.inputs["Base Color"].default_value = (
-                (0.95, 0.55, 0.10, 1.0) if material.name.endswith("inner") else (0.9, 0.30, 0.05, 1.0)
+            base = _authored_input(bsdf, "Base Color", (1.0, 0.45, 0.10, 1.0))
+            color = _authored_input(bsdf, "Emission Color", None) or base
+            zones.append(
+                {
+                    "material": material.name,
+                    "bsdf": bsdf,
+                    "tree": material.node_tree,
+                    "color": tuple(color[:3]),
+                    "authored": _authored_input(bsdf, "Emission Strength", 0.0),
+                }
             )
-            if "Emission Color" in bsdf.inputs:
-                hot = material.name.endswith("inner")
-                bsdf.inputs["Emission Color"].default_value = (
-                    (1.0, 0.62, 0.12, 1.0) if hot else (1.0, 0.34, 0.05, 1.0)
-                )
-            if "Emission Strength" in bsdf.inputs:
-                bsdf.inputs["Emission Strength"].default_value = strength
-    return {"flameEmissionStrength": strength, "flameMaterials": len(seen)}
+    if not zones:
+        return {"flamePeakEmission": peak_strength, "flameMaterials": 0, "flameZones": []}
+    authored_peak = max(zone["authored"] for zone in zones) or 1.0
+    scale = peak_strength / authored_peak
+    for zone in zones:
+        # Desenlazar antes de escribir: si el Value del import sigue mandando, el default no se entera.
+        for name in ("Base Color", "Emission Color", "Emission Strength"):
+            socket = zone["bsdf"].inputs.get(name)
+            if socket is not None:
+                for link in list(socket.links):
+                    zone["tree"].links.remove(link)
+        strength = zone["authored"] * scale if zone["authored"] > 0.0 else peak_strength
+        zone["bsdf"].inputs["Base Color"].default_value = (
+            *np.array(zone["color"], dtype=np.float32) * FLAME_BASE_ALBEDO,
+            1.0,
+        )
+        if "Emission Color" in zone["bsdf"].inputs:
+            zone["bsdf"].inputs["Emission Color"].default_value = (*zone["color"], 1.0)
+        if "Emission Strength" in zone["bsdf"].inputs:
+            zone["bsdf"].inputs["Emission Strength"].default_value = strength
+        zone["applied"] = strength
+    return {
+        "flamePeakEmission": round(peak_strength, 3),
+        "flameEmissionScale": round(scale, 3),
+        "flameMaterials": len(zones),
+        "flameBaseAlbedo": FLAME_BASE_ALBEDO,
+        "flameZones": [
+            {
+                "material": zone["material"],
+                "authoredStrength": round(zone["authored"], 3),
+                "appliedStrength": round(zone["applied"], 3),
+                "emissionColorLinear": [round(float(value), 3) for value in zone["color"]],
+            }
+            for zone in zones
+        ],
+    }
+
+
+VFX_SHADOW_PREFIXES = ("flame_", "fire_smoke_")
+
+
+def clear_vfx_shadow_rays(objects):
+    """Las lenguas y la columna no tapian la luz: son volumen emisivo/transparente, no opacidad.
+
+    Medido en la pasada F (nave nocturna): el rig SUN seguía proyectando la malla de la llama sobre el
+    forjado y abría una cuña negra exactamente debajo del fuego, que es el único suelo que el incendio
+    tiene que iluminar; el humo añadía su banda encima. La cuota de `apply_fire_glow` no lo arregla:
+    una luz nueva no borra la sombra que tira la luz vieja. Se apaga el rayo de sombra por objeto, no
+    el material, así que el albedo, la emisión y el pase de hollín siguen midiendo lo mismo (§32).
+    """
+    cleared = []
+    for obj in objects:
+        if obj.type != "MESH":
+            continue
+        names = [slot.material.name for slot in obj.material_slots if slot.material is not None]
+        if any(name.startswith(VFX_SHADOW_PREFIXES) for name in names):
+            obj.visible_shadow = False
+            cleared.append(obj.name)
+    return {"vfxShadowRaysOff": len(cleared), "vfxObjects": cleared}
+
+
+# D-111.2 FASE 3.5: el incendio alumbra. Hasta aquí las llamas eran mallas con emisión y la escena
+# seguía iluminada sólo por el rig SUN del mood, así que de noche el fuego no dejaba luz en ninguna
+# parte: una lengua muy brillante sobre una fachada que no se enteraba. Abajo no hay vatios a mano,
+# hay una CUOTA: se pide que a `FIRE_GLOW_REACH_M` del foco el fuego aporte la misma irradiancia que
+# la clave del mood, y la potencia se despeja de la ley del inverso del cuadrado
+# (E = P / 4πd² → P = E · 4πd²). Por eso el mismo código da una vela de día (key 4,2 W/m²) y un
+# brasero de noche (key 2,35) sin que nadie haya escrito dos constantes.
+FIRE_GLOW_SHARE = 1.25
+FIRE_GLOW_REACH_M = 2.5
+FIRE_GLOW_COLOUR = (1.0, 0.47, 0.22)
+# Como mucho dos luces: con una por cada foco de la nave larga, las colas de 1/d² se suman en el
+# centro del alzado y vuelven a planchar lo que el gradiente de zonas acaba de separar.
+FIRE_GLOW_MAX_LIGHTS = 2
+# Frente por debajo del cual un solo foco basta: por encima, la llama se lee como dos hogueras y una
+# bombilla en el centro no cae sobre ninguna de las dos.
+FIRE_GLOW_SPREAD_M = 4.0
+# Altura de la bombilla dentro del foco, en fracción del propio bulto de la llama. Con 0,55 (medido en
+# la pasada E) la luz colgaba a 1,1–1,8 m del forjado y, por la ley del cuadrado, quemaba un agujero
+# blanco en el suelo justo debajo del fuego; a 0,85 vive entre las puntas de las lenguas, que es donde
+# tiene que estar: alumbra el pretil, el paño de alrededor y el interior de la pluma.
+FIRE_GLOW_HEIGHT_FRACTION = 0.85
+FIRE_GLOW_SOFT_M = 0.35
+
+
+def fire_glow_groups(flames, spread_limit=FIRE_GLOW_SPREAD_M, max_lights=FIRE_GLOW_MAX_LIGHTS):
+    """Agrupa los focos declarados en los centros de luz que hacen falta, ni uno más.
+
+    El eje del frente es el que más se abre entre las posiciones de las lenguas; si el incendio no
+    tiene ese reparto (una sola hoguera, o un puñado de ventanas) devuelve un único grupo.
+    """
+    axis = 0
+    spans = [
+        max(a["position"][i] for a in flames) - min(a["position"][i] for a in flames) for i in (0, 1)
+    ]
+    if spans[1] > spans[0]:
+        axis = 1
+    if len(flames) < 3 or spans[axis] <= spread_limit or max_lights < 2:
+        return [flames]
+    ordered = sorted(flames, key=lambda a: a["position"][axis])
+    half = len(ordered) // 2
+    return [ordered[:half], ordered[half:]]
+
+
+def apply_fire_glow(flames, key_energy):
+    """Coloca las luces del incendio y publica de dónde salió cada vatio.
+
+    Se deriva TODO de `fireAnchors` (la lista ya rotada que publica el compositor) y de la energía de
+    la clave del mood: la posición es el centroide del grupo de lenguas, la cota es la fracción
+    `FIRE_GLOW_HEIGHT_FRACTION` de su propio bulto y la potencia la cuota del párrafo de arriba. Un
+    edificio sin focos no entra aquí, y uno con los focos más bajos no puede encender una bombilla a 4 m.
+    """
+    if not flames or key_energy <= 0.0:
+        return [], {"lights": 0, "reason": "sin focos declarados"}
+    watts = key_energy * FIRE_GLOW_SHARE * 4.0 * math.pi * FIRE_GLOW_REACH_M**2
+    lamps = []
+    for group in fire_glow_groups(flames):
+        position = (
+            sum(a["position"][0] for a in group) / len(group),
+            sum(a["position"][1] for a in group) / len(group),
+            sum(
+                a["zRangeMeters"][0]
+                + FIRE_GLOW_HEIGHT_FRACTION * (a["zRangeMeters"][1] - a["zRangeMeters"][0])
+                for a in group
+            )
+            / len(group),
+        )
+        bpy.ops.object.light_add(type="POINT", location=position)
+        lamp = bpy.context.object
+        lamp.name = f"fire_glow_{len(lamps)}"
+        lamp.data.energy = watts
+        lamp.data.color = FIRE_GLOW_COLOUR
+        # Sombra activa: sin ella la bombilla atravesaría el muro de la planta en pie y iluminaría la
+        # calle por detrás del edificio, que es la manera más rápida de que el sprite mienta.
+        lamp.data.use_shadow = True
+        lamp.data.shadow_soft_size = FIRE_GLOW_SOFT_M
+        lamp.data.use_custom_distance = True
+        lamp.data.cutoff_distance = FIRE_GLOW_REACH_M * 3.0
+        lamps.append(lamp)
+    return lamps, {
+        "lights": len(lamps),
+        "wattsEach": round(watts, 1),
+        "keyEnergyReference": round(float(key_energy), 3),
+        "shareOfKey": FIRE_GLOW_SHARE,
+        "reachMeters": FIRE_GLOW_REACH_M,
+        "cutoffMeters": round(FIRE_GLOW_REACH_M * 3.0, 2),
+        "softSizeMeters": FIRE_GLOW_SOFT_M,
+        "colourLinear": [round(float(value), 3) for value in FIRE_GLOW_COLOUR],
+        "heightFractionOfFlame": FIRE_GLOW_HEIGHT_FRACTION,
+        "shadowCasting": True,
+        "focos": len(flames),
+        "posiciones": [
+            [round(value, 2) for value in lamp.location] for lamp in lamps
+        ],
+    }
 
 
 def bake_import_root(objects):
@@ -554,8 +857,14 @@ def place_modules(composition, catalog, root):
         empty.parent = root
         empty.location = record["position"]
         empty.rotation_euler = (0.0, 0.0, math.radians(record["rotationDegrees"]))
+        # `scale` lo firma la composición (FASE 3: llamas y humo de tamaños distintos) y vive en el
+        # empty, no en la malla: `mesh_fingerprint` sigue demostrando que ningún vértice se tocó y
+        # §32 sigue comparando la caja firmada contra la caja medida en escena.
+        scale = record.get("scale", 1.0)
+        sx, sy, sz = (scale, scale, scale) if isinstance(scale, (int, float)) else scale
         if record.get("mirrorX"):
-            empty.scale.x = -1.0
+            sx = -sx
+        empty.scale = (sx, sy, sz)
         children = []
         for source in picked:
             instance = bpy.data.objects.new(f"{source.name}|{record['purpose']}", source.data)
@@ -1095,12 +1404,32 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     # V.j: hollín sobre el albedo ya tratado para los estados de daño/fuego (no afecta al complete).
     state = composition.get("state", "complete")
     damage_treatment = None
+    glow_lamps = []
     if state in ("damaged", "burning"):
         # D-111 WP04: el tier de daño también cambia MATERIAL, no sólo geometría. Sin publicar lo que
         # devuelven estos dos pases la evidencia diría "estado damaged" pero no qué se oscureció ni con qué fuerza.
-        damage_treatment = {"soot": apply_soot(objects, 0.7 if state == "burning" else 0.45)}
+        damage_treatment = {
+            "soot": apply_soot(
+                objects,
+                0.7 if state == "burning" else 0.45,
+                region=composition.get("damageRegion"),
+                family_of=lambda name: profile.material_family.get(authored_material_name(name)),
+            )
+        }
         if state == "burning":
-            damage_treatment["flames"] = boost_flame_emission(objects, 2.0)
+            # Pico 1,35 en vez del 2,0 del control: con la escala del módulo (núcleo 2,6) el AgX del
+            # view transform desaturaba el centro hasta recortarlo a (255,255,165) de día. La cifra se
+            # vuelve a medir en la hoja A/B de FASE 3, no se da por buena por docstring.
+            damage_treatment["flames"] = boost_flame_emission(objects, 1.35)
+            damage_treatment["vfx"] = clear_vfx_shadow_rays(objects)
+            glow_lamps, damage_treatment["glow"] = apply_fire_glow(
+                [
+                    anchor
+                    for anchor in composition.get("fireAnchors", [])
+                    if anchor["purpose"] == "fire:flame"
+                ],
+                active_mood(style_layer)["lighting"]["keyEnergy"],
+            )
 
     scene.render.engine = "BLENDER_EEVEE"
     # §13 también muerde al rasterizador. El test de regeneración encontró dos procesos con la misma
@@ -1143,7 +1472,16 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     render_pass = pixels_digest(render_path)
     shadow_style = active_mood(style_layer).get("shadow", {})
     shadow_path = output.with_suffix(".shadow.png")
+    # La segunda pasada pinta un plano blanco y saca de ahí la sombra del rig. Si el incendio sigue
+    # encendido, su luz cálida cae sobre el plano y el detector lee menos oscuridad: el sprite saldría
+    # con la sombra más tenue según lo alto que arda. Se apagan para el pase de suelo y se vuelven a
+    # encender después, porque lo que se promociona es el pase principal.
+    glow_watts = [lamp.data.energy for lamp in glow_lamps]
+    for lamp in glow_lamps:
+        lamp.data.energy = 0.0
     shadow = runtime.render_shadow_pass(scene, style_layer, ground["lowestZMeters"], shadow_path)
+    for lamp, watts in zip(glow_lamps, glow_watts):
+        lamp.data.energy = watts
     # Los dos pases se firman por separado y en píxeles: si §13 vuelve a fallar, la metadata tiene que
     # decir si se movió el albedo, la sombra o sólo la composición de ambos. Con el sha del fichero no
     # se puede distinguir un defecto del compositor de uno del rasterizador, porque el contenedor PNG
@@ -1203,6 +1541,14 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         "envelopeMeters": composition["envelopeMeters"],
         "volumes": composition["volumes"],
         "transforms": composition["placements"],
+        # FASE 3 → FASE 4: el incendio como datos, no como píxel horneado. `damageRegion` es la caja
+        # del hueco que abrió la sección y `fireAnchors` la lista de focos en metros, ambos en el
+        # marco ya rotado; el laboratorio de Phaser ancla ahí sus emisores en vez del desplazamiento
+        # universal `y − 26 px` que usa hoy. Se publican en la raíz aunque `damageTreatment.soot`
+        # también lleve la caja: la primera es contrato para el runtime, la segunda es el parte del
+        # pase de material.
+        **({"damageRegion": composition["damageRegion"]} if composition.get("damageRegion") else {}),
+        **({"fireAnchors": composition["fireAnchors"]} if composition.get("fireAnchors") else {}),
         "originalSupport": composition["originalSupport"],
         "modules": sorted({record["moduleId"] for record in composition["placements"]}),
         "sourceIds": sorted({record["sourceId"] for record in composition["placements"]}),

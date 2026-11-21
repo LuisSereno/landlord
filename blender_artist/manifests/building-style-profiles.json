@@ -23,7 +23,7 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "3d159acc9685accf532ce7c703ecd11abd9aa53ce114fc14892f1f8cfc950c2d",
+      "moduleCatalogSha256": "96da3c82722915283ecf9dfcb5f5fa3492f5656883c6170669aa24acd781122e",
       "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
       "appliesToFamilies": [
         "residential_low",
@@ -1079,7 +1079,7 @@
             "characterHeightMeters": 1.8,
             "ratioBand": {
               "min": 0.14,
-              "p50": 1.05,
+              "p50": 0.985,
               "max": 4.28
             },
             "measured": [
@@ -1180,8 +1180,8 @@
               },
               {
                 "id": "mod_original_fire_smoke",
-                "heightMeters": 2.17,
-                "ratioToCharacter": 1.21
+                "heightMeters": 1.953,
+                "ratioToCharacter": 1.08
               }
             ]
           },
@@ -4764,17 +4764,18 @@
             "pack": "src_original_fire_flame",
             "license": "original",
             "moduleCount": 1,
-            "materials": 2,
+            "materials": 3,
             "materialsReachedByTreatment": [],
             "materialsRawAlways": [
-              "flame_inner",
-              "flame_outer"
+              "flame_body",
+              "flame_core",
+              "flame_edge"
             ],
             "materialsSplitWithinPack": [],
             "modulesFullyTreated": 0,
             "modulesWithRawMaterial": 1,
             "rawModuleExamples": [
-              "fire_flame.glb: 2 de 2 materiales en bruto"
+              "fire_flame.glb: 3 de 3 materiales en bruto"
             ],
             "mixesTreatmentLadders": false,
             "baseColorChains": [
@@ -4782,7 +4783,7 @@
             ],
             "materialReach": [
               {
-                "material": "flame_inner",
+                "material": "flame_body",
                 "family": "atlas",
                 "baseColorChains": [
                   "factor plano ×1"
@@ -4798,7 +4799,23 @@
                 "reachedByTreatment": false
               },
               {
-                "material": "flame_outer",
+                "material": "flame_core",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "flame_edge",
                 "family": "atlas",
                 "baseColorChains": [
                   "factor plano ×1"
@@ -4827,16 +4844,17 @@
             "pack": "src_original_fire_smoke",
             "license": "original",
             "moduleCount": 1,
-            "materials": 1,
+            "materials": 2,
             "materialsReachedByTreatment": [],
             "materialsRawAlways": [
-              "fire_smoke"
+              "fire_smoke_dense",
+              "fire_smoke_wisp"
             ],
             "materialsSplitWithinPack": [],
             "modulesFullyTreated": 0,
             "modulesWithRawMaterial": 1,
             "rawModuleExamples": [
-              "fire_smoke.glb: 1 de 1 materiales en bruto"
+              "fire_smoke.glb: 2 de 2 materiales en bruto"
             ],
             "mixesTreatmentLadders": false,
             "baseColorChains": [
@@ -4844,7 +4862,23 @@
             ],
             "materialReach": [
               {
-                "material": "fire_smoke",
+                "material": "fire_smoke_dense",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "fire_smoke_wisp",
                 "family": "atlas",
                 "baseColorChains": [
                   "factor plano ×1"
@@ -6119,8 +6153,8 @@
           "blender_artist/sources/original/construction_barrier.glb (src_original_construction_barrier): 3 de 3 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/construction_scaffold.glb (src_original_construction_scaffold): 2 de 2 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/damage_debris.glb (src_original_damage_debris): 3 de 3 materiales con Base Color fuera de la banda",
-          "blender_artist/sources/original/fire_flame.glb (src_original_fire_flame): 2 de 2 materiales con Base Color fuera de la banda",
-          "blender_artist/sources/original/fire_smoke.glb (src_original_fire_smoke): 1 de 1 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/fire_flame.glb (src_original_fire_flame): 3 de 3 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/fire_smoke.glb (src_original_fire_smoke): 2 de 2 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_balcony_door_bay_2m.glb (src_original_gn_balcony_door_bay): 4 de 4 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_cornice_2m.glb (src_original_gn_cornice): 2 de 2 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_metal_parapet_4m.glb (src_original_gn_metal_parapet): 3 de 3 materiales con Base Color fuera de la banda",
@@ -6958,9 +6992,11 @@
             "src_original_damage_debris/debris_brick: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_damage_debris/debris_char: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_damage_debris/debris_rubble: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
-            "src_original_fire_flame/flame_inner: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
-            "src_original_fire_flame/flame_outer: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
-            "src_original_fire_smoke/fire_smoke: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_body: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_core: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_edge: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_smoke/fire_smoke_dense: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_smoke/fire_smoke_wisp: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_balcony_door_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_balcony_door_bay/gn_joinery_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_balcony_door_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
@@ -7026,7 +7062,7 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "3d159acc9685accf532ce7c703ecd11abd9aa53ce114fc14892f1f8cfc950c2d",
+      "moduleCatalogSha256": "96da3c82722915283ecf9dfcb5f5fa3492f5656883c6170669aa24acd781122e",
       "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
       "appliesToFamilies": [
         "residential_low",
@@ -8082,7 +8118,7 @@
             "characterHeightMeters": 1.8,
             "ratioBand": {
               "min": 0.14,
-              "p50": 1.05,
+              "p50": 0.985,
               "max": 4.28
             },
             "measured": [
@@ -8183,8 +8219,8 @@
               },
               {
                 "id": "mod_original_fire_smoke",
-                "heightMeters": 2.17,
-                "ratioToCharacter": 1.21
+                "heightMeters": 1.953,
+                "ratioToCharacter": 1.08
               }
             ]
           },
@@ -11767,17 +11803,18 @@
             "pack": "src_original_fire_flame",
             "license": "original",
             "moduleCount": 1,
-            "materials": 2,
+            "materials": 3,
             "materialsReachedByTreatment": [],
             "materialsRawAlways": [
-              "flame_inner",
-              "flame_outer"
+              "flame_body",
+              "flame_core",
+              "flame_edge"
             ],
             "materialsSplitWithinPack": [],
             "modulesFullyTreated": 0,
             "modulesWithRawMaterial": 1,
             "rawModuleExamples": [
-              "fire_flame.glb: 2 de 2 materiales en bruto"
+              "fire_flame.glb: 3 de 3 materiales en bruto"
             ],
             "mixesTreatmentLadders": false,
             "baseColorChains": [
@@ -11785,7 +11822,7 @@
             ],
             "materialReach": [
               {
-                "material": "flame_inner",
+                "material": "flame_body",
                 "family": "atlas",
                 "baseColorChains": [
                   "factor plano ×1"
@@ -11801,7 +11838,23 @@
                 "reachedByTreatment": false
               },
               {
-                "material": "flame_outer",
+                "material": "flame_core",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  0.8
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "flame_edge",
                 "family": "atlas",
                 "baseColorChains": [
                   "factor plano ×1"
@@ -11830,16 +11883,17 @@
             "pack": "src_original_fire_smoke",
             "license": "original",
             "moduleCount": 1,
-            "materials": 1,
+            "materials": 2,
             "materialsReachedByTreatment": [],
             "materialsRawAlways": [
-              "fire_smoke"
+              "fire_smoke_dense",
+              "fire_smoke_wisp"
             ],
             "materialsSplitWithinPack": [],
             "modulesFullyTreated": 0,
             "modulesWithRawMaterial": 1,
             "rawModuleExamples": [
-              "fire_smoke.glb: 1 de 1 materiales en bruto"
+              "fire_smoke.glb: 2 de 2 materiales en bruto"
             ],
             "mixesTreatmentLadders": false,
             "baseColorChains": [
@@ -11847,7 +11901,23 @@
             ],
             "materialReach": [
               {
-                "material": "fire_smoke",
+                "material": "fire_smoke_dense",
+                "family": "atlas",
+                "baseColorChains": [
+                  "factor plano ×1"
+                ],
+                "colorTextures": [],
+                "colorTextureFiles": [],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "fire_smoke_wisp",
                 "family": "atlas",
                 "baseColorChains": [
                   "factor plano ×1"
@@ -13122,8 +13192,8 @@
           "blender_artist/sources/original/construction_barrier.glb (src_original_construction_barrier): 3 de 3 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/construction_scaffold.glb (src_original_construction_scaffold): 2 de 2 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/damage_debris.glb (src_original_damage_debris): 3 de 3 materiales con Base Color fuera de la banda",
-          "blender_artist/sources/original/fire_flame.glb (src_original_fire_flame): 2 de 2 materiales con Base Color fuera de la banda",
-          "blender_artist/sources/original/fire_smoke.glb (src_original_fire_smoke): 1 de 1 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/fire_flame.glb (src_original_fire_flame): 3 de 3 materiales con Base Color fuera de la banda",
+          "blender_artist/sources/original/fire_smoke.glb (src_original_fire_smoke): 2 de 2 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_balcony_door_bay_2m.glb (src_original_gn_balcony_door_bay): 4 de 4 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_cornice_2m.glb (src_original_gn_cornice): 2 de 2 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/gn_metal_parapet_4m.glb (src_original_gn_metal_parapet): 3 de 3 materiales con Base Color fuera de la banda",
@@ -13961,9 +14031,11 @@
             "src_original_damage_debris/debris_brick: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_damage_debris/debris_char: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_damage_debris/debris_rubble: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
-            "src_original_fire_flame/flame_inner: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
-            "src_original_fire_flame/flame_outer: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
-            "src_original_fire_smoke/fire_smoke: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_body: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_core: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_flame/flame_edge: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_smoke/fire_smoke_dense: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_original_fire_smoke/fire_smoke_wisp: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_balcony_door_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_balcony_door_bay/gn_joinery_dark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_gn_balcony_door_bay/gn_painted_metal: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",

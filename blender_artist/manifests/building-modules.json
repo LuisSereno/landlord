@@ -24705,8 +24705,8 @@
         "reason": "una sola unidad sustancial (100% de los triángulos, 36 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
-        "widthMeters": 0.663,
-        "depthMeters": 0.56,
+        "widthMeters": 0.805,
+        "depthMeters": 0.701,
         "heightMeters": 1
       },
       "anchor": {
@@ -24740,12 +24740,12 @@
         ],
         "moduleBoundsInPlacementFrameMeters": {
           "x": {
-            "min": -0.3317,
-            "max": 0.3317
+            "min": -0.4024,
+            "max": 0.4024
           },
           "y": {
-            "min": -0.28,
-            "max": 0.28
+            "min": -0.3506,
+            "max": 0.3506
           },
           "z": {
             "min": 0,
@@ -24777,33 +24777,35 @@
       },
       "measured": {
         "meshObjects": 1,
-        "vertices": 180,
-        "triangles": 108,
-        "shells": 36,
+        "vertices": 130,
+        "triangles": 240,
+        "shells": 5,
         "materials": [
-          "flame_inner",
-          "flame_outer"
+          "flame_body",
+          "flame_core",
+          "flame_edge"
         ],
         "images": [],
         "selectedObjects": [
           "FireFlame"
         ],
         "baseColorChains": [
-          "flame_inner=plano",
-          "flame_outer=plano"
+          "flame_body=plano",
+          "flame_core=plano",
+          "flame_edge=plano"
         ]
       },
       "provenance": {
         "sourceBounds": {
-          "width": 0.6634,
-          "depth": 0.56,
+          "width": 0.8049,
+          "depth": 0.7011,
           "height": 1,
           "minZ": 0
         },
         "importScale": 1,
         "importOffset": [
-          0.0195,
-          0,
+          0.0024,
+          0.0494,
           0
         ],
         "fileTriangles": 108,
@@ -24841,9 +24843,9 @@
         "reason": "una sola unidad sustancial (100% de los triángulos, 320 cáscaras): usable como módulo de masa completo"
       },
       "nominalBounds": {
-        "widthMeters": 1.083,
-        "depthMeters": 1.09,
-        "heightMeters": 2.17
+        "widthMeters": 1.569,
+        "depthMeters": 1.344,
+        "heightMeters": 1.953
       },
       "anchor": {
         "datum": "authored_object_origin",
@@ -24876,16 +24878,16 @@
         ],
         "moduleBoundsInPlacementFrameMeters": {
           "x": {
-            "min": -0.5415,
-            "max": 0.5415
+            "min": -0.7843,
+            "max": 0.7843
           },
           "y": {
-            "min": -0.545,
-            "max": 0.545
+            "min": -0.672,
+            "max": 0.672
           },
           "z": {
             "min": 0,
-            "max": 2.17
+            "max": 1.953
           }
         },
         "originToGroundMeters": 0,
@@ -24913,32 +24915,34 @@
       },
       "measured": {
         "meshObjects": 1,
-        "vertices": 1200,
-        "triangles": 560,
-        "shells": 320,
+        "vertices": 432,
+        "triangles": 672,
+        "shells": 4,
         "materials": [
-          "fire_smoke"
+          "fire_smoke_dense",
+          "fire_smoke_wisp"
         ],
         "images": [],
         "selectedObjects": [
           "FireSmoke"
         ],
         "baseColorChains": [
-          "fire_smoke=plano"
+          "fire_smoke_dense=plano",
+          "fire_smoke_wisp=plano"
         ]
       },
       "provenance": {
         "sourceBounds": {
-          "width": 1.083,
-          "depth": 1.09,
-          "height": 2.17,
-          "minZ": 0.08
+          "width": 1.5687,
+          "depth": 1.344,
+          "height": 1.953,
+          "minZ": 0.0363
         },
         "importScale": 1,
         "importOffset": [
-          0.016,
-          -0.035,
-          -0.08
+          -0.0145,
+          0.0001,
+          -0.0363
         ],
         "fileTriangles": 560,
         "fileHierarchy": [

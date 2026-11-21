@@ -577,7 +577,7 @@ class Composition:
             "module": spec["module"],
         }
 
-    def add(self, module, angle, position, purpose, mirror_x=False):
+    def add(self, module, angle, position, purpose, mirror_x=False, scale=1.0):
         record = {
             "moduleId": module.id,
             "role": module.role,
@@ -586,7 +586,7 @@ class Composition:
             "license": module.license,
             "rotationDegrees": int(angle),
             "position": [_round(value) for value in position],
-            "bounds": anchors.placed_bounds(module, angle, position),
+            "bounds": anchors.placed_bounds(module, angle, position, scale),
             "triangles": module.triangles,
             "meshObjects": len(module.selected_objects),
             "elevationReach": self.profile.elevation_reach(module),
@@ -594,6 +594,8 @@ class Composition:
         }
         if mirror_x:
             record["mirrorX"] = True
+        if scale != 1.0:
+            record["scale"] = _round(scale) if isinstance(scale, float) else [_round(v) for v in scale]
         self.placements.append(record)
         return record
 
@@ -1646,6 +1648,11 @@ class Composition:
                     "r": record["rotationDegrees"],
                     "p": record["position"],
                     "q": record["purpose"],
+                    # `s` sólo entra en la firma si la colocación está escalada (FASE 3: los VFX de
+                    # incendio). Así las firmas de todo lo demás siguen siendo comparables con las
+                    # promociones publicadas; meter la clave siempre habría re-firmado el catálogo
+                    # entero sin que ningún edificio no-incendiado hubiera cambiado.
+                    **({"s": record["scale"]} if "scale" in record else {}),
                 }
                 for record in sorted(
                     self.placements, key=lambda item: (item["purpose"], item["moduleId"])
@@ -1797,6 +1804,7 @@ class Composition:
         # altos del frente; el resto de la masa (que apoya en suelo) permanece.
         kept = []
         removed_bounds = []
+        removed_openings = []
         for record in self.placements:
             purpose = record["purpose"]
             if purpose.startswith("roof") or purpose in ("dormer", "cornice"):
@@ -1806,6 +1814,7 @@ class Composition:
             if purpose.startswith("band:front:") and ":level" in purpose:
                 level_tag = purpose.split(":level")[1].split(":")[0]
                 if level_tag.isdigit() and int(level_tag) >= 2 and record["position"][0] >= 0.0:
+                    removed_openings.append(record["bounds"])
                     continue
             kept.append(record)
         self.placements = kept
@@ -1819,8 +1828,16 @@ class Composition:
                 max(b["x"]["max"] for b in removed_bounds),
                 max(b["y"]["max"] for b in removed_bounds),
             ]
+            # FASE 3: la cota del hueco. El control la tiraba a la basura y por eso el incendio salía
+            # idéntico en un cívico de 10,00 m que en una nave de 6,42 m.
+            self._damage_z = (
+                min(b["z"]["min"] for b in removed_bounds),
+                max(b["z"]["max"] for b in removed_bounds),
+            )
         else:
             self._damage_rect = None
+            self._damage_z = None
+        self._damage_openings = removed_openings
         self._scatter_debris()
 
     def _scatter_debris(self):
@@ -1839,24 +1856,232 @@ class Composition:
         for x, y, angle in spots:
             self.add(debris, angle, (x, y, 0.0), "damage:debris")
 
+    def _rand(self, low, high):
+        """Float en [low, high] con el PRNG sellado: `Math.random` está prohibido en dominio (§ reglas)."""
+        return low + (high - low) * self.rng.percent() / 99.0
+
+    def _fire_floor_z(self, rect, gap_z):
+        """Cota del forjado que alimenta el hueco: el suelo del incendio.
+
+        El control usaba `self.level * 0,55`, y `self.level` es la ALTO de planta (3,0 m), no el
+        número de plantas: 1,65 m para todo el catálogo, flotando dentro del volumen. Aquí la cota
+        sale de la losa que realmente sigue en pie.
+
+        La losa candidata tiene que estar a menos de una planta del corte: sin ese límite, en un
+        cívico de tres plantas con cubierta en 9,0 m la losa más alta bajo el hueco era la de
+        planta baja (0,1 m) y el incendio entero —llamas y arranque del humo— nacía soterrado
+        dentro del volumen, invisible tras la fachada.
+        """
+        lower_bound = gap_z - self.level - 1e-6
+        tops = [
+            record["bounds"]["z"]["max"]
+            for record in self.placements
+            if record["purpose"].startswith("slab")
+            and record["bounds"]["z"]["max"] <= gap_z + 1e-6
+            and record["bounds"]["z"]["max"] >= lower_bound
+            and record["bounds"]["x"]["min"] < rect[2]
+            and record["bounds"]["x"]["max"] > rect[0]
+            and record["bounds"]["y"]["min"] < rect[3]
+            and record["bounds"]["y"]["max"] > rect[1]
+        ]
+        if tops:
+            return max(tops)
+        # El catálogo no lleva losas de entrepiso: la planta alta de `mixed_tenement` sólo tiene
+        # bandas de fachada bajo la cubierta. El suelo del incendio es entonces el forjado de la
+        # planta que ventila el corte, que es lo que arde de verdad.
+        return max(0.0, gap_z - self.level)
+
     def _compose_fire(self):
+        """Incendio derivado del daño real: focos en el hueco, columna que sobrepasa el pretil.
+
+        El control (evidence/v2/fire/DIAGNOSIS.md) estampaba cinco copias del mismo cono a Δx exacto
+        de 1,282 m, con giro 0 —y un cono de revolución girado 90° es idéntico a sí mismo—, a 1,65 m
+        de altura en cualquier edificio, con el humo muriendo 3,6 m por debajo del pretil. Aquí el
+        fuego nace de lo que la sección abrió y el número de focos depende del área dañada.
+        """
         flame = self.catalog.pick(self.family, "flame")
         smoke = self.catalog.pick(self.family, "smoke")
         rect = getattr(self, "_damage_rect", None) or self.rect
-        cy = (rect[1] + rect[3]) / 2
-        # V.j: el fuego arde DENTRO de la sección dañada real (cubierta retirada), a la altura del
-        # forjado bajo, NO en la cumbrera de un volumen intacto. Llamas en el hueco + humo en columna.
-        x0 = rect[0] + (rect[2] - rect[0]) * 0.15
-        x1 = rect[2] - 0.4
-        base_z = self.level * 0.55
-        n = 5
-        for i in range(n):
-            x = x0 + (x1 - x0) * (i + 0.5) / n
-            z = base_z + (0.3 if i % 2 else 0.0)
-            self.add(flame, 0, (x, cy + (0.2 if i % 2 else -0.15), z), "fire:flame")
-        fx = (x0 + x1) / 2
-        self.add(smoke, 0, (fx, cy, base_z + 0.9), "fire:smoke")
-        self.add(smoke, 0, (fx + 0.25, cy - 0.1, base_z + 2.6), "fire:smoke")
+        gap = getattr(self, "_damage_z", None)
+        default_top = self.levels * self.level
+        # `roof_z` es la coronación del volumen que arde (la cota alta del hueco), no la altura total
+        # del edificio: en multi-volumen la pluma remata sobre el pretil del que se quema.
+        gap_z, roof_z = gap if gap else (default_top, default_top)
+        x0, y0, x1, y1 = rect
+        floor_z = self._fire_floor_z(rect, gap_z)
+
+        def place(module, angle, position, purpose, scale, mirror=False):
+            # Los focos no se apuntan aquí: `_apply_orientation` rota los placements después de esta
+            # función, así que cualquier snapshot de posición tomada ahora sería obsoleto en cuanto
+            # el edificio no mire al norte. `fireAnchors()` se deriva del estado ya rotado.
+            return self.add(module, angle, position, purpose, mirror_x=mirror, scale=scale)
+
+        # El frente corre por el eje largo del hueco y ninguna lengua pisa la banda de `edge` metros
+        # que limita con la cubierta en pie o con el muro: un fuego montado sobre forjado intacto es
+        # lo que el encargo prohíbe. `(u,v)` son las coordenadas del eje largo y del corto.
+        edge = min(0.9, (x1 - x0) * 0.2, (y1 - y0) * 0.2)
+        long_x = (x1 - x0) >= (y1 - y0)
+        u0, u1 = ((x0 if long_x else y0) + edge, (x1 if long_x else y1) - edge)
+        v0, v1 = ((y0 if long_x else x0) + edge, (y1 if long_x else x1) - edge)
+
+        def plane(u, v):
+            return (u, v) if long_x else (v, u)
+
+        # Altura del hueco: lo que la lengua tiene que cruzar para leerse contra el cielo. La escala
+        # se despeja de los metros del módulo, no de un factor a mano, así que el bulto del fuego
+        # sobrevive a un re-autorado de `mod_original_fire_flame`.
+        flame_h = max(0.2, flame.placement_bounds["z"]["max"] - flame.placement_bounds["z"]["min"])
+        breach = max(1.2, gap_z - floor_z)
+        # Un foco por cada ~2,4 m de frente, entre 1 y 4: la nave larga arde en cuatro grupos y el
+        # cívico en tres. El recuento depende del daño, no de una constante del compositor.
+        clusters = max(1, min(4, int(round((u1 - u0) / 2.4))))
+        dominant_tops = []
+        mass_u = mass_v = mass_w = 0.0
+        for cluster in range(clusters):
+            cu = min(max(u0 + (u1 - u0) * (cluster + 0.5) / clusters + self._rand(-0.45, 0.45), u0), u1)
+            cv = self._rand(v0, v1)
+            # Cada foco es una lengua dominante que asoma por el corte más 3–4 satélites bajos
+            # alrededor. La jerarquía de tamaños es lo que el control no tenía: allí cinco copias
+            # hermanas a Δx exacto de 1,282 m, que se leen como una valla de conos.
+            for index in range(4 + self.rng.below(2)):
+                tall = index == 0
+                # La dominante se mide contra el hueco y está pensada para CRUZARLO: una lengua que
+                # se queda 20 cm bajo el plano de la cubierta se ve como un brasero en el suelo de la
+                # sala, no como un incendio que ventiló por el corte.
+                metres = breach * (self._rand(0.85, 1.25) if tall else self._rand(0.34, 0.72))
+                scale = metres / flame_h
+                # Ancho y alto se resuelven por separado. El módulo ya es esbelto de fábrica (0,7 m de
+                # huella por 1,03 m de alto) y escalarlo al unísono a 3,3 m daba un peñasco naranja de
+                # 2,2 × 1,3 m: la silueta que el encargo reserva al cono repetido, en versión gorda.
+                # Con la dominante en 0,34–0,46 el estiramiento vertical salía 3:1 y las cinco lenguas
+                # del módulo se separaban en astillas: fuego leído como un manojo de pinchos. A 0,5–0,6
+                # la proporción baja a ~2:1 y las lenguas vuelven a tocarse entre sí.
+                girth = self._rand(0.50, 0.62) if tall else self._rand(0.6, 0.9)
+                width = scale * girth
+                # El satélite se aprieta contra su dominante: a ±1,3 m de frente cada grupo se
+                # desparramaba hasta el vecino y el alzado leía una raya de fuego en vez de hogueras.
+                u = cu if tall else min(max(cu + self._rand(-0.8, 0.8), u0), u1)
+                v = cv if tall else min(max(cv + self._rand(-0.6, 0.6), v0), v1)
+                record = place(
+                    flame,
+                    self.rng.choice((0, 90, 180, 270)),
+                    (*plane(u, v), floor_z),
+                    "fire:flame",
+                    (width * self._rand(0.86, 1.1), width, scale),
+                    mirror=self.rng.percent() < 50,
+                )
+                if tall:
+                    dominant_tops.append(record["bounds"]["z"]["max"])
+                mass_u += u * metres
+                mass_v += v * metres
+                mass_w += metres
+
+        # Ventanales abiertos por la sección: una lengua corta asomada al vano. Es el único fuego en
+        # altura que se permite, porque su apoyo es el alféizar del hueco, no el aire.
+        openings = getattr(self, "_damage_openings", None) or []
+        for bounds in self.rng.sampled(openings, min(len(openings), 3)):
+            metres = self._rand(0.45, 0.78)
+            scale = metres / flame_h
+            place(
+                flame,
+                self.rng.choice((0, 180)),
+                (
+                    (bounds["x"]["min"] + bounds["x"]["max"]) / 2.0,
+                    (bounds["y"]["min"] + bounds["y"]["max"]) / 2.0,
+                    bounds["z"]["min"],
+                ),
+                "fire:flame:window",
+                (scale * 0.9, scale * 0.9, scale),
+            )
+
+        # Humo: la columna nace del fuego, no del centro del solar quemado. El eje es el baricentro de
+        # las lenguas ponderado por su altura, y el arranque queda un tercio del hueco POR DEBAJO de la
+        # punta media de las dominantes, para que la primera bocanada se vea empalmada con el bulto en
+        # vez de colgando tres metros sobre el forjado (lo que produjo la pasada E al arrancar en la
+        # punta seca). Medido sobre la nave en la pasada D: el fuego subía de 0,10 a 3,57 m y la primera
+        # bocanada nacía a 0,40, así que la bola de humo se plantaba DELANTE de todo el incendio. El
+        # recorrido lo fija lo que arde (`1,6 × hueco`) con un suelo de deuda: sea como sea el corte, la
+        # pluma remata al menos 1,8 m sobre la coronación, que es la manera de que "el humo sobrepasa el
+        # pretil" salga de la deriva y no de la suerte. El control clavaba dos cotas fijas y la columna
+        # moría 3,6 m por debajo del pretil.
+        smoke_h = max(0.6, smoke.placement_bounds["z"]["max"] - smoke.placement_bounds["z"]["min"])
+        fx, fy = plane(mass_u / mass_w, mass_v / mass_w)
+        crown = sum(dominant_tops) / len(dominant_tops) if dominant_tops else floor_z
+        base_z = crown - 0.35 * breach
+        plume = max(1.6 * breach, roof_z + 1.8 - base_z)
+        cap = base_z + plume
+        drift = self._rand(0.35, 0.8) * (1.0 if self.rng.percent() < 50 else -1.0)
+        # La columna se dimensiona al revés que el control: primero el tope (`cap`, un tercio de la
+        # altura del volumen por encima del pretil y acotado para no inflar el lienzo del sprite) y
+        # después la escala de bocanada que lo alcanza. `growth` es la relación de tamaños entre los
+        # tres bultos y 0,5 el solape, así que el tramo cubre 0,5·(1,0+1,5)+2,1 = 3,35 bocanadas.
+        growth = (1.0, 1.5, 2.1)
+        step = 0.5 * sum(growth[:-1]) + growth[-1]
+        unit = (cap - base_z) / (smoke_h * step)
+        z = base_z
+        for index, ratio in enumerate(growth):
+            scale = unit * ratio
+            place(
+                smoke,
+                self.rng.choice((0, 90, 180, 270)),
+                (fx + drift * index * 0.55, fy - drift * index * 0.3, z),
+                "fire:smoke",
+                (scale, scale * self._rand(0.92, 1.08), scale),
+            )
+            z += scale * smoke_h * 0.5
+
+    def damage_region(self):
+        """Caja métrica del hueco que abrió la sección, en el marco ya rotado de la composición.
+
+        `apply_soot` la necesita: el control oscurecía los 24 materiales del edificio con el mismo
+        factor porque el quemador no tenía dónde mirar para saber qué cara estaba quemada. Es caja
+        del daño, no del humo —cuánto trepa la mancha lo decide el renderizador, no la gramática.
+
+        La caja baja hasta el forjado que alimenta el corte: la cubierta del catálogo es un plano
+        sin grosor y, con z [9,9], el campo de hollín sólo alcanzaba 1,9 m de paño y el muro bajo
+        el hueco seguía leyendo como recién pintado.
+        """
+        rect = getattr(self, "_damage_rect", None)
+        gap = getattr(self, "_damage_z", None)
+        if not rect or not gap:
+            return None
+        floor_z = self._fire_floor_z(rect, gap[0])
+        return anchors.rotate_box(
+            _box(rect[0], rect[1], rect[2], rect[3], floor_z, gap[1]), self.orientation
+        )
+
+    def fire_anchors(self):
+        """Los focos del incendio tal y como quedaron tras la orientación (§ metadata de FASE 4).
+
+        Se leen de los placements y no de una lista aparte porque `_apply_orientation` reasigna
+        posición y bounds: un snapshot tomado en la siembra apuntaría al edificio antes de girarlo.
+        """
+        counters = {}
+        anchors_out = []
+        for record in self.placements:
+            purpose = record.get("purpose", "")
+            if not purpose.startswith("fire:"):
+                continue
+            index = counters.get(purpose, 0)
+            counters[purpose] = index + 1
+            bounds = record["bounds"]
+            anchors_out.append(
+                {
+                    "focus": f"{purpose}:{index}",
+                    "purpose": purpose,
+                    "moduleId": record["moduleId"],
+                    "position": record["position"],
+                    "rotationDegrees": record["rotationDegrees"],
+                    "mirrorX": bool(record.get("mirrorX")),
+                    "scale": record.get("scale", 1.0),
+                    "zRangeMeters": [_round(bounds["z"]["min"]), _round(bounds["z"]["max"])],
+                    "footprintMeters": {
+                        "width": _round(bounds["x"]["max"] - bounds["x"]["min"]),
+                        "depth": _round(bounds["y"]["max"] - bounds["y"]["min"]),
+                    },
+                }
+            )
+        return anchors_out
 
     def _apply_orientation(self):
         """V.j: rotación rígida de la composición alrededor de Z por `self.orientation`.
@@ -1956,6 +2181,7 @@ class Composition:
             if record["bounds"]["z"]["min"] < GROUND_Z_TOLERANCE_DEFAULT
         ]
         ground_box = anchors.union(ground) if ground else _box(0, 0, 0, 0, 0, 0)
+        damage = self.damage_region() if self.state in ("damaged", "burning") else None
         return {
             "buildingType": self.building_type,
             "family": self.family,
@@ -1986,6 +2212,12 @@ class Composition:
             "bounds": bounds,
             "envelopeMeters": anchors.size_of(bounds),
             "groundContactMeters": anchors.size_of(ground_box),
+            # FASE 3: caja del daño en metros, ya rotada. `apply_soot` localiza el hollín contra ella
+            # en vez de oscurecer el edificio entero; `damage` sin sección no publica nada.
+            **({"damageRegion": damage} if damage else {}),
+            # FASE 4: los emisores de Phaser se anclan a estos focos en metros, no al desplazamiento
+            # universal `y − 26` px del laboratorio. Sólo existe en estado burning.
+            **({"fireAnchors": self.fire_anchors()} if self.state == "burning" else {}),
             "checks": {
                 "groundContactInsideFootprint": True,
                 "groundToleranceMeters": self.ground_tolerance,

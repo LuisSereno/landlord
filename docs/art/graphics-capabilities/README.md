@@ -97,11 +97,11 @@ individual y su JSON de hermanastro (herramienta, cámara, luz, triángulos, pro
 | Hoja | Contenido | Mando para regenerar |
 | --- | --- | --- |
 | `sheets/pilots_sheet.png` | control y candidata de las familias piloto (§6) | `node scripts/build-building-composer.mjs --types=<familia> --seeds=2 --prefix=d111ctl_<familia> --outDir=… --mood=day_civic`; los pares ya producidos viven en `evidence/pilots/` y el compositor lee de ahí |
-| `sheets/gn_facade_ab.png` | A/B de fachada Geometry Nodes (§3) | el mismo par del párrafo anterior sobre la gramática parcheada |
+| `sheets/gn_facade_ab.png` | A/B de fachada Geometry Nodes (§3) | el mismo par del párrafo anterior con `--candidate=gn_residential_v2` en el brazo B |
 | `sheets/materials_sheet.png` | tres brazos por superficie (§5) | `blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/material_lab.py` |
 | `sheets/extensions_sheet.png` | HiFi · Arch Generator · Archimesh (§4) | `…ext_lab/hifi_lab.py`, `…arch_generator_lab.py`, `…archimesh_lab.py` con el entorno aislado de extensiones |
 | `sheets/phaser_sheet.png` | la misma calle de QA con y sin cada familia de efectos, de día y de noche, y el lote forzado a CANVAS (§8.5) | `node scripts/fx-lab-capture.mjs` y después `python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py` |
-| `sheets/urban_context_sheet.png` | control y candidata GN plantados sobre un tramo de calle a 1440×900 y a 0,5× (§8.6) | `blender -b --factory-startup -P tools/art-pipeline/blender/build_building_composer_context.py -- --outDir=…/urban/<brazo>`, con `ext_lab/ab_grammar_patch.py` para la candidata |
+| `sheets/urban_context_sheet.png` | control y candidata GN plantados sobre un tramo de calle a 1440×900 y a 0,5× (§8.6) | `blender -b --factory-startup -P tools/art-pipeline/blender/build_building_composer_context.py -- --types=row_house,mixed_tenement --candidate=gn_residential_v2 --outDir=…/urban/<brazo>` (la nave usa `gn_industrial_v2`; el contexto urbano se compone con la misma ruta de selección que el sprite) |
 | `warehouse/garage_probe.png` | las cuatro piezas de garaje a escala (§6.C) | `blender -b --factory-startup -P tools/art-pipeline/blender/ext_lab/garage_probe.py -- --resolution=1600` |
 | `phaser/` | laboratorio de efectos (§7) | `node scripts/fx-lab-capture.mjs` (monta su propia vista previa; `FX_LAB_BASE_URL` para reutilizar una) |
 

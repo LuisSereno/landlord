@@ -13,6 +13,7 @@ in-game, no reusar el bundle.
 
 Uso:
   blender -b -P tools/art-pipeline/blender/build_building_composer_context.py -- --outDir=<dir>
+      [--candidate=<perfil de building-composer-candidates.json>]
 """
 
 import argparse
@@ -28,6 +29,7 @@ import bpy
 
 import runtime_asset as runtime
 from render_settings import active_mood, active_mood_id, apply_render_settings
+from building_composer import candidates
 from building_composer.compose import compose_candidate
 from building_composer.grammar import GrammarDocument
 from building_composer.module_catalog import Catalog
@@ -60,6 +62,11 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--outDir", required=True)
     parser.add_argument("--profile", default="graphic_civic_buildings_v1")
+    parser.add_argument(
+        "--candidate",
+        help="perfil de `building-composer-candidates.json` (D-111.2 WP06): el contexto urbano se "
+        "compone con la misma ruta de selección que el sprite, sin parchear la gramática aprobada",
+    )
     parser.add_argument("--types", help="comma-separated pilot subset (defaults to all pilots)")
     values, _ = parser.parse_known_args(sys.argv[sys.argv.index("--") + 1 :])
     return values
@@ -104,7 +111,7 @@ def build_scale_props(mats, cell_width, depth):
 
 
 def render_family(building_type, family, footprint, floors, seed, style_layer, treatment,
-                  catalog, document, profile, out_dir, index):
+                  catalog, document, profile, out_dir, index, candidate):
     request = {
         "candidateId": f"vf_{building_type}_{seed}",
         "buildingType": building_type,
@@ -117,6 +124,11 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
         "state": "complete",
         "output": str(out_dir / f"{building_type}-context.png"),
     }
+    if candidate is not None:
+        # D-111.2 WP06: el brazo viaja en el request, como en el lote de sprite, y `compose.py` corta
+        # si esta clave y el documento no coinciden. Sin `--candidate` el request queda exactamente
+        # como estaba, para que el control publicado siga siendo re-producible byte a byte.
+        request["candidateProfile"] = candidate
     composition = compose_candidate(request, catalog, profile, document)
     reset_scene()
     root = bpy.data.objects.new(COMPOSITION_ROOT, None)
@@ -182,6 +194,7 @@ def render_family(building_type, family, footprint, floors, seed, style_layer, t
                 "variantSeed": seed,
                 "styleProfileId": profile.id,
                 "moodId": active_mood_id(style_layer),
+                "candidateProfile": candidate,
                 "zoom": zoom_label,
                 "orthoScale": round(camera.data.ortho_scale, 3),
                 "resolution": list(RENDER_SIZE),
@@ -200,7 +213,7 @@ def main():
     style_layer = json.loads(STYLE_LAYER_PATH.read_text(encoding="utf-8"))
     treatment = active_mood(style_layer)["externalTreatment"]
     catalog = Catalog()
-    document = GrammarDocument()
+    document = GrammarDocument(candidate=args.candidate)
     profile = StyleProfile(args.profile)
 
     selected_types = set(args.types.split(",")) if args.types else None
@@ -210,10 +223,21 @@ def main():
     if not families or (selected_types and {row[0] for row in families} != selected_types):
         raise SystemExit(f"tipos piloto desconocidos: {sorted(selected_types or [])}")
 
+    if args.candidate:
+        # El perfil aborta en el primer tipo que no declara, pero para entonces ya se habían renderizado
+        # los anteriores en `outDir`: se comprueba antes de escribir nada.
+        declared = set(candidates.load()["profiles"][args.candidate]["families"])
+        undeclared = sorted({row[0] for row in families} - declared)
+        if undeclared:
+            raise SystemExit(
+                f"--candidate={args.candidate} no declara {undeclared} (declara {sorted(declared)}): "
+                "ese brazo se corre sin la bandera, no con la autoría del perfil"
+            )
+
     index = []
     for building_type, family, footprint, floors, seed in families:
         render_family(building_type, family, footprint, floors, seed, style_layer, treatment,
-                      catalog, document, profile, out_dir, index)
+                      catalog, document, profile, out_dir, index, args.candidate)
 
     (out_dir / "urban-context-index.json").write_text(
         json.dumps(index, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"

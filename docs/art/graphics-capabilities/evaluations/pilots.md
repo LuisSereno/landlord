@@ -14,11 +14,11 @@ son idénticos en los dos brazos. La única diferencia son los módulos que resu
 
 Para que éso sea cierto no basta con añadir una paleta GN: `draw_choices` elige primero receta y luego
 filtra cada eje por las `*Ids` de esa receta, así que **añadir** opciones desplazaría el flujo del PRNG
-y el candidato saldría con otra silueta, otra cubierta u otra orientación. El parche
-(`tools/art-pipeline/blender/ext_lab/ab_grammar_patch.py`) **sustituye `roleModule` en su sitio** en el
-manifiesto del repo y guarda antes la copia de HEAD en `/tmp/ab/grammar-head.json` para poder revertir;
-al terminar el archivo vuelve a ser byte a byte el aprobado (`sha256 fde05d71…`, verificado tras la
-última corrida) y ninguna variante se promociona sin revisión humana.
+y el candidato saldría con otra silueta, otra cubierta u otra orientación. El perfil de candidato
+(`blender_artist/manifests/building-composer-candidates.json`) **sustituye `roleModule` en su sitio**
+sobre una copia en memoria de la gramática aprobada: no escribe ningún archivo del árbol y se valida con
+las mismas guardas de §11/§17 que la producción, así que un ancho de módulo que no encaje en la crujía
+corta igual en un brazo que en un lote canónico. Ninguna variante se promociona sin revisión humana.
 
 Que el método funciona se comprueba en los propios manifiestos: `axisChoices` sale **idéntico** en
 control y candidata, y sólo cambia la firma de composición.
@@ -114,11 +114,14 @@ Ninguna de las dos se hizo en D-111: ambas cambian el catálogo aprobado y piden
 node scripts/build-building-composer.mjs --types=row_house --seeds=2 \
   --prefix=d111ctl_row_house --outDir=/tmp/ab/row_house/ctl \
   --metrics=/tmp/ab/row_house-ctl-metrics.json --mood=day_civic
-# candidata (el parche se revierte solo)
-python3 tools/art-pipeline/blender/ext_lab/ab_grammar_patch.py row_house
-node scripts/build-building-composer.mjs --types=row_house --seeds=2 \
+# candidata: el mismo tipo con su perfil de candidato, sin tocar el manifiesto aprobado
+node scripts/build-building-composer.mjs --types=row_house --seeds=2 --candidate=gn_residential_v2 \
   --prefix=d111cnd_row_house --outDir=/tmp/ab/row_house/cnd \
   --metrics=/tmp/ab/row_house-cnd-metrics.json --mood=day_civic
-python3 tools/art-pipeline/blender/ext_lab/ab_grammar_patch.py revert
 python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py   # hoja sheets/pilots_sheet.png
 ```
+
+`--candidate` exige `--types` explícito y corta si el perfil no declara el tipo pedido: son las dos
+formas en que un brazo podría correrse con la autoría del otro. Antes de D-111.2 WP06 el mismo brazo se
+obtenía parcheando `building-composer-grammars.json` en el árbol (`ext_lab/ab_grammar_patch.py`) y
+revirtiéndolo al terminar; el driver se retiró cuando el perfil dejó de necesitarlo.

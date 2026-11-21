@@ -48,7 +48,11 @@ def main():
     args = parse_args()
     spec = json.loads(Path(args.requests).read_text(encoding="utf-8"))
     catalog = Catalog()
-    document = GrammarDocument()
+    # WP06: `candidateProfile` es opcional y va en el archivo de requests que escribe el orquestador
+    # (`--candidate=`). Sin la clave, o con null, este proceso compone la gramática de producción tal
+    # cual: las firmas del lote aprobado se comparan con las de antes de existir el parámetro.
+    candidate = spec.get("candidateProfile")
+    document = GrammarDocument(candidate=candidate)
     if spec["composerVersion"] != document.composer_version:
         raise SystemExit(
             f"§13: el archivo de requests declara composerVersion {spec['composerVersion']} y el "
@@ -76,6 +80,12 @@ def main():
             )
             print(f"FALLO {label}: {type(error).__name__}: {str(error)[:200]}")
             continue
+        if candidate is not None:
+            # La autoría del brazo viaja con la evidencia: sin estas dos claves, un PNG candidato se
+            # parece en todo al de producción y sólo se distingue por el prefijo del nombre. No forman
+            # parte de `compositionSignature`, que es geometría: añadir la etiqueta no mueve la firma.
+            metadata["candidateProfile"] = candidate
+            metadata["candidateOverlay"] = document.changes_for(request["buildingType"])
         metadata_path = Path(request["metadata"])
         metadata_path.parent.mkdir(parents=True, exist_ok=True)
         metadata_path.write_text(
@@ -93,6 +103,7 @@ def main():
         "schemaVersion": 1,
         "composerVersion": spec["composerVersion"],
         "styleProfileId": spec["styleProfileId"],
+        "candidateProfile": candidate,
         "requested": len(spec["candidates"]),
         "rendered": len(candidates),
         "signatures": sorted(item["compositionSignature"] for item in candidates),

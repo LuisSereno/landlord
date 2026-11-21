@@ -38,6 +38,9 @@ const BLENDER =
 const BLENDER_SCRIPT = join(REPO_ROOT, "tools/art-pipeline/blender/build_building_composer.py");
 const MANIFEST_DIR = join(REPO_ROOT, "blender_artist/manifests");
 const GRAMMARS_PATH = join(MANIFEST_DIR, "building-composer-grammars.json");
+// D-111.2 WP06: rutas de candidato (perfiles de sustitución de módulos) declaradas en datos, no en
+// parches que reescriben la gramática aprobada en el árbol.
+const CANDIDATES_PATH = join(MANIFEST_DIR, "building-composer-candidates.json");
 const PROFILES_PATH = join(MANIFEST_DIR, "building-style-profiles.json");
 // `LANDLORD_ART_WEATHERING_CONTRACT` también lo lee weathering.py dentro de Blender; si el orquestador
 // siguiera fijado al publicado, validaría `--weathering` contra un archivo y renderizaría contra otro.
@@ -71,6 +74,7 @@ function parseArgs(argv) {
     orientations: [0],
     states: ["complete"],
     weathering: [null],
+    candidate: null,
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
@@ -80,6 +84,7 @@ function parseArgs(argv) {
     else if (flag === "--orientations") options.orientations = value.split(",").map(Number);
     else if (flag === "--states") options.states = value.split(",");
     else if (flag === "--weathering") options.weathering = value.split(",");
+    else if (flag === "--candidate") options.candidate = value;
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
@@ -88,7 +93,7 @@ function parseArgs(argv) {
     else if (flag === "--profile") options.profileId = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--profile=graphic_civic_buildings_v1|material_maquette_buildings_v1] [--mood=night_civic|day_civic|day_industrial|material_maquette_day|material_maquette_night] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--weathering=conserved,aged] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--profile=graphic_civic_buildings_v1|material_maquette_buildings_v1] [--mood=night_civic|day_civic|day_industrial|material_maquette_day|material_maquette_night] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--weathering=conserved,aged] [--candidate=<id de building-composer-candidates.json>] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
@@ -133,6 +138,36 @@ function parseArgs(argv) {
     const unknown = projections.filter((token) => !allowed.includes(token));
     if (unknown.length) {
       throw new Error(`--weathering espera un subconjunto de ${allowed.join(",")}`);
+    }
+  }
+  // D-111.2 WP06: un perfil de candidato es una ruta de comparación, no un lote. Exigir `--types`
+  // explícito es lo que impide que un `--candidate` se esparza por los diecisiete tipos del manifiesto
+  // (§3 prohíbe generar el catálogo entero antes de aceptar los pilotos) y que un tipo sin overlay
+  // salga renderizado de control con la etiqueta de otra autoría — el silencio que venía del parche.
+  if (options.candidate) {
+    if (!options.types) {
+      throw new Error(
+        "--candidate espera --types explícito: un perfil de candidato compara pilotos, no regenera el catálogo",
+      );
+    }
+    const profiles = read(CANDIDATES_PATH).profiles;
+    const chosen = profiles[options.candidate];
+    if (!chosen) {
+      throw new Error(
+        `${basename(CANDIDATES_PATH)}: no hay perfil de candidato ${options.candidate}; hay ${Object.keys(
+          profiles,
+        )
+          .sort()
+          .join(", ")}`,
+      );
+    }
+    for (const buildingType of options.types) {
+      if (!chosen.families[buildingType]) {
+        throw new Error(
+          `${basename(CANDIDATES_PATH)}: el perfil ${options.candidate} no declara ${buildingType} ` +
+            `(declara ${Object.keys(chosen.families).sort().join(", ")}); corríelo sin --candidate`,
+        );
+      }
     }
   }
   return options;
@@ -216,6 +251,7 @@ function buildRequests(grammars, options) {
             state,
             constructionStage,
             ...(weathering ? { weathering } : {}),
+            ...(options.candidate ? { candidateProfile: options.candidate } : {}),
             output: join(options.outDir, `${candidateId}.png`),
             metadata: join(options.outDir, `${candidateId}.json`),
           });
@@ -233,6 +269,7 @@ function metricsOf(manifest, options, totalMs, runtimeAssets) {
     generatedAt: new Date().toISOString(),
     composerVersion: manifest.composerVersion,
     styleProfileId: manifest.styleProfileId,
+    candidateProfile: manifest.candidateProfile ?? null,
     outDir: options.outDir,
     requested: manifest.requested,
     rendered: manifest.rendered,
@@ -318,6 +355,7 @@ function runBlenderSeparate(requests, options, grammars, stagingDir) {
         {
           composerVersion: grammars.composerVersion,
           styleProfileId: request.styleProfileId,
+          candidateProfile: request.candidateProfile ?? null,
           candidates: [request],
         },
         null,
@@ -363,6 +401,7 @@ function runBlenderSeparate(requests, options, grammars, stagingDir) {
     schemaVersion: 1,
     composerVersion: grammars.composerVersion,
     styleProfileId: requests[0].styleProfileId,
+    candidateProfile: requests[0].candidateProfile ?? null,
     requested: requests.length,
     rendered: allCandidates.length,
     signatures: allCandidates.map((c) => c.compositionSignature).sort(),
@@ -471,6 +510,7 @@ function regenerateCheck(grammars, options, request) {
         {
           composerVersion: grammars.composerVersion,
           styleProfileId: candidate.styleProfileId,
+          candidateProfile: candidate.candidateProfile ?? null,
           candidates: [candidate],
         },
         null,

@@ -142,6 +142,15 @@ class Composition:
             )
         if self.family not in profile.families:
             raise CompositionError(f"el perfil {profile.id} no aplica a {self.family}")
+        # WP06: el request y el documento tienen que estar de acuerdo en el perfil de candidato. El
+        # orquestador lo declara en el archivo de requests; si este proceso recibiera un documento sin
+        # overlay (o con otro), la fila saldría etiquetada con una autoría que no es la compuesta.
+        requested_candidate = request.get("candidateProfile")
+        if requested_candidate != document.candidate:
+            raise CompositionError(
+                f"candidateProfile del request ({requested_candidate!r}) ≠ documento "
+                f"({document.candidate!r})"
+            )
         self.record = document.grammar(self.building_type, catalog, profile)
         if self.record["family"] != self.family:
             raise CompositionError(

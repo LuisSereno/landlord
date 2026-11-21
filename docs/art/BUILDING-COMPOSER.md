@@ -976,15 +976,20 @@ desplazaría pilares y dinteles y el A/B dejaría de ser una sola variable.
 `draw_choices` elige primero receta y sólo después filtra cada eje por las `*Ids` de esa receta. Por
 eso **añadir** una paleta GN a `facadePalettes` cambiaría el consumo del PRNG y el candidato saldría
 con otra silueta, otra cubierta u otra orientación: la comparación mediría dos edificios distintos.
-Los dos drivers de parche (`tools/art-pipeline/blender/ext_lab/gn_facade_patch.py` para §3 y
-`ab_grammar_patch.py` para §6) **reasignan `roleModule` en su sitio** y, en `mixed_tenement`, fijan
-`facadeIds` a la única paleta GN. Con eso `axisChoices` sale idéntico en control y candidata y sólo
-difiere la firma de composición.
+Los dos drivers de parche con los que se midió este paquete
+(`tools/art-pipeline/blender/ext_lab/gn_facade_patch.py` para §3 y `ab_grammar_patch.py` para §6)
+**reasignaban `roleModule` en su sitio** y, en `mixed_tenement`, fijaban `facadeIds` a la única paleta
+GN. Con eso `axisChoices` salía idéntico en control y candidata y sólo difería la firma de composición.
 
-Los drivers viajan en el repo porque son evidencia reproducible; lo que no viaja es el resultado
-aplicado. Cada parche guarda antes la copia de HEAD en `/tmp/ab/grammar-head.json` y `revert` devuelve
-`blender_artist/manifests/building-composer-grammars.json` byte a byte al aprobado
-(`sha256 fde05d71c647…`, verificado tras cada corrida).
+Esa conclusión de diseño —sustituir en el sitio, no añadir opciones— sigue vigente y es la que implementa
+el mecanismo de perfiles de candidato de §38. Lo que ya **no** existe es la forma: los dos drivers
+reescribían `blender_artist/manifests/building-composer-grammars.json` en el árbol y devolvían el byte a
+byte desde una copia en `/tmp/ab/grammar-head.json`, de modo que una corrida interrumpida dejaba el
+manifiesto aprobado parcheado sin que nada lo avisara. WP06 los retiró y los sustituyó por un overlay en
+memoria; el brazo v1 de §3 (`facade: brick_commercial → gn_masonry_bays`, firma `b1d36ae74df6`) añadía
+una paleta nueva y por eso dejó de ser re-renderizable: un perfil no puede añadir opciones de eje porque
+desplazaría el sorteo de §16 y la A/B compararía dos espacios de variantes en vez de dos autorías. La
+evidencia v1 queda publicada con su `axisChoices` y su firma.
 
 ### La restricción de familia no se relajó
 
@@ -1018,3 +1023,102 @@ procedencia y salida; `runtime-promotions.json` no se tocó.
 `art:building-style:build:check` `style-profile-unchanged` (31 texturas muestreadas, 4 familias
 medidas por albedo, 0 pares colapsados) · `art:modules:inventory:check` `inventory-unchanged` con
 1 254 fuentes · `art:catalog:check` 15/15 edificios · `art:licenses:check` verde en los tres bundles.
+
+## 38. Estado de implementación — D-111.2 WP06 (2026-11-21): rutas de selección de candidatos
+
+El encargo era de integración: que los brazos de WP01, WP02 y WP05 se compongan **desde una ruta
+independiente de las gramáticas de producción**, una candidata por familia, y verificar huella,
+orientación, altura, pivote, licencias y ausencia de colisiones evidentes. Nada de geometría nueva. La
+frase que mandaba el diseño es la última: *"evitar parches temporales peligrosos que puedan dejar el repo
+inconsistente"*, y era literal — el mecanismo anterior escribía
+`blender_artist/manifests/building-composer-grammars.json` en el árbol y lo restauraba al terminar, así
+que un proceso muerto entre el `apply` y el `revert` dejaba la gramática de producción con módulos en QA.
+
+### Dónde vive cada pieza
+
+| archivo | qué hace |
+| --- | --- |
+| `blender_artist/manifests/building-composer-candidates.json` | tres perfiles declarativos (`gn_residential_v2`, `ag_civic_v2`, `gn_industrial_v2`): qué rol se sustituye, por qué módulo, en qué familia |
+| `building_composer/candidates.py` | valida el overlay contra catálogo y gramática y **aborta** en vez de ignorar lo que no muerde |
+| `building_composer/grammar.py` | `GrammarDocument(candidate=…)` aplica el perfil sobre una **copia en memoria**, antes de `_check_roles` y `_check_recipes` |
+| `building_composer/compose.py` | cruza `candidateProfile` del request con el del documento; si difieren, `CompositionError` |
+| `scripts/build-building-composer.mjs` · `build_building_composer_context.py` | la bandera `--candidate=`, ambas con guarda de tipo declarado antes de crear `outDir` |
+| `test_building_composer_candidates.py` | `art:building-composer:candidates:test`: componer los cuatro brazos **sin Blender** y comprobar las guardas |
+
+El perfil no añade autoridad geométrica: los ids de módulo son los del catálogo medido
+(`building-modules.json`), así que un candidato no puede traer geometría que no se haya importado, medido
+y licenciado (§6/§7), ni opciones nuevas de eje (§16). Pasa por las mismas guardas §11/§17 que la
+producción, y por eso un ancho de módulo que no encaja en la crujía corta igual que cortaría si el
+propietario lo promoviera.
+
+### Las tres formas de silencio que ya no existen
+
+1. **Sobrescribir un rol que nadie sortea.** El parche de WP01 reasignaba `wainscot` en `mixed_tenement`,
+   rol que ninguno de sus tres ritmos pide: el brazo se anunciaba "GN" llevando sólo una parte del
+   cambio. Ahora es `GrammarError`, y lo mismo con `corniceModule` de `corniceRole: null`, paleta
+   inexistente, rol que la paleta no publica, módulo de otra familia u overlay vacío.
+2. **Esparcir el brazo por los pilotos.** `--candidate` exige `--types` explícito y corta si el perfil no
+   declara el tipo pedido.
+3. **Etiquetar un brazo que no se compuso.** El `candidateOverlay` que se publica en la evidencia se
+   compara con `document.changes_for(tipo)`; una fila del manifiesto no puede prometer otra cosa.
+
+### Qué salió medido
+
+| tipo | perfil | firma | colocaciones | triángulos control → candidata | equivalencia con el brazo parcheado |
+| --- | --- | --- | --- | --- | --- |
+| `row_house` | `gn_residential_v2` | `5468186522ad` | 92 | 11 232 → 12 080 | differía 16 rotaciones de zócalo (el arreglo de orientación) |
+| `mixed_tenement` | `gn_residential_v2` | `94f1106d02e6` | 164 | 9 522 → 14 264 | firma idéntica · **0 px** con Δ>8 |
+| `warehouse` | `gn_industrial_v2` | `460b94c4e447` | 52 | 4 616 → 7 896 | firma idéntica · PNG idéntico byte a byte |
+| `town_hall` | `ag_civic_v2` | `d950e513e67e` | 82 | 18 418 → 44 374 | firma idéntica · **0 px** con Δ>8 |
+
+Las verificaciones que pide el cierre —huella, orientación, altura, pivote, licencias y colisiones, con
+sus tablas— están medidas en `docs/art/graphics-capabilities/evidence/v2/README.md` (§WP06), sobre
+`candidates/wp06_<tipo>-candidata.{png,json}` y la hoja `sheets/wp06_candidates_ab.png`. Resumen:
+huella, orientación, plantas y pivote idénticos en las cuatro (las dos excepciones de la nave son el
+pretil de WP05, declarado allí), ninguna clase nueva de licencia (`licensed=1.0` en los cuatro renders),
+ninguna clase nueva de par colisionante en tres de las cuatro, y las dos que aparecen en la nave están
+por debajo del peor par que ya toleraba su propio control.
+
+### La orientación de los módulos GN también estaba mal
+
+`mod_gn_plinth_2m` y `mod_gn_cornice_2m` se habían autorizado con la caja centrada, así que el inventario
+deducía `pivot.convention: centered` → `frontAxis: symmetric-Y`, `anchors.rotation_for` no los giraba y
+el relieve quedaba mirando al interior del volumen: a 0,5× el zócalo leía como paño liso, que era la
+deuda visible que WP01 dejó apuntada "para el ciclo de integración". `gn_facade_grammar.py` escribe ahora
+el origen en el plano posterior; con eso `frontAxis` sale `+Y` y 16 rotaciones del zócalo se invierten
+sobre las mismas posiciones. El coste documentado: `.blend`, los dos `.glb`, su informe de medidas y los
+tres manifiestos derivados (inventario, catálogo, perfil de estilo) se re-estampan, y el contrato de
+envejecimiento de WP04, que pinea el catálogo byte a byte, cortó con `f68d666edc11 ≠ 3d159acc9685` —el
+tripwire haciendo su trabajo— y volvió a verde con los dos hashes actualizados y la razón escrita en su
+`pins.restamped`.
+
+### Gates tras WP06 (2026-11-21, medidos)
+
+`art:building-composer:candidates:test` OK (3 perfiles, 4 controles re-compuestos sin perfil, 10 sondas de
+guarda) · `art:building-composer:validate` válido con 17 gramáticas y 15 candidatos ·
+`art:building-composer:validate:test` 52 casos · `art:building-composer:geometry:test` 354 anclajes heavy
+y 5 fachadas identitarias · `art:weathering:contract:test` OK con 8 familias y 9 citas ·
+`art:modules:inventory:check` `inventory-unchanged` 1 259 fuentes · `art:building-modules:build:check`
+`catalog-unchanged` 191 módulos · `art:building-style:build:check` `style-profile-unchanged` (31 texturas,
+4 familias por albedo, 0 pares colapsados) · `art:catalog:check` 15/15 edificios · `art:licenses:check`
+verde en los tres bundles · `art:capabilities:check` verde. `art:fx-lab:*` no se re-corre: WP06 no toca
+el camino de Phaser.
+
+### Resta, declarada y no arreglada por este paquete
+
+- **Promoción.** `runtime-promotions.json` no se toca: los cuatro brazos siguen siendo evidencia
+  revisable, y promoverlos a la gramática aprobada es decisión del responsable con su commit.
+- **Esquina cívica a pico.** Se cierra con geometría nueva montada sobre el extremo de la banda (el
+  precedente es `requiredFeatures.facade_pilasters`), no con la gramática: forzar `brick_post` compone
+  0/60 semillas y limitarlo a `municipal_block` mueve 56 de 105 colocaciones y pierde 2 m de fondo.
+- **`mod_gn_shopfront_bay_2m` sin ruta legal.** Ningún ritmo de `residential_low` sortea `ground_panel`,
+  y declararlo está medido que corta por `SEMANTIC_IDENTITY_INCOMPLETE`: la guarda de
+  `requireGroundCommercial` exige acristalamiento de planta baja con rol `window_bay` o `curtain_wall`.
+  Es identidad semántica de la familia, no un obstáculo del perfil.
+- **`metal_brick_mix` es no-op** en HEAD (sólo se diferencia de `steel_cladding` en que no ofrece
+  `curtain_wall`; su `ground_panel` nunca se sortea). Enmienda de gramática → responsable.
+- **El pin del contrato de envejecimiento es byte-exacto** sobre un manifiesto de 25 000 líneas, así que
+  corta por cualquier metadato inocuo. Acotarlo al subconjunto medido es decisión del responsable
+  (WP09); mientras, lo sostiene `check_family_coverage`, que compara el vocabulario contra el perfil vivo.
+- **El brazo v1 de §3** (`gn_masonry_bays`, firma `b1d36ae74df6`) ya no es re-renderizable porque añadía
+  una paleta y un perfil no añade opciones de eje. Su evidencia queda publicada con `axisChoices` y firma.

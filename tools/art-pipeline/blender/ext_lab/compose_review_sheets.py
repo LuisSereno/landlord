@@ -1368,6 +1368,51 @@ def industrial_warehouse_sheet():
     return first, second
 
 
+def wp06_candidates_sheet():
+    """WP06: las cuatro candidatas revisables, cada una contra su control de producción.
+
+    Es la hoja del cierre: lo que se juzga aquí no es un módulo suelto sino que un perfil de
+    `building-composer-candidates.json` plantado sobre la gramática aprobada —sin parchearla— dé un
+    edificio que sigue siendo su familia. Cada pie sale del JSON hermano del PNG (§8.3): firma de
+    composición, triángulos y recorte reales de ese brazo, no los que recuerda quien monta la hoja.
+    """
+    rows = (
+        ("residential", "row_house", "GN: crujía, zócalo de sillar y cornisa"),
+        ("commercial", "mixed_tenement", "GN: crujía, cornisa y puerta-balcón"),
+        ("industrial", "warehouse", "GN: chapa, ventana, portón y pretil a 4 m"),
+        ("civic", "town_hall", "Arch Generator: vano de arcada cívica"),
+    )
+
+    def build(sprite_height: int, out_path: Path):
+        panels = []
+        for folder, building_type, label in rows:
+            panels.append(
+                v2_panel(folder, f"{building_type}-control",
+                         f"{building_type} · {label} · control", sprite_height)
+            )
+            panels.append(
+                v2_panel("candidates", f"wp06_{building_type}-candidata",
+                         f"{building_type} · {label} · candidata", sprite_height)
+            )
+        return sheet(
+            out_path,
+            "D-111.2 WP06 · cuatro candidatas por perfil de candidato, sobre la gramática aprobada",
+            "Ninguno de los cuatro brazos tocó `building-composer-grammars.json`: cada uno se compuso "
+            "con `--candidate=<perfil>` y se validó con las mismas guardas de §11/§17 que la producción. "
+            "Huella, orientación y plantas son idénticos al control en las cuatro y el pivote también, "
+            "salvo en la nave, donde sube con el pretil de 4 m que WP05 declaró (medido en "
+            "`test_building_composer_candidates.py`). Lo único que cambia es qué módulo resuelve cada "
+            "rol. Las tres autorías distintas: Geometry Nodes en las dos residenciales, GN industrial a "
+            "4 m en la nave y un vano horneado desde Arch Generator en el hito cívico.",
+            panels,
+            columns=2,
+        )
+
+    first = build(980, V2_SHEETS / "wp06_candidates_ab.png")
+    second = build(490, V2_SHEETS / "wp06_candidates_ab_half.png")
+    return first, second
+
+
 def main() -> None:
     if not SHEETS.exists():
         SHEETS.mkdir(parents=True)
@@ -1385,6 +1430,7 @@ def main() -> None:
         ("WP03 fachada hifi grid", hifi_grid_sheet),
         ("WP04 estados de conservación", weathering_sheet),
         ("WP05 nave industrial", industrial_warehouse_sheet),
+        ("WP06 cuatro candidatas", wp06_candidates_sheet),
     ):
         if only and not any(key in name for key in only):
             continue

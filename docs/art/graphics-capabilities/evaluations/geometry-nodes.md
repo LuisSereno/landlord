@@ -103,19 +103,26 @@ Building Composer, exactamente como pedía el encargo:
 
 - El Composer conserva la autoridad: recetas, sorteo de ejes, validación, procedencia y salida.
 - Los cinco módulos se registran **aditivos** en `building-modules.json` (no sustituyen a nadie).
-- **La gramática del repo NO cambia.** El parche que enruta roles a GN es temporal y se revierte
-  tras cada corrida: promoverlo re-derivaría todas las variantes de producción, porque
-  `draw_choices` sortea `rng.choice(recipes)` y filtra por `facadeIds`. Eso es una decisión de
-  promoción con revisión humana, no un subproducto de la exploración.
+- **La gramática del repo NO cambia.** El brazo GN se enruta con un perfil de candidato
+  (`blender_artist/manifests/building-composer-candidates.json`), que es un overlay **en memoria** sobre
+  una copia de la gramática aprobada: no escribe ningún archivo del árbol. Promover los módulos a la
+  gramática re-derivaría todas las variantes de producción, porque `draw_choices` sortea
+  `rng.choice(recipes)` y filtra por `facadeIds`, así que eso es una decisión de promoción con revisión
+  humana, no un subproducto de la exploración.
 
 Reproducir el A/B:
 
 ```bash
-python3 tools/art-pipeline/blender/ext_lab/gn_facade_patch.py apply && \
 node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=2 --prefix=d111b \
+  --candidate=gn_residential_v2 \
   --outDir=/tmp/ab/B --metrics=/tmp/ab/B-metrics.json --mood=day_civic
-python3 tools/art-pipeline/blender/ext_lab/gn_facade_patch.py revert
 ```
 
-Los dos drivers de parche (`gn_facade_patch.py`, para §3, y `ab_grammar_patch.py`, para §6) sí viajan
-en el repo: son evidencia reproducible. Lo que no viaja es el resultado aplicado sobre el manifiesto.
+`tools/art-pipeline/blender/test_building_composer_candidates.py`
+(`art:building-composer:candidates:test`) comprueba cada corrida de render que esa bandera reproduce la
+firma del brazo publicado y que sin ella las cuatro gramáticas de piloto siguen firmando el lote
+aprobado. Antes de D-111.2 WP06 el mismo brazo se conseguía reescribiendo
+`building-composer-grammars.json` dentro del árbol con dos drivers de parche
+(`ext_lab/gn_facade_patch.py` para §3 y `ext_lab/ab_grammar_patch.py` para §6) y restaurándolo desde una
+copia en `/tmp`; los dos se retiraron al existir el perfil, porque un proceso muerto entre el `apply` y
+el `revert` dejaba la gramática de producción con módulos en QA.

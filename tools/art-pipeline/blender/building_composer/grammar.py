@@ -7,11 +7,17 @@ que la misma entrada reproduce el mismo edificio (§13) y un cambio de manifiest
 
 Este módulo valida el manifiesto contra el catálogo: una gramática que referencia un rol o módulo
 inexistente falla al cargar, no a mitad de composición.
+
+WP06 añade la segunda forma en que se construye un edificio a partir de estas gramáticas: con
+`candidate=` se aplica encima un perfil de `building-composer-candidates.json` (ver `candidates.py`).
+Es un overlay en memoria y validado con estas mismas guardas, sustituye al parche que reescribía el
+manifiesto aprobado en el árbol para poder comparar dos autorías.
 """
 
 import json
 from pathlib import Path
 
+from . import candidates
 from .module_catalog import REPO_ROOT, GrammarError
 from .prng import SealedRandom
 
@@ -170,7 +176,7 @@ def _require_mandatory_keys(record, required, allowed, label, where):
 
 
 class GrammarDocument:
-    def __init__(self, path=GRAMMAR_PATH):
+    def __init__(self, path=GRAMMAR_PATH, candidate=None, candidates_path=candidates.CANDIDATES_PATH):
         self.raw = json.loads(Path(path).read_text(encoding="utf-8"))
         _require_keys(self.raw, TOP_LEVEL_KEYS, "manifiesto de gramáticas", "raíz")
         self.composer_version = self.raw["composerVersion"]
@@ -188,9 +194,24 @@ class GrammarDocument:
             raise GrammarError(
                 "variantAxes debe declarar exactamente el vocabulario de §16, ni un eje menos"
             )
+        # WP06: `candidate` es un id de perfil de `building-composer-candidates.json`. `None` es la
+        # ruta de producción y no toca nada: las firmas del lote aprobado se comparan con las de antes
+        # de este parámetro, así que la neutralidad del camino por defecto es una propiedad medida.
+        self.candidate = candidate
+        self.candidate_changes = {}
+        self._candidate_profile = None
+        if candidate is not None:
+            document = candidates.load(candidates_path)
+            self._candidate_profile = candidates.profile(
+                document, candidate, self.composer_version
+            )
 
     def random_for(self, seed, label):
         return SealedRandom(seed, label)
+
+    def changes_for(self, building_type):
+        """Qué tocó el perfil en este tipo, para que la metadata del candidato declare su autoría."""
+        return self.candidate_changes.get(building_type, [])
 
     def grammar(self, building_type, catalog, profile):
         record = self.raw["grammars"].get(building_type)
@@ -207,6 +228,16 @@ class GrammarDocument:
             scale = record["renderScale"]
             if not isinstance(scale, (int, float)) or isinstance(scale, bool) or scale < 1:
                 raise GrammarError(f"{building_type}: renderScale debe ser un número >= 1, no {scale!r}")
+        if self.candidate is not None:
+            # El overlay entra ANTES de las guardas, no después: un candidato que regridúa una fachada
+            # tiene que pasar el mismo §17 de anchos de banda que pasaría si el propietario lo
+            # promoviera a la gramática aprobada. Se aplica sobre una copia: `self.raw` sigue siendo
+            # el manifiesto de producción y el mismo documento puede renderizar control y candidata.
+            overlay = candidates.overlay_for(self._candidate_profile, self.candidate, building_type)
+            record, changes = candidates.apply(
+                self.candidate, record, overlay, catalog
+            )
+            self.candidate_changes[building_type] = changes
         self._check_roles(record, catalog, profile)
         self._check_recipes(record, catalog, record["family"])  # V.g: validar recetas arquitectónicas
         return record

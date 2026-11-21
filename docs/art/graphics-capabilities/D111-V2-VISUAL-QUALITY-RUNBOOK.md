@@ -188,6 +188,7 @@ Cada WP tiene: **entrada**, **cambio mínimo**, **evidencia** y **cierre**. Comp
 El repositorio dispone de estas acciones; comprobar los argumentos antes de ejecutar generadores:
 
 - pnpm art:building-composer:validate
+- pnpm art:building-composer:candidates:test
 - pnpm art:building-modules:build:check
 - pnpm art:building-style:build:check
 - pnpm art:licenses:check

@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "composerVersion": "vf-3",
+  "purpose": "D-111.2 WP06: rutas de selección de candidatos del Building Composer. Cada perfil declara qué módulo sustituye a cuál, sobre la copia en memoria de la gramática aprobada, para que un brazo de comparación exista sin tocar `building-composer-grammars.json`. Nada de lo que hay aquí es recurso de producción: la promoción de un candidato a la gramática sigue siendo una decisión humana con su propio commit.",
+  "provenance": "Los ids de módulo son los del catálogo medido (`building-modules.json`), así que un candidato no puede traer geometría que no se haya importado, medido y licenciado (§6/§7). El archivo no se parchea en disco: `building_composer/candidates.py` aplica el overlay y lo pasa por `_check_roles`/`_check_recipes`, las mismas guardas de §11/§17 que valida la producción.",
+  "authority": {
+    "geometry": "blender_artist/manifests/building-modules.json (el perfil elige módulos, nunca los describe)",
+    "grammar": "blender_artist/manifests/building-composer-grammars.json (se lee intacto y se copia: este manifiesto sólo sustituye valores, no añade opciones de eje)",
+    "footprintAndFloors": "packages/simulation/src/game-data.ts (WP06 no toca huellas ni plantas: un candidato cambia cómo se ve una parcela, no cuánto mide)",
+    "selection": "scripts/build-building-composer.mjs --candidate=<id> (un perfil por corrida, igual que el perfil de estilo)"
+  },
+  "rules": "Un perfil sustituye un rol por otro módulo del MISMO rol y de la MISMA familia; no añade paletas, ritmos ni siluetas nuevas, porque una opción extra cambiaría el sorteo de §16 y la A/B dejaría de comparar dos autorías para comparar dos espacios de variantes. Toda sobrecritura que no muerde (un rol que la familia no sortea, un `corniceModule` con `corniceRole: null`, una receta inexistente) aborta con GrammarError: el precedente que se cierra aquí es el del parche que reemplazaba `wainscot` en `mixed_tenement`, rol que ninguno de sus tres ritmos pide, y del `ground_panel` de `metal_brick_mix`.",
+  "profiles": {
+    "gn_residential_v2": {
+      "label": "Vivienda en fábrica parametrizada por Geometry Nodes (D-111 §3 / WP01, revisada en WP06)",
+      "authorship": "original (Geometry Nodes del repo, generados por gn_facade_grammar.py)",
+      "sources": [
+        "src_original_gn_window_bay",
+        "src_original_gn_plinth",
+        "src_original_gn_cornice",
+        "src_original_gn_balcony_door_bay"
+      ],
+      "note": "Sustitución en el sitio, sin tocar la lista de opciones de ningún eje: el sorteo consume la misma secuencia y control y candidata difieren sólo en qué módulo resuelve el rol. `row_house` sí consume el zócalo (sus ritmos `brick_bands` y `wainscoted` lo piden como `groundRole`); `mixed_tenement` no, porque sus tres ritmos arrancan en `window_bay`, así que el perfil no le ofrece `mod_gn_plinth_2m`: se quedaría en el catálogo sin colocar y el brazo se anunciaría con una autoría ausente. El escaparate GN (`mod_gn_shopfront_bay_2m`) sigue sin ruta en ninguna de las dos familias: ningún ritmo de `residential_low` sortea `ground_panel`, y declarar esa banda está MEDIDO que no basta — en WP01 se parcheó `rhythm.groundRole: ground_panel` sobre `mixed_tenement` y el Composer cortó con `SEMANTIC_IDENTITY_INCOMPLETE`, porque la guarda de `requireGroundCommercial` exige acristalamiento de banda baja con rol `window_bay` o `curtain_wall` y al mover el rol se pierde. La guarda no se aflojó: es identidad semántica de la familia, no un obstáculo del perfil. El escaparate queda como módulo sin ruta hasta que el propietario enmiende la gramática.",
+      "families": {
+        "row_house": {
+          "facadePalettes": {
+            "brick_terrace": {
+              "window_bay": "mod_gn_window_bay_2m",
+              "wainscot": "mod_gn_plinth_2m"
+            },
+            "stucco_trim": {
+              "window_bay": "mod_gn_window_bay_2m",
+              "wainscot": "mod_gn_plinth_2m"
+            }
+          },
+          "silhouetteOptions": {
+            "brick_cornice": { "corniceModule": "mod_gn_cornice_2m" },
+            "trim_cornice_parapet": { "corniceModule": "mod_gn_cornice_2m" }
+          }
+        },
+        "mixed_tenement": {
+          "facadePalettes": {
+            "brick_commercial": { "window_bay": "mod_gn_window_bay_2m" },
+            "stucco_commercial": { "window_bay": "mod_gn_window_bay_2m" }
+          },
+          "silhouetteOptions": {
+            "corniced_transition": { "corniceModule": "mod_gn_cornice_2m" },
+            "trim_cornice_parapet": { "corniceModule": "mod_gn_cornice_2m" }
+          },
+          "recipeFeatures": {
+            "quaternius_balcony": {
+              "upper_balconies_quaternius": "mod_gn_balcony_door_bay_2m"
+            }
+          }
+        }
+      }
+    },
+    "ag_civic_v2": {
+      "label": "Arcada cívica horneada desde Arch Generator (D-111.2 WP02)",
+      "authorship": "original (geometría exportada por ext_lab/ag_module_bake.py; el código GPL-3.0-or-later del add-on no entra en el repo)",
+      "sources": ["src_original_ag_arcade_bay"],
+      "note": "Perfil de equivalencia: es exactamente el brazo que WP02 midió con `ab_grammar_patch.py --source=ag`, y se conserva para que la retirada del parche sea comprobable (misma firma de composición, no la misma promesa). Sólo toca `window_bay`: la cornisa se queda en megakit para que la A/B atribuya el vano a la extensión y no a una mezcla de dos autorías. La esquina a pico que WP02 dejó asignada a este paquete NO se cierra por perfil y está medido en dos pasos: forzando `brick_post` en las cuatro recetas componen 0/60 semillas (la guarda de capacidad aborta sobre `civic_wing` + `single_wing_plaza`: 8,00 m de vuelo menos 2,00 m de poste por banda dejan una sola crujía útil frente a los 2 estribos que exige `wing_flanking_columns`); limitándolo a `municipal_block`, que sí lo admite por autoría, componen 60/60 pero se mueven 56 de las 105 colocaciones y el envelope pasa de 9,24 a 7,24 m de fondo porque el retranqueo re-sortea las bandas y arrastra las columnas del volumen secundario. Un candidato así ya no compara dos autorías del mismo edificio, así que la esquina se queda `flush` y el cierre se resuelve donde corresponde: con geometría nueva montada SOBRE el extremo de la banda como feature simétrica (`requiredFeatures.facade_pilasters` es el precedente), no con un cambio de gramática.",
+      "families": {
+        "town_hall": {
+          "facadePalettes": {
+            "brick_civic": { "window_bay": "mod_ag_arcade_bay_2m" },
+            "stucco_civic": { "window_bay": "mod_ag_arcade_bay_2m" },
+            "warm_limestone": { "window_bay": "mod_ag_arcade_bay_2m" }
+          }
+        }
+      }
+    },
+    "gn_industrial_v2": {
+      "label": "Nave logística en crujía de 4 m con portón de camión (D-111.2 WP05)",
+      "authorship": "original (Geometry Nodes del repo: paño, ventana, portón y pretil escritos para la familia industrial)",
+      "sources": [
+        "src_original_gn_metal_siding_bay",
+        "src_original_gn_metal_window_bay",
+        "src_original_gn_truck_dock_bay",
+        "src_original_gn_metal_parapet"
+      ],
+      "note": "Perfil de equivalencia con el brazo medido en WP05 (`--source=industrial`). Aquí los cuatro cambios van juntos por geometría, no por comodidad: `compose.py` aborta si un módulo de banda no mide la crujía del ritmo (§17), así que regriduar a 4 m obliga a sustituir `wall_panel` y `window_bay` a la vez; el marco de acceso se cambia de ROL (`dock_doorframe`) y no de módulo porque `compose.py` pide `accessOptions.frameRole` sin id y el catálogo devuelve `pool[0]` — que ganan los `mod_gn_*` por orden alfabético. Las dos siluetas sin remate (`plain` no entra: su `corniceRole` es null y el perfil no la toca) pasan a `parapet`/`metal_cornice` con el pretil propio y vuelo distinto, que es lo que las separa de verdad. La rejilla de 4 m es de la familia industrial: aplicada a un residencial regriduaría alzados que nunca se diseñaron para crujías de 4 m.",
+      "families": {
+        "warehouse": {
+          "facadePalettes": {
+            "steel_cladding": {
+              "wall_panel": "mod_gn_metal_siding_bay_4m",
+              "window_bay": "mod_gn_metal_window_bay_4m"
+            },
+            "metal_brick_mix": {
+              "wall_panel": "mod_gn_metal_siding_bay_4m",
+              "window_bay": "mod_gn_metal_window_bay_4m"
+            }
+          },
+          "rhythms": {
+            "blind_siding": { "bayMeters": 4 },
+            "dock_windows": { "bayMeters": 4 },
+            "strip_windows": { "bayMeters": 4 }
+          },
+          "accessOptions": {
+            "repeated_loading_docks": { "frameRole": "dock_doorframe" }
+          },
+          "silhouetteOptions": {
+            "metal_cornice": {
+              "corniceModule": "mod_gn_metal_parapet_4m",
+              "projectionMeters": 0.35
+            },
+            "parapet": {
+              "corniceRole": "cornice",
+              "corniceModule": "mod_gn_metal_parapet_4m",
+              "projectionMeters": 0.2
+            }
+          }
+        }
+      }
+    }
+  }
+}

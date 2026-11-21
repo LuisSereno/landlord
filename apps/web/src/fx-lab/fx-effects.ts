@@ -120,7 +120,11 @@ export function applyGrading(
 
 export type EmissiveOverlay = {
   readonly image: Phaser.GameObjects.Image;
-  readonly kind: "window" | "lamp" | "fire";
+  /**
+   * `fireGlow` es el halo del incendio: entra en la lista para que el bloom por objeto lo pesque,
+   * pero su alfa lo manda el rig de fuego (varía con la llama), no el mood de la calle.
+   */
+  readonly kind: "window" | "lamp" | "fire" | "fireGlow";
 };
 
 /**
@@ -333,6 +337,7 @@ export function buildEmissiveTexture(
   textureKey: string,
   emissiveKey: string,
   threshold = 0.72,
+  warmOnly = false,
 ): { key: string; coverage: number; peak: number } | null {
   if (scene.textures.exists(emissiveKey)) return { key: emissiveKey, coverage: 1, peak: 1 };
   const measured = textureSize(scene, textureKey);
@@ -342,6 +347,8 @@ export function buildEmissiveTexture(
     measured.width,
     measured.height,
     threshold,
+    0.14,
+    warmOnly,
   );
   if (extraction.coverage <= 0.0004)
     return { key: "", coverage: 0, peak: extraction.peakLuminance };

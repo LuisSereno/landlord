@@ -1,0 +1,379 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/fx-fire-sheet.mjs",
+ "command": "node scripts/fx-fire-sheet.mjs",
+ "task": "D-111.2 FASE 4 · incendio animado en Phaser 4.2.1",
+ "page": "/art-lab?artQa=1&fxMood=night&fxZoom=1&fx=fire",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "webglRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "moments": 7,
+ "momentStepMs": 260,
+ "presentationSeed": 20261121,
+ "anchors": [
+  {
+   "kind": "roof",
+   "x": 477,
+   "y": 281,
+   "flameWorldPx": 25.47
+  },
+  {
+   "kind": "wall",
+   "x": 477,
+   "y": 306,
+   "flameWorldPx": 15.68
+  }
+ ],
+ "frames": [
+  {
+   "moment": 0,
+   "elapsedMs": 0,
+   "frames": 16,
+   "clockMs": 1419,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 4,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "effects": [
+    "fire"
+   ],
+   "mood": "night",
+   "zoom": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_01.png",
+   "bytes": 193196,
+   "sha256": "19a7d7b9f60bc052197434fe3a60dcba8a7c86daad89ce5bbcced03025229711"
+  },
+  {
+   "moment": 1,
+   "elapsedMs": 260,
+   "frames": 51,
+   "clockMs": 2420,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 20,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "effects": [
+    "fire"
+   ],
+   "mood": "night",
+   "zoom": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_02.png",
+   "bytes": 194014,
+   "sha256": "46121b625043daf4fe578088922c89ff192f612cc2265273a5b8087de5eebb19"
+  },
+  {
+   "moment": 2,
+   "elapsedMs": 520,
+   "frames": 87,
+   "clockMs": 3403,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 31,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "effects": [
+    "fire"
+   ],
+   "mood": "night",
+   "zoom": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_03.png",
+   "bytes": 194758,
+   "sha256": "210d8db70e3197bfb30d8731ec3e55f30f84448bef1e6b6532161b176a14b1aa"
+  },
+  {
+   "moment": 3,
+   "elapsedMs": 780,
+   "frames": 115,
+   "clockMs": 4203,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 37,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "effects": [
+    "fire"
+   ],
+   "mood": "night",
+   "zoom": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_04.png",
+   "bytes": 195203,
+   "sha256": "385c26325d3afb1b19e9e7eac9ffbe98eb8d128a178950fa7c3de38aced798a7"
+  },
+  {
+   "moment": 4,
+   "elapsedMs": 1040,
+   "frames": 147,
+   "clockMs": 5153,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 49,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "effects": [
+    "fire"
+   ],
+   "mood": "night",
+   "zoom": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_05.png",
+   "bytes": 195465,
+   "sha256": "4df849c2cda7f046041503dc97dc0533b9265511cf2b7d7fa86adc3c59aa3afa"
+  },
+  {
+   "moment": 5,
+   "elapsedMs": 1300,
+   "frames": 181,
+   "clockMs": 6203,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 56,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "effects": [
+    "fire"
+   ],
+   "mood": "night",
+   "zoom": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_06.png",
+   "bytes": 195467,
+   "sha256": "2495f125754ef00461ee67d0acab5aac63249127e7c552a2d92936b105bdaea0"
+  },
+  {
+   "moment": 6,
+   "elapsedMs": 1560,
+   "frames": 210,
+   "clockMs": 7153,
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 52,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "effects": [
+    "fire"
+   ],
+   "mood": "night",
+   "zoom": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_07.png",
+   "bytes": 195521,
+   "sha256": "3ca90fe37c68fcec1a9adcb0202d3a0d51716e9052b0291323bb5d09be76e3fe"
+  }
+ ],
+ "distinctFrameHashes": 7,
+ "identicalFrameHashes": [],
+ "control": {
+  "fireActive": false,
+  "particles": 0
+ },
+ "liveAtEnd": {
+  "foci": 2,
+  "flameImages": 10,
+  "emitters": 8,
+  "particlesAlive": 54,
+  "lights": 0,
+  "glowImages": 2
+ },
+ "shots": [
+  {
+   "case": "street_day_fire",
+   "mood": "day",
+   "zoom": 1,
+   "effects": [
+    "fire"
+   ],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 4,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "fireAnchors": [
+    {
+     "kind": "roof",
+     "x": 477,
+     "y": 281,
+     "flameWorldPx": 25.47
+    },
+    {
+     "kind": "wall",
+     "x": 477,
+     "y": 306,
+     "flameWorldPx": 15.68
+    }
+   ],
+   "errors": [],
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/street_day_fire.png",
+   "bytes": 188202,
+   "sha256": "9bc82a3dd195972f2feb38d681a67e5bd09eb90d474d2d9e50d8cf6b7c8784c6"
+  },
+  {
+   "case": "street_night_fire",
+   "mood": "night",
+   "zoom": 1,
+   "effects": [
+    "fire"
+   ],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 4,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "fireAnchors": [
+    {
+     "kind": "roof",
+     "x": 477,
+     "y": 281,
+     "flameWorldPx": 25.47
+    },
+    {
+     "kind": "wall",
+     "x": 477,
+     "y": 306,
+     "flameWorldPx": 15.68
+    }
+   ],
+   "errors": [],
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/street_night_fire.png",
+   "bytes": 194086,
+   "sha256": "2eaf4c554eec4da9e97c79b0af6fe51ab83b578c7de8d2275db968b96c999f91"
+  },
+  {
+   "case": "street_night_fire_lighting",
+   "mood": "night",
+   "zoom": 1,
+   "effects": [
+    "lighting",
+    "fire"
+   ],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 4,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "fireAnchors": [
+    {
+     "kind": "roof",
+     "x": 477,
+     "y": 281,
+     "flameWorldPx": 25.47
+    },
+    {
+     "kind": "wall",
+     "x": 477,
+     "y": 306,
+     "flameWorldPx": 15.68
+    }
+   ],
+   "errors": [],
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/street_night_fire_lighting.png",
+   "bytes": 155514,
+   "sha256": "cc3c4b9a85f420fc53164fafe363b69432a0adc301cf348a23fd1d6c973ab942"
+  },
+  {
+   "case": "street_night_fire_particles",
+   "mood": "night",
+   "zoom": 1,
+   "effects": [
+    "particles",
+    "fire"
+   ],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 2,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "fireAnchors": [
+    {
+     "kind": "roof",
+     "x": 477,
+     "y": 281,
+     "flameWorldPx": 25.47
+    },
+    {
+     "kind": "wall",
+     "x": 477,
+     "y": 306,
+     "flameWorldPx": 15.68
+    }
+   ],
+   "errors": [],
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/street_night_fire_particles.png",
+   "bytes": 196358,
+   "sha256": "ea931723ab81c14eb4aa97bf699490eae5909eafbeea70392a668c1072c174e9"
+  },
+  {
+   "case": "street_night_fire_050x",
+   "mood": "night",
+   "zoom": 0.5,
+   "effects": [
+    "fire"
+   ],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 6,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "errors": [],
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/street_night_fire_050x.png",
+   "bytes": 66568,
+   "sha256": "303f4a8cada6038265ed2947a6ca04abfcb5d397a01c7f7cb13fa7353ef72fa1"
+  },
+  {
+   "case": "street_night_control",
+   "mood": "night",
+   "zoom": 1,
+   "effects": [],
+   "fire": {
+    "foci": 2,
+    "flameImages": 10,
+    "emitters": 8,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 2
+   },
+   "fireActive": false,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/street_night_control.png",
+   "bytes": 192039,
+   "sha256": "dbca9a2719cad57458d645afde730a810a059645fe5a96e953cd08b37f154cb1"
+  }
+ ],
+ "sceneErrors": [],
+ "pageErrors": []
+}

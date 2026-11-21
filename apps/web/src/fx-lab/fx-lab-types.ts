@@ -12,6 +12,7 @@ export const FX_EFFECTS = [
   "lighting",
   "lightingNormals",
   "particles",
+  "fire",
 ] as const;
 
 export type FxEffect = (typeof FX_EFFECTS)[number];
@@ -60,6 +61,7 @@ export const FX_LABELS: Record<FxEffect, string> = {
   lighting: "Luz dinámica puntual",
   lightingNormals: "Normal maps en fachadas",
   particles: "Partículas de estado",
+  fire: "Incendio animado (foco + humo + brasas)",
 };
 
 /** Métricas de frame que produce la escena cuando `fxPerf=1`. */

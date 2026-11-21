@@ -48,6 +48,8 @@ import {
   setEmittersActive,
   type Emitter,
 } from "./fx-particles";
+import { createFireRig, type FireRig, type FireStats } from "./fx-fire";
+import { clearFireAnchorCache, fireAnchorsFor, type FireFocus } from "./fx-fire-anchors";
 import { makeSoftDisc } from "./fx-textures";
 import { buildNormalMapFromSprite, makeFlatNormal } from "./fx-normal-map";
 import { depthForAsset, footprintCenter } from "../isometric/building-sprites";
@@ -57,6 +59,11 @@ const FRAME_WINDOW = 180;
 const LAMP_GLOW_TEXTURE = "fx-tex-lamp-glow";
 /** Escala de farolas y vegetación: el pack está densificado y la calle de QA se mira de cerca. */
 const SCENERY_BOOST = 2.1;
+/**
+ * Semilla de PRESENTACIÓN del incendio. Es fija para que la hoja de animación sea repetible; no
+ * entra en la simulación, en el save ni en GameState (FASE 4.3 lo permite explícitamente).
+ */
+const FIRE_PRESENTATION_SEED = 20_261_121;
 
 type EffectHandles = {
   dispose: Disposer;
@@ -90,10 +97,17 @@ export type FxLabProbeData = {
   ready: boolean;
   /** Frames del bucle desde el montaje: dos lecturas con el mismo número = renderer congelado. */
   frames: number;
+  /** Reloj de Phaser en ms: la envolvente del fuego depende de este número, no del de `frames`. */
+  clockMs: number;
   emissive: number;
   litObjects: number;
   lights: number;
   particles: number;
+  /** Las cinco familias del incendio (FASE 4.1), contadas por separado. */
+  fire: FireStats | null;
+  fireActive: boolean;
+  /** Dónde ancló el fuego: sin estos números la evidencia no puede decir si el foco cayó en la cubierta. */
+  fireAnchors: { kind: string; x: number; y: number; flameWorldPx: number }[];
   sceneObjects: number;
   webgl: boolean;
   /** `false` = el `__NORMAL` de Phaser no llegó al GL y el rig necesita su propia normal plana. */
@@ -118,6 +132,8 @@ export class FxLabScene extends Phaser.Scene {
   private lamps: LampAnchor[] = [];
   private ground: Phaser.GameObjects.Graphics | null = null;
   private emitters: Emitter[] = [];
+  private fire: FireRig | null = null;
+  private fireFoci: FireFocus[] = [];
   private normalMaps: { textureKey: string; normal: HTMLCanvasElement }[] = [];
   private flatNormals = new Map<string, HTMLCanvasElement>();
   private rig: LightRig | null = null;
@@ -163,6 +179,7 @@ export class FxLabScene extends Phaser.Scene {
     this.makeLampGlowTexture();
     this.ground = paintGround(this, this.palette());
     this.placeBuildings();
+    this.placeFireRigs();
     this.placeSceneryRow();
     this.placeEmitters();
     this.cameras.main.centerOn(528, 288);
@@ -174,8 +191,15 @@ export class FxLabScene extends Phaser.Scene {
     this.ready = true;
   }
 
-  override update(_time: number, delta: number): void {
+  override update(time: number, delta: number): void {
     this.frames += 1;
+    /**
+     * El fuego se anima por frame, no por partícula: Phaser 4.2.1 no trae `Oscillator` en emisores
+     * (0 apariciones en sus tipos), así que la única vía de mover el cuerpo de la llama es la escena.
+     * `time` es reloj de presentación —la simulación autoritativa no lo ve— y la semilla del rig es
+     * fija, de modo que dos corridas con el mismo `time` base dan la misma coreografía.
+     */
+    if (this.fireActive) this.fire?.update(time);
     if (!this.options.perf) return;
     this.frameTimes.push(delta);
     if (this.frameTimes.length > FRAME_WINDOW) this.frameTimes.shift();
@@ -194,6 +218,11 @@ export class FxLabScene extends Phaser.Scene {
 
   get activeEffects(): FxEffect[] {
     return FX_EFFECTS.filter((effect) => this.handles.has(effect));
+  }
+
+  /** El incendio es opt-in como cualquier otra familia: fuera del toggle, el rig está montado y quieto. */
+  private get fireActive(): boolean {
+    return this.handles.has("fire");
   }
 
   /** Enciende o apaga UNA familia sin tocar las demás: es el requisito de toggles independientes. */
@@ -240,6 +269,8 @@ export class FxLabScene extends Phaser.Scene {
       this.applyEffect("grading", false);
       this.applyEffect("grading", true);
     }
+    /** El halo y la luz del fuego dependen del mood: se rehace el rig conservando el toggle. */
+    if (this.fire) this.placeFireRigs();
   }
 
   setZoom(zoom: number): void {
@@ -275,10 +306,19 @@ export class FxLabScene extends Phaser.Scene {
       zoom: this.cameras.main.zoom,
       ready: this.buildings.length > 0,
       frames: this.frames,
+      clockMs: Math.round(this.time.now),
       emissive: this.overlays.length,
       litObjects: this.rig?.litObjects ?? 0,
       lights: this.rig?.lights ?? 0,
       particles: aliveParticleCount(this.emitters),
+      fire: this.fire?.stats() ?? null,
+      fireActive: this.fireActive,
+      fireAnchors: this.fireFoci.map((focus) => ({
+        kind: focus.kind,
+        x: Math.round(focus.x),
+        y: Math.round(focus.y),
+        flameWorldPx: Math.round(focus.flameWorldPx * 100) / 100,
+      })),
       sceneObjects: this.children.list.length,
       webgl: isWebGL(this),
       /** `false` aquí explica por qué el rig necesita su propia normal plana: ver `case "lighting"`. */
@@ -336,6 +376,8 @@ export class FxLabScene extends Phaser.Scene {
           const rig = applyLighting(this, this.options.mood, facades, this.lamps);
           if (!rig) return { dispose: noop };
           this.rig = rig;
+          /** La luz cálida de proximidad del incendio sólo existe sobre fachadas iluminadas. */
+          this.fire?.setLights(true);
           /**
            * El rig se monta con normal PLANA del tamaño de cada fachada. Dos motivos medidos: el
            * fallback `__NORMAL` de Phaser es un pixel de 1×1, así que comparar «sin normales» contra
@@ -347,6 +389,8 @@ export class FxLabScene extends Phaser.Scene {
           const flat = attachNormalMaps(this, this.flatNormalEntries());
           return {
             dispose: () => {
+              /** Primero el fuego: su luz vive dentro del `LightsManager` que `rig.dispose()` apaga. */
+              this.fire?.setLights(false);
               flat();
               rig.dispose();
               this.rig = null;
@@ -376,11 +420,30 @@ export class FxLabScene extends Phaser.Scene {
           setEmittersActive(this.emitters, true);
           return { dispose: () => setEmittersActive(this.emitters, false) };
         }
+        case "fire": {
+          if (!this.fire) return { dispose: noop };
+          this.fire.setActive(true);
+          /** Con el fuego encendido después del bloom, el halo entra en la lista del pase difuso. */
+          if (this.handles.has("bloomObjects")) this.remount("bloomObjects");
+          return {
+            dispose: () => {
+              this.fire?.setActive(false);
+              this.fire?.setLights(false);
+            },
+          };
+        }
       }
     } catch (error) {
       this.errorLog.push(`${effect}: ${String(error)}`);
       return { dispose: noop };
     }
+  }
+
+  /** Volver a montar un efecto para que recoja estado que apareció después (el halo del incendio). */
+  private remount(effect: FxEffect): void {
+    if (!this.handles.has(effect)) return;
+    this.applyEffect(effect, false);
+    this.applyEffect(effect, true);
   }
 
   /**
@@ -443,11 +506,18 @@ export class FxLabScene extends Phaser.Scene {
 
       let emissive: Phaser.GameObjects.Image | null = null;
       if (placement.emissiveBoost > 0) {
+        /**
+         * `burning` exige matiz cálido (el asset no trae fuego horneado, y sin filtro de matiz un
+         * resaltado de alféizar leía como incendio) pero NO un umbral más bajo: con 0,55 la cubierta
+         * entera del bake pasaba la filtro y la capa ADD pintaba de blanco el tejado. La luz del
+         * fuego la pone el rig de `fx-fire.ts`; la capa emisiva sigue siendo sólo lo que ya brillaba.
+         */
         const built = buildEmissiveTexture(
           this,
           key,
           `${key}-emissive`,
-          placement.state === "burning" ? 0.55 : 0.72,
+          0.72,
+          placement.state === "burning",
         );
         if (built?.key) {
           emissive = this.add.image(center.x, center.y, built.key);
@@ -507,14 +577,13 @@ export class FxLabScene extends Phaser.Scene {
   }
 
   /**
-   * Los anclajes salen de los estados YA existentes en el catálogo (`construction`, `burning`) y de
-   * la planta de producción; no se inventa ningún estado nuevo de dominio.
+   * Los anclajes salen de los estados YA existentes en el catálogo (`construction`) y de la planta de
+   * producción; no se inventa ningún estado nuevo de dominio. El `burning` se fue a `placeFireRigs()`.
    */
   private placeEmitters(): void {
     const anchors: Record<string, { x: number; y: number; scale: number }[]> = {
       "industrial-smoke": [],
       "construction-dust": [],
-      fire: [],
     };
     for (const entry of this.buildings) {
       const top = entry.sprite.y - entry.sprite.displayHeight * entry.sprite.originY;
@@ -528,17 +597,45 @@ export class FxLabScene extends Phaser.Scene {
       if (entry.state === "construction") {
         anchors["construction-dust"]?.push({ x: entry.sprite.x, y: entry.sprite.y - 18, scale: 1 });
       }
-      if (entry.state === "burning") {
-        anchors.fire?.push({ x: entry.sprite.x, y: entry.sprite.y - 26, scale: 1.15 });
-      }
     }
     this.emitters = createEmitters(this, anchors);
+  }
+
+  /**
+   * Los anclajes se derivan de la silueta del sprite de CADA edificio (FASE 4.4): la línea de cubierta
+   * y el paño de fachada que mide ese PNG, no un desplazamiento universal. El fixture de QA es el
+   * estado `burning` colocado a mano en `BUILDING_PLACEMENTS`; el adaptador está listo para recibir
+   * los focos de un edificio real porque la única entrada es `{sprite, pivot}`.
+   */
+  private placeFireRigs(): void {
+    this.fire?.dispose();
+    this.overlays = this.overlays.filter((overlay) => overlay.kind !== "fireGlow");
+    this.fireFoci = [];
+    for (const entry of this.buildings) {
+      if (entry.state !== "burning") continue;
+      const asset = buildingMetadata(entry.type);
+      if (!asset) continue;
+      this.fireFoci.push(...fireAnchorsFor(this, entry.sprite, asset.pivot));
+    }
+    if (!this.fireFoci.length) {
+      this.fire = null;
+      return;
+    }
+    this.fire = createFireRig(this, this.fireFoci, {
+      mood: this.options.mood,
+      seed: FIRE_PRESENTATION_SEED,
+      active: this.fireActive,
+    });
+    for (const glow of this.fire.glows) this.overlays.push({ image: glow, kind: "fireGlow" });
+    this.fire.setLights(this.handles.has("lighting"));
   }
 
   /** De día la capa emisiva casi no existe; de noche es lo que sostiene la lectura de la calle. */
   private syncEmissiveVisibility(): void {
     const night = this.options.mood === "night";
     for (const overlay of this.overlays) {
+      /** El halo del incendio se lo apunta el rig cada frame: la escena no le toca el alfa. */
+      if (overlay.kind === "fireGlow") continue;
       const boost = overlay.kind === "fire" ? 1 : overlay.kind === "lamp" ? 1 : 0.9;
       overlay.image.setAlpha(night ? 0.95 * boost : 0.08 * boost);
     }
@@ -558,6 +655,10 @@ export class FxLabScene extends Phaser.Scene {
       }
     }
     this.handles.clear();
+    this.fire?.dispose();
+    this.fire = null;
+    this.fireFoci = [];
+    clearFireAnchorCache();
     destroyEmitters(this.emitters);
     this.emitters = [];
   }

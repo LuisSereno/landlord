@@ -1,0 +1,150 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/fx-fire-sheet-assemble.py",
+ "command": "python3 scripts/fx-fire-sheet-assemble.py",
+ "task": "D-111.2 FASE 4 · hoja de animación del incendio",
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "effects": [
+  "fire"
+ ],
+ "mood": "night",
+ "zoom": 1,
+ "presentationSeed": 20261121,
+ "momentStepMs": 260,
+ "deltaThresholdPerChannel": 8,
+ "cropBoxFromMotion": [
+  390,
+  117,
+  486,
+  307
+ ],
+ "frames": [
+  {
+   "momento": 0,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_01.png",
+   "sha256": "19a7d7b9f60bc052197434fe3a60dcba8a7c86daad89ce5bbcced03025229711",
+   "relojMs": 1419,
+   "framesBucle": 16,
+   "particulasVivas": 4,
+   "llamasVivas": 10,
+   "pixelesDelRecorte": 18240,
+   "pixelesQueCambian": 0,
+   "fraccionQueCambia": 0.0,
+   "diferenciaMediaLuma": 0.0
+  },
+  {
+   "momento": 1,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_02.png",
+   "sha256": "46121b625043daf4fe578088922c89ff192f612cc2265273a5b8087de5eebb19",
+   "relojMs": 2420,
+   "framesBucle": 51,
+   "particulasVivas": 20,
+   "llamasVivas": 10,
+   "pixelesDelRecorte": 18240,
+   "pixelesQueCambian": 2349,
+   "fraccionQueCambia": 0.1288,
+   "diferenciaMediaLuma": 2.273
+  },
+  {
+   "momento": 2,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_03.png",
+   "sha256": "210d8db70e3197bfb30d8731ec3e55f30f84448bef1e6b6532161b176a14b1aa",
+   "relojMs": 3403,
+   "framesBucle": 87,
+   "particulasVivas": 31,
+   "llamasVivas": 10,
+   "pixelesDelRecorte": 18240,
+   "pixelesQueCambian": 2784,
+   "fraccionQueCambia": 0.1526,
+   "diferenciaMediaLuma": 2.982
+  },
+  {
+   "momento": 3,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_04.png",
+   "sha256": "385c26325d3afb1b19e9e7eac9ffbe98eb8d128a178950fa7c3de38aced798a7",
+   "relojMs": 4203,
+   "framesBucle": 115,
+   "particulasVivas": 37,
+   "llamasVivas": 10,
+   "pixelesDelRecorte": 18240,
+   "pixelesQueCambian": 3935,
+   "fraccionQueCambia": 0.2157,
+   "diferenciaMediaLuma": 3.892
+  },
+  {
+   "momento": 4,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_05.png",
+   "sha256": "4df849c2cda7f046041503dc97dc0533b9265511cf2b7d7fa86adc3c59aa3afa",
+   "relojMs": 5153,
+   "framesBucle": 147,
+   "particulasVivas": 49,
+   "llamasVivas": 10,
+   "pixelesDelRecorte": 18240,
+   "pixelesQueCambian": 4156,
+   "fraccionQueCambia": 0.2279,
+   "diferenciaMediaLuma": 4.689
+  },
+  {
+   "momento": 5,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_06.png",
+   "sha256": "2495f125754ef00461ee67d0acab5aac63249127e7c552a2d92936b105bdaea0",
+   "relojMs": 6203,
+   "framesBucle": 181,
+   "particulasVivas": 56,
+   "llamasVivas": 10,
+   "pixelesDelRecorte": 18240,
+   "pixelesQueCambian": 3989,
+   "fraccionQueCambia": 0.2187,
+   "diferenciaMediaLuma": 4.025
+  },
+  {
+   "momento": 6,
+   "path": "docs/art/graphics-capabilities/evidence/phaser/fire_sheet/frame_07.png",
+   "sha256": "3ca90fe37c68fcec1a9adcb0202d3a0d51716e9052b0291323bb5d09be76e3fe",
+   "relojMs": 7153,
+   "framesBucle": 210,
+   "particulasVivas": 52,
+   "llamasVivas": 10,
+   "pixelesDelRecorte": 18240,
+   "pixelesQueCambian": 4018,
+   "fraccionQueCambia": 0.2203,
+   "diferenciaMediaLuma": 4.067
+  }
+ ],
+ "distinctFrameHashes": 7,
+ "controlSinFuego": {
+  "pixelesDelRecorte": 18240,
+  "pixelesQueCambian": 2568,
+  "fraccionQueCambia": 0.1408,
+  "diferenciaMediaLuma": 4.068
+ },
+ "anchors": [
+  {
+   "kind": "roof",
+   "x": 477,
+   "y": 281,
+   "flameWorldPx": 25.47
+  },
+  {
+   "kind": "wall",
+   "x": 477,
+   "y": 306,
+   "flameWorldPx": 15.68
+  }
+ ],
+ "liveAtEnd": {
+  "foci": 2,
+  "flameImages": 10,
+  "emitters": 8,
+  "particlesAlive": 54,
+  "lights": 0,
+  "glowImages": 2
+ },
+ "sceneErrors": [],
+ "pageErrors": [],
+ "sheet": "docs/art/graphics-capabilities/evidence/phaser/fire_animation_sheet.png",
+ "lectura": "Siete momentos del mismo incendio recortados por la envolvente de su propio movimiento: cambia la silueta de la llama, su altura y la columna de humo entre fotogramas, así que no es un sprite fijo con un brillo añadido. `controlSinFuego` acota la huella del efecto."
+}

@@ -1,0 +1,180 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-21T11:24:54.826Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/day",
+ "requested": 4,
+ "rendered": 4,
+ "totalGenerationMs": 245880,
+ "blenderPeakRssMb": 4715.4,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef",
+   "after": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+   "after": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vw_mixed_tenement_1001_conserved",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+   "triangleCount": 24162,
+   "objectCount": 115,
+   "moduleCount": 11,
+   "materials": 23,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.428,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13606.42,
+   "pngBytes": 1352553,
+   "pngPixels": [
+    1037,
+    1146
+   ],
+   "pixelSha256": "80fabd113aa5f4518ac3695d6b13d02ed6a6548f82ab00acc94f7c448943e24b",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5111,
+    "y": 0.7684
+   }
+  },
+  {
+   "candidateId": "vw_mixed_tenement_1001_aged",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+   "triangleCount": 24162,
+   "objectCount": 115,
+   "moduleCount": 11,
+   "materials": 23,
+   "textures": 23,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.428,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13564.79,
+   "pngBytes": 1342033,
+   "pngPixels": [
+    1037,
+    1146
+   ],
+   "pixelSha256": "aaea66ce6c5dd8a2457273ac96639a8086b9aacef7368e53bd4c48a838498f72",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5111,
+    "y": 0.7684
+   }
+  },
+  {
+   "candidateId": "vw_mixed_tenement_1001_damaged",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "c8cf952053b829d9902d6d2fe15798fb8389cf04b07974a2ad4f796d8124577c",
+   "triangleCount": 23598,
+   "objectCount": 105,
+   "moduleCount": 12,
+   "materials": 26,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8
+    },
+    "y": {
+     "min": -5.2128000000000005,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 14621.56,
+   "pngBytes": 1396119,
+   "pngPixels": [
+    1070,
+    1162
+   ],
+   "pixelSha256": "3c6cecd351889baf7304b2da0ecf0ad9d5a8dee38e50e3ae349b64fe0d5041f2",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5266,
+    "y": 0.7578
+   }
+  },
+  {
+   "candidateId": "vw_mixed_tenement_1001_burning",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "84817436f627431d760552e72eaaba185698933bcc5ad6254b70a0c862a762fe",
+   "triangleCount": 25258,
+   "objectCount": 112,
+   "moduleCount": 14,
+   "materials": 29,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8
+    },
+    "y": {
+     "min": -5.2128000000000005,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13540.81,
+   "pngBytes": 1368096,
+   "pngPixels": [
+    1070,
+    1162
+   ],
+   "pixelSha256": "2ab04bf65b2fd7b8f0f801316801063912cdf8d1897e8181d12302025379d132",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5266,
+    "y": 0.7578
+   }
+  }
+ ],
+ "failures": []
+}

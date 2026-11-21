@@ -1,0 +1,104 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-21T11:26:33.673Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/night",
+ "requested": 2,
+ "rendered": 2,
+ "totalGenerationMs": 98768,
+ "blenderPeakRssMb": 4577.8,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef",
+   "after": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+   "after": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vwn_mixed_tenement_1001_conserved",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+   "triangleCount": 24162,
+   "objectCount": 115,
+   "moduleCount": 11,
+   "materials": 23,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.428,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 12821.59,
+   "pngBytes": 1153536,
+   "pngPixels": [
+    1037,
+    1146
+   ],
+   "pixelSha256": "70cb4d1601e60527d5c46fcf3d7f7ef4ea4bb703ca2de3d3f3a9a6c2ce71c569",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5111,
+    "y": 0.7684
+   }
+  },
+  {
+   "candidateId": "vwn_mixed_tenement_1001_aged",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+   "triangleCount": 24162,
+   "objectCount": 115,
+   "moduleCount": 11,
+   "materials": 23,
+   "textures": 23,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.428,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13828.64,
+   "pngBytes": 1131451,
+   "pngPixels": [
+    1037,
+    1146
+   ],
+   "pixelSha256": "19ba0d4f5266b93c671a7e95259de991c9a26c7240ee6906f86fe3f50f59106f",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5111,
+    "y": 0.7684
+   }
+  }
+ ],
+ "failures": []
+}

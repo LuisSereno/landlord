@@ -39,6 +39,11 @@ const BLENDER_SCRIPT = join(REPO_ROOT, "tools/art-pipeline/blender/build_buildin
 const MANIFEST_DIR = join(REPO_ROOT, "blender_artist/manifests");
 const GRAMMARS_PATH = join(MANIFEST_DIR, "building-composer-grammars.json");
 const PROFILES_PATH = join(MANIFEST_DIR, "building-style-profiles.json");
+// `LANDLORD_ART_WEATHERING_CONTRACT` también lo lee weathering.py dentro de Blender; si el orquestador
+// siguiera fijado al publicado, validaría `--weathering` contra un archivo y renderizaría contra otro.
+const WEATHERING_PATH = process.env.LANDLORD_ART_WEATHERING_CONTRACT
+  ? resolve(process.env.LANDLORD_ART_WEATHERING_CONTRACT)
+  : join(MANIFEST_DIR, "building-weathering-contract.json");
 const GAME_DATA_PATH = join(REPO_ROOT, "packages/simulation/src/game-data.ts");
 const RUNTIME_ASSETS = [
   "apps/web/src/generated/runtime-assets.json",
@@ -65,6 +70,7 @@ function parseArgs(argv) {
     profileId: null,
     orientations: [0],
     states: ["complete"],
+    weathering: [null],
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
@@ -73,6 +79,7 @@ function parseArgs(argv) {
     else if (flag === "--seeds") options.seeds = value.split(",").map(Number);
     else if (flag === "--orientations") options.orientations = value.split(",").map(Number);
     else if (flag === "--states") options.states = value.split(",");
+    else if (flag === "--weathering") options.weathering = value.split(",");
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
@@ -81,7 +88,7 @@ function parseArgs(argv) {
     else if (flag === "--profile") options.profileId = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--profile=graphic_civic_buildings_v1|material_maquette_buildings_v1] [--mood=night_civic|day_civic|day_industrial|material_maquette_day|material_maquette_night] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--profile=graphic_civic_buildings_v1|material_maquette_buildings_v1] [--mood=night_civic|day_civic|day_industrial|material_maquette_day|material_maquette_night] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--weathering=conserved,aged] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
@@ -107,6 +114,26 @@ function parseArgs(argv) {
     options.states.some((state) => !STATE_TOKENS.includes(state))
   ) {
     throw new Error(`--states espera un subconjunto de ${STATE_TOKENS.join(",")}`);
+  }
+  // D-111 WP04: la lista de proyecciones la publica el contrato, no este script; si el JSON se queda
+  // con un token que no existe, o con un estado de geometría (`damaged`), la corrida pediría al
+  // compositor algo que no sabe aplicar y el fallo aparecería candidato a candidato.
+  const projections = options.weathering.filter((token) => token !== null);
+  if (projections.length) {
+    const contract = read(WEATHERING_PATH);
+    const allowed = contract.weatheringTokens;
+    for (const token of allowed) {
+      const record = contract.visualStates[token];
+      if (!record || record.geometryChange) {
+        throw new Error(
+          `${basename(WEATHERING_PATH)}: weatheringTokens declara ${token}, que no es un estado de proyección material`,
+        );
+      }
+    }
+    const unknown = projections.filter((token) => !allowed.includes(token));
+    if (unknown.length) {
+      throw new Error(`--weathering espera un subconjunto de ${allowed.join(",")}`);
+    }
   }
   return options;
 }
@@ -166,10 +193,16 @@ function buildRequests(grammars, options) {
         const constructionStage = isConstruction ? stateToken : null;
         const stateSuffix = stateToken === "complete" ? "" : `_${stateToken}`;
         for (const orientation of options.orientations) {
+          // D-111 WP04: la proyección de conservación sólo aplica a `complete`. `damaged`/`burning`
+          // ya son un estado de geometría propio del compositor; superponerles un envejecimiento de
+          // material mezclaría dos señales visuales distintas en la misma revisión.
+          const projections = stateToken === "complete" ? options.weathering : [null];
+          for (const weathering of projections) {
           // V.j: complete@0 conserva el candidateId histórico (baseline intacto); estado y orientación
           // nonzero añaden sufijos para no colisionar ficheros.
           const orientSuffix = orientation === 0 ? "" : `_o${orientation}`;
-          const candidateId = `${options.prefix}_${buildingType}_${variantSeed}${stateSuffix}${orientSuffix}`;
+          const weatherSuffix = weathering ? `_${weathering}` : "";
+          const candidateId = `${options.prefix}_${buildingType}_${variantSeed}${stateSuffix}${orientSuffix}${weatherSuffix}`;
           requests.push({
             candidateId,
             buildingType,
@@ -182,9 +215,11 @@ function buildRequests(grammars, options) {
             floors: domain.floors,
             state,
             constructionStage,
+            ...(weathering ? { weathering } : {}),
             output: join(options.outDir, `${candidateId}.png`),
             metadata: join(options.outDir, `${candidateId}.json`),
           });
+          }
         }
       }
     }

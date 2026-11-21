@@ -1,0 +1,66 @@
+{
+ "schemaVersion": 1,
+ "generatedAt": "2026-11-21T11:27:23.747Z",
+ "composerVersion": "vf-3",
+ "styleProfileId": "graphic_civic_buildings_v1",
+ "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/optout",
+ "requested": 1,
+ "rendered": 1,
+ "totalGenerationMs": 50000,
+ "blenderPeakRssMb": 4559.7,
+ "toolchain": {
+  "blender": "multiple processes",
+  "renderer": "BLENDER_EEVEE"
+ },
+ "runtimeAssets": {
+  "apps/web/src/generated/runtime-assets.json": {
+   "before": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef",
+   "after": "9f4470cf659cb93f68b5fe3f3ad986e42244a2ffe7013309b7f3bcd7c06183ef"
+  },
+  "apps/web/src/generated/runtime-assets-blender.json": {
+   "before": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+   "after": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba"
+  }
+ },
+ "candidates": [
+  {
+   "candidateId": "vw_mixed_tenement_1001",
+   "buildingType": "mixed_tenement",
+   "family": "residential_low",
+   "variantSeed": 1001,
+   "compositionSignature": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+   "triangleCount": 24162,
+   "objectCount": 115,
+   "moduleCount": 11,
+   "materials": 23,
+   "textures": 20,
+   "bounds": {
+    "x": {
+     "min": -8.0116,
+     "max": 8.0116
+    },
+    "y": {
+     "min": -4.428,
+     "max": 3.884
+    },
+    "z": {
+     "min": 0,
+     "max": 12.0281
+    }
+   },
+   "renderMs": 13850.53,
+   "pngBytes": 1352552,
+   "pngPixels": [
+    1037,
+    1146
+   ],
+   "pixelSha256": "9085deab30425d3d97cd1b00ee01acb5528f0af60e1f9dbeac41e4c80c9d8dc0",
+   "licensedGeometryRatio": 1,
+   "pivot": {
+    "x": 0.5111,
+    "y": 0.7684
+   }
+  }
+ ],
+ "failures": []
+}

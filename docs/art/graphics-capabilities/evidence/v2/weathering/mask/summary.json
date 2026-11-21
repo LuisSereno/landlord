@@ -1,0 +1,335 @@
+{
+  "schemaVersion": 1,
+  "task": "D-111 WP04 weathering mask measurement",
+  "contractId": "graphic_civic_weathering_v1",
+  "contractSha256": "22a02a14a4f3005d199442c241088ba10e24b53206b1f1715213bfa58749044f",
+  "moodId": "day_civic",
+  "moodGroup": "day",
+  "wallMeters": [
+    16.0,
+    12.0
+  ],
+  "resolution": 512,
+  "referenceGray": [
+    0.42,
+    0.42,
+    0.42
+  ],
+  "noiseFloor8bit": 4.0,
+  "method": "Pa\u00f1o vertical 16\u00d712 m, c\u00e1mara ortogr\u00e1fica, sin HDRI, albedo conectado a emisi\u00f3n. Se mide el PNG recargado por Blender y linealizado a mano (`pixels` entrega el valor codificado), no el b\u00fafer `Render Result`, que en background se reporta 0\u00d70. La m\u00e1scara se publica en lineal y el delta contra el control en unidades de 8 bits, que es la escala con la que \u00a713 fija su cota de ruido.",
+  "blender": "5.2.2 LTS",
+  "families": [
+    {
+      "family": "atlas",
+      "strength": 0.42,
+      "baseSoiling": 0.45,
+      "grimeColorLinear": [
+        0.0685,
+        0.0612,
+        0.0513
+      ],
+      "mask": {
+        "mean": 0.506,
+        "p50": 0.4564,
+        "p90": 0.5972,
+        "p99": 0.8714,
+        "fractionOver0.10": 1.0,
+        "fractionOver0.25": 1.0,
+        "fractionOver0.50": 0.3771,
+        "topRowMean": 0.4491,
+        "bottomRowMean": 0.6031
+      },
+      "agedVsControl": {
+        "meanDisplay": 158.3,
+        "controlDisplay": 173.31,
+        "meanSigned": -15.01,
+        "meanAbs": 0.06,
+        "maxAbs": 0.12,
+        "toneVsTexture": 1.0,
+        "fractionAboveNoiseFloor": 1.0,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.69,
+        0.7
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/atlas_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/atlas_aged.png"
+      ]
+    },
+    {
+      "family": "brick",
+      "strength": 0.42,
+      "baseSoiling": 0.38,
+      "grimeColorLinear": [
+        0.0423,
+        0.0307,
+        0.0232
+      ],
+      "mask": {
+        "mean": 0.6804,
+        "p50": 0.6514,
+        "p90": 0.8469,
+        "p99": 0.9387,
+        "fractionOver0.10": 1.0,
+        "fractionOver0.25": 1.0,
+        "fractionOver0.50": 0.9995,
+        "topRowMean": 0.6191,
+        "bottomRowMean": 0.8526
+      },
+      "agedVsControl": {
+        "meanDisplay": 150.81,
+        "controlDisplay": 173.31,
+        "meanSigned": -22.5,
+        "meanAbs": 0.09,
+        "maxAbs": 0.14,
+        "toneVsTexture": 1.0,
+        "fractionAboveNoiseFloor": 1.0,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.68,
+        0.71
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/brick_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/brick_aged.png"
+      ]
+    },
+    {
+      "family": "glass",
+      "strength": 0.0,
+      "baseSoiling": 0.0,
+      "grimeColorLinear": [
+        0.0685,
+        0.0612,
+        0.0513
+      ],
+      "mask": {
+        "mean": 0.0,
+        "p50": 0.0,
+        "p90": 0.0,
+        "p99": 0.0003,
+        "fractionOver0.10": 0.0,
+        "fractionOver0.25": 0.0,
+        "fractionOver0.50": 0.0,
+        "topRowMean": 0.0,
+        "bottomRowMean": 0.0
+      },
+      "agedVsControl": {
+        "meanDisplay": 173.31,
+        "controlDisplay": 173.31,
+        "meanSigned": 0.0,
+        "meanAbs": 0.0,
+        "maxAbs": 0.0,
+        "toneVsTexture": 0.0,
+        "fractionAboveNoiseFloor": 0.0,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.83,
+        0.87
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/glass_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/glass_aged.png"
+      ]
+    },
+    {
+      "family": "interior",
+      "strength": 0.4,
+      "baseSoiling": 0.36,
+      "grimeColorLinear": [
+        0.0423,
+        0.0307,
+        0.0232
+      ],
+      "mask": {
+        "mean": 0.6463,
+        "p50": 0.6172,
+        "p90": 0.7991,
+        "p99": 0.8963,
+        "fractionOver0.10": 1.0,
+        "fractionOver0.25": 1.0,
+        "fractionOver0.50": 0.999,
+        "topRowMean": 0.5776,
+        "bottomRowMean": 0.8048
+      },
+      "agedVsControl": {
+        "meanDisplay": 153.15,
+        "controlDisplay": 173.31,
+        "meanSigned": -20.17,
+        "meanAbs": 0.08,
+        "maxAbs": 0.13,
+        "toneVsTexture": 1.0,
+        "fractionAboveNoiseFloor": 1.0,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.86,
+        0.85
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/interior_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/interior_aged.png"
+      ]
+    },
+    {
+      "family": "metal",
+      "strength": 0.5,
+      "baseSoiling": 0.32,
+      "grimeColorLinear": [
+        0.0931,
+        0.0343,
+        0.013
+      ],
+      "mask": {
+        "mean": 0.4172,
+        "p50": 0.3864,
+        "p90": 0.5647,
+        "p99": 0.9473,
+        "fractionOver0.10": 1.0,
+        "fractionOver0.25": 1.0,
+        "fractionOver0.50": 0.146,
+        "topRowMean": 0.349,
+        "bottomRowMean": 0.5243
+      },
+      "agedVsControl": {
+        "meanDisplay": 167.91,
+        "controlDisplay": 173.31,
+        "meanSigned": -5.4,
+        "meanAbs": 0.02,
+        "maxAbs": 0.09,
+        "toneVsTexture": 1.0,
+        "fractionAboveNoiseFloor": 0.6944,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.88,
+        0.73
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/metal_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/metal_aged.png"
+      ]
+    },
+    {
+      "family": "plaster",
+      "strength": 0.45,
+      "baseSoiling": 0.42,
+      "grimeColorLinear": [
+        0.0931,
+        0.0782,
+        0.0545
+      ],
+      "mask": {
+        "mean": 0.6918,
+        "p50": 0.6654,
+        "p90": 1.0,
+        "p99": 1.0,
+        "fractionOver0.10": 1.0,
+        "fractionOver0.25": 1.0,
+        "fractionOver0.50": 0.8053,
+        "topRowMean": 0.562,
+        "bottomRowMean": 0.8368
+      },
+      "agedVsControl": {
+        "meanDisplay": 151.74,
+        "controlDisplay": 173.31,
+        "meanSigned": -21.57,
+        "meanAbs": 0.08,
+        "maxAbs": 0.13,
+        "toneVsTexture": 1.0,
+        "fractionAboveNoiseFloor": 1.0,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.88,
+        0.88
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/plaster_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/plaster_aged.png"
+      ]
+    },
+    {
+      "family": "stone",
+      "strength": 0.34,
+      "baseSoiling": 0.34,
+      "grimeColorLinear": [
+        0.0513,
+        0.0545,
+        0.0578
+      ],
+      "mask": {
+        "mean": 0.8311,
+        "p50": 0.8148,
+        "p90": 0.956,
+        "p99": 1.0,
+        "fractionOver0.10": 1.0,
+        "fractionOver0.25": 1.0,
+        "fractionOver0.50": 1.0,
+        "topRowMean": 0.7924,
+        "bottomRowMean": 0.9623
+      },
+      "agedVsControl": {
+        "meanDisplay": 152.47,
+        "controlDisplay": 173.31,
+        "meanSigned": -20.84,
+        "meanAbs": 0.08,
+        "maxAbs": 0.1,
+        "toneVsTexture": 1.0,
+        "fractionAboveNoiseFloor": 1.0,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.86,
+        0.9
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/stone_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/stone_aged.png"
+      ]
+    },
+    {
+      "family": "wood",
+      "strength": 0.55,
+      "baseSoiling": 0.3,
+      "grimeColorLinear": [
+        0.0685,
+        0.0578,
+        0.0452
+      ],
+      "mask": {
+        "mean": 0.7069,
+        "p50": 0.6867,
+        "p90": 0.7835,
+        "p99": 0.8308,
+        "fractionOver0.10": 1.0,
+        "fractionOver0.25": 1.0,
+        "fractionOver0.50": 1.0,
+        "topRowMean": 0.6706,
+        "bottomRowMean": 0.7934
+      },
+      "agedVsControl": {
+        "meanDisplay": 143.33,
+        "controlDisplay": 173.31,
+        "meanSigned": -29.99,
+        "meanAbs": 0.12,
+        "maxAbs": 0.18,
+        "toneVsTexture": 1.0,
+        "fractionAboveNoiseFloor": 1.0,
+        "fractionAbove16": 0.0
+      },
+      "renderSeconds": [
+        0.83,
+        0.69
+      ],
+      "png": [
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/wood_mask.png",
+        "docs/art/graphics-capabilities/evidence/v2/weathering/mask/wood_aged.png"
+      ]
+    }
+  ]
+}

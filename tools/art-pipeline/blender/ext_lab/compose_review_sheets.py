@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import json
 import sys
+from collections import Counter
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -830,6 +831,435 @@ def urban_sheet():
     )
 
 
+def pixel_delta(reference_png: Path, arm_png: Path) -> str:
+    """Delta de píxel entre dos fotogramas del mismo encuadre, en unidades de 8 bits.
+
+    Es el número que decide si un tier se ve. `meanAbsDiff` sobre el lienzo entero se diluye en el
+    fondo, así que se mide sólo sobre píxel no-fondo y se separa el cambio de TONO (los píxeles se
+    mueven con el mismo signo) del de TEXTURA (claros y oscuros que promedian a cero): un tier que
+    sólo cambia de textura produce un archivo distinto que NO se lee como envejecido, que es justo
+    el defecto que la primera corrida del WP04 tuvo que medir para poder corregirse.
+    """
+    import numpy as np
+
+    if not (reference_png.exists() and arm_png.exists()):
+        return "delta de píxel no medible (falta alguno de los dos fotogramas)"
+    reference = np.asarray(Image.open(reference_png).convert("RGB"), dtype=np.float32) / 255.0
+    arm = np.asarray(Image.open(arm_png).convert("RGB"), dtype=np.float32) / 255.0
+    if reference.shape != arm.shape:
+        return (
+            f"encuadres distintos ({reference.shape[1]}×{reference.shape[0]} vs "
+            f"{arm.shape[1]}×{arm.shape[0]}): no comparable píxel a píxel"
+        )
+    weights = np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+    luma_reference = reference @ weights
+    luma_arm = arm @ weights
+    # El fondo del sprite del compositor es negro casi puro; todo lo demás es edificio o parcela.
+    solid = luma_reference > 0.02
+    signed = (luma_arm - luma_reference)[solid] * 255.0
+    magnitude = np.abs(signed)
+    mean_abs = float(magnitude.mean())
+    tone_share = abs(float(signed.mean())) / mean_abs if mean_abs > 1e-6 else 0.0
+    return (
+        f"|Δ| media {mean_abs:.1f}/255 · tono {signed.mean():+.1f} "
+        f"({'domina el tono' if tone_share >= 0.6 else 'casi todo textura'}) · "
+        f"mediana {float(np.median(magnitude)):.1f} · "
+        f"{100.0 * float((magnitude > 4.0).mean()):.1f} % del lienzo sobre la cota de §13"
+    )
+
+
+def window_glow_delta(control_png: Path, aged_png: Path, threshold: float = 0.45) -> str:
+    """Cuánta luz de ventana pierde el tier envejecido, medida sólo sobre el píxel del hueco.
+
+    La máscara es de luminancia sobre el control (`luma > threshold`), no cromática. Se probó la
+    cromática primero y mentía: el mood `night_civic` tiñe de frío toda la escena, así que
+    `R − B > 25` no seleccionaba los huecos sino el ladrillo de paño y devolvía ×0,881 como si la
+    ventana perdiera un 12 % de luz. Medida la máscara correcta, el hueco encendido resulta ser el
+    3,3 % más brillante del sprite (luma ≈ 140/255) y apenas se mueve.
+    """
+    import numpy as np
+
+    if not (control_png.exists() and aged_png.exists()):
+        return "Delta de hueco: sin los dos fotogramas nocturnos."
+    weights = np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+
+    def read(png: Path):
+        rgba = np.asarray(Image.open(png).convert("RGBA"), dtype=np.float32)
+        return rgba[..., :3], rgba[..., 3] > 10
+
+    base, base_alpha = read(control_png)
+    aged, aged_alpha = read(aged_png)
+    if base.shape != aged.shape:
+        return "Delta de hueco: encuadres distintos, no comparable."
+    opaque = base_alpha & aged_alpha
+    luma_base = base @ weights
+    glow = (luma_base > threshold * 255.0) & opaque
+    if int(glow.sum()) < 200:
+        return (
+            f"Delta de hueco: el control no tiene ventanales encendidos (luma > {threshold} en "
+            f"{int(glow.sum())} px) — el mood nocturno no se aplicó."
+        )
+    luma_aged = aged @ weights
+    ratio = float(luma_aged[glow].mean() / luma_base[glow].mean())
+    identical = float((np.abs(base - aged).max(axis=2)[glow] == 0).mean())
+    return (
+        f"sobre {int(glow.sum())} px de hueco encendido (luma > {threshold} en el control, "
+        f"{100.0 * int(glow.sum()) / max(int(opaque.sum()), 1):.2f} % del área opaca): luma media "
+        f"{float(luma_base[glow].mean()):.2f} → {float(luma_aged[glow].mean()):.2f}/255 (×{ratio:.4f}) "
+        f"y {100.0 * identical:.1f} % de esos píxeles byte-idénticos"
+    )
+
+
+def emission_lever_probe(arms: list[tuple[str, Path]]) -> str:
+    """Si `emissionScale` del contrato mueve algo en el raster, medido brazo contra brazo.
+
+    WP04-D3. El socket se escribe (la metadata de cada brazo registra `before`/`after`), así que la
+    pregunta no es si el código lo toca sino si se ve. Se re-renderiza la MISMA receta con la
+    palanca en 0,0 y en 1,0: si los tres PNG son el mismo raster, la palanca es inerte en este
+    encuadre y ningún WP07 puede contar con ella. Se leen también los valores reales del socket
+    desde la metadata de cada brazo, para que la frase no pueda quedar desfasada del render.
+    """
+    import numpy as np
+
+    available = [(label, png) for label, png in arms if png.exists()]
+    if len(available) < 2:
+        return "sonda de emisión: faltan brazos (se esperan los tres valores de `emissionScale`)"
+    weights = np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+
+    def read(png: Path):
+        rgba = np.asarray(Image.open(png).convert("RGBA"), dtype=np.float32)
+        return rgba[..., :3], rgba[..., 3] > 10
+
+    frames = []
+    for label, png in available:
+        rgb, alpha = read(png)
+        meta = load_json(png)
+        sockets = [
+            (m.get("emission") or {}).get("after")
+            for m in ((meta.get("weathering") or {}).get("materials") or [])
+            if m.get("family") == "atlas"
+        ]
+        frames.append((label, rgb, alpha, sockets))
+    reference = frames[0]
+    parts = []
+    worst = 0
+    differing = 0
+    for label, rgb, alpha, sockets in frames[1:]:
+        if rgb.shape != reference[1].shape:
+            return "sonda de emisión: los brazos no comparten encuadre"
+        delta = np.abs(rgb - reference[1]).max(axis=2)
+        shared = alpha & reference[2]
+        differing = max(differing, int((delta[shared] > 0).sum()))
+        worst = max(worst, int(delta[shared].max()))
+    for label, rgb, alpha, sockets in frames:
+        luma = float((rgb @ weights)[alpha & reference[2]].mean())
+        parts.append(f"{label}: socket atlas {sockets}, luma media {luma:.2f}/255")
+    verdict = (
+        "la palanca NO llega al raster (sólo difieren en ruido de codificador)"
+        if differing <= 2 and worst <= 1
+        else f"sí llega al raster ({differing} px difieren, hasta {worst}/255)"
+    )
+    return " · ".join(parts) + f" — entre brazos {verdict}"
+
+
+def vertical_tone_gradient(reference_png: Path, arm_png: Path, bands: int = 3) -> str:
+    """Tono por franjas verticales: la prueba de que la rampa de gravedad del contrato se ve.
+
+    `gravityRamp` sólo puede hacer una cosa —subir la máscara hacia la cota baja del muro— así que
+    su firma es un gradiente monotónico de arriba abajo. Si las franjas no son monotónicas, la
+    rampa está cableada pero no llega al raster (escala mal puesta, o `zHighMeters` por encima del
+    edificio), que es el tipo de defecto que un promedio global no puede delatar.
+    """
+    import numpy as np
+
+    if not (reference_png.exists() and arm_png.exists()):
+        return "gradiente vertical no medible"
+    weights = np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+
+    def read(png: Path):
+        rgba = np.asarray(Image.open(png).convert("RGBA"), dtype=np.float32)
+        return (rgba[..., :3] @ weights) / 255.0, rgba[..., 3] > 10
+
+    luma_ref, alpha_ref = read(reference_png)
+    luma_arm, alpha_arm = read(arm_png)
+    if luma_ref.shape != luma_arm.shape:
+        return "gradiente vertical: encuadres distintos"
+    opaque = alpha_ref & alpha_arm
+    height = luma_ref.shape[0]
+    tones = []
+    for i in range(bands):
+        rows = slice(i * height // bands, (i + 1) * height // bands)
+        band = np.zeros_like(opaque)
+        band[rows] = True
+        band &= opaque
+        tones.append(float(((luma_arm - luma_ref)[band] * 255.0).mean()) if band.any() else float("nan"))
+    monotonic = all(tones[i] >= tones[i + 1] - 0.2 for i in range(len(tones) - 1))
+    return (
+        "tono por tercios (cubierta → planta baja): "
+        + " · ".join(f"{tone:+.1f}" for tone in tones)
+        + f"/255 · {'monótono, la rampa de gravedad se ve' if monotonic else 'NO monótono: la rampa no llega al raster'}"
+    )
+
+
+def probe_coverage(probe_png: Path, control_png: Path, threshold: int = 8) -> str:
+    """Fracción del área opaca que cambia cuando la mugre se pide al 100 % de fuerza.
+
+    Es la sonda que encontró WP04-D2. Se renderiza el MISMO request con todas las recetas `aged` a
+    strength 1,0, baseSoiling 1,0 y `grimeColor` verde: un píxel opaco que sigue siendo el del control
+    no recibe la capa en absoluto, y eso sólo puede pasar si su material está excluido. Medido sobre el
+    alfa de los dos fotogramas, no sobre el lienzo entero, porque el fondo transparente diluye el
+    porcentaje y un 46 % real se leería como un 23 %.
+    """
+    import numpy as np
+
+    if not (probe_png.exists() and control_png.exists()):
+        return "sonda de cobertura no medible (falta alguno de los dos fotogramas)"
+    probe = np.asarray(Image.open(probe_png).convert("RGBA"), dtype=np.int16)
+    control = np.asarray(Image.open(control_png).convert("RGBA"), dtype=np.int16)
+    if probe.shape != control.shape:
+        return (
+            f"sonda con encuadres distintos ({probe.shape[1]}×{probe.shape[0]} vs "
+            f"{control.shape[1]}×{control.shape[0]})"
+        )
+    opaque = (control[:, :, 3] > 10) & (probe[:, :, 3] > 10)
+    delta = np.abs(probe[:, :, :3] - control[:, :, :3]).max(axis=2)
+    treated = opaque & (delta > threshold)
+    total = max(int(opaque.sum()), 1)
+    return (
+        f"{100.0 * int(treated.sum()) / total:.1f} % de los {int(opaque.sum())} píxeles opacos reciben "
+        f"capa ({100.0 - 100.0 * int(treated.sum()) / total:.1f} % sin tratar)"
+    )
+
+
+def mask_probe_note() -> str:
+    """Línea de calibración leída del medidor de máscaras, no de la receta.
+
+    `weathering_mask_probe.py` renderiza un paño 16×12 m por familia y mide la máscara y el delta de
+    tono contra un gris de control. Si una familia se queda por debajo de la cota de ruido, o su
+    delta es pura textura, la hoja lo dice aquí en vez de esperar a que un revisor lo note a ojo.
+    """
+    path = V2 / "weathering" / "mask" / "summary.json"
+    if not path.exists():
+        return "medidor de máscaras no ejecutado: la calibración del tier envejecido no está medida"
+    summary = json.loads(path.read_text(encoding="utf8"))
+    treated = [row for row in summary["families"] if row["strength"] > 0.0]
+    weak = []
+    for row in treated:
+        delta = row["agedVsControl"]
+        if delta["fractionAboveNoiseFloor"] < 0.5 or delta["toneVsTexture"] < 0.4:
+            weak.append(
+                f"{row['family']} (Δ{delta['meanSigned']:+.1f}, "
+                f"{100 * delta['fractionAboveNoiseFloor']:.0f} % sobre ruido, tono/textura "
+                f"{delta['toneVsTexture']:.2f})"
+            )
+    darkest = min(treated, key=lambda row: row["agedVsControl"]["meanSigned"])
+    verdict = (
+        "todas las familias con color alterado superan la cota de ruido de §13 y su delta es de tono"
+        if not weak
+        else "POR CALIBRAR: " + "; ".join(weak)
+    )
+    return (
+        f"Paño 16×12 m por familia ({summary['moodId']}, contrato {summary['contractId']}@"
+        f"{summary['contractSha256'][:8]}): máscara media "
+        f"{min(row['mask']['mean'] for row in treated):.2f}–"
+        f"{max(row['mask']['mean'] for row in treated):.2f}, oscurecimiento "
+        f"{darkest['agedVsControl']['meanSigned']:+.1f}/255 en la familia más tratada "
+        f"({darkest['family']}). {verdict}."
+    )
+
+
+def weathering_textures(block: dict) -> list[str]:
+    """Recursos que la proyección metería en el shader, por nombre de archivo.
+
+    Es la respuesta literal a «indica qué texturas o decals se han cambiado»: se lee del registro por
+    material que escribió el render, no de lo que el contrato dice que pensaba hacer.
+    """
+    found = set()
+    for material in block.get("materials") or []:
+        for entry in (material.get("mask") or {}).values():
+            if isinstance(entry, dict) and entry.get("texture"):
+                found.add(Path(entry["texture"]).name)
+        grime = material.get("grimeSource") or {}
+        if grime.get("texture"):
+            found.add(Path(grime["texture"]).name)
+    return sorted(found)
+
+
+def weathering_delta(reference: dict, arm: dict) -> str:
+    """Delta de GEOMETRÍA medido entre el control y el brazo, sobre las colocaciones declaradas."""
+    if not reference.get("transforms") or not arm.get("transforms"):
+        return "delta de geometría no medible (falta el control)"
+    base = {
+        (record["purpose"], tuple(round(value, 2) for value in record["position"]))
+        for record in reference["transforms"]
+    }
+    current = {
+        (record["purpose"], tuple(round(value, 2) for value in record["position"]))
+        for record in arm["transforms"]
+    }
+
+    def group(purpose: str) -> str:
+        parts = purpose.split(":")
+        # `band:front:level2:bay5` se cuenta por banda y nivel: el delta dice qué se fue, bay a bay.
+        return ":".join(parts[:3]) if parts[0] == "band" else parts[0]
+
+    removed = Counter(group(purpose) for purpose, _ in base - current)
+    added = Counter(group(purpose) for purpose, _ in current - base)
+    triangles = int(arm.get("triangleCount") or 0) - int(reference.get("triangleCount") or 0)
+    text = (
+        f"colocaciones {len(base)}→{len(current)} · triángulos {triangles:+d}"
+        if removed or added
+        else f"colocaciones idénticas al control ({len(current)}) · triángulos {triangles:+d}"
+    )
+    if removed:
+        text += " · retiradas " + ", ".join(f"{name}×{count}" for name, count in sorted(removed.items()))
+    if added:
+        text += " · añadidas " + ", ".join(f"{name}×{count}" for name, count in sorted(added.items()))
+    return text
+
+
+def weathering_sheet():
+    """WP04: el MISMO edificio en sus tres tiers, con el delta de material y de geometría medido.
+
+    La hoja no puede decir "envejecido se ve más sucio": tiene que decir qué capas se insertaron
+    sobre qué albedo y, en los brazos de daño, cuántas colocaciones se fueron y cuáles se añadieron.
+    Todo eso se lee de la metadata que escribió el propio render, así que si el contrato cambia de
+    receta la hoja cambia de texto sin que nadie la reescriba a mano.
+    """
+    day = V2 / "weathering" / "day"
+    night = V2 / "weathering" / "night"
+    conserved_png = day / "vw_mixed_tenement_1001_conserved.png"
+    aged_png = day / "vw_mixed_tenement_1001_aged.png"
+    damaged_png = day / "vw_mixed_tenement_1001_damaged.png"
+    burning_png = day / "vw_mixed_tenement_1001_burning.png"
+    reference = load_json(conserved_png)
+
+    def arm(png: Path, caption: str, height: int):
+        if not png.exists():
+            return placeholder(f"{caption} · SIN EVIDENCIA", 460, 320)
+        meta = load_json(png)
+        note = framing_note(meta, png)
+        block = meta.get("weathering") or {}
+        if block:
+            note += (
+                f" · tier {block['visualState']} ({block['label']}) · {block['materialsChanged']} "
+                f"materiales envejecidos / {block['skipped']} excluidos · proyección material "
+                f"{block['materialProjection']} · geometría {block['geometryChange']}"
+            )
+            textures = weathering_textures(block)
+            note += " · recursos: " + (", ".join(textures) if textures else "ninguno nuevo")
+            note += f" · contrato {block['contractId']}@{block['contractSha256'][:8]}"
+        else:
+            note += f" · estado del compositor {meta.get('state')} · {weathering_delta(reference, meta)}"
+            damage = meta.get("damageTreatment") or {}
+            soot = damage.get("soot") or {}
+            if soot:
+                note += f" · hollín {soot.get('sootStrength')} sobre {soot.get('materialsScorched')} materiales"
+            flames = damage.get("flames") or {}
+            if flames:
+                note += f" · llama a emisión {flames.get('flameEmissionStrength')}"
+        return panel(png, f"{caption} · {note}", max_height=height, big=18, max_lines=13)
+
+    aged = load_json(aged_png)
+    damaged = load_json(damaged_png)
+    burning = load_json(burning_png)
+    night_conserved = night / "vwn_mixed_tenement_1001_conserved.png"
+    night_aged = night / "vwn_mixed_tenement_1001_aged.png"
+    # El mismo request SIN la clave `weathering`: si este fotograma difiere de `conserved`, la bandera
+    # opt-in no es inerte y el control de los sprites aprobados cae.
+    optout_png = V2 / "weathering" / "optout" / "vw_mixed_tenement_1001.png"
+    probe_dir = V2 / "weathering" / "probe"
+    probe_before = probe_dir / "green_before_interior_fix.png"
+    probe_after = probe_dir / "green_after_interior_fix.png"
+    # WP04-D3: la misma receta nocturna con la palanca de emisión en sus dos extremos.
+    emission_one_png = probe_dir / "night_aged_emission_scale_1.png"
+    emission_zero_png = probe_dir / "night_aged_emission_scale_0.png"
+
+    def canvas(meta: dict) -> str:
+        image = meta.get("image") or {}
+        return f"{image.get('width')}×{image.get('height')}"
+
+    decision = [
+        "Qué se decidió con estos fotogramas (medido sobre la metadata, no a ojo):",
+        f"· A→B envejecido: firma de composición {'IDÉNTICA' if aged.get('compositionSignature') == reference.get('compositionSignature') else 'DISTINTA'} "
+        f"y triángulos {reference.get('triangleCount')}→{aged.get('triangleCount')}. La proyección es sólo material: "
+        f"{(aged.get('weathering') or {}).get('materialsChanged')} materiales reciben capa de mugre y "
+        f"{(aged.get('weathering') or {}).get('skipped')} quedan excluidos por nombre (fondo del hueco, forjados "
+        "interiores y equipo de obra).",
+        f"· A→B píxel a píxel: {pixel_delta(conserved_png, aged_png)}.",
+        f"· Rampa de gravedad (la única cosa que puede hacer `gravityRamp`): {vertical_tone_gradient(conserved_png, aged_png)}.",
+        "· WP04-D2 · sonda de cobertura (mugre pedida al 100 % de fuerza sobre este mismo request, manifiesto de "
+        f"trabajo aparte): antes de corregir el contrato {probe_coverage(probe_before, conserved_png)}; después, "
+        f"{probe_coverage(probe_after, conserved_png)}. La diferencia es el paño de fachada: el MegaKit llama "
+        "`MI_InteriorWall` al material que pinta el ladrillo del alzado, y la familia `interior` estaba excluida "
+        "en bloque, así que más de la mitad del edificio no envejecía. La exclusión ahora es por nombre y el paño "
+        "lleva la receta de ladrillo; el residual sin tratar es el fondo del hueco y los forjados.",
+        f"· Calibración de la máscara: {mask_probe_note()}",
+        f"· A→C dañado: el lienzo pasa de {canvas(reference)} a {canvas(damaged)} y la firma de composición "
+        f"difiere ({reference.get('compositionSignature', '')[:12]}→{damaged.get('compositionSignature', '')[:12]}) — "
+        "no es comparable píxel a píxel, y esa es precisamente la prueba de que la silueta cambia, que es lo que "
+        "separa el daño del envejecido.",
+        f"· C dañado (geometría): {weathering_delta(reference, damaged)}. El daño lo sigue produciendo el compositor "
+        "(mismo seed, misma parcela); el contrato lo DECLARA pero no lo parametriza.",
+        f"· D ardiendo: {weathering_delta(reference, burning)}.",
+        f"· A conservado: proyección declarada pero CERO capas insertadas "
+        f"({(reference.get('weathering') or {}).get('materialsChanged')} materiales). Contra el mismo request "
+        f"sin la clave `weathering`: {pixel_delta(optout_png, conserved_png)} — la bandera opt-in no toca "
+        "los sprites aprobados.",
+        f"· E→F envejecido de noche: {pixel_delta(night_conserved, night_aged)}. Hueco: {window_glow_delta(night_conserved, night_aged)}.",
+        "· Restricción de vidrio día/noche (pedida en WP04): de día el hueco NO se oscurece —ya es casi negro "
+        "y bajarlo lo convertiría en agujero, borrando la retícula de crujías—; envejece sólo por rugosidad "
+        "(0,88 → 1,00 medidos en el socket). De noche ocurre lo mismo por la misma razón, y es lo que preserva "
+        "la señal de ocupación: el contrato deja `glass` en fuerza 0 y `emissionScale` nulo.",
+        "· WP04-D3 · la palanca de emisión del contrato es INERTE en este encuadre (medido, no supuesto): "
+        f"{emission_lever_probe([('publicado ×0,78', night_aged), ('×1,0', emission_one_png), ('×0,0', emission_zero_png)])}. "
+        "El socket sí se escribe (la metadata de cada brazo registra el `before` 1,15 y su `after`), pero "
+        "`colormap`/`colormap.001` son los dos únicos materiales con emisión cableada y los traen "
+        "`mod_kenney_com_awning_1_6m` y `mod_kenney_com_block_k`: en este seed la luz de ventana que se ve no "
+        "sale de ahí, sale del `MI_Glass` del MegaKit teñido por el mood. Consecuencia para WP07: "
+        "`emissionScale` no es una palanca de legibilidad nocturna sobre este edificio; la legibilidad del hueco "
+        "hay que ganarla con luz y con el panel de ventanas del runtime, no escalando este socket.",
+        "· Señal de ocupación (fila E/F): la mugre baja de fuerza de noche (×0,7–0,8 en las recetas) y el paño "
+        "pierde contraste, pero el hueco encendido se queda donde estaba, así que el envejecido no puede leerse "
+        "como un edificio apagado a medias —que era el riesgo de mezclar desgaste con la señal de uso.",
+        "· Límite medido y NO corregido aquí: la regla de daño retira `purpose in ('dormer','cornice')`, pero los "
+        "propósitos reales van prefijados (`cornice:front:3`), así que la cornisa sobrevive a la sección de "
+        "cubierta. Corregirlo cambia los sprites `damaged`/`burning` publicados: es decisión del responsable, "
+        "no un ajuste de esta hoja.",
+        "· Conflicto de runtime propuesto, no aplicado: hoy `buildingAssetStateFor` convierte `condition < 60` en "
+        "el sprite `damaged` (geometría seccionada). Un edificio simplemente desatendido se dibuja derruido. La "
+        "salida es publicar el tier envejecido bajo `complete` y dejar `damaged` para integridad estructural; "
+        "eso cambia el contrato de assets (D-080) y requiere revisión humana.",
+    ]
+
+    def build(height: int, out_path: Path):
+        panels = [
+            arm(conserved_png, "A · conservado (control, de día)", height),
+            arm(aged_png, "B · envejecido (sólo material, de día)", height),
+            arm(damaged_png, "C · dañado (geometría del compositor)", height),
+            arm(burning_png, "D · en llamas", height),
+            arm(night_conserved, "E · conservado, de noche", height),
+            arm(night_aged, "F · envejecido, de noche (mugre atenuada, huecos intactos)", height),
+            text_panel("WP04 · qué cambió exactamente en cada tier", decision, width=900),
+        ]
+        return sheet(out_path, title, subtitle, panels, columns=2)
+
+    title = (
+        "D-111.2 WP04 · mixed_tenement seed 1001 en tres tiers de conservación: mismo edificio, "
+        "misma cámara, misma geometría de base"
+    )
+    subtitle = (
+        "Los seis fotogramas salen del mismo request del Building Composer (huella 4×2, 3 plantas, perfil "
+        "graphic_civic_buildings_v1, azimut 45°) y se pegan a escala nativa: 60,2 px/m en todos, así que el "
+        "tamaño relativo es el real de juego. `conserved` y `aged` comparten firma de composición; `damaged` "
+        "y `burning` difieren porque el compositor retira y añade colocaciones, y esa diferencia se mide "
+        "aquí sobre las propias transformadas. Ningún sprite del catálogo publicado se regenera con esto."
+    )
+    first = build(900, V2_SHEETS / "weathering_states.png")
+    second = build(450, V2_SHEETS / "weathering_states_half.png")
+    return first, second
+
+
 def main() -> None:
     if not SHEETS.exists():
         SHEETS.mkdir(parents=True)
@@ -845,6 +1275,7 @@ def main() -> None:
         ("WP02 arcada civica ag", ag_civic_sheet),
         ("WP03 componentes ext", ext_window_columns_sheet),
         ("WP03 fachada hifi grid", hifi_grid_sheet),
+        ("WP04 estados de conservación", weathering_sheet),
     ):
         if only and not any(key in name for key in only):
             continue

@@ -80,6 +80,43 @@ $BLENDER -b --factory-startup -P tools/art-pipeline/blender/ext_lab/hifi_lab.py 
   --output=docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_grid.png \
   --metadata=docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_grid.json
 
+# Tiers de conservación (WP04). La receta vive en el manifiesto; el request elige el tier.
+#   --weathering=conserved,aged  sólo se aplica cuando --states=complete (los daños son sprite aparte)
+E=docs/art/graphics-capabilities/evidence/v2/weathering
+node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=1001 \
+  --states=complete,damaged,burning --weathering=conserved,aged --prefix=vw --mood=day_civic \
+  --outDir=$E/day --metrics=$E/metrics-day.json
+node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=1001 \
+  --states=complete --weathering=conserved,aged --prefix=vwn --mood=night_civic \
+  --outDir=$E/night --metrics=$E/metrics-night.json
+# Brazo de control: el MISMO request sin la clave `weathering` (así se prueba que la bandera es opt-in).
+node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=1001 \
+  --states=complete --prefix=vw --mood=day_civic --outDir=$E/optout --metrics=$E/metrics-optout.json
+
+# Sondas WP04: se calibran con un contrato de trabajo por variable de entorno, nunca editando el
+# publicado. `LANDLORD_ART_WEATHERING_CONTRACT` la leen a la vez el orquestador y weathering.py.
+#   sonda verde  → todas las recetas aged a strength/baseSoiling 1,0 y mugre verde (cobertura real)
+#   emisión 1,0 / 0,0 → la misma receta nocturna con la palanca en sus dos extremos (WP04-D3)
+cp blender_artist/manifests/building-weathering-contract.json /tmp/wp04-probe/emission-contract.json
+python3 - <<'PY'  # y poner materials.atlas.states.aged.recipe.emissionScale a 1.0 / 0.0
+import json; p="/tmp/wp04-probe/emission-contract.json"; c=json.load(open(p))
+c["materials"]["atlas"]["states"]["aged"]["recipe"]["emissionScale"]=1.0
+json.dump(c, open(p,"w"), indent=2, ensure_ascii=False)
+PY
+LANDLORD_ART_WEATHERING_CONTRACT=/tmp/wp04-probe/emission-contract.json \
+node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=1001 \
+  --states=complete --weathering=aged --prefix=vwe --mood=night_civic \
+  --outDir=/tmp/wp04-probe/emission --metrics=/tmp/wp04-probe/emission-metrics.json
+# Sonda de máscaras por familia (8 paños 16×12 m, sin Composer: Blender directo). Escribe en la ruta
+# fija `evidence/v2/weathering/mask`, que es donde vive la evidencia.
+$BLENDER -b --factory-startup -P tools/art-pipeline/blender/ext_lab/weathering_mask_probe.py -- \
+  --mood=day_civic
+
+# Determinismo §13 de un brazo envejecido (dos pases completos en un outDir de trabajo)
+node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=1001 \
+  --states=complete --weathering=aged --prefix=vw --mood=day_civic \
+  --outDir=/tmp/wp04-regen/day --metrics=/tmp/wp04-regen/metrics.json --regenerate
+
 # Hojas comparativas
 python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py [filtro]
 
@@ -310,6 +347,110 @@ resolviendo el mismo vano) y su lectura a 0,5×
   `lab_common.EXTENSIONS`; en este repo no hay ni una línea de su fuente. La geometría horneada se
   registra como `original` del proyecto y cada JSON embarca `licenceNote` con esa distinción.
 
+## WP04 — Tiers de conservación sobre el MISMO edificio (medido)
+
+Hoja: [`sheets/weathering_states.png`](sheets/weathering_states.png) y su lectura a 0,5×
+[`sheets/weathering_states_half.png`](sheets/weathering_states_half.png). Fotogramas:
+`weathering/day/` (A conservado · B envejecido · C dañado · D ardiendo), `weathering/night/` (E/F),
+`weathering/optout/` (el request sin la clave), `weathering/mask/` (ocho paños 16×12 m con su máscara)
+y `weathering/probe/` (cuatro sondas: dos verdes de cobertura y dos nocturnas de emisión).
+
+Contrato: `blender_artist/manifests/building-weathering-contract.json`
+(`graphic_civic_weathering_v1`, `sha256` publicado `22a02a14a4f3…`; la receta de la primera corrida era
+`c939dda2…`). Cada brazo embarca `weathering.contractSha256`, `materialsChanged`, `skipped` y por
+material la receta efectiva, el BSDF elegido, la fuente de color y las cotas `before/after` de
+rugosidad y emisión — o sea que la hoja dice con qué receta se renderizó sin que nadie la cite a mano.
+
+| tier | qué se toca | materiales | delta contra el control | señal de ocupación |
+| --- | --- | --- | --- | --- |
+| A conservado | nada: proyección declarada, cero capas | 0 / 3 excluidos | contra el request sin `weathering`: \|Δ\| media 0,0/255 · tono −0,0 · 0,0 % sobre la cota de §13 | intacta |
+| B envejecido · día | sólo material (misma firma `175d2309dd83`, mismos 24 162 tri) | 20 / 3 | \|Δ\| media 11,3/255 · tono −11,1 (domina el tono) · mediana 12,4 · 88,5 % del lienzo sobre la cota | intacta |
+| B envejecido · noche | igual con ×0,7–0,8 en fuerza | 20 / 3 | \|Δ\| media 5,5/255 · tono −5,3 · 75,5 % | hueco ×0,9997 y 91,5 % byte-idéntico |
+| C dañado | geometría del compositor | — | colocaciones 115→105 · triángulos −564 · hollín 0,45 sobre 26 materiales | n/a (sprite distinto) |
+| D ardiendo | geometría + VFX | — | 115→112 · +1 096 tri · hollín 0,7/29 materiales · llama a emisión 2,0 en 2 materiales | n/a |
+
+- **WP04-D2 · el defecto central: la mitad del edificio no envejecía, y el motivo era un nombre.**
+  El contrato excluía la familia `interior` en bloque, pero el MegaKit residencial llama
+  `MI_InteriorWall` al material que lleva `T_RedBrick_BaseColor`, es decir al **ladrillo del alzado**.
+  La sonda lo midió: mugre pedida al 100 % de fuerza sobre este mismo request (manifiesto de trabajo
+  aparte) deja **46,1 % de los 600 960 píxeles opacos sin tratar** con la familia excluida y
+  **3,1 %** después de corregirla. La exclusión pasó de familia a nombre
+  (`MI_FakeInterior*`, `MI_InteriorFloor*`, `MI_InteriorRoof*`), `exclusions.families` queda vacío y
+  el residual sin tratar es exactamente lo que no se ve en el alzado: fondo del hueco y forjados.
+  El paño recibe ahora la receta de ladrillo (`strength 0,40`, `baseSoiling 0,36`) y la guarda del
+  contrato exige que `interior` no pueda quedar más sucio que `brick` ni desviarse >0,05 de fuerza.
+- **El tier envejecido cambia el TONO, no sólo el grano.** La primera corrida producía un archivo
+  distinto que no se leía como envejecido: \|Δ\| medio 8,1/255 con mediana 0 y tono −0,1 (máscara de
+  alta frecuencia promediando a cero contra el control). La receta actual añade `baseSoiling` —película
+  uniforme de baja frecuencia— y el tono pasa a −11,1/255 con el 88,5 % del lienzo sobre la cota de
+  ruido. Dos reglas nuevas en `test_building_weathering_contract.py` hacen imposible reescribir esa
+  receta: `strength > 0` con `baseSoiling = 0` y `baseSoiling > 0` con `strength = 0` fallan la
+  validación, porque la segunda declara una película que `apply_material` no aplica nunca.
+- **La rampa de gravedad se ve, franja a franja.** `gravityRamp` sólo puede hacer una cosa —subir la
+  máscara hacia la cota baja del muro—, así que su firma es un gradiente monotónico: tono por tercios
+  de cubierta a planta baja **−6,0 · −10,8 · −13,8/255**. Medido en el par nocturno da lo mismo
+  (0,0 % de caída >8/255 en el tercio superior frente a 54,8 % en la planta baja).
+- **WP04-D3 · la palanca de emisión del contrato es inerte en este encuadre (medido brazo contra
+  brazo).** El socket sí se escribe: la metadata registra `Emission Strength` 1,15 → 0,897 con la
+  receta publicada. Para saber si eso se ve se re-renderizó la misma receta nocturna con
+  `emissionScale` en sus dos extremos: **0,0 → socket 0,0; 0,78 → 0,897; 1,0 → 1,15; y los tres PNG
+  son el mismo raster** (1 píxel de 1 188 402 difiere en 1/255, ruido del codificador; luma media
+  52,32/255 en los tres). El motivo es de procedencia, no de orden: los únicos materiales con emisión
+  cableada por el mood son `colormap` y `colormap.001`, que traen `mod_kenney_com_awning_1_6m` y
+  `mod_kenney_com_block_k`, y en este seed la luz de ventana que se ve sale del `MI_Glass` del MegaKit
+  teñido por `night_civic`. Consecuencia directa para WP07: **`emissionScale` no es una palanca de
+  legibilidad nocturna sobre edificios residenciales MegaKit**; la legibilidad del hueco hay que
+  ganarla con luz y con el panel de ventanas del runtime.
+- **Por qué el vidrio no se oscurece (y por qué eso es medible).** De día el hueco ya es casi negro;
+  bajarlo lo convertiría en agujero y borraría la retícula de crujías que es la firma del perfil. La
+  receta `glass` es `strength 0` + `roughnessAdd 0,22` (0,88 → 1,00 medidos en el socket) y
+  `emissionScale null`. De noche, sobre los 19 618 píxeles de hueco encendido (luma > 0,45 en el
+  control, 3,26 % del área opaca) la luma media pasa de 140,05 a 140,01 (**×0,9997**) y el 91,5 % de
+  esos píxeles es byte-idéntico: el envejecido pierde contraste de paño, no la señal de uso.
+- **Calibración por familia, no de oído.** `weathering/mask/` renderiza ocho paños de 16×12 m
+  (day_civic, contrato `22a02a14`): máscara media 0,42–0,83 y oscurecimiento −30,0/255 en la familia
+  más tratada (`wood`); todas las familias con color alterado superan la cota de ruido de §13 y su
+  delta es de tono. `metal` es la tratada más débil (−5,40/255 con 69,4 % sobre ruido) y `glass`
+  no altera color por diseño — dato útil para WP05, que industrial es metal y madera.
+- **Opt-in de verdad.** El mismo request **sin** la clave `weathering` es idéntico píxel a píxel al brazo
+  `conserved` (1 píxel de 1 188 402, Δ máx 1/255), así que el control de los sprites aprobados no se
+  cae: `--weathering` es una bandera de trabajo, no un default.
+- **Nada se promociona.** `building-modules.json` sigue en 187 módulos y los hashes de
+  `apps/web/src/generated/runtime-assets*.json` salen iguales en `before`/`after` de las tres métricas
+  de la corrida. No se tocó simulación, guardados, economía ni topología vial: la derivación
+  `condition >= 60 → conservado / condition < 60 → envejecido` vive en el contrato como
+  **declaración documentada** (`derivation` en cada JSON) y no como código de dominio.
+- **Coste asumido (SwiftShader, corridas estrictamente secuenciales).** día 4 brazos 245,9 s · noche
+  2 brazos 98,8 s · opt-out 1 brazo 50,0 s · sondas de emisión 56,1 s y 50,9 s · pico RSS 4 715 MB.
+  El coste extra de las dos sondas nocturnas es lo que compró WP04-D3; sin ellas la hoja habría
+  afirmado que la emisión escala un 22 % cuando no escala nada.
+- **Determinismo §13 sobre el brazo envejecido.** `--regenerate` (dos pases completos): firma de
+  composición, `pivot` (0,5111/0,7684) y dimensiones idénticos; `changedPixels` 3 de 1 188 402 con
+  `maxChannelDelta` 1 y `grossFraction` 0 → `COMPOSITION_DETERMINISTIC_GPU_JITTER`; el pase de sombra
+  sale bit-estable en ambos pases. Contra el PNG publicado, los dos pases difieren en 5 y 2 píxeles
+  (Δ máx 1/255). Los `pixelSha256` no coinciden porque el escritor PNG de Blender no es byte-estable;
+  lo que se compara es el raster decodificado.
+- **Integridad de encuadre.** `geometry_border_hit` (alfa ≥ 200) sobre los once fotogramas de sprite de
+  WP04 (4 día, 2 noche, 1 opt-out, 2 sondas verdes y 2 sondas de emisión): **0 píxeles sólidos en los
+  cuatro bordes** en todos. Los paños de `mask/` son teselas de textura a sangre y no son sprites, así
+  que no entran en esta guarda.
+- **Dos cosas que NO se corrigieron aquí porque deciden el responsable.**
+  - **WP04-D1:** la regla de daño retira `purpose in ('dormer','cornice')`, pero los propósitos reales
+    van prefijados (`cornice:front:3`), así que la cornisa sobrevive a la sección de cubierta.
+    Arreglarlo cambia los sprites `damaged`/`burning` publicados.
+  - **Runtime:** `buildingAssetStateFor` convierte hoy `condition < 60` en el sprite `damaged`
+    (geometría seccionada), o sea que un edificio simplemente desatendido se dibuja derruido. La salida
+    natural es publicar el tier envejecido bajo `complete` y dejar `damaged` para integridad
+    estructural, pero eso cambia el contrato de assets (D-080) y requiere revisión humana.
+- **Lo reutilizable (capacidad, no ajuste puntual).** `weathering.py` aplica el contrato por *familia
+  semántica* leída del perfil de estilo (`NON_ELEVATION_FAMILIES` fija el vocabulario; un perfil que
+  publique una familia sin receta ni exclusión aborta el `Plan`), audita el BSDF antes de tocarlo
+  (`principledNodes`/`wiredToOutput`/`chosen`, porque elegir el BSDF equivocado pinta sobre un nodo
+  muerto), permite recetas de sólo película (el cristal de noche) y nunca muta el contrato: el
+  multiplicador de mood se aplica sobre una copia. `LANDLORD_ART_WEATHERING_CONTRACT` permite calibrar
+  recetas sin tocar el manifiesto publicado — las cuatro sondas de esta sección se generaron así — y el
+  orquestador lee la misma variable para no validar contra un archivo y renderizar contra otro.
+
 ## Ledger
 
 | WP | commit | estado | artefacto principal | bloqueo |
@@ -318,3 +459,4 @@ resolviendo el mismo vano) y su lectura a 0,5×
 | WP01 | (este) | DONE | `sheets/gn_v2_ab.png` (+ `_half`) | sombra recortada preexistente, declarada |
 | WP02 | (este) | DONE | `sheets/ag_civic_ab.png` (+ `_half`) · `mod_ag_arcade_bay_2m` | cierre de crujía en esquina y profundidad 0,50 m → WP06 |
 | WP03 | (este) | DONE | `sheets/ext_window_columns.png` (+ `_half`) · `sheets/hifi_grid_ab.png` (+ `_half`) | ningún vano de extensión adoptado (motivo geométrico medido); HiFi se queda como herramienta de receta |
+| WP04 | (este) | DONE | `sheets/weathering_states.png` (+ `_half`) · `building-weathering-contract.json@22a02a14` | WP04-D1 (cornisa sobrevive a la sección) y runtime `condition < 60 → damaged`: dos decisiones del responsable, no ajustes de esta hoja |

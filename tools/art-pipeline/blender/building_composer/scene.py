@@ -57,6 +57,7 @@ from .grammar import GrammarDocument  # noqa: E402
 from .module_catalog import Catalog, REPO_ROOT  # noqa: E402
 from .style_profile import StyleProfile  # noqa: E402
 from . import anchors  # noqa: E402
+from . import weathering  # noqa: E402
 
 COMPOSITION_ROOT = "COMPOSITION_ROOT"  # `nodeSelector.reparentTo`, medido en el catálogo
 STYLED_PREFIX = "styled_"
@@ -1082,12 +1083,24 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         material_experiment = apply_material_maquette_pbr(
             groups, composition["buildingType"], composition["family"]
         )
+    # D-111 WP04: tier de conservación/envejecimiento opt-in. Sin `request["weathering"]` no se lee ni
+    # el contrato, así que los sprites aprobados del catálogo se siguen dibujando igual.
+    weathering_block = weathering.project(
+        request,
+        objects,
+        family_of=lambda name: profile.material_family.get(authored_material_name(name)),
+        mood_id=active_mood_id(style_layer),
+        profile_families=set(profile.material_family.values()),
+    )
     # V.j: hollín sobre el albedo ya tratado para los estados de daño/fuego (no afecta al complete).
     state = composition.get("state", "complete")
+    damage_treatment = None
     if state in ("damaged", "burning"):
-        apply_soot(objects, 0.7 if state == "burning" else 0.45)
-    if state == "burning":
-        boost_flame_emission(objects, 2.0)
+        # D-111 WP04: el tier de daño también cambia MATERIAL, no sólo geometría. Sin publicar lo que
+        # devuelven estos dos pases la evidencia diría "estado damaged" pero no qué se oscureció ni con qué fuerza.
+        damage_treatment = {"soot": apply_soot(objects, 0.7 if state == "burning" else 0.45)}
+        if state == "burning":
+            damage_treatment["flames"] = boost_flame_emission(objects, 2.0)
 
     scene.render.engine = "BLENDER_EEVEE"
     # §13 también muerde al rasterizador. El test de regeneración encontró dos procesos con la misma
@@ -1196,6 +1209,13 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         "sourcePaths": sorted({record["sourcePath"] for record in composition["placements"]}),
         "licenses": sorted({record["license"] for record in composition["placements"]}),
         "materialVariants": variants,
+        # WP04: `litWindows`/`emissiveTexels` dicen si el compositor cableó de verdad la ruta de
+        # emisión de ventana. Sin este bloque la evidencia nocturna afirmaba «el cristal sucio deja
+        # salir menos luz» sin poder comprobarlo: el brillo puede viajar por Base Color (pase plano)
+        # y entonces ninguna escala de emisión llega al raster.
+        "externalTreatment": direct,
+        "weathering": weathering_block,
+        "damageTreatment": damage_treatment,
         "checks": composition["checks"],
         "sceneChecks": {
             "placementToleranceMeters": PLACEMENT_TOLERANCE_M,

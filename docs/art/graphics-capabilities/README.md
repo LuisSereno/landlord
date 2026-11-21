@@ -130,6 +130,7 @@ El índice con los mandos completos es [`evidence/v2/README.md`](evidence/v2/REA
 | `v2/sheets/weathering_states.png` | el mismo edificio en conservado / envejecido / dañado / ardiendo, de día y de noche (WP04) |
 | `v2/sheets/industrial_warehouse_ab.png` | nave en crujía de 4 m con el portón de camión medido (WP05) |
 | `v2/sheets/wp06_candidates_ab.png` | las cuatro candidatas con su control, por perfil de candidato (WP06) |
+| `v2/sheets/building_condition_states.png` | los cuatro tiers con la cornisa ya seccionada y la proyección derivada de `condition`/`structuralIntegrity` escrita en la cabecera (FASE 6) |
 
 El laboratorio de extensiones corre **aislado** del perfil de usuario real:
 

@@ -1,13 +1,14 @@
 {
  "schemaVersion": 1,
- "generatedAt": "2026-11-21T11:24:54.826Z",
+ "generatedAt": "2026-11-21T23:04:37.399Z",
  "composerVersion": "vf-3",
  "styleProfileId": "graphic_civic_buildings_v1",
+ "candidateProfile": null,
  "outDir": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/day",
  "requested": 4,
  "rendered": 4,
- "totalGenerationMs": 245880,
- "blenderPeakRssMb": 4715.4,
+ "totalGenerationMs": 288786,
+ "blenderPeakRssMb": 5124.1,
  "toolchain": {
   "blender": "multiple processes",
   "renderer": "BLENDER_EEVEE"
@@ -48,7 +49,7 @@
      "max": 12.0281
     }
    },
-   "renderMs": 13606.42,
+   "renderMs": 14593.71,
    "pngBytes": 1352553,
    "pngPixels": [
     1037,
@@ -86,13 +87,13 @@
      "max": 12.0281
     }
    },
-   "renderMs": 13564.79,
-   "pngBytes": 1342033,
+   "renderMs": 15754.08,
+   "pngBytes": 1342036,
    "pngPixels": [
     1037,
     1146
    ],
-   "pixelSha256": "aaea66ce6c5dd8a2457273ac96639a8086b9aacef7368e53bd4c48a838498f72",
+   "pixelSha256": "6e1238e098d53e642b41ac025619741227812d041726ce9bfa72dba816766222",
    "licensedGeometryRatio": 1,
    "pivot": {
     "x": 0.5111,
@@ -104,9 +105,9 @@
    "buildingType": "mixed_tenement",
    "family": "residential_low",
    "variantSeed": 1001,
-   "compositionSignature": "c8cf952053b829d9902d6d2fe15798fb8389cf04b07974a2ad4f796d8124577c",
-   "triangleCount": 23598,
-   "objectCount": 105,
+   "compositionSignature": "3be7cc2c1c7cee87d1d06cd1f6657e60e678c610954514d1fc70c24ee3ed10bb",
+   "triangleCount": 22702,
+   "objectCount": 97,
    "moduleCount": 12,
    "materials": 26,
    "textures": 20,
@@ -116,7 +117,7 @@
      "max": 8
     },
     "y": {
-     "min": -5.2128000000000005,
+     "min": -5.6234,
      "max": 3.884
     },
     "z": {
@@ -124,17 +125,17 @@
      "max": 12.0281
     }
    },
-   "renderMs": 14621.56,
-   "pngBytes": 1396119,
+   "renderMs": 14497.19,
+   "pngBytes": 1431107,
    "pngPixels": [
-    1070,
-    1162
+    1087,
+    1171
    ],
-   "pixelSha256": "3c6cecd351889baf7304b2da0ecf0ad9d5a8dee38e50e3ae349b64fe0d5041f2",
+   "pixelSha256": "19455c29aa35d19c24d9339fb37c7cd4cf39f285601ec1a5b0c2e06022b7f42f",
    "licensedGeometryRatio": 1,
    "pivot": {
-    "x": 0.5266,
-    "y": 0.7578
+    "x": 0.5345,
+    "y": 0.7523
    }
   },
   {
@@ -142,11 +143,11 @@
    "buildingType": "mixed_tenement",
    "family": "residential_low",
    "variantSeed": 1001,
-   "compositionSignature": "84817436f627431d760552e72eaaba185698933bcc5ad6254b70a0c862a762fe",
-   "triangleCount": 25258,
-   "objectCount": 112,
+   "compositionSignature": "891e79956f5d4890c6edcd65c57b75ab5faf7bb202b93b95c137362e49bd3b6f",
+   "triangleCount": 28558,
+   "objectCount": 116,
    "moduleCount": 14,
-   "materials": 29,
+   "materials": 31,
    "textures": 20,
    "bounds": {
     "x": {
@@ -154,25 +155,25 @@
      "max": 8
     },
     "y": {
-     "min": -5.2128000000000005,
+     "min": -5.6234,
      "max": 3.884
     },
     "z": {
      "min": 0,
-     "max": 12.0281
+     "max": 13.828100000000003
     }
    },
-   "renderMs": 13540.81,
-   "pngBytes": 1368096,
+   "renderMs": 25956.5,
+   "pngBytes": 1493923,
    "pngPixels": [
-    1070,
-    1162
+    1087,
+    1265
    ],
-   "pixelSha256": "2ab04bf65b2fd7b8f0f801316801063912cdf8d1897e8181d12302025379d132",
+   "pixelSha256": "6230a072f752bf8c4d75504ab68571b6f5a47143fe7d29f8244c0e4715f0b6f8",
    "licensedGeometryRatio": 1,
    "pivot": {
-    "x": 0.5266,
-    "y": 0.7578
+    "x": 0.5345,
+    "y": 0.7707
    }
   }
  ],

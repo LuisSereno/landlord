@@ -15,6 +15,10 @@ import {
   originFromPivot,
   spriteScaleFor,
 } from "../isometric/building-sprites";
+import {
+  projectBuildingCondition,
+  type BuildingConditionInput,
+} from "../isometric/building-condition";
 import type { IsometricLayout } from "../isometric/coordinates";
 import blenderBundle from "../generated/runtime-assets-blender.json";
 import { parseRuntimeAssetManifest, type RuntimeAssetManifestV2 } from "@landlord/shared";
@@ -25,15 +29,33 @@ export const EMISSIVE_DEPTH_OFFSET = 4;
 
 export type Cell = { x: number; y: number };
 
+/**
+ * Escenario de la calle de pruebas. O los tres campos de conservación que ya viajan en la proyección
+ * de vista, o la obra (`construction` es otra entidad de dominio —`ConstructionSite`— y no tiene
+ * `condition`: se coloca por su `progress`).
+ */
+export type BuildingScenario = BuildingConditionInput | "construction";
+
 export type BuildingPlacement = {
   readonly key: string;
   readonly type: string;
+  /** Derivado por `projectBuildingCondition`: nadie escribe el sprite a mano desde D-111.2 §6.2. */
   readonly state: BuildingAssetState;
+  readonly scenario: BuildingScenario;
   readonly cell: Cell;
   readonly scale: number;
   /** Semientidad luminosa extraída del bake: 0 apaga la capa emisiva de este edificio. */
   readonly emissiveBoost: number;
 };
+
+type PlacementSeed = Omit<BuildingPlacement, "state">;
+
+/** Ruta experimental de selección: escenario de dominio → sprite del catálogo. */
+function select(seed: PlacementSeed): BuildingPlacement {
+  if (seed.scenario === "construction") return { ...seed, state: "construction" };
+  /** La proyección llama `assetState` a la clave del catálogo; extenderla tal cual dejaba `state` vacío. */
+  return { ...seed, state: projectBuildingCondition(seed.scenario).assetState };
+}
 
 /**
  * Types reales del juego que se usan aquí, sin inventar ninguno:
@@ -43,72 +65,77 @@ export type BuildingPlacement = {
  *   calle sin regenerar nada.
  * - `cement_plant` hace de planta de producción: el humo industrial se deriva de
  *   `ProductionFacility.operational`, no de un flag nuevo.
+ *
+ * Los `condition`/`structuralIntegrity` son los del escenario QA que se fotografía, no datos de una
+ * partida: la calle no lee `GameState`. `back-mixed_tenement` (48/76) es el caso que antes se pintaba
+ * como ruina: con estructura en pie proyecta `aged`, cuyo sprite es el mismo `complete` porque el
+ * envejecimiento del contrato no mueve geometría.
  */
 export const BUILDING_PLACEMENTS: readonly BuildingPlacement[] = [
-  {
+  select({
     key: "back-row_house",
     type: "row_house",
-    state: "complete",
+    scenario: { state: "operational", condition: 92, structuralIntegrity: 100 },
     cell: { x: 0, y: 3 },
     scale: 1,
     emissiveBoost: 1,
-  },
-  {
+  }),
+  select({
     key: "back-mixed_tenement",
     type: "mixed_tenement",
-    state: "complete",
+    scenario: { state: "operational", condition: 48, structuralIntegrity: 76 },
     cell: { x: 4, y: 2 },
     scale: 1,
     emissiveBoost: 1.15,
-  },
-  {
+  }),
+  select({
     key: "back-cement_plant",
     type: "cement_plant",
-    state: "complete",
+    scenario: { state: "operational", condition: 88, structuralIntegrity: 100 },
     cell: { x: 8, y: 2 },
     scale: 1,
     emissiveBoost: 0.8,
-  },
-  {
+  }),
+  select({
     key: "front-shopfront",
     type: "bld_shopfront",
-    state: "complete",
+    scenario: { state: "operational", condition: 100, structuralIntegrity: 100 },
     cell: { x: 0, y: 9 },
     scale: 1.6,
     emissiveBoost: 1.5,
-  },
-  {
+  }),
+  select({
     key: "front-residential",
     type: "bld_residential_a",
-    state: "construction",
+    scenario: "construction",
     cell: { x: 2, y: 9 },
     scale: 1.6,
     emissiveBoost: 0,
-  },
-  {
+  }),
+  select({
     key: "front-commercial",
     type: "bld_commercial_b",
-    state: "complete",
+    scenario: { state: "operational", condition: 74, structuralIntegrity: 90 },
     cell: { x: 4, y: 9 },
     scale: 1.6,
     emissiveBoost: 1.4,
-  },
-  {
+  }),
+  select({
     key: "front-damaged",
     type: "bld_residential_c",
-    state: "damaged",
+    scenario: { state: "ruin", condition: 35, structuralIntegrity: 0 },
     cell: { x: 6, y: 9 },
     scale: 1.6,
     emissiveBoost: 0.55,
-  },
-  {
+  }),
+  select({
     key: "front-burning",
     type: "bld_commercial_c",
-    state: "burning",
+    scenario: { state: "burning", condition: 40, structuralIntegrity: 0 },
     cell: { x: 8, y: 9 },
     scale: 1.6,
     emissiveBoost: 2.1,
-  },
+  }),
 ];
 
 /** Farolas sobre la acera cercana (fila 8): es la que ilumina fachadas de la fila 9 y la calzada. */

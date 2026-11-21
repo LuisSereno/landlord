@@ -56,10 +56,11 @@
       "geometryChange": true,
       "spriteState": "damaged",
       "composerState": "damaged",
-      "derivation": "state == 'ruin' (hoy `buildingAssetStateFor` la devuelve como sprite 'damaged'), o el conflicto de runtime descrito abajo: condition < 60 también cae en 'damaged'",
+      "derivation": "state == 'ruin', o condition < 60 con structuralIntegrity <= 0. Desde D-111.2 §6.1 la elige apps/web/src/isometric/building-condition.ts; el mapeo jugable sigue usando la regla antigua (ver runtimeConflict abajo).",
       "geometry": {
         "removes": [
           "colocaciones con purpose que EMPIEZA por 'roof' en el semiplano x >= 0 (sección de cubierta que deja ver el interior)",
+          "colocaciones con purpose que EMPIEZA por 'cornice' en el semiplano x >= 0 (sección del perfil de cornisa; los dormerios viajan ya bajo 'roof:…')",
           "bandas de fachada 'band:front:…:level<N>' con N >= 2 en x >= 0 (paños altos del frente)",
           "todos los soportes del secundario (self.supports = [])"
         ],
@@ -68,22 +69,32 @@
         ],
         "measured": {
           "candidate": "vw_mixed_tenement_1001_damaged (huella 4×2, 3 plantas, seed 1001)",
-          "placements": "115 → 105",
+          "placements": "115 → 97",
           "byGroup": {
             "roof:x": "16 → 8 (las 8 del semiplano x>=0 retiradas)",
+            "cornice:{side}:{n}": "16 → 8 (las 8 del semiplano x>=0 retiradas desde WP04-D1)",
             "band:front:level2": "8 → 4",
             "band:front:level3": "6 → 4",
             "damage:debris": "0 → 4"
           },
-          "corniceInDamagedHalfPlane": "8 → 8: NO se retiran",
-          "measuredOn": "2026-11-21"
+          "corniceInDamagedHalfPlane": "8 → 0",
+          "damageRectY": "-4.017 → -4.428 m (la cornisa salía 0,411 m del paño y ensanchaba la caja desde la que se anclan escombros y fuego)",
+          "triangulos": "22702",
+          "measuredOn": "2026-11-22",
+          "measuredBy": "tools/art-pipeline/blender/ext_lab/damage_section_probe.py"
         },
-        "knownDefect": {
+        "resolvedDefect": {
           "id": "WP04-D1",
-          "summary": "la rama de cornisas y dormerios del daño está inerte",
-          "detail": "compose.py:_compose_damage compara `purpose in ('dormer', 'cornice')`, pero el compositor publica purposes prefijados ('cornice:front:3'), así que la igualdad nunca casa y la cornisa sobrevive a la sección de cubierta. Se declara y NO se arregla en este paquete: corregirlo cambia los sprites `damaged`/`burning` ya publicados del catálogo, y eso es una regeneración que revisa el responsable (WP06). Hasta entonces la silueta dañada conserva el perfil de cornisa, lo que además hace el tier más fácil de distinguir del envejecido.",
+          "summary": "la rama de cornisas y dormerios del daño estaba inerte",
+          "detail": "compose.py:_compose_damage comparaba `purpose in ('dormer', 'cornice')`, pero el compositor publica purposes prefijados ('cornice:front:3'), así que la igualdad nunca casaba y la cornisa sobrevive a la sección de cubierta. Cerrado en D-111.2 FASE 6 cambiando la igualdad por prefijos: `purpose.startswith(('roof', 'cornice'))`. Los dormerios no necesitan rama propia porque ya se publican como 'roof:{along}:{side}:row{n}:bay{i}'.",
+          "coste": "Recomponer y re-renderizar los candidatos damaged/burning (firma 105→97 colocaciones, c8cf952053b8 → 3be7cc2c1c7c y 84817436f627 → 891e79956f5d). conserved/aged conservan la firma 175d2309dd83: el fix no toca geometría intacta. Ningún sprite jugable cambia: los estados damaged/burning del catálogo runtime se banean con runtime_asset.py, no con el compositor.",
           "decisionOwner": "responsable del proyecto",
-          "recordedIn": "docs/art/graphics-capabilities/evidence/v2/README.md (WP04) y el panel de decisión de la hoja weathering_states.png"
+          "closedOn": "2026-11-22",
+          "evidence": [
+            "docs/art/graphics-capabilities/evidence/v2/weathering/damage_section_probe.json",
+            "docs/art/graphics-capabilities/evidence/v2/sheets/building_condition_states.png"
+          ],
+          "recordedIn": "docs/art/graphics-capabilities/evidence/v2/README.md (WP04 y FASE 6)"
         },
         "material": "apply_soot(0.45) sobre el albedo ya tratado (scene.py:apply_soot)",
         "implementedIn": [
@@ -106,9 +117,17 @@
       "geometry": {
         "removes": ["las mismas secciones que `damaged` (llama a _compose_damage)"],
         "adds": [
-          "5 llamas del pool 'flame' dentro del hueco de cubierta retirada",
-          "2 columnas de humo del pool 'smoke'"
+          "16 llamas del pool 'flame' (13 en el hueco de cubierta retirada, en 3 focos con una dominante cada uno, + 3 lenguas por ventana)",
+          "3 columnas de humo del pool 'smoke'"
         ],
+        "measured": {
+          "candidate": "vw_mixed_tenement_1001_burning (misma huella y seed que damaged)",
+          "placements": "115 → 116 (97 del daño + 19 de fuego/humo)",
+          "focos": "3 · por (u1-u0)/2,4 m de frente del hueco, no por constante",
+          "measuredOn": "2026-11-22",
+          "measuredBy": "tools/art-pipeline/blender/ext_lab/damage_section_probe.py",
+          "nota": "El texto de WP04 decía '5 llamas y 2 columnas': era el incendio anterior a FASE 3, que estampaba cinco conos idénticos a Δx fijo."
+        },
         "material": "apply_soot(0.7) + boost_flame_emission(2.0) (scene.py:apply_soot, :boost_flame_emission)",
         "implementedIn": ["tools/art-pipeline/blender/building_composer/compose.py:_compose_fire"]
       },
@@ -158,10 +177,11 @@
       }
     ],
     "runtimeConflict": {
-      "summary": "Hoy `buildingAssetStateFor` convierte condition < 60 en el estado de sprite `damaged`, que arrastra geometría estructural. Un edificio simplemente desatendido se dibuja seccionado y con escombros.",
-      "proposedResolution": "Publicar la variante envejecida bajo el estado `complete` y elegir el material por un eje de presentación derivado de condition, sin tocar GameState. Eso implica una decisión de contrato de assets (D-080) y del mapeo runtime, así que NO se aplica en D-111: queda como propuesta para el responsable.",
-      "appliedInThisPackage": false,
-      "codeTouched": false
+      "summary": "`buildingAssetStateFor` (apps/web/src/isometric/building-sprites.ts:28) sigue convirtiendo condition < 60 en el estado de sprite `damaged`, que arrastra geometría estructural. Un edificio simplemente desatendido se dibuja seccionado y con escombros.",
+      "proposedResolution": "Publicar la variante envejecida bajo el estado `complete` y elegir el material por un eje de presentación derivado de condition, sin tocar GameState.",
+      "appliedInThisPackage": "PARCIAL. La derivación ya existe y está testada como módulo de presentación (apps/web/src/isometric/building-condition.ts, D-111.2 §6.1) y es la ruta de selección de la calle QA del FX Lab (apps/web/src/fx-lab/fx-street.ts). No se ha movido ningún call site jugable: apps/web/src/isometric/building-sprites.ts:212 y apps/web/src/isometric/gameplay-visual-adapter.ts:2258 siguen con la regla antigua.",
+      "bloqueaPromocion": "El catálogo runtime no tiene sprite `aged`: los estados publicados son complete/construction/damaged/burning (21 complete + 6/6/6, apps/web/src/generated/runtime-assets-blender.json). projectBuildingCondition devuelve para aged `assetState: complete` + `weathering: aged`, y en jugo ese token no tiene consumidor, así que promocionar el call site cambiaría el tier sin cambiar un píxel. Hace falta una decisión de contrato de assets (D-080) y hornear la variante envejecida antes de tocar la vista del jugador.",
+      "codeTouched": "presentación: sí (nuevo módulo + ruta QA). simulación y GameState: no."
     }
   },
   "moodGroups": {

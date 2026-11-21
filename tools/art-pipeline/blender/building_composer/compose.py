@@ -1807,7 +1807,11 @@ class Composition:
         removed_openings = []
         for record in self.placements:
             purpose = record["purpose"]
-            if purpose.startswith("roof") or purpose in ("dormer", "cornice"):
+            # WP04-D1: la igualdad exacta con "dormer"/"cornice" nunca casaba. Los dormerios se publican
+            # como `roof:{along}:{side}:row{n}:bay{i}` (ya los cubría el prefijo) y las cornisas como
+            # `cornice:{side}:{n}`, así que las 8 del semiplano dañado sobrevivían al corte y quedaban
+            # flotando sobre el hueco de cubierta. Prefijos, que es lo que el compositor escribe.
+            if purpose.startswith(("roof", "cornice")):
                 if record["position"][0] >= 0.0:
                     removed_bounds.append(record["bounds"])
                     continue

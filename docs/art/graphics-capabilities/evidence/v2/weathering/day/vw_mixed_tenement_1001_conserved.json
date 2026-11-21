@@ -4019,7 +4019,7 @@
  },
  "weathering": {
   "contractId": "graphic_civic_weathering_v1",
-  "contractSha256": "22a02a14a4f3005d199442c241088ba10e24b53206b1f1715213bfa58749044f",
+  "contractSha256": "fb9e3abce037b207b0dd1be0243735c327569cbf72702edd49b6be3ea3a15a5f",
   "visualState": "conserved",
   "label": "conservado",
   "spriteState": "complete",
@@ -4140,7 +4140,7 @@
  "triangleCount": 24162,
  "materialCount": 23,
  "textureCount": 20,
- "renderTime": 13606.42,
+ "renderTime": 14593.71,
  "pngBytes": 1352553,
  "sha256": "fbe15386e0f8e3ea4968ad4100f9210bad803d4c64aaef6aa9f7d3a2ee7515e6",
  "pixelSha256": "80fabd113aa5f4518ac3695d6b13d02ed6a6548f82ab00acc94f7c448943e24b",
@@ -4186,7 +4186,7 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T1120/vw_mixed_tenement_1001_conserved.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T2259/vw_mixed_tenement_1001_conserved.png",
   "width": 1037,
   "height": 1146,
   "sha256": "fbe15386e0f8e3ea4968ad4100f9210bad803d4c64aaef6aa9f7d3a2ee7515e6",
@@ -4340,10 +4340,10 @@
   }
  },
  "render": {
-  "renderMs": 13606.42,
-  "prepMs": 19783.3,
-  "totalMs": 64118.76,
-  "peakRssMb": 4570.1
+  "renderMs": 14593.71,
+  "prepMs": 26915.84,
+  "totalMs": 59137.32,
+  "peakRssMb": 4545.6
  },
  "request": {
   "candidateId": "vw_mixed_tenement_1001_conserved",
@@ -4361,8 +4361,8 @@
   "state": "complete",
   "constructionStage": null,
   "weathering": "conserved",
-  "output": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T1120/vw_mixed_tenement_1001_conserved.png",
-  "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T1120/vw_mixed_tenement_1001_conserved.json"
+  "output": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T2259/vw_mixed_tenement_1001_conserved.png",
+  "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T2259/vw_mixed_tenement_1001_conserved.json"
  },
  "composition": {
   "buildingType": "mixed_tenement",

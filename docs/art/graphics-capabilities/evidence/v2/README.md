@@ -464,13 +464,15 @@ rugosidad y emisión — o sea que la hoja dice con qué receta se renderizó si
   cuatro bordes** en todos. Los paños de `mask/` son teselas de textura a sangre y no son sprites, así
   que no entran en esta guarda.
 - **Dos cosas que NO se corrigieron aquí porque deciden el responsable.**
-  - **WP04-D1:** la regla de daño retira `purpose in ('dormer','cornice')`, pero los propósitos reales
-    van prefijados (`cornice:front:3`), así que la cornisa sobrevive a la sección de cubierta.
-    Arreglarlo cambia los sprites `damaged`/`burning` publicados.
+  - **WP04-D1 (CERRADO en FASE 6, 2026-11-22):** la regla de daño retiraba `purpose in ('dormer','cornice')`,
+    pero los propósitos reales van prefijados (`cornice:front:3`), así que la cornisa sobrevivía a la
+    sección de cubierta. Se arregló con prefijos y se midió; ver [FASE 6](#fase-6--envejecimiento-vs-daño-sobre-el-mismo-edificio-medido).
   - **Runtime:** `buildingAssetStateFor` convierte hoy `condition < 60` en el sprite `damaged`
     (geometría seccionada), o sea que un edificio simplemente desatendido se dibuja derruido. La salida
     natural es publicar el tier envejecido bajo `complete` y dejar `damaged` para integridad
-    estructural, pero eso cambia el contrato de assets (D-080) y requiere revisión humana.
+    estructural, pero eso cambia el contrato de assets (D-080) y requiere revisión humana. FASE 6 dejó
+    construida y testada la derivación (`building-condition.ts`) y su ruta QA; **no** movió ningún call
+    site jugable porque el catálogo runtime aún no tiene sprite `aged`.
 - **Lo reutilizable (capacidad, no ajuste puntual).** `weathering.py` aplica el contrato por *familia
   semántica* leída del perfil de estilo (`NON_ELEVATION_FAMILIES` fija el vocabulario; un perfil que
   publique una familia sin receta ni exclusión aborta el `Plan`), audita el BSDF antes de tocarlo
@@ -771,6 +773,84 @@ Evidencia: `candidates/wp06_<tipo>-candidata.{png,json}` (los JSON llevan `candi
   `deterministic_crop_rect` ya declarada, no algo que este paquete haya introducido ni pueda arreglar con
   un perfil.
 
+## FASE 6 — Envejecimiento vs daño sobre el MISMO edificio (medido)
+
+Hoja: [`sheets/building_condition_states.png`](sheets/building_condition_states.png) (+
+[`sheets/building_condition_states.json`](sheets/building_condition_states.json)). Sondeo de la sección:
+[`weathering/damage_section_probe.json`](weathering/damage_section_probe.json).
+
+Tres cosas, y ninguna toca `GameState`:
+
+1. **La derivación existe como módulo** — `apps/web/src/isometric/building-condition.ts` lee los tres
+   campos que ya viajan en la proyección de vista (`state`, `condition`, `structuralIntegrity`) y
+   devuelve tier + sprite de catálogo + token de material. El umbral no lo inventa el módulo: se lee de
+   `visualStates.*.derivation` del contrato, y el test lo comprueba contra el JSON
+   (`building-condition.test.ts`, 7 casos). Con `condition < 60` e integridad > 0 el tier es `aged`, que
+   es `complete` + material envejecido; con integridad 0 es `damaged`. Ese era el colapso de WP04.
+2. **Ruta QA de selección** — `apps/web/src/fx-lab/fx-street.ts` ya no escribe `state` a mano: cada
+   edificio de la calle de pruebas declara su escenario de dominio y `select()` deriva el sprite
+   (`fx-street.test.ts`, 6 casos). `back-mixed_tenement` con 48/76 es el caso que antes se pintaba como
+   ruina y ahora se pinta como envejecido.
+3. **WP04-D1 cerrado** — `_compose_damage` comparaba `purpose in ('dormer','cornice')` contra ids
+   compuestos. Con prefijos (`purpose.startswith(('roof','cornice'))`) la cornisa del semiplano dañado se
+   secciona de verdad. Los dormerios no necesitan rama: se publican como `roof:{along}:{side}:row{n}:bay{i}`.
+
+| magnitud | antes | después |
+| --- | --- | --- |
+| módulos seccionados (mixed_tenement 1001) | 14 | 22 (+8 cornisas) |
+| cornisas vivas en el semiplano dañado | 8 en `damaged`, 8 en `burning` | 0 y 0 |
+| colocaciones del sprite dañado | 115 → 105 | 115 → 97 |
+| caja de daño en y (de ahí se anclan escombros y fuego) | −4,017 m | −4,428 m |
+| firma `damaged` / `burning` | `c8cf952053b8` / `84817436f627` | `3be7cc2c1c7c` / `891e79956f5d` |
+| firma `conserved` / `aged` | `175d2309dd83` | `175d2309dd83` (idéntica: el fix no toca geometría intacta) |
+
+Lo que la hoja demuestra con números, no con gusto: `conserved` y `aged` comparten firma de composición,
+115 colocaciones y el mismo despiece por grupo, y aun así se mueve el **23,01 %** del píxel opaco
+(luma media 126,16 → 115,08). Envejecer es material. `damaged` pierde cubierta (16 → 8), pierde cornisa
+(16 → 8), abre los paños altos del frente (21 → 15) y suma 4 montículos de escombro: 45,13 % del píxel
+movido. `burning` es el dañado más 19 módulos de fuego/humo (3 focos con lengua dominante + 3 lenguas por
+ventana + 3 columnas de humo).
+
+Reproducción:
+
+```bash
+node scripts/build-building-composer.mjs --types=mixed_tenement --seeds=1001 \
+  --states=complete,damaged,burning --weathering=conserved,aged --prefix=vw --mood=day_civic \
+  --outDir=docs/art/graphics-capabilities/evidence/v2/weathering/day \
+  --metrics=docs/art/graphics-capabilities/evidence/v2/weathering/metrics-day.json
+python3 tools/art-pipeline/blender/ext_lab/damage_section_probe.py
+python3 scripts/building-condition-sheet.py
+```
+
+Comprobado: `test_building_weathering_contract.py` OK (12 citas de origen),
+`validate-building-composer.mjs` `status: valid`, vitest de `building-condition` + `fx-street` +
+`building-sprites` 35/35. El contrato pasa de `22a02a14` a `3d4960953e96` (texto medido y `resolvedDefect`;
+las recetas de material no se mueven).
+
+**Deriva atribuida del re-render** (los cuatro PNG contra su versión en `HEAD`, medida en píxel decodificado):
+`conserved` byte-idéntico (1 352 553 → 1 352 553, 0 píxeles movidos, Δ máx 0/255); `aged` Δ máx 1/255 con
+0 píxeles sobre la cota de ruido —jitter de EEVEE, ni siquiera eso toca la firma; `damaged` pasa de
+1070×1162 a 1087×1171 y `burning` a 1087×1265 porque el recorte sigue a la silueta y la silueta cambió.
+Es decir: lo único que se mueve en el raster es lo que este fix debía mover.
+
+**Requisito humano de esta hoja (§5.2).** El par conservado/envejecido está medido como distinto (23,01 %
+del píxel opaco, luma −11,08), pero a 336 px de panel la diferencia se lee como «el mismo edificio un poco
+más sucio». Que eso baste para que un jugador distinga *mantenido* de *desgastado* sin etiqueta lo decide
+el responsable; si no basta, la palanca es la receta `aged` del contrato (fuerza por familia), no volver a
+mezclar desgaste con daño.
+
+**Lo que FASE 6 no hace.**
+- No mueve ningún call site jugable: `building-sprites.ts:212` y `gameplay-visual-adapter.ts:2258` siguen
+  con `condition < 60 → damaged`. Falta el sprite `aged` en el catálogo runtime (21 `complete` + 6/6/6),
+  así que promocionar la derivación cambiaría el tier sin cambiar un píxel. Decisión de contrato D-080.
+- No re-renderiza la evidencia de fuego de FASE 3: tras el fix, las dos `candidata_mixed_tenement_*` de
+  `fire/` dejan de re-firmar (`76e58dc5fb4e` → nueva) y `candidata_warehouse_*` siguen OK (la gramática
+  industrial no pone cornisa en el semiplano dañado). Los cuatro `control_*` ya re-firmaban mal **antes**
+  del fix porque son el control congelado de FASE 2, no una regresión de esta fase. Queda anotado para
+  FASE 9.
+- No toca ningún sprite jugable: los `damaged`/`burning` del catálogo runtime se banean con
+  `runtime_asset.py`, no con el compositor.
+
 ## Ledger
 
 | WP | commit | estado | artefacto principal | bloqueo |
@@ -779,7 +859,7 @@ Evidencia: `candidates/wp06_<tipo>-candidata.{png,json}` (los JSON llevan `candi
 | WP01 | `0aa8ed2` | DONE | `sheets/gn_v2_ab.png` (+ `_half`) | sombra recortada preexistente, declarada |
 | WP02 | `9a48fee` | DONE | `sheets/ag_civic_ab.png` (+ `_half`) · `mod_ag_arcade_bay_2m` | cierre de crujía en esquina y profundidad 0,50 m → WP06 |
 | WP03 | `464608f` | DONE | `sheets/ext_window_columns.png` (+ `_half`) · `sheets/hifi_grid_ab.png` (+ `_half`) | ningún vano de extensión adoptado (motivo geométrico medido); HiFi se queda como herramienta de receta |
-| WP04 | `4ef6afa` | DONE | `sheets/weathering_states.png` (+ `_half`) · `building-weathering-contract.json@22a02a14` | WP04-D1 (cornisa sobrevive a la sección) y runtime `condition < 60 → damaged`: dos decisiones del responsable, no ajustes de esta hoja |
+| WP04 | `4ef6afa` | DONE | `sheets/weathering_states.png` (+ `_half`) · `building-weathering-contract.json@22a02a14` | WP04-D1 (cornisa sobrevive a la sección) → cerrado en FASE 6 · runtime `condition < 60 → damaged`: sigue siendo decisión del responsable, no un ajuste de esta hoja |
 | WP05 | `348eb78` | DONE · ACEPTADA | `sheets/industrial_warehouse_ab.png` (+ `_half`) · 4 módulos `mod_gn_*_4m` (catálogo 191) · `industrial/dock_aperture_scale.json` | `metal_brick_mix` es no-op en HEAD (enmienda de gramática → responsable), tier `aged` sobre chapa GN sin medir y hoja/pretil en la misma banda tratada → WP06 |
 | WP06 | `c5bd69d` + `c6824dc` | DONE · CUATRO CANDIDATAS REVISABLES | `candidates/wp06_{row_house,mixed_tenement,warehouse,town_hall}-candidata.png` (+ JSON) · `sheets/wp06_candidates_ab.png` (+ `_half`) · `building-composer-candidates.json` (3 perfiles) · `pnpm art:building-composer:candidates:test` · `gn_facade_grammar.py` con el origen en el plano posterior | nada bloquea el cierre: la esquina cívica pide geometría nueva (no gramática), `mod_gn_shopfront_bay_2m` sigue sin ruta legal y `metal_brick_mix` sigue no-op en HEAD (dos enmiendas del responsable), el tier `aged` sobre chapa GN sigue sin medir y `deterministic_crop_rect` deja 1–2 px de margen → WP07/WP09 |
 
@@ -788,4 +868,8 @@ Evidencia: `candidates/wp06_<tipo>-candidata.{png,json}` (los JSON llevan `candi
 | fase | commit | estado | artefacto principal | bloqueo |
 | --- | --- | --- | --- | --- |
 | FASE 1 | `8b42a64` | DONE | `capabilities.json` (22 entradas) · `graphics-capabilities/README.md` · `evaluations/extensions.md` · ledger con hashes reales | — |
-| FASE 2 | `9e95206` DONE · DIAGNÓSTICO | `fire/DIAGNOSIS.md` · `fire/control_{mixed_tenement,warehouse}_{day,night}.png` (+ JSON) · `fire/fire_control_sheet.png` · `fire/fire_control_detail.png` | nada: es fase de lectura, no de producción; los diez defectos quedan medidos y atribuidos a línea |
+| FASE 2 | `9e95206` | DONE · DIAGNÓSTICO | `fire/DIAGNOSIS.md` · `fire/control_{mixed_tenement,warehouse}_{day,night}.png` (+ JSON) · `fire/fire_control_sheet.png` · `fire/fire_control_detail.png` | nada: es fase de lectura, no de producción; los diez defectos quedan medidos y atribuidos a línea |
+| FASE 3 | `b58f263` | DONE | `fire/REWORK.md` · `fire/candidata_{mixed_tenement,warehouse}_{day,night}.png` (+ JSON) · `fire/fire_blender_ab.png` (+ `_half`) · `fire/fire_blender_ab_readings.json` · `mod_original_fire_flame`/`_smoke` re-autorados | la luz de fuego queda offline (la asume FASE 4) |
+| FASE 4 | `74a4ec2` | DONE | `phaser/fire_sheet/*` (7 fotogramas + 6 lecturas) · `phaser/fire_animation_sheet.png` · `phaser/fire_animation_measure.json` · `phaser/fire_anchor_measure.json` · `fireAnchors` consumidos desde la silueta rotada | p95 en SwiftShader: no autoriza promoción ni descarta (medir con GPU) |
+| FASE 5 | `f606813` | DONE | `phaser/fx_v2/phaser_fx_v2_sheet.png` (+ `.json`) · `phaser/fx_v2/preset_{day,night}_*.png` · `phaser/fx_v2/p95_attribution.json` · `phaser/fx_v2/fallback_canvas_night_*.png` · presets como tabla reutilizable | el PointLight del rig queda retirado (es el objeto que se rasteriza en el aire); p95 atribuido con brazo de control, no a SwiftShader |
+| FASE 6 | (este commit) | DONE · PENDIENTE DE REVISIÓN HUMANA | `sheets/building_condition_states.png` (+ JSON) · `weathering/damage_section_probe.json` · `building-condition.ts` + test · `fx-street.ts` con `select()` + test · contrato `3d4960953e96` con WP04-D1 cerrado | promocionar la derivación al call site jugable exige sprite `aged` en el catálogo (D-080) y decisión del responsable; las `candidata_mixed_tenement_*` de `fire/` piden re-render → FASE 9 |

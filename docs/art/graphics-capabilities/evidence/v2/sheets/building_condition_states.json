@@ -1,0 +1,146 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/building-condition-sheet.py",
+ "task": "D-111.2 FASE 6 — envejecimiento vs daño",
+ "candidato": "mixed_tenement 1001 (huella 4×2, 3 plantas, mood day_civic)",
+ "fuente": "docs/art/graphics-capabilities/evidence/v2/weathering/day",
+ "veredicto": {
+  "envejecidoConservaLaMismaGeometria": true,
+  "envejecidoIgualQueConservadoEnPxMovidos": 23.01,
+  "danadoPierdeCubierta": true,
+  "danadoAnadeEscombros": 4,
+  "llamasAnadenFuego": 19,
+  "cornisasVivasEnSemiplanoDanado": {
+   "conserved": 8,
+   "aged": 8,
+   "damaged": 0,
+   "burning": 0
+  }
+ },
+ "paneles": [
+  {
+   "tier": "conserved",
+   "etiqueta": "CONSERVADO · operational · condition ≥ 60",
+   "candidateId": "vw_mixed_tenement_1001_conserved",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_conserved.png",
+   "sello": "80fabd113aa5f4518ac3695d6b13d02ed6a6548f82ab00acc94f7c448943e24b",
+   "firmaComposicion": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+   "state": "complete",
+   "weathering": "conserved",
+   "materialProjection": false,
+   "colocaciones": 115,
+   "porGrupo": {
+    "cornisa": 16,
+    "cubierta": 16,
+    "huecos de testero": 42,
+    "huecos del frente": 21,
+    "otros": 20
+   },
+   "cornisasEnSemiplanoDanado": 8,
+   "lumaMedia": 126.16,
+   "desviacionLuma": 31.7,
+   "pixels": [
+    1037,
+    1146
+   ],
+   "deltaLumaMedio": 0.0,
+   "deltaLumaMediano": 0.0,
+   "pixelsMovidosPorcentaje": 0.0,
+   "lumaMediaDelta": 0.0
+  },
+  {
+   "tier": "aged",
+   "etiqueta": "ENVEJECIDO · operational · condition < 60 · integridad > 0",
+   "candidateId": "vw_mixed_tenement_1001_aged",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_aged.png",
+   "sello": "6e1238e098d53e642b41ac025619741227812d041726ce9bfa72dba816766222",
+   "firmaComposicion": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+   "state": "complete",
+   "weathering": "aged",
+   "materialProjection": true,
+   "colocaciones": 115,
+   "porGrupo": {
+    "cornisa": 16,
+    "cubierta": 16,
+    "huecos de testero": 42,
+    "huecos del frente": 21,
+    "otros": 20
+   },
+   "cornisasEnSemiplanoDanado": 8,
+   "lumaMedia": 115.08,
+   "desviacionLuma": 29.72,
+   "pixels": [
+    1037,
+    1146
+   ],
+   "deltaLumaMedio": -11.07,
+   "deltaLumaMediano": -12.35,
+   "pixelsMovidosPorcentaje": 23.01,
+   "lumaMediaDelta": -11.08
+  },
+  {
+   "tier": "damaged",
+   "etiqueta": "DAÑADO · ruin, o condition < 60 sin integridad",
+   "candidateId": "vw_mixed_tenement_1001_damaged",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_damaged.png",
+   "sello": "19455c29aa35d19c24d9339fb37c7cd4cf39f285601ec1a5b0c2e06022b7f42f",
+   "firmaComposicion": "3be7cc2c1c7cee87d1d06cd1f6657e60e678c610954514d1fc70c24ee3ed10bb",
+   "state": "damaged",
+   "weathering": null,
+   "materialProjection": null,
+   "colocaciones": 97,
+   "porGrupo": {
+    "cornisa": 8,
+    "cubierta": 8,
+    "escombros": 4,
+    "huecos de testero": 42,
+    "huecos del frente": 15,
+    "otros": 20
+   },
+   "cornisasEnSemiplanoDanado": 0,
+   "lumaMedia": 126.03,
+   "desviacionLuma": 30.02,
+   "pixels": [
+    1087,
+    1171
+   ],
+   "deltaLumaMedio": -2.21,
+   "deltaLumaMediano": -4.86,
+   "pixelsMovidosPorcentaje": 45.13,
+   "lumaMediaDelta": -0.13
+  },
+  {
+   "tier": "burning",
+   "etiqueta": "EN LLAMAS · burning / collapse_pending",
+   "candidateId": "vw_mixed_tenement_1001_burning",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_burning.png",
+   "sello": "6230a072f752bf8c4d75504ab68571b6f5a47143fe7d29f8244c0e4715f0b6f8",
+   "firmaComposicion": "891e79956f5d4890c6edcd65c57b75ab5faf7bb202b93b95c137362e49bd3b6f",
+   "state": "burning",
+   "weathering": null,
+   "materialProjection": null,
+   "colocaciones": 116,
+   "porGrupo": {
+    "cornisa": 8,
+    "cubierta": 8,
+    "escombros": 4,
+    "fuego/humo": 19,
+    "huecos de testero": 42,
+    "huecos del frente": 15,
+    "otros": 20
+   },
+   "cornisasEnSemiplanoDanado": 0,
+   "lumaMedia": 128.7,
+   "desviacionLuma": 32.63,
+   "pixels": [
+    1087,
+    1265
+   ],
+   "deltaLumaMedio": 0.5,
+   "deltaLumaMediano": -5.76,
+   "pixelsMovidosPorcentaje": 54.57,
+   "lumaMediaDelta": 2.54
+  }
+ ],
+ "png": "docs/art/graphics-capabilities/evidence/v2/sheets/building_condition_states.png"
+}

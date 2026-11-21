@@ -4019,7 +4019,7 @@
  },
  "weathering": {
   "contractId": "graphic_civic_weathering_v1",
-  "contractSha256": "22a02a14a4f3005d199442c241088ba10e24b53206b1f1715213bfa58749044f",
+  "contractSha256": "fb9e3abce037b207b0dd1be0243735c327569cbf72702edd49b6be3ea3a15a5f",
   "visualState": "aged",
   "label": "envejecido",
   "spriteState": "complete",
@@ -5525,10 +5525,10 @@
  "triangleCount": 24162,
  "materialCount": 23,
  "textureCount": 23,
- "renderTime": 13564.79,
- "pngBytes": 1342033,
- "sha256": "3ef4ecfd40768fb349817bde223be6f5f6fa547bbad422193b0d2dc0d8b967e4",
- "pixelSha256": "aaea66ce6c5dd8a2457273ac96639a8086b9aacef7368e53bd4c48a838498f72",
+ "renderTime": 15754.08,
+ "pngBytes": 1342036,
+ "sha256": "15d46f147d3a8f196508bbccc213ffd39263cc86ecdd292a8ecf3d3f29494126",
+ "pixelSha256": "6e1238e098d53e642b41ac025619741227812d041726ce9bfa72dba816766222",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -5571,11 +5571,11 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T1120/vw_mixed_tenement_1001_aged.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T2259/vw_mixed_tenement_1001_aged.png",
   "width": 1037,
   "height": 1146,
-  "sha256": "3ef4ecfd40768fb349817bde223be6f5f6fa547bbad422193b0d2dc0d8b967e4",
-  "bytes": 1342033
+  "sha256": "15d46f147d3a8f196508bbccc213ffd39263cc86ecdd292a8ecf3d3f29494126",
+  "bytes": 1342036
  },
  "trim": {
   "rendered": {
@@ -5716,7 +5716,7 @@
   "renderPixels": {
    "width": 1368,
    "height": 1512,
-   "sha256": "ff27cb1d3bd626b6c92b187f33ef2d42c2d42334725fa6879ad910fb214d1e3e"
+   "sha256": "534d34c1c6667f5d7b99919c782ccb9ed7cd955d5f0e54036fd4733f97c35c4a"
   },
   "pixels": {
    "width": 4104,
@@ -5725,10 +5725,10 @@
   }
  },
  "render": {
-  "renderMs": 13564.79,
-  "prepMs": 22083.09,
-  "totalMs": 53920.92,
-  "peakRssMb": 4571.0
+  "renderMs": 15754.08,
+  "prepMs": 24664.73,
+  "totalMs": 58003.15,
+  "peakRssMb": 4572.7
  },
  "request": {
   "candidateId": "vw_mixed_tenement_1001_aged",
@@ -5746,8 +5746,8 @@
   "state": "complete",
   "constructionStage": null,
   "weathering": "aged",
-  "output": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T1120/vw_mixed_tenement_1001_aged.png",
-  "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T1120/vw_mixed_tenement_1001_aged.json"
+  "output": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T2259/vw_mixed_tenement_1001_aged.png",
+  "metadata": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/weathering/attempts/2026-11-21T2259/vw_mixed_tenement_1001_aged.json"
  },
  "composition": {
   "buildingType": "mixed_tenement",

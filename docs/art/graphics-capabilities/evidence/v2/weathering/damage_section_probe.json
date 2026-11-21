@@ -1,0 +1,362 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "tools/art-pipeline/blender/ext_lab/damage_section_probe.py",
+ "task": "D-111.2 §6.3 — anomalía de cornisas en `_compose_damage` (WP04-D1)",
+ "candidateDir": "docs/art/graphics-capabilities/evidence/v2/weathering/day",
+ "rules": {
+  "igualdad_WP04": "purpose.startswith('roof') | purpose in ('dormer','cornice') — la igualdad nunca casa con los ids compuestos, y los dormerios ya viajan bajo 'roof:…'",
+  "prefijo_corregida": "purpose.startswith(('roof', 'cornice')) — lo que publica el compositor"
+ },
+ "candidates": [
+  {
+   "candidateId": "vw_mixed_tenement_1001_aged",
+   "state": "complete",
+   "weathering": "aged",
+   "peticion": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_aged.json",
+   "firmas": {
+    "composicion": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+    "publicada": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+    "coinciden": true
+   },
+   "compuesto": {
+    "total": 115,
+    "porGrupo": {
+     "band:front:level1": 7,
+     "band:front:level2": 8,
+     "band:front:level3": 6,
+     "cornice": 16,
+     "otro": 62,
+     "roof": 16
+    },
+    "enSemiplanoDanado": {
+     "band:front:level1": 4,
+     "band:front:level2": 4,
+     "band:front:level3": 2,
+     "cornice": 8,
+     "otro": 33,
+     "roof": 8
+    }
+   },
+   "regla_igualdad_WP04": {
+    "retiradas": 14,
+    "porGrupo": {
+     "band:front:level2": 4,
+     "band:front:level3": 2,
+     "roof": 8
+    },
+    "cajaDanio": {
+     "rect": [
+      0.0,
+      -4.017,
+      8.012,
+      0.017
+     ],
+     "z": [
+      3.0,
+      12.028
+     ]
+    }
+   },
+   "regla_prefijo_corregida": {
+    "retiradas": 22,
+    "porGrupo": {
+     "band:front:level2": 4,
+     "band:front:level3": 2,
+     "cornice": 8,
+     "roof": 8
+    },
+    "cajaDanio": {
+     "rect": [
+      0.0,
+      -4.428,
+      8.012,
+      0.017
+     ],
+     "z": [
+      3.0,
+      12.028
+     ]
+    }
+   }
+  },
+  {
+   "candidateId": "vw_mixed_tenement_1001_burning",
+   "state": "burning",
+   "weathering": null,
+   "peticion": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_burning.json",
+   "firmas": {
+    "composicion": "891e79956f5d4890c6edcd65c57b75ab5faf7bb202b93b95c137362e49bd3b6f",
+    "publicada": "891e79956f5d4890c6edcd65c57b75ab5faf7bb202b93b95c137362e49bd3b6f",
+    "coinciden": true
+   },
+   "compuesto": {
+    "total": 116,
+    "porGrupo": {
+     "band:front:level1": 7,
+     "band:front:level2": 4,
+     "band:front:level3": 4,
+     "cornice": 8,
+     "damage:debris": 4,
+     "fire": 19,
+     "otro": 62,
+     "roof": 8
+    },
+    "enSemiplanoDanado": {
+     "band:front:level1": 4,
+     "damage:debris": 4,
+     "fire": 19,
+     "otro": 33
+    }
+   },
+   "cornisasVivasEnSemiplanoDanado": 0,
+   "anclasDeFuego": [
+    {
+     "focus": "fire:flame:0",
+     "x": 1.551,
+     "y": -1.572,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:1",
+     "x": 1.817,
+     "y": -1.857,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:2",
+     "x": 1.122,
+     "y": -1.19,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:3",
+     "x": 1.058,
+     "y": -1.93,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:4",
+     "x": 2.157,
+     "y": -1.069,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:5",
+     "x": 3.883,
+     "y": -2.003,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:6",
+     "x": 4.473,
+     "y": -1.84,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:7",
+     "x": 3.649,
+     "y": -2.543,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:8",
+     "x": 3.422,
+     "y": -1.476,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:9",
+     "x": 6.043,
+     "y": -2.353,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:10",
+     "x": 6.083,
+     "y": -2.42,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:11",
+     "x": 6.633,
+     "y": -2.008,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:12",
+     "x": 5.42,
+     "y": -2.553,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:window:0",
+     "x": 3.0,
+     "y": -3.9,
+     "z": 6.0
+    },
+    {
+     "focus": "fire:flame:window:1",
+     "x": 7.0,
+     "y": -3.9,
+     "z": 3.0
+    },
+    {
+     "focus": "fire:flame:window:2",
+     "x": 1.0,
+     "y": -3.9,
+     "z": 6.0
+    },
+    {
+     "focus": "fire:smoke:0",
+     "x": 3.822,
+     "y": -1.967,
+     "z": 4.868
+    },
+    {
+     "focus": "fire:smoke:1",
+     "x": 3.622,
+     "y": -1.858,
+     "z": 6.205
+    },
+    {
+     "focus": "fire:smoke:2",
+     "x": 3.422,
+     "y": -1.749,
+     "z": 8.211
+    }
+   ]
+  },
+  {
+   "candidateId": "vw_mixed_tenement_1001_conserved",
+   "state": "complete",
+   "weathering": "conserved",
+   "peticion": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_conserved.json",
+   "firmas": {
+    "composicion": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+    "publicada": "175d2309dd83a540cfef5b82b9cb5aa45af251c1e2aafe7907fda71731f0ce2a",
+    "coinciden": true
+   },
+   "compuesto": {
+    "total": 115,
+    "porGrupo": {
+     "band:front:level1": 7,
+     "band:front:level2": 8,
+     "band:front:level3": 6,
+     "cornice": 16,
+     "otro": 62,
+     "roof": 16
+    },
+    "enSemiplanoDanado": {
+     "band:front:level1": 4,
+     "band:front:level2": 4,
+     "band:front:level3": 2,
+     "cornice": 8,
+     "otro": 33,
+     "roof": 8
+    }
+   },
+   "regla_igualdad_WP04": {
+    "retiradas": 14,
+    "porGrupo": {
+     "band:front:level2": 4,
+     "band:front:level3": 2,
+     "roof": 8
+    },
+    "cajaDanio": {
+     "rect": [
+      0.0,
+      -4.017,
+      8.012,
+      0.017
+     ],
+     "z": [
+      3.0,
+      12.028
+     ]
+    }
+   },
+   "regla_prefijo_corregida": {
+    "retiradas": 22,
+    "porGrupo": {
+     "band:front:level2": 4,
+     "band:front:level3": 2,
+     "cornice": 8,
+     "roof": 8
+    },
+    "cajaDanio": {
+     "rect": [
+      0.0,
+      -4.428,
+      8.012,
+      0.017
+     ],
+     "z": [
+      3.0,
+      12.028
+     ]
+    }
+   }
+  },
+  {
+   "candidateId": "vw_mixed_tenement_1001_damaged",
+   "state": "damaged",
+   "weathering": null,
+   "peticion": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_damaged.json",
+   "firmas": {
+    "composicion": "3be7cc2c1c7cee87d1d06cd1f6657e60e678c610954514d1fc70c24ee3ed10bb",
+    "publicada": "3be7cc2c1c7cee87d1d06cd1f6657e60e678c610954514d1fc70c24ee3ed10bb",
+    "coinciden": true
+   },
+   "compuesto": {
+    "total": 97,
+    "porGrupo": {
+     "band:front:level1": 7,
+     "band:front:level2": 4,
+     "band:front:level3": 4,
+     "cornice": 8,
+     "damage:debris": 4,
+     "otro": 62,
+     "roof": 8
+    },
+    "enSemiplanoDanado": {
+     "band:front:level1": 4,
+     "damage:debris": 4,
+     "otro": 33
+    }
+   },
+   "cornisasVivasEnSemiplanoDanado": 0
+  }
+ ],
+ "verdict": {
+  "candidatoMedido": "vw_mixed_tenement_1001_conserved",
+  "retiradasAntes": 14,
+  "retiradasDespues": 22,
+  "diferenciaModulos": 8,
+  "cajaDanioAntes": {
+   "rect": [
+    0.0,
+    -4.017,
+    8.012,
+    0.017
+   ],
+   "z": [
+    3.0,
+    12.028
+   ]
+  },
+  "cajaDanioDespues": {
+   "rect": [
+    0.0,
+    -4.428,
+    8.012,
+    0.017
+   ],
+   "z": [
+    3.0,
+    12.028
+   ]
+  },
+  "firmasIntactas": true,
+  "cornisasVivasEnDanados": 0
+ }
+}

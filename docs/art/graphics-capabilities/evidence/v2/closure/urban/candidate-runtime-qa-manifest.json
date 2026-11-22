@@ -1,0 +1,830 @@
+{
+ "schemaVersion": 1,
+ "purpose": "cuatro candidatas WP06 dentro de Phaser sobre el mundo real; la fila QA es muestra rotulada, no evolución de la partida",
+ "bundle": {
+  "servedFrom": "http://127.0.0.1:39671",
+  "cameraTest": true
+ },
+ "qaPlacements": [
+  {
+   "row": 61,
+   "start": 34,
+   "cells": [
+    {
+     "x": 34,
+     "y": 61
+    },
+    {
+     "x": 35,
+     "y": 61
+    },
+    {
+     "x": 36,
+     "y": 61
+    },
+    {
+     "x": 37,
+     "y": 61
+    },
+    {
+     "x": 38,
+     "y": 61
+    },
+    {
+     "x": 41,
+     "y": 61
+    },
+    {
+     "x": 42,
+     "y": 61
+    },
+    {
+     "x": 43,
+     "y": 61
+    },
+    {
+     "x": 44,
+     "y": 61
+    },
+    {
+     "x": 45,
+     "y": 61
+    }
+   ],
+   "midCell": {
+    "x": 37,
+    "y": 61
+   },
+   "zooms": []
+  },
+  {
+   "row": 53,
+   "start": 43,
+   "cells": [
+    {
+     "x": 43,
+     "y": 53
+    },
+    {
+     "x": 44,
+     "y": 53
+    },
+    {
+     "x": 45,
+     "y": 53
+    },
+    {
+     "x": 46,
+     "y": 53
+    },
+    {
+     "x": 47,
+     "y": 53
+    },
+    {
+     "x": 50,
+     "y": 53
+    },
+    {
+     "x": 51,
+     "y": 53
+    },
+    {
+     "x": 52,
+     "y": 53
+    },
+    {
+     "x": 53,
+     "y": 53
+    },
+    {
+     "x": 54,
+     "y": 53
+    }
+   ],
+   "midCell": {
+    "x": 46,
+    "y": 53
+   },
+   "zooms": []
+  },
+  {
+   "row": 44,
+   "start": 34,
+   "cells": [
+    {
+     "x": 34,
+     "y": 44
+    },
+    {
+     "x": 35,
+     "y": 44
+    },
+    {
+     "x": 36,
+     "y": 44
+    },
+    {
+     "x": 37,
+     "y": 44
+    },
+    {
+     "x": 38,
+     "y": 44
+    },
+    {
+     "x": 41,
+     "y": 44
+    },
+    {
+     "x": 42,
+     "y": 44
+    },
+    {
+     "x": 43,
+     "y": 44
+    },
+    {
+     "x": 44,
+     "y": 44
+    },
+    {
+     "x": 45,
+     "y": 44
+    }
+   ],
+   "midCell": {
+    "x": 37,
+    "y": 44
+   },
+   "zooms": []
+  },
+  {
+   "row": 36,
+   "start": 43,
+   "cells": [
+    {
+     "x": 43,
+     "y": 36
+    },
+    {
+     "x": 44,
+     "y": 36
+    },
+    {
+     "x": 45,
+     "y": 36
+    },
+    {
+     "x": 46,
+     "y": 36
+    },
+    {
+     "x": 47,
+     "y": 36
+    },
+    {
+     "x": 50,
+     "y": 36
+    },
+    {
+     "x": 51,
+     "y": 36
+    },
+    {
+     "x": 52,
+     "y": 36
+    },
+    {
+     "x": 53,
+     "y": 36
+    },
+    {
+     "x": 54,
+     "y": 36
+    }
+   ],
+   "midCell": {
+    "x": 46,
+    "y": 36
+   },
+   "zooms": []
+  }
+ ],
+ "candidates": [
+  {
+   "buildingType": "row_house",
+   "control": {
+    "role": "simulacion_no: sprite aprobado del catálogo, colocado como muestra QA",
+    "textureSrc": "/assets/runtime/blender/row_house-complete.png",
+    "sha256": "b3f5bfd263d754c33717a89d7897348edda100e776625bb0d02c27687e2fc6c2",
+    "pivot": {
+     "x": 0.5709,
+     "y": 0.687
+    },
+    "footprint": {
+     "width": 4,
+     "height": 1
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 34,
+     "y": 61
+    }
+   },
+   "candidata": {
+    "role": "sprite candidato QA, colocado para revisión — NO promocionado",
+    "candidateProfile": "gn_residential_v2",
+    "candidateId": "w06cnd_row_house_17",
+    "compositionSignature": "5468186522adad63b78e8d20c2d299b6442cab4a0fb4d533ded9714b365fae7b",
+    "variantSeed": 17,
+    "state": "complete",
+    "url": "/qa-candidates/wp06_row_house-candidata.png",
+    "pngSha256": "e166549013cea5b807cdd660a0733f76ca352d35b3b50811131a89f342cad11b",
+    "pivot": {
+     "x": 0.5713,
+     "y": 0.6996
+    },
+    "footprint": {
+     "width": 4,
+     "height": 1
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 41,
+     "y": 61
+    }
+   }
+  },
+  {
+   "buildingType": "mixed_tenement",
+   "control": {
+    "role": "simulacion_no: sprite aprobado del catálogo, colocado como muestra QA",
+    "textureSrc": "/assets/runtime/blender/mixed_tenement-complete.png",
+    "sha256": "521c20e948a37f8f5dfee76d6fbf897801bf208e85ab88125a3bf40592650389",
+    "pivot": {
+     "x": 0.5082,
+     "y": 0.8121
+    },
+    "footprint": {
+     "width": 4,
+     "height": 2
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 43,
+     "y": 53
+    }
+   },
+   "candidata": {
+    "role": "sprite candidato QA, colocado para revisión — NO promocionado",
+    "candidateProfile": "gn_residential_v2",
+    "candidateId": "w06cnd_mixed_tenement_2",
+    "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+    "variantSeed": 2,
+    "state": "complete",
+    "url": "/qa-candidates/wp06_mixed_tenement-candidata.png",
+    "pngSha256": "f797af0ba251054d494a6aac693707b5adbe77c1a51759d9884239a033bebf7a",
+    "pivot": {
+     "x": 0.5119,
+     "y": 0.7473
+    },
+    "footprint": {
+     "width": 4,
+     "height": 2
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 50,
+     "y": 53
+    }
+   }
+  },
+  {
+   "buildingType": "town_hall",
+   "control": {
+    "role": "simulacion_no: sprite aprobado del catálogo, colocado como muestra QA",
+    "textureSrc": "/assets/runtime/blender/town_hall-complete.png",
+    "sha256": "862a3c9b7ecbf467496dad11c8f3bfa0a5faa395bc6e05ae2e892a3ae6506ca8",
+    "pivot": {
+     "x": 0.4664,
+     "y": 0.7947
+    },
+    "footprint": {
+     "width": 5,
+     "height": 3
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 34,
+     "y": 44
+    }
+   },
+   "candidata": {
+    "role": "sprite candidato QA, colocado para revisión — NO promocionado",
+    "candidateProfile": "ag_civic_v2",
+    "candidateId": "w06cnd_town_hall_2",
+    "compositionSignature": "d950e513e67ea9e456a32f87a53b965cc3c708513ff509025a855e3bd90abce2",
+    "variantSeed": 2,
+    "state": "complete",
+    "url": "/qa-candidates/wp06_town_hall-candidata.png",
+    "pngSha256": "f75a826ae42dc9293adaadbb7ef2920b9d1a41e7a599661048bcf870a78aa23c",
+    "pivot": {
+     "x": 0.5724,
+     "y": 0.6752
+    },
+    "footprint": {
+     "width": 5,
+     "height": 3
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 41,
+     "y": 44
+    }
+   }
+  },
+  {
+   "buildingType": "warehouse",
+   "control": {
+    "role": "simulacion_no: sprite aprobado del catálogo, colocado como muestra QA",
+    "textureSrc": "/assets/runtime/blender/warehouse-complete.png",
+    "sha256": "6c83f4bfa3c89660074f547f53489c9de276baf8dd27b833c318be8427910ff2",
+    "pivot": {
+     "x": 0.5858,
+     "y": 0.5591
+    },
+    "footprint": {
+     "width": 4,
+     "height": 3
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 43,
+     "y": 36
+    }
+   },
+   "candidata": {
+    "role": "sprite candidato QA, colocado para revisión — NO promocionado",
+    "candidateProfile": "gn_industrial_v2",
+    "candidateId": "w06cnd_warehouse_2",
+    "compositionSignature": "460b94c4e4476931c4c8367228778f5c944cdfa5ca36898df1bbcc1e62200701",
+    "variantSeed": 2,
+    "state": "complete",
+    "url": "/qa-candidates/wp06_warehouse-candidata.png",
+    "pngSha256": "7b4f6eb7b04c5fc6ecf6869fd8b734368eae5698f42cf3cadafc6ddc37a3ba68",
+    "pivot": {
+     "x": 0.5725,
+     "y": 0.5416
+    },
+    "footprint": {
+     "width": 4,
+     "height": 3
+    },
+    "pixelsPerMeter": 60.2,
+    "cell": {
+     "x": 50,
+     "y": 36
+    }
+   }
+  }
+ ],
+ "placed": [
+  {
+   "name": "row_house-control",
+   "textureKey": "qa-candidate-row_house-control",
+   "cell": {
+    "x": 34,
+    "y": 61
+   },
+   "x": -304,
+   "y": 1608,
+   "scale": 0.18793535712599269,
+   "label": "CONTROL · row_house · catálogo aprobado",
+   "visible": true
+  },
+  {
+   "name": "row_house-candidata",
+   "textureKey": "qa-candidate-row_house-candidata",
+   "cell": {
+    "x": 41,
+    "y": 61
+   },
+   "x": -80,
+   "y": 1720,
+   "scale": 0.18793535712599269,
+   "label": "CANDIDATA WP06 · row_house · gn_residential_v2",
+   "visible": true
+  },
+  {
+   "name": "mixed_tenement-control",
+   "textureKey": "qa-candidate-mixed_tenement-control",
+   "cell": {
+    "x": 43,
+    "y": 53
+   },
+   "x": 224,
+   "y": 1632,
+   "scale": 0.18793535712599269,
+   "label": "CONTROL · mixed_tenement · catálogo aprobado",
+   "visible": true
+  },
+  {
+   "name": "mixed_tenement-candidata",
+   "textureKey": "qa-candidate-mixed_tenement-candidata",
+   "cell": {
+    "x": 50,
+    "y": 53
+   },
+   "x": 448,
+   "y": 1744,
+   "scale": 0.18793535712599269,
+   "label": "CANDIDATA WP06 · mixed_tenement · gn_residential_v2",
+   "visible": true
+  },
+  {
+   "name": "town_hall-control",
+   "textureKey": "qa-candidate-town_hall-control",
+   "cell": {
+    "x": 34,
+    "y": 44
+   },
+   "x": 224,
+   "y": 1360,
+   "scale": 0.18793535712599269,
+   "label": "CONTROL · town_hall · catálogo aprobado",
+   "visible": true
+  },
+  {
+   "name": "town_hall-candidata",
+   "textureKey": "qa-candidate-town_hall-candidata",
+   "cell": {
+    "x": 41,
+    "y": 44
+   },
+   "x": 448,
+   "y": 1472,
+   "scale": 0.18793535712599269,
+   "label": "CANDIDATA WP06 · town_hall · ag_civic_v2",
+   "visible": true
+  },
+  {
+   "name": "warehouse-control",
+   "textureKey": "qa-candidate-warehouse-control",
+   "cell": {
+    "x": 43,
+    "y": 36
+   },
+   "x": 752,
+   "y": 1368,
+   "scale": 0.18793535712599269,
+   "label": "CONTROL · warehouse · catálogo aprobado",
+   "visible": true
+  },
+  {
+   "name": "warehouse-candidata",
+   "textureKey": "qa-candidate-warehouse-candidata",
+   "cell": {
+    "x": 50,
+    "y": 36
+   },
+   "x": 976,
+   "y": 1480,
+   "scale": 0.18793535712599269,
+   "label": "CANDIDATA WP06 · warehouse · gn_industrial_v2",
+   "visible": true
+  }
+ ],
+ "captures": [
+  {
+   "file": "row_house_pair_10x.png",
+   "buildingType": "row_house",
+   "zoom": 1,
+   "centerCell": {
+    "x": 37,
+    "y": 61
+   },
+   "pairRow": 61,
+   "pairStartX": 34,
+   "pngSha256": "5fc62b401d681a249d1f24916764bc18d51b6b71c023538a1997c19a4cf0ec08",
+   "pngBytes": 971450,
+   "placed": [
+    {
+     "name": "row_house-control",
+     "textureKey": "qa-candidate-row_house-control",
+     "cell": {
+      "x": 34,
+      "y": 61
+     },
+     "x": -304,
+     "y": 1608,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · row_house · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "row_house-candidata",
+     "textureKey": "qa-candidate-row_house-candidata",
+     "cell": {
+      "x": 41,
+      "y": 61
+     },
+     "x": -80,
+     "y": 1720,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · row_house · gn_residential_v2",
+     "visible": true
+    }
+   ]
+  },
+  {
+   "file": "mixed_tenement_pair_10x.png",
+   "buildingType": "mixed_tenement",
+   "zoom": 1,
+   "centerCell": {
+    "x": 46,
+    "y": 53
+   },
+   "pairRow": 53,
+   "pairStartX": 43,
+   "pngSha256": "eee0bc1e1864875c2b33084cc1962f18e59bf5291f564743a02ad4d2bd9c8a1f",
+   "pngBytes": 1258805,
+   "placed": [
+    {
+     "name": "mixed_tenement-control",
+     "textureKey": "qa-candidate-mixed_tenement-control",
+     "cell": {
+      "x": 43,
+      "y": 53
+     },
+     "x": 224,
+     "y": 1632,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · mixed_tenement · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "mixed_tenement-candidata",
+     "textureKey": "qa-candidate-mixed_tenement-candidata",
+     "cell": {
+      "x": 50,
+      "y": 53
+     },
+     "x": 448,
+     "y": 1744,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · mixed_tenement · gn_residential_v2",
+     "visible": true
+    }
+   ]
+  },
+  {
+   "file": "town_hall_pair_10x.png",
+   "buildingType": "town_hall",
+   "zoom": 1,
+   "centerCell": {
+    "x": 37,
+    "y": 44
+   },
+   "pairRow": 44,
+   "pairStartX": 34,
+   "pngSha256": "862fff4e57fbafd3c9866b541f305de2c8c216884e7bc2051b4ec66000f5c806",
+   "pngBytes": 1449246,
+   "placed": [
+    {
+     "name": "town_hall-control",
+     "textureKey": "qa-candidate-town_hall-control",
+     "cell": {
+      "x": 34,
+      "y": 44
+     },
+     "x": 224,
+     "y": 1360,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · town_hall · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "town_hall-candidata",
+     "textureKey": "qa-candidate-town_hall-candidata",
+     "cell": {
+      "x": 41,
+      "y": 44
+     },
+     "x": 448,
+     "y": 1472,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · town_hall · ag_civic_v2",
+     "visible": true
+    }
+   ]
+  },
+  {
+   "file": "warehouse_pair_10x.png",
+   "buildingType": "warehouse",
+   "zoom": 1,
+   "centerCell": {
+    "x": 46,
+    "y": 36
+   },
+   "pairRow": 36,
+   "pairStartX": 43,
+   "pngSha256": "c55815c30010fe0922685441810c2b598e1238c62963afa4f28915e66c3b44df",
+   "pngBytes": 1412341,
+   "placed": [
+    {
+     "name": "warehouse-control",
+     "textureKey": "qa-candidate-warehouse-control",
+     "cell": {
+      "x": 43,
+      "y": 36
+     },
+     "x": 752,
+     "y": 1368,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · warehouse · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "warehouse-candidata",
+     "textureKey": "qa-candidate-warehouse-candidata",
+     "cell": {
+      "x": 50,
+      "y": 36
+     },
+     "x": 976,
+     "y": 1480,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · warehouse · gn_industrial_v2",
+     "visible": true
+    }
+   ]
+  },
+  {
+   "file": "row_house_pair_05x.png",
+   "buildingType": "row_house",
+   "zoom": 0.5,
+   "centerCell": {
+    "x": 37,
+    "y": 61
+   },
+   "pairRow": 61,
+   "pairStartX": 34,
+   "pngSha256": "5a101b1541571e91160da861fc0b816b85f2a52850682f5c3bce3308b3383e46",
+   "pngBytes": 740384,
+   "placed": [
+    {
+     "name": "row_house-control",
+     "textureKey": "qa-candidate-row_house-control",
+     "cell": {
+      "x": 34,
+      "y": 61
+     },
+     "x": -304,
+     "y": 1608,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · row_house · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "row_house-candidata",
+     "textureKey": "qa-candidate-row_house-candidata",
+     "cell": {
+      "x": 41,
+      "y": 61
+     },
+     "x": -80,
+     "y": 1720,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · row_house · gn_residential_v2",
+     "visible": true
+    }
+   ]
+  },
+  {
+   "file": "mixed_tenement_pair_05x.png",
+   "buildingType": "mixed_tenement",
+   "zoom": 0.5,
+   "centerCell": {
+    "x": 46,
+    "y": 53
+   },
+   "pairRow": 53,
+   "pairStartX": 43,
+   "pngSha256": "8c49e3fbb2c69deeb9562d8e28afe88f39b94655a207f2ade8b05a191c881d62",
+   "pngBytes": 1032034,
+   "placed": [
+    {
+     "name": "mixed_tenement-control",
+     "textureKey": "qa-candidate-mixed_tenement-control",
+     "cell": {
+      "x": 43,
+      "y": 53
+     },
+     "x": 224,
+     "y": 1632,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · mixed_tenement · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "mixed_tenement-candidata",
+     "textureKey": "qa-candidate-mixed_tenement-candidata",
+     "cell": {
+      "x": 50,
+      "y": 53
+     },
+     "x": 448,
+     "y": 1744,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · mixed_tenement · gn_residential_v2",
+     "visible": true
+    }
+   ]
+  },
+  {
+   "file": "town_hall_pair_05x.png",
+   "buildingType": "town_hall",
+   "zoom": 0.5,
+   "centerCell": {
+    "x": 37,
+    "y": 44
+   },
+   "pairRow": 44,
+   "pairStartX": 34,
+   "pngSha256": "1964ffc3b813fbe47ad61f35fbf53319761cf440255f0dfdf6357c94cc5a1c57",
+   "pngBytes": 855697,
+   "placed": [
+    {
+     "name": "town_hall-control",
+     "textureKey": "qa-candidate-town_hall-control",
+     "cell": {
+      "x": 34,
+      "y": 44
+     },
+     "x": 224,
+     "y": 1360,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · town_hall · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "town_hall-candidata",
+     "textureKey": "qa-candidate-town_hall-candidata",
+     "cell": {
+      "x": 41,
+      "y": 44
+     },
+     "x": 448,
+     "y": 1472,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · town_hall · ag_civic_v2",
+     "visible": true
+    }
+   ]
+  },
+  {
+   "file": "warehouse_pair_05x.png",
+   "buildingType": "warehouse",
+   "zoom": 0.5,
+   "centerCell": {
+    "x": 46,
+    "y": 36
+   },
+   "pairRow": 36,
+   "pairStartX": 43,
+   "pngSha256": "d1b684d1120b66a2b2bc45383099629b41f3bd29bbcae6469023e8ddf33cad07",
+   "pngBytes": 1046102,
+   "placed": [
+    {
+     "name": "warehouse-control",
+     "textureKey": "qa-candidate-warehouse-control",
+     "cell": {
+      "x": 43,
+      "y": 36
+     },
+     "x": 752,
+     "y": 1368,
+     "scale": 0.18793535712599269,
+     "label": "CONTROL · warehouse · catálogo aprobado",
+     "visible": true
+    },
+    {
+     "name": "warehouse-candidata",
+     "textureKey": "qa-candidate-warehouse-candidata",
+     "cell": {
+      "x": 50,
+      "y": 36
+     },
+     "x": 976,
+     "y": 1480,
+     "scale": 0.18793535712599269,
+     "label": "CANDIDATA WP06 · warehouse · gn_industrial_v2",
+     "visible": true
+    }
+   ]
+  }
+ ],
+ "pageErrors": [],
+ "capturedAt": "2026-11-22T09:49:17.762Z"
+}

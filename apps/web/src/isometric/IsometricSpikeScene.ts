@@ -351,6 +351,31 @@ export type MapPlacementTarget = {
   selectedCandidateId: string | null;
 };
 
+type CandidateQaPlacement = {
+  /** Clave única de la muestra, p. ej. `town_hall-candidata`. */
+  name: string;
+  /** URL servida por el preview: `/assets/runtime/…` (control) o `/qa-candidates/…` (candidata). */
+  url: string;
+  pivot: { x: number; y: number };
+  footprint: { width: number; height: number };
+  /** px/m del render Blender: la escala la resuelve la escena con SU layout, no el arnés. */
+  pixelsPerMeter: number;
+  cell: GridCell;
+  /** Rótulo QA que se dibuja bajo el sprite: qué es y de dónde viene. */
+  label: string;
+};
+
+type CandidateQaProbe = {
+  name: string;
+  textureKey: string;
+  cell: GridCell;
+  x: number;
+  y: number;
+  scale: number;
+  label: string;
+  visible: boolean;
+};
+
 type CameraTestApi = {
   configure(camera: { zoom: number; scrollX: number; scrollY: number }): void;
   getCamera(): { zoom: number; scrollX: number; scrollY: number };
@@ -421,6 +446,15 @@ type CameraTestApi = {
     visible: boolean;
     screen: ScreenPoint;
   }>;
+  /**
+   * D-111.2 cierre FASE 3 · ruta QA para las candidatas del Building Composer. Sólo llega por
+   * `__landlordCameraTest` desde el arnés: carga el PNG por URL, lo coloca en las celdas que pide el
+   * arnés con el pivote y la escala que publica la metadata, y lo rotula como muestra de candidatos.
+   * No sustituye ningún sprite del catálogo ni entra en la simulación: son imágenes QA sobre el mundo
+   * real, y la sonda distingue lo que la partida generó de lo que se colocó para revisión.
+   */
+  placeCandidateQa(items: CandidateQaPlacement[]): void;
+  listCandidateQa(): CandidateQaProbe[];
   listParcelMarks(): Array<{
     id: string;
     parcelId: string;
@@ -542,6 +576,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private signageLocale: string = DEFAULT_SIGNAGE_LOCALE;
   /** Identificador de la placa bajo el cursor, para la densidad adaptativa de zoom lejano. */
   private hoveredSignageId: string | null = null;
+  /**
+   * D-111.2 cierre FASE 3 · muestras candidata QA colocadas por `placeCandidateQa`. Viv fuera del
+   * catálogo: ninguna de estas texturas entra en el cache de variantes ni en el presupuesto D-101.
+   */
+  private candidateQaSamples = new Map<string, CandidateQaProbe>();
   private pendingVariantTextures = new Map<string, { bytes: number; districtId: string }>();
   private pendingCourtyardTextures = new Set<string>();
   private variantCache = new DistrictTextureCache(VARIANT_CACHE_BUDGET_BYTES);
@@ -2706,6 +2745,68 @@ export class IsometricSpikeScene extends Phaser.Scene {
   }
 
   /** V.j.6: carga perezosa por distrito; el arranque no carga el catálogo (D-102). */
+  /**
+   * D-111.2 cierre FASE 3 · coloca las muestras candidata QA. La carga de texturas es la misma vía
+   * perezosa de `ensureVariantTexture` (`load.image` + `load.start()` post-boot), pero el registro es
+   * propio: ninguna de estas imágenes entra en el cache de variantes ni cuenta en el presupuesto de
+   * memoria del catálogo. El rótulo bajo cada sprite es lo que distingue la muestra QA de un edificio
+   * que la partida haya generado de verdad.
+   */
+  private placeCandidateQaItems(items: readonly CandidateQaPlacement[]): void {
+    if (this.sceneDestroyed) return;
+    let pendingUrl = false;
+    for (const item of items) {
+      if (this.candidateQaSamples.has(item.name)) continue;
+      const key = `qa-candidate-${item.name}`;
+      if (!this.textures.exists(key)) {
+        pendingUrl = true;
+        this.load.image(key, item.url);
+      }
+    }
+    const placeAll = (): void => {
+      if (this.sceneDestroyed) return;
+      for (const item of items) {
+        if (this.candidateQaSamples.has(item.name)) continue;
+        const key = `qa-candidate-${item.name}`;
+        if (!this.textures.exists(key)) continue;
+        const center = gridToScreen(footprintCenter(item.cell, item.footprint), this.layout);
+        const sprite = this.add.image(center.x, center.y, key);
+        const origin = originFromPivot({ pivot: item.pivot });
+        const scale = spriteScaleFor({ pixelsPerMeter: item.pixelsPerMeter }, this.layout.tileWidth);
+        sprite.setOrigin(origin.x, origin.y);
+        sprite.setScale(scale);
+        sprite.setDepth(depthForAsset(item.cell, item.footprint));
+        const label = this.add
+          .text(center.x, sprite.y + sprite.displayHeight * (1 - sprite.originY) + 14, item.label, {
+            resolution: 2,
+            fontFamily: "monospace",
+            fontSize: "13px",
+            color: "#ffd9a0",
+            backgroundColor: "#0b1422cc",
+            padding: { x: 4, y: 2 },
+          })
+          .setOrigin(0.5, 0)
+          .setDepth(2_000_000);
+        this.candidateQaSamples.set(item.name, {
+          name: item.name,
+          textureKey: key,
+          cell: { ...item.cell },
+          x: Math.round(sprite.x),
+          y: Math.round(sprite.y),
+          scale,
+          label: item.label,
+          visible: sprite.visible && label.visible,
+        });
+      }
+    };
+    if (pendingUrl) {
+      this.load.once("complete", placeAll);
+      if (!this.load.isLoading()) this.load.start();
+    } else {
+      placeAll();
+    }
+  }
+
   private ensureVariantTexture(key: string, src: string, bytes: number, districtId: string): void {
     if (this.textures.exists(key)) {
       this.variantCache.recordLoad(key, bytes, districtId);
@@ -3396,6 +3497,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
         this.setSelectionTarget(target);
       },
       getProjection: () => this.projection,
+      placeCandidateQa: (items) => {
+        this.placeCandidateQaItems(items);
+      },
+      listCandidateQa: () => [...this.candidateQaSamples.values()],
       listScenery: () => {
         camera.preRender();
         const view = camera.worldView;

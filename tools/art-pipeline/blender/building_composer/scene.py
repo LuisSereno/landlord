@@ -1420,7 +1420,12 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
             # Pico 1,35 en vez del 2,0 del control: con la escala del módulo (núcleo 2,6) el AgX del
             # view transform desaturaba el centro hasta recortarlo a (255,255,165) de día. La cifra se
             # vuelve a medir en la hoja A/B de FASE 3, no se da por buena por docstring.
-            damage_treatment["flames"] = boost_flame_emission(objects, 1.35)
+            # D-111.2 cierre: `qaFlamePeakEmission` es el mando de la variante QA híbrida —el sprite
+            # baja sus focos estáticos y el cuerpo animado del fuego lo pone Phaser—. Sólo llega por
+            # request explícito del arnés; producción no envía el campo y renderiza 1,35.
+            damage_treatment["flames"] = boost_flame_emission(
+                objects, float(request.get("qaFlamePeakEmission") or 1.35)
+            )
             damage_treatment["vfx"] = clear_vfx_shadow_rays(objects)
             glow_lamps, damage_treatment["glow"] = apply_fire_glow(
                 [

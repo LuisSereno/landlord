@@ -66,6 +66,12 @@ export type FireRigOptions = {
   readonly seed: number;
   /** Emisores montados pero en pausa hasta que el toggle encienda el fuego. */
   readonly active: boolean;
+  /**
+   * D-111.2 cierre: `false` cuando el sprite YA trae su columna horneada (ruta QA híbrida) — soltar
+   * la del rig encima leería como dos columnas independientes, que es justo lo que el encargo
+   * prohíbe. Por defecto `true`: el catálogo runtime no hornea humo.
+   */
+  readonly smoke?: boolean;
 };
 
 export type FireStats = {
@@ -140,7 +146,8 @@ type FocusRig = {
   light: Phaser.GameObjects.Light | null;
   tongues: Tongue[];
   embers: Phaser.GameObjects.Particles.ParticleEmitter;
-  nearSmoke: Phaser.GameObjects.Particles.ParticleEmitter;
+  /** `null` cuando el sprite ya hornea su columna (ruta QA híbrida). */
+  nearSmoke: Phaser.GameObjects.Particles.ParticleEmitter | null;
   risingSmoke: Phaser.GameObjects.Particles.ParticleEmitter[];
 };
 
@@ -163,6 +170,7 @@ export function createFireRig(
     const flame = focus.flameWorldPx;
     const cx = focus.x;
     const baseY = focus.y;
+    const smoke = options.smoke ?? true;
 
     /**
      * Cuerpo: dos capas con el mismo origen en la base. La exterior da la silueta roja; la interior,
@@ -220,55 +228,59 @@ export function createFireRig(
     });
 
     /** Humo próximo: nace en la punta de la llama, denso y todavía cálido. */
-    const nearSmoke = scene.add.particles(cx, baseY - flame * 0.95, PARTICLE_TEXTURES.smoke, {
-      x: { min: -flame * 0.28, max: flame * 0.28 },
-      speedY: { min: -flame * 2.1, max: -flame * 1.4 },
-      speedX: { min: -flame * 0.25, max: flame * 0.45 },
-      lifespan: { min: 900, max: 1500 },
-      scale: {
-        start: (flame * 0.85) / SMOKE_TEXTURE_SIZE,
-        end: (flame * 2.6) / SMOKE_TEXTURE_SIZE,
-      },
-      alpha: { start: 0.5, end: 0.06 },
-      quantity: 1,
-      frequency: 240,
-      maxAliveParticles: 12,
-      reserve: 12,
-      emitting: false,
-    });
+    const nearSmoke = smoke
+      ? scene.add.particles(cx, baseY - flame * 0.95, PARTICLE_TEXTURES.smoke, {
+          x: { min: -flame * 0.28, max: flame * 0.28 },
+          speedY: { min: -flame * 2.1, max: -flame * 1.4 },
+          speedX: { min: -flame * 0.25, max: flame * 0.45 },
+          lifespan: { min: 900, max: 1500 },
+          scale: {
+            start: (flame * 0.85) / SMOKE_TEXTURE_SIZE,
+            end: (flame * 2.6) / SMOKE_TEXTURE_SIZE,
+          },
+          alpha: { start: 0.5, end: 0.06 },
+          quantity: 1,
+          frequency: 240,
+          maxAliveParticles: 12,
+          reserve: 12,
+          emitting: false,
+        })
+      : null;
 
     /**
      * Humo ascendente: DOS emisores con frecuencias de 340 y 520 ms. Una sola frecuencia es
      * perfectamente periódica y la columna se lee como una máquina; la superposición de dos
      * inconmensurables da un retardo irregular sin añadir coste apreciable.
      */
-    const rising = [340, 520].map((frequency, emitterIndex) =>
-      scene.add.particles(
-        cx + (emitterIndex === 0 ? -flame * 0.12 : flame * 0.14),
-        baseY - flame * 1.6,
-        FIRE_TEXTURES.wisp,
-        {
-          x: { min: -flame * 0.4, max: flame * 0.4 },
-          speedY: { min: -flame * 1.5, max: -flame * 0.95 },
-          /** Deriva lateral moderada y siempre en el mismo sentido: el viento no cambia cada frame. */
-          speedX: { min: -flame * 0.12, max: flame * 0.3 },
-          accelerationX: flame * 0.06,
-          lifespan: { min: 2600, max: 4200 },
-          /** La columna nace estrecha, se ensancha y pierde opacidad: 4,2× el ancho de la llama. */
-          scale: {
-            start: (flame * 1.5) / WISP_TEXTURE_SIZE,
-            end: (flame * 4.2) / WISP_TEXTURE_SIZE,
-          },
-          alpha: { start: 0.44, end: 0 },
-          rotate: { min: -30, max: 30 },
-          quantity: 1,
-          frequency,
-          maxAliveParticles: 16,
-          reserve: 16,
-          emitting: false,
-        },
-      ),
-    );
+    const rising = smoke
+      ? [340, 520].map((frequency, emitterIndex) =>
+          scene.add.particles(
+            cx + (emitterIndex === 0 ? -flame * 0.12 : flame * 0.14),
+            baseY - flame * 1.6,
+            FIRE_TEXTURES.wisp,
+            {
+              x: { min: -flame * 0.4, max: flame * 0.4 },
+              speedY: { min: -flame * 1.5, max: -flame * 0.95 },
+              /** Deriva lateral moderada y siempre en el mismo sentido: el viento no cambia cada frame. */
+              speedX: { min: -flame * 0.12, max: flame * 0.3 },
+              accelerationX: flame * 0.06,
+              lifespan: { min: 2600, max: 4200 },
+              /** La columna nace estrecha, se ensancha y pierde opacidad: 4,2× el ancho de la llama. */
+              scale: {
+                start: (flame * 1.5) / WISP_TEXTURE_SIZE,
+                end: (flame * 4.2) / WISP_TEXTURE_SIZE,
+              },
+              alpha: { start: 0.44, end: 0 },
+              rotate: { min: -30, max: 30 },
+              quantity: 1,
+              frequency,
+              maxAliveParticles: 16,
+              reserve: 16,
+              emitting: false,
+            },
+          ),
+        )
+      : [];
 
     /**
      * Halo cálido LOCALIZADO (4.5). El radio es 1,15× la llama de ESTE foco: con 3× (primera corrida
@@ -310,7 +322,11 @@ export function createFireRig(
       rig.outer.setVisible(on);
       rig.core.setVisible(on);
       for (const tongue of rig.tongues) tongue.image.setVisible(on);
-      for (const emitter of [rig.embers, rig.nearSmoke, ...rig.risingSmoke]) {
+      for (const emitter of [
+        rig.embers,
+        ...(rig.nearSmoke ? [rig.nearSmoke] : []),
+        ...rig.risingSmoke,
+      ]) {
         if (on) emitter.start();
         /** `stop(true)` llama `killAll()`: al perder el estado `burning` no quedan partículas vivas. */
         else emitter.stop(true);
@@ -411,7 +427,7 @@ export function createFireRig(
         entry.core.destroy();
         for (const tongue of entry.tongues) tongue.image.destroy();
         entry.embers.destroy();
-        entry.nearSmoke.destroy();
+        entry.nearSmoke?.destroy();
         for (const emitter of entry.risingSmoke) emitter.destroy();
       }
       for (const glow of glows) glow.destroy();
@@ -424,7 +440,11 @@ export function createFireRig(
       let emitters = 0;
       let flameImages = 0;
       for (const entry of rigs) {
-        for (const emitter of [entry.embers, entry.nearSmoke, ...entry.risingSmoke]) {
+        for (const emitter of [
+          entry.embers,
+          ...(entry.nearSmoke ? [entry.nearSmoke] : []),
+          ...entry.risingSmoke,
+        ]) {
           emitters += 1;
           particlesAlive += emitter.getAliveParticleCount();
         }

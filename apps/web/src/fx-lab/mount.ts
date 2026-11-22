@@ -9,6 +9,7 @@
 import Phaser from "phaser";
 import { FxLabScene, type FxLabProbeData } from "./FxLabScene";
 import type { FxEffect, FxMood, FxPreset } from "./fx-lab-types";
+import type { CandidateQaMetadata } from "./fx-candidate-qa";
 
 declare global {
   interface Window {
@@ -27,6 +28,11 @@ export type FxLabMountOptions = {
   renderer: "auto" | "canvas";
   width?: number;
   height?: number;
+  /**
+   * D-111.2 cierre: candidata QA ya resuelta por el panel (JSON obtenido, PNG cargable). `null` =
+   * la calle del laboratorio con sus colocaciones de siempre.
+   */
+  candidate?: { metadata: CandidateQaMetadata; pngUrl: string; textureKey: string } | null;
 };
 
 /** Cadena del driver WebGL real. En esta máquina sale ANGLE/llvmpipe: es la prueba del suelo blando. */
@@ -64,6 +70,7 @@ export function mountFxLab(container: HTMLElement, options: FxLabMountOptions): 
     zoom: options.zoom,
     perf: options.perf,
     preset: options.preset ?? null,
+    candidate: options.candidate ?? null,
   });
   const game = new Phaser.Game({
     type: options.renderer === "canvas" ? Phaser.CANVAS : Phaser.AUTO,

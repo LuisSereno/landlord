@@ -75,6 +75,7 @@ function parseArgs(argv) {
     states: ["complete"],
     weathering: [null],
     candidate: null,
+    qaFlamePeakEmission: null,
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
@@ -85,6 +86,7 @@ function parseArgs(argv) {
     else if (flag === "--states") options.states = value.split(",");
     else if (flag === "--weathering") options.weathering = value.split(",");
     else if (flag === "--candidate") options.candidate = value;
+    else if (flag === "--qaFlamePeakEmission") options.qaFlamePeakEmission = Number(value);
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
@@ -93,7 +95,7 @@ function parseArgs(argv) {
     else if (flag === "--profile") options.profileId = value;
     else if (flag === "--help") {
       console.log(
-        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--profile=graphic_civic_buildings_v1|material_maquette_buildings_v1] [--mood=night_civic|day_civic|day_industrial|material_maquette_day|material_maquette_night] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--weathering=conserved,aged] [--candidate=<id de building-composer-candidates.json>] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
+        "uso: node scripts/build-building-composer.mjs [--types=a,b] [--seeds=1,2] [--profile=graphic_civic_buildings_v1|material_maquette_buildings_v1] [--mood=night_civic|day_civic|day_industrial|material_maquette_day|material_maquette_night] [--orientations=0,90,180,270] [--states=complete,foundation,structure,finishing,damaged,burning] [--weathering=conserved,aged] [--candidate=<id de building-composer-candidates.json>] [--qaFlamePeakEmission=n] [--outDir=dir] [--metrics=path] [--regenerate] [--keepAttempts] [--prefix=vf|vg]",
       );
       process.exit(0);
     } else throw new Error(`argumento desconocido ${argument}`);
@@ -252,6 +254,9 @@ function buildRequests(grammars, options) {
             constructionStage,
             ...(weathering ? { weathering } : {}),
             ...(options.candidate ? { candidateProfile: options.candidate } : {}),
+            ...(state === "burning" && options.qaFlamePeakEmission
+              ? { qaFlamePeakEmission: options.qaFlamePeakEmission }
+              : {}),
             output: join(options.outDir, `${candidateId}.png`),
             metadata: join(options.outDir, `${candidateId}.json`),
           });

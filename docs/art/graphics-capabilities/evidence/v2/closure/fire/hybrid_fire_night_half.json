@@ -1,0 +1,129 @@
+{
+ "schemaVersion": 1,
+ "arm": "hybrid_fire_night_half",
+ "url": "http://127.0.0.1:4193/art-lab?artQa=1&fxCandidate=hybq_night&fxMood=night&fxZoom=0.5&fxPerf=1&fx=fire",
+ "candidateId": "hybq_mixed_tenement_2_burning",
+ "candidateProfile": "gn_residential_v2",
+ "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+ "textureKey": "fx-candidate-hybq_night",
+ "fireAnchors": 16,
+ "smokeFromSprite": true,
+ "fireActive": true,
+ "fireFoci": [
+  {
+   "kind": "roof",
+   "x": 504,
+   "y": 322,
+   "flameWorldPx": 31.4
+  },
+  {
+   "kind": "roof",
+   "x": 497,
+   "y": 324,
+   "flameWorldPx": 17.1
+  },
+  {
+   "kind": "roof",
+   "x": 498,
+   "y": 324,
+   "flameWorldPx": 15.86
+  },
+  {
+   "kind": "roof",
+   "x": 499,
+   "y": 324,
+   "flameWorldPx": 18.34
+  },
+  {
+   "kind": "roof",
+   "x": 535,
+   "y": 324,
+   "flameWorldPx": 35.79
+  },
+  {
+   "kind": "roof",
+   "x": 543,
+   "y": 323,
+   "flameWorldPx": 15.19
+  },
+  {
+   "kind": "roof",
+   "x": 538,
+   "y": 321,
+   "flameWorldPx": 12.37
+  },
+  {
+   "kind": "roof",
+   "x": 538,
+   "y": 321,
+   "flameWorldPx": 15.97
+  },
+  {
+   "kind": "roof",
+   "x": 581,
+   "y": 328,
+   "flameWorldPx": 35.67
+  },
+  {
+   "kind": "roof",
+   "x": 575,
+   "y": 329,
+   "flameWorldPx": 17.89
+  },
+  {
+   "kind": "roof",
+   "x": 573,
+   "y": 328,
+   "flameWorldPx": 15.97
+  },
+  {
+   "kind": "roof",
+   "x": 584,
+   "y": 325,
+   "flameWorldPx": 19.59
+  },
+  {
+   "kind": "roof",
+   "x": 588,
+   "y": 325,
+   "flameWorldPx": 15.97
+  },
+  {
+   "kind": "wall",
+   "x": 538,
+   "y": 352,
+   "flameWorldPx": 5.88
+  },
+  {
+   "kind": "wall",
+   "x": 489,
+   "y": 358,
+   "flameWorldPx": 4.73
+  },
+  {
+   "kind": "wall",
+   "x": 538,
+   "y": 382,
+   "flameWorldPx": 6.07
+  }
+ ],
+ "fireStats": {
+  "foci": 16,
+  "flameImages": 80,
+  "emitters": 16,
+  "particlesAlive": 16,
+  "lights": 0,
+  "glowImages": 16
+ },
+ "mood": "night",
+ "zoom": 0.5,
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "renderer": "WebGL",
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "pngSha256": "bca2ccdc082893d2c0028f2629a950bd531a233204f562725e0703b68111e8a0",
+ "pngBytes": 69293,
+ "capturedAt": "2026-11-22T08:04:33.572Z"
+}

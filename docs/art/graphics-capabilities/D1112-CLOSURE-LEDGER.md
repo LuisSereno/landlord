@@ -25,8 +25,8 @@ Estado objetivo: `READY FOR HUMAN VISUAL REVIEW` — sin promocionar nada a prod
 
 | Fase | Estado | Commit | Evidencia | Pendiente |
 | --- | --- | --- | --- | --- |
-| 1 · baseline y ledger | completada | (este commit) | este archivo, verificación arriba | — |
-| 2 · incendio híbrido Blender+Phaser | pendiente | — | `evidence/v2/closure/fire/` (por crear) | — |
+| 1 · baseline y ledger | completada | `08e520c` | este archivo, verificación arriba | — |
+| 2 · incendio híbrido Blender+Phaser | completada | (este commit) | `evidence/v2/closure/fire/` · `hybrid_fire_ab.png` + checker OK | revisión visual humana; 1/16 focos (`fire:flame:window:1`) sin llama visible en el bake |
 | 3 · cuatro candidatas en Phaser | pendiente | — | `evidence/v2/closure/urban/` (por crear) | — |
 | 4 · envejecimiento vs daño | pendiente | — | `building_condition_in_phaser.png` | sprite `aged` no existe en catálogo runtime (D-080) |
 | 5 · exposición nocturna definitiva | pendiente | — | `night_lighting_final_ab.png` | — |

@@ -22,6 +22,7 @@ import {
   type FxRenderer,
 } from "./fx-lab-types";
 import type { FxLabProbeWindow } from "./mount";
+import { candidateMetadataUrl, candidatePngUrl, type CandidateQaMetadata } from "./fx-candidate-qa";
 
 const CAPTURE_VIEWPORT = { width: 960, height: 540 };
 
@@ -40,10 +41,49 @@ export function FxLabPanel() {
   const container = useRef<HTMLDivElement>(null);
   const controller = useRef<FxLabController | null>(null);
   const [probe, setProbe] = useState<FxLabProbeWindow | null>(null);
+  /**
+   * D-111.2 cierre: la candidata QA se resuelve ANTES de montar. Si el parámetro `fxCandidate`
+   * explicita una candidata y su JSON no está (la ruta `/qa-candidates/` sólo la escribe el arnés),
+   * el lab NO se monta: una captura sin candidata no puede pasar por híbrida.
+   */
+  const [candidate, setCandidate] = useState<
+    { metadata: CandidateQaMetadata; pngUrl: string; textureKey: string } | "failed" | null
+  >(null);
+
+  useEffect(() => {
+    const name = initial?.candidate ?? null;
+    if (!name) {
+      setCandidate(null);
+      return;
+    }
+    let alive = true;
+    fetch(candidateMetadataUrl(name))
+      .then((response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<CandidateQaMetadata>;
+      })
+      .then((metadata) => {
+        if (alive) {
+          setCandidate({
+            metadata,
+            pngUrl: candidatePngUrl(name),
+            textureKey: `fx-candidate-${name}`,
+          });
+        }
+      })
+      .catch(() => {
+        if (alive) setCandidate("failed");
+      });
+    return () => {
+      alive = false;
+    };
+  }, [initial]);
 
   /** El renderer se cambia remontando el juego: no se puede migrar de WebGL a CANVAS en caliente. */
   useEffect(() => {
     if (!container.current || !initial) return;
+    if (initial.candidate && !candidate) return;
+    if (candidate === "failed") return;
     const mounted = mountFxLab(container.current, {
       effects: initial.effects,
       preset: initial.preset,
@@ -51,6 +91,7 @@ export function FxLabPanel() {
       zoom,
       perf,
       renderer,
+      candidate: candidate ?? null,
       ...CAPTURE_VIEWPORT,
     });
     controller.current = mounted;
@@ -62,9 +103,9 @@ export function FxLabPanel() {
       controller.current = null;
       mounted.destroy();
     };
-    // mood/zoom se aplican por API; sólo el renderer y el estado inicial remontan.
+    // mood/zoom se aplican por API; sólo el renderer, la candidata y el estado inicial remontan.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderer]);
+  }, [renderer, candidate]);
 
   useEffect(() => {
     controller.current?.setMood(mood);
@@ -119,6 +160,12 @@ export function FxLabPanel() {
           {probe?.webgl ? "WebGL" : "CANVAS"} · {renderer}
         </span>
       </header>
+      {candidate === "failed" && (
+        <p className="fx-lab-note" data-testid="fx-lab-candidate-error">
+          La candidata <code>{initial?.candidate}</code> no está en <code>/qa-candidates/</code>: la
+          ruta QA sólo la escribe el arnés de captura y el lab no se monta sin ella.
+        </p>
+      )}
 
       <article className="art-lab-card">
         <div className="fx-lab-controls">

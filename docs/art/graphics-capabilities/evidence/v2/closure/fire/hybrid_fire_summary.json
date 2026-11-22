@@ -1,0 +1,818 @@
+{
+ "schemaVersion": 1,
+ "arms": [
+  {
+   "id": "phaser_candidate_day",
+   "schemaVersion": 1,
+   "arm": "phaser_candidate_day",
+   "url": "http://127.0.0.1:4193/art-lab?artQa=1&fxCandidate=hybq_day&fxMood=day&fxZoom=1&fxPerf=1",
+   "candidateId": "hybq_mixed_tenement_2_burning",
+   "candidateProfile": "gn_residential_v2",
+   "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+   "textureKey": "fx-candidate-hybq_day",
+   "fireAnchors": 16,
+   "smokeFromSprite": true,
+   "fireActive": false,
+   "fireFoci": [
+    {
+     "kind": "roof",
+     "x": 504,
+     "y": 322,
+     "flameWorldPx": 31.4
+    },
+    {
+     "kind": "roof",
+     "x": 497,
+     "y": 324,
+     "flameWorldPx": 17.1
+    },
+    {
+     "kind": "roof",
+     "x": 498,
+     "y": 324,
+     "flameWorldPx": 15.86
+    },
+    {
+     "kind": "roof",
+     "x": 499,
+     "y": 324,
+     "flameWorldPx": 18.34
+    },
+    {
+     "kind": "roof",
+     "x": 535,
+     "y": 324,
+     "flameWorldPx": 35.79
+    },
+    {
+     "kind": "roof",
+     "x": 543,
+     "y": 323,
+     "flameWorldPx": 15.19
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 12.37
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 581,
+     "y": 328,
+     "flameWorldPx": 35.67
+    },
+    {
+     "kind": "roof",
+     "x": 575,
+     "y": 329,
+     "flameWorldPx": 17.89
+    },
+    {
+     "kind": "roof",
+     "x": 573,
+     "y": 328,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 584,
+     "y": 325,
+     "flameWorldPx": 19.59
+    },
+    {
+     "kind": "roof",
+     "x": 588,
+     "y": 325,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 352,
+     "flameWorldPx": 5.88
+    },
+    {
+     "kind": "wall",
+     "x": 489,
+     "y": 358,
+     "flameWorldPx": 4.73
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 382,
+     "flameWorldPx": 6.07
+    }
+   ],
+   "fireStats": {
+    "foci": 16,
+    "flameImages": 80,
+    "emitters": 16,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 16
+   },
+   "mood": "day",
+   "zoom": 1,
+   "viewport": {
+    "width": 1440,
+    "height": 900
+   },
+   "renderer": "WebGL",
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "pngSha256": "1a46421b9145e8adc51da77841593e1f1f5dae008feacc9298ecead21078d182",
+   "pngBytes": 210309,
+   "capturedAt": "2026-11-22T08:04:23.261Z"
+  },
+  {
+   "id": "hybrid_fire_day",
+   "schemaVersion": 1,
+   "arm": "hybrid_fire_day",
+   "url": "http://127.0.0.1:4193/art-lab?artQa=1&fxCandidate=hybq_day&fxMood=day&fxZoom=1&fxPerf=1&fx=fire",
+   "candidateId": "hybq_mixed_tenement_2_burning",
+   "candidateProfile": "gn_residential_v2",
+   "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+   "textureKey": "fx-candidate-hybq_day",
+   "fireAnchors": 16,
+   "smokeFromSprite": true,
+   "fireActive": true,
+   "fireFoci": [
+    {
+     "kind": "roof",
+     "x": 504,
+     "y": 322,
+     "flameWorldPx": 31.4
+    },
+    {
+     "kind": "roof",
+     "x": 497,
+     "y": 324,
+     "flameWorldPx": 17.1
+    },
+    {
+     "kind": "roof",
+     "x": 498,
+     "y": 324,
+     "flameWorldPx": 15.86
+    },
+    {
+     "kind": "roof",
+     "x": 499,
+     "y": 324,
+     "flameWorldPx": 18.34
+    },
+    {
+     "kind": "roof",
+     "x": 535,
+     "y": 324,
+     "flameWorldPx": 35.79
+    },
+    {
+     "kind": "roof",
+     "x": 543,
+     "y": 323,
+     "flameWorldPx": 15.19
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 12.37
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 581,
+     "y": 328,
+     "flameWorldPx": 35.67
+    },
+    {
+     "kind": "roof",
+     "x": 575,
+     "y": 329,
+     "flameWorldPx": 17.89
+    },
+    {
+     "kind": "roof",
+     "x": 573,
+     "y": 328,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 584,
+     "y": 325,
+     "flameWorldPx": 19.59
+    },
+    {
+     "kind": "roof",
+     "x": 588,
+     "y": 325,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 352,
+     "flameWorldPx": 5.88
+    },
+    {
+     "kind": "wall",
+     "x": 489,
+     "y": 358,
+     "flameWorldPx": 4.73
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 382,
+     "flameWorldPx": 6.07
+    }
+   ],
+   "fireStats": {
+    "foci": 16,
+    "flameImages": 80,
+    "emitters": 16,
+    "particlesAlive": 16,
+    "lights": 0,
+    "glowImages": 16
+   },
+   "mood": "day",
+   "zoom": 1,
+   "viewport": {
+    "width": 1440,
+    "height": 900
+   },
+   "renderer": "WebGL",
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "pngSha256": "15ebd43745c93267c4b2b71cf61903b146bc11e2b5116411799232d3c82f1f7f",
+   "pngBytes": 210891,
+   "capturedAt": "2026-11-22T08:04:25.537Z"
+  },
+  {
+   "id": "hybrid_fire_night",
+   "schemaVersion": 1,
+   "arm": "hybrid_fire_night",
+   "url": "http://127.0.0.1:4193/art-lab?artQa=1&fxCandidate=hybq_night&fxMood=night&fxZoom=1&fxPerf=1&fx=fire",
+   "candidateId": "hybq_mixed_tenement_2_burning",
+   "candidateProfile": "gn_residential_v2",
+   "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+   "textureKey": "fx-candidate-hybq_night",
+   "fireAnchors": 16,
+   "smokeFromSprite": true,
+   "fireActive": true,
+   "fireFoci": [
+    {
+     "kind": "roof",
+     "x": 504,
+     "y": 322,
+     "flameWorldPx": 31.4
+    },
+    {
+     "kind": "roof",
+     "x": 497,
+     "y": 324,
+     "flameWorldPx": 17.1
+    },
+    {
+     "kind": "roof",
+     "x": 498,
+     "y": 324,
+     "flameWorldPx": 15.86
+    },
+    {
+     "kind": "roof",
+     "x": 499,
+     "y": 324,
+     "flameWorldPx": 18.34
+    },
+    {
+     "kind": "roof",
+     "x": 535,
+     "y": 324,
+     "flameWorldPx": 35.79
+    },
+    {
+     "kind": "roof",
+     "x": 543,
+     "y": 323,
+     "flameWorldPx": 15.19
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 12.37
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 581,
+     "y": 328,
+     "flameWorldPx": 35.67
+    },
+    {
+     "kind": "roof",
+     "x": 575,
+     "y": 329,
+     "flameWorldPx": 17.89
+    },
+    {
+     "kind": "roof",
+     "x": 573,
+     "y": 328,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 584,
+     "y": 325,
+     "flameWorldPx": 19.59
+    },
+    {
+     "kind": "roof",
+     "x": 588,
+     "y": 325,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 352,
+     "flameWorldPx": 5.88
+    },
+    {
+     "kind": "wall",
+     "x": 489,
+     "y": 358,
+     "flameWorldPx": 4.73
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 382,
+     "flameWorldPx": 6.07
+    }
+   ],
+   "fireStats": {
+    "foci": 16,
+    "flameImages": 80,
+    "emitters": 16,
+    "particlesAlive": 16,
+    "lights": 0,
+    "glowImages": 16
+   },
+   "mood": "night",
+   "zoom": 1,
+   "viewport": {
+    "width": 1440,
+    "height": 900
+   },
+   "renderer": "WebGL",
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "pngSha256": "f0fd055db6dca915d832f6200f40101b755b8f591e62c67f677ad771aa8fa83f",
+   "pngBytes": 208495,
+   "capturedAt": "2026-11-22T08:04:27.704Z"
+  },
+  {
+   "id": "phaser_candidate_night",
+   "schemaVersion": 1,
+   "arm": "phaser_candidate_night",
+   "url": "http://127.0.0.1:4193/art-lab?artQa=1&fxCandidate=hybq_night&fxMood=night&fxZoom=1&fxPerf=1",
+   "candidateId": "hybq_mixed_tenement_2_burning",
+   "candidateProfile": "gn_residential_v2",
+   "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+   "textureKey": "fx-candidate-hybq_night",
+   "fireAnchors": 16,
+   "smokeFromSprite": true,
+   "fireActive": false,
+   "fireFoci": [
+    {
+     "kind": "roof",
+     "x": 504,
+     "y": 322,
+     "flameWorldPx": 31.4
+    },
+    {
+     "kind": "roof",
+     "x": 497,
+     "y": 324,
+     "flameWorldPx": 17.1
+    },
+    {
+     "kind": "roof",
+     "x": 498,
+     "y": 324,
+     "flameWorldPx": 15.86
+    },
+    {
+     "kind": "roof",
+     "x": 499,
+     "y": 324,
+     "flameWorldPx": 18.34
+    },
+    {
+     "kind": "roof",
+     "x": 535,
+     "y": 324,
+     "flameWorldPx": 35.79
+    },
+    {
+     "kind": "roof",
+     "x": 543,
+     "y": 323,
+     "flameWorldPx": 15.19
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 12.37
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 581,
+     "y": 328,
+     "flameWorldPx": 35.67
+    },
+    {
+     "kind": "roof",
+     "x": 575,
+     "y": 329,
+     "flameWorldPx": 17.89
+    },
+    {
+     "kind": "roof",
+     "x": 573,
+     "y": 328,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 584,
+     "y": 325,
+     "flameWorldPx": 19.59
+    },
+    {
+     "kind": "roof",
+     "x": 588,
+     "y": 325,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 352,
+     "flameWorldPx": 5.88
+    },
+    {
+     "kind": "wall",
+     "x": 489,
+     "y": 358,
+     "flameWorldPx": 4.73
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 382,
+     "flameWorldPx": 6.07
+    }
+   ],
+   "fireStats": {
+    "foci": 16,
+    "flameImages": 80,
+    "emitters": 16,
+    "particlesAlive": 0,
+    "lights": 0,
+    "glowImages": 16
+   },
+   "mood": "night",
+   "zoom": 1,
+   "viewport": {
+    "width": 1440,
+    "height": 900
+   },
+   "renderer": "WebGL",
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "pngSha256": "7da594a03bcff672a54953c5ae97853794ebd8358468e5562c25c355e567f528",
+   "pngBytes": 206585,
+   "capturedAt": "2026-11-22T08:04:29.790Z"
+  },
+  {
+   "id": "hybrid_fire_day_half",
+   "schemaVersion": 1,
+   "arm": "hybrid_fire_day_half",
+   "url": "http://127.0.0.1:4193/art-lab?artQa=1&fxCandidate=hybq_day&fxMood=day&fxZoom=0.5&fxPerf=1&fx=fire",
+   "candidateId": "hybq_mixed_tenement_2_burning",
+   "candidateProfile": "gn_residential_v2",
+   "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+   "textureKey": "fx-candidate-hybq_day",
+   "fireAnchors": 16,
+   "smokeFromSprite": true,
+   "fireActive": true,
+   "fireFoci": [
+    {
+     "kind": "roof",
+     "x": 504,
+     "y": 322,
+     "flameWorldPx": 31.4
+    },
+    {
+     "kind": "roof",
+     "x": 497,
+     "y": 324,
+     "flameWorldPx": 17.1
+    },
+    {
+     "kind": "roof",
+     "x": 498,
+     "y": 324,
+     "flameWorldPx": 15.86
+    },
+    {
+     "kind": "roof",
+     "x": 499,
+     "y": 324,
+     "flameWorldPx": 18.34
+    },
+    {
+     "kind": "roof",
+     "x": 535,
+     "y": 324,
+     "flameWorldPx": 35.79
+    },
+    {
+     "kind": "roof",
+     "x": 543,
+     "y": 323,
+     "flameWorldPx": 15.19
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 12.37
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 581,
+     "y": 328,
+     "flameWorldPx": 35.67
+    },
+    {
+     "kind": "roof",
+     "x": 575,
+     "y": 329,
+     "flameWorldPx": 17.89
+    },
+    {
+     "kind": "roof",
+     "x": 573,
+     "y": 328,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 584,
+     "y": 325,
+     "flameWorldPx": 19.59
+    },
+    {
+     "kind": "roof",
+     "x": 588,
+     "y": 325,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 352,
+     "flameWorldPx": 5.88
+    },
+    {
+     "kind": "wall",
+     "x": 489,
+     "y": 358,
+     "flameWorldPx": 4.73
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 382,
+     "flameWorldPx": 6.07
+    }
+   ],
+   "fireStats": {
+    "foci": 16,
+    "flameImages": 80,
+    "emitters": 16,
+    "particlesAlive": 16,
+    "lights": 0,
+    "glowImages": 16
+   },
+   "mood": "day",
+   "zoom": 0.5,
+   "viewport": {
+    "width": 1440,
+    "height": 900
+   },
+   "renderer": "WebGL",
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "pngSha256": "c38543fd4772488c15439ca0c52a69144e1b8b11d09b75aef6fcd01b089f1c1a",
+   "pngBytes": 69731,
+   "capturedAt": "2026-11-22T08:04:31.676Z"
+  },
+  {
+   "id": "hybrid_fire_night_half",
+   "schemaVersion": 1,
+   "arm": "hybrid_fire_night_half",
+   "url": "http://127.0.0.1:4193/art-lab?artQa=1&fxCandidate=hybq_night&fxMood=night&fxZoom=0.5&fxPerf=1&fx=fire",
+   "candidateId": "hybq_mixed_tenement_2_burning",
+   "candidateProfile": "gn_residential_v2",
+   "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+   "textureKey": "fx-candidate-hybq_night",
+   "fireAnchors": 16,
+   "smokeFromSprite": true,
+   "fireActive": true,
+   "fireFoci": [
+    {
+     "kind": "roof",
+     "x": 504,
+     "y": 322,
+     "flameWorldPx": 31.4
+    },
+    {
+     "kind": "roof",
+     "x": 497,
+     "y": 324,
+     "flameWorldPx": 17.1
+    },
+    {
+     "kind": "roof",
+     "x": 498,
+     "y": 324,
+     "flameWorldPx": 15.86
+    },
+    {
+     "kind": "roof",
+     "x": 499,
+     "y": 324,
+     "flameWorldPx": 18.34
+    },
+    {
+     "kind": "roof",
+     "x": 535,
+     "y": 324,
+     "flameWorldPx": 35.79
+    },
+    {
+     "kind": "roof",
+     "x": 543,
+     "y": 323,
+     "flameWorldPx": 15.19
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 12.37
+    },
+    {
+     "kind": "roof",
+     "x": 538,
+     "y": 321,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 581,
+     "y": 328,
+     "flameWorldPx": 35.67
+    },
+    {
+     "kind": "roof",
+     "x": 575,
+     "y": 329,
+     "flameWorldPx": 17.89
+    },
+    {
+     "kind": "roof",
+     "x": 573,
+     "y": 328,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "roof",
+     "x": 584,
+     "y": 325,
+     "flameWorldPx": 19.59
+    },
+    {
+     "kind": "roof",
+     "x": 588,
+     "y": 325,
+     "flameWorldPx": 15.97
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 352,
+     "flameWorldPx": 5.88
+    },
+    {
+     "kind": "wall",
+     "x": 489,
+     "y": 358,
+     "flameWorldPx": 4.73
+    },
+    {
+     "kind": "wall",
+     "x": 538,
+     "y": 382,
+     "flameWorldPx": 6.07
+    }
+   ],
+   "fireStats": {
+    "foci": 16,
+    "flameImages": 80,
+    "emitters": 16,
+    "particlesAlive": 16,
+    "lights": 0,
+    "glowImages": 16
+   },
+   "mood": "night",
+   "zoom": 0.5,
+   "viewport": {
+    "width": 1440,
+    "height": 900
+   },
+   "renderer": "WebGL",
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "pngSha256": "bca2ccdc082893d2c0028f2629a950bd531a233204f562725e0703b68111e8a0",
+   "pngBytes": 69293,
+   "capturedAt": "2026-11-22T08:04:33.572Z"
+  }
+ ],
+ "frames": [
+  {
+   "file": "frame_01_t1247.png",
+   "clockMs": 1247,
+   "pngSha256": "17b7c6f065e9364ea4d66b10ae6595f18c51c26ea644fbb4ce80e0070175e64c"
+  },
+  {
+   "file": "frame_02_t2513.png",
+   "clockMs": 2513,
+   "pngSha256": "8b174b3508b8b24c4701084c35f9d90aad8accd08a7c457f3632b03ca501aa77"
+  },
+  {
+   "file": "frame_03_t3746.png",
+   "clockMs": 3746,
+   "pngSha256": "fd6971bd5190b5d05caa5f5cb7a11ba8b97509b6112bd8106950931e66496144"
+  },
+  {
+   "file": "frame_04_t4763.png",
+   "clockMs": 4763,
+   "pngSha256": "d769d281bbecc04b53cf46726a3ba6025a043528b354ed4b925438c1532463cf"
+  },
+  {
+   "file": "frame_05_t6013.png",
+   "clockMs": 6013,
+   "pngSha256": "61a606420c8cb5e6288c64d8a94ba86672e4b3ed4dfb5e8f8149fdc586a76860"
+  },
+  {
+   "file": "frame_06_t6980.png",
+   "clockMs": 6980,
+   "pngSha256": "b22c395852617c2174b21fc24412b96e81e39d0129fab55cc415854c8eb433dc"
+  }
+ ],
+ "pageErrors": []
+}

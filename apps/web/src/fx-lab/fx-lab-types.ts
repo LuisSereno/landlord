@@ -29,6 +29,12 @@ export type FxLabOptions = {
   readonly perf: boolean;
   /** Preset pedido por URL (`?fxPreset=night_fire`); `null` si la URL no menciona ninguno. */
   readonly preset: FxPreset | null;
+  /**
+   * D-111.2 cierre: nombre de la candidata QA a cargar (`?fxCandidate=hybq_mixed_tenement_day`).
+   * La ruta vive en `/qa-candidates/` y sólo la escribe el arnés de captura; producción no la sirve
+   * y ningún candidato entra al catálogo por aquí.
+   */
+  readonly candidate: string | null;
 };
 
 /** Cadena canónica de efectos activos: vacía ⇒ ninguno (estado por defecto del laboratorio). */
@@ -114,6 +120,7 @@ export function parseFxLabOptions(search: string): FxLabOptions {
     renderer: params.get("fxRenderer") === "canvas" ? "canvas" : "auto",
     perf: params.get("fxPerf") === "1",
     preset,
+    candidate: params.get("fxCandidate"),
   };
 }
 

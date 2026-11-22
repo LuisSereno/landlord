@@ -1,0 +1,108 @@
+{
+ "schemaVersion": 1,
+ "purpose": "anclajes del incendio híbrido: salida del adaptador TS verificada por el checker",
+ "candidateId": "hybq_mixed_tenement_2_burning",
+ "candidateProfile": "gn_residential_v2",
+ "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+ "smokeFromSprite": true,
+ "smokeAnchorsExcluded": true,
+ "anchors": [
+  {
+   "u": 0.49094,
+   "v": 0.56925,
+   "flameFraction": 0.13508,
+   "kind": "roof"
+  },
+  {
+   "u": 0.45609,
+   "v": 0.58031,
+   "flameFraction": 0.07354,
+   "kind": "roof"
+  },
+  {
+   "u": 0.46179,
+   "v": 0.5778,
+   "flameFraction": 0.06823,
+   "kind": "roof"
+  },
+  {
+   "u": 0.4685,
+   "v": 0.58021,
+   "flameFraction": 0.0789,
+   "kind": "roof"
+  },
+  {
+   "u": 0.64299,
+   "v": 0.5798,
+   "flameFraction": 0.15396,
+   "kind": "roof"
+  },
+  {
+   "u": 0.68435,
+   "v": 0.57384,
+   "flameFraction": 0.06533,
+   "kind": "roof"
+  },
+  {
+   "u": 0.65789,
+   "v": 0.56885,
+   "flameFraction": 0.05319,
+   "kind": "roof"
+  },
+  {
+   "u": 0.65649,
+   "v": 0.56655,
+   "flameFraction": 0.0687,
+   "kind": "roof"
+  },
+  {
+   "u": 0.86745,
+   "v": 0.59502,
+   "flameFraction": 0.15345,
+   "kind": "roof"
+  },
+  {
+   "u": 0.83882,
+   "v": 0.6016,
+   "flameFraction": 0.07696,
+   "kind": "roof"
+  },
+  {
+   "u": 0.82906,
+   "v": 0.5984,
+   "flameFraction": 0.0687,
+   "kind": "roof"
+  },
+  {
+   "u": 0.88454,
+   "v": 0.58226,
+   "flameFraction": 0.08425,
+   "kind": "roof"
+  },
+  {
+   "u": 0.90378,
+   "v": 0.5863,
+   "flameFraction": 0.0687,
+   "kind": "roof"
+  },
+  {
+   "u": 0.65602,
+   "v": 0.70206,
+   "flameFraction": 0.02529,
+   "kind": "wall"
+  },
+  {
+   "u": 0.41801,
+   "v": 0.72698,
+   "flameFraction": 0.02036,
+   "kind": "wall"
+  },
+  {
+   "u": 0.65602,
+   "v": 0.8285,
+   "flameFraction": 0.02613,
+   "kind": "wall"
+  }
+ ],
+ "pageErrors": []
+}

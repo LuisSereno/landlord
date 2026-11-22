@@ -49,10 +49,16 @@ import {
   type Emitter,
 } from "./fx-particles";
 import { createFireRig, type FireRig, type FireStats } from "./fx-fire";
-import { clearFireAnchorCache, fireAnchorsFor, type FireFocus } from "./fx-fire-anchors";
+import {
+  clearFireAnchorCache,
+  fireAnchorsFor,
+  type FireAnchorMetadata,
+  type FireFocus,
+} from "./fx-fire-anchors";
+import { candidateFireMetadata, type CandidateQaMetadata } from "./fx-candidate-qa";
 import { makeSoftDisc } from "./fx-textures";
 import { buildNormalMapFromSprite, makeFlatNormal } from "./fx-normal-map";
-import { depthForAsset, footprintCenter } from "../isometric/building-sprites";
+import { depthForAsset, footprintCenter, spriteScaleFor } from "../isometric/building-sprites";
 import {
   FX_EFFECTS,
   FX_PRESET_TABLE,
@@ -110,6 +116,12 @@ type BuildingEntry = {
   sprite: Phaser.GameObjects.Image;
   emissive: Phaser.GameObjects.Image | null;
   boost: number;
+  /** Pivote con el que se colocó: el del catálogo, o el publicado por la candidata QA. */
+  pivot: { x: number; y: number };
+  /** Focos de la metadata del asset; `null` = derivar de la silueta como siempre. */
+  fireMetadata: FireAnchorMetadata[] | null;
+  /** `true` cuando el sprite ya hornea su columna de humo y el rig no debe soltar otra. */
+  smokeFromSprite: boolean;
 };
 
 export type FxLabSceneOptions = {
@@ -119,6 +131,12 @@ export type FxLabSceneOptions = {
   perf: boolean;
   /** El preset con el que se montó (o se pidió) la escena; `null` si es una combinación suelta. */
   preset: FxPreset | null;
+  /** D-111.2 cierre: candidata QA resuelta por el panel; `null` = calle del catálogo. */
+  candidate: {
+    metadata: CandidateQaMetadata;
+    pngUrl: string;
+    textureKey: string;
+  } | null;
 };
 
 export type FxLabProbeData = {
@@ -147,6 +165,16 @@ export type FxLabProbeData = {
   sceneObjects: number;
   /** Colocaciones sin sprite montado: una calle vacía no puede pasar por evidencia. */
   missingPlacements: string[];
+  /** D-111.2 cierre: qué candidata QA está realmente colocada; `null` = calle del catálogo. */
+  candidate: {
+    candidateId: string;
+    compositionSignature: string;
+    textureKey: string;
+    fireAnchors: number;
+    smokeFromSprite: boolean;
+    /** Los u,v que el adaptador entregó a `fireAnchorsFor`: la salida que valida el checker. */
+    anchorsUv: { u: number; v: number; flameFraction: number; kind: string }[];
+  } | null;
   webgl: boolean;
   /** `false` = el `__NORMAL` de Phaser no llegó al GL y el rig necesita su propia normal plana. */
   defaultNormalTexture: boolean;
@@ -203,6 +231,9 @@ export class FxLabScene extends Phaser.Scene {
     for (const placement of BUILDING_PLACEMENTS) {
       const src = buildingSrc(placement.type, placement.state);
       if (src) this.load.image(textureKeyForBuilding(placement.type, placement.state), src);
+    }
+    if (this.options.candidate) {
+      this.load.image(this.options.candidate.textureKey, this.options.candidate.pngUrl);
     }
     const props = new Set<string>(["prp_street_light", "prp_bush", "prp_bollard"]);
     for (const tree of TREE_CELLS) props.add(tree.type);
@@ -438,6 +469,25 @@ export class FxLabScene extends Phaser.Scene {
       })),
       sceneObjects: this.children.list.length,
       missingPlacements: [...this.missingPlacements],
+      candidate: (() => {
+        const candidate = this.options.candidate;
+        if (!candidate) return null;
+        const placed = this.buildings.find((entry) => entry.key === candidate.textureKey);
+        if (!placed) return null;
+        return {
+          candidateId: candidate.metadata.candidateId,
+          compositionSignature: candidate.metadata.compositionSignature,
+          textureKey: candidate.textureKey,
+          fireAnchors: placed.fireMetadata?.length ?? 0,
+          smokeFromSprite: placed.smokeFromSprite,
+          anchorsUv: (placed.fireMetadata ?? []).map((anchor) => ({
+            u: Math.round(anchor.u * 1e5) / 1e5,
+            v: Math.round(anchor.v * 1e5) / 1e5,
+            flameFraction: Math.round((anchor.flameFraction ?? 0) * 1e5) / 1e5,
+            kind: anchor.kind ?? "roof",
+          })),
+        };
+      })(),
       webgl: isWebGL(this),
       /** `false` aquí explica por qué el rig necesita su propia normal plana: ver `case "lighting"`. */
       defaultNormalTexture: Boolean(renderer.normalTexture),
@@ -609,7 +659,23 @@ export class FxLabScene extends Phaser.Scene {
   }
 
   private placeBuildings(): void {
+    /**
+     * D-111.2 cierre: con candidata QA activa, el hueco de `front-burning` lo ocupa el sprite del
+     * compositor —el catálogo normal queda intacto y el estado `burning` del hueco es el que el rig
+     * de fuego ya sabe encender. La escala sale del mismo `spriteScaleFor` del catálogo, con los
+     * px/m que publica la candidata, así que ocupa sus celdas de huella reales.
+     */
+    const candidate = this.options.candidate;
+    const candidateReady = candidate !== null && this.textures.exists(candidate.textureKey);
     for (const placement of BUILDING_PLACEMENTS) {
+      if (candidate && placement.key === "front-burning") {
+        if (candidateReady) {
+          this.placeCandidate(candidate);
+        } else {
+          this.missingPlacements.push(`candidate:${candidate.metadata.candidateId}`);
+        }
+        continue;
+      }
       const key = textureKeyForBuilding(placement.type, placement.state);
       const asset = buildingMetadata(placement.type);
       if (!this.textures.exists(key) || !asset) {
@@ -659,8 +725,45 @@ export class FxLabScene extends Phaser.Scene {
         sprite,
         emissive,
         boost: placement.emissiveBoost,
+        pivot: { x: asset.pivot.x, y: asset.pivot.y },
+        fireMetadata: null,
+        smokeFromSprite: false,
       });
     }
+  }
+
+  /**
+   * La candidata QA se coloca con SUS números publicados: pivote, huella y px/m del JSON del
+   * compositor. Sin capa emisiva derivada —el sprite ya trae su fuego horneado y un ADD sobre él
+   * recortaría a blanco justo donde el encargo prohibe zonas quemadas.
+   */
+  private placeCandidate(candidate: NonNullable<FxLabSceneOptions["candidate"]>): void {
+    const meta = candidate.metadata;
+    const asset = {
+      footprint: { width: meta.footprintCells.width, height: meta.footprintCells.height },
+      pivot: { x: meta.pivot.x, y: meta.pivot.y },
+      scale: spriteScaleFor(
+        { pixelsPerMeter: meta.framing.pixelsPerMeter },
+        REFERENCE_LAYOUT.tileWidth,
+      ),
+    };
+    const cell = { x: 8, y: 9 };
+    const center = gridToScreen(footprintCenter(cell, asset.footprint), REFERENCE_LAYOUT);
+    const sprite = this.add.image(center.x, center.y, candidate.textureKey);
+    sprite.setOrigin(asset.pivot.x, asset.pivot.y);
+    sprite.setScale(asset.scale);
+    sprite.setDepth(depthForAsset(cell, asset.footprint));
+    this.buildings.push({
+      key: candidate.textureKey,
+      type: `${meta.buildingType} (candidata ${meta.candidateId})`,
+      state: "burning",
+      sprite,
+      emissive: null,
+      boost: 0,
+      pivot: { ...asset.pivot },
+      fireMetadata: candidateFireMetadata(meta),
+      smokeFromSprite: true,
+    });
   }
 
   private placeSceneryRow(): void {
@@ -734,8 +837,9 @@ export class FxLabScene extends Phaser.Scene {
   /**
    * Los anclajes se derivan de la silueta del sprite de CADA edificio (FASE 4.4): la línea de cubierta
    * y el paño de fachada que mide ese PNG, no un desplazamiento universal. El fixture de QA es el
-   * estado `burning` colocado a mano en `BUILDING_PLACEMENTS`; el adaptador está listo para recibir
-   * los focos de un edificio real porque la única entrada es `{sprite, pivot}`.
+   * estado `burning` colocado a mano en `BUILDING_PLACEMENTS`. D-111.2 cierre: la candidata QA trae
+   * `fireMetadata` — los focos que publicó el compositor en metros, llevados a u,v por el adaptador,
+   * mandan sobre la silueta, y su columna de humo horneada desactiva la del rig.
    */
   private placeFireRigs(): void {
     this.fire?.dispose();
@@ -743,9 +847,9 @@ export class FxLabScene extends Phaser.Scene {
     this.fireFoci = [];
     for (const entry of this.buildings) {
       if (entry.state !== "burning") continue;
-      const asset = buildingMetadata(entry.type);
-      if (!asset) continue;
-      this.fireFoci.push(...fireAnchorsFor(this, entry.sprite, asset.pivot));
+      this.fireFoci.push(
+        ...fireAnchorsFor(this, entry.sprite, entry.pivot, entry.fireMetadata ?? undefined),
+      );
     }
     if (!this.fireFoci.length) {
       this.fire = null;
@@ -755,6 +859,7 @@ export class FxLabScene extends Phaser.Scene {
       mood: this.options.mood,
       seed: FIRE_PRESENTATION_SEED,
       active: this.fireActive,
+      smoke: !this.buildings.some((entry) => entry.smokeFromSprite),
     });
     for (const glow of this.fire.glows) this.overlays.push({ image: glow, kind: "fireGlow" });
     this.fire.setLights(this.handles.has("lighting"));

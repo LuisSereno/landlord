@@ -1,0 +1,78 @@
+{
+ "schemaVersion": 1,
+ "purpose": "los cuatro casos de condición del contrato de weathering, con la variante que el renderizador realmente seleccionó",
+ "route": "proyección sintética → injectProjection → buildingAssetStateFor(state, condition, structuralIntegrity)",
+ "agedNote": "el tier `aged` cae en el sprite `complete`: el catálogo runtime no tiene sprite envejecido (D-080 pendiente de autorización); la ausencia está registrada aquí, no simulada",
+ "captures": [
+  {
+   "file": "condition_conserved.png",
+   "case": "conserved",
+   "label": "Conservado",
+   "buildingType": "row_house",
+   "input": {
+    "state": "operational",
+    "condition": 95,
+    "structuralIntegrity": 100
+   },
+   "expectedTier": "conserved",
+   "expectedAssetState": "complete",
+   "observedTexture": "blender-building-row_house-complete",
+   "observedAssetState": "complete",
+   "pngSha256": "384b2dc5ef4b7be6e8ec48842979f402e40f98d68b6322c454ffd92e6226d1a1",
+   "pngBytes": 646210
+  },
+  {
+   "file": "condition_aged.png",
+   "case": "aged",
+   "label": "Operativo con mala conservación (condition 40, estructura intacta)",
+   "buildingType": "courtyard_home",
+   "input": {
+    "state": "operational",
+    "condition": 40,
+    "structuralIntegrity": 80
+   },
+   "expectedTier": "aged",
+   "expectedAssetState": "complete (fallback: sin sprite aged en el catálogo runtime)",
+   "observedTexture": "blender-building-courtyard_home-complete",
+   "observedAssetState": "complete",
+   "pngSha256": "75bd533c415319834bc02986060b9b09327aabf43f6af6a7262a9c7de9db96f5",
+   "pngBytes": 714269
+  },
+  {
+   "file": "condition_ruin.png",
+   "case": "ruin",
+   "label": "Ruina",
+   "buildingType": "mixed_tenement",
+   "input": {
+    "state": "ruin",
+    "condition": 35,
+    "structuralIntegrity": 0
+   },
+   "expectedTier": "damaged",
+   "expectedAssetState": "damaged",
+   "observedTexture": "building-mixed_tenement-damaged",
+   "observedAssetState": "damaged",
+   "pngSha256": "75c8dc12caaf36f1b7240869dd7f26bdef3d3a1ebe259737164513bfc7b6e5c4",
+   "pngBytes": 714472
+  },
+  {
+   "file": "condition_burning.png",
+   "case": "burning",
+   "label": "En llamas",
+   "buildingType": "warehouse",
+   "input": {
+    "state": "burning",
+    "condition": 60,
+    "structuralIntegrity": 50
+   },
+   "expectedTier": "burning",
+   "expectedAssetState": "burning",
+   "observedTexture": "building-warehouse-burning",
+   "observedAssetState": "burning",
+   "pngSha256": "de3e90d835bb99895f4aee588ee5dc636e52adeb2edcb345e52698a9b12507b9",
+   "pngBytes": 644317
+  }
+ ],
+ "pageErrors": [],
+ "capturedAt": "2026-11-22T10:18:03.614Z"
+}

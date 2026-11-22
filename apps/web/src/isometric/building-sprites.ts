@@ -12,6 +12,7 @@ import {
   type ViewProjectionV3,
 } from "@landlord/shared";
 import { constructionVisualStage } from "./construction-stages";
+import { projectBuildingCondition } from "./building-condition";
 
 /**
  * Helpers puros de la capa de sprites (WP4.15). Separan el contrato de assets del render para que
@@ -19,10 +20,21 @@ import { constructionVisualStage } from "./construction-stages";
  */
 export type ProjectedBuildingState = "operational" | "burning" | "collapse_pending" | "ruin";
 
+/**
+ * D-111.2 cierre FASE 4 · un solo clasificador. Con `structuralIntegrity` disponible (viaja en la
+ * proyección de vista junto a `state` y `condition`) la regla la pone `buildingVisualTierFor` — la
+ * proyección §6.1 del contrato de weathering — y el tier `aged` cae en el sprite `complete` porque
+ * el catálogo runtime no tiene sprite envejecido (ausencia registrada, no simulada). Sin integrity,
+ * la regla antigua `condition < 60 ⇒ damaged` se conserva para los consumidores que aún no la tienen.
+ */
 export function buildingAssetStateFor(
   state: ProjectedBuildingState,
   condition: number,
+  structuralIntegrity?: number,
 ): BuildingAssetState {
+  if (structuralIntegrity !== undefined) {
+    return projectBuildingCondition({ state, condition, structuralIntegrity }).assetState;
+  }
   if (state === "burning" || state === "collapse_pending") return "burning";
   if (state === "ruin") return "damaged";
   return condition < 60 ? "damaged" : "complete";
@@ -209,7 +221,11 @@ export function buildingSpritePlan(
   const plan: Array<BuildingSpritePlacement & { textureKey: string; asset: BuildingAssetV2 }> = [];
   for (const building of economy.buildings) {
     const id = `building:${building.id}`;
-    const state = buildingAssetStateFor(building.state, building.condition);
+    const state = buildingAssetStateFor(
+      building.state,
+      building.condition,
+      building.structuralIntegrity,
+    );
     const orientation = building.orientation;
     const archetype = opts.archetypeFor(id, building.type);
     const resolved = opts.resolveVisual(archetype, building.type, state, orientation, null);

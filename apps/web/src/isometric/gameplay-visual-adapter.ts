@@ -2255,7 +2255,11 @@ export function buildGameplayVisualModel(
         ? headquartersArchetypeForVariant(building.headquartersVariantId)
         : visualArchetypeForBuilding(building.type, building.id),
     orientation: building.orientation,
-    assetState: buildingAssetStateFor(building.state as ProjectedBuildingState, building.condition),
+    assetState: buildingAssetStateFor(
+      building.state as ProjectedBuildingState,
+      building.condition,
+      building.structuralIntegrity,
+    ),
     stage: null,
   }));
   const siteVisuals: GameplayBuildingVisual[] = (economy?.constructionSites ?? []).map((site) => {

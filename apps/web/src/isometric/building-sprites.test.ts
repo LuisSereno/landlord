@@ -52,6 +52,19 @@ describe("WP4.15 sprites de edificios", () => {
     expect(buildingAssetStateFor("ruin", 0)).toBe("damaged");
   });
 
+  it("D-111.2 cierre FASE 4: con structuralIntegrity manda la proyección del contrato de weathering", () => {
+    // Operativo con mala conservación pero estructura intacta: tier `aged`, sprite `complete`
+    // (el catálogo runtime no tiene sprite envejecido; caída registrada, no simulada).
+    expect(buildingAssetStateFor("operational", 40, 80)).toBe("complete");
+    // Estructura colapsada sin estado de ruina: `damaged` de verdad.
+    expect(buildingAssetStateFor("operational", 40, 0)).toBe("damaged");
+    // Conservado.
+    expect(buildingAssetStateFor("operational", 95, 100)).toBe("complete");
+    // Ruina y fuego no cambian con la integrity.
+    expect(buildingAssetStateFor("ruin", 35, 0)).toBe("damaged");
+    expect(buildingAssetStateFor("burning", 60, 50)).toBe("burning");
+  });
+
   it("genera claves estables y encuentra el asset por tipo", () => {
     expect(spriteKeyFor("cement_plant", "burning")).toBe("building-cement_plant-burning");
     expect(assetFor(manifest, "courtyard_home")).toBeDefined();

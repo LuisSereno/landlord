@@ -27,7 +27,8 @@ Estado objetivo: `READY FOR HUMAN VISUAL REVIEW` — sin promocionar nada a prod
 | --- | --- | --- | --- | --- |
 | 1 · baseline y ledger | completada | `08e520c` | este archivo, verificación arriba | — |
 | 2 · incendio híbrido Blender+Phaser | completada | `d364372` | `evidence/v2/closure/fire/` · `hybrid_fire_ab.png` + checker OK | revisión visual humana; 1/16 focos (`fire:flame:window:1`) sin llama visible en el bake |
-| 3 · cuatro candidatas en Phaser | completada | (este commit) | `evidence/v2/closure/urban/` · `four_candidates_in_phaser{,_half}.png` + manifest | muestras QA sobre terreno del mundo real; parejas 1×/0,5×; revisión visual humana |
+| 3 · cuatro candidatas en Phaser | completada | `baa4de0` | `evidence/v2/closure/urban/` · `four_candidates_in_phaser{,_half}.png` + manifest | muestras QA sobre terreno del mundo real; parejas 1×/0,5×; revisión visual humana |
+| 4 · envejecimiento vs daño | completada | (este commit) | `evidence/v2/closure/condition/` · `building_condition_in_phaser.png` | `aged` cae en `complete` (D-080 pendiente); migración de assets aprobados requiere autorización |
 | 3 · cuatro candidatas en Phaser | pendiente | — | `evidence/v2/closure/urban/` (por crear) | — |
 | 4 · envejecimiento vs daño | pendiente | — | `building_condition_in_phaser.png` | sprite `aged` no existe en catálogo runtime (D-080) |
 | 5 · exposición nocturna definitiva | pendiente | — | `night_lighting_final_ab.png` | — |

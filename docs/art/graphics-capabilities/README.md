@@ -11,7 +11,7 @@ Abierto por D-111 (§2). La pregunta que responde cada entrada no es «¿existe?
 
 ## Cómo se lee
 
-- `capabilities.json` es la fuente de verdad. Cada una de las 22 entradas lleva los 17 campos obligatorios:
+- `capabilities.json` es la fuente de verdad. Cada una de las 23 entradas lleva los 17 campos obligatorios:
   `id`, `kind`, `technology`, `versionTested`, `officialSource`, `license`, `hostCompatibility`,
   `state`, `scriptOrModule`, `objectTypeUse`, `reproducibleExample`, `inputResources`,
   `outputResources`, `evidenceCaptures`, `visualResult`, `limitations`, `integrationDecision`.
@@ -47,7 +47,7 @@ Ninguna entrada pasa de `tested` a `production_ready` por decisión del agente: 
 
 ## Resultado de la pasada
 
-Estados y veredictos tras **D-111.2 WP00–WP06** (evidencia en [`evidence/v2/`](evidence/v2/README.md)).
+Estados y veredictos tras **D-111.2 WP00–WP08** (evidencia en [`evidence/v2/`](evidence/v2/README.md)).
 Las tres extensiones arquitectónicas se reevaluaron por instrucción del propietario: el conteo de
 triángulos dejó de ser criterio de rechazo **offline**, así que los motivos que figuraban en D-111.1 se
 retiran donde eran geométricamente falsos y se conservan donde la medida los sostiene.
@@ -75,10 +75,17 @@ retiran donde eran geométricamente falsos y se conservan donde la medida los so
 | `phaser_dynamic_lighting` | capacidad | `qa_integrated` | MEJORA de noche con radios calibrados, SIN MEJORA de día (+60/67 ms) |
 | `normal_maps` | capacidad | `tested` | es lo que hace legible la junta a zoom reducido; restringido a QA |
 | `phaser_particles` | capacidad | `qa_integrated` | **MEJORA** de legibilidad de estado (humo, polvo) |
+| `phaser_world_scale_capture` | capacidad | `qa_integrated` | la partida real a 1440×900 y 1×/0,5× con el censo del renderizador; sólo Centro Cívico cumple los siete contadores (WP08) |
 | `tilemap_gpu_layer` | capacidad | `available` | condicionada a un problema real de terreno |
 
-Ninguna de las tres entradas `qa_integrated` nuevas está promovida: funcionan en el pipeline offline de
-QA y `runtime-promotions.json` no se tocó en WP00–WP06.
+Las cuatro entradas `qa_integrated` que añadió D-111.2 están sin promover. Las tres de Blender y del
+compositor (`blender_geometry_nodes`, `building_weathering_contract`, `composer_candidate_profiles`)
+viven en el pipeline offline de QA. La cuarta (`phaser_world_scale_capture`) es al revés: no introduce
+ningún asset, fotografía con el mismo harness el bundle ya promocionado y por eso su veredicto útil es
+negativo —la calle poblada existe, pero sólo el distrito cívico llega a los siete contadores y la HUD
+queda dentro del recorte a blanco que marca `LAVADA` el índice. Silenciarla en la captura de QA o
+aceptar el rótulo como parte de la evidencia decide el responsable; `runtime-promotions.json` no se tocó
+en WP00–WP08.
 
 ## Evaluaciones
 
@@ -118,9 +125,15 @@ individual y su JSON de hermanastro (herramienta, cámara, luz, triángulos, pro
 
 ### Hojas de la segunda pasada (D-111.2)
 
-Viven en `evidence/v2/sheets/`, cada una con su lectura a 0,5× (`_half`) y su JSON de procedencia en la
-carpera del brazo (`v2/gn/`, `v2/ag/`, `v2/ext/`, `v2/industrial/`, `v2/weathering/`, `v2/candidates/`).
-El índice con los mandos completos es [`evidence/v2/README.md`](evidence/v2/README.md).
+Viven en `evidence/v2/sheets/`, cada una con su JSON de procedencia en la carpeta del brazo
+(`v2/gn/`, `v2/ag/`, `v2/ext/`, `v2/industrial/`, `v2/weathering/`, `v2/candidates/`, `v2/fire/`,
+`v2/urban/`). Las que sostienen una afirmación de legibilidad se redibujan además a media altura
+(`_half`) para verlas con el esfuerzo de lectura de un 0,5×. Son una convención de la casa, no un
+entregable: no la tienen `building_condition_states.png` (1424×679, la produce
+`scripts/building-condition-sheet.py`) ni `wp08_fx_nocturnos.png`, cuyo brazo 0,5× ya está pegado dentro
+como cuadro propio (`preset_night_fire_050x.png`, capturado con «botón + zoom 0,5»). El índice con los
+mandos completos es [`evidence/v2/README.md`](evidence/v2/README.md) y el cruce de los 108 PNG con
+raster y procedencia medidos es [`evidence/INDEX.md`](evidence/INDEX.md).
 
 | Hoja | Contenido |
 | --- | --- |
@@ -131,6 +144,9 @@ El índice con los mandos completos es [`evidence/v2/README.md`](evidence/v2/REA
 | `v2/sheets/industrial_warehouse_ab.png` | nave en crujía de 4 m con el portón de camión medido (WP05) |
 | `v2/sheets/wp06_candidates_ab.png` | las cuatro candidatas con su control, por perfil de candidato (WP06) |
 | `v2/sheets/building_condition_states.png` | los cuatro tiers con la cornisa ya seccionada y la proyección derivada de `condition`/`structuralIntegrity` escrita en la cabecera (FASE 6) |
+| `v2/sheets/wp08_arquitectura_avanzada.png` | Geometry Nodes, HiFi, Arch Generator y Archimesh con su geometría medida y los dos edificios que esa autoría, ya montada por el Composer, producen (WP08) |
+| `v2/sheets/wp08_fx_nocturnos.png` | nueve cuadros nocturnos con luma media, dispersión y porcentaje de píxel a 252+ escritos en el pie de cada uno (WP08) |
+| `v2/urban/urban_*.png` | la partida real con el bundle promocionado a 1440×900 en 1× y 0,5× en los cuatro distritos, y el censo de lo que el renderizador tiene pintado en el JSON hermano (WP08) |
 
 El laboratorio de extensiones corre **aislado** del perfil de usuario real:
 

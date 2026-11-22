@@ -1,0 +1,332 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/wp08-urban-street-capture.mjs",
+ "command": "node scripts/wp08-urban-street-capture.mjs",
+ "caso": "urban_commercial_05x",
+ "familiaPiloto": "commercial",
+ "distrito": {
+  "name": "Mercado del Norte",
+  "role": "CORREDOR COMERCIAL"
+ },
+ "reloj": {
+  "velocidad": "» 16×",
+  "velocidadAlDisparar": "» 1×",
+  "ticksPorSegundo": 66.3,
+  "tickInicial": 358,
+  "tickFinal": 19478,
+  "diasSimulados": 15.9,
+  "segundosReales": 288,
+  "objetivoAlcanzado": true
+ },
+ "pausa": {
+  "boton": "Continuar simulación",
+  "tickAlPausar": 43094,
+  "tickAsentado": 51498,
+  "msHastaAsentar": 4342,
+  "congelado": true
+ },
+ "diasObjetivo": 12,
+ "esperaFachadas": {
+  "ms": 280,
+  "agotado": false,
+  "total": 1,
+  "faltan": []
+ },
+ "ancla": {
+  "entityId": "building_90001001",
+  "type": "market_hall",
+  "cell": {
+   "x": 24,
+   "y": 22
+  },
+  "enCuadre": 1,
+  "pintados": 1,
+  "despoblados": 0,
+  "tipos": [
+   "market_hall"
+  ],
+  "desvioCentrado": {
+   "x": 1,
+   "y": 1
+  }
+ },
+ "eleccionEncuadre": [
+  {
+   "entityId": "building_90001001",
+   "type": "market_hall",
+   "enCuadre": 1,
+   "pintados": 1,
+   "despoblados": 0,
+   "tipos": [
+    "market_hall"
+   ]
+  }
+ ],
+ "convergenciaEncuadre": [
+  {
+   "x": 0.5,
+   "y": 0.5
+  }
+ ],
+ "chrome": {
+  "paneles": [],
+  "tapones": [
+   {
+    "clase": "map-canvas",
+    "area": 1061824
+   }
+  ],
+  "cierrePorEvento": false
+ },
+ "zoomPedido": 0.5,
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "deviceScaleFactor": 1,
+ "ruta": "apps/web/src/App.tsx → IsometricSpikeScene (?cameraTest=1, ciudad nueva seed 1)",
+ "escala": "cámara y escala del juego: los sprites se colocan con `spriteScaleFor`/`CHARACTER_RENDER_SCALE`, sin los boosts de presentación del laboratorio FX",
+ "metodologia": "censo cruzando `listScenery()` (qué tiene pintado el renderizador) con `getProjection()` (qué hay en el dominio) dentro del `worldView` de la cámara",
+ "imagen": {
+  "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_05x.png",
+  "bytes": 1123750,
+  "sha256": "699e2c53f13d8cd937d31f96c64a765d7d8092eb9430ff4f0d84553ab383fe2c"
+ },
+ "bundle": {
+  "archivo": "apps/web/dist/assets/index-BFeHLDBG.js",
+  "sha256": "946ca403add174606a5ff278aaf9bff12b2fa412ed3ca205e95f85fc9ce4367b",
+  "bytes": 2663036
+ },
+ "cumpleWP08": false,
+ "faltaWP08": [
+  "fachadas",
+  "piloto WP06"
+ ],
+ "pageErrors": [],
+ "observedDistrictId": "district_00000002",
+ "tick": 51498,
+ "worldView": {
+  "x": -851,
+  "y": 41,
+  "width": 2824,
+  "height": 1504
+ },
+ "zoom": 0.5,
+ "anclaEnPantalla": {
+  "x": 706,
+  "y": 376
+ },
+ "desviacionPx": {
+  "x": 1,
+  "y": 1
+ },
+ "canvasCss": {
+  "width": 1410,
+  "height": 750
+ },
+ "canvasBuffer": {
+  "width": 1412,
+  "height": 752
+ },
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "roads": {
+  "revision": 0,
+  "digest": "0961f739",
+  "celdasMapa": 527
+ },
+ "roadSection": {
+  "revision": 0,
+  "perfiles": [
+   "street",
+   "avenue"
+  ],
+  "segmentos": 338
+ },
+ "terreno": {
+  "textureKey": "district-ground-tiles",
+  "baked": true,
+  "width": 4096,
+  "height": 2048,
+  "rebakes": 4,
+  "stage": "full"
+ },
+ "spritesPintados": 1,
+ "fachadas": [
+  {
+   "id": "building_90001001",
+   "type": "market_hall",
+   "state": "operational",
+   "orientation": 0,
+   "enCuadre": true,
+   "sprite": [
+    {
+     "x": 560,
+     "y": 792,
+     "texture": "blender-variant-day-market_hall:complete:-:0",
+     "scale": 0.1879,
+     "visible": true
+    }
+   ]
+  }
+ ],
+ "porTipo": {
+  "market_hall": {
+   "distrito": 1,
+   "enCuadre": 1,
+   "sinSprite": 0
+  }
+ },
+ "edificiosDistrito": 1,
+ "edificiosEnCuadre": 1,
+ "pilotosEnCuadre": [],
+ "sinSprite": [],
+ "capas": {
+  "vehiculos_aparcados": {
+   "total": 76,
+   "enCuadre": 49,
+   "visibles": 59,
+   "pintados": 49,
+   "texturas": {
+    "blender-sprite-veh_sedan-az135": 10,
+    "blender-sprite-veh_truck-az225": 6,
+    "blender-sprite-veh_taxi-az135": 4,
+    "blender-sprite-veh_sedan-az315": 5,
+    "blender-sprite-veh_taxi-az225": 2,
+    "blender-sprite-veh_sedan": 4,
+    "blender-sprite-veh_taxi": 4,
+    "blender-sprite-veh_truck-az135": 1,
+    "blender-sprite-veh_taxi-az315": 3,
+    "blender-sprite-veh_sedan-az225": 5,
+    "blender-sprite-veh_truck": 4,
+    "blender-sprite-veh_delivery-az135": 1
+   }
+  },
+  "peatones_ambientales": {
+   "total": 5,
+   "enCuadre": 4,
+   "visibles": 5,
+   "pintados": 4,
+   "texturas": {
+    "blender-character-chr_citizen-idle-d2-0": 1,
+    "blender-character-chr_citizen-idle-d3-1": 1,
+    "blender-character-chr_citizen-walk-d0-0": 1,
+    "blender-character-chr_citizen-walk-d3-1": 1
+   }
+  },
+  "cuadrillas": {
+   "total": 0,
+   "enCuadre": 0,
+   "visibles": 0,
+   "pintados": 0,
+   "texturas": {}
+  },
+  "mobiliario_calle": {
+   "total": 40,
+   "enCuadre": 34,
+   "visibles": 39,
+   "pintados": 34,
+   "texturas": {
+    "blender-sprite-prp_traffic_light-az225": 3,
+    "blender-sprite-prp_traffic_light": 3,
+    "blender-sprite-prp_street_light": 18,
+    "blender-sprite-prp_bench": 6,
+    "blender-sprite-prp_trash_can": 4
+   }
+  },
+  "mobiliario_espacio_publico": {
+   "total": 81,
+   "enCuadre": 68,
+   "visibles": 78,
+   "pintados": 68,
+   "texturas": {
+    "blender-sprite-prp_tree_oak": 14,
+    "blender-sprite-prp_tree_pine": 16,
+    "blender-sprite-prp_tree_detailed": 16,
+    "blender-sprite-prp_bush": 11,
+    "blender-sprite-prp_bench": 8,
+    "blender-sprite-prp_street_light": 3
+   }
+  },
+  "adornos_parcela": {
+   "total": 281,
+   "enCuadre": 211,
+   "visibles": 228,
+   "pintados": 211,
+   "texturas": {
+    "blender-sprite-prp_bush_detailed": 40,
+    "blender-sprite-prp_bush": 95,
+    "blender-sprite-prp_grass": 34,
+    "blender-sprite-prp_construction_cone": 21,
+    "blender-sprite-prp_tree_cone": 18,
+    "blender-sprite-prp_planter_urn": 1,
+    "blender-sprite-prp_bollard": 1,
+    "blender-sprite-prp_street_light": 1
+   }
+  },
+  "vegetacion": {
+   "total": 49,
+   "enCuadre": 33,
+   "visibles": 37,
+   "pintados": 33,
+   "texturas": {
+    "blender-sprite-prp_tree_oak": 4,
+    "blender-sprite-prp_bush": 19,
+    "blender-sprite-prp_tree_pine": 6,
+    "blender-sprite-prp_tree_cone": 2,
+    "blender-sprite-prp_tree_small": 2
+   }
+  },
+  "fauna": {
+   "total": 10,
+   "enCuadre": 6,
+   "visibles": 6,
+   "pintados": 6,
+   "texturas": {
+    "blender-sprite-prp_wild_sparrow-az315": 1,
+    "blender-sprite-prp_wild_sparrow-az135": 3,
+    "blender-sprite-prp_wild_sparrow-az225": 1,
+    "blender-sprite-prp_wild_sparrow": 1
+   }
+  },
+  "patios": {
+   "total": 3,
+   "enCuadre": 3,
+   "visibles": 3,
+   "pintados": 3,
+   "texturas": {
+    "blender-sprite-prp_market_stall": 2,
+    "blender-sprite-prp_bench": 1
+   }
+  },
+  "marcas_viales": {
+   "total": 17,
+   "enCuadre": 14,
+   "visibles": 17,
+   "pintados": 14,
+   "texturas": {
+    "district-crossings-14": 4,
+    "district-crossings-7": 2,
+    "district-crossings-15": 4,
+    "district-crossings-11": 2,
+    "district-crossings-13": 2
+   }
+  },
+  "limites_solares": {
+   "total": 0,
+   "enCuadre": 0,
+   "visibles": 0,
+   "pintados": 0,
+   "texturas": {}
+  }
+ },
+ "peatonesDistrito": 0,
+ "detalleWP08": {
+  "fachadas": false,
+  "piloto WP06": false,
+  "vehículos": true,
+  "peatones": true,
+  "vegetación": true,
+  "mobiliario": true,
+  "terreno horneado": true
+ }
+}

@@ -1,0 +1,134 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "command": "python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "hoja": "docs/art/graphics-capabilities/evidence/v2/sheets/wp08_arquitectura_avanzada.png",
+ "titulo": "D-111.2 WP08 · arquitectura avanzada: las cuatro autorías, con el dato que decide",
+ "subtitulo": "Regla §5.1: el tipo se reconoce a 1× sin leer la etiqueta y la silueta sobrevive a 0,5×. GN y Arch Generator están adoptados y montados por el Composer en los dos últimos paneles; HiFi se queda como herramienta de receta (su vano no divide el hueco) y Archimesh queda rechazado por construcción, no por tamaño: sus hojas caen por detrás de la cara del paño canónico de 0,10 m. Cada pie sale del JSON hermano del fotograma.",
+ "tamanioPx": [
+  3091,
+  1723
+ ],
+ "anchoColumnaPx": 1025,
+ "bytes": 1413967,
+ "sha256": "9a1b89273941351e4cc9b9b492e1ba7597c8ba2cd3bd776eb2d5fb41a942f7a1",
+ "celdas": [
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/gn/gn_parts.png",
+   "sha256": "b538f1fb320ce393c607c052f0b30a14f73340542c5e40a2c36a1ffe0dea2fbb",
+   "bytes": 203592,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/gn/gn_parts.json",
+   "nativoPx": [
+    468,
+    549
+   ],
+   "dibujadoPx": [
+    376,
+    441
+   ],
+   "pie": "GEOMETRY NODES · piezas que resuelven los roles de la gramática (adoptada: WP01) · 1152 tri en 5 objetos · caja 12.4×0.95×3.0 m · ortogonal az 30.0° escala 15.0 · sprite 468×549 px · luz day_civic · autoría propia · geometry_nodes_facade_grammar · crujía 2.0 m · piso 3.0 m",
+   "pieLineas": 3,
+   "pieCompleto": true,
+   "pieAnchoPx": 881
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_grid.png",
+   "sha256": "81f9f21b4b213a32e3e66b2040b48486b1a3e3cdcc513c289c4285c783a47e5a",
+   "bytes": 584552,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/hifi/hifi_facade_grid.json",
+   "nativoPx": [
+    786,
+    734
+   ],
+   "dibujadoPx": [
+    472,
+    441
+   ],
+   "pie": "HIFI · receta de fachada sobre retícula (es lo único que WP03 dejó en pie) · 5976 tri en 208 objetos · caja 18.44×7.935×10.89 m · ortogonal az 45.0° escala 23.6 · sprite 786×734 px · luz day_civic · hifi_builder v4.6.7 (SPDX:GPL-3.0-or-later)",
+   "pieLineas": 3,
+   "pieCompleto": true,
+   "pieAnchoPx": 887
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/ag/ag_arcade_bay_2m.png",
+   "sha256": "10d7f612d5d1c9ca609e5717393402026bf93a0fe785a74df03b491b833ec2c4",
+   "bytes": 315920,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/ag/ag_arcade_bay_2m.json",
+   "nativoPx": [
+    549,
+    585
+   ],
+   "dibujadoPx": [
+    414,
+    441
+   ],
+   "pie": "ARCH GENERATOR · vano de arcada cívica horneado a la caja canónica (adoptado: WP02) · 5430 tri en 3 objetos · caja 6.0×0.5×3.0 m · ortogonal az 225.0° escala 8.6 · sprite 549×585 px · luz day_civic · arch_generator v1.0.1 (SPDX:GPL-3.0-or-later)",
+   "pieLineas": 3,
+   "pieCompleto": true,
+   "pieAnchoPx": 837
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/ext/archimesh_window_bay_2m_high.png",
+   "sha256": "a665cc3643ff52cdd4168eba32bce86ac244a43abb6314f4c7dfec76f811327d",
+   "bytes": 279512,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/ext/archimesh_window_bay_2m_high.json",
+   "nativoPx": [
+    524,
+    568
+   ],
+   "dibujadoPx": [
+    407,
+    441
+   ],
+   "pie": "ARCHIMESH · vano con carpintería: MEDIDO Y NO ADOPTADO, la carpintería cae detrás del paño · 4074 tri en 3 objetos · caja 6.0×0.5×3.0 m · ortogonal az 225.0° escala 8.6 · sprite 524×568 px · luz day_civic · archimesh v1.2.5 (SPDX:GPL-2.0-or-later)",
+   "pieLineas": 3,
+   "pieCompleto": true,
+   "pieAnchoPx": 876
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-candidata.png",
+   "sha256": "c5435ebf43910fd1a66c58a9da8f6ba83564c25045533cf7cf5b46bbc21a87c6",
+   "bytes": 1128049,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-candidata.json",
+   "nativoPx": [
+    996,
+    1203
+   ],
+   "dibujadoPx": [
+    811,
+    980
+   ],
+   "pie": "el GN montado por el Composer en un adosado completo (perfil `gn_residential_v2`) · seed 17 · 12080 tri · h 9.214 m · huella 4×1 celdas · 16.0×4.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · geometría íntegra · sombra recortada por izq,sup,inf · márgenes 0/0/142/0 px · fachada brick_terrace · ritmo wainscoted@4 · receta none",
+   "pieLineas": 5,
+   "pieCompleto": true,
+   "pieAnchoPx": 871
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-candidata.png",
+   "sha256": "0aead8564e0668eb7862043fdd7feaa7617f62f8b21c40a1c5306a11fcf46eba",
+   "bytes": 1785084,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-candidata.json",
+   "nativoPx": [
+    1395,
+    1487
+   ],
+   "dibujadoPx": [
+    919,
+    980
+   ],
+   "pie": "el Arch Generator montado por el Composer en el hito cívico (perfil `ag_civic_v2`) · seed 2 · 44374 tri · h 9.998 m · huella 5×3 celdas · 20.0×12.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · geometría íntegra · sombra recortada por izq,sup,inf · márgenes 0/0/202/0 px · fachada stucco_civic · ritmo glazed_ground@3 · receta civic_wing",
+   "pieLineas": 5,
+   "pieCompleto": true,
+   "pieAnchoPx": 865
+  }
+ ],
+ "sinEvidencia": [],
+ "rotulosRecortados": [],
+ "fuentesSinProcedencia": []
+}

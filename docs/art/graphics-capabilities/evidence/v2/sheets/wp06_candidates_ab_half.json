@@ -1,0 +1,172 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "command": "python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "hoja": "docs/art/graphics-capabilities/evidence/v2/sheets/wp06_candidates_ab_half.png",
+ "titulo": "D-111.2 WP06 · cuatro candidatas por perfil de candidato, sobre la gramática aprobada",
+ "subtitulo": "Ninguno de los cuatro brazos tocó `building-composer-grammars.json`: cada uno se compuso con `--candidate=<perfil>` y se validó con las mismas guardas de §11/§17 que la producción. Huella, orientación y plantas son idénticos al control en las cuatro y el pivote también, salvo en la nave, donde sube con el pretil de 4 m que WP05 declaró (medido en `test_building_composer_candidates.py`). Lo único que cambia es qué módulo resuelve cada rol. Las tres autorías distintas: Geometry Nodes en las dos residenciales, GN industrial a 4 m en la nave y un vano horneado desde Arch Generator en el hito cívico.",
+ "tamanioPx": [
+  4368,
+  2770
+ ],
+ "anchoColumnaPx": 2176,
+ "bytes": 1366807,
+ "sha256": "fba0b6b13eceea8eda3db3dd9f6ac0b3b45397e4a62233ef7d75977f2b33553f",
+ "celdas": [
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-control.png",
+   "sha256": "fd9d207bb281ae1661c62db4179f0278329df2bf6657f95fd15005ea5c0f4aec",
+   "bytes": 1213426,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-control.json",
+   "nativoPx": [
+    996,
+    1203
+   ],
+   "dibujadoPx": [
+    406,
+    490
+   ],
+   "pie": "row_house · GN: crujía, zócalo de sillar y cornisa · control · seed 17 · 11232 tri · h 9.214 m · huella 4×1 celdas · 16.0×4.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · geometría íntegra · sombra recortada por izq,sup,inf · márgenes 0/0/142/0 px · fachada brick_terrace · ritmo wainscoted@4 · receta none",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 738
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+   "sha256": "e166549013cea5b807cdd660a0733f76ca352d35b3b50811131a89f342cad11b",
+   "bytes": 1143414,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.json",
+   "nativoPx": [
+    996,
+    1203
+   ],
+   "dibujadoPx": [
+    406,
+    490
+   ],
+   "pie": "row_house · GN: crujía, zócalo de sillar y cornisa · candidata · seed 17 · 12080 tri · h 9.214 m · huella 4×1 celdas · 16.0×4.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · GEOMETRÍA RECORTADA por der ((0, 0, 3, 0) px sólidos en el borde) · fachada brick_terrace · ritmo wainscoted@4 · receta none",
+   "pieLineas": 5,
+   "pieCompleto": true,
+   "pieAnchoPx": 735
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/commercial/mixed_tenement-control.png",
+   "sha256": "39a0d52ba85bac4122a93b7ff159f9c029cf1634068783fd8f15360e6509b183",
+   "bytes": 1461912,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/commercial/mixed_tenement-control.json",
+   "nativoPx": [
+    1048,
+    1046
+   ],
+   "dibujadoPx": [
+    491,
+    490
+   ],
+   "pie": "mixed_tenement · GN: crujía, cornisa y puerta-balcón · control · seed 2 · 9522 tri · h 10.0 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · SIN CORTE · márgenes 155/169/180/165 px · fachada brick_commercial · ritmo shopfront_residential@4 · receta quaternius_balcony",
+   "pieLineas": 5,
+   "pieCompleto": true,
+   "pieAnchoPx": 745
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+   "sha256": "f797af0ba251054d494a6aac693707b5adbe77c1a51759d9884239a033bebf7a",
+   "bytes": 1369213,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.json",
+   "nativoPx": [
+    1048,
+    1046
+   ],
+   "dibujadoPx": [
+    491,
+    490
+   ],
+   "pie": "mixed_tenement · GN: crujía, cornisa y puerta-balcón · candidata · seed 2 · 14264 tri · h 10.0 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · SIN CORTE · márgenes 155/169/180/165 px · fachada brick_commercial · ritmo shopfront_residential@4 · receta quaternius_balcony",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 733
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/industrial/warehouse-control.png",
+   "sha256": "bad358181dbed8faba7ead866bd257d9ea6f1acbb26bd1a62446064d90cbdc95",
+   "bytes": 915213,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/industrial/warehouse-control.json",
+   "nativoPx": [
+    1383,
+    873
+   ],
+   "dibujadoPx": [
+    776,
+    490
+   ],
+   "pie": "warehouse · GN: chapa, ventana, portón y pretil a 4 m · control · seed 2 · 4616 tri · h 3.0 m · huella 4×3 celdas · 16.0×12.0 m · 60.2 px/m · margen 1.3205 · luz night_civic sol 3.0° cám 45/30° · geometría íntegra · sombra recortada por izq,inf · márgenes 0/120/191/0 px · fachada steel_cladding · ritmo strip_windows@6 · receta none",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 742
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
+   "sha256": "7b4f6eb7b04c5fc6ecf6869fd8b734368eae5698f42cf3cadafc6ddc37a3ba68",
+   "bytes": 958124,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.json",
+   "nativoPx": [
+    1394,
+    944
+   ],
+   "dibujadoPx": [
+    724,
+    490
+   ],
+   "pie": "warehouse · GN: chapa, ventana, portón y pretil a 4 m · candidata · seed 2 · 7896 tri · h 4.0 m · huella 4×3 celdas · 16.0×12.0 m · 60.2 px/m · margen 1.3205 · luz night_civic sol 3.0° cám 45/30° · geometría íntegra · sombra recortada por izq,inf · márgenes 0/130/202/0 px · fachada steel_cladding · ritmo strip_windows@6 · receta none",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 744
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-control.png",
+   "sha256": "d73ba92a394f3169cc6eedc24853d273a94252e53cee31d9f29e0e01703ee342",
+   "bytes": 1842265,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-control.json",
+   "nativoPx": [
+    1395,
+    1487
+   ],
+   "dibujadoPx": [
+    460,
+    490
+   ],
+   "pie": "town_hall · Arch Generator: vano de arcada cívica · control · seed 2 · 18418 tri · h 9.998 m · huella 5×3 celdas · 20.0×12.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · geometría íntegra · sombra recortada por izq,sup,inf · márgenes 0/0/202/0 px · fachada stucco_civic · ritmo glazed_ground@3 · receta civic_wing",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 740
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.png",
+   "sha256": "f75a826ae42dc9293adaadbb7ef2920b9d1a41e7a599661048bcf870a78aa23c",
+   "bytes": 1784969,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.json",
+   "nativoPx": [
+    1395,
+    1487
+   ],
+   "dibujadoPx": [
+    460,
+    490
+   ],
+   "pie": "town_hall · Arch Generator: vano de arcada cívica · candidata · seed 2 · 44374 tri · h 9.998 m · huella 5×3 celdas · 20.0×12.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · geometría íntegra · sombra recortada por izq,sup,inf · márgenes 0/0/202/0 px · fachada stucco_civic · ritmo glazed_ground@3 · receta civic_wing",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 728
+  }
+ ],
+ "sinEvidencia": [],
+ "rotulosRecortados": [],
+ "fuentesSinProcedencia": []
+}

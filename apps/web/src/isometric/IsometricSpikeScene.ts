@@ -378,6 +378,39 @@ type CameraTestApi = {
   setSelectionTarget(target: MapSelectionTarget | null): void;
   /** V.d-UX.S · sondas observacionales del estado del activo para la evidencia visual. */
   getProjection(): ViewProjectionV3 | null;
+  /**
+   * D-111.2 · WP08: censo de lo que el renderizador tiene pintado y del rectángulo del mundo que la
+   * cámara está enseñando en este instante. La proyección dice qué existe en el dominio; esto dice qué
+   * hay en el fotograma, que es lo que permite medir que una calle está poblada en vez de fotografiar
+   * un solar vacío con la escena numéricamente coherente. Pura lectura: no crea, mueve ni destruye.
+   */
+  listScenery(): {
+    worldView: { x: number; y: number; width: number; height: number };
+    buildings: Array<{
+      id: string;
+      x: number;
+      y: number;
+      texture: string;
+      scale: number;
+      visible: boolean;
+    }>;
+    layers: Array<{
+      layer: string;
+      total: number;
+      enCuadre: number;
+      visibles: number;
+      pintados: number;
+      texturas: Record<string, number>;
+    }>;
+    terrain: {
+      textureKey: string;
+      baked: boolean;
+      width: number;
+      height: number;
+      rebakes: number;
+      stage: string;
+    };
+  };
   listIndicators(): Array<{
     key: string;
     kind: string;
@@ -3363,6 +3396,87 @@ export class IsometricSpikeScene extends Phaser.Scene {
         this.setSelectionTarget(target);
       },
       getProjection: () => this.projection,
+      listScenery: () => {
+        camera.preRender();
+        const view = camera.worldView;
+        const layers: Array<{
+          layer: string;
+          total: number;
+          enCuadre: number;
+          visibles: number;
+          /**
+           * Visible ∩ en cuadro: lo que el fotograma realmente pinta. `enCuadre` solo mide geometría y
+           * `visibles` solo mide el flag del renderizador; cada sprite del dressing se enciende con
+           * `isInViewport(x, y, worldView, 96)`, así que ninguna de las dos por separado dice qué se ve.
+           * `texturas` se cuenta sobre `pintados`, no sobre `enCuadre`: la prueba de que una textura
+           * aparece en el PNG exige que esté dibujada.
+           */
+          pintados: number;
+          texturas: Record<string, number>;
+        }> = [];
+        const collect = (layer: string, sprites: Iterable<Phaser.GameObjects.Image>) => {
+          const texturas: Record<string, number> = {};
+          let total = 0;
+          let enCuadre = 0;
+          let visibles = 0;
+          let pintados = 0;
+          for (const sprite of sprites) {
+            total += 1;
+            if (sprite.visible) visibles += 1;
+            if (
+              sprite.x < view.x ||
+              sprite.x > view.right ||
+              sprite.y < view.y ||
+              sprite.y > view.bottom
+            ) {
+              continue;
+            }
+            enCuadre += 1;
+            if (!sprite.visible) continue;
+            pintados += 1;
+            const key = sprite.texture.key;
+            texturas[key] = (texturas[key] ?? 0) + 1;
+          }
+          layers.push({ layer, total, enCuadre, visibles, pintados, texturas });
+        };
+        const ground = this.textures.exists(TILE_TEXTURE_KEY)
+          ? (this.textures.get(TILE_TEXTURE_KEY).getSourceImage() as HTMLCanvasElement)
+          : null;
+        collect("vehiculos_aparcados", this.parkedVehicleSprites.values());
+        collect("peatones_ambientales", this.ambientActorSprites.values());
+        collect(
+          "cuadrillas",
+          [...this.crewSprites.values()].map((entry) => entry.image),
+        );
+        collect("mobiliario_calle", this.streetFurnitureSprites.values());
+        collect("mobiliario_espacio_publico", this.publicSpaceFurnitureSprites.values());
+        collect("adornos_parcela", this.parcelDressingSprites.values());
+        collect("vegetacion", this.decorSprites);
+        collect("fauna", this.wildlifeSprites.values());
+        collect("patios", this.courtyardPropSprites.values());
+        collect("marcas_viales", this.roadMarkingSprites);
+        collect("limites_solares", this.parcelBoundarySprites.values());
+        return {
+          worldView: { x: view.x, y: view.y, width: view.width, height: view.height },
+          buildings: [...this.buildingSprites.entries()].map(([id, sprite]) => ({
+            id,
+            x: sprite.x,
+            y: sprite.y,
+            texture: sprite.texture.key,
+            scale: sprite.scaleX,
+            visible: sprite.visible,
+          })),
+          layers,
+          terrain: {
+            textureKey: TILE_TEXTURE_KEY,
+            baked: Boolean(ground),
+            width: ground?.width ?? 0,
+            height: ground?.height ?? 0,
+            rebakes: this.groundRebakeCount,
+            stage: String(this.terrainStage),
+          },
+        };
+      },
       listIndicators: () =>
         this.indicatorEntries.map((entry) => {
           camera.preRender();

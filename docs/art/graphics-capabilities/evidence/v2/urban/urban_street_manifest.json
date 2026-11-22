@@ -1,0 +1,539 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/wp08-urban-street-capture.mjs",
+ "command": "node scripts/wp08-urban-street-capture.mjs",
+ "task": "D-111.2 FASE 7 · WP08 — calle urbana poblada a escala real de Phaser (1440×900, 1× y 0,5×)",
+ "baseUrl": "http://127.0.0.1:35069",
+ "bundle": {
+  "archivo": "apps/web/dist/assets/index-BFeHLDBG.js",
+  "sha256": "946ca403add174606a5ff278aaf9bff12b2fa412ed3ca205e95f85fc9ce4367b",
+  "bytes": 2663036
+ },
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "diasObjetivo": 12,
+ "reloj": {
+  "velocidad": "» 16×",
+  "velocidadAlDisparar": "» 1×",
+  "ticksPorSegundo": 66.3,
+  "tickInicial": 358,
+  "tickFinal": 19478,
+  "diasSimulados": 15.9,
+  "segundosReales": 288,
+  "objetivoAlcanzado": true
+ },
+ "pausa": {
+  "boton": "Continuar simulación",
+  "tickAlPausar": 43094,
+  "tickAsentado": 51498,
+  "msHastaAsentar": 4342,
+  "congelado": true
+ },
+ "pilots": [
+  "town_hall",
+  "row_house",
+  "mixed_tenement",
+  "warehouse"
+ ],
+ "shots": [
+  {
+   "caso": "urban_civic_10x",
+   "distrito": "Centro Cívico",
+   "ancla": {
+    "entityId": "building_90004001",
+    "type": "town_hall",
+    "cell": {
+     "x": 25,
+     "y": 24
+    },
+    "enCuadre": 4,
+    "pintados": 2,
+    "despoblados": 2,
+    "tipos": [
+     "market_hall",
+     "town_hall"
+    ],
+    "desvioCentrado": {
+     "x": 0,
+     "y": 0
+    }
+   },
+   "zoom": 1,
+   "tick": 51498,
+   "worldView": {
+    "x": -161,
+    "y": 473,
+    "width": 1412,
+    "height": 752
+   },
+   "edificiosEnCuadre": 2,
+   "pilotosEnCuadre": [
+    "town_hall"
+   ],
+   "vehiculos": 9,
+   "peatones": 1,
+   "vegetacion": 8,
+   "mobiliario": 11,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 2,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "e617ea6bfd8de57786f00fe8de7a69dd29ab409c296ad43caba505b510f009d5",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_10x.png"
+  },
+  {
+   "caso": "urban_civic_05x",
+   "distrito": "Centro Cívico",
+   "ancla": {
+    "entityId": "building_90004001",
+    "type": "town_hall",
+    "cell": {
+     "x": 25,
+     "y": 24
+    },
+    "enCuadre": 4,
+    "pintados": 2,
+    "despoblados": 2,
+    "tipos": [
+     "market_hall",
+     "town_hall"
+    ],
+    "desvioCentrado": {
+     "x": 1,
+     "y": 1
+    }
+   },
+   "zoom": 0.5,
+   "tick": 51498,
+   "worldView": {
+    "x": -866,
+    "y": 98,
+    "width": 2824,
+    "height": 1504
+   },
+   "edificiosEnCuadre": 2,
+   "pilotosEnCuadre": [
+    "town_hall"
+   ],
+   "vehiculos": 23,
+   "peatones": 6,
+   "vegetacion": 37,
+   "mobiliario": 29,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 2,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "6ffcbf2f4adfdf219d00a496b74c48ddf799a211c42380f9063642e4d15de393",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_05x.png"
+  },
+  {
+   "caso": "urban_residential_10x",
+   "distrito": "Barrio del Umbral",
+   "ancla": {
+    "entityId": "building_90003001",
+    "type": "school_block",
+    "cell": {
+     "x": 19,
+     "y": 30
+    },
+    "enCuadre": 1,
+    "pintados": 1,
+    "despoblados": 0,
+    "tipos": [
+     "school_block"
+    ],
+    "desvioCentrado": {
+     "x": 0,
+     "y": 0
+    }
+   },
+   "zoom": 1,
+   "tick": 51498,
+   "worldView": {
+    "x": -545,
+    "y": 473,
+    "width": 1412,
+    "height": 752
+   },
+   "edificiosEnCuadre": 1,
+   "pilotosEnCuadre": [],
+   "vehiculos": 9,
+   "peatones": 3,
+   "vegetacion": 17,
+   "mobiliario": 53,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 3,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [
+    "fachadas",
+    "piloto WP06"
+   ],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "f347b51cc8f667c4a32a77718f60212282c266c6665ff5dee819200683c4c0f7",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_10x.png"
+  },
+  {
+   "caso": "urban_residential_05x",
+   "distrito": "Barrio del Umbral",
+   "ancla": {
+    "entityId": "building_90003001",
+    "type": "school_block",
+    "cell": {
+     "x": 19,
+     "y": 30
+    },
+    "enCuadre": 2,
+    "pintados": 2,
+    "despoblados": 0,
+    "tipos": [
+     "clinic",
+     "school_block"
+    ],
+    "desvioCentrado": {
+     "x": 1,
+     "y": 1
+    }
+   },
+   "zoom": 0.5,
+   "tick": 51498,
+   "worldView": {
+    "x": -1250,
+    "y": 98,
+    "width": 2824,
+    "height": 1504
+   },
+   "edificiosEnCuadre": 2,
+   "pilotosEnCuadre": [],
+   "vehiculos": 34,
+   "peatones": 4,
+   "vegetacion": 54,
+   "mobiliario": 61,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 3,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [
+    "piloto WP06"
+   ],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "8dbdcfee04b8f61d450c03e50858f168182f1d6d121887d196aa39298cdea2e6",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_05x.png"
+  },
+  {
+   "caso": "urban_commercial_10x",
+   "distrito": "Mercado del Norte",
+   "ancla": {
+    "entityId": "building_90001001",
+    "type": "market_hall",
+    "cell": {
+     "x": 24,
+     "y": 22
+    },
+    "enCuadre": 1,
+    "pintados": 1,
+    "despoblados": 0,
+    "tipos": [
+     "market_hall"
+    ],
+    "desvioCentrado": {
+     "x": 0,
+     "y": 0
+    }
+   },
+   "zoom": 1,
+   "tick": 51498,
+   "worldView": {
+    "x": -145,
+    "y": 417,
+    "width": 1412,
+    "height": 752
+   },
+   "edificiosEnCuadre": 1,
+   "pilotosEnCuadre": [],
+   "vehiculos": 18,
+   "peatones": 0,
+   "vegetacion": 8,
+   "mobiliario": 7,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 4,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [
+    "fachadas",
+    "piloto WP06",
+    "peatones"
+   ],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "f6bcbe8d9d7f0136e40298854e2f56363ecfdd5d38d62d6e3d79043d1903d40b",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_10x.png"
+  },
+  {
+   "caso": "urban_commercial_05x",
+   "distrito": "Mercado del Norte",
+   "ancla": {
+    "entityId": "building_90001001",
+    "type": "market_hall",
+    "cell": {
+     "x": 24,
+     "y": 22
+    },
+    "enCuadre": 1,
+    "pintados": 1,
+    "despoblados": 0,
+    "tipos": [
+     "market_hall"
+    ],
+    "desvioCentrado": {
+     "x": 1,
+     "y": 1
+    }
+   },
+   "zoom": 0.5,
+   "tick": 51498,
+   "worldView": {
+    "x": -851,
+    "y": 41,
+    "width": 2824,
+    "height": 1504
+   },
+   "edificiosEnCuadre": 1,
+   "pilotosEnCuadre": [],
+   "vehiculos": 49,
+   "peatones": 4,
+   "vegetacion": 33,
+   "mobiliario": 102,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 4,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [
+    "fachadas",
+    "piloto WP06"
+   ],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "699e2c53f13d8cd937d31f96c64a765d7d8092eb9430ff4f0d84553ab383fe2c",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_05x.png"
+  },
+  {
+   "caso": "urban_industrial_10x",
+   "distrito": "Ensanche Ferroviario Oeste",
+   "ancla": {
+    "entityId": "building_90006001",
+    "type": "fire_station",
+    "cell": {
+     "x": 18,
+     "y": 28
+    },
+    "enCuadre": 1,
+    "pintados": 1,
+    "despoblados": 0,
+    "tipos": [
+     "fire_station"
+    ],
+    "desvioCentrado": {
+     "x": 0,
+     "y": 0
+    }
+   },
+   "zoom": 1,
+   "tick": 51498,
+   "worldView": {
+    "x": -513,
+    "y": 425,
+    "width": 1412,
+    "height": 752
+   },
+   "edificiosEnCuadre": 1,
+   "pilotosEnCuadre": [],
+   "vehiculos": 12,
+   "peatones": 0,
+   "vegetacion": 2,
+   "mobiliario": 17,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 5,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [
+    "fachadas",
+    "piloto WP06",
+    "peatones"
+   ],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "57a631cd7798a2aba1e708b5bd08263a27b8eff5df42c341de3206d3a7024317",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_10x.png"
+  },
+  {
+   "caso": "urban_industrial_05x",
+   "distrito": "Ensanche Ferroviario Oeste",
+   "ancla": {
+    "entityId": "building_90006001",
+    "type": "fire_station",
+    "cell": {
+     "x": 18,
+     "y": 28
+    },
+    "enCuadre": 1,
+    "pintados": 1,
+    "despoblados": 0,
+    "tipos": [
+     "fire_station"
+    ],
+    "desvioCentrado": {
+     "x": 1,
+     "y": 1
+    }
+   },
+   "zoom": 0.5,
+   "tick": 51498,
+   "worldView": {
+    "x": -1219,
+    "y": 49,
+    "width": 2824,
+    "height": 1504
+   },
+   "edificiosEnCuadre": 1,
+   "pilotosEnCuadre": [],
+   "vehiculos": 47,
+   "peatones": 0,
+   "vegetacion": 5,
+   "mobiliario": 49,
+   "terreno": {
+    "textureKey": "district-ground-tiles",
+    "baked": true,
+    "width": 4096,
+    "height": 2048,
+    "rebakes": 5,
+    "stage": "full"
+   },
+   "chrome": {
+    "paneles": [],
+    "tapones": [
+     {
+      "clase": "map-canvas",
+      "area": 1061824
+     }
+    ],
+    "cierrePorEvento": false
+   },
+   "faltaWP08": [
+    "fachadas",
+    "piloto WP06",
+    "peatones"
+   ],
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "sha256": "9baa041675b2cdf1ca2dcbeab6c0cc8754662df71fabd2f2fe18444675e0a3b5",
+   "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_05x.png"
+  }
+ ],
+ "pobladas": [
+  "urban_civic_10x",
+  "urban_civic_05x"
+ ],
+ "pageErrors": [],
+ "runError": null
+}

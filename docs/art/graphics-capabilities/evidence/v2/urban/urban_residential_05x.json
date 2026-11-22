@@ -1,0 +1,366 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/wp08-urban-street-capture.mjs",
+ "command": "node scripts/wp08-urban-street-capture.mjs",
+ "caso": "urban_residential_05x",
+ "familiaPiloto": "residential",
+ "distrito": {
+  "name": "Barrio del Umbral",
+  "role": "RESIDENCIAL URBANO"
+ },
+ "reloj": {
+  "velocidad": "» 16×",
+  "velocidadAlDisparar": "» 1×",
+  "ticksPorSegundo": 66.3,
+  "tickInicial": 358,
+  "tickFinal": 19478,
+  "diasSimulados": 15.9,
+  "segundosReales": 288,
+  "objetivoAlcanzado": true
+ },
+ "pausa": {
+  "boton": "Continuar simulación",
+  "tickAlPausar": 43094,
+  "tickAsentado": 51498,
+  "msHastaAsentar": 4342,
+  "congelado": true
+ },
+ "diasObjetivo": 12,
+ "esperaFachadas": {
+  "ms": 291,
+  "agotado": false,
+  "total": 2,
+  "faltan": []
+ },
+ "ancla": {
+  "entityId": "building_90003001",
+  "type": "school_block",
+  "cell": {
+   "x": 19,
+   "y": 30
+  },
+  "enCuadre": 2,
+  "pintados": 2,
+  "despoblados": 0,
+  "tipos": [
+   "clinic",
+   "school_block"
+  ],
+  "desvioCentrado": {
+   "x": 1,
+   "y": 1
+  }
+ },
+ "eleccionEncuadre": [
+  {
+   "entityId": "building_90003001",
+   "type": "school_block",
+   "enCuadre": 2,
+   "pintados": 2,
+   "despoblados": 0,
+   "tipos": [
+    "clinic",
+    "school_block"
+   ]
+  },
+  {
+   "entityId": "building_90003002",
+   "type": "clinic",
+   "enCuadre": 2,
+   "pintados": 2,
+   "despoblados": 0,
+   "tipos": [
+    "clinic",
+    "school_block"
+   ]
+  }
+ ],
+ "convergenciaEncuadre": [
+  {
+   "x": -456,
+   "y": -20
+  },
+  {
+   "x": 0,
+   "y": 0
+  }
+ ],
+ "chrome": {
+  "paneles": [],
+  "tapones": [
+   {
+    "clase": "map-canvas",
+    "area": 1061824
+   }
+  ],
+  "cierrePorEvento": false
+ },
+ "zoomPedido": 0.5,
+ "viewport": {
+  "width": 1440,
+  "height": 900
+ },
+ "deviceScaleFactor": 1,
+ "ruta": "apps/web/src/App.tsx → IsometricSpikeScene (?cameraTest=1, ciudad nueva seed 1)",
+ "escala": "cámara y escala del juego: los sprites se colocan con `spriteScaleFor`/`CHARACTER_RENDER_SCALE`, sin los boosts de presentación del laboratorio FX",
+ "metodologia": "censo cruzando `listScenery()` (qué tiene pintado el renderizador) con `getProjection()` (qué hay en el dominio) dentro del `worldView` de la cámara",
+ "imagen": {
+  "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_05x.png",
+  "bytes": 1147559,
+  "sha256": "8dbdcfee04b8f61d450c03e50858f168182f1d6d121887d196aa39298cdea2e6"
+ },
+ "bundle": {
+  "archivo": "apps/web/dist/assets/index-BFeHLDBG.js",
+  "sha256": "946ca403add174606a5ff278aaf9bff12b2fa412ed3ca205e95f85fc9ce4367b",
+  "bytes": 2663036
+ },
+ "cumpleWP08": false,
+ "faltaWP08": [
+  "piloto WP06"
+ ],
+ "pageErrors": [],
+ "observedDistrictId": "district_00000004",
+ "tick": 51498,
+ "worldView": {
+  "x": -1250,
+  "y": 98,
+  "width": 2824,
+  "height": 1504
+ },
+ "zoom": 0.5,
+ "anclaEnPantalla": {
+  "x": 705,
+  "y": 375
+ },
+ "desviacionPx": {
+  "x": 0,
+  "y": 0
+ },
+ "canvasCss": {
+  "width": 1410,
+  "height": 750
+ },
+ "canvasBuffer": {
+  "width": 1412,
+  "height": 752
+ },
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "roads": {
+  "revision": 0,
+  "digest": "b78b5545",
+  "celdasMapa": 384
+ },
+ "roadSection": {
+  "revision": 0,
+  "perfiles": [
+   "street",
+   "avenue"
+  ],
+  "segmentos": 265
+ },
+ "terreno": {
+  "textureKey": "district-ground-tiles",
+  "baked": true,
+  "width": 4096,
+  "height": 2048,
+  "rebakes": 3,
+  "stage": "full"
+ },
+ "spritesPintados": 2,
+ "fachadas": [
+  {
+   "id": "building_90003001",
+   "type": "school_block",
+   "state": "operational",
+   "orientation": 0,
+   "enCuadre": true,
+   "sprite": [
+    {
+     "x": 160,
+     "y": 848,
+     "texture": "blender-variant-day-school_block:complete:-:0",
+     "scale": 0.1879,
+     "visible": true
+    }
+   ]
+  },
+  {
+   "id": "building_90003002",
+   "type": "clinic",
+   "state": "operational",
+   "orientation": 0,
+   "enCuadre": true,
+   "sprite": [
+    {
+     "x": 1072,
+     "y": 888,
+     "texture": "blender-variant-day-clinic:complete:-:0",
+     "scale": 0.1879,
+     "visible": true
+    }
+   ]
+  }
+ ],
+ "porTipo": {
+  "school_block": {
+   "distrito": 1,
+   "enCuadre": 1,
+   "sinSprite": 0
+  },
+  "clinic": {
+   "distrito": 1,
+   "enCuadre": 1,
+   "sinSprite": 0
+  }
+ },
+ "edificiosDistrito": 2,
+ "edificiosEnCuadre": 2,
+ "pilotosEnCuadre": [],
+ "sinSprite": [],
+ "capas": {
+  "vehiculos_aparcados": {
+   "total": 47,
+   "enCuadre": 34,
+   "visibles": 36,
+   "pintados": 34,
+   "texturas": {
+    "blender-sprite-veh_sedan-az135": 6,
+    "blender-sprite-veh_truck-az225": 2,
+    "blender-sprite-veh_taxi-az135": 2,
+    "blender-sprite-veh_truck-az315": 2,
+    "blender-sprite-veh_sedan-az315": 2,
+    "blender-sprite-veh_taxi-az315": 2,
+    "blender-sprite-veh_truck-az135": 1,
+    "blender-sprite-veh_taxi-az225": 4,
+    "blender-sprite-veh_sedan": 4,
+    "blender-sprite-veh_truck": 3,
+    "blender-sprite-veh_taxi": 2,
+    "blender-sprite-veh_sedan-az225": 3,
+    "blender-sprite-veh_ambulance-az135": 1
+   }
+  },
+  "peatones_ambientales": {
+   "total": 4,
+   "enCuadre": 4,
+   "visibles": 4,
+   "pintados": 4,
+   "texturas": {
+    "blender-character-chr_citizen-walk-d1-1": 1,
+    "blender-character-chr_citizen-walk-d0-0": 3
+   }
+  },
+  "cuadrillas": {
+   "total": 0,
+   "enCuadre": 0,
+   "visibles": 0,
+   "pintados": 0,
+   "texturas": {}
+  },
+  "mobiliario_calle": {
+   "total": 11,
+   "enCuadre": 10,
+   "visibles": 10,
+   "pintados": 10,
+   "texturas": {
+    "blender-sprite-prp_street_light": 8,
+    "blender-sprite-prp_bench": 2
+   }
+  },
+  "mobiliario_espacio_publico": {
+   "total": 51,
+   "enCuadre": 51,
+   "visibles": 51,
+   "pintados": 51,
+   "texturas": {
+    "blender-sprite-prp_tree_pine": 9,
+    "blender-sprite-prp_tree_oak": 12,
+    "blender-sprite-prp_tree_detailed": 9,
+    "blender-sprite-prp_bush": 8,
+    "blender-sprite-prp_bench": 10,
+    "blender-sprite-prp_street_light": 3
+   }
+  },
+  "adornos_parcela": {
+   "total": 267,
+   "enCuadre": 204,
+   "visibles": 227,
+   "pintados": 204,
+   "texturas": {
+    "blender-sprite-prp_bush": 103,
+    "blender-sprite-prp_bush_detailed": 28,
+    "blender-sprite-prp_grass": 36,
+    "blender-sprite-prp_tree_cone": 17,
+    "blender-sprite-prp_construction_cone": 14,
+    "blender-sprite-prp_bollard": 2,
+    "blender-sprite-prp_street_light": 2,
+    "blender-sprite-prp_planter_urn": 2
+   }
+  },
+  "vegetacion": {
+   "total": 64,
+   "enCuadre": 54,
+   "visibles": 58,
+   "pintados": 54,
+   "texturas": {
+    "blender-sprite-prp_tree_cone": 7,
+    "blender-sprite-prp_bush": 27,
+    "blender-sprite-prp_tree_small": 6,
+    "blender-sprite-prp_tree_oak": 7,
+    "blender-sprite-prp_tree_pine": 4,
+    "blender-sprite-prp_tree_detailed": 3
+   }
+  },
+  "fauna": {
+   "total": 37,
+   "enCuadre": 30,
+   "visibles": 33,
+   "pintados": 30,
+   "texturas": {
+    "blender-sprite-prp_wild_sparrow-az315": 10,
+    "blender-sprite-prp_wild_sparrow": 8,
+    "blender-sprite-prp_wild_sparrow-az225": 5,
+    "blender-sprite-prp_wild_sparrow-az135": 7
+   }
+  },
+  "patios": {
+   "total": 4,
+   "enCuadre": 4,
+   "visibles": 4,
+   "pintados": 4,
+   "texturas": {
+    "blender-sprite-prp_school_playground": 1,
+    "blender-sprite-prp_bench": 3
+   }
+  },
+  "marcas_viales": {
+   "total": 7,
+   "enCuadre": 6,
+   "visibles": 7,
+   "pintados": 6,
+   "texturas": {
+    "district-crossings-14": 2,
+    "district-crossings-7": 1,
+    "district-crossings-15": 1,
+    "district-crossings-13": 1,
+    "district-crossings-11": 1
+   }
+  },
+  "limites_solares": {
+   "total": 0,
+   "enCuadre": 0,
+   "visibles": 0,
+   "pintados": 0,
+   "texturas": {}
+  }
+ },
+ "peatonesDistrito": 8,
+ "detalleWP08": {
+  "fachadas": true,
+  "piloto WP06": false,
+  "vehículos": true,
+  "peatones": true,
+  "vegetación": true,
+  "mobiliario": true,
+  "terreno horneado": true
+ }
+}

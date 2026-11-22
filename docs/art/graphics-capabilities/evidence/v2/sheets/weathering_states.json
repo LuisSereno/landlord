@@ -1,0 +1,156 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "command": "python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "hoja": "docs/art/graphics-capabilities/evidence/v2/sheets/weathering_states.png",
+ "titulo": "D-111.2 WP04 · mixed_tenement seed 1001 en tres tiers de conservación: mismo edificio, misma cámara, misma geometría de base",
+ "subtitulo": "Los seis fotogramas salen del mismo request del Building Composer (huella 4×2, 3 plantas, perfil graphic_civic_buildings_v1, azimut 45°) y se pegan a escala nativa: 60,2 px/m en todos, así que el tamaño relativo es el real de juego. `conserved` y `aged` comparten firma de composición; `damaged` y `burning` difieren porque el compositor retira y añade colocaciones, y esa diferencia se mide aquí sobre las propias transformadas. Ningún sprite del catálogo publicado se regenera con esto.",
+ "tamanioPx": [
+  3524,
+  4557
+ ],
+ "anchoColumnaPx": 1754,
+ "bytes": 3553465,
+ "sha256": "ec995d59b622dce6748a7ea4ea8a17fb0f2d97e0b00b3bf7be0e572a8805257c",
+ "celdas": [
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_conserved.png",
+   "sha256": "fbe15386e0f8e3ea4968ad4100f9210bad803d4c64aaef6aa9f7d3a2ee7515e6",
+   "bytes": 1352553,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_conserved.json",
+   "nativoPx": [
+    1037,
+    1146
+   ],
+   "dibujadoPx": [
+    814,
+    900
+   ],
+   "pie": "A · conservado (control, de día) · seed 1001 · 24162 tri · h 12.028 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · SIN CORTE · márgenes 154/189/177/177 px · fachada stucco_commercial · ritmo shopfront_residential@6 · receta existing_commercial · tier conserved (conservado) · 0 materiales envejecidos / 0 excluidos · proyección material False · geometría False · recursos: ninguno nuevo · contrato graphic_civic_weathering_v1@fb9e3abc",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 848
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_aged.png",
+   "sha256": "15d46f147d3a8f196508bbccc213ffd39263cc86ecdd292a8ecf3d3f29494126",
+   "bytes": 1342036,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_aged.json",
+   "nativoPx": [
+    1037,
+    1146
+   ],
+   "dibujadoPx": [
+    814,
+    900
+   ],
+   "pie": "B · envejecido (sólo material, de día) · seed 1001 · 24162 tri · h 12.028 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · SIN CORTE · márgenes 154/189/177/177 px · fachada stucco_commercial · ritmo shopfront_residential@6 · receta existing_commercial · tier aged (envejecido) · 20 materiales envejecidos / 3 excluidos · proyección material True · geometría False · recursos: rusty_metal_02_diff_4k.jpg, wall_brick_stone_center_depth.png, wall_stone_depth.png · contrato graphic_civic_weathering_v1@fb9e3abc",
+   "pieLineas": 7,
+   "pieCompleto": true,
+   "pieAnchoPx": 854
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_damaged.png",
+   "sha256": "120d7d560dd0efe71ff40cf3eb712a742593c67e0893f511c9cd70ad02f12b4b",
+   "bytes": 1431107,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_damaged.json",
+   "nativoPx": [
+    1087,
+    1171
+   ],
+   "dibujadoPx": [
+    835,
+    900
+   ],
+   "pie": "C · dañado (geometría del compositor) · seed 1001 · 22702 tri · h 12.028 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · SIN CORTE · márgenes 136/205/211/169 px · fachada stucco_commercial · ritmo shopfront_residential@6 · receta existing_commercial · estado del compositor damaged · colocaciones 115→97 · triángulos -1460 · retiradas band:front:level2×4, band:front:level3×2, cornice×8, roof×8 · añadidas damage×4 · hollín 0.45 sobre 23 materiales",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 860
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_burning.png",
+   "sha256": "1588198a33d16a3f125659176948e08f823ed6a3005796b596d0cc9773ba5c38",
+   "bytes": 1493923,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_burning.json",
+   "nativoPx": [
+    1087,
+    1265
+   ],
+   "dibujadoPx": [
+    773,
+    900
+   ],
+   "pie": "D · en llamas · seed 1001 · 28558 tri · h 13.828 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz day_civic sol 1.5° cám 45/30° · SIN CORTE · márgenes 136/220/211/184 px · fachada stucco_commercial · ritmo shopfront_residential@6 · receta existing_commercial · estado del compositor burning · colocaciones 115→116 · triángulos +4396 · retiradas band:front:level2×4, band:front:level3×2, cornice×8, roof×8 · añadidas damage×4, fire×19 · hollín 0.7 sobre 23 materiales · llama a emisión None",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 862
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_conserved.png",
+   "sha256": "ef82e1ad0434f76bc6a153cb20b471a7f5ac392a20abfefa9499b70b64e6cbbd",
+   "bytes": 1153536,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_conserved.json",
+   "nativoPx": [
+    1037,
+    1146
+   ],
+   "dibujadoPx": [
+    814,
+    900
+   ],
+   "pie": "E · conservado, de noche · seed 1001 · 24162 tri · h 12.028 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz night_civic sol 3.0° cám 45/30° · SIN CORTE · márgenes 154/189/177/177 px · fachada stucco_commercial · ritmo shopfront_residential@6 · receta existing_commercial · tier conserved (conservado) · 0 materiales envejecidos / 0 excluidos · proyección material False · geometría False · recursos: ninguno nuevo · contrato graphic_civic_weathering_v1@22a02a14",
+   "pieLineas": 6,
+   "pieCompleto": true,
+   "pieAnchoPx": 863
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_aged.png",
+   "sha256": "e9f9da6c18e6798d68ca746f0e0636d1fd569c1baaf2eac4ef7d93872be90ebf",
+   "bytes": 1131451,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_aged.json",
+   "nativoPx": [
+    1037,
+    1146
+   ],
+   "dibujadoPx": [
+    814,
+    900
+   ],
+   "pie": "F · envejecido, de noche (mugre atenuada, huecos intactos) · seed 1001 · 24162 tri · h 12.028 m · huella 4×2 celdas · 16.0×8.0 m · 60.2 px/m · margen 1.3205 · luz night_civic sol 3.0° cám 45/30° · SIN CORTE · márgenes 154/189/177/177 px · fachada stucco_commercial · ritmo shopfront_residential@6 · receta existing_commercial · tier aged (envejecido) · 20 materiales envejecidos / 3 excluidos · proyección material True · geometría False · recursos: rusty_metal_02_diff_4k.jpg, wall_brick_stone_center_depth.png, wall_stone_depth.png · contrato graphic_civic_weathering_v1@22a02a14",
+   "pieLineas": 7,
+   "pieCompleto": true,
+   "pieAnchoPx": 869
+  },
+  {
+   "tipo": "texto",
+   "titular": "WP04 · qué cambió exactamente en cada tier",
+   "lineas": [
+    "Qué se decidió con estos fotogramas (medido sobre la metadata, no a ojo):",
+    "· A→B envejecido: firma de composición IDÉNTICA y triángulos 24162→24162. La proyección es sólo material: 20 materiales reciben capa de mugre y 3 quedan excluidos por nombre (fondo del hueco, forjados interiores y equipo de obra).",
+    "· A→B píxel a píxel: |Δ| media 11.3/255 · tono -11.1 (domina el tono) · mediana 12.4 · 88.5 % del lienzo sobre la cota de §13.",
+    "· Rampa de gravedad (la única cosa que puede hacer `gravityRamp`): tono por tercios (cubierta → planta baja): -6.0 · -10.8 · -13.8/255 · monótono, la rampa de gravedad se ve.",
+    "· WP04-D2 · sonda de cobertura (mugre pedida al 100 % de fuerza sobre este mismo request, manifiesto de trabajo aparte): antes de corregir el contrato 46.1 % de los 600960 píxeles opacos reciben capa (53.9 % sin tratar); después, 96.9 % de los 600960 píxeles opacos reciben capa (3.1 % sin tratar). La diferencia es el paño de fachada: el MegaKit llama `MI_InteriorWall` al material que pinta el ladrillo del alzado, y la familia `interior` estaba excluida en bloque, así que más de la mitad del edificio no envejecía. La exclusión ahora es por nombre y el paño lleva la receta de ladrillo; el residual sin tratar es el fondo del hueco y los forjados.",
+    "· Calibración de la máscara: Paño 16×12 m por familia (day_civic, contrato graphic_civic_weathering_v1@22a02a14): máscara media 0.42–0.83, oscurecimiento -30.0/255 en la familia más tratada (wood). todas las familias con color alterado superan la cota de ruido de §13 y su delta es de tono.",
+    "· A→C dañado: el lienzo pasa de 1037×1146 a 1087×1171 y la firma de composición difiere (175d2309dd83→3be7cc2c1c7c) — no es comparable píxel a píxel, y esa es precisamente la prueba de que la silueta cambia, que es lo que separa el daño del envejecido.",
+    "· C dañado (geometría): colocaciones 115→97 · triángulos -1460 · retiradas band:front:level2×4, band:front:level3×2, cornice×8, roof×8 · añadidas damage×4. El daño lo sigue produciendo el compositor (mismo seed, misma parcela); el contrato lo DECLARA pero no lo parametriza.",
+    "· D ardiendo: colocaciones 115→116 · triángulos +4396 · retiradas band:front:level2×4, band:front:level3×2, cornice×8, roof×8 · añadidas damage×4, fire×19.",
+    "· A conservado: proyección declarada pero CERO capas insertadas (0 materiales). Contra el mismo request sin la clave `weathering`: |Δ| media 0.0/255 · tono -0.0 (domina el tono) · mediana 0.0 · 0.0 % del lienzo sobre la cota de §13 — la bandera opt-in no toca los sprites aprobados.",
+    "· E→F envejecido de noche: |Δ| media 5.5/255 · tono -5.3 (domina el tono) · mediana 5.4 · 75.5 % del lienzo sobre la cota de §13. Hueco: sobre 19618 px de hueco encendido (luma > 0.45 en el control, 3.26 % del área opaca): luma media 140.05 → 140.01/255 (×0.9997) y 91.5 % de esos píxeles byte-idénticos.",
+    "· Restricción de vidrio día/noche (pedida en WP04): de día el hueco NO se oscurece —ya es casi negro y bajarlo lo convertiría en agujero, borrando la retícula de crujías—; envejece sólo por rugosidad (0,88 → 1,00 medidos en el socket). De noche ocurre lo mismo por la misma razón, y es lo que preserva la señal de ocupación: el contrato deja `glass` en fuerza 0 y `emissionScale` nulo.",
+    "· WP04-D3 · la palanca de emisión del contrato es INERTE en este encuadre (medido, no supuesto): publicado ×0,78: socket atlas [0.8970000147819519, 0.8970000147819519], luma media 52.32/255 · ×1,0: socket atlas [1.149999976158142, 1.149999976158142], luma media 52.32/255 · ×0,0: socket atlas [0.0, 0.0], luma media 52.32/255 — entre brazos la palanca NO llega al raster (sólo difieren en ruido de codificador). El socket sí se escribe (la metadata de cada brazo registra el `before` 1,15 y su `after`), pero `colormap`/`colormap.001` son los dos únicos materiales con emisión cableada y los traen `mod_kenney_com_awning_1_6m` y `mod_kenney_com_block_k`: en este seed la luz de ventana que se ve no sale de ahí, sale del `MI_Glass` del MegaKit teñido por el mood. Consecuencia para WP07: `emissionScale` no es una palanca de legibilidad nocturna sobre este edificio; la legibilidad del hueco hay que ganarla con luz y con el panel de ventanas del runtime, no escalando este socket.",
+    "· Señal de ocupación (fila E/F): la mugre baja de fuerza de noche (×0,7–0,8 en las recetas) y el paño pierde contraste, pero el hueco encendido se queda donde estaba, así que el envejecido no puede leerse como un edificio apagado a medias —que era el riesgo de mezclar desgaste con la señal de uso.",
+    "· Límite medido y NO corregido aquí: la regla de daño retira `purpose in ('dormer','cornice')`, pero los propósitos reales van prefijados (`cornice:front:3`), así que la cornisa sobrevive a la sección de cubierta. Corregirlo cambia los sprites `damaged`/`burning` publicados: es decisión del responsable, no un ajuste de esta hoja.",
+    "· Conflicto de runtime propuesto, no aplicado: hoy `buildingAssetStateFor` convierte `condition < 60` en el sprite `damaged` (geometría seccionada). Un edificio simplemente desatendido se dibuja derruido. La salida es publicar el tier envejecido bajo `complete` y dejar `damaged` para integridad estructural; eso cambia el contrato de assets (D-080) y requiere revisión humana."
+   ]
+  }
+ ],
+ "sinEvidencia": [],
+ "rotulosRecortados": [],
+ "fuentesSinProcedencia": []
+}

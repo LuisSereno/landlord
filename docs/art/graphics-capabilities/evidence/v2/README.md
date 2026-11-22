@@ -851,6 +851,135 @@ mezclar desgaste con daño.
 - No toca ningún sprite jugable: los `damaged`/`burning` del catálogo runtime se banean con
   `runtime_asset.py`, no con el compositor.
 
+## FASE 7 — WP08: la calle poblada a escala real de Phaser
+
+Cinco entregables, todos con su JSON hermano, y un índice que los cruza:
+
+| hoja | qué compara | tamaño | pies recortados |
+| --- | --- | --- | --- |
+| [`sheets/wp06_candidates_ab.png`](sheets/wp06_candidates_ab.png) (+ `_half`) | los cuatro edificios del encargo, control vs candidata, con encuadre, semilla, huella y luz comparables | 4368×4370 / 4368×2770 | 0 |
+| [`sheets/weathering_states.png`](sheets/weathering_states.png) (+ `_half`) | los tres estados materiales sobre el mismo `mixed_tenement` 1001 | 3524×4557 / 3524×3207 | 0 |
+| [`sheets/wp08_arquitectura_avanzada.png`](sheets/wp08_arquitectura_avanzada.png) (+ `_half`) | Geometry Nodes, HiFi, Arch Generator y Archimesh en la retícula del perfil | 3091×1723 / 3091×1231 | 0 |
+| [`sheets/wp08_fx_nocturnos.png`](sheets/wp08_fx_nocturnos.png) | los FX de noche con luma, dispersión y recortado a blanco medidos en el pie de cada cuadro | 3247×1189 | 0 · sus nueve fuentes no tienen JSON hermano: viven del manifiesto del lote (`fx_v2.json`, `fire_sheet.json`), que el índice sí las reconoce |
+| [`urban/`](urban/) | calle poblada 1440×900 a 1× y 0,5× en los cuatro distritos piloto, con el bundle promocionado | 8 PNG + 8 JSON + manifiesto de corrida | — |
+
+Índice: [`../../INDEX.md`](../../INDEX.md) (108 PNG con procedencia y raster medido) y
+[`../../INDEX.json`](../../INDEX.json).
+
+Cuatro cosas hubo que arreglar en el banco antes de que la evidencia dijera nada, y las cuatro se
+midieron en lugar de adivinarse:
+
+1. **El censo lo hace el renderizador, no la geometría.** `listScenery()`
+   (`apps/web/src/isometric/IsometricSpikeScene.ts:2518` es la regla del propio render:
+   `setVisible(isInViewport(..., 96))`) ahora reporta `pintados` = visible ∩ `worldView` y cuenta las
+   texturas sobre lo pintado. Con `enCuadre` (geometría) el script anunciaba 4 fachadas por ancla
+   cuando el fotograma tenía 2; con `visibles` (flag) anunciaba 13 vehículos cuando el PNG mostraba 9.
+   La selección de ancla rankea por `pintados`, así que el encuadre que se publica es el que más calle
+   tiene dibujada, no el que más celdas tiene cerca.
+2. **`camera.worldView` serializado sólo trae `x, y, width, height`:** los getters `.right`/`.bottom`
+   no sobreviven a `JSON.stringify`, y la primera corrida sacó 0 edificios en cuadro porque los
+   comparaba con `undefined`. El censo se hace con `dentro(x, y)`.
+3. **El reloj del juego no llegaba a poblarse.** El botón de velocidad cicla 1→2→4→8→16→1
+   (`apps/web/src/ui/game-hud.tsx:29-31`), así que un clic dejaba la simulación en 2× y 288 s reales
+   no daban los 12 días objetivo. Con `» 16×` medido: 358 → 19 478 ticks = **15,9 días**
+   (`GAME_DAY_TICKS = 1200`, `packages/simulation/src/game-data.ts:629`), y la pausa deja el tick
+   congelado en 51 498 en las ocho capturas (`pausa.congelado: true`, 4 342 ms de asiento).
+4. **Los pies de las hojas se cortaban.** `panel()` envolvía el rótulo a la anchura del PNG pegado y
+   `wrap_caption` lo truncaba a 9 líneas: en `wp08_arquitectura_avanzada_half.png` se cortaban 5 de 6
+   (la columna mide 460 px y el módulo 188 px). Con `caption_width` explícito, dos pasadas
+   (`dos_pasadas`) y presupuesto de líneas escalado por 1/escala, las cuatro hojas declaran
+   `rotulosRecortados: []`. `ag_module_note()` imprime además la autoría propia cuando el módulo no
+   trae SPDX, para que el pie no quede en «- v? (?)».
+
+Las ocho capturas, con los contadores que el propio fotograma puede defender:
+
+| caso | distrito | tick | zoom | fachadas en cuadro | familia piloto en cuadro | vehículos pintados | peatones pintados | falta WP08 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `urban_civic_10x` | Centro Cívico | 51498 | 1 | 2 | `town_hall` | 9 | 1 | — |
+| `urban_civic_05x` | Centro Cívico | 51498 | 0,5 | 2 | `town_hall` | 23 | 6 | — |
+| `urban_residential_10x` | Barrio del Umbral | 51498 | 1 | 1 | ninguna | 9 | 3 | fachadas, piloto |
+| `urban_residential_05x` | Barrio del Umbral | 51498 | 0,5 | 2 | ninguna | 34 | 4 | piloto |
+| `urban_commercial_10x` | Mercado del Norte | 51498 | 1 | 1 | ninguna | 18 | 0 | fachadas, piloto, peatones |
+| `urban_commercial_05x` | Mercado del Norte | 51498 | 0,5 | 1 | ninguna | 49 | 4 | fachadas, piloto |
+| `urban_industrial_10x` | Ensanche Ferroviario Oeste | 51498 | 1 | 1 | ninguna | 12 | 0 | fachadas, piloto, peatones |
+| `urban_industrial_05x` | Ensanche Ferroviario Oeste | 51498 | 0,5 | 1 | ninguna | 47 | 0 | fachadas, piloto, peatones |
+
+Bundle fotografiado: `apps/web/dist/assets/index-BFeHLDBG.js`, `sha256 946ca403…`, 2 663 036 bytes;
+renderer `SwiftShader` (esta máquina no tiene GPU). `sinSprite: []` en las ocho: ningún edificio del
+cuadro se quedó sin textura.
+
+«Familia piloto en cuadro» es el contador que el script rotula `piloto WP06` (`:740`): se cumple si en el
+encuadre hay un edificio cuyo `type` está en `PILOTS` (`:98`), las cuatro familias piloto de D-111.2. Lo
+que se pinta es su promoción `qa_approved` —la textura del cuadro cívico es
+`blender-variant-day-town_hall:complete:-:0`—, no la `town_hall-candidata` de WP06, que no viaja en el
+bundle. La columna nunca afirma que una candidata esté en el mundo.
+
+La segunda corrección de clasificador es la bandera de **recorte alfa**, que WP08 pide corregir
+explícitamente. Estaba escrita como «algún píxel no-fondo en el perímetro» y su techo
+(`tocando ≤ 2 · (ancho + alto)`) no podía excluir nada, porque el conteo nunca supera el perímetro que
+recorre: avisaba en 88 de 108 filas sin distinguir el mundo entero de un edificio seccionado. Ahora mide
+la cara más llena del lienzo y avisa en 49, que se reparten **por construcción y no por error**: 98,6 %
+las 24 capturas del viewport de juego (`phaser/fx_v2` 11 + `phaser/fire_sheet` 13), 75,4 % las 16 teselas
+de receta de FASE 6, 88,5 % la medida del hueco de muelle, y entre 51,9 % y 54,8 % los siete vanos de
+módulo de WP01–WP03 —la crujía continúa fuera de encuadre a propósito, que es justamente lo que esas
+hojas demuestran— más la hoja `v2/ag/quality_ab.png`. Los cuatro edificios de la hoja de candidatas, que
+son donde un corte sí sería un defecto, quedan por debajo del aviso: 0,0 % `row_house`, 1,5 %
+`town_hall`, 16,8 % `warehouse` y 30,3 % `mixed_tenement`, y este último es el mismo número en control que
+en candidata, así que el brazo B no perdió margen de recorte. La bandera sigue sin cortar en ningún
+brazo: si un vano está mal encuadrado lo decide la hoja impresa, no un umbral puesto para que salga
+verde.
+
+El índice juzga **por brazo** porque la media de luma no es una medida comparable entre artefactos
+distintos. La primera pasada marcó 43 filas con defecto duro; 33 eran del clasificador, no del raster:
+las hojas compuestas viven sobre el lienzo #0b1422 (luma media 30–47 con σ 25–70), los canales de
+receta de FASE 6 son negros porque el contrato deja el vidrio fuera (`glass_mask.png`, luma 0,08) y las
+noches legítimas de FASE 4-5 miden luma 33–41 con 0,04 % de píxel casi negro. Quedan **8 filas duras**,
+todas reales y todas en `urban/`: `LAVADA` 4,4–4,6 %. Medido por octavos, el recorte está entero en la
+banda del HUD —excluida la fila 0–14 % y la tarjeta inferior izquierda, el lienzo de juego queda en
+0,02–0,14 % con luma de escena 83–97—, así que la bandera describe el PNG publicado (que lleva la
+interfaz dentro) y no se baja el umbral para que salga verde.
+
+Reproducción:
+
+```bash
+pnpm --filter @landlord/web build
+node scripts/wp08-urban-street-capture.mjs          # 8 PNG + 8 JSON + urban_street_manifest.json
+python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py   # las cuatro hojas + firmas
+python3 scripts/wp08-index.py                       # INDEX.md / INDEX.json
+python3 scripts/wp08-index.py --check               # sale 1 si falta procedencia o hay defecto duro
+```
+
+Comprobado: `pnpm --filter @landlord/web typecheck` limpio con `listScenery()` ampliado; `eslint` sin
+errores sobre los dos ficheros que toca esta fase (`IsometricSpikeScene.ts` y
+`scripts/wp08-urban-street-capture.mjs`); `prettier --check` en verde sobre el catálogo, el índice, las
+firmas de las hojas y los JSON hermanos; `node --check scripts/wp08-urban-street-capture.mjs` OK;
+`pnpm art:capabilities:check` → 23 entradas × 17 campos; las cuatro hojas se regeneran con
+`rotulosRecortados: []` y `sinEvidencia: []`; `python3 scripts/wp08-index.py` es determinista —volvió a
+producir `INDEX.md` e `INDEX.json` con el mismo `sha256`— y `--check` sale 1 con las cuentas declaradas
+arriba (8 duras, 13 sin procedencia).
+
+`pnpm lint`, en cambio, está rojo y **no lo deja limpio esta fase**: 7 179 de sus 7 209 errores viven en
+`apps/web/dist-fxlab/`, la vista previa que monta el laboratorio de efectos. Git la ignora (`dist-*/`)
+pero `eslint.config.js` no, porque su `ignores` casa `**/dist/**` y no `**/dist-*/**`. Los 30 restantes
+están en diez ficheros que WP08 no tocó: 19 en los cinco `scripts/fx-*` del laboratorio abierto en D-111
+§7 y ampliado en FASE 4-5, y 11 en `material-maquette-ab-capture.mjs`, `build-building-style.mjs`,
+`style-mood.test.mjs`, `terrain-paint.ts` y `headquarters.test.ts`. El arreglo es una línea de
+configuración y los otros 30 tocan a fases anteriores → WP09, que es la fase de validadores.
+
+**Lo que FASE 7 no hace.**
+- No mete las candidatas WP06 en el mundo: el bundle promocionado usa el set `qa_approved` y las
+  candidatas viven en `docs/art/building-composer/candidates/`, que el bundle no sirve. La A/B de
+  candidatas existe a escala de Blender; llevarla al runtime es promoción de assets (decisión del
+  responsable, no de esta hoja).
+- No fotografía noche en el mundo: el bundle promocionado es `day_civic`. La noche existe en el
+  laboratorio (`phaser/fx_v2/preset_night_*.png`) y en Blender, no en una calle jugable.
+- No reescribe la procedencia de las 13 PNG anteriores a WP08 que siguen sin JSON hermano (5 hojas de
+  WP02-WP05, 3 de fuego de FASE 2-3, `v2/ag/quality_ab.png`, las 3 sondas del halo y `_control.png`):
+  regenerarlas reescribiría evidencia ya revisada. Están listadas con su motivo en el índice.
+- No toca la simulación para fabricar condiciones visuales: el reloj se adelantó con el botón de
+  velocidad del HUD, y la única señal de dominio nueva en el render es el contador `pintados`, que es
+  observación del fotograma, no regla de juego.
+
 ## Ledger
 
 | WP | commit | estado | artefacto principal | bloqueo |
@@ -872,4 +1001,5 @@ mezclar desgaste con daño.
 | FASE 3 | `b58f263` | DONE | `fire/REWORK.md` · `fire/candidata_{mixed_tenement,warehouse}_{day,night}.png` (+ JSON) · `fire/fire_blender_ab.png` (+ `_half`) · `fire/fire_blender_ab_readings.json` · `mod_original_fire_flame`/`_smoke` re-autorados | la luz de fuego queda offline (la asume FASE 4) |
 | FASE 4 | `74a4ec2` | DONE | `phaser/fire_sheet/*` (7 fotogramas + 6 lecturas) · `phaser/fire_animation_sheet.png` · `phaser/fire_animation_measure.json` · `phaser/fire_anchor_measure.json` · `fireAnchors` consumidos desde la silueta rotada | p95 en SwiftShader: no autoriza promoción ni descarta (medir con GPU) |
 | FASE 5 | `f606813` | DONE | `phaser/fx_v2/phaser_fx_v2_sheet.png` (+ `.json`) · `phaser/fx_v2/preset_{day,night}_*.png` · `phaser/fx_v2/p95_attribution.json` · `phaser/fx_v2/fallback_canvas_night_*.png` · presets como tabla reutilizable | el PointLight del rig queda retirado (es el objeto que se rasteriza en el aire); p95 atribuido con brazo de control, no a SwiftShader |
-| FASE 6 | (este commit) | DONE · PENDIENTE DE REVISIÓN HUMANA | `sheets/building_condition_states.png` (+ JSON) · `weathering/damage_section_probe.json` · `building-condition.ts` + test · `fx-street.ts` con `select()` + test · contrato `3d4960953e96` con WP04-D1 cerrado | promocionar la derivación al call site jugable exige sprite `aged` en el catálogo (D-080) y decisión del responsable; las `candidata_mixed_tenement_*` de `fire/` piden re-render → FASE 9 |
+| FASE 6 | `62304dc` | DONE · PENDIENTE DE REVISIÓN HUMANA | `sheets/building_condition_states.png` (+ JSON) · `weathering/damage_section_probe.json` · `building-condition.ts` + test · `fx-street.ts` con `select()` + test · contrato `3d4960953e96` con WP04-D1 cerrado | promocionar la derivación al call site jugable exige sprite `aged` en el catálogo (D-080) y decisión del responsable; las `candidata_mixed_tenement_*` de `fire/` piden re-render → FASE 9 |
+| FASE 7 (WP08) | (este commit) | READY FOR HUMAN VISUAL REVIEW | `urban/` (8 capturas 1440×900 a 1× y 0,5× + manifiesto) · `sheets/wp06_candidates_ab.png` · `sheets/weathering_states.png` · `sheets/wp08_arquitectura_avanzada.png` · `sheets/wp08_fx_nocturnos.png` (+ `_half` y JSON) · `INDEX.md`/`INDEX.json` · `listScenery()` con `pintados` | `--check` sale 1 con 8 `LAVADA` (recorte 4,4–4,6 % atribuido al HUD del PNG, no a la calle) y 13 PNG sin procedencia anteriores a WP08; sólo el distrito cívico cumple los siete contadores — densidad del generador de mundo, no de la captura |

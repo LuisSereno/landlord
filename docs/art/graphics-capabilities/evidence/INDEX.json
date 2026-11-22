@@ -1,0 +1,2727 @@
+{
+ "schemaVersion": 2,
+ "generatedBy": "scripts/wp08-index.py",
+ "brazos": {
+  "escena diurna": [
+   "CASI-TODO-NEGRO",
+   "LAVADA",
+   "NEGRA",
+   "ROTO",
+   "TODO-TRANSPARENTE"
+  ],
+  "escena nocturna": [
+   "CASI-TODO-NEGRO",
+   "LAVADA",
+   "ROTO",
+   "TODO-TRANSPARENTE"
+  ],
+  "hoja de trabajo": [
+   "CASI-TODO-NEGRO",
+   "ROTO",
+   "TODO-TRANSPARENTE"
+  ],
+  "mapa de trabajo": [
+   "ROTO",
+   "TODO-TRANSPARENTE"
+  ]
+ },
+ "png": [
+  {
+   "ruta": "phaser/fire_animation_sheet.png",
+   "carpeta": "phaser",
+   "procedencia": "phaser/fire_animation_measure.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "hoja de trabajo",
+   "bytes": 99478,
+   "ancho": 752,
+   "alto": 288,
+   "lumaMedia": 78.64,
+   "desviacion": 70.14,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 1.85,
+   "bordeCaraPct": 7.6,
+   "pixelesEnBorde": 22,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_01.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 193196,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.73,
+   "desviacion": 31.8,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.04,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_02.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 194014,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.74,
+   "desviacion": 31.83,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.06,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_03.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 194758,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.78,
+   "desviacion": 31.94,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.09,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_04.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 195203,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.81,
+   "desviacion": 31.98,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.09,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_05.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 195465,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.83,
+   "desviacion": 32.02,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.09,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_06.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 195467,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.82,
+   "desviacion": 31.98,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.11,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_07.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 195521,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.82,
+   "desviacion": 31.98,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.1,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_day_fire.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 188202,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 55.01,
+   "desviacion": 25.62,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_control.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 192039,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.63,
+   "desviacion": 31.45,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 194086,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.74,
+   "desviacion": 31.85,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.06,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire_050x.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 66568,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 31.31,
+   "desviacion": 17.24,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.02,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "PLANA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire_lighting.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 155514,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 36.82,
+   "desviacion": 32.27,
+   "casiNegroPct": 1.41,
+   "blancoRecortadoPct": 0.69,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire_particles.png",
+   "carpeta": "phaser/fire_sheet",
+   "procedencia": "phaser/fire_sheet/fire_sheet.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 196358,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 40.85,
+   "desviacion": 31.82,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.08,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_con_pointlight.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "escena nocturna",
+   "bytes": 177195,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 36.73,
+   "desviacion": 23.6,
+   "casiNegroPct": 0.09,
+   "blancoRecortadoPct": 0.14,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_retirado_fire_lighting.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "escena nocturna",
+   "bytes": 179796,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 37.4,
+   "desviacion": 26.47,
+   "casiNegroPct": 0.09,
+   "blancoRecortadoPct": 0.01,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_sin_lighting.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "escena nocturna",
+   "bytes": 192427,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 39.04,
+   "desviacion": 23.8,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/control_day.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 187664,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 54.95,
+   "desviacion": 25.49,
+   "casiNegroPct": 0.03,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/control_night.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 191132,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 38.62,
+   "desviacion": 21.5,
+   "casiNegroPct": 0.03,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/fallback_canvas_night_control.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 196673,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 38.49,
+   "desviacion": 21.27,
+   "casiNegroPct": 0.03,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/fallback_canvas_night_fire.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 206154,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 38.87,
+   "desviacion": 22.14,
+   "casiNegroPct": 0.03,
+   "blancoRecortadoPct": 0.01,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/phaser_fx_v2_sheet.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/phaser_fx_v2_measure.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "hoja de trabajo",
+   "bytes": 844020,
+   "ancho": 3942,
+   "alto": 1276,
+   "lumaMedia": 37.5,
+   "desviacion": 24.97,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_day_balanced.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 216595,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 50.49,
+   "desviacion": 24.4,
+   "casiNegroPct": 0.06,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_night_balanced.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 215078,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 33.67,
+   "desviacion": 20.0,
+   "casiNegroPct": 0.1,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_night_fire.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 216943,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 33.79,
+   "desviacion": 20.9,
+   "casiNegroPct": 0.1,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_night_fire_050x.png",
+   "carpeta": "phaser/fx_v2",
+   "procedencia": "phaser/fx_v2/fx_v2.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena nocturna",
+   "bytes": 88099,
+   "ancho": 1298,
+   "alto": 543,
+   "lumaMedia": 27.44,
+   "desviacion": 12.81,
+   "casiNegroPct": 0.02,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 98.6,
+   "pixelesEnBorde": 2328,
+   "defectos": [
+    "NEGRA",
+    "PLANA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ag/ag_arcade_bay_2m.png",
+   "carpeta": "v2/ag",
+   "procedencia": "v2/ag/ag_arcade_bay_2m.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 315920,
+   "ancho": 549,
+   "alto": 585,
+   "lumaMedia": 151.94,
+   "desviacion": 40.96,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 53.2,
+   "pixelesEnBorde": 315,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ag/ag_arcade_bay_2m_simplified.png",
+   "carpeta": "v2/ag",
+   "procedencia": "v2/ag/ag_arcade_bay_2m_simplified.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 311426,
+   "ancho": 549,
+   "alto": 585,
+   "lumaMedia": 152.06,
+   "desviacion": 40.82,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 53.2,
+   "pixelesEnBorde": 315,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ag/quality_ab.png",
+   "carpeta": "v2/ag",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 305087,
+   "ancho": 1118,
+   "alto": 585,
+   "lumaMedia": 87.06,
+   "desviacion": 80.76,
+   "casiNegroPct": 41.32,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 53.3,
+   "pixelesEnBorde": 345,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/candidates/wp06_mixed_tenement-candidata.png",
+   "carpeta": "v2/candidates",
+   "procedencia": "v2/candidates/wp06_mixed_tenement-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1369213,
+   "ancho": 1048,
+   "alto": 1046,
+   "lumaMedia": 131.46,
+   "desviacion": 32.91,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 30.3,
+   "pixelesEnBorde": 317,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/candidates/wp06_row_house-candidata.png",
+   "carpeta": "v2/candidates",
+   "procedencia": "v2/candidates/wp06_row_house-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1143414,
+   "ancho": 996,
+   "alto": 1203,
+   "lumaMedia": 133.56,
+   "desviacion": 38.88,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/candidates/wp06_town_hall-candidata.png",
+   "carpeta": "v2/candidates",
+   "procedencia": "v2/candidates/wp06_town_hall-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1784969,
+   "ancho": 1395,
+   "alto": 1487,
+   "lumaMedia": 149.76,
+   "desviacion": 37.28,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 1.5,
+   "pixelesEnBorde": 22,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/candidates/wp06_warehouse-candidata.png",
+   "carpeta": "v2/candidates",
+   "procedencia": "v2/candidates/wp06_warehouse-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 958124,
+   "ancho": 1394,
+   "alto": 944,
+   "lumaMedia": 58.73,
+   "desviacion": 16.41,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 16.8,
+   "pixelesEnBorde": 162,
+   "defectos": [
+    "PLANA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/civic/town_hall-candidata.png",
+   "carpeta": "v2/civic",
+   "procedencia": "v2/civic/town_hall-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1785084,
+   "ancho": 1395,
+   "alto": 1487,
+   "lumaMedia": 149.76,
+   "desviacion": 37.28,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 1.5,
+   "pixelesEnBorde": 22,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/civic/town_hall-control.png",
+   "carpeta": "v2/civic",
+   "procedencia": "v2/civic/town_hall-control.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1842265,
+   "ancho": 1395,
+   "alto": 1487,
+   "lumaMedia": 148.65,
+   "desviacion": 34.58,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 1.5,
+   "pixelesEnBorde": 22,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/commercial/mixed_tenement-candidata.png",
+   "carpeta": "v2/commercial",
+   "procedencia": "v2/commercial/mixed_tenement-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1369148,
+   "ancho": 1048,
+   "alto": 1046,
+   "lumaMedia": 131.46,
+   "desviacion": 32.91,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 30.3,
+   "pixelesEnBorde": 317,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/commercial/mixed_tenement-control.png",
+   "carpeta": "v2/commercial",
+   "procedencia": "v2/commercial/mixed_tenement-control.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1461912,
+   "ancho": 1048,
+   "alto": 1046,
+   "lumaMedia": 126.22,
+   "desviacion": 22.95,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 30.3,
+   "pixelesEnBorde": 320,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ext/archimesh_window_bay_2m_high.png",
+   "carpeta": "v2/ext",
+   "procedencia": "v2/ext/archimesh_window_bay_2m_high.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 279512,
+   "ancho": 524,
+   "alto": 568,
+   "lumaMedia": 119.91,
+   "desviacion": 29.96,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 54.8,
+   "pixelesEnBorde": 321,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ext/archimesh_window_bay_2m_simplified.png",
+   "carpeta": "v2/ext",
+   "procedencia": "v2/ext/archimesh_window_bay_2m_simplified.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 279545,
+   "ancho": 524,
+   "alto": 568,
+   "lumaMedia": 118.63,
+   "desviacion": 28.75,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 54.8,
+   "pixelesEnBorde": 321,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ext/control_gn_window_bay.png",
+   "carpeta": "v2/ext",
+   "procedencia": "v2/ext/control_gn_window_bay.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 289135,
+   "ancho": 524,
+   "alto": 572,
+   "lumaMedia": 120.4,
+   "desviacion": 32.04,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 54.4,
+   "pixelesEnBorde": 625,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ext/hifi_window_bay_2m_high.png",
+   "carpeta": "v2/ext",
+   "procedencia": "v2/ext/hifi_window_bay_2m_high.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 320590,
+   "ancho": 549,
+   "alto": 599,
+   "lumaMedia": 133.9,
+   "desviacion": 38.21,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 51.9,
+   "pixelesEnBorde": 311,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/ext/hifi_window_bay_2m_simplified.png",
+   "carpeta": "v2/ext",
+   "procedencia": "v2/ext/hifi_window_bay_2m_simplified.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 327596,
+   "ancho": 549,
+   "alto": 596,
+   "lumaMedia": 126.21,
+   "desviacion": 32.0,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 52.0,
+   "pixelesEnBorde": 624,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/candidata_mixed_tenement_day.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/candidata_mixed_tenement_day.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1621129,
+   "ancho": 1082,
+   "alto": 1233,
+   "lumaMedia": 121.45,
+   "desviacion": 23.71,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 25.9,
+   "pixelesEnBorde": 319,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/candidata_mixed_tenement_night.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/candidata_mixed_tenement_night.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1414964,
+   "ancho": 1082,
+   "alto": 1233,
+   "lumaMedia": 52.86,
+   "desviacion": 22.5,
+   "casiNegroPct": 0.87,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 24.2,
+   "pixelesEnBorde": 299,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/candidata_warehouse_day.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/candidata_warehouse_day.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1382685,
+   "ancho": 1417,
+   "alto": 1119,
+   "lumaMedia": 119.69,
+   "desviacion": 43.04,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 14.1,
+   "pixelesEnBorde": 158,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/candidata_warehouse_night.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/candidata_warehouse_night.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1051959,
+   "ancho": 1417,
+   "alto": 1119,
+   "lumaMedia": 62.17,
+   "desviacion": 33.48,
+   "casiNegroPct": 1.22,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 14.1,
+   "pixelesEnBorde": 158,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/control_mixed_tenement_day.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/control_mixed_tenement_day.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1466180,
+   "ancho": 1082,
+   "alto": 1063,
+   "lumaMedia": 97.83,
+   "desviacion": 18.41,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 30.0,
+   "pixelesEnBorde": 323,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/control_mixed_tenement_night.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/control_mixed_tenement_night.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1291388,
+   "ancho": 1082,
+   "alto": 1063,
+   "lumaMedia": 36.31,
+   "desviacion": 14.8,
+   "casiNegroPct": 2.06,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 25.2,
+   "pixelesEnBorde": 272,
+   "defectos": [
+    "NEGRA",
+    "PLANA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/control_warehouse_day.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/control_warehouse_day.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1314229,
+   "ancho": 1417,
+   "alto": 1097,
+   "lumaMedia": 94.54,
+   "desviacion": 32.88,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 14.4,
+   "pixelesEnBorde": 158,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/control_warehouse_night.png",
+   "carpeta": "v2/fire",
+   "procedencia": "v2/fire/control_warehouse_night.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 991066,
+   "ancho": 1417,
+   "alto": 1097,
+   "lumaMedia": 40.89,
+   "desviacion": 24.76,
+   "casiNegroPct": 1.99,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 14.4,
+   "pixelesEnBorde": 158,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/fire_blender_ab.png",
+   "carpeta": "v2/fire",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 4534669,
+   "ancho": 8758,
+   "alto": 4024,
+   "lumaMedia": 24.82,
+   "desviacion": 22.15,
+   "casiNegroPct": 0.07,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/fire_control_detail.png",
+   "carpeta": "v2/fire",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 236799,
+   "ancho": 1440,
+   "alto": 636,
+   "lumaMedia": 60.83,
+   "desviacion": 52.55,
+   "casiNegroPct": 0.54,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/fire/fire_control_sheet.png",
+   "carpeta": "v2/fire",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 867730,
+   "ancho": 1924,
+   "alto": 976,
+   "lumaMedia": 36.44,
+   "desviacion": 38.83,
+   "casiNegroPct": 34.77,
+   "blancoRecortadoPct": 0.02,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/gn/gn_params.png",
+   "carpeta": "v2/gn",
+   "procedencia": "v2/gn/gn_params.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 433391,
+   "ancho": 797,
+   "alto": 688,
+   "lumaMedia": 107.18,
+   "desviacion": 30.79,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 36.3,
+   "pixelesEnBorde": 610,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/gn/gn_parts.png",
+   "carpeta": "v2/gn",
+   "procedencia": "v2/gn/gn_parts.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 203592,
+   "ancho": 468,
+   "alto": 549,
+   "lumaMedia": 121.62,
+   "desviacion": 31.6,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 32.4,
+   "pixelesEnBorde": 188,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/hifi/hifi_facade_free.png",
+   "carpeta": "v2/hifi",
+   "procedencia": "v2/hifi/hifi_facade_free.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 553520,
+   "ancho": 755,
+   "alto": 750,
+   "lumaMedia": 116.12,
+   "desviacion": 29.7,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 1.2,
+   "pixelesEnBorde": 18,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/hifi/hifi_facade_grid.png",
+   "carpeta": "v2/hifi",
+   "procedencia": "v2/hifi/hifi_facade_grid.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 584552,
+   "ancho": 786,
+   "alto": 734,
+   "lumaMedia": 117.62,
+   "desviacion": 28.15,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 1.0,
+   "pixelesEnBorde": 19,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/industrial/dock_aperture_scale.png",
+   "carpeta": "v2/industrial",
+   "procedencia": "v2/industrial/dock_aperture_scale.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 189537,
+   "ancho": 1541,
+   "alto": 131,
+   "lumaMedia": 156.26,
+   "desviacion": 36.81,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 1.18,
+   "bordeCaraPct": 88.5,
+   "pixelesEnBorde": 853,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/industrial/warehouse-candidata.png",
+   "carpeta": "v2/industrial",
+   "procedencia": "v2/industrial/warehouse-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 958124,
+   "ancho": 1394,
+   "alto": 944,
+   "lumaMedia": 58.73,
+   "desviacion": 16.41,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 16.8,
+   "pixelesEnBorde": 162,
+   "defectos": [
+    "PLANA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/industrial/warehouse-control.png",
+   "carpeta": "v2/industrial",
+   "procedencia": "v2/industrial/warehouse-control.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 915213,
+   "ancho": 1383,
+   "alto": 873,
+   "lumaMedia": 62.64,
+   "desviacion": 22.75,
+   "casiNegroPct": 1.55,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 18.1,
+   "pixelesEnBorde": 162,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/residential/row_house-candidata.png",
+   "carpeta": "v2/residential",
+   "procedencia": "v2/residential/row_house-candidata.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1128049,
+   "ancho": 996,
+   "alto": 1203,
+   "lumaMedia": 133.83,
+   "desviacion": 39.06,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/residential/row_house-control.png",
+   "carpeta": "v2/residential",
+   "procedencia": "v2/residential/row_house-control.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1213426,
+   "ancho": 996,
+   "alto": 1203,
+   "lumaMedia": 121.77,
+   "desviacion": 31.52,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/ag_civic_ab.png",
+   "carpeta": "v2/sheets",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 1176527,
+   "ancho": 2792,
+   "alto": 1815,
+   "lumaMedia": 46.99,
+   "desviacion": 57.51,
+   "casiNegroPct": 4.87,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/building_condition_states.png",
+   "carpeta": "v2/sheets",
+   "procedencia": "v2/sheets/building_condition_states.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "hoja de trabajo",
+   "bytes": 404073,
+   "ancho": 1424,
+   "alto": 679,
+   "lumaMedia": 49.31,
+   "desviacion": 50.23,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.05,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/ext_window_columns.png",
+   "carpeta": "v2/sheets",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 1123865,
+   "ancho": 3946,
+   "alto": 1637,
+   "lumaMedia": 35.33,
+   "desviacion": 39.39,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/gn_v2_ab.png",
+   "carpeta": "v2/sheets",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 2256487,
+   "ancho": 3816,
+   "alto": 2313,
+   "lumaMedia": 45.17,
+   "desviacion": 49.03,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/hifi_grid_ab.png",
+   "carpeta": "v2/sheets",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 743643,
+   "ancho": 2890,
+   "alto": 951,
+   "lumaMedia": 49.43,
+   "desviacion": 48.25,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/industrial_warehouse_ab.png",
+   "carpeta": "v2/sheets",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "hoja de trabajo",
+   "bytes": 1344840,
+   "ancho": 3098,
+   "alto": 1813,
+   "lumaMedia": 34.17,
+   "desviacion": 31.39,
+   "casiNegroPct": 0.15,
+   "blancoRecortadoPct": 0.04,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/weathering_states.png",
+   "carpeta": "v2/sheets",
+   "procedencia": "v2/sheets/weathering_states.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "hoja de trabajo",
+   "bytes": 3553465,
+   "ancho": 3524,
+   "alto": 4557,
+   "lumaMedia": 32.92,
+   "desviacion": 35.17,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.02,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/wp06_candidates_ab.png",
+   "carpeta": "v2/sheets",
+   "procedencia": "v2/sheets/wp06_candidates_ab.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "hoja de trabajo",
+   "bytes": 3988337,
+   "ancho": 4368,
+   "alto": 4370,
+   "lumaMedia": 37.99,
+   "desviacion": 42.38,
+   "casiNegroPct": 0.04,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/wp08_arquitectura_avanzada.png",
+   "carpeta": "v2/sheets",
+   "procedencia": "v2/sheets/wp08_arquitectura_avanzada.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "hoja de trabajo",
+   "bytes": 1413967,
+   "ancho": 3091,
+   "alto": 1723,
+   "lumaMedia": 43.22,
+   "desviacion": 49.98,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/sheets/wp08_fx_nocturnos.png",
+   "carpeta": "v2/sheets",
+   "procedencia": "v2/sheets/wp08_fx_nocturnos.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "hoja de trabajo",
+   "bytes": 592959,
+   "ancho": 3247,
+   "alto": 1189,
+   "lumaMedia": 30.37,
+   "desviacion": 24.8,
+   "casiNegroPct": 0.11,
+   "blancoRecortadoPct": 0.05,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/urban/urban_civic_05x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_civic_05x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1156547,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 113.07,
+   "desviacion": 68.85,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.44,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_civic_10x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_civic_10x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1257001,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 124.17,
+   "desviacion": 64.48,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.54,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_commercial_05x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_commercial_05x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1123750,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 112.99,
+   "desviacion": 68.83,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.49,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_commercial_10x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_commercial_10x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1241814,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 121.34,
+   "desviacion": 64.12,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.54,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_industrial_05x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_industrial_05x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1099559,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 113.61,
+   "desviacion": 68.48,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.6,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_industrial_10x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_industrial_10x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1173135,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 121.72,
+   "desviacion": 64.29,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.62,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_residential_05x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_residential_05x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1147559,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 112.59,
+   "desviacion": 68.43,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.47,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_residential_10x.png",
+   "carpeta": "v2/urban",
+   "procedencia": "v2/urban/urban_residential_10x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1238251,
+   "ancho": 1440,
+   "alto": 900,
+   "lumaMedia": 120.07,
+   "desviacion": 64.37,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 4.49,
+   "bordeCaraPct": 35.8,
+   "pixelesEnBorde": 516,
+   "defectos": [
+    "LAVADA"
+   ],
+   "duras": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/day/vw_mixed_tenement_1001_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/day/vw_mixed_tenement_1001_aged.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1342036,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 115.63,
+   "desviacion": 29.67,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/day/vw_mixed_tenement_1001_burning.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/day/vw_mixed_tenement_1001_burning.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1493923,
+   "ancho": 1087,
+   "alto": 1265,
+   "lumaMedia": 129.49,
+   "desviacion": 32.76,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/day/vw_mixed_tenement_1001_conserved.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/day/vw_mixed_tenement_1001_conserved.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1352553,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 126.79,
+   "desviacion": 31.71,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.41,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/day/vw_mixed_tenement_1001_damaged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/day/vw_mixed_tenement_1001_damaged.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1431107,
+   "ancho": 1087,
+   "alto": 1171,
+   "lumaMedia": 126.64,
+   "desviacion": 29.9,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/_control.png",
+   "carpeta": "v2/weathering",
+   "procedencia": null,
+   "modoProcedencia": "SIN PROCEDENCIA",
+   "brazo": "mapa de trabajo",
+   "bytes": 121281,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 130.26,
+   "desviacion": 74.68,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/atlas_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 216036,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 118.94,
+   "desviacion": 68.24,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/atlas_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 117077,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 141.24,
+   "desviacion": 81.75,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.21,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/brick_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 211470,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 113.26,
+   "desviacion": 65.02,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/brick_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 122051,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 161.25,
+   "desviacion": 93.15,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.24,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/glass_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 121281,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 130.26,
+   "desviacion": 74.68,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/glass_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 74607,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 0.08,
+   "desviacion": 0.27,
+   "casiNegroPct": 100.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA",
+    "PLANA",
+    "CASI-TODO-NEGRO"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/interior_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 211154,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 115.02,
+   "desviacion": 66.02,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/interior_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 121160,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 157.58,
+   "desviacion": 91.09,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.16,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/metal_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 219652,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 126.34,
+   "desviacion": 72.47,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/metal_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 146033,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 128.65,
+   "desviacion": 75.89,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.64,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/plaster_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 210564,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 114.02,
+   "desviacion": 65.62,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/plaster_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 122493,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 161.06,
+   "desviacion": 95.13,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 10.89,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "LAVADA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/stone_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 211078,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 114.61,
+   "desviacion": 65.74,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/stone_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 120481,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 176.49,
+   "desviacion": 101.45,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 6.2,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "LAVADA",
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/wood_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 211995,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 107.73,
+   "desviacion": 61.81,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/mask/wood_mask.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/mask/summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "mapa de trabajo",
+   "bytes": 121960,
+   "ancho": 512,
+   "alto": 512,
+   "lumaMedia": 164.34,
+   "desviacion": 94.39,
+   "casiNegroPct": 24.61,
+   "blancoRecortadoPct": 0.15,
+   "bordeCaraPct": 75.4,
+   "pixelesEnBorde": 772,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/night/vwn_mixed_tenement_1001_aged.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/night/vwn_mixed_tenement_1001_aged.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1131451,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 52.52,
+   "desviacion": 18.67,
+   "casiNegroPct": 0.17,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/night/vwn_mixed_tenement_1001_conserved.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/night/vwn_mixed_tenement_1001_conserved.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1153536,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 57.89,
+   "desviacion": 18.28,
+   "casiNegroPct": 0.14,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/optout/vw_mixed_tenement_1001.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/optout/vw_mixed_tenement_1001.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1352552,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 126.79,
+   "desviacion": 31.71,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.41,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/probe/green_after_interior_fix.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/probe/green_after_interior_fix.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1320302,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 157.48,
+   "desviacion": 14.38,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [
+    "PLANA"
+   ],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/probe/green_before_interior_fix.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/probe/green_before_interior_fix.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1378260,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 145.84,
+   "desviacion": 21.41,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/probe/night_aged_emission_scale_0.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/probe/night_aged_emission_scale_0.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1131489,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 52.52,
+   "desviacion": 18.67,
+   "casiNegroPct": 0.17,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  },
+  {
+   "ruta": "v2/weathering/probe/night_aged_emission_scale_1.png",
+   "carpeta": "v2/weathering",
+   "procedencia": "v2/weathering/probe/night_aged_emission_scale_1.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1131489,
+   "ancho": 1037,
+   "alto": 1146,
+   "lumaMedia": 52.52,
+   "desviacion": 18.67,
+   "casiNegroPct": 0.17,
+   "blancoRecortadoPct": 0.0,
+   "bordeCaraPct": 0.3,
+   "pixelesEnBorde": 3,
+   "defectos": [],
+   "duras": []
+  }
+ ],
+ "sinProcedencia": [
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_con_pointlight.png",
+   "motivo": "sondas de atribución del halo de FASE 5 (`f606813`), citadas con sus RGB en `apps/web/src/fx-lab/fx-effects.ts` §5.2; la corrida que las disparó no las nombró en ningún JSON."
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_retirado_fire_lighting.png",
+   "motivo": "sondas de atribución del halo de FASE 5 (`f606813`), citadas con sus RGB en `apps/web/src/fx-lab/fx-effects.ts` §5.2; la corrida que las disparó no las nombró en ningún JSON."
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_sin_lighting.png",
+   "motivo": "sondas de atribución del halo de FASE 5 (`f606813`), citadas con sus RGB en `apps/web/src/fx-lab/fx-effects.ts` §5.2; la corrida que las disparó no las nombró en ningún JSON."
+  },
+  {
+   "ruta": "v2/ag/quality_ab.png",
+   "motivo": "render intermedio de WP02 (`9a48fee`) pegado sobre negro para el A/B de calidad; sus dos fuentes sí tienen JSON hermano en `v2/ag/`."
+  },
+  {
+   "ruta": "v2/fire/fire_blender_ab.png",
+   "motivo": "hoja de FASE 3 (`b58f263`) escrita por `tools/art-pipeline/blender/ext_lab/fire_ab_sheet.py`; las medidas por panel sí están, en `v2/fire/fire_blender_ab_readings.json`, indexadas como `{familia}-{mood}-{brazo}` y no por nombre de archivo."
+  },
+  {
+   "ruta": "v2/fire/fire_control_detail.png",
+   "motivo": "diagnóstico de FASE 2 (`9e95206`): la hoja de control y su detalle se escribieron antes de que el script dejara procedencia por archivo."
+  },
+  {
+   "ruta": "v2/fire/fire_control_sheet.png",
+   "motivo": "diagnóstico de FASE 2 (`9e95206`): la hoja de control y su detalle se escribieron antes de que el script dejara procedencia por archivo."
+  },
+  {
+   "ruta": "v2/sheets/ag_civic_ab.png",
+   "motivo": "hoja compuesta en WP02-WP05 (`9a48fee`, `464608f`, `348eb78`), antes de que existiera `firmar_hoja()`. Regenerarla reescribiría una imagen ya revisada: decide el responsable si se vuelve a publicar con firma."
+  },
+  {
+   "ruta": "v2/sheets/ext_window_columns.png",
+   "motivo": "hoja compuesta en WP02-WP05 (`9a48fee`, `464608f`, `348eb78`), antes de que existiera `firmar_hoja()`. Regenerarla reescribiría una imagen ya revisada: decide el responsable si se vuelve a publicar con firma."
+  },
+  {
+   "ruta": "v2/sheets/gn_v2_ab.png",
+   "motivo": "hoja compuesta en WP02-WP05 (`9a48fee`, `464608f`, `348eb78`), antes de que existiera `firmar_hoja()`. Regenerarla reescribiría una imagen ya revisada: decide el responsable si se vuelve a publicar con firma."
+  },
+  {
+   "ruta": "v2/sheets/hifi_grid_ab.png",
+   "motivo": "hoja compuesta en WP02-WP05 (`9a48fee`, `464608f`, `348eb78`), antes de que existiera `firmar_hoja()`. Regenerarla reescribiría una imagen ya revisada: decide el responsable si se vuelve a publicar con firma."
+  },
+  {
+   "ruta": "v2/sheets/industrial_warehouse_ab.png",
+   "motivo": "hoja compuesta en WP02-WP05 (`9a48fee`, `464608f`, `348eb78`), antes de que existiera `firmar_hoja()`. Regenerarla reescribiría una imagen ya revisada: decide el responsable si se vuelve a publicar con firma."
+  },
+  {
+   "ruta": "v2/weathering/mask/_control.png",
+   "motivo": "la corrida de FASE 6 escribe `v2/weathering/mask/summary.json`, que lista los 16 canales tratados y envejecidos pero no el atlas de control del que salen."
+  }
+ ],
+ "conDefectoDuro": [
+  "v2/urban/urban_civic_05x.png",
+  "v2/urban/urban_civic_10x.png",
+  "v2/urban/urban_commercial_05x.png",
+  "v2/urban/urban_commercial_10x.png",
+  "v2/urban/urban_industrial_05x.png",
+  "v2/urban/urban_industrial_10x.png",
+  "v2/urban/urban_residential_05x.png",
+  "v2/urban/urban_residential_10x.png"
+ ],
+ "conDefecto": [
+  {
+   "ruta": "phaser/fire_sheet/frame_01.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_02.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_03.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_04.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_05.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_06.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/frame_07.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_day_fire.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_control.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire_050x.png",
+   "defectos": [
+    "NEGRA",
+    "PLANA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire_lighting.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fire_sheet/street_night_fire_particles.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_con_pointlight.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_retirado_fire_lighting.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/atribucion/halo_sin_lighting.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/control_day.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/control_night.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/fallback_canvas_night_control.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/fallback_canvas_night_fire.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/phaser_fx_v2_sheet.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_day_balanced.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_night_balanced.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_night_fire.png",
+   "defectos": [
+    "NEGRA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "phaser/fx_v2/preset_night_fire_050x.png",
+   "defectos": [
+    "NEGRA",
+    "PLANA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/ag/ag_arcade_bay_2m.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/ag/ag_arcade_bay_2m_simplified.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/ag/quality_ab.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/candidates/wp06_warehouse-candidata.png",
+   "defectos": [
+    "PLANA"
+   ]
+  },
+  {
+   "ruta": "v2/ext/archimesh_window_bay_2m_high.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/ext/archimesh_window_bay_2m_simplified.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/ext/control_gn_window_bay.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/ext/hifi_window_bay_2m_high.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/ext/hifi_window_bay_2m_simplified.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/fire/control_mixed_tenement_night.png",
+   "defectos": [
+    "NEGRA",
+    "PLANA"
+   ]
+  },
+  {
+   "ruta": "v2/fire/control_warehouse_night.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/fire/fire_blender_ab.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/fire/fire_control_sheet.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/industrial/dock_aperture_scale.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/industrial/warehouse-candidata.png",
+   "defectos": [
+    "PLANA"
+   ]
+  },
+  {
+   "ruta": "v2/sheets/ext_window_columns.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/sheets/industrial_warehouse_ab.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/sheets/weathering_states.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/sheets/wp06_candidates_ab.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/sheets/wp08_arquitectura_avanzada.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/sheets/wp08_fx_nocturnos.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_civic_05x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_civic_10x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_commercial_05x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_commercial_10x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_industrial_05x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_industrial_10x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_residential_05x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/urban/urban_residential_10x.png",
+   "defectos": [
+    "LAVADA"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/_control.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/atlas_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/atlas_mask.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/brick_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/brick_mask.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/glass_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/glass_mask.png",
+   "defectos": [
+    "NEGRA",
+    "PLANA",
+    "CASI-TODO-NEGRO"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/interior_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/interior_mask.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/metal_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/metal_mask.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/plaster_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/plaster_mask.png",
+   "defectos": [
+    "LAVADA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/stone_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/stone_mask.png",
+   "defectos": [
+    "LAVADA",
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/wood_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/mask/wood_mask.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/weathering/probe/green_after_interior_fix.png",
+   "defectos": [
+    "PLANA"
+   ]
+  }
+ ],
+ "hallazgos": [
+  {
+   "que": "El recorte a blanco de las 8 capturas urbanas es el HUD, no la calle",
+   "medido": "`v2/urban/*.png` miden 4,4–4,6 % de píxel ≥ 252, pero el mapa por octavos lo concentra todo en la banda de arriba y en la tarjeta inferior izquierda: excluida la banda del HUD (filas 0–14 % y 88–100 %) el recorte del lienzo de juego queda en 0,02–0,14 % y su luma media en 83–97. La bandera se queda en rojo porque el PNG publicado sí lleva la interfaz dentro: `«Distrito observado cambiado.»` y el panel «Vista normal» se ven en la evidencia.",
+   "decide": "responsable: silenciar el UI en la captura de QA o aceptar el rótulo como parte de la evidencia"
+  },
+  {
+   "que": "Distritos casi vacíos",
+   "medido": "`faltaWP08` en los JSON de `v2/urban/`: sólo el distrito cívico llega a los contadores; residencial, comercial e industrial ponen 1–4 fachadas en cuadro. Es densidad del generador de mundo, no de la captura.",
+   "decide": "encargo aparte (prioridad declarada: densidad, más atrezo no)"
+  },
+  {
+   "que": "Parcelas de tierra desnuda con fauna suelta",
+   "medido": "en `urban_civic_10x.png` y `urban_civic_05x.png` se ven motas cian de vegetación sobre solar sin fachada: la siembra de props no comprueba que la parcela tenga edificio.",
+   "decide": "encargo aparte"
+  }
+ ],
+ "huecos": [
+  {
+   "peticion": "Fachadas candidatas WP06 dentro de una escena Phaser",
+   "motivo": "las candidatas se componen en Blender y se publican en `docs/art/building-composer/candidates/`, que no está servido por el bundle; `urban/` fotografía el set runtime (`qa_approved`), que es otra autoría. La A/B de candidatas existe a escala de Blender en `sheets/wp06_candidates_ab.png`."
+  },
+  {
+   "peticion": "Calle poblada de noche en el mundo real",
+   "motivo": "el bundle runtime promocionado es de día (`day_civic`); la noche sólo existe en el laboratorio (`phaser/fx_v2/preset_night_*.png`). Promover noche al mundo es decisión del responsable."
+  },
+  {
+   "peticion": "Sprite `aged` en catálogo runtime",
+   "motivo": "FASE 6 derivó el tier `aged` pero el manifiesto runtime no tiene ese estado: no hay píxel que enseñar en juego. Ver `building-weathering-contract.json → derivation.runtimeConflict`."
+  },
+  {
+   "peticion": "Esquina cívica a pico",
+   "motivo": "necesita geometría nueva sobre el extremo de la banda; forzar `brick_post` compone 0/60 semillas y limitar el módulo a `municipal_block` mueve 56 de 105 colocaciones. No se fuerza con parche."
+  },
+  {
+   "peticion": "Recorte determinista de lienzo",
+   "motivo": "`row_house` y `town_hall` tocan el borde derecho del lienzo con margen 1–2 px en control y candidata por igual: es la deuda declarada de `deterministic_crop_rect`, no algo introducido por v2."
+  }
+ ]
+}

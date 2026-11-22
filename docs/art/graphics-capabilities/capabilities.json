@@ -507,6 +507,37 @@
       "visualResult": "El laboratorio es lo que permitió separar los brazos y medirlos uno a uno en vez de opinar sobre la escena entera: bloom por objeto +6,7 ms de p95 frente a +118,3 del bloom por umbral, luz dinámica +66,7 ms, normales +60,0, grading +33,3 y partículas +21,7 con 58 partículas vivas. Conserva además el fotograma del error de parametrización (la manzana entera quemada a blanco por apilar cuatro discos de 190 px sobre el glow horneado).",
       "limitations": "PENDIENTE, y es lo que WP07 no cerró: no existen presets reutilizables —la escena se maneja con `fxMood` más seis toggles, así que «noche equilibrada» es una combinación manual que nadie puede invocar—, los anclajes de partícula son aproximados sobre el sprite y no derivan de la composición Blender, el incendio depende de la textura de brasas en vez de tener cuerpo de llama propio, y la hoja versionada es la de 2026-11-20: no hay validación visual nueva. Los costes citados son de SwiftShader sin GPU local y con la máquina ocupada.",
       "integrationDecision": "DISPONIBLE en QA y nada activado en el juego. Ningún brazo se promociona sin presets nombrados y sin revisión humana de la hoja nueva. Es el contenedor donde se ejecutan las fases de incendio animado, no un sistema paralelo al render de la partida."
+    },
+    {
+      "id": "phaser_world_scale_capture",
+      "kind": "capability",
+      "technology": "Captura de la partida real (no del laboratorio): la App con `?cameraTest=1` a 1440×900, reloj adelantado con el propio botón de velocidad de la HUD y censo de lo que el renderizador tiene pintado en el cuadro",
+      "versionTested": "phaser@4.2.1 · D-111.2 WP08 (FASE 7)",
+      "officialSource": "repo propio: apps/web/src/isometric/ (hook de QA) y scripts/wp08-urban-street-capture.mjs",
+      "license": "MIT (Phaser) sobre código original de Landlord; los sprites son el bundle promocionado del catálogo runtime",
+      "hostCompatibility": "Chromium headless con SwiftShader (esta máquina no tiene GPU); `deviceScaleFactor` 1 y zoom de cámara 1× y 0,5×, que es la escala que pide §5.1",
+      "state": "qa_integrated",
+      "scriptOrModule": "scripts/wp08-urban-street-capture.mjs + apps/web/src/isometric/IsometricSpikeScene.ts + scripts/wp08-index.py",
+      "objectTypeUse": "fachadas, vehículos, peatones, vegetación, mobiliario y terreno del bundle promocionado, colocados por el juego; ningún sprite se escribe a mano en el fotograma",
+      "reproducibleExample": "pnpm --filter @landlord/web build && node scripts/wp08-urban-street-capture.mjs",
+      "inputResources": "el bundle de `apps/web/dist` con su `sha256` fijado en `urban_street_manifest.json`, el catálogo runtime `qa_approved` y ciudad nueva con semilla 1",
+      "outputResources": "ocho PNG 1440×900 con su JSON hermano y `evidence/v2/urban/urban_street_manifest.json`; las filas entran solas en `evidence/INDEX.md` al regenerar el índice",
+      "evidenceCaptures": [
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_10x.png",
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_05x.png",
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_10x.png",
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_05x.png",
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_10x.png",
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_05x.png",
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_10x.png",
+        "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_05x.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/wp06_candidates_ab.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/wp08_arquitectura_avanzada.png",
+        "docs/art/graphics-capabilities/evidence/v2/sheets/wp08_fx_nocturnos.png"
+      ],
+      "visualResult": "Centro Cívico cumple los siete contadores de WP08 en las dos escalas: 2 fachadas pintadas en cuadro con el `town_hall` piloto, 9 vehículos a 1× y 23 a 0,5×, peatón caminando, vegetación, mobiliario y terreno horneado (`rebakes` 2, `stage: full`), con la ancla en pantalla desviada 0 px. Los otros tres distritos se fotografían igual de bien y no llegan: 1–2 fachadas en cuadro y ningún piloto. `sinSprite: []` en las ocho: ningún edificio del cuadro se quedó sin textura.",
+      "limitations": "Sólo el distrito cívico cumple, y es densidad del generador de mundo, no del encuadre: el censo cuenta lo que el renderizador pinta, así que la carencia es del estado del juego. El PNG lleva la HUD dentro (toast «Distrito observado cambiado.» y panel «Vista normal»), y ese es el 4,4–4,6 % de píxel recortado a blanco que el índice marca `LAVADA`: sin la banda del HUD el lienzo de juego queda en 0,02–0,14 % con luma 83–97. No hay noche en el bundle promocionado, así que la calle poblada nocturna sigue sin evidencia. Nada de p95 ni FPS: SwiftShader no autoriza ni descarta.",
+      "integrationDecision": "QA: la ruta sirve para fotografiar el mundo promocionado y para el índice de WP08. En producción sólo añade el contador `pintados` a `listScenery()`, que es observación del fotograma: ninguna regla de simulación cambia. La promoción de las candidatas WP06 al mundo y el silencio de la HUD en la captura de QA son decisión del responsable."
     }
   ]
 }

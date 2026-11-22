@@ -14,12 +14,13 @@ Uso:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from collections import Counter
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageStat
 
 REPO = Path(__file__).resolve().parents[4]
 CAPS = REPO / "docs/art/graphics-capabilities"
@@ -35,6 +36,27 @@ BACKGROUND = "#0b1422"
 PANEL = "#111d2e"
 TITLE = "#f4c44e"
 MUTED = "#8fa6c4"
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def rel(path: Path) -> str:
+    """Camino relativo al repo: es el que funciona como enlace en GitHub."""
+    try:
+        return path.resolve().relative_to(REPO).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+# WP08 exige que «cada imagen lleve JSON hermano de procedencia y parámetros». Toda celda pasa por
+# `panel()`, `placeholder()` o `text_panel()` y todo guardado pasa por `sheet()`, así que la celda
+# se autoanota al dibujarse y la hoja vacía la lista al escribirse: el JSON sale de lo que realmente
+# se pegó en el lienzo, no de lo que recuerda quien montó la hoja.
+REGISTRO: list[dict] = []
+
+PIE_LINEAS = 9
 
 
 def font(size):
@@ -60,6 +82,7 @@ def draw_textlength(text: str, typeface) -> float:
 
 def placeholder(text: str, width: int = 400, height: int = 300):
     """Hueco declarado: una muestra que no existe se nombra, no se deja en blanco (§8.3)."""
+    REGISTRO.append({"tipo": "hueco", "pie": text, "sinEvidencia": "SIN EVIDENCIA" in text})
     blank = Image.new("RGBA", (width, height), PANEL)
     ImageDraw.Draw(blank).text((12, 12), text, fill=TITLE, font=font(17))
     return blank
@@ -90,12 +113,25 @@ def wrap_caption(caption: str, width: int, typeface, max_lines: int = 4) -> list
     return wrapped
 
 
-def panel(png: Path, caption: str, max_height: int, big: int = 15, upscale: bool = False, max_lines: int = 4):
+def panel(
+    png: Path,
+    caption: str,
+    max_height: int,
+    big: int = 15,
+    upscale: bool = False,
+    max_lines: int = 4,
+    caption_width: int | None = None,
+):
     """Un recuadro de la hoja: imagen escalada + pie de foto con los números del JSON hermano.
 
     `upscale` es para la evidencia de componente (un módulo suelto de 549 px sería ilegible al lado
     de un sprite de 1487 px); los sprites de edificio nunca se agrandan, porque su lectura obligatoria
     es la escala nativa de juego.
+
+    `caption_width` es el ancho de la columna, no el del dibujo: un módulo estrecho con un pie largo
+    se partía por su propio ancho y las líneas sobrantes se perdían. Medido en la hoja de WP08 a 0,5×
+    (5 de 6 rótulos recortados), donde la columna la fija el sprite cívico de 460 px y el módulo GN
+    sólo dibuja 188.
     """
     image = Image.open(png).convert("RGBA")
     scale = max_height / image.size[1] if upscale else min(1.0, max_height / image.size[1])
@@ -104,12 +140,36 @@ def panel(png: Path, caption: str, max_height: int, big: int = 15, upscale: bool
     typeface = font(big)
     ascent, descent = typeface.getmetrics()
     line_height = ascent + descent
-    lines = wrap_caption(caption, size[0] - 14, typeface, max_lines)
+    ancho_pie = (caption_width if caption_width is not None else size[0]) - 14
+    lines = wrap_caption(caption, ancho_pie, typeface, max_lines)
+    # WP08 corrige «rótulos cortados»: si el pie no cabe en su banda, el JSON de la hoja lo declara en
+    # vez de dejar que quien revise crea que el rótulo completo era ése.
+    caben = len(wrap_caption(caption, ancho_pie, typeface, max_lines=10_000))
+    REGISTRO.append(
+        {
+            "tipo": "imagen",
+            "png": rel(png),
+            "sha256": sha256(png),
+            "bytes": png.stat().st_size,
+            "procedencia": (
+                rel(png.with_suffix(".json")) if png.with_suffix(".json").exists() else None
+            ),
+            "nativoPx": [image.size[0], image.size[1]],
+            "dibujadoPx": [size[0], size[1]],
+            "pie": caption,
+            "pieLineas": len(lines),
+            "pieCompleto": len(lines) >= caben,
+            # El ancho real del rótulo dibujado: `sheet()` lo compara con el de la columna, que es
+            # cuando un pie de dos líneas empieza a invadir al panel de al lado.
+            "pieAnchoPx": round(max((draw_textlength(line, typeface) for line in lines), default=0.0)),
+        }
+    )
     band = 6 + len(lines) * line_height + 4
-    canvas = Image.new("RGBA", (size[0], size[1] + band), BACKGROUND)
+    width = max(size[0], ancho_pie)
+    canvas = Image.new("RGBA", (width, size[1] + band), BACKGROUND)
     canvas.paste(resized, (0, 0), resized)
     draw = ImageDraw.Draw(canvas)
-    draw.rectangle((0, size[1], size[0], size[1] + band - 1), fill=PANEL)
+    draw.rectangle((0, size[1], width, size[1] + band - 1), fill=PANEL)
     for index, line in enumerate(lines):
         draw.text((8, size[1] + 5 + index * line_height), line, fill=TITLE, font=typeface)
     return canvas
@@ -140,7 +200,64 @@ def sheet(path: Path, title: str, subtitle: str, panels: list[Image.Image], colu
         y += row_heights[row] + 16
     path.parent.mkdir(parents=True, exist_ok=True)
     canvas.save(path, optimize=True)
+    firmar_hoja(path, title, subtitle, canvas.size, len(panels), panel_width)
     return canvas.size
+
+
+def dos_pasadas(
+    out_path: Path, title: str, subtitle: str, columns: int, construir, lineas: int = PIE_LINEAS
+):
+    """
+    WP08 corrige «rótulos cortados» y ése es el motivo de la segunda pasada: el pie tiene que partirse
+    por el ancho de la columna, pero la columna la fija el panel más ancho y eso no se sabe hasta haber
+    dibujado. Se construye una vez para medir, se desecha y se vuelve a construir con `caption_width`.
+    El registro se queda con la segunda tanda porque `sheet()` lee las últimas N entradas.
+    """
+    ancho = max(p.size[0] for p in construir(None, lineas)) - 16
+    return sheet(out_path, title, subtitle, construir(ancho, lineas), columns=columns)
+
+
+def firmar_hoja(
+    path: Path, title: str, subtitle: str, size: tuple[int, int], paneles: int, panel_width: int
+) -> None:
+    """
+    El JSON hermano que WP08 pide por cada imagen: de qué PNG salió cada celda, con su hash, si ese
+    PNG tiene procedencia propia, y las tres cosas que se ven mal y no se declaran solas —un hueco
+    SIN EVIDENCIA, un rótulo que no cupo y una fuente sin JSON hermano.
+
+    El rótulo se juzga con dos medidas, no con una: `pieCompleto` corta el pie que no entró en su
+    banda y `pieAnchoPx > panel_width` pilla el que, cabiendo en la banda, desborda la columna e
+    invade al panel vecino (medido en `wp08_fx_nocturnos.png` con columnas de 1083 px).
+    """
+    celdas = REGISTRO[-paneles:] if paneles else []
+    del REGISTRO[:]
+    rotulos = [
+        c["pie"]
+        for c in celdas
+        if c.get("tipo") == "imagen"
+        and (not c.get("pieCompleto") or c.get("pieAnchoPx", 0) > panel_width - 16)
+    ]
+    documento = {
+        "schemaVersion": 1,
+        "generatedBy": "tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+        "command": "python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+        "hoja": rel(path),
+        "titulo": title,
+        "subtitulo": subtitle,
+        "tamanioPx": [int(size[0]), int(size[1])],
+        "anchoColumnaPx": int(panel_width),
+        "bytes": path.stat().st_size,
+        "sha256": sha256(path),
+        "celdas": celdas,
+        "sinEvidencia": [c["pie"] for c in celdas if c.get("sinEvidencia")],
+        "rotulosRecortados": rotulos,
+        "fuentesSinProcedencia": [
+            c["png"] for c in celdas if c.get("tipo") == "imagen" and c.get("procedencia") is None
+        ],
+    }
+    path.with_suffix(".json").write_text(
+        f"{json.dumps(documento, indent=1, ensure_ascii=False)}\n", encoding="utf8"
+    )
 
 
 def materials_sheet():
@@ -324,23 +441,44 @@ def framing_note(meta: dict, png: Path | None = None) -> str:
     """Pie de un sprite del Composer: geometría, encuadre derivado y veredicto del recorte."""
     framing = meta.get("framing", {})
     axes = meta.get("axisChoices", {})
+    cells = meta.get("footprintCells", {})
+    meters = meta.get("footprintMeters", {})
+    camera = meta.get("camera", {})
+    shadow = meta.get("shadow", {})
     return (
         f"seed {meta.get('variantSeed')} · {meta.get('triangleCount')} tri · "
         f"h {meta.get('envelopeMeters', {}).get('z')} m · "
+        f"huella {cells.get('width', '-')}×{cells.get('height', '-')} celdas · "
+        f"{meters.get('width', '-')}×{meters.get('depth', '-')} m · "
         f"{framing.get('pixelsPerMeter')} px/m · margen {framing.get('marginUsed')} · "
+        f"luz {meta.get('moodId', '-')} sol {shadow.get('keySunAngleDegrees', '-')}° "
+        f"cám {camera.get('azimuthDegrees', '-')}/{camera.get('elevationDegrees', '-')}° · "
         f"{crop_verdict(meta, png)} · "
         f"fachada {axes.get('facade', '-')} · ritmo {axes.get('bay_sequence', '-')} · "
         f"receta {axes.get('recipe', '-')}"
     )
 
 
-def v2_panel(folder: str, stem: str, caption: str, max_height: int, big: int = 22):
+def v2_panel(
+    folder: str,
+    stem: str,
+    caption: str,
+    max_height: int,
+    big: int = 22,
+    caption_width: int | None = None,
+    max_lines: int = PIE_LINEAS,
+):
     """Un fotograma de `evidence/v2/<folder>/` con su pie leído del JSON hermano (§8.3)."""
     png = V2 / folder / f"{stem}.png"
     if not png.exists():
         return placeholder(f"{caption} · SIN EVIDENCIA", 460, 320)
     return panel(
-        png, f"{caption} · {framing_note(load_json(png), png)}", max_height=max_height, big=big, max_lines=7
+        png,
+        f"{caption} · {framing_note(load_json(png), png)}",
+        max_height=max_height,
+        big=big,
+        max_lines=max_lines,
+        caption_width=caption_width,
     )
 
 
@@ -356,14 +494,41 @@ def v2_sheet(
 
     `rows` son tripletas (carpeta, raiz-del-archivo, pie). La variante `_half` no es un zoom out
     del PNG final: se redibuja con los sprites a la mitad de píxeles y el pie a tamaño legible,
-    porque lo que hay que juzgar es si la mejora sobrevive a la escala real del juego.
+    porque lo que hay que juzgar es si la mejora sobrevive a la escala real del juego. Como el pie
+    se parte por el ancho de la columna, a 0,5× caben la mitad de caracteres por línea: el tope de
+    líneas se escala con lo contrario que la altura del sprite, si no, el rótulo se corta (medido
+    en `wp06_candidates_ab_half.png` y `weathering_states_half.png` tras añadir huella y luz al pie).
     """
+
     def build(scale: float, out_path: Path):
-        panels = []
-        for folder, stem, label in rows:
-            panels.append(v2_panel(folder, f"{stem}-control", f"{stem} · {label} · control", round(height * scale)))
-            panels.append(v2_panel(folder, f"{stem}-candidata", f"{stem} · {label} · candidata", round(height * scale)))
-        return sheet(out_path, title, subtitle, panels, columns=columns)
+        def paneles(ancho_pie, lineas):
+            out = []
+            for folder, stem, label in rows:
+                out.append(
+                    v2_panel(
+                        folder,
+                        f"{stem}-control",
+                        f"{stem} · {label} · control",
+                        round(height * scale),
+                        caption_width=ancho_pie,
+                        max_lines=lineas,
+                    )
+                )
+                out.append(
+                    v2_panel(
+                        folder,
+                        f"{stem}-candidata",
+                        f"{stem} · {label} · candidata",
+                        round(height * scale),
+                        caption_width=ancho_pie,
+                        max_lines=lineas,
+                    )
+                )
+            return out
+
+        return dos_pasadas(
+            out_path, title, subtitle, columns, paneles, lineas=round(PIE_LINEAS / scale)
+        )
 
     first = build(1.0, path_stem.with_suffix(".png"))
     second = build(0.5, path_stem.parent / f"{path_stem.name}_half.png")
@@ -390,19 +555,32 @@ def gn_v2_sheet():
 
 
 def ag_module_note(png: Path) -> str:
-    """Pie de un fotograma de horneado Arch Generator: geometría medida, cámara y procedencia."""
+    """Pie de un fotograma de horneado de componente: geometría medida, cámara, luz y autoría.
+
+    La autoría se lee de lo que el JSON realmente declara: las tres extensiones de registro llevan
+    id/versión/licencia; el sistema GN propio del repo no tiene `registry_id` y ahí un «- v? (?)»
+    sería un rótulo que no corresponde al brazo anunciado (WP08), así que se nombra su capacidad y su
+    retícula medida.
+    """
     meta = load_json(png)
     geo = meta.get("geometry", {})
     bounds = geo.get("bounds", {}).get("size", [0, 0, 0])
     ext = meta.get("extension", {})
+    grid = ext.get("grid", {})
     cam = meta.get("camera", {})
     trim = meta.get("render", {}).get("trim", {})
     final = trim.get("final", {})
+    autoria = (
+        f"{ext['registry_id']} v{ext.get('version', '?')} ({ext.get('license', '?')})"
+        if ext.get("registry_id")
+        else f"autoría propia · {ext.get('capability', '?')} · crujía {grid.get('bayMeters', '?')} m · "
+        f"piso {grid.get('floorHeightMeters', '?')} m"
+    )
     return (
         f"{geo.get('triangles', '?')} tri en {geo.get('meshObjects', '?')} objetos · "
         f"caja {bounds[0]}×{bounds[1]}×{bounds[2]} m · ortogonal az {cam.get('azimuthDegrees')}° "
         f"escala {round(cam.get('orthoScale', 0), 2)} · sprite {final.get('width')}×{final.get('height')} px · "
-        f"{ext.get('registry_id', '-')} v{ext.get('version', '?')} ({ext.get('license', '?')})"
+        f"luz {meta.get('lighting', {}).get('moodId', '-')} · {autoria}"
     )
 
 
@@ -468,6 +646,7 @@ def text_panel(heading: str, lines: list[str], width: int, big: int = 17,
     ascent, descent = small.getmetrics()
     line_height = ascent + descent
     wrapped = [entry for source in lines for entry in wrap_caption(source, width - 28, small, max_lines=40)]
+    REGISTRO.append({"tipo": "texto", "titular": heading, "lineas": list(lines)})
     canvas = Image.new("RGBA", (width, 12 + big + 18 + len(wrapped) * (line_height + 4) + 8), PANEL)
     draw = ImageDraw.Draw(canvas)
     draw.text((14, 12), heading, fill=TITLE, font=typeface)
@@ -1134,7 +1313,7 @@ def weathering_sheet():
     burning_png = day / "vw_mixed_tenement_1001_burning.png"
     reference = load_json(conserved_png)
 
-    def arm(png: Path, caption: str, height: int):
+    def arm(png: Path, caption: str, height: int, ancho_pie=None, lineas=13):
         if not png.exists():
             return placeholder(f"{caption} · SIN EVIDENCIA", 460, 320)
         meta = load_json(png)
@@ -1158,7 +1337,14 @@ def weathering_sheet():
             flames = damage.get("flames") or {}
             if flames:
                 note += f" · llama a emisión {flames.get('flameEmissionStrength')}"
-        return panel(png, f"{caption} · {note}", max_height=height, big=18, max_lines=13)
+        return panel(
+            png,
+            f"{caption} · {note}",
+            max_height=height,
+            big=18,
+            max_lines=lineas,
+            caption_width=ancho_pie,
+        )
 
     aged = load_json(aged_png)
     damaged = load_json(damaged_png)
@@ -1232,17 +1418,25 @@ def weathering_sheet():
         "eso cambia el contrato de assets (D-080) y requiere revisión humana.",
     ]
 
-    def build(height: int, out_path: Path):
-        panels = [
-            arm(conserved_png, "A · conservado (control, de día)", height),
-            arm(aged_png, "B · envejecido (sólo material, de día)", height),
-            arm(damaged_png, "C · dañado (geometría del compositor)", height),
-            arm(burning_png, "D · en llamas", height),
-            arm(night_conserved, "E · conservado, de noche", height),
-            arm(night_aged, "F · envejecido, de noche (mugre atenuada, huecos intactos)", height),
-            text_panel("WP04 · qué cambió exactamente en cada tier", decision, width=900),
-        ]
-        return sheet(out_path, title, subtitle, panels, columns=2)
+    def build(height: int, out_path: Path, lineas: int):
+        def paneles(ancho_pie, n_lineas):
+            return [
+                arm(conserved_png, "A · conservado (control, de día)", height, ancho_pie, n_lineas),
+                arm(aged_png, "B · envejecido (sólo material, de día)", height, ancho_pie, n_lineas),
+                arm(damaged_png, "C · dañado (geometría del compositor)", height, ancho_pie, n_lineas),
+                arm(burning_png, "D · en llamas", height, ancho_pie, n_lineas),
+                arm(night_conserved, "E · conservado, de noche", height, ancho_pie, n_lineas),
+                arm(
+                    night_aged,
+                    "F · envejecido, de noche (mugre atenuada, huecos intactos)",
+                    height,
+                    ancho_pie,
+                    n_lineas,
+                ),
+                text_panel("WP04 · qué cambió exactamente en cada tier", decision, width=900),
+            ]
+
+        return dos_pasadas(out_path, title, subtitle, 2, paneles, lineas=lineas)
 
     title = (
         "D-111.2 WP04 · mixed_tenement seed 1001 en tres tiers de conservación: mismo edificio, "
@@ -1255,8 +1449,8 @@ def weathering_sheet():
         "y `burning` difieren porque el compositor retira y añade colocaciones, y esa diferencia se mide "
         "aquí sobre las propias transformadas. Ningún sprite del catálogo publicado se regenera con esto."
     )
-    first = build(900, V2_SHEETS / "weathering_states.png")
-    second = build(450, V2_SHEETS / "weathering_states_half.png")
+    first = build(900, V2_SHEETS / "weathering_states.png", 13)
+    second = build(450, V2_SHEETS / "weathering_states_half.png", 26)
     return first, second
 
 
@@ -1383,18 +1577,33 @@ def wp06_candidates_sheet():
         ("civic", "town_hall", "Arch Generator: vano de arcada cívica"),
     )
 
-    def build(sprite_height: int, out_path: Path):
-        panels = []
-        for folder, building_type, label in rows:
-            panels.append(
-                v2_panel(folder, f"{building_type}-control",
-                         f"{building_type} · {label} · control", sprite_height)
-            )
-            panels.append(
-                v2_panel("candidates", f"wp06_{building_type}-candidata",
-                         f"{building_type} · {label} · candidata", sprite_height)
-            )
-        return sheet(
+    def build(sprite_height: int, out_path: Path, lineas: int):
+        def paneles(ancho_pie, n_lineas):
+            panels = []
+            for folder, building_type, label in rows:
+                panels.append(
+                    v2_panel(
+                        folder,
+                        f"{building_type}-control",
+                        f"{building_type} · {label} · control",
+                        sprite_height,
+                        caption_width=ancho_pie,
+                        max_lines=n_lineas,
+                    )
+                )
+                panels.append(
+                    v2_panel(
+                        "candidates",
+                        f"wp06_{building_type}-candidata",
+                        f"{building_type} · {label} · candidata",
+                        sprite_height,
+                        caption_width=ancho_pie,
+                        max_lines=n_lineas,
+                    )
+                )
+            return panels
+
+        return dos_pasadas(
             out_path,
             "D-111.2 WP06 · cuatro candidatas por perfil de candidato, sobre la gramática aprobada",
             "Ninguno de los cuatro brazos tocó `building-composer-grammars.json`: cada uno se compuso "
@@ -1404,12 +1613,189 @@ def wp06_candidates_sheet():
             "`test_building_composer_candidates.py`). Lo único que cambia es qué módulo resuelve cada "
             "rol. Las tres autorías distintas: Geometry Nodes en las dos residenciales, GN industrial a "
             "4 m en la nave y un vano horneado desde Arch Generator en el hito cívico.",
-            panels,
-            columns=2,
+            2,
+            paneles,
+            lineas=lineas,
         )
 
-    first = build(980, V2_SHEETS / "wp06_candidates_ab.png")
-    second = build(490, V2_SHEETS / "wp06_candidates_ab_half.png")
+    first = build(980, V2_SHEETS / "wp06_candidates_ab.png", PIE_LINEAS)
+    second = build(490, V2_SHEETS / "wp06_candidates_ab_half.png", PIE_LINEAS * 2)
+    return first, second
+
+
+def raster_note(png: Path) -> str:
+    """Luma media, dispersión y píxel recortado a blanco: las tres cifras de «escena lavada» (§5.3).
+
+    Sin ellas una hoja nocturna se aprueba por impresión. El runbook no fija números —§5.3 es
+    cualitativa («se reconoce el pavimento y la fachada incluso fuera del halo… sin saturación
+    general»)— así que los umbrales con los que `scripts/wp08-index.py` convierte estas tres cifras
+    en bandera son una propuesta operativa medida sobre la propia evidencia, no una cita del encargo.
+    """
+    gray = Image.open(png).convert("L")
+    total = gray.size[0] * gray.size[1]
+    histograma = gray.histogram()
+    stat = ImageStat.Stat(gray)
+    return (
+        f"luma {stat.mean[0]:.0f} · σ {stat.stddev[0]:.0f} · "
+        f"blanco recortado {sum(histograma[252:]) * 100 / total:.2f} %"
+    )
+
+
+def night_caption(rec: dict, etiqueta: str) -> str:
+    """Pie de un fotograma nocturno: lo que la captura midió de ese cuadro, no lo que prescribe el preset."""
+    sonda = rec.get("probe") or rec
+    partes = [etiqueta]
+    if sonda.get("effects"):
+        partes.append("efectos " + "+".join(sonda["effects"]))
+    if sonda.get("rendererType"):
+        partes.append(f"renderer {sonda['rendererType']}")
+    if sonda.get("lights") is not None:
+        partes.append(f"luces {sonda['lights']} · partículas {sonda.get('particlesAlive')}")
+    fuego = sonda.get("fire") or rec.get("fire")
+    if fuego:
+        partes.append(
+            f"fuego {fuego.get('foci')} focos · {fuego.get('flameImages')} llamas · "
+            f"{fuego.get('glowImages')} halos"
+        )
+    anclas = rec.get("fireAnchors") or []
+    if anclas:
+        partes.append("llama más alta " + f"{max(a['flameWorldPx'] for a in anclas):.1f} px de mundo")
+    if sonda.get("frameTimeP95Ms") is not None:
+        partes.append(f"p95 {sonda['frameTimeP95Ms']} ms · {sonda.get('fps')} fps")
+    return " · ".join(partes)
+
+
+def wp08_night_fx_sheet():
+    """WP08: la hoja de FX nocturnos, con la exposición medida en cada pie (§5.3).
+
+    No se renderiza nada nuevo: son los fotogramas que ya produjeron WP07 (presets y desmontaje) y
+    FASE 3/4 (fuego sobre la calle). Lo que aporta la hoja es que cada cuadro declare su propia
+    exposición, porque la regla de aceptación nocturna es «se reconoce el pavimento y la fachada
+    fuera del halo, sin saturación general» y eso es un número, no una sensación.
+    """
+    fx = json.loads((EVIDENCE / "phaser/fx_v2/fx_v2.json").read_text(encoding="utf8"))
+    fuego = json.loads((EVIDENCE / "phaser/fire_sheet/fire_sheet.json").read_text(encoding="utf8"))
+    registros: dict[str, dict] = {}
+    for rec in list(fx["presets"]) + [fx["presetFromUrl"], fx["controlDay"]] + list(fx["canvasFallback"]):
+        if rec.get("path"):
+            registros[Path(rec["path"]).name] = rec
+    for rec in fuego["shots"]:
+        if rec.get("path"):
+            registros.setdefault(Path(rec["path"]).name, rec)
+    casos = (
+        ("phaser/fx_v2/control_night.png", "noche sin ningún efecto (control)"),
+        ("phaser/fx_v2/preset_night_balanced.png", "preset `night_balanced`"),
+        ("phaser/fx_v2/preset_night_fire.png", "`night_fire` con el incendio"),
+        ("phaser/fx_v2/preset_night_fire_050x.png", "`night_fire` a 0,5× (legibilidad)"),
+        ("phaser/fire_sheet/street_night_fire.png", "calle: fuego GN"),
+        ("phaser/fire_sheet/street_night_fire_lighting.png", "calle: fuego + luz dinámica"),
+        ("phaser/fire_sheet/street_night_fire_particles.png", "calle: fuego + partículas"),
+        ("phaser/fire_sheet/street_night_control.png", "calle: noche sin fuego"),
+        ("phaser/fx_v2/fallback_canvas_night_fire.png", "CANVAS sin filtros (desmontaje)"),
+    )
+    panels = []
+    for nombre, etiqueta in casos:
+        png = EVIDENCE / nombre
+        if not png.exists():
+            panels.append(placeholder(f"{etiqueta} · SIN EVIDENCIA", 620, 260))
+            continue
+        rec = registros.get(png.name, {})
+        panels.append(
+            panel(
+                png,
+                f"{night_caption(rec, etiqueta)} · {raster_note(png)}",
+                max_height=300,
+                big=14,
+                max_lines=7,
+            )
+        )
+    return sheet(
+        V2_SHEETS / "wp08_fx_nocturnos.png",
+        "D-111.2 WP08 · FX nocturnos: la exposición medida en el pie de cada cuadro",
+        "Regla §5.3: de noche se reconoce pavimento y fachada también fuera del halo, las farolas dan "
+        "grupos de luz diferenciables y no hay saturación general. Cada pie lleva luma media, "
+        "dispersión y porcentaje de píxel a 252+: por encima de 3 % la escena está lavada y por debajo "
+        "de luma 45 la captura está negra. El p95 está medido en esta máquina sin GPU (SwiftShader): "
+        "vale como brazo de control entre efectos, no como presupuesto absoluto de frame.",
+        panels,
+        columns=3,
+    )
+
+
+def wp08_architecture_sheet():
+    """WP08: las cuatro autorías de arquitectura avanzada en una sola hoja revisable.
+
+    WP01-WP03 demostraron cada autoría en su propia hoja; para decidir promoción hace falta verlas
+    juntas y con el dato que corta, no con la impresión. Las cuatro piezas van con su geometría
+    medida del JSON hermano y los dos edificios son el resultado de esa autoría ya montada por el
+    Composer, para que la comparación no sea «módulo contra módulo» sino «componente contra calle».
+    """
+    modulos = (
+        ("gn", "gn_parts",
+         "GEOMETRY NODES · piezas que resuelven los roles de la gramática (adoptada: WP01)"),
+        ("hifi", "hifi_facade_grid",
+         "HIFI · receta de fachada sobre retícula (es lo único que WP03 dejó en pie)"),
+        ("ag", "ag_arcade_bay_2m",
+         "ARCH GENERATOR · vano de arcada cívica horneado a la caja canónica (adoptado: WP02)"),
+        ("ext", "archimesh_window_bay_2m_high",
+         "ARCHIMESH · vano con carpintería: MEDIDO Y NO ADOPTADO, la carpintería cae detrás del paño"),
+    )
+    edificios = (
+        ("residential", "row_house-candidata",
+         "el GN montado por el Composer en un adosado completo (perfil `gn_residential_v2`)"),
+        ("civic", "town_hall-candidata",
+         "el Arch Generator montado por el Composer en el hito cívico (perfil `ag_civic_v2`)"),
+    )
+
+    def build(sprite_height: int, out_path: Path, caption_lines: int):
+        def paneles(ancho_pie, lineas):
+            out = []
+            for folder, stem, etiqueta in modulos:
+                png = V2 / folder / f"{stem}.png"
+                if not png.exists():
+                    out.append(placeholder(f"{etiqueta} · SIN EVIDENCIA", 460, 320))
+                    continue
+                out.append(
+                    panel(
+                        png,
+                        f"{etiqueta} · {ag_module_note(png)}",
+                        max_height=round(sprite_height * 0.45),
+                        big=16,
+                        upscale=True,
+                        max_lines=lineas,
+                        caption_width=ancho_pie,
+                    )
+                )
+            for folder, stem, etiqueta in edificios:
+                out.append(
+                    v2_panel(
+                        folder,
+                        stem,
+                        etiqueta,
+                        sprite_height,
+                        caption_width=ancho_pie,
+                        max_lines=lineas,
+                    )
+                )
+            return out
+
+        return dos_pasadas(
+            out_path,
+            "D-111.2 WP08 · arquitectura avanzada: las cuatro autorías, con el dato que decide",
+            "Regla §5.1: el tipo se reconoce a 1× sin leer la etiqueta y la silueta sobrevive a 0,5×. "
+            "GN y Arch Generator están adoptados y montados por el Composer en los dos últimos "
+            "paneles; HiFi se queda como herramienta de receta (su vano no divide el hueco) y "
+            "Archimesh queda rechazado por construcción, no por tamaño: sus hojas caen por detrás de "
+            "la cara del paño canónico de 0,10 m. Cada pie sale del JSON hermano del fotograma.",
+            3,
+            paneles,
+            lineas=caption_lines,
+        )
+
+    first = build(980, V2_SHEETS / "wp08_arquitectura_avanzada.png", PIE_LINEAS)
+    # A 0,5× la columna mide la mitad, así que el mismo pie necesita el doble de líneas; el tope alto
+    # no añade hueco: `panel()` dibuja sólo las que hacen falta.
+    second = build(490, V2_SHEETS / "wp08_arquitectura_avanzada_half.png", PIE_LINEAS * 2)
     return first, second
 
 
@@ -1431,6 +1817,8 @@ def main() -> None:
         ("WP04 estados de conservación", weathering_sheet),
         ("WP05 nave industrial", industrial_warehouse_sheet),
         ("WP06 cuatro candidatas", wp06_candidates_sheet),
+        ("WP08 fx nocturnos", wp08_night_fx_sheet),
+        ("WP08 arquitectura avanzada", wp08_architecture_sheet),
     ):
         if only and not any(key in name for key in only):
             continue

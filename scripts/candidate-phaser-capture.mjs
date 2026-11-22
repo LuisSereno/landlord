@@ -77,9 +77,7 @@ function stageCandidates() {
     copyFileSync(source, `${distQa}/wp06_${type}-candidata.png`);
     staged[type] = {
       url: `/qa-candidates/wp06_${type}-candidata.png`,
-      metadata: JSON.parse(
-        readFileSync(`${CANDIDATES_DIR}/wp06_${type}-candidata.json`, "utf8"),
-      ),
+      metadata: JSON.parse(readFileSync(`${CANDIDATES_DIR}/wp06_${type}-candidata.json`, "utf8")),
       pngSha256: sha256(source),
     };
   }
@@ -114,11 +112,9 @@ async function startFreshCity() {
     timeout: 60_000,
   });
   await page.getByText("Worker conectado · simulación ejecutándose").waitFor({ timeout: 60_000 });
-  await page.waitForFunction(
-    () => Boolean(window.__landlordCameraTest?.getProjection?.()),
-    null,
-    { timeout: 60_000 },
-  );
+  await page.waitForFunction(() => Boolean(window.__landlordCameraTest?.getProjection?.()), null, {
+    timeout: 60_000,
+  });
   for (let attempt = 0; attempt < 3; attempt += 1) {
     const skip = page.getByRole("button", { name: "Ahora no" });
     if (await skip.isVisible().catch(() => false)) {
@@ -143,7 +139,10 @@ async function hideDomOverlays() {
       const box = node.getBoundingClientRect();
       if (box.width === 0 || box.height === 0) continue;
       const overlaps =
-        box.left < rect.right && box.right > rect.left && box.top < rect.bottom && box.bottom > rect.top;
+        box.left < rect.right &&
+        box.right > rect.left &&
+        box.top < rect.bottom &&
+        box.bottom > rect.top;
       if (overlaps) node.style.display = "none";
     }
   });
@@ -161,7 +160,8 @@ try {
   /** Muestreo de color por píxel en los puntos de pantalla indicados; el llamador centra la cámara. */
   async function sampleColors(points) {
     const visible = points.every(
-      (point) => point.x >= 0 && point.x <= VIEWPORT.width && point.y >= 0 && point.y <= VIEWPORT.height,
+      (point) =>
+        point.x >= 0 && point.x <= VIEWPORT.width && point.y >= 0 && point.y <= VIEWPORT.height,
     );
     if (!visible) return null;
     const png = await page.locator("canvas").first().screenshot({ type: "png" });
@@ -193,14 +193,19 @@ try {
    */
   async function setCamera(cell, zoom) {
     const camera0 = await page.evaluate(() => window.__landlordCameraTest.getCamera());
-    await page.evaluate(
-      (config) => window.__landlordCameraTest.configure(config),
-      { zoom: 1, scrollX: camera0.scrollX, scrollY: camera0.scrollY },
-    );
+    await page.evaluate((config) => window.__landlordCameraTest.configure(config), {
+      zoom: 1,
+      scrollX: camera0.scrollX,
+      scrollY: camera0.scrollY,
+    });
     await page.evaluate((target) => window.__landlordCameraTest.centerOnCell(target), cell);
     await page.evaluate((z) => {
       const camera = window.__landlordCameraTest.getCamera();
-      window.__landlordCameraTest.configure({ zoom: z, scrollX: camera.scrollX, scrollY: camera.scrollY });
+      window.__landlordCameraTest.configure({
+        zoom: z,
+        scrollX: camera.scrollX,
+        scrollY: camera.scrollY,
+      });
     }, zoom);
     for (let step = 0; step < 3; step += 1) {
       const state = await page.evaluate((target) => {
@@ -211,10 +216,11 @@ try {
       const dx = (state.point.x - VIEWPORT.width / 2) / zoom;
       const dy = (state.point.y - VIEWPORT.height / 2) / zoom;
       if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) break;
-      await page.evaluate(
-        (config) => window.__landlordCameraTest.configure(config),
-        { zoom, scrollX: state.scrollX + dx, scrollY: state.scrollY + dy },
-      );
+      await page.evaluate((config) => window.__landlordCameraTest.configure(config), {
+        zoom,
+        scrollX: state.scrollX + dx,
+        scrollY: state.scrollY + dy,
+      });
     }
   }
 
@@ -235,11 +241,15 @@ try {
         const footprintCells = (start) =>
           [
             ...Array.from({ length: FOOTPRINT_SPAN }, (_element, step) => start + step),
-            ...Array.from({ length: FOOTPRINT_SPAN }, (_element, step) => start + CANDIDATA_OFFSET + step),
+            ...Array.from(
+              { length: FOOTPRINT_SPAN },
+              (_element, step) => start + CANDIDATA_OFFSET + step,
+            ),
           ].map((x) => ({ x, y: row }));
         const screenFor = (cells) =>
           page.evaluate(
-            (targets) => targets.map((cell) => window.__landlordCameraTest.getCellScreenPoint(cell)),
+            (targets) =>
+              targets.map((cell) => window.__landlordCameraTest.getCellScreenPoint(cell)),
             cells,
           );
         const worldFor = (cells) =>
@@ -261,7 +271,9 @@ try {
         const allCells = starts.flatMap((start) => cellsByStart.get(start));
         const worldPointsByCell = await worldFor(allCells);
         const buildings = await page.evaluate(() =>
-          window.__landlordCameraTest.listScenery().buildings.map((entry) => ({ x: entry.x, y: entry.y })),
+          window.__landlordCameraTest
+            .listScenery()
+            .buildings.map((entry) => ({ x: entry.x, y: entry.y })),
         );
         const screenPointsByCell = await screenFor(allCells);
         const colorsByCell = await sampleColors(screenPointsByCell);
@@ -272,10 +284,13 @@ try {
           const span = terrainByCell.slice(cellStart, cellStart + FOOTPRINT_SPAN * 2);
           const worldPoints = worldPointsByCell.slice(cellStart, cellStart + FOOTPRINT_SPAN * 2);
           const tooClose = [...buildings, ...occupiedWorldPoints].some((obstacle) =>
-            worldPoints.some((point) => Math.hypot(point.x - obstacle.x, point.y - obstacle.y) < 240),
+            worldPoints.some(
+              (point) => Math.hypot(point.x - obstacle.x, point.y - obstacle.y) < 240,
+            ),
           );
           if (tooClose) {
-            if (process.env.CAND_QA_DEBUG) console.error(`r${row} x${start}: edificio/ocupado <240 px mundo`);
+            if (process.env.CAND_QA_DEBUG)
+              console.error(`r${row} x${start}: edificio/ocupado <240 px mundo`);
             continue;
           }
           if (span.every(Boolean)) {
@@ -284,12 +299,17 @@ try {
             break;
           }
           if (process.env.CAND_QA_DEBUG) {
-            console.error(`r${row} x${start}: terreno ${JSON.stringify(span.map((ok, i) => (ok ? 1 : colorsByCell[cellStart + i])))}`);
+            console.error(
+              `r${row} x${start}: terreno ${JSON.stringify(span.map((ok, i) => (ok ? 1 : colorsByCell[cellStart + i])))}`,
+            );
           }
         }
       }
     }
-    if (!placed) throw new Error(`la pareja ${TYPES[pair]} no encontró terreno QA verificado entre las filas 61 y 28`);
+    if (!placed)
+      throw new Error(
+        `la pareja ${TYPES[pair]} no encontró terreno QA verificado entre las filas 61 y 28`,
+      );
     qaPairs.push(placed);
     console.error(`pareja ${TYPES[pair]}: fila ${placed.row}, x=${placed.start}`);
   }

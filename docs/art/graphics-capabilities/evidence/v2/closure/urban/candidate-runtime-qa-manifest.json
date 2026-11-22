@@ -2,38 +2,14 @@
  "schemaVersion": 1,
  "purpose": "cuatro candidatas WP06 dentro de Phaser sobre el mundo real; la fila QA es muestra rotulada, no evolución de la partida",
  "bundle": {
-  "servedFrom": "http://127.0.0.1:39671",
+  "servedFrom": "http://127.0.0.1:40143",
   "cameraTest": true
  },
  "qaPlacements": [
   {
    "row": 61,
-   "start": 34,
+   "start": 42,
    "cells": [
-    {
-     "x": 34,
-     "y": 61
-    },
-    {
-     "x": 35,
-     "y": 61
-    },
-    {
-     "x": 36,
-     "y": 61
-    },
-    {
-     "x": 37,
-     "y": 61
-    },
-    {
-     "x": 38,
-     "y": 61
-    },
-    {
-     "x": 41,
-     "y": 61
-    },
     {
      "x": 42,
      "y": 61
@@ -49,42 +25,42 @@
     {
      "x": 45,
      "y": 61
+    },
+    {
+     "x": 46,
+     "y": 61
+    },
+    {
+     "x": 49,
+     "y": 61
+    },
+    {
+     "x": 50,
+     "y": 61
+    },
+    {
+     "x": 51,
+     "y": 61
+    },
+    {
+     "x": 52,
+     "y": 61
+    },
+    {
+     "x": 53,
+     "y": 61
     }
    ],
    "midCell": {
-    "x": 37,
+    "x": 45,
     "y": 61
    },
    "zooms": []
   },
   {
    "row": 53,
-   "start": 43,
+   "start": 51,
    "cells": [
-    {
-     "x": 43,
-     "y": 53
-    },
-    {
-     "x": 44,
-     "y": 53
-    },
-    {
-     "x": 45,
-     "y": 53
-    },
-    {
-     "x": 46,
-     "y": 53
-    },
-    {
-     "x": 47,
-     "y": 53
-    },
-    {
-     "x": 50,
-     "y": 53
-    },
     {
      "x": 51,
      "y": 53
@@ -100,113 +76,137 @@
     {
      "x": 54,
      "y": 53
+    },
+    {
+     "x": 55,
+     "y": 53
+    },
+    {
+     "x": 58,
+     "y": 53
+    },
+    {
+     "x": 59,
+     "y": 53
+    },
+    {
+     "x": 60,
+     "y": 53
+    },
+    {
+     "x": 61,
+     "y": 53
+    },
+    {
+     "x": 62,
+     "y": 53
     }
    ],
    "midCell": {
-    "x": 46,
+    "x": 54,
     "y": 53
    },
    "zooms": []
   },
   {
-   "row": 44,
-   "start": 34,
+   "row": 52,
+   "start": 1,
    "cells": [
     {
-     "x": 34,
-     "y": 44
+     "x": 1,
+     "y": 52
     },
     {
-     "x": 35,
-     "y": 44
+     "x": 2,
+     "y": 52
     },
     {
-     "x": 36,
-     "y": 44
+     "x": 3,
+     "y": 52
     },
     {
-     "x": 37,
-     "y": 44
+     "x": 4,
+     "y": 52
     },
     {
-     "x": 38,
-     "y": 44
+     "x": 5,
+     "y": 52
     },
     {
-     "x": 41,
-     "y": 44
+     "x": 8,
+     "y": 52
     },
     {
-     "x": 42,
-     "y": 44
+     "x": 9,
+     "y": 52
     },
     {
-     "x": 43,
-     "y": 44
+     "x": 10,
+     "y": 52
     },
     {
-     "x": 44,
-     "y": 44
+     "x": 11,
+     "y": 52
     },
     {
-     "x": 45,
-     "y": 44
+     "x": 12,
+     "y": 52
     }
    ],
    "midCell": {
-    "x": 37,
-    "y": 44
+    "x": 4,
+    "y": 52
    },
    "zooms": []
   },
   {
-   "row": 36,
-   "start": 43,
+   "row": 51,
+   "start": 19,
    "cells": [
     {
-     "x": 43,
-     "y": 36
+     "x": 19,
+     "y": 51
     },
     {
-     "x": 44,
-     "y": 36
+     "x": 20,
+     "y": 51
     },
     {
-     "x": 45,
-     "y": 36
+     "x": 21,
+     "y": 51
     },
     {
-     "x": 46,
-     "y": 36
+     "x": 22,
+     "y": 51
     },
     {
-     "x": 47,
-     "y": 36
+     "x": 23,
+     "y": 51
     },
     {
-     "x": 50,
-     "y": 36
+     "x": 26,
+     "y": 51
     },
     {
-     "x": 51,
-     "y": 36
+     "x": 27,
+     "y": 51
     },
     {
-     "x": 52,
-     "y": 36
+     "x": 28,
+     "y": 51
     },
     {
-     "x": 53,
-     "y": 36
+     "x": 29,
+     "y": 51
     },
     {
-     "x": 54,
-     "y": 36
+     "x": 30,
+     "y": 51
     }
    ],
    "midCell": {
-    "x": 46,
-    "y": 36
+    "x": 22,
+    "y": 51
    },
    "zooms": []
   }
@@ -228,7 +228,7 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 34,
+     "x": 42,
      "y": 61
     }
    },
@@ -251,7 +251,7 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 41,
+     "x": 49,
      "y": 61
     }
    }
@@ -272,7 +272,7 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 43,
+     "x": 51,
      "y": 53
     }
    },
@@ -295,7 +295,7 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 50,
+     "x": 58,
      "y": 53
     }
    }
@@ -316,8 +316,8 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 34,
-     "y": 44
+     "x": 1,
+     "y": 52
     }
    },
    "candidata": {
@@ -339,8 +339,8 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 41,
-     "y": 44
+     "x": 8,
+     "y": 52
     }
    }
   },
@@ -360,8 +360,8 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 43,
-     "y": 36
+     "x": 19,
+     "y": 51
     }
    },
    "candidata": {
@@ -383,8 +383,8 @@
     },
     "pixelsPerMeter": 60.2,
     "cell": {
-     "x": 50,
-     "y": 36
+     "x": 26,
+     "y": 51
     }
    }
   }
@@ -394,11 +394,11 @@
    "name": "row_house-control",
    "textureKey": "qa-candidate-row_house-control",
    "cell": {
-    "x": 34,
+    "x": 42,
     "y": 61
    },
-   "x": -304,
-   "y": 1608,
+   "x": -48,
+   "y": 1736,
    "scale": 0.18793535712599269,
    "label": "CONTROL · row_house · catálogo aprobado",
    "visible": true
@@ -407,11 +407,11 @@
    "name": "row_house-candidata",
    "textureKey": "qa-candidate-row_house-candidata",
    "cell": {
-    "x": 41,
+    "x": 49,
     "y": 61
    },
-   "x": -80,
-   "y": 1720,
+   "x": 176,
+   "y": 1848,
    "scale": 0.18793535712599269,
    "label": "CANDIDATA WP06 · row_house · gn_residential_v2",
    "visible": true
@@ -420,11 +420,11 @@
    "name": "mixed_tenement-control",
    "textureKey": "qa-candidate-mixed_tenement-control",
    "cell": {
-    "x": 43,
+    "x": 51,
     "y": 53
    },
-   "x": 224,
-   "y": 1632,
+   "x": 480,
+   "y": 1760,
    "scale": 0.18793535712599269,
    "label": "CONTROL · mixed_tenement · catálogo aprobado",
    "visible": true
@@ -433,11 +433,11 @@
    "name": "mixed_tenement-candidata",
    "textureKey": "qa-candidate-mixed_tenement-candidata",
    "cell": {
-    "x": 50,
+    "x": 58,
     "y": 53
    },
-   "x": 448,
-   "y": 1744,
+   "x": 704,
+   "y": 1872,
    "scale": 0.18793535712599269,
    "label": "CANDIDATA WP06 · mixed_tenement · gn_residential_v2",
    "visible": true
@@ -446,11 +446,11 @@
    "name": "town_hall-control",
    "textureKey": "qa-candidate-town_hall-control",
    "cell": {
-    "x": 34,
-    "y": 44
+    "x": 1,
+    "y": 52
    },
-   "x": 224,
-   "y": 1360,
+   "x": -1088,
+   "y": 960,
    "scale": 0.18793535712599269,
    "label": "CONTROL · town_hall · catálogo aprobado",
    "visible": true
@@ -459,11 +459,11 @@
    "name": "town_hall-candidata",
    "textureKey": "qa-candidate-town_hall-candidata",
    "cell": {
-    "x": 41,
-    "y": 44
+    "x": 8,
+    "y": 52
    },
-   "x": 448,
-   "y": 1472,
+   "x": -864,
+   "y": 1072,
    "scale": 0.18793535712599269,
    "label": "CANDIDATA WP06 · town_hall · ag_civic_v2",
    "visible": true
@@ -472,11 +472,11 @@
    "name": "warehouse-control",
    "textureKey": "qa-candidate-warehouse-control",
    "cell": {
-    "x": 43,
-    "y": 36
+    "x": 19,
+    "y": 51
    },
-   "x": 752,
-   "y": 1368,
+   "x": -496,
+   "y": 1224,
    "scale": 0.18793535712599269,
    "label": "CONTROL · warehouse · catálogo aprobado",
    "visible": true
@@ -485,11 +485,11 @@
    "name": "warehouse-candidata",
    "textureKey": "qa-candidate-warehouse-candidata",
    "cell": {
-    "x": 50,
-    "y": 36
+    "x": 26,
+    "y": 51
    },
-   "x": 976,
-   "y": 1480,
+   "x": -272,
+   "y": 1336,
    "scale": 0.18793535712599269,
    "label": "CANDIDATA WP06 · warehouse · gn_industrial_v2",
    "visible": true
@@ -501,23 +501,23 @@
    "buildingType": "row_house",
    "zoom": 1,
    "centerCell": {
-    "x": 37,
+    "x": 45,
     "y": 61
    },
    "pairRow": 61,
-   "pairStartX": 34,
-   "pngSha256": "5fc62b401d681a249d1f24916764bc18d51b6b71c023538a1997c19a4cf0ec08",
-   "pngBytes": 971450,
+   "pairStartX": 42,
+   "pngSha256": "273d59fd7fdc89fd5bc13ccc638c656448158c556972f162ba7a22a924e3ed78",
+   "pngBytes": 1026692,
    "placed": [
     {
      "name": "row_house-control",
      "textureKey": "qa-candidate-row_house-control",
      "cell": {
-      "x": 34,
+      "x": 42,
       "y": 61
      },
-     "x": -304,
-     "y": 1608,
+     "x": -48,
+     "y": 1736,
      "scale": 0.18793535712599269,
      "label": "CONTROL · row_house · catálogo aprobado",
      "visible": true
@@ -526,11 +526,11 @@
      "name": "row_house-candidata",
      "textureKey": "qa-candidate-row_house-candidata",
      "cell": {
-      "x": 41,
+      "x": 49,
       "y": 61
      },
-     "x": -80,
-     "y": 1720,
+     "x": 176,
+     "y": 1848,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · row_house · gn_residential_v2",
      "visible": true
@@ -542,23 +542,23 @@
    "buildingType": "mixed_tenement",
    "zoom": 1,
    "centerCell": {
-    "x": 46,
+    "x": 54,
     "y": 53
    },
    "pairRow": 53,
-   "pairStartX": 43,
-   "pngSha256": "eee0bc1e1864875c2b33084cc1962f18e59bf5291f564743a02ad4d2bd9c8a1f",
-   "pngBytes": 1258805,
+   "pairStartX": 51,
+   "pngSha256": "87e4f8f2e9793df0b5063610bc1a9cb084812152cc6fa0a2e55fba81ac5a8e43",
+   "pngBytes": 1161574,
    "placed": [
     {
      "name": "mixed_tenement-control",
      "textureKey": "qa-candidate-mixed_tenement-control",
      "cell": {
-      "x": 43,
+      "x": 51,
       "y": 53
      },
-     "x": 224,
-     "y": 1632,
+     "x": 480,
+     "y": 1760,
      "scale": 0.18793535712599269,
      "label": "CONTROL · mixed_tenement · catálogo aprobado",
      "visible": true
@@ -567,11 +567,11 @@
      "name": "mixed_tenement-candidata",
      "textureKey": "qa-candidate-mixed_tenement-candidata",
      "cell": {
-      "x": 50,
+      "x": 58,
       "y": 53
      },
-     "x": 448,
-     "y": 1744,
+     "x": 704,
+     "y": 1872,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · mixed_tenement · gn_residential_v2",
      "visible": true
@@ -583,23 +583,23 @@
    "buildingType": "town_hall",
    "zoom": 1,
    "centerCell": {
-    "x": 37,
-    "y": 44
+    "x": 4,
+    "y": 52
    },
-   "pairRow": 44,
-   "pairStartX": 34,
-   "pngSha256": "862fff4e57fbafd3c9866b541f305de2c8c216884e7bc2051b4ec66000f5c806",
-   "pngBytes": 1449246,
+   "pairRow": 52,
+   "pairStartX": 1,
+   "pngSha256": "45cca9229da4accef2c93cfaef939002ea015c09b4300f8072d4236e083bd169",
+   "pngBytes": 789289,
    "placed": [
     {
      "name": "town_hall-control",
      "textureKey": "qa-candidate-town_hall-control",
      "cell": {
-      "x": 34,
-      "y": 44
+      "x": 1,
+      "y": 52
      },
-     "x": 224,
-     "y": 1360,
+     "x": -1088,
+     "y": 960,
      "scale": 0.18793535712599269,
      "label": "CONTROL · town_hall · catálogo aprobado",
      "visible": true
@@ -608,11 +608,11 @@
      "name": "town_hall-candidata",
      "textureKey": "qa-candidate-town_hall-candidata",
      "cell": {
-      "x": 41,
-      "y": 44
+      "x": 8,
+      "y": 52
      },
-     "x": 448,
-     "y": 1472,
+     "x": -864,
+     "y": 1072,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · town_hall · ag_civic_v2",
      "visible": true
@@ -624,23 +624,23 @@
    "buildingType": "warehouse",
    "zoom": 1,
    "centerCell": {
-    "x": 46,
-    "y": 36
+    "x": 22,
+    "y": 51
    },
-   "pairRow": 36,
-   "pairStartX": 43,
-   "pngSha256": "c55815c30010fe0922685441810c2b598e1238c62963afa4f28915e66c3b44df",
-   "pngBytes": 1412341,
+   "pairRow": 51,
+   "pairStartX": 19,
+   "pngSha256": "5d3216292c6aaf5450899079903bec4d92f34a4ab7e98360e438686497e97360",
+   "pngBytes": 1332052,
    "placed": [
     {
      "name": "warehouse-control",
      "textureKey": "qa-candidate-warehouse-control",
      "cell": {
-      "x": 43,
-      "y": 36
+      "x": 19,
+      "y": 51
      },
-     "x": 752,
-     "y": 1368,
+     "x": -496,
+     "y": 1224,
      "scale": 0.18793535712599269,
      "label": "CONTROL · warehouse · catálogo aprobado",
      "visible": true
@@ -649,11 +649,11 @@
      "name": "warehouse-candidata",
      "textureKey": "qa-candidate-warehouse-candidata",
      "cell": {
-      "x": 50,
-      "y": 36
+      "x": 26,
+      "y": 51
      },
-     "x": 976,
-     "y": 1480,
+     "x": -272,
+     "y": 1336,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · warehouse · gn_industrial_v2",
      "visible": true
@@ -665,23 +665,23 @@
    "buildingType": "row_house",
    "zoom": 0.5,
    "centerCell": {
-    "x": 37,
+    "x": 45,
     "y": 61
    },
    "pairRow": 61,
-   "pairStartX": 34,
-   "pngSha256": "5a101b1541571e91160da861fc0b816b85f2a52850682f5c3bce3308b3383e46",
-   "pngBytes": 740384,
+   "pairStartX": 42,
+   "pngSha256": "9e27f9f657e81480bde5b780c7014820c23b297f0317dbbedaf8c75b4c184617",
+   "pngBytes": 937752,
    "placed": [
     {
      "name": "row_house-control",
      "textureKey": "qa-candidate-row_house-control",
      "cell": {
-      "x": 34,
+      "x": 42,
       "y": 61
      },
-     "x": -304,
-     "y": 1608,
+     "x": -48,
+     "y": 1736,
      "scale": 0.18793535712599269,
      "label": "CONTROL · row_house · catálogo aprobado",
      "visible": true
@@ -690,11 +690,11 @@
      "name": "row_house-candidata",
      "textureKey": "qa-candidate-row_house-candidata",
      "cell": {
-      "x": 41,
+      "x": 49,
       "y": 61
      },
-     "x": -80,
-     "y": 1720,
+     "x": 176,
+     "y": 1848,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · row_house · gn_residential_v2",
      "visible": true
@@ -706,23 +706,23 @@
    "buildingType": "mixed_tenement",
    "zoom": 0.5,
    "centerCell": {
-    "x": 46,
+    "x": 54,
     "y": 53
    },
    "pairRow": 53,
-   "pairStartX": 43,
-   "pngSha256": "8c49e3fbb2c69deeb9562d8e28afe88f39b94655a207f2ade8b05a191c881d62",
-   "pngBytes": 1032034,
+   "pairStartX": 51,
+   "pngSha256": "1cded9ec31d6f1290863fe71a1095f8461b7db2ad04acc4ef893c4df99ca75a4",
+   "pngBytes": 967337,
    "placed": [
     {
      "name": "mixed_tenement-control",
      "textureKey": "qa-candidate-mixed_tenement-control",
      "cell": {
-      "x": 43,
+      "x": 51,
       "y": 53
      },
-     "x": 224,
-     "y": 1632,
+     "x": 480,
+     "y": 1760,
      "scale": 0.18793535712599269,
      "label": "CONTROL · mixed_tenement · catálogo aprobado",
      "visible": true
@@ -731,11 +731,11 @@
      "name": "mixed_tenement-candidata",
      "textureKey": "qa-candidate-mixed_tenement-candidata",
      "cell": {
-      "x": 50,
+      "x": 58,
       "y": 53
      },
-     "x": 448,
-     "y": 1744,
+     "x": 704,
+     "y": 1872,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · mixed_tenement · gn_residential_v2",
      "visible": true
@@ -747,23 +747,23 @@
    "buildingType": "town_hall",
    "zoom": 0.5,
    "centerCell": {
-    "x": 37,
-    "y": 44
+    "x": 4,
+    "y": 52
    },
-   "pairRow": 44,
-   "pairStartX": 34,
-   "pngSha256": "1964ffc3b813fbe47ad61f35fbf53319761cf440255f0dfdf6357c94cc5a1c57",
-   "pngBytes": 855697,
+   "pairRow": 52,
+   "pairStartX": 1,
+   "pngSha256": "acb07bffff8756859b20997834345527136f50a07926928a35ed6412728b0dfa",
+   "pngBytes": 675860,
    "placed": [
     {
      "name": "town_hall-control",
      "textureKey": "qa-candidate-town_hall-control",
      "cell": {
-      "x": 34,
-      "y": 44
+      "x": 1,
+      "y": 52
      },
-     "x": 224,
-     "y": 1360,
+     "x": -1088,
+     "y": 960,
      "scale": 0.18793535712599269,
      "label": "CONTROL · town_hall · catálogo aprobado",
      "visible": true
@@ -772,11 +772,11 @@
      "name": "town_hall-candidata",
      "textureKey": "qa-candidate-town_hall-candidata",
      "cell": {
-      "x": 41,
-      "y": 44
+      "x": 8,
+      "y": 52
      },
-     "x": 448,
-     "y": 1472,
+     "x": -864,
+     "y": 1072,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · town_hall · ag_civic_v2",
      "visible": true
@@ -788,23 +788,23 @@
    "buildingType": "warehouse",
    "zoom": 0.5,
    "centerCell": {
-    "x": 46,
-    "y": 36
+    "x": 22,
+    "y": 51
    },
-   "pairRow": 36,
-   "pairStartX": 43,
-   "pngSha256": "d1b684d1120b66a2b2bc45383099629b41f3bd29bbcae6469023e8ddf33cad07",
-   "pngBytes": 1046102,
+   "pairRow": 51,
+   "pairStartX": 19,
+   "pngSha256": "04a6fe463c12486005de962409e48e32e72a222a915bc90f6370ccec9583c45d",
+   "pngBytes": 1055833,
    "placed": [
     {
      "name": "warehouse-control",
      "textureKey": "qa-candidate-warehouse-control",
      "cell": {
-      "x": 43,
-      "y": 36
+      "x": 19,
+      "y": 51
      },
-     "x": 752,
-     "y": 1368,
+     "x": -496,
+     "y": 1224,
      "scale": 0.18793535712599269,
      "label": "CONTROL · warehouse · catálogo aprobado",
      "visible": true
@@ -813,11 +813,11 @@
      "name": "warehouse-candidata",
      "textureKey": "qa-candidate-warehouse-candidata",
      "cell": {
-      "x": 50,
-      "y": 36
+      "x": 26,
+      "y": 51
      },
-     "x": 976,
-     "y": 1480,
+     "x": -272,
+     "y": 1336,
      "scale": 0.18793535712599269,
      "label": "CANDIDATA WP06 · warehouse · gn_industrial_v2",
      "visible": true
@@ -826,5 +826,5 @@
   }
  ],
  "pageErrors": [],
- "capturedAt": "2026-11-22T09:49:17.762Z"
+ "capturedAt": "2026-11-22T10:05:40.144Z"
 }

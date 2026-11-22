@@ -1,0 +1,291 @@
+{
+ "schemaVersion": 1,
+ "cycles": [
+  {
+   "effect": "fire",
+   "index": null,
+   "before": {
+    "frames": 13,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": true,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ]
+   },
+   "after": {
+    "frames": 30,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles"
+    ]
+   }
+  },
+  {
+   "effect": "fire",
+   "index": null,
+   "before": {
+    "frames": 32,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles"
+    ]
+   },
+   "after": {
+    "frames": 46,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": true,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ]
+   }
+  },
+  {
+   "effect": "fire",
+   "index": null,
+   "before": {
+    "frames": 48,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": true,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ]
+   },
+   "after": {
+    "frames": 62,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles"
+    ]
+   }
+  },
+  {
+   "effect": "fire",
+   "index": null,
+   "before": {
+    "frames": 64,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles"
+    ]
+   },
+   "after": {
+    "frames": 78,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": true,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ]
+   }
+  },
+  {
+   "effect": "fire",
+   "index": null,
+   "before": {
+    "frames": 80,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": true,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles",
+     "fire"
+    ]
+   },
+   "after": {
+    "frames": 94,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles"
+    ]
+   }
+  },
+  {
+   "effect": "lighting",
+   "index": null,
+   "before": {
+    "frames": 96,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "lightingNormals",
+     "particles"
+    ]
+   },
+   "after": {
+    "frames": 110,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 0,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "particles"
+    ]
+   }
+  },
+  {
+   "effect": "lighting",
+   "index": null,
+   "before": {
+    "frames": 112,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 0,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "particles"
+    ]
+   },
+   "after": {
+    "frames": 126,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "particles"
+    ]
+   }
+  },
+  {
+   "effect": "lighting",
+   "index": null,
+   "before": {
+    "frames": 128,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 4,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "lighting",
+     "particles"
+    ]
+   },
+   "after": {
+    "frames": 142,
+    "sceneObjects": 60,
+    "emissive": 15,
+    "lights": 0,
+    "texturesLive": 28,
+    "gpuTextureBytes": 23705444,
+    "fireActive": false,
+    "effects": [
+     "grading",
+     "bloomObjects",
+     "particles"
+    ]
+   }
+  }
+ ],
+ "pageErrors": []
+}

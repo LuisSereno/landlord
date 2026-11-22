@@ -1,0 +1,46 @@
+{
+ "schemaVersion": 1,
+ "arm": "night_balanced",
+ "params": {
+  "artQa": "1",
+  "fxPreset": "night_balanced",
+  "fxPerf": "1"
+ },
+ "probe": {
+  "preset": "night_balanced",
+  "mood": "night",
+  "zoom": 1,
+  "effects": [
+   "grading",
+   "bloomObjects",
+   "lighting",
+   "lightingNormals",
+   "particles"
+  ],
+  "emissive": 15,
+  "lights": 4,
+  "particles": 0,
+  "fire": {
+   "foci": 2,
+   "flameImages": 10,
+   "emitters": 8,
+   "particlesAlive": 0,
+   "lights": 0,
+   "glowImages": 2
+  },
+  "webgl": true,
+  "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "stats": {
+   "fps": 0,
+   "frameTimeP50Ms": 15.3,
+   "frameTimeP95Ms": 16.67,
+   "frameTimeMeanMs": 15.76,
+   "samples": 12,
+   "drawCalls": null,
+   "texturesLive": 28,
+   "gpuTextureBytes": 23705444
+  }
+ },
+ "pngSha256": "63fa6cb748fe47c7e8bfb2ca097f3d21236daf68f56c42ef6278c63553de0770",
+ "pngBytes": 196982
+}

@@ -45,7 +45,8 @@
     }
    },
    "pngSha256": "cf14c6b83aec758aafe54f0091ddcddd3fa9b012a7d857bad5e46067b63e9f7e",
-   "pngBytes": 200413
+   "pngBytes": 200413,
+   "file": "day_balanced.png"
   },
   {
    "schemaVersion": 1,
@@ -91,7 +92,8 @@
     }
    },
    "pngSha256": "63fa6cb748fe47c7e8bfb2ca097f3d21236daf68f56c42ef6278c63553de0770",
-   "pngBytes": 196982
+   "pngBytes": 196982,
+   "file": "night_balanced.png"
   },
   {
    "schemaVersion": 1,
@@ -138,7 +140,8 @@
     }
    },
    "pngSha256": "42c5da47128167953c3097e5dd658de4eac7ef5ca9b686ee2b21f8ed9fb2e86c",
-   "pngBytes": 198626
+   "pngBytes": 198626,
+   "file": "night_fire.png"
   },
   {
    "schemaVersion": 1,
@@ -186,7 +189,8 @@
     }
    },
    "pngSha256": "a22784d8bc17b69ef22a44d5bc26d4e194bba552e460ac5969fb490ab07c4e76",
-   "pngBytes": 79277
+   "pngBytes": 79277,
+   "file": "night_fire_050x.png"
   },
   {
    "schemaVersion": 1,
@@ -234,10 +238,12 @@
     }
    },
    "pngSha256": "2bbcf9df47c5d0263ecf81a4ace148e16456f5adbcc3c2f56803d7e60cae83fd",
-   "pngBytes": 196163
+   "pngBytes": 196163,
+   "file": "night_fire_canvas.png"
   }
  ],
  "dismountCycles": 8,
  "pageErrors": [],
- "capturedAt": "2026-11-22T10:25:47.715Z"
+ "capturedAt": "2026-11-22T10:25:47.715Z",
+ "file": "night_lighting_final_ab.png"
 }

@@ -1,0 +1,172 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "command": "python3 tools/art-pipeline/blender/ext_lab/compose_review_sheets.py",
+ "hoja": "docs/art/graphics-capabilities/evidence/v2/fire/fire_blender_ab.png",
+ "titulo": "D-111.2 FASE 3 · incendios en Blender: control congelado vs candidata",
+ "subtitulo": "Cuatro filas, cada una con su control a la izquierda y su candidata a la derecha: cívico de 3 plantas (10,00 m) de día y de noche, nave de 1 planta (6,42 m) de día y de noche. Misma semilla (2), mismo estado (burning), mismo mood y misma cámara resuelta por el compositor. El pie de cada panel está medido sobre el PNG con la máscara cálida R−B>50 y R>170 (foco = componente conexas ≥ 40 px), no escrito a mano. · 'recorte' cuenta el píxel opaco con los tres canales en 255: es la superficie que perdió su color por sobreexposición, y el cierre de la fase la exige en 0. · 'humo +X m bajo la punta' es cuánto el arranque de la columna se come el cuerpo de las llamas (positivo = oclusión). · 'sobre pretil' es el saldo de la cima contra el plano de la cubierta seccionada (negativo = muere dentro del edificio). · 'luz' declara las luces puntuales que el incendio encendió en la escena, en vatios y en cuota sobre la clave del mood; 'sin luz de fuego' es el control, que sólo tenía mallas emisivas. · 'mallas VFX sin proyectar sombra' es cuántos objetos de llama y humo van apagados al rayo de sombra: en el control son 0 y el sol dibuja una cuña negra bajo cada hoguera. · 'sprite' y 'KiB' son el coste real del lienzo que paga el navegador.",
+ "tamanioPx": [
+  8758,
+  4024
+ ],
+ "anchoColumnaPx": 4371,
+ "bytes": 4509522,
+ "sha256": "44a71e4473db53b3b08a311b3a6f2a845074c0d1ebbe290d6415c8a13a9ee743",
+ "celdas": [
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_day.png",
+   "sha256": "641baffb7d5131bd4c62804e2255a13a86d1c70c65c46f256209ddd66f6d4110",
+   "bytes": 1466180,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_day.json",
+   "nativoPx": [
+    1082,
+    1063
+   ],
+   "dibujadoPx": [
+    896,
+    880
+   ],
+   "pie": "cívico de 3 plantas · día · CONTROL — focos 2 visibles de 5 (mayor 1321 px) · pico (255, 255, 165) · sat 114 · recorte 0 px (0.0 %) · llamas 1.65–2.95 m en 1 alturas · humo +0.4 m bajo la punta y -3.58 m sobre pretil · hollín 0.7 uniforme sobre 24 mat · emisión núcleo 2.0 zonas — · sin luz de fuego · 0 mallas VFX sin proyectar sombra · sprite 1082×1063 · 1432 KiB",
+   "pieLineas": 4,
+   "pieCompleto": true,
+   "pieAnchoPx": 875
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_day.png",
+   "sha256": "1a00c7398a52ce274b3d2553acb05b78a75e0fad67db9c6242c7515be0bae358",
+   "bytes": 1624174,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_day.json",
+   "nativoPx": [
+    1091,
+    1237
+   ],
+   "dibujadoPx": [
+    776,
+    880
+   ],
+   "pie": "cívico de 3 plantas · día · CANDIDATA — focos 10 visibles de 16 (mayor 11166 px) · pico (255, 255, 158) · sat 127 · recorte 0 px (0.0 %) · llamas 3.0–9.65 m en 14 alturas · humo +1.2 m bajo la punta y +3.25 m sobre pretil · hollín 0.7 localizado núcl 0.63 sobre 16 mat · emisión núcleo 1.35 zonas 0.987/1.35/0.519 · 2 luces de 412.3 W (1.25× clave 4.2, alcance 2.5 m) · 19 mallas VFX sin proyectar sombra · sprite 1091×1237 · 1586 KiB",
+   "pieLineas": 5,
+   "pieCompleto": true,
+   "pieAnchoPx": 761
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_night.png",
+   "sha256": "0697bf93bca1bcfbcc5147bdada2d9b30a1359b9d1c2246e4cf0d767e26b6bd7",
+   "bytes": 1291388,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_night.json",
+   "nativoPx": [
+    1082,
+    1063
+   ],
+   "dibujadoPx": [
+    896,
+    880
+   ],
+   "pie": "cívico de 3 plantas · noche · CONTROL — focos 2 visibles de 5 (mayor 1289 px) · pico (233, 211, 173) · sat 78 · recorte 0 px (0.0 %) · llamas 1.65–2.95 m en 1 alturas · humo +0.4 m bajo la punta y -3.58 m sobre pretil · hollín 0.7 uniforme sobre 24 mat · emisión núcleo 2.0 zonas — · sin luz de fuego · 0 mallas VFX sin proyectar sombra · sprite 1082×1063 · 1261 KiB",
+   "pieLineas": 4,
+   "pieCompleto": true,
+   "pieAnchoPx": 879
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_night.png",
+   "sha256": "facec589b979d5955d110dcaf82295fdbc222ed8563da1987f73b9af6d3f343e",
+   "bytes": 1412550,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_night.json",
+   "nativoPx": [
+    1091,
+    1237
+   ],
+   "dibujadoPx": [
+    776,
+    880
+   ],
+   "pie": "cívico de 3 plantas · noche · CANDIDATA — focos 9 visibles de 16 (mayor 9401 px) · pico (252, 196, 168) · sat 121 · recorte 0 px (0.0 %) · llamas 3.0–9.65 m en 14 alturas · humo +1.2 m bajo la punta y +3.25 m sobre pretil · hollín 0.7 localizado núcl 0.63 sobre 16 mat · emisión núcleo 1.35 zonas 0.987/1.35/0.519 · 2 luces de 230.7 W (1.25× clave 2.35, alcance 2.5 m) · 19 mallas VFX sin proyectar sombra · sprite 1091×1237 · 1379 KiB",
+   "pieLineas": 5,
+   "pieCompleto": true,
+   "pieAnchoPx": 756
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/control_warehouse_day.png",
+   "sha256": "15d2117996820d9b853298e3fa57971794e5239b67dde4a78030fb5bfda4e948",
+   "bytes": 1314229,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/control_warehouse_day.json",
+   "nativoPx": [
+    1417,
+    1097
+   ],
+   "dibujadoPx": [
+    1137,
+    880
+   ],
+   "pie": "nave de 1 planta · día · CONTROL — focos 5 visibles de 5 (mayor 1322 px) · pico (255, 255, 181) · sat 109 · recorte 0 px (0.0 %) · llamas 1.65–2.95 m en 1 alturas · humo +0.4 m bajo la punta y +0.0 m sobre pretil · hollín 0.7 uniforme sobre 16 mat · emisión núcleo 2.0 zonas — · sin luz de fuego · 0 mallas VFX sin proyectar sombra · sprite 1417×1097 · 1283 KiB",
+   "pieLineas": 3,
+   "pieCompleto": true,
+   "pieAnchoPx": 1108
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_day.png",
+   "sha256": "a3487ea1f9f881e3d80ecbff2b17e777a04e4196591e0369790dcfdf2a14a2e5",
+   "bytes": 1382685,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_day.json",
+   "nativoPx": [
+    1417,
+    1119
+   ],
+   "dibujadoPx": [
+    1114,
+    880
+   ],
+   "pie": "nave de 1 planta · día · CANDIDATA — focos 5 visibles de 19 (mayor 49268 px) · pico (255, 252, 196) · sat 109 · recorte 0 px (0.0 %) · llamas 0.1–3.65 m en 18 alturas · humo +1.5 m bajo la punta y +3.79 m sobre pretil · hollín 0.7 localizado núcl 0.546 sobre 10 mat · emisión núcleo 1.35 zonas 0.987/1.35/0.519 · 2 luces de 412.3 W (1.25× clave 4.2, alcance 2.5 m) · 22 mallas VFX sin proyectar sombra · sprite 1417×1119 · 1350 KiB",
+   "pieLineas": 4,
+   "pieCompleto": true,
+   "pieAnchoPx": 1098
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/control_warehouse_night.png",
+   "sha256": "bd6128e3d727ecfc69deb932ba74f1ab8c2f4d46b59e69835a9c183744c72ab2",
+   "bytes": 991066,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/control_warehouse_night.json",
+   "nativoPx": [
+    1417,
+    1097
+   ],
+   "dibujadoPx": [
+    1137,
+    880
+   ],
+   "pie": "nave de 1 planta · noche · CONTROL — focos 5 visibles de 5 (mayor 1291 px) · pico (237, 213, 177) · sat 76 · recorte 0 px (0.0 %) · llamas 1.65–2.95 m en 1 alturas · humo +0.4 m bajo la punta y +0.0 m sobre pretil · hollín 0.7 uniforme sobre 16 mat · emisión núcleo 2.0 zonas — · sin luz de fuego · 0 mallas VFX sin proyectar sombra · sprite 1417×1097 · 968 KiB",
+   "pieLineas": 3,
+   "pieCompleto": true,
+   "pieAnchoPx": 1108
+  },
+  {
+   "tipo": "imagen",
+   "png": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_night.png",
+   "sha256": "ffab1e17a416a99709da6c84bbd3b7ba32254baff6bb6fbe11164ef9bb92255b",
+   "bytes": 1051959,
+   "procedencia": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_night.json",
+   "nativoPx": [
+    1417,
+    1119
+   ],
+   "dibujadoPx": [
+    1114,
+    880
+   ],
+   "pie": "nave de 1 planta · noche · CANDIDATA — focos 7 visibles de 19 (mayor 10307 px) · pico (222, 197, 155) · sat 114 · recorte 0 px (0.0 %) · llamas 0.1–3.65 m en 18 alturas · humo +1.5 m bajo la punta y +3.79 m sobre pretil · hollín 0.7 localizado núcl 0.546 sobre 10 mat · emisión núcleo 1.35 zonas 0.987/1.35/0.519 · 2 luces de 230.7 W (1.25× clave 2.35, alcance 2.5 m) · 22 mallas VFX sin proyectar sombra · sprite 1417×1119 · 1027 KiB",
+   "pieLineas": 4,
+   "pieCompleto": true,
+   "pieAnchoPx": 1095
+  }
+ ],
+ "sinEvidencia": [],
+ "rotulosRecortados": [],
+ "fuentesSinProcedencia": []
+}

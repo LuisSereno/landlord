@@ -2114,11 +2114,12 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/tmp/wp06/out/attempts/2026-11-21T1459/w06cnd_warehouse_2.png",
+  "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
   "width": 1394,
   "height": 944,
   "sha256": "7b4f6eb7b04c5fc6ecf6869fd8b734368eae5698f42cf3cadafc6ddc37a3ba68",
-  "bytes": 958124
+  "bytes": 958124,
+  "pathNote": "D-111.2 cierre FASE 6.1: la ruta de staging /tmp/wp06/... dejó de existir; el campo pasa a apuntar a la copia de evidencia en el repo, cuyo sha256 coincide con el que la metadata publicó en WP06 (verificado 2026-11-22). El PNG no se regeneró ni re-renderizó."
  },
  "trim": {
   "rendered": {

@@ -6,6 +6,13 @@ export default tseslint.config(
   {
     ignores: [
       "**/dist/**",
+      /**
+       * D-111.2 cierre FASE 6: los directorios de build EFÍMEROS de captura (`dist-fxlab`,
+       * `dist-fxlab-2`, etc.) también son build generado — git ya los ignora con el patrón
+       * dist-estrella, y el lint contaba 7 179 errores de ellos. Sólo esto: los 30 errores reales
+       * de código fuente siguen en rojo y ahí se quedan hasta arreglarse.
+       */
+      "**/dist-*/**",
       "**/node_modules/**",
       "**/.cache/**",
       /**

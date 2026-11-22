@@ -45,19 +45,19 @@
  },
  "mixed_tenement-day-candidata": {
   "focosDeclarados": 16,
-  "focosVisibles": 11,
-  "focoMayorPx": 11906,
+  "focosVisibles": 10,
+  "focoMayorPx": 11166,
   "píxelesRecortados": 0,
   "recortePorciento": 0.0,
   "lienzoPx": [
-   1428,
-   1626
+   1439,
+   1632
   ],
   "spritePx": [
-   1082,
-   1233
+   1091,
+   1237
   ],
-  "pesoKiB": 1583,
+  "pesoKiB": 1586,
   "luzDelFuego": {
    "lights": 2,
    "wattsEach": 412.3,
@@ -76,13 +76,13 @@
    "focos": 13,
    "posiciones": [
     [
-     2.48,
-     -2.32,
+     1.68,
+     -1.66,
      7.61
     ],
     [
-     5.5,
-     1.63,
+     5.63,
+     1.45,
      7.93
     ]
    ]
@@ -91,16 +91,16 @@
   "picoRGB": [
    255,
    255,
-   171
+   158
   ],
-  "saturacionCalida": 122,
+  "saturacionCalida": 127,
   "cotaLlamaMin": 3.0,
   "cotaLlamaMax": 9.65,
   "alturasLlamaDistintas": 14,
   "topeHumoM": 13.25,
   "envoltoriaM": 13.25,
-  "cotaPretilM": 9.0,
-  "humoSobrePretilM": 4.25,
+  "cotaPretilM": 10.0,
+  "humoSobrePretilM": 3.25,
   "arranqueHumoBajoPuntaM": 1.2,
   "hollin": {
    "strength": 0.7,
@@ -117,7 +117,7 @@
     0.519
    ]
   },
-  "firma": "76e58dc5fb4e8aa4c1e806348d5abddfcfe84864424306470cb0a912e4826162"
+  "firma": "39530ac945d43e4e72db389ababb540ce5f7f3a180414d0d3b579607308b8e0a"
  },
  "mixed_tenement-night-control": {
   "focosDeclarados": 5,
@@ -165,19 +165,19 @@
  },
  "mixed_tenement-night-candidata": {
   "focosDeclarados": 16,
-  "focosVisibles": 10,
-  "focoMayorPx": 7988,
+  "focosVisibles": 9,
+  "focoMayorPx": 9401,
   "píxelesRecortados": 0,
   "recortePorciento": 0.0,
   "lienzoPx": [
-   1428,
-   1626
+   1439,
+   1632
   ],
   "spritePx": [
-   1082,
-   1233
+   1091,
+   1237
   ],
-  "pesoKiB": 1382,
+  "pesoKiB": 1379,
   "luzDelFuego": {
    "lights": 2,
    "wattsEach": 230.7,
@@ -196,13 +196,13 @@
    "focos": 13,
    "posiciones": [
     [
-     2.48,
-     -2.32,
+     1.68,
+     -1.66,
      7.61
     ],
     [
-     5.5,
-     1.63,
+     5.63,
+     1.45,
      7.93
     ]
    ]
@@ -210,8 +210,8 @@
   "mallasSinSombra": 19,
   "picoRGB": [
    252,
-   198,
-   171
+   196,
+   168
   ],
   "saturacionCalida": 121,
   "cotaLlamaMin": 3.0,
@@ -219,8 +219,8 @@
   "alturasLlamaDistintas": 14,
   "topeHumoM": 13.25,
   "envoltoriaM": 13.25,
-  "cotaPretilM": 9.0,
-  "humoSobrePretilM": 4.25,
+  "cotaPretilM": 10.0,
+  "humoSobrePretilM": 3.25,
   "arranqueHumoBajoPuntaM": 1.2,
   "hollin": {
    "strength": 0.7,
@@ -237,7 +237,7 @@
     0.519
    ]
   },
-  "firma": "76e58dc5fb4e8aa4c1e806348d5abddfcfe84864424306470cb0a912e4826162"
+  "firma": "39530ac945d43e4e72db389ababb540ce5f7f3a180414d0d3b579607308b8e0a"
  },
  "warehouse-day-control": {
   "focosDeclarados": 5,

@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "candidateId": "f3candG_mixed_tenement_2_burning",
+ "candidateId": "f6regen_mixed_tenement_2_burning",
  "buildingType": "mixed_tenement",
  "family": "residential_low",
  "state": "burning",
@@ -11,7 +11,7 @@
  "styleProfileId": "graphic_civic_buildings_v1",
  "moodId": "day_civic",
  "materialExperiment": null,
- "compositionSignature": "76e58dc5fb4e8aa4c1e806348d5abddfcfe84864424306470cb0a912e4826162",
+ "compositionSignature": "39530ac945d43e4e72db389ababb540ce5f7f3a180414d0d3b579607308b8e0a",
  "axisChoices": {
   "massing": "uniform_block",
   "facade": "brick_commercial",
@@ -38,7 +38,7 @@
    "max": 8.0
   },
   "y": {
-   "min": -5.1954,
+   "min": -5.3954,
    "max": 4.0
   },
   "z": {
@@ -48,7 +48,7 @@
  },
  "envelopeMeters": {
   "x": 16.2,
-  "y": 9.195,
+  "y": 9.395,
   "z": 13.249
  },
  "volumes": [
@@ -3142,130 +3142,6 @@
    "sourceId": "src_quaternius_downtown_city_megakit",
    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
    "license": "CC0-1.0",
-   "rotationDegrees": 180,
-   "position": [
-    1.0,
-    -4.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 0.0,
-     "max": 2.0
-    },
-    "y": {
-     "min": -4.2,
-     "max": -3.8
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:front:5"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 180,
-   "position": [
-    3.0,
-    -4.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 2.0,
-     "max": 4.0
-    },
-    "y": {
-     "min": -4.2,
-     "max": -3.8
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:front:6"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 180,
-   "position": [
-    5.0,
-    -4.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 4.0,
-     "max": 6.0
-    },
-    "y": {
-     "min": -4.2,
-     "max": -3.8
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:front:7"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 180,
-   "position": [
-    7.0,
-    -4.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 6.0,
-     "max": 8.0
-    },
-    "y": {
-     "min": -4.2,
-     "max": -3.8
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:front:8"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
    "rotationDegrees": 0,
    "position": [
     -7.0,
@@ -3390,130 +3266,6 @@
    "sourceId": "src_quaternius_downtown_city_megakit",
    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
    "license": "CC0-1.0",
-   "rotationDegrees": 0,
-   "position": [
-    1.0,
-    3.6,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 0.0,
-     "max": 2.0
-    },
-    "y": {
-     "min": 3.4,
-     "max": 3.8000000000000003
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:rear:5"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 0,
-   "position": [
-    3.0,
-    3.6,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 2.0,
-     "max": 4.0
-    },
-    "y": {
-     "min": 3.4,
-     "max": 3.8000000000000003
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:rear:6"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 0,
-   "position": [
-    5.0,
-    3.6,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 4.0,
-     "max": 6.0
-    },
-    "y": {
-     "min": 3.4,
-     "max": 3.8000000000000003
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:rear:7"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 0,
-   "position": [
-    7.0,
-    3.6,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 6.0,
-     "max": 8.0
-    },
-    "y": {
-     "min": 3.4,
-     "max": 3.8000000000000003
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:rear:8"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
    "rotationDegrees": 90,
    "position": [
     -8.0,
@@ -3631,130 +3383,6 @@
    "meshObjects": 1,
    "elevationReach": "en_bruto",
    "purpose": "cornice:left:4"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 270,
-   "position": [
-    7.6,
-    -3.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 7.3999999999999995,
-     "max": 7.8
-    },
-    "y": {
-     "min": -4.0,
-     "max": -2.0
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:right:1"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 270,
-   "position": [
-    7.6,
-    -1.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 7.3999999999999995,
-     "max": 7.8
-    },
-    "y": {
-     "min": -2.0,
-     "max": 0.0
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:right:2"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 270,
-   "position": [
-    7.6,
-    1.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 7.3999999999999995,
-     "max": 7.8
-    },
-    "y": {
-     "min": 0.0,
-     "max": 2.0
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:right:3"
-  },
-  {
-   "moduleId": "mod_megakit_cornice_brick_center_2m",
-   "role": "cornice",
-   "sourceId": "src_quaternius_downtown_city_megakit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-   "license": "CC0-1.0",
-   "rotationDegrees": 270,
-   "position": [
-    7.6,
-    3.0,
-    9.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 7.3999999999999995,
-     "max": 7.8
-    },
-    "y": {
-     "min": 2.0,
-     "max": 4.0
-    },
-    "z": {
-     "min": 9.0,
-     "max": 10.0
-    }
-   },
-   "triangles": 6,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "cornice:right:4"
   },
   {
    "moduleId": "mod_megakit_roof_flat_2m",
@@ -4416,7 +4044,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    -4.55,
+    -4.75,
     0.0
    ],
    "bounds": {
@@ -4425,8 +4053,8 @@
      "max": 7.4954
     },
     "y": {
-     "min": -4.9072,
-     "max": -4.1928
+     "min": -5.1072,
+     "max": -4.3928
     },
     "z": {
      "min": 0.0,
@@ -4447,7 +4075,7 @@
    "rotationDegrees": 90,
    "position": [
     5.8,
-    -4.7,
+    -4.9,
     0.0
    ],
    "bounds": {
@@ -4456,8 +4084,8 @@
      "max": 6.1572
     },
     "y": {
-     "min": -5.1954,
-     "max": -4.2046
+     "min": -5.3954,
+     "max": -4.4046
     },
     "z": {
      "min": 0.0,
@@ -4478,7 +4106,7 @@
    "rotationDegrees": 180,
    "position": [
     2.8,
-    -4.5,
+    -4.7,
     0.0
    ],
    "bounds": {
@@ -4487,8 +4115,8 @@
      "max": 3.2954
     },
     "y": {
-     "min": -4.8572,
-     "max": -4.1428
+     "min": -5.0572,
+     "max": -4.3428
     },
     "z": {
      "min": 0.0,
@@ -4509,7 +4137,7 @@
    "rotationDegrees": 270,
    "position": [
     4.8,
-    -4.65,
+    -4.85,
     0.0
    ],
    "bounds": {
@@ -4518,8 +4146,8 @@
      "max": 5.1572
     },
     "y": {
-     "min": -5.1453999999999995,
-     "max": -4.154599999999999
+     "min": -5.3454,
+     "max": -4.3546
     },
     "z": {
      "min": 0.0,
@@ -4539,18 +4167,18 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    2.111,
-    -2.975,
+    1.025,
+    -2.056,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 1.4535208126721761,
-     "max": 2.767691308539945
+     "min": 0.3681672773186411,
+     "max": 1.6823377731864095
     },
     "y": {
-     "min": -3.767765962601219,
-     "max": -2.181728986893731
+     "min": -2.84907909391435,
+     "max": -1.263042118206862
     },
     "z": {
      "min": 6.0,
@@ -4575,18 +4203,18 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    1.343,
-    -3.1,
+    0.9,
+    -2.824,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 0.8885980532598712,
-     "max": 1.797260532598714
+     "min": 0.4456687603305785,
+     "max": 1.3543312396694216
     },
     "y": {
-     "min": -3.597754590533434,
-     "max": -2.6022454094665664
+     "min": -3.321491964270807,
+     "max": -2.3259827832039406
     },
     "z": {
      "min": 6.0,
@@ -4612,18 +4240,18 @@
    "license": "original",
    "rotationDegrees": 180,
    "position": [
-    1.488,
-    -3.1,
+    0.9,
+    -2.678,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 1.0511453329620166,
-     "max": 1.9256223438056597
+     "min": 0.46276149457817845,
+     "max": 1.3372385054218217
     },
     "y": {
-     "min": -3.492123402754821,
-     "max": -2.7078765972451793
+     "min": -3.070406231037649,
+     "max": -2.2861594255280075
     },
     "z": {
      "min": 6.0,
@@ -4649,18 +4277,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    1.505,
-    -2.944,
+    1.056,
+    -2.662,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 0.8230044562268415,
-     "max": 2.1860864528640676
+     "min": 0.37401455723694266,
+     "max": 1.7370965538741685
     },
     "y": {
-     "min": -3.5252286369146004,
-     "max": -2.363660251974289
+     "min": -3.242905404591368,
+     "max": -2.0813370196510563
     },
     "z": {
      "min": 6.0,
@@ -4686,18 +4314,18 @@
    "license": "original",
    "rotationDegrees": 180,
    "position": [
-    3.686,
-    -0.72,
+    3.28,
+    -0.414,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 2.9351774391625343,
-     "max": 4.437549833564738
+     "min": 2.5286117825968777,
+     "max": 4.030984176999081
     },
     "y": {
-     "min": -1.4164656108356295,
-     "max": -0.023938429568411523
+     "min": -1.1098999542699723,
+     "max": 0.2826272269972457
     },
     "z": {
      "min": 6.0,
@@ -4723,18 +4351,18 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    4.389,
-    -0.363,
+    3.637,
+    0.289,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.941563448301193,
-     "max": 4.8372244304866845
+     "min": 3.189543246280991,
+     "max": 4.085204228466482
     },
     "y": {
-     "min": -0.8084009556029723,
-     "max": 0.08314843035044633
+     "min": -0.15638075358276948,
+     "max": 0.7351686323706491
     },
     "z": {
      "min": 6.0,
@@ -4760,18 +4388,18 @@
    "license": "original",
    "rotationDegrees": 180,
    "position": [
-    4.195,
-    -0.847,
+    3.153,
+    0.095,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.8486551145250854,
-     "max": 4.542253976384005
+     "min": 2.805725821595792,
+     "max": 3.499324683454712
     },
     "y": {
-     "min": -1.1584907518824612,
-     "max": -0.5364587430670342
+     "min": -0.2155614589531678,
+     "max": 0.4064705498622593
     },
     "z": {
      "min": 6.0,
@@ -4796,18 +4424,18 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    4.244,
-    -0.932,
+    3.068,
+    0.144,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.8005285876951334,
-     "max": 4.687350200183655
+     "min": 2.624265961432507,
+     "max": 3.5110875739210283
     },
     "y": {
-     "min": -1.4723988053938841,
-     "max": -0.3922476592525813
+     "min": -0.39613617913125704,
+     "max": 0.6840149670100457
     },
     "z": {
      "min": 6.0,
@@ -4832,18 +4460,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    6.053,
-    2.599,
+    6.599,
+    2.02,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 5.403062703366892,
-     "max": 6.702997902693713
+     "min": 5.949022299326488,
+     "max": 7.24895749865331
     },
     "y": {
-     "min": 1.9514548791551887,
-     "max": 3.24652491882461
+     "min": 1.3721619498622584,
+     "max": 2.66723198953168
     },
     "z": {
      "min": 6.0,
@@ -4868,18 +4496,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    5.495,
-    2.423,
+    6.423,
+    1.462,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 5.013795106160225,
-     "max": 5.977113984748866
+     "min": 5.941572883938003,
+     "max": 6.904891762526644
     },
     "y": {
-     "min": 1.9944810398530766,
-     "max": 2.8519836066115705
+     "min": 1.0333699287419644,
+     "max": 1.8908724955004585
     },
     "z": {
      "min": 6.0,
@@ -4904,18 +4532,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    5.463,
-    2.205,
+    6.205,
+    1.43,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 4.978837299888137,
-     "max": 5.947425326374488
+     "min": 5.72075649180733,
+     "max": 6.689344518293681
     },
     "y": {
-     "min": 1.730462376492195,
-     "max": 2.679638633608816
+     "min": 0.9552098512396688,
+     "max": 1.9043861083562894
     },
     "z": {
      "min": 6.0,
@@ -4941,18 +4569,18 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    6.643,
-    2.447,
+    6.447,
+    2.61,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 6.209722910560146,
-     "max": 7.076135675298438
+     "min": 6.014268365105601,
+     "max": 6.880681129843894
     },
     "y": {
-     "min": 1.958399726411888,
-     "max": 2.936549768537608
+     "min": 2.1205209385330988,
+     "max": 3.098670980658819
     },
     "z": {
      "min": 6.0,
@@ -4978,18 +4606,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    6.772,
-    2.811,
+    6.811,
+    2.739,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 6.30601522734118,
-     "max": 7.238429217103264
+     "min": 6.344904116230069,
+     "max": 7.277318105992153
     },
     "y": {
-     "min": 2.4265908025711664,
-     "max": 3.1956314196510562
+     "min": 2.354368580348943,
+     "max": 3.123409197428833
     },
     "z": {
      "min": 6.0,
@@ -5122,18 +4750,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    4.112,
-    -0.158,
+    3.842,
+    0.018,
     8.449
    ],
    "bounds": {
     "x": {
-     "min": 3.537028752825766,
-     "max": 4.687846094687885
+     "min": 3.2669025870385107,
+     "max": 4.417719928900629
     },
     "y": {
-     "min": -0.6463251299831403,
-     "max": 0.33094764592227904
+     "min": -0.47061012409139896,
+     "max": 0.5066626518140203
     },
     "z": {
      "min": 8.449494949494948,
@@ -5158,18 +4786,18 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    4.415,
-    -0.323,
+    4.145,
+    -0.147,
     9.166
    ],
    "bounds": {
     "x": {
-     "min": 3.6831780388631117,
-     "max": 5.146696808650539
+     "min": 3.4130518730758563,
+     "max": 4.876570642863284
     },
     "y": {
-     "min": -1.1858017484270191,
-     "max": 0.540424264366158
+     "min": -1.010086742535278,
+     "max": 0.7161392702578993
     },
     "z": {
      "min": 9.16591285994271,
@@ -5194,18 +4822,18 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    4.717,
-    -0.488,
+    4.447,
+    -0.312,
     10.241
    ],
    "bounds": {
     "x": {
-     "min": 3.728113077744949,
-     "max": 5.706761769768702
+     "min": 3.457986911957694,
+     "max": 5.436635603981447
     },
     "y": {
-     "min": -1.6960469509856546,
-     "max": 0.7206694669247935
+     "min": -1.5203319450939135,
+     "max": 0.8963844728165347
     },
     "z": {
      "min": 10.24053972561435,
@@ -5229,12 +4857,12 @@
    "max": 8.0
   },
   "y": {
-   "min": -4.0,
+   "min": -4.2,
    "max": 4.0
   },
   "z": {
    "min": 6.0,
-   "max": 9.0
+   "max": 10.0
   }
  },
  "fireAnchors": [
@@ -5243,8 +4871,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    2.111,
-    -2.975,
+    1.025,
+    -2.056,
     6.0
    ],
    "rotationDegrees": 90,
@@ -5268,8 +4896,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    1.343,
-    -3.1,
+    0.9,
+    -2.824,
     6.0
    ],
    "rotationDegrees": 90,
@@ -5293,8 +4921,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    1.488,
-    -3.1,
+    0.9,
+    -2.678,
     6.0
    ],
    "rotationDegrees": 180,
@@ -5318,8 +4946,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    1.505,
-    -2.944,
+    1.056,
+    -2.662,
     6.0
    ],
    "rotationDegrees": 0,
@@ -5343,8 +4971,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    3.686,
-    -0.72,
+    3.28,
+    -0.414,
     6.0
    ],
    "rotationDegrees": 180,
@@ -5368,8 +4996,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    4.389,
-    -0.363,
+    3.637,
+    0.289,
     6.0
    ],
    "rotationDegrees": 270,
@@ -5393,8 +5021,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    4.195,
-    -0.847,
+    3.153,
+    0.095,
     6.0
    ],
    "rotationDegrees": 180,
@@ -5418,8 +5046,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    4.244,
-    -0.932,
+    3.068,
+    0.144,
     6.0
    ],
    "rotationDegrees": 270,
@@ -5443,8 +5071,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    6.053,
-    2.599,
+    6.599,
+    2.02,
     6.0
    ],
    "rotationDegrees": 0,
@@ -5468,8 +5096,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    5.495,
-    2.423,
+    6.423,
+    1.462,
     6.0
    ],
    "rotationDegrees": 0,
@@ -5493,8 +5121,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    5.463,
-    2.205,
+    6.205,
+    1.43,
     6.0
    ],
    "rotationDegrees": 0,
@@ -5518,8 +5146,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    6.643,
-    2.447,
+    6.447,
+    2.61,
     6.0
    ],
    "rotationDegrees": 270,
@@ -5543,8 +5171,8 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    6.772,
-    2.811,
+    6.811,
+    2.739,
     6.0
    ],
    "rotationDegrees": 0,
@@ -5643,8 +5271,8 @@
    "purpose": "fire:smoke",
    "moduleId": "mod_original_fire_smoke",
    "position": [
-    4.112,
-    -0.158,
+    3.842,
+    0.018,
     8.449
    ],
    "rotationDegrees": 0,
@@ -5668,8 +5296,8 @@
    "purpose": "fire:smoke",
    "moduleId": "mod_original_fire_smoke",
    "position": [
-    4.415,
-    -0.323,
+    4.145,
+    -0.147,
     9.166
    ],
    "rotationDegrees": 270,
@@ -5693,8 +5321,8 @@
    "purpose": "fire:smoke",
    "moduleId": "mod_original_fire_smoke",
    "position": [
-    4.717,
-    -0.488,
+    4.447,
+    -0.312,
     10.241
    ],
    "rotationDegrees": 270,
@@ -6144,7 +5772,7 @@
    ],
    "fieldMeters": {
     "feather": 3.4,
-    "rise": 1.35,
+    "rise": 1.8,
     "fall": 1.87
    },
    "regionMeters": {
@@ -6153,12 +5781,12 @@
      8.0
     ],
     "y": [
-     -4.0,
+     -4.2,
      4.0
     ],
     "z": [
      6.0,
-     9.0
+     10.0
     ]
    }
   },
@@ -6242,13 +5870,13 @@
    "focos": 13,
    "posiciones": [
     [
-     2.48,
-     -2.32,
+     1.68,
+     -1.66,
      7.61
     ],
     [
-     5.5,
-     1.63,
+     5.63,
+     1.45,
      7.93
     ]
    ]
@@ -6273,36 +5901,36 @@
    "lowestZMeters": 0.0
   },
   "scene": {
-   "triangles": 14946,
-   "meshObjects": 163,
+   "triangles": 14874,
+   "meshObjects": 151,
    "worldSizeMeters": {
     "x": 16.2,
-    "y": 9.1959,
+    "y": 9.3959,
     "z": 13.2506
    }
   },
   "sourcesImported": 12,
   "pivotValidator": {
    "rawNormalized": {
-    "x": 0.5277,
-    "y": 0.7716
+    "x": 0.5312,
+    "y": 0.7692
    },
    "footprintProjected": [
     [
-     0.0556,
-     0.7026
+     0.0628,
+     0.7003
     ],
     [
-     0.6851,
-     0.9788
+     0.6873,
+     0.9757
     ],
     [
-     0.9999,
-     0.8407
+     0.9995,
+     0.838
     ],
     [
-     0.3703,
-     0.5644
+     0.3751,
+     0.5626
     ]
    ],
    "insideFootprint": true,
@@ -6351,20 +5979,20 @@
   }
  },
  "pivot": {
-  "x": 0.5277,
-  "y": 0.7716
+  "x": 0.5312,
+  "y": 0.7692
  },
  "footprint": {
   "width": 4,
   "height": 2
  },
- "triangleCount": 14946,
+ "triangleCount": 14874,
  "materialCount": 26,
  "textureCount": 17,
- "renderTime": 18731.89,
- "pngBytes": 1621129,
- "sha256": "4448f27f3099e527962ecf0f008280bd5e38cb0f5f7c7d2ec4609a302c7306d8",
- "pixelSha256": "9d2b075c5f14d1d7ef7b00d51ede85eb0e4f8099871417fea22855372a803b84",
+ "renderTime": 20022.31,
+ "pngBytes": 1624174,
+ "sha256": "1a00c7398a52ce274b3d2553acb05b78a75e0fad67db9c6242c7515be0bae358",
+ "pixelSha256": "fdb25e33277dcaffa8fed79358c91670ce107d832a41426777b6c232aac66fa6",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -6407,32 +6035,32 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/tmp/fase3/candG/attempts/2026-11-21T1847/f3candG_mixed_tenement_2_burning.png",
-  "width": 1082,
-  "height": 1233,
-  "sha256": "4448f27f3099e527962ecf0f008280bd5e38cb0f5f7c7d2ec4609a302c7306d8",
-  "bytes": 1621129
+  "path": "/tmp/d1112-f6/attempts/2026-11-22T1051/f6regen_mixed_tenement_2_burning.png",
+  "width": 1091,
+  "height": 1237,
+  "sha256": "1a00c7398a52ce274b3d2553acb05b78a75e0fad67db9c6242c7515be0bae358",
+  "bytes": 1624174
  },
  "trim": {
   "rendered": {
-   "width": 1428,
-   "height": 1626
+   "width": 1439,
+   "height": 1632
   },
   "cropped": {
-   "width": 1082,
-   "height": 1233,
-   "offsetX": 143,
-   "offsetY": 207
+   "width": 1091,
+   "height": 1237,
+   "offsetX": 140,
+   "offsetY": 210
   },
   "final": {
-   "width": 1082,
-   "height": 1233
+   "width": 1091,
+   "height": 1237
   },
   "supersample": 1
  },
  "metrics": {
-  "placements": 163,
-  "meshObjects": 163,
+  "placements": 151,
+  "meshObjects": 151,
   "distinctModuleIds": 12,
   "sources": [
    "src_kenney_city_commercial",
@@ -6442,8 +6070,8 @@
    "src_quaternius_downtown_city_megakit",
    "src_quaternius_ultimate_buildings"
   ],
-  "triangles": 14946,
-  "licensedTriangles": 14946,
+  "triangles": 14874,
+  "licensedTriangles": 14874,
   "supportTriangles": 0,
   "licensedGeometryRatio": 1.0,
   "materials": [
@@ -6487,14 +6115,14 @@
   ]
  },
  "framing": {
-  "projectedWidthMeters": 17.957,
-  "projectedHeightMeters": 20.453,
+  "projectedWidthMeters": 18.099,
+  "projectedHeightMeters": 20.524,
   "marginUsed": 1.3205,
   "pixelsPerMeter": 60.2,
-  "orthoScale": 27.008,
+  "orthoScale": 27.102,
   "canvasPixels": [
-   1428,
-   1626
+   1439,
+   1632
   ]
  },
  "style": {
@@ -6549,7 +6177,7 @@
   "projection": "ORTHO",
   "azimuthDegrees": 45,
   "elevationDegrees": 30,
-  "orthoScale": 27.007999420166016,
+  "orthoScale": 27.101999282836914,
   "targetZ": 6.625
  },
  "shadow": {
@@ -6558,24 +6186,24 @@
   "strength": 0.75,
   "frameScale": 3,
   "renderPixels": {
-   "width": 1428,
-   "height": 1626,
-   "sha256": "986135d18acaa6b03414c475d33487ac75e4718dc6e970014ea768a5380eb29a"
+   "width": 1439,
+   "height": 1632,
+   "sha256": "4fca5849d2a687003422aac09b44b529668696c7a0180ea964dbca7ea51f3d40"
   },
   "pixels": {
-   "width": 4284,
-   "height": 4878,
-   "sha256": "38a1c2a27b1f3ea71b02019e9435061c03116e52250187a70622d8c62502ae23"
+   "width": 4317,
+   "height": 4896,
+   "sha256": "ff68fb6cf216d38255b7ff88c6419f447233fbb7201249a30eae53b3f414fb92"
   }
  },
  "render": {
-  "renderMs": 18731.89,
-  "prepMs": 16535.74,
-  "totalMs": 56549.79,
-  "peakRssMb": 4883.9
+  "renderMs": 20022.31,
+  "prepMs": 19269.03,
+  "totalMs": 57261.27,
+  "peakRssMb": 4783.6
  },
  "request": {
-  "candidateId": "f3candG_mixed_tenement_2_burning",
+  "candidateId": "f6regen_mixed_tenement_2_burning",
   "buildingType": "mixed_tenement",
   "family": "residential_low",
   "styleProfileId": "graphic_civic_buildings_v1",
@@ -6589,8 +6217,8 @@
   "floors": 3,
   "state": "burning",
   "constructionStage": null,
-  "output": "/tmp/fase3/candG/attempts/2026-11-21T1847/f3candG_mixed_tenement_2_burning.png",
-  "metadata": "/tmp/fase3/candG/attempts/2026-11-21T1847/f3candG_mixed_tenement_2_burning.json"
+  "output": "/tmp/d1112-f6/attempts/2026-11-22T1051/f6regen_mixed_tenement_2_burning.png",
+  "metadata": "/tmp/d1112-f6/attempts/2026-11-22T1051/f6regen_mixed_tenement_2_burning.json"
  },
  "composition": {
   "buildingType": "mixed_tenement",
@@ -9713,130 +9341,6 @@
     "sourceId": "src_quaternius_downtown_city_megakit",
     "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
     "license": "CC0-1.0",
-    "rotationDegrees": 180,
-    "position": [
-     1.0,
-     -4.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 0.0,
-      "max": 2.0
-     },
-     "y": {
-      "min": -4.2,
-      "max": -3.8
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:front:5"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 180,
-    "position": [
-     3.0,
-     -4.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 2.0,
-      "max": 4.0
-     },
-     "y": {
-      "min": -4.2,
-      "max": -3.8
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:front:6"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 180,
-    "position": [
-     5.0,
-     -4.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 4.0,
-      "max": 6.0
-     },
-     "y": {
-      "min": -4.2,
-      "max": -3.8
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:front:7"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 180,
-    "position": [
-     7.0,
-     -4.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 6.0,
-      "max": 8.0
-     },
-     "y": {
-      "min": -4.2,
-      "max": -3.8
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:front:8"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
     "rotationDegrees": 0,
     "position": [
      -7.0,
@@ -9961,130 +9465,6 @@
     "sourceId": "src_quaternius_downtown_city_megakit",
     "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
     "license": "CC0-1.0",
-    "rotationDegrees": 0,
-    "position": [
-     1.0,
-     3.6,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 0.0,
-      "max": 2.0
-     },
-     "y": {
-      "min": 3.4,
-      "max": 3.8000000000000003
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:rear:5"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 0,
-    "position": [
-     3.0,
-     3.6,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 2.0,
-      "max": 4.0
-     },
-     "y": {
-      "min": 3.4,
-      "max": 3.8000000000000003
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:rear:6"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 0,
-    "position": [
-     5.0,
-     3.6,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 4.0,
-      "max": 6.0
-     },
-     "y": {
-      "min": 3.4,
-      "max": 3.8000000000000003
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:rear:7"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 0,
-    "position": [
-     7.0,
-     3.6,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 6.0,
-      "max": 8.0
-     },
-     "y": {
-      "min": 3.4,
-      "max": 3.8000000000000003
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:rear:8"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
     "rotationDegrees": 90,
     "position": [
      -8.0,
@@ -10202,130 +9582,6 @@
     "meshObjects": 1,
     "elevationReach": "en_bruto",
     "purpose": "cornice:left:4"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 270,
-    "position": [
-     7.6,
-     -3.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 7.3999999999999995,
-      "max": 7.8
-     },
-     "y": {
-      "min": -4.0,
-      "max": -2.0
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:right:1"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 270,
-    "position": [
-     7.6,
-     -1.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 7.3999999999999995,
-      "max": 7.8
-     },
-     "y": {
-      "min": -2.0,
-      "max": 0.0
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:right:2"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 270,
-    "position": [
-     7.6,
-     1.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 7.3999999999999995,
-      "max": 7.8
-     },
-     "y": {
-      "min": 0.0,
-      "max": 2.0
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:right:3"
-   },
-   {
-    "moduleId": "mod_megakit_cornice_brick_center_2m",
-    "role": "cornice",
-    "sourceId": "src_quaternius_downtown_city_megakit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Cornice_Brick_Center.gltf",
-    "license": "CC0-1.0",
-    "rotationDegrees": 270,
-    "position": [
-     7.6,
-     3.0,
-     9.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 7.3999999999999995,
-      "max": 7.8
-     },
-     "y": {
-      "min": 2.0,
-      "max": 4.0
-     },
-     "z": {
-      "min": 9.0,
-      "max": 10.0
-     }
-    },
-    "triangles": 6,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "cornice:right:4"
    },
    {
     "moduleId": "mod_megakit_roof_flat_2m",
@@ -10987,7 +10243,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     -4.55,
+     -4.75,
      0.0
     ],
     "bounds": {
@@ -10996,8 +10252,8 @@
       "max": 7.4954
      },
      "y": {
-      "min": -4.9072,
-      "max": -4.1928
+      "min": -5.1072,
+      "max": -4.3928
      },
      "z": {
       "min": 0.0,
@@ -11018,7 +10274,7 @@
     "rotationDegrees": 90,
     "position": [
      5.8,
-     -4.7,
+     -4.9,
      0.0
     ],
     "bounds": {
@@ -11027,8 +10283,8 @@
       "max": 6.1572
      },
      "y": {
-      "min": -5.1954,
-      "max": -4.2046
+      "min": -5.3954,
+      "max": -4.4046
      },
      "z": {
       "min": 0.0,
@@ -11049,7 +10305,7 @@
     "rotationDegrees": 180,
     "position": [
      2.8,
-     -4.5,
+     -4.7,
      0.0
     ],
     "bounds": {
@@ -11058,8 +10314,8 @@
       "max": 3.2954
      },
      "y": {
-      "min": -4.8572,
-      "max": -4.1428
+      "min": -5.0572,
+      "max": -4.3428
      },
      "z": {
       "min": 0.0,
@@ -11080,7 +10336,7 @@
     "rotationDegrees": 270,
     "position": [
      4.8,
-     -4.65,
+     -4.85,
      0.0
     ],
     "bounds": {
@@ -11089,8 +10345,8 @@
       "max": 5.1572
      },
      "y": {
-      "min": -5.1453999999999995,
-      "max": -4.154599999999999
+      "min": -5.3454,
+      "max": -4.3546
      },
      "z": {
       "min": 0.0,
@@ -11110,18 +10366,18 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     2.111,
-     -2.975,
+     1.025,
+     -2.056,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 1.4535208126721761,
-      "max": 2.767691308539945
+      "min": 0.3681672773186411,
+      "max": 1.6823377731864095
      },
      "y": {
-      "min": -3.767765962601219,
-      "max": -2.181728986893731
+      "min": -2.84907909391435,
+      "max": -1.263042118206862
      },
      "z": {
       "min": 6.0,
@@ -11146,18 +10402,18 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     1.343,
-     -3.1,
+     0.9,
+     -2.824,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 0.8885980532598712,
-      "max": 1.797260532598714
+      "min": 0.4456687603305785,
+      "max": 1.3543312396694216
      },
      "y": {
-      "min": -3.597754590533434,
-      "max": -2.6022454094665664
+      "min": -3.321491964270807,
+      "max": -2.3259827832039406
      },
      "z": {
       "min": 6.0,
@@ -11183,18 +10439,18 @@
     "license": "original",
     "rotationDegrees": 180,
     "position": [
-     1.488,
-     -3.1,
+     0.9,
+     -2.678,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 1.0511453329620166,
-      "max": 1.9256223438056597
+      "min": 0.46276149457817845,
+      "max": 1.3372385054218217
      },
      "y": {
-      "min": -3.492123402754821,
-      "max": -2.7078765972451793
+      "min": -3.070406231037649,
+      "max": -2.2861594255280075
      },
      "z": {
       "min": 6.0,
@@ -11220,18 +10476,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     1.505,
-     -2.944,
+     1.056,
+     -2.662,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 0.8230044562268415,
-      "max": 2.1860864528640676
+      "min": 0.37401455723694266,
+      "max": 1.7370965538741685
      },
      "y": {
-      "min": -3.5252286369146004,
-      "max": -2.363660251974289
+      "min": -3.242905404591368,
+      "max": -2.0813370196510563
      },
      "z": {
       "min": 6.0,
@@ -11257,18 +10513,18 @@
     "license": "original",
     "rotationDegrees": 180,
     "position": [
-     3.686,
-     -0.72,
+     3.28,
+     -0.414,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 2.9351774391625343,
-      "max": 4.437549833564738
+      "min": 2.5286117825968777,
+      "max": 4.030984176999081
      },
      "y": {
-      "min": -1.4164656108356295,
-      "max": -0.023938429568411523
+      "min": -1.1098999542699723,
+      "max": 0.2826272269972457
      },
      "z": {
       "min": 6.0,
@@ -11294,18 +10550,18 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     4.389,
-     -0.363,
+     3.637,
+     0.289,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.941563448301193,
-      "max": 4.8372244304866845
+      "min": 3.189543246280991,
+      "max": 4.085204228466482
      },
      "y": {
-      "min": -0.8084009556029723,
-      "max": 0.08314843035044633
+      "min": -0.15638075358276948,
+      "max": 0.7351686323706491
      },
      "z": {
       "min": 6.0,
@@ -11331,18 +10587,18 @@
     "license": "original",
     "rotationDegrees": 180,
     "position": [
-     4.195,
-     -0.847,
+     3.153,
+     0.095,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.8486551145250854,
-      "max": 4.542253976384005
+      "min": 2.805725821595792,
+      "max": 3.499324683454712
      },
      "y": {
-      "min": -1.1584907518824612,
-      "max": -0.5364587430670342
+      "min": -0.2155614589531678,
+      "max": 0.4064705498622593
      },
      "z": {
       "min": 6.0,
@@ -11367,18 +10623,18 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     4.244,
-     -0.932,
+     3.068,
+     0.144,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.8005285876951334,
-      "max": 4.687350200183655
+      "min": 2.624265961432507,
+      "max": 3.5110875739210283
      },
      "y": {
-      "min": -1.4723988053938841,
-      "max": -0.3922476592525813
+      "min": -0.39613617913125704,
+      "max": 0.6840149670100457
      },
      "z": {
       "min": 6.0,
@@ -11403,18 +10659,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     6.053,
-     2.599,
+     6.599,
+     2.02,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 5.403062703366892,
-      "max": 6.702997902693713
+      "min": 5.949022299326488,
+      "max": 7.24895749865331
      },
      "y": {
-      "min": 1.9514548791551887,
-      "max": 3.24652491882461
+      "min": 1.3721619498622584,
+      "max": 2.66723198953168
      },
      "z": {
       "min": 6.0,
@@ -11439,18 +10695,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     5.495,
-     2.423,
+     6.423,
+     1.462,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 5.013795106160225,
-      "max": 5.977113984748866
+      "min": 5.941572883938003,
+      "max": 6.904891762526644
      },
      "y": {
-      "min": 1.9944810398530766,
-      "max": 2.8519836066115705
+      "min": 1.0333699287419644,
+      "max": 1.8908724955004585
      },
      "z": {
       "min": 6.0,
@@ -11475,18 +10731,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     5.463,
-     2.205,
+     6.205,
+     1.43,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 4.978837299888137,
-      "max": 5.947425326374488
+      "min": 5.72075649180733,
+      "max": 6.689344518293681
      },
      "y": {
-      "min": 1.730462376492195,
-      "max": 2.679638633608816
+      "min": 0.9552098512396688,
+      "max": 1.9043861083562894
      },
      "z": {
       "min": 6.0,
@@ -11512,18 +10768,18 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     6.643,
-     2.447,
+     6.447,
+     2.61,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 6.209722910560146,
-      "max": 7.076135675298438
+      "min": 6.014268365105601,
+      "max": 6.880681129843894
      },
      "y": {
-      "min": 1.958399726411888,
-      "max": 2.936549768537608
+      "min": 2.1205209385330988,
+      "max": 3.098670980658819
      },
      "z": {
       "min": 6.0,
@@ -11549,18 +10805,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     6.772,
-     2.811,
+     6.811,
+     2.739,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 6.30601522734118,
-      "max": 7.238429217103264
+      "min": 6.344904116230069,
+      "max": 7.277318105992153
      },
      "y": {
-      "min": 2.4265908025711664,
-      "max": 3.1956314196510562
+      "min": 2.354368580348943,
+      "max": 3.123409197428833
      },
      "z": {
       "min": 6.0,
@@ -11693,18 +10949,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     4.112,
-     -0.158,
+     3.842,
+     0.018,
      8.449
     ],
     "bounds": {
      "x": {
-      "min": 3.537028752825766,
-      "max": 4.687846094687885
+      "min": 3.2669025870385107,
+      "max": 4.417719928900629
      },
      "y": {
-      "min": -0.6463251299831403,
-      "max": 0.33094764592227904
+      "min": -0.47061012409139896,
+      "max": 0.5066626518140203
      },
      "z": {
       "min": 8.449494949494948,
@@ -11729,18 +10985,18 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     4.415,
-     -0.323,
+     4.145,
+     -0.147,
      9.166
     ],
     "bounds": {
      "x": {
-      "min": 3.6831780388631117,
-      "max": 5.146696808650539
+      "min": 3.4130518730758563,
+      "max": 4.876570642863284
      },
      "y": {
-      "min": -1.1858017484270191,
-      "max": 0.540424264366158
+      "min": -1.010086742535278,
+      "max": 0.7161392702578993
      },
      "z": {
       "min": 9.16591285994271,
@@ -11765,18 +11021,18 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     4.717,
-     -0.488,
+     4.447,
+     -0.312,
      10.241
     ],
     "bounds": {
      "x": {
-      "min": 3.728113077744949,
-      "max": 5.706761769768702
+      "min": 3.457986911957694,
+      "max": 5.436635603981447
      },
      "y": {
-      "min": -1.6960469509856546,
-      "max": 0.7206694669247935
+      "min": -1.5203319450939135,
+      "max": 0.8963844728165347
      },
      "z": {
       "min": 10.24053972561435,
@@ -11801,7 +11057,7 @@
     "max": 8.0
    },
    "y": {
-    "min": -5.1954,
+    "min": -5.3954,
     "max": 4.0
    },
    "z": {
@@ -11811,12 +11067,12 @@
   },
   "envelopeMeters": {
    "x": 16.2,
-   "y": 9.195,
+   "y": 9.395,
    "z": 13.249
   },
   "groundContactMeters": {
    "x": 16.0,
-   "y": 9.195,
+   "y": 9.395,
    "z": 3.0
   },
   "damageRegion": {
@@ -11825,12 +11081,12 @@
     "max": 8.0
    },
    "y": {
-    "min": -4.0,
+    "min": -4.2,
     "max": 4.0
    },
    "z": {
     "min": 6.0,
-    "max": 9.0
+    "max": 10.0
    }
   },
   "fireAnchors": [
@@ -11839,8 +11095,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     2.111,
-     -2.975,
+     1.025,
+     -2.056,
      6.0
     ],
     "rotationDegrees": 90,
@@ -11864,8 +11120,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     1.343,
-     -3.1,
+     0.9,
+     -2.824,
      6.0
     ],
     "rotationDegrees": 90,
@@ -11889,8 +11145,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     1.488,
-     -3.1,
+     0.9,
+     -2.678,
      6.0
     ],
     "rotationDegrees": 180,
@@ -11914,8 +11170,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     1.505,
-     -2.944,
+     1.056,
+     -2.662,
      6.0
     ],
     "rotationDegrees": 0,
@@ -11939,8 +11195,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     3.686,
-     -0.72,
+     3.28,
+     -0.414,
      6.0
     ],
     "rotationDegrees": 180,
@@ -11964,8 +11220,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     4.389,
-     -0.363,
+     3.637,
+     0.289,
      6.0
     ],
     "rotationDegrees": 270,
@@ -11989,8 +11245,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     4.195,
-     -0.847,
+     3.153,
+     0.095,
      6.0
     ],
     "rotationDegrees": 180,
@@ -12014,8 +11270,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     4.244,
-     -0.932,
+     3.068,
+     0.144,
      6.0
     ],
     "rotationDegrees": 270,
@@ -12039,8 +11295,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     6.053,
-     2.599,
+     6.599,
+     2.02,
      6.0
     ],
     "rotationDegrees": 0,
@@ -12064,8 +11320,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     5.495,
-     2.423,
+     6.423,
+     1.462,
      6.0
     ],
     "rotationDegrees": 0,
@@ -12089,8 +11345,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     5.463,
-     2.205,
+     6.205,
+     1.43,
      6.0
     ],
     "rotationDegrees": 0,
@@ -12114,8 +11370,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     6.643,
-     2.447,
+     6.447,
+     2.61,
      6.0
     ],
     "rotationDegrees": 270,
@@ -12139,8 +11395,8 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     6.772,
-     2.811,
+     6.811,
+     2.739,
      6.0
     ],
     "rotationDegrees": 0,
@@ -12239,8 +11495,8 @@
     "purpose": "fire:smoke",
     "moduleId": "mod_original_fire_smoke",
     "position": [
-     4.112,
-     -0.158,
+     3.842,
+     0.018,
      8.449
     ],
     "rotationDegrees": 0,
@@ -12264,8 +11520,8 @@
     "purpose": "fire:smoke",
     "moduleId": "mod_original_fire_smoke",
     "position": [
-     4.415,
-     -0.323,
+     4.145,
+     -0.147,
      9.166
     ],
     "rotationDegrees": 270,
@@ -12289,8 +11545,8 @@
     "purpose": "fire:smoke",
     "moduleId": "mod_original_fire_smoke",
     "position": [
-     4.717,
-     -0.488,
+     4.447,
+     -0.312,
      10.241
     ],
     "rotationDegrees": 270,
@@ -12323,8 +11579,8 @@
    ]
   },
   "metrics": {
-   "placements": 163,
-   "meshObjects": 163,
+   "placements": 151,
+   "meshObjects": 151,
    "distinctModuleIds": 12,
    "sources": [
     "src_kenney_city_commercial",
@@ -12334,8 +11590,8 @@
     "src_quaternius_downtown_city_megakit",
     "src_quaternius_ultimate_buildings"
    ],
-   "triangles": 14946,
-   "licensedTriangles": 14946,
+   "triangles": 14874,
+   "licensedTriangles": 14874,
    "supportTriangles": 0,
    "licensedGeometryRatio": 1.0,
    "materials": [
@@ -12378,6 +11634,6 @@
     "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
    ]
   },
-  "compositionSignature": "76e58dc5fb4e8aa4c1e806348d5abddfcfe84864424306470cb0a912e4826162"
+  "compositionSignature": "39530ac945d43e4e72db389ababb540ce5f7f3a180414d0d3b579607308b8e0a"
  }
 }

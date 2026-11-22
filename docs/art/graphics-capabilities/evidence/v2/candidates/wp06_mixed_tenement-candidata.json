@@ -5624,11 +5624,12 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/tmp/wp06/out/attempts/2026-11-21T1458/w06cnd_mixed_tenement_2.png",
+  "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
   "width": 1048,
   "height": 1046,
   "sha256": "f797af0ba251054d494a6aac693707b5adbe77c1a51759d9884239a033bebf7a",
-  "bytes": 1369213
+  "bytes": 1369213,
+  "pathNote": "D-111.2 cierre FASE 6.1: la ruta de staging /tmp/wp06/... dejó de existir; el campo pasa a apuntar a la copia de evidencia en el repo, cuyo sha256 coincide con el que la metadata publicó en WP06 (verificado 2026-11-22). El PNG no se regeneró ni re-renderizó."
  },
  "trim": {
   "rendered": {

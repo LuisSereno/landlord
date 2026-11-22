@@ -126,6 +126,11 @@ BRAZOS_POR_RUTA = {
     "v2/ag/quality_ab.png": BRAZO_HOJA,  # dos renders pegados sobre negro, no una escena
     "phaser/fx_v2/phaser_fx_v2_sheet.png": BRAZO_HOJA,  # 16,18,22, la clave `panels` del manifiesto
     "phaser/fire_animation_sheet.png": BRAZO_HOJA,  # 16,18,22, tira de fotogramas
+    # Hojas compuestas del cierre D-111.2 (mismo lienzo oscuro de documento, no son escenas):
+    "v2/closure/fire/hybrid_fire_ab.png": BRAZO_HOJA,
+    "v2/closure/urban/four_candidates_in_phaser.png": BRAZO_HOJA,
+    "v2/closure/condition/building_condition_in_phaser.png": BRAZO_HOJA,
+    "v2/closure/night/night_lighting_final_ab.png": BRAZO_HOJA,
     # Canales y atlases que alimentan la receta de envejecimiento (FASE 6): no son imagen de escena.
     "v2/weathering/mask/": BRAZO_MAPA,
     # Las tres sondas del halo de FASE 5 son la calle de noche (`fx-effects.ts` §5.2 mide el filamento de
@@ -150,6 +155,12 @@ MANIFIESTOS = [
     ("v2/weathering/night/", "v2/weathering/night/manifest.json"),
     ("v2/weathering/optout/", "v2/weathering/optout/manifest.json"),
     ("v2/weathering/mask/", "v2/weathering/mask/summary.json"),
+    # Manifiestos del cierre D-111.2 (FASE 6.3): cada uno nombra por basename los PNG que produzco.
+    ("v2/closure/urban/", "v2/closure/urban/candidate-runtime-qa-manifest.json"),
+    ("v2/closure/fire/", "v2/closure/fire/hybrid_fire_summary.json"),
+    ("v2/closure/fire/", "v2/closure/fire/hybrid_fire_anchors.json"),
+    ("v2/closure/condition/", "v2/closure/condition/building_condition_summary.json"),
+    ("v2/closure/night/", "v2/closure/night/night_lighting_final_summary.json"),
 ]
 _REGISTROS: dict[Path, dict] = {}
 
@@ -386,7 +397,7 @@ def cara_del_borde(img: Image.Image) -> tuple[float, int]:
     return la_mas_llena, arriba + abajo + izquierda + derecha
 
 
-def medir(png: Path, clase: str) -> dict:
+def medir(png: Path, clase: str, exclusiones=None) -> dict:
     """
     Lectura del raster en RGBA: el alfa manda, porque un borde transparente no es contenido.
 
@@ -435,12 +446,26 @@ def medir(png: Path, clase: str) -> dict:
             "defectos": ["TODO-TRANSPARENTE"],
             "duras": sorted(DURAS_POR_BRAZO[clase].intersection(["TODO-TRANSPARENTE"])),
         }
-    mask = alpha.point(lambda v: 255 if v > 8 else 0)
+    # Región de análisis sin HUD (D-111.2 cierre FASE 6.2): si el JSON hermano declara
+    # `analysisExcludeRects`, esos rectángulos (el HUD de React compuesto sobre el fotograma) salen de
+    # la medida con un denominador de píxeles analizados, y la captura completa original no se toca.
+    if exclusiones:
+        alpha_editable = alpha.copy()
+        px_alpha = alpha_editable.load()
+        for x0, y0, x1, y1 in exclusiones:
+            for y in range(max(0, y0), min(alto, y1)):
+                for x in range(max(0, x0), min(ancho, x1)):
+                    px_alpha[x, y] = 0
+        mask = alpha_editable.point(lambda v: 255 if v > 8 else 0)
+    else:
+        mask = alpha.point(lambda v: 255 if v > 8 else 0)
     stat = ImageStat.Stat(gray, mask=mask)
     hist = gray.histogram(mask)
     opacos = sum(hist) or 1
     casi_negros = sum(hist[:CASI_NEGRO_UMBRAL]) / opacos * 100
+    analizados = sum(1 for v in mask.getdata() if v) or 1
     recortados = sum(hist[BLANCO_RECORTADO_UMBRAL:]) / (ancho * alto) * 100
+    recortados_region = sum(hist[BLANCO_RECORTADO_UMBRAL:]) / analizados * 100
     # Contenido que toca el canto, por cara (ver `BORDE_CARA_CONTENIDO`): lo que se juzga es si un cuerpo
     # CRUZA el canto, no si lo roza en un píxel.
     cara, tocando = cara_del_borde(img)
@@ -450,7 +475,9 @@ def medir(png: Path, clase: str) -> dict:
         defectos.append("PLANA")
     if casi_negros > 60:
         defectos.append("CASI-TODO-NEGRO")
-    if recortados > BLANCO_RECORTADO_LAVADA:
+    # El corte de LAVADA se aplica sobre la región sin HUD cuando la hay; el valor de fotograma
+    # completo sigue imprimiéndose (nada se tira), sólo que ya no decide la bandera.
+    if (recortados_region if exclusiones else recortados) > BLANCO_RECORTADO_LAVADA:
         defectos.append("LAVADA")
     if cara >= BORDE_CARA_CONTENIDO:
         defectos.append("TOCA-BORDE")
@@ -463,6 +490,8 @@ def medir(png: Path, clase: str) -> dict:
         "desviacion": round(stat.stddev[0], 2),
         "casiNegroPct": round(casi_negros, 2),
         "blancoRecortadoPct": round(recortados, 2),
+        "blancoRecortadoRegionPct": round(recortados_region, 2) if exclusiones else None,
+        "regionSinHud": [list(rect) for rect in exclusiones] if exclusiones else None,
         "bordeCaraPct": round(cara * 100, 1),
         "pixelesEnBorde": tocando,
         "defectos": defectos,
@@ -491,7 +520,8 @@ def main() -> int:
     filas = []
     for png in pngs:
         prov, modo, doc = procedencia(png)
-        medida = medir(png, brazo(png, doc))
+        exclusiones = doc.get("analysisExcludeRects") if isinstance(doc, dict) else None
+        medida = medir(png, brazo(png, doc), exclusiones)
         filas.append(
             {
                 "ruta": png.relative_to(RAIZ).as_posix(),
@@ -502,6 +532,17 @@ def main() -> int:
             }
         )
     sin_procedencia = [f for f in filas if f["procedencia"] is None]
+    # D-111.2 cierre FASE 6.3 · los históricos sin procedencia quedan identificados (cada uno con su
+    # motivo anclado en commit) y AISLADOS del conjunto de aceptación: estado `legacy_unverified`,
+    # cuentan aparte y no bloquean el gate. Un PNG NUEVO sin procedencia seguiría bloqueando.
+    for fila in filas:
+        fila["estado"] = (
+            "legacy_unverified"
+            if fila["procedencia"] is None and motivo_sin_procedencia(fila["ruta"])
+            else "validada"
+        )
+    legacy = [f for f in sin_procedencia if f["estado"] == "legacy_unverified"]
+    nueva_sin_procedencia = [f for f in sin_procedencia if f["estado"] == "validada"]
     con_defecto = [f for f in filas if f["defectos"]]
     con_dura = [f for f in filas if f["duras"]]
     por_brazo = sorted({f["brazo"] for f in filas}, key=lambda b: -sum(1 for f in filas if f["brazo"] == b))
@@ -634,7 +675,8 @@ def main() -> int:
     resumen = {
         # Sin `--check` el script sólo regenera y sale 0; con `--check` cortan la ausencia de
         # procedencia y los defectos duros *para el brazo de cada archivo*, no los avisos de hoja.
-        "status": "revisar" if (sin_procedencia or con_dura) else "ok",
+        "status": "revisar" if (nueva_sin_procedencia or con_dura) else "ok",
+        "legacyUnverified": {"total": len(legacy), "aislados": True},
         "png": len(filas),
         "porBrazo": {clase: sum(1 for f in filas if f["brazo"] == clase) for clase in por_brazo},
         "sinProcedencia": [f["ruta"] for f in sin_procedencia],

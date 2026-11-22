@@ -39,10 +39,13 @@
    "desviacion": 70.14,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 1.85,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 7.6,
    "pixelesEnBorde": 22,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/frame_01.png",
@@ -57,13 +60,16 @@
    "desviacion": 31.8,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.04,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/frame_02.png",
@@ -78,13 +84,16 @@
    "desviacion": 31.83,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.06,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/frame_03.png",
@@ -99,13 +108,16 @@
    "desviacion": 31.94,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.09,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/frame_04.png",
@@ -120,13 +132,16 @@
    "desviacion": 31.98,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.09,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/frame_05.png",
@@ -141,13 +156,16 @@
    "desviacion": 32.02,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.09,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/frame_06.png",
@@ -162,13 +180,16 @@
    "desviacion": 31.98,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.11,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/frame_07.png",
@@ -183,13 +204,16 @@
    "desviacion": 31.98,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.1,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/street_day_fire.png",
@@ -204,12 +228,15 @@
    "desviacion": 25.62,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/street_night_control.png",
@@ -224,13 +251,16 @@
    "desviacion": 31.45,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/street_night_fire.png",
@@ -245,13 +275,16 @@
    "desviacion": 31.85,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.06,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/street_night_fire_050x.png",
@@ -266,6 +299,8 @@
    "desviacion": 17.24,
    "casiNegroPct": 0.01,
    "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
@@ -273,7 +308,8 @@
     "PLANA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/street_night_fire_lighting.png",
@@ -288,13 +324,16 @@
    "desviacion": 32.27,
    "casiNegroPct": 1.41,
    "blancoRecortadoPct": 0.69,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fire_sheet/street_night_fire_particles.png",
@@ -309,13 +348,16 @@
    "desviacion": 31.82,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.08,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/atribucion/halo_con_pointlight.png",
@@ -330,13 +372,16 @@
    "desviacion": 23.6,
    "casiNegroPct": 0.09,
    "blancoRecortadoPct": 0.14,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "phaser/fx_v2/atribucion/halo_retirado_fire_lighting.png",
@@ -351,13 +396,16 @@
    "desviacion": 26.47,
    "casiNegroPct": 0.09,
    "blancoRecortadoPct": 0.01,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "phaser/fx_v2/atribucion/halo_sin_lighting.png",
@@ -372,13 +420,16 @@
    "desviacion": 23.8,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "phaser/fx_v2/control_day.png",
@@ -393,12 +444,15 @@
    "desviacion": 25.49,
    "casiNegroPct": 0.03,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/control_night.png",
@@ -413,13 +467,16 @@
    "desviacion": 21.5,
    "casiNegroPct": 0.03,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/fallback_canvas_night_control.png",
@@ -434,13 +491,16 @@
    "desviacion": 21.27,
    "casiNegroPct": 0.03,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/fallback_canvas_night_fire.png",
@@ -455,13 +515,16 @@
    "desviacion": 22.14,
    "casiNegroPct": 0.03,
    "blancoRecortadoPct": 0.01,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/phaser_fx_v2_sheet.png",
@@ -476,12 +539,15 @@
    "desviacion": 24.97,
    "casiNegroPct": 0.05,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/preset_day_balanced.png",
@@ -496,12 +562,15 @@
    "desviacion": 24.4,
    "casiNegroPct": 0.06,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/preset_night_balanced.png",
@@ -516,13 +585,16 @@
    "desviacion": 20.0,
    "casiNegroPct": 0.1,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/preset_night_fire.png",
@@ -537,13 +609,16 @@
    "desviacion": 20.9,
    "casiNegroPct": 0.1,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
     "NEGRA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "phaser/fx_v2/preset_night_fire_050x.png",
@@ -558,6 +633,8 @@
    "desviacion": 12.81,
    "casiNegroPct": 0.02,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 98.6,
    "pixelesEnBorde": 2328,
    "defectos": [
@@ -565,7 +642,8 @@
     "PLANA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ag/ag_arcade_bay_2m.png",
@@ -580,12 +658,15 @@
    "desviacion": 40.96,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 53.2,
    "pixelesEnBorde": 315,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ag/ag_arcade_bay_2m_simplified.png",
@@ -600,12 +681,15 @@
    "desviacion": 40.82,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 53.2,
    "pixelesEnBorde": 315,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ag/quality_ab.png",
@@ -620,12 +704,15 @@
    "desviacion": 80.76,
    "casiNegroPct": 41.32,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 53.3,
    "pixelesEnBorde": 345,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/candidates/wp06_mixed_tenement-candidata.png",
@@ -640,10 +727,13 @@
    "desviacion": 32.91,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 30.3,
    "pixelesEnBorde": 317,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/candidates/wp06_row_house-candidata.png",
@@ -658,10 +748,13 @@
    "desviacion": 38.88,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/candidates/wp06_town_hall-candidata.png",
@@ -676,10 +769,13 @@
    "desviacion": 37.28,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 1.5,
    "pixelesEnBorde": 22,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/candidates/wp06_warehouse-candidata.png",
@@ -694,12 +790,15 @@
    "desviacion": 16.41,
    "casiNegroPct": 0.01,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 16.8,
    "pixelesEnBorde": 162,
    "defectos": [
     "PLANA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/civic/town_hall-candidata.png",
@@ -714,10 +813,13 @@
    "desviacion": 37.28,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 1.5,
    "pixelesEnBorde": 22,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/civic/town_hall-control.png",
@@ -732,10 +834,747 @@
    "desviacion": 34.58,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 1.5,
    "pixelesEnBorde": 22,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/condition/building_condition_in_phaser.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/condition/building_condition_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "hoja de trabajo",
+   "bytes": 724271,
+   "ancho": 1452,
+   "alto": 1288,
+   "lumaMedia": 48.49,
+   "desviacion": 35.29,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.03,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/condition/condition_aged.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/condition/building_condition_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 714269,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 78.66,
+   "desviacion": 29.74,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.08,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4241,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/condition/condition_burning.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/condition/building_condition_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 644317,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 74.86,
+   "desviacion": 25.75,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.1,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/condition/condition_conserved.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/condition/building_condition_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 646210,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 77.15,
+   "desviacion": 30.47,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.07,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/condition/condition_ruin.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/condition/building_condition_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 714472,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 78.01,
+   "desviacion": 27.91,
+   "casiNegroPct": 0.01,
+   "blancoRecortadoPct": 0.06,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_ab.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "hoja de trabajo",
+   "bytes": 537775,
+   "ancho": 1472,
+   "alto": 1858,
+   "lumaMedia": 36.99,
+   "desviacion": 29.1,
+   "casiNegroPct": 1.96,
+   "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_day.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_day.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 210891,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.89,
+   "desviacion": 28.82,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.1,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_frames/frame_01_t1247.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 210991,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.9,
+   "desviacion": 28.83,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.11,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_frames/frame_02_t2513.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 211147,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.88,
+   "desviacion": 28.79,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.1,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_frames/frame_03_t3746.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 211252,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.91,
+   "desviacion": 28.88,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.11,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_frames/frame_04_t4763.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 211220,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.89,
+   "desviacion": 28.81,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.1,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_frames/frame_05_t6013.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 211281,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.89,
+   "desviacion": 28.8,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.1,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_frames/frame_06_t6980.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 211162,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.89,
+   "desviacion": 28.83,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.1,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_night.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_fire_night.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 208495,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 38.73,
+   "desviacion": 23.72,
+   "casiNegroPct": 0.16,
+   "blancoRecortadoPct": 0.07,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_sprite_day.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_sprite_day.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 1495278,
+   "ancho": 1091,
+   "alto": 1237,
+   "lumaMedia": 120.63,
+   "desviacion": 28.57,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 25.5,
+   "pixelesEnBorde": 316,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_sprite_night.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/hybrid_sprite_night.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 1266097,
+   "ancho": 1091,
+   "alto": 1237,
+   "lumaMedia": 46.58,
+   "desviacion": 19.34,
+   "casiNegroPct": 3.12,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 23.5,
+   "pixelesEnBorde": 291,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/phaser_candidate_day.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/phaser_candidate_day.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena diurna",
+   "bytes": 210309,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 63.52,
+   "desviacion": 27.44,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/fire/phaser_candidate_night.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/fire/phaser_candidate_night.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 206585,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 38.15,
+   "desviacion": 21.66,
+   "casiNegroPct": 0.19,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 5.9,
+   "pixelesEnBorde": 57,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/night/day_balanced.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/night/day_balanced.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 200413,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 55.82,
+   "desviacion": 25.91,
+   "casiNegroPct": 0.08,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.1,
+   "pixelesEnBorde": 1,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/night/night_balanced.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/night/night_balanced.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 196982,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 32.86,
+   "desviacion": 23.13,
+   "casiNegroPct": 0.13,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/night/night_fire.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/night/night_fire.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 198626,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 33.02,
+   "desviacion": 23.79,
+   "casiNegroPct": 0.13,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/night/night_fire_050x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/night/night_fire_050x.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 79277,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 24.79,
+   "desviacion": 13.56,
+   "casiNegroPct": 0.03,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA",
+    "PLANA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/night/night_fire_canvas.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/night/night_fire_canvas.json",
+   "modoProcedencia": "json hermano",
+   "brazo": "escena nocturna",
+   "bytes": 196163,
+   "ancho": 960,
+   "alto": 541,
+   "lumaMedia": 40.27,
+   "desviacion": 25.19,
+   "casiNegroPct": 0.05,
+   "blancoRecortadoPct": 0.01,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 6.1,
+   "pixelesEnBorde": 59,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/night/night_lighting_final_ab.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/night/night_lighting_final_summary.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "hoja de trabajo",
+   "bytes": 384192,
+   "ancho": 1232,
+   "alto": 1568,
+   "lumaMedia": 28.38,
+   "desviacion": 21.59,
+   "casiNegroPct": 0.02,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [
+    "NEGRA"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/four_candidates_in_phaser.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "hoja de trabajo",
+   "bytes": 1053391,
+   "ancho": 1452,
+   "alto": 1228,
+   "lumaMedia": 48.93,
+   "desviacion": 33.42,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 0.0,
+   "pixelesEnBorde": 0,
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/mixed_tenement_pair_05x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 967337,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 72.3,
+   "desviacion": 20.84,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.01,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/mixed_tenement_pair_10x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 1161574,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 80.18,
+   "desviacion": 24.86,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4254,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/row_house_pair_05x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 937752,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 71.85,
+   "desviacion": 22.61,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.01,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4255,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/row_house_pair_10x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 1026692,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 74.87,
+   "desviacion": 24.03,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.01,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4255,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/town_hall_pair_05x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 675860,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 66.73,
+   "desviacion": 19.64,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/town_hall_pair_10x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 789289,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 67.32,
+   "desviacion": 26.01,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.05,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/warehouse_pair_05x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 1055833,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 74.02,
+   "desviacion": 22.36,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.01,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
+  },
+  {
+   "ruta": "v2/closure/urban/warehouse_pair_10x.png",
+   "carpeta": "v2/closure",
+   "procedencia": "v2/closure/urban/candidate-runtime-qa-manifest.json",
+   "modoProcedencia": "manifiesto del lote",
+   "brazo": "escena diurna",
+   "bytes": 1332052,
+   "ancho": 1410,
+   "alto": 750,
+   "lumaMedia": 81.22,
+   "desviacion": 27.54,
+   "casiNegroPct": 0.0,
+   "blancoRecortadoPct": 0.04,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 98.9,
+   "pixelesEnBorde": 4256,
+   "defectos": [
+    "TOCA-BORDE"
+   ],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/commercial/mixed_tenement-candidata.png",
@@ -750,10 +1589,13 @@
    "desviacion": 32.91,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 30.3,
    "pixelesEnBorde": 317,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/commercial/mixed_tenement-control.png",
@@ -768,10 +1610,13 @@
    "desviacion": 22.95,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 30.3,
    "pixelesEnBorde": 320,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ext/archimesh_window_bay_2m_high.png",
@@ -786,12 +1631,15 @@
    "desviacion": 29.96,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 54.8,
    "pixelesEnBorde": 321,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ext/archimesh_window_bay_2m_simplified.png",
@@ -806,12 +1654,15 @@
    "desviacion": 28.75,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 54.8,
    "pixelesEnBorde": 321,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ext/control_gn_window_bay.png",
@@ -826,12 +1677,15 @@
    "desviacion": 32.04,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 54.4,
    "pixelesEnBorde": 625,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ext/hifi_window_bay_2m_high.png",
@@ -846,12 +1700,15 @@
    "desviacion": 38.21,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 51.9,
    "pixelesEnBorde": 311,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/ext/hifi_window_bay_2m_simplified.png",
@@ -866,12 +1723,15 @@
    "desviacion": 32.0,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 52.0,
    "pixelesEnBorde": 624,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/candidata_mixed_tenement_day.png",
@@ -879,17 +1739,20 @@
    "procedencia": "v2/fire/candidata_mixed_tenement_day.json",
    "modoProcedencia": "json hermano",
    "brazo": "escena diurna",
-   "bytes": 1621129,
-   "ancho": 1082,
-   "alto": 1233,
-   "lumaMedia": 121.45,
-   "desviacion": 23.71,
+   "bytes": 1624174,
+   "ancho": 1091,
+   "alto": 1237,
+   "lumaMedia": 120.99,
+   "desviacion": 25.25,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
-   "bordeCaraPct": 25.9,
-   "pixelesEnBorde": 319,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 25.5,
+   "pixelesEnBorde": 316,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/candidata_mixed_tenement_night.png",
@@ -897,17 +1760,20 @@
    "procedencia": "v2/fire/candidata_mixed_tenement_night.json",
    "modoProcedencia": "json hermano",
    "brazo": "escena nocturna",
-   "bytes": 1414964,
-   "ancho": 1082,
-   "alto": 1233,
-   "lumaMedia": 52.86,
-   "desviacion": 22.5,
-   "casiNegroPct": 0.87,
+   "bytes": 1412550,
+   "ancho": 1091,
+   "alto": 1237,
+   "lumaMedia": 53.12,
+   "desviacion": 24.48,
+   "casiNegroPct": 1.13,
    "blancoRecortadoPct": 0.0,
-   "bordeCaraPct": 24.2,
-   "pixelesEnBorde": 299,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
+   "bordeCaraPct": 23.5,
+   "pixelesEnBorde": 291,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/candidata_warehouse_day.png",
@@ -922,10 +1788,13 @@
    "desviacion": 43.04,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 14.1,
    "pixelesEnBorde": 158,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/candidata_warehouse_night.png",
@@ -940,10 +1809,13 @@
    "desviacion": 33.48,
    "casiNegroPct": 1.22,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 14.1,
    "pixelesEnBorde": 158,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/control_mixed_tenement_day.png",
@@ -958,10 +1830,13 @@
    "desviacion": 18.41,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 30.0,
    "pixelesEnBorde": 323,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/control_mixed_tenement_night.png",
@@ -976,13 +1851,16 @@
    "desviacion": 14.8,
    "casiNegroPct": 2.06,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 25.2,
    "pixelesEnBorde": 272,
    "defectos": [
     "NEGRA",
     "PLANA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/control_warehouse_day.png",
@@ -997,10 +1875,13 @@
    "desviacion": 32.88,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 14.4,
    "pixelesEnBorde": 158,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/control_warehouse_night.png",
@@ -1015,32 +1896,38 @@
    "desviacion": 24.76,
    "casiNegroPct": 1.99,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 14.4,
    "pixelesEnBorde": 158,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/fire_blender_ab.png",
    "carpeta": "v2/fire",
-   "procedencia": null,
-   "modoProcedencia": "SIN PROCEDENCIA",
+   "procedencia": "v2/fire/fire_blender_ab.json",
+   "modoProcedencia": "json hermano",
    "brazo": "hoja de trabajo",
-   "bytes": 4534669,
+   "bytes": 4509522,
    "ancho": 8758,
    "alto": 4024,
-   "lumaMedia": 24.82,
-   "desviacion": 22.15,
+   "lumaMedia": 24.79,
+   "desviacion": 22.1,
    "casiNegroPct": 0.07,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/fire/fire_control_detail.png",
@@ -1055,10 +1942,13 @@
    "desviacion": 52.55,
    "casiNegroPct": 0.54,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/fire/fire_control_sheet.png",
@@ -1073,12 +1963,15 @@
    "desviacion": 38.83,
    "casiNegroPct": 34.77,
    "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/gn/gn_params.png",
@@ -1093,10 +1986,13 @@
    "desviacion": 30.79,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 36.3,
    "pixelesEnBorde": 610,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/gn/gn_parts.png",
@@ -1111,10 +2007,13 @@
    "desviacion": 31.6,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 32.4,
    "pixelesEnBorde": 188,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/hifi/hifi_facade_free.png",
@@ -1129,10 +2028,13 @@
    "desviacion": 29.7,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 1.2,
    "pixelesEnBorde": 18,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/hifi/hifi_facade_grid.png",
@@ -1147,10 +2049,13 @@
    "desviacion": 28.15,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 1.0,
    "pixelesEnBorde": 19,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/industrial/dock_aperture_scale.png",
@@ -1165,12 +2070,15 @@
    "desviacion": 36.81,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 1.18,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 88.5,
    "pixelesEnBorde": 853,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/industrial/warehouse-candidata.png",
@@ -1185,12 +2093,15 @@
    "desviacion": 16.41,
    "casiNegroPct": 0.01,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 16.8,
    "pixelesEnBorde": 162,
    "defectos": [
     "PLANA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/industrial/warehouse-control.png",
@@ -1205,10 +2116,13 @@
    "desviacion": 22.75,
    "casiNegroPct": 1.55,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 18.1,
    "pixelesEnBorde": 162,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/residential/row_house-candidata.png",
@@ -1223,10 +2137,13 @@
    "desviacion": 39.06,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/residential/row_house-control.png",
@@ -1241,10 +2158,13 @@
    "desviacion": 31.52,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/sheets/ag_civic_ab.png",
@@ -1259,10 +2179,13 @@
    "desviacion": 57.51,
    "casiNegroPct": 4.87,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/sheets/building_condition_states.png",
@@ -1277,10 +2200,13 @@
    "desviacion": 50.23,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.05,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/sheets/ext_window_columns.png",
@@ -1295,12 +2221,15 @@
    "desviacion": 39.39,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/sheets/gn_v2_ab.png",
@@ -1315,10 +2244,13 @@
    "desviacion": 49.03,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/sheets/hifi_grid_ab.png",
@@ -1333,10 +2265,13 @@
    "desviacion": 48.25,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/sheets/industrial_warehouse_ab.png",
@@ -1351,12 +2286,15 @@
    "desviacion": 31.39,
    "casiNegroPct": 0.15,
    "blancoRecortadoPct": 0.04,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/sheets/weathering_states.png",
@@ -1371,12 +2309,15 @@
    "desviacion": 35.17,
    "casiNegroPct": 0.01,
    "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/sheets/wp06_candidates_ab.png",
@@ -1391,12 +2332,15 @@
    "desviacion": 42.38,
    "casiNegroPct": 0.04,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/sheets/wp08_arquitectura_avanzada.png",
@@ -1411,12 +2355,15 @@
    "desviacion": 49.98,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/sheets/wp08_fx_nocturnos.png",
@@ -1431,12 +2378,15 @@
    "desviacion": 24.8,
    "casiNegroPct": 0.11,
    "blancoRecortadoPct": 0.05,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
     "NEGRA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_civic_05x.png",
@@ -1447,18 +2397,30 @@
    "bytes": 1156547,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 113.07,
-   "desviacion": 68.85,
+   "lumaMedia": 84.39,
+   "desviacion": 37.82,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.44,
+   "blancoRecortadoPct": 0.04,
+   "blancoRecortadoRegionPct": 0.05,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_civic_10x.png",
@@ -1469,18 +2431,30 @@
    "bytes": 1257001,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 124.17,
-   "desviacion": 64.48,
+   "lumaMedia": 98.18,
+   "desviacion": 38.27,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.54,
+   "blancoRecortadoPct": 0.14,
+   "blancoRecortadoRegionPct": 0.18,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_commercial_05x.png",
@@ -1491,18 +2465,30 @@
    "bytes": 1123750,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 112.99,
-   "desviacion": 68.83,
+   "lumaMedia": 84.25,
+   "desviacion": 37.77,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.49,
+   "blancoRecortadoPct": 0.03,
+   "blancoRecortadoRegionPct": 0.03,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_commercial_10x.png",
@@ -1513,18 +2499,30 @@
    "bytes": 1241814,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 121.34,
-   "desviacion": 64.12,
+   "lumaMedia": 94.66,
+   "desviacion": 34.96,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.54,
+   "blancoRecortadoPct": 0.07,
+   "blancoRecortadoRegionPct": 0.09,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_industrial_05x.png",
@@ -1535,18 +2533,30 @@
    "bytes": 1099559,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 113.61,
-   "desviacion": 68.48,
+   "lumaMedia": 85.16,
+   "desviacion": 37.58,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.6,
+   "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": 0.03,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_industrial_10x.png",
@@ -1557,18 +2567,30 @@
    "bytes": 1173135,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 121.72,
-   "desviacion": 64.29,
+   "lumaMedia": 95.22,
+   "desviacion": 35.8,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.62,
+   "blancoRecortadoPct": 0.04,
+   "blancoRecortadoRegionPct": 0.05,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_residential_05x.png",
@@ -1579,18 +2601,30 @@
    "bytes": 1147559,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 112.59,
-   "desviacion": 68.43,
+   "lumaMedia": 83.87,
+   "desviacion": 36.41,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.47,
+   "blancoRecortadoPct": 0.02,
+   "blancoRecortadoRegionPct": 0.02,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/urban/urban_residential_10x.png",
@@ -1601,18 +2635,30 @@
    "bytes": 1238251,
    "ancho": 1440,
    "alto": 900,
-   "lumaMedia": 120.07,
-   "desviacion": 64.37,
+   "lumaMedia": 93.09,
+   "desviacion": 34.3,
    "casiNegroPct": 0.0,
-   "blancoRecortadoPct": 4.49,
+   "blancoRecortadoPct": 0.03,
+   "blancoRecortadoRegionPct": 0.04,
+   "regionSinHud": [
+    [
+     0,
+     0,
+     1440,
+     130
+    ],
+    [
+     16,
+     736,
+     556,
+     884
+    ]
+   ],
    "bordeCaraPct": 35.8,
    "pixelesEnBorde": 516,
-   "defectos": [
-    "LAVADA"
-   ],
-   "duras": [
-    "LAVADA"
-   ]
+   "defectos": [],
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/day/vw_mixed_tenement_1001_aged.png",
@@ -1627,10 +2673,13 @@
    "desviacion": 29.67,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/day/vw_mixed_tenement_1001_burning.png",
@@ -1645,10 +2694,13 @@
    "desviacion": 32.76,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/day/vw_mixed_tenement_1001_conserved.png",
@@ -1663,10 +2715,13 @@
    "desviacion": 31.71,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.41,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/day/vw_mixed_tenement_1001_damaged.png",
@@ -1681,10 +2736,13 @@
    "desviacion": 29.9,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/_control.png",
@@ -1699,12 +2757,15 @@
    "desviacion": 74.68,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "legacy_unverified"
   },
   {
    "ruta": "v2/weathering/mask/atlas_aged.png",
@@ -1719,12 +2780,15 @@
    "desviacion": 68.24,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/atlas_mask.png",
@@ -1739,12 +2803,15 @@
    "desviacion": 81.75,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.21,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/brick_aged.png",
@@ -1759,12 +2826,15 @@
    "desviacion": 65.02,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/brick_mask.png",
@@ -1779,12 +2849,15 @@
    "desviacion": 93.15,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.24,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/glass_aged.png",
@@ -1799,12 +2872,15 @@
    "desviacion": 74.68,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/glass_mask.png",
@@ -1819,6 +2895,8 @@
    "desviacion": 0.27,
    "casiNegroPct": 100.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.0,
    "pixelesEnBorde": 0,
    "defectos": [
@@ -1826,7 +2904,8 @@
     "PLANA",
     "CASI-TODO-NEGRO"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/interior_aged.png",
@@ -1841,12 +2920,15 @@
    "desviacion": 66.02,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/interior_mask.png",
@@ -1861,12 +2943,15 @@
    "desviacion": 91.09,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.16,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/metal_aged.png",
@@ -1881,12 +2966,15 @@
    "desviacion": 72.47,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/metal_mask.png",
@@ -1901,12 +2989,15 @@
    "desviacion": 75.89,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.64,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/plaster_aged.png",
@@ -1921,12 +3012,15 @@
    "desviacion": 65.62,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/plaster_mask.png",
@@ -1941,13 +3035,16 @@
    "desviacion": 95.13,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 10.89,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "LAVADA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/stone_aged.png",
@@ -1962,12 +3059,15 @@
    "desviacion": 65.74,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/stone_mask.png",
@@ -1982,13 +3082,16 @@
    "desviacion": 101.45,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 6.2,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "LAVADA",
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/wood_aged.png",
@@ -2003,12 +3106,15 @@
    "desviacion": 61.81,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/mask/wood_mask.png",
@@ -2023,12 +3129,15 @@
    "desviacion": 94.39,
    "casiNegroPct": 24.61,
    "blancoRecortadoPct": 0.15,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 75.4,
    "pixelesEnBorde": 772,
    "defectos": [
     "TOCA-BORDE"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/night/vwn_mixed_tenement_1001_aged.png",
@@ -2043,10 +3152,13 @@
    "desviacion": 18.67,
    "casiNegroPct": 0.17,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/night/vwn_mixed_tenement_1001_conserved.png",
@@ -2061,10 +3173,13 @@
    "desviacion": 18.28,
    "casiNegroPct": 0.14,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/optout/vw_mixed_tenement_1001.png",
@@ -2079,10 +3194,13 @@
    "desviacion": 31.71,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.41,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/probe/green_after_interior_fix.png",
@@ -2097,12 +3215,15 @@
    "desviacion": 14.38,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [
     "PLANA"
    ],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/probe/green_before_interior_fix.png",
@@ -2117,10 +3238,13 @@
    "desviacion": 21.41,
    "casiNegroPct": 0.0,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/probe/night_aged_emission_scale_0.png",
@@ -2135,10 +3259,13 @@
    "desviacion": 18.67,
    "casiNegroPct": 0.17,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   },
   {
    "ruta": "v2/weathering/probe/night_aged_emission_scale_1.png",
@@ -2153,10 +3280,13 @@
    "desviacion": 18.67,
    "casiNegroPct": 0.17,
    "blancoRecortadoPct": 0.0,
+   "blancoRecortadoRegionPct": null,
+   "regionSinHud": null,
    "bordeCaraPct": 0.3,
    "pixelesEnBorde": 3,
    "defectos": [],
-   "duras": []
+   "duras": [],
+   "estado": "validada"
   }
  ],
  "sinProcedencia": [
@@ -2175,10 +3305,6 @@
   {
    "ruta": "v2/ag/quality_ab.png",
    "motivo": "render intermedio de WP02 (`9a48fee`) pegado sobre negro para el A/B de calidad; sus dos fuentes sí tienen JSON hermano en `v2/ag/`."
-  },
-  {
-   "ruta": "v2/fire/fire_blender_ab.png",
-   "motivo": "hoja de FASE 3 (`b58f263`) escrita por `tools/art-pipeline/blender/ext_lab/fire_ab_sheet.py`; las medidas por panel sí están, en `v2/fire/fire_blender_ab_readings.json`, indexadas como `{familia}-{mood}-{brazo}` y no por nombre de archivo."
   },
   {
    "ruta": "v2/fire/fire_control_detail.png",
@@ -2213,16 +3339,7 @@
    "motivo": "la corrida de FASE 6 escribe `v2/weathering/mask/summary.json`, que lista los 16 canales tratados y envejecidos pero no el atlas de control del que salen."
   }
  ],
- "conDefectoDuro": [
-  "v2/urban/urban_civic_05x.png",
-  "v2/urban/urban_civic_10x.png",
-  "v2/urban/urban_commercial_05x.png",
-  "v2/urban/urban_commercial_10x.png",
-  "v2/urban/urban_industrial_05x.png",
-  "v2/urban/urban_industrial_10x.png",
-  "v2/urban/urban_residential_05x.png",
-  "v2/urban/urban_residential_10x.png"
- ],
+ "conDefectoDuro": [],
  "conDefecto": [
   {
    "ruta": "phaser/fire_sheet/frame_01.png",
@@ -2422,6 +3539,127 @@
    ]
   },
   {
+   "ruta": "v2/closure/condition/condition_aged.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/condition/condition_burning.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/condition/condition_conserved.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/condition/condition_ruin.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_ab.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/fire/hybrid_fire_night.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/fire/phaser_candidate_night.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/night/night_balanced.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/night/night_fire.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/night/night_fire_050x.png",
+   "defectos": [
+    "NEGRA",
+    "PLANA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/night/night_fire_canvas.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/night/night_lighting_final_ab.png",
+   "defectos": [
+    "NEGRA"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/mixed_tenement_pair_05x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/mixed_tenement_pair_10x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/row_house_pair_05x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/row_house_pair_10x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/town_hall_pair_05x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/town_hall_pair_10x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/warehouse_pair_05x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
+   "ruta": "v2/closure/urban/warehouse_pair_10x.png",
+   "defectos": [
+    "TOCA-BORDE"
+   ]
+  },
+  {
    "ruta": "v2/ext/archimesh_window_bay_2m_high.png",
    "defectos": [
     "TOCA-BORDE"
@@ -2522,54 +3760,6 @@
    "ruta": "v2/sheets/wp08_fx_nocturnos.png",
    "defectos": [
     "NEGRA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_civic_05x.png",
-   "defectos": [
-    "LAVADA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_civic_10x.png",
-   "defectos": [
-    "LAVADA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_commercial_05x.png",
-   "defectos": [
-    "LAVADA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_commercial_10x.png",
-   "defectos": [
-    "LAVADA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_industrial_05x.png",
-   "defectos": [
-    "LAVADA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_industrial_10x.png",
-   "defectos": [
-    "LAVADA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_residential_05x.png",
-   "defectos": [
-    "LAVADA"
-   ]
-  },
-  {
-   "ruta": "v2/urban/urban_residential_10x.png",
-   "defectos": [
-    "LAVADA"
    ]
   },
   {

@@ -5,10 +5,10 @@ su JSON de procedencia y la medida del raster. Las columnas de defecto existen p
 exige corregir «rótulos cortados, recortes alfa, capturas negras, escenas lavadas» y eso no se
 puede cerrar con una impresión visual.
 
-- PNG indexadas (sin contar las `_half` de repaso): **108**
-- sin JSON de procedencia: **13**
-- con defecto duro para su brazo: **8**
-- con algún defecto de raster marcado: **72**
+- PNG indexadas (sin contar las `_half` de repaso): **141**
+- sin JSON de procedencia: **12**
+- con defecto duro para su brazo: **0**
+- con algún defecto de raster marcado: **84**
 - huecos declarados (abajo): **5** · hallazgos abiertos: **3**
 
 Leyenda de banderas: `NEGRA` luma media < 45 · `PLANA` desviación < 18 ·
@@ -24,10 +24,10 @@ receta no se juzga por estar oscuro. `PLANA` y `TOCA-BORDE` son avisos en todos 
 
 | brazo | filas | duras que cortan |
 | --- | --- | --- |
-| escena diurna | 46 | `CASI-TODO-NEGRO` · `LAVADA` · `NEGRA` · `ROTO` · `TODO-TRANSPARENTE` |
-| escena nocturna | 29 | `CASI-TODO-NEGRO` · `LAVADA` · `ROTO` · `TODO-TRANSPARENTE` |
+| escena diurna | 67 | `CASI-TODO-NEGRO` · `LAVADA` · `NEGRA` · `ROTO` · `TODO-TRANSPARENTE` |
+| escena nocturna | 37 | `CASI-TODO-NEGRO` · `LAVADA` · `ROTO` · `TODO-TRANSPARENTE` |
+| hoja de trabajo | 20 | `CASI-TODO-NEGRO` · `ROTO` · `TODO-TRANSPARENTE` |
 | mapa de trabajo | 17 | `ROTO` · `TODO-TRANSPARENTE` |
-| hoja de trabajo | 16 | `CASI-TODO-NEGRO` · `ROTO` · `TODO-TRANSPARENTE` |
 
 ## `phaser/`
 
@@ -94,6 +94,44 @@ receta no se juzga por estar oscuro. `PLANA` y `TOCA-BORDE` son avisos en todos 
 | [town_hall-candidata.png](v2/civic/town_hall-candidata.png) | escena diurna | [`v2/civic/town_hall-candidata.json`](v2/civic/town_hall-candidata.json) | 1395×1487 · 1743 KiB | 149.76 | 37.28 | 0.0 | 0.0 | 1.5 | — |
 | [town_hall-control.png](v2/civic/town_hall-control.png) | escena diurna | [`v2/civic/town_hall-control.json`](v2/civic/town_hall-control.json) | 1395×1487 · 1799 KiB | 148.65 | 34.58 | 0.0 | 0.0 | 1.5 | — |
 
+## `v2/closure/`
+
+| PNG | brazo | procedencia | tamaño | luma | σ | %negro | %blanco | %borde | banderas |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [building_condition_in_phaser.png](v2/closure/condition/building_condition_in_phaser.png) | hoja de trabajo | [`v2/closure/condition/building_condition_summary.json`](v2/closure/condition/building_condition_summary.json) (lote) | 1452×1288 · 707 KiB | 48.49 | 35.29 | 0.0 | 0.03 | 0.0 | — |
+| [condition_aged.png](v2/closure/condition/condition_aged.png) | escena diurna | [`v2/closure/condition/building_condition_summary.json`](v2/closure/condition/building_condition_summary.json) (lote) | 1410×750 · 697 KiB | 78.66 | 29.74 | 0.01 | 0.08 | 98.9 | `TOCA-BORDE` |
+| [condition_burning.png](v2/closure/condition/condition_burning.png) | escena diurna | [`v2/closure/condition/building_condition_summary.json`](v2/closure/condition/building_condition_summary.json) (lote) | 1410×750 · 629 KiB | 74.86 | 25.75 | 0.01 | 0.1 | 98.9 | `TOCA-BORDE` |
+| [condition_conserved.png](v2/closure/condition/condition_conserved.png) | escena diurna | [`v2/closure/condition/building_condition_summary.json`](v2/closure/condition/building_condition_summary.json) (lote) | 1410×750 · 631 KiB | 77.15 | 30.47 | 0.01 | 0.07 | 98.9 | `TOCA-BORDE` |
+| [condition_ruin.png](v2/closure/condition/condition_ruin.png) | escena diurna | [`v2/closure/condition/building_condition_summary.json`](v2/closure/condition/building_condition_summary.json) (lote) | 1410×750 · 697 KiB | 78.01 | 27.91 | 0.01 | 0.06 | 98.9 | `TOCA-BORDE` |
+| [hybrid_fire_ab.png](v2/closure/fire/hybrid_fire_ab.png) | hoja de trabajo | [`v2/closure/fire/hybrid_fire_summary.json`](v2/closure/fire/hybrid_fire_summary.json) (lote) | 1472×1858 · 525 KiB | 36.99 | 29.1 | 1.96 | 0.02 | 0.0 | `NEGRA` |
+| [hybrid_fire_day.png](v2/closure/fire/hybrid_fire_day.png) | escena diurna | [`v2/closure/fire/hybrid_fire_day.json`](v2/closure/fire/hybrid_fire_day.json) | 960×541 · 205 KiB | 63.89 | 28.82 | 0.05 | 0.1 | 5.9 | — |
+| [frame_01_t1247.png](v2/closure/fire/hybrid_fire_frames/frame_01_t1247.png) | escena diurna | [`v2/closure/fire/hybrid_fire_summary.json`](v2/closure/fire/hybrid_fire_summary.json) (lote) | 960×541 · 206 KiB | 63.9 | 28.83 | 0.05 | 0.11 | 5.9 | — |
+| [frame_02_t2513.png](v2/closure/fire/hybrid_fire_frames/frame_02_t2513.png) | escena diurna | [`v2/closure/fire/hybrid_fire_summary.json`](v2/closure/fire/hybrid_fire_summary.json) (lote) | 960×541 · 206 KiB | 63.88 | 28.79 | 0.05 | 0.1 | 5.9 | — |
+| [frame_03_t3746.png](v2/closure/fire/hybrid_fire_frames/frame_03_t3746.png) | escena diurna | [`v2/closure/fire/hybrid_fire_summary.json`](v2/closure/fire/hybrid_fire_summary.json) (lote) | 960×541 · 206 KiB | 63.91 | 28.88 | 0.05 | 0.11 | 5.9 | — |
+| [frame_04_t4763.png](v2/closure/fire/hybrid_fire_frames/frame_04_t4763.png) | escena diurna | [`v2/closure/fire/hybrid_fire_summary.json`](v2/closure/fire/hybrid_fire_summary.json) (lote) | 960×541 · 206 KiB | 63.89 | 28.81 | 0.05 | 0.1 | 5.9 | — |
+| [frame_05_t6013.png](v2/closure/fire/hybrid_fire_frames/frame_05_t6013.png) | escena diurna | [`v2/closure/fire/hybrid_fire_summary.json`](v2/closure/fire/hybrid_fire_summary.json) (lote) | 960×541 · 206 KiB | 63.89 | 28.8 | 0.05 | 0.1 | 5.9 | — |
+| [frame_06_t6980.png](v2/closure/fire/hybrid_fire_frames/frame_06_t6980.png) | escena diurna | [`v2/closure/fire/hybrid_fire_summary.json`](v2/closure/fire/hybrid_fire_summary.json) (lote) | 960×541 · 206 KiB | 63.89 | 28.83 | 0.05 | 0.1 | 5.9 | — |
+| [hybrid_fire_night.png](v2/closure/fire/hybrid_fire_night.png) | escena nocturna | [`v2/closure/fire/hybrid_fire_night.json`](v2/closure/fire/hybrid_fire_night.json) | 960×541 · 203 KiB | 38.73 | 23.72 | 0.16 | 0.07 | 5.9 | `NEGRA` |
+| [hybrid_sprite_day.png](v2/closure/fire/hybrid_sprite_day.png) | escena diurna | [`v2/closure/fire/hybrid_sprite_day.json`](v2/closure/fire/hybrid_sprite_day.json) | 1091×1237 · 1460 KiB | 120.63 | 28.57 | 0.0 | 0.0 | 25.5 | — |
+| [hybrid_sprite_night.png](v2/closure/fire/hybrid_sprite_night.png) | escena nocturna | [`v2/closure/fire/hybrid_sprite_night.json`](v2/closure/fire/hybrid_sprite_night.json) | 1091×1237 · 1236 KiB | 46.58 | 19.34 | 3.12 | 0.0 | 23.5 | — |
+| [phaser_candidate_day.png](v2/closure/fire/phaser_candidate_day.png) | escena diurna | [`v2/closure/fire/phaser_candidate_day.json`](v2/closure/fire/phaser_candidate_day.json) | 960×541 · 205 KiB | 63.52 | 27.44 | 0.05 | 0.0 | 5.9 | — |
+| [phaser_candidate_night.png](v2/closure/fire/phaser_candidate_night.png) | escena nocturna | [`v2/closure/fire/phaser_candidate_night.json`](v2/closure/fire/phaser_candidate_night.json) | 960×541 · 201 KiB | 38.15 | 21.66 | 0.19 | 0.0 | 5.9 | `NEGRA` |
+| [day_balanced.png](v2/closure/night/day_balanced.png) | escena nocturna | [`v2/closure/night/day_balanced.json`](v2/closure/night/day_balanced.json) | 960×541 · 195 KiB | 55.82 | 25.91 | 0.08 | 0.0 | 0.1 | — |
+| [night_balanced.png](v2/closure/night/night_balanced.png) | escena nocturna | [`v2/closure/night/night_balanced.json`](v2/closure/night/night_balanced.json) | 960×541 · 192 KiB | 32.86 | 23.13 | 0.13 | 0.0 | 0.0 | `NEGRA` |
+| [night_fire.png](v2/closure/night/night_fire.png) | escena nocturna | [`v2/closure/night/night_fire.json`](v2/closure/night/night_fire.json) | 960×541 · 193 KiB | 33.02 | 23.79 | 0.13 | 0.0 | 0.0 | `NEGRA` |
+| [night_fire_050x.png](v2/closure/night/night_fire_050x.png) | escena nocturna | [`v2/closure/night/night_fire_050x.json`](v2/closure/night/night_fire_050x.json) | 960×541 · 77 KiB | 24.79 | 13.56 | 0.03 | 0.0 | 0.0 | `NEGRA` `PLANA` |
+| [night_fire_canvas.png](v2/closure/night/night_fire_canvas.png) | escena nocturna | [`v2/closure/night/night_fire_canvas.json`](v2/closure/night/night_fire_canvas.json) | 960×541 · 191 KiB | 40.27 | 25.19 | 0.05 | 0.01 | 6.1 | `NEGRA` |
+| [night_lighting_final_ab.png](v2/closure/night/night_lighting_final_ab.png) | hoja de trabajo | [`v2/closure/night/night_lighting_final_summary.json`](v2/closure/night/night_lighting_final_summary.json) (lote) | 1232×1568 · 375 KiB | 28.38 | 21.59 | 0.02 | 0.0 | 0.0 | `NEGRA` |
+| [four_candidates_in_phaser.png](v2/closure/urban/four_candidates_in_phaser.png) | hoja de trabajo | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1452×1228 · 1028 KiB | 48.93 | 33.42 | 0.0 | 0.0 | 0.0 | — |
+| [mixed_tenement_pair_05x.png](v2/closure/urban/mixed_tenement_pair_05x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 944 KiB | 72.3 | 20.84 | 0.0 | 0.01 | 98.9 | `TOCA-BORDE` |
+| [mixed_tenement_pair_10x.png](v2/closure/urban/mixed_tenement_pair_10x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 1134 KiB | 80.18 | 24.86 | 0.0 | 0.02 | 98.9 | `TOCA-BORDE` |
+| [row_house_pair_05x.png](v2/closure/urban/row_house_pair_05x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 915 KiB | 71.85 | 22.61 | 0.0 | 0.01 | 98.9 | `TOCA-BORDE` |
+| [row_house_pair_10x.png](v2/closure/urban/row_house_pair_10x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 1002 KiB | 74.87 | 24.03 | 0.0 | 0.01 | 98.9 | `TOCA-BORDE` |
+| [town_hall_pair_05x.png](v2/closure/urban/town_hall_pair_05x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 660 KiB | 66.73 | 19.64 | 0.0 | 0.02 | 98.9 | `TOCA-BORDE` |
+| [town_hall_pair_10x.png](v2/closure/urban/town_hall_pair_10x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 770 KiB | 67.32 | 26.01 | 0.0 | 0.05 | 98.9 | `TOCA-BORDE` |
+| [warehouse_pair_05x.png](v2/closure/urban/warehouse_pair_05x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 1031 KiB | 74.02 | 22.36 | 0.0 | 0.01 | 98.9 | `TOCA-BORDE` |
+| [warehouse_pair_10x.png](v2/closure/urban/warehouse_pair_10x.png) | escena diurna | [`v2/closure/urban/candidate-runtime-qa-manifest.json`](v2/closure/urban/candidate-runtime-qa-manifest.json) (lote) | 1410×750 · 1300 KiB | 81.22 | 27.54 | 0.0 | 0.04 | 98.9 | `TOCA-BORDE` |
+
 ## `v2/commercial/`
 
 | PNG | brazo | procedencia | tamaño | luma | σ | %negro | %blanco | %borde | banderas |
@@ -115,15 +153,15 @@ receta no se juzga por estar oscuro. `PLANA` y `TOCA-BORDE` son avisos en todos 
 
 | PNG | brazo | procedencia | tamaño | luma | σ | %negro | %blanco | %borde | banderas |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [candidata_mixed_tenement_day.png](v2/fire/candidata_mixed_tenement_day.png) | escena diurna | [`v2/fire/candidata_mixed_tenement_day.json`](v2/fire/candidata_mixed_tenement_day.json) | 1082×1233 · 1583 KiB | 121.45 | 23.71 | 0.0 | 0.0 | 25.9 | — |
-| [candidata_mixed_tenement_night.png](v2/fire/candidata_mixed_tenement_night.png) | escena nocturna | [`v2/fire/candidata_mixed_tenement_night.json`](v2/fire/candidata_mixed_tenement_night.json) | 1082×1233 · 1381 KiB | 52.86 | 22.5 | 0.87 | 0.0 | 24.2 | — |
+| [candidata_mixed_tenement_day.png](v2/fire/candidata_mixed_tenement_day.png) | escena diurna | [`v2/fire/candidata_mixed_tenement_day.json`](v2/fire/candidata_mixed_tenement_day.json) | 1091×1237 · 1586 KiB | 120.99 | 25.25 | 0.0 | 0.0 | 25.5 | — |
+| [candidata_mixed_tenement_night.png](v2/fire/candidata_mixed_tenement_night.png) | escena nocturna | [`v2/fire/candidata_mixed_tenement_night.json`](v2/fire/candidata_mixed_tenement_night.json) | 1091×1237 · 1379 KiB | 53.12 | 24.48 | 1.13 | 0.0 | 23.5 | — |
 | [candidata_warehouse_day.png](v2/fire/candidata_warehouse_day.png) | escena diurna | [`v2/fire/candidata_warehouse_day.json`](v2/fire/candidata_warehouse_day.json) | 1417×1119 · 1350 KiB | 119.69 | 43.04 | 0.0 | 0.0 | 14.1 | — |
 | [candidata_warehouse_night.png](v2/fire/candidata_warehouse_night.png) | escena nocturna | [`v2/fire/candidata_warehouse_night.json`](v2/fire/candidata_warehouse_night.json) | 1417×1119 · 1027 KiB | 62.17 | 33.48 | 1.22 | 0.0 | 14.1 | — |
 | [control_mixed_tenement_day.png](v2/fire/control_mixed_tenement_day.png) | escena diurna | [`v2/fire/control_mixed_tenement_day.json`](v2/fire/control_mixed_tenement_day.json) | 1082×1063 · 1431 KiB | 97.83 | 18.41 | 0.0 | 0.0 | 30.0 | — |
 | [control_mixed_tenement_night.png](v2/fire/control_mixed_tenement_night.png) | escena nocturna | [`v2/fire/control_mixed_tenement_night.json`](v2/fire/control_mixed_tenement_night.json) | 1082×1063 · 1261 KiB | 36.31 | 14.8 | 2.06 | 0.0 | 25.2 | `NEGRA` `PLANA` |
 | [control_warehouse_day.png](v2/fire/control_warehouse_day.png) | escena diurna | [`v2/fire/control_warehouse_day.json`](v2/fire/control_warehouse_day.json) | 1417×1097 · 1283 KiB | 94.54 | 32.88 | 0.0 | 0.0 | 14.4 | — |
 | [control_warehouse_night.png](v2/fire/control_warehouse_night.png) | escena nocturna | [`v2/fire/control_warehouse_night.json`](v2/fire/control_warehouse_night.json) | 1417×1097 · 967 KiB | 40.89 | 24.76 | 1.99 | 0.0 | 14.4 | `NEGRA` |
-| [fire_blender_ab.png](v2/fire/fire_blender_ab.png) | hoja de trabajo | **SIN** | 8758×4024 · 4428 KiB | 24.82 | 22.15 | 0.07 | 0.0 | 0.0 | `NEGRA` |
+| [fire_blender_ab.png](v2/fire/fire_blender_ab.png) | hoja de trabajo | [`v2/fire/fire_blender_ab.json`](v2/fire/fire_blender_ab.json) | 8758×4024 · 4403 KiB | 24.79 | 22.1 | 0.07 | 0.0 | 0.0 | `NEGRA` |
 | [fire_control_detail.png](v2/fire/fire_control_detail.png) | hoja de trabajo | **SIN** | 1440×636 · 231 KiB | 60.83 | 52.55 | 0.54 | 0.0 | 0.0 | — |
 | [fire_control_sheet.png](v2/fire/fire_control_sheet.png) | hoja de trabajo | **SIN** | 1924×976 · 847 KiB | 36.44 | 38.83 | 34.77 | 0.02 | 0.0 | `NEGRA` |
 
@@ -175,14 +213,14 @@ receta no se juzga por estar oscuro. `PLANA` y `TOCA-BORDE` son avisos en todos 
 
 | PNG | brazo | procedencia | tamaño | luma | σ | %negro | %blanco | %borde | banderas |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [urban_civic_05x.png](v2/urban/urban_civic_05x.png) | escena diurna | [`v2/urban/urban_civic_05x.json`](v2/urban/urban_civic_05x.json) | 1440×900 · 1129 KiB | 113.07 | 68.85 | 0.0 | 4.44 | 35.8 | **`LAVADA`** |
-| [urban_civic_10x.png](v2/urban/urban_civic_10x.png) | escena diurna | [`v2/urban/urban_civic_10x.json`](v2/urban/urban_civic_10x.json) | 1440×900 · 1227 KiB | 124.17 | 64.48 | 0.0 | 4.54 | 35.8 | **`LAVADA`** |
-| [urban_commercial_05x.png](v2/urban/urban_commercial_05x.png) | escena diurna | [`v2/urban/urban_commercial_05x.json`](v2/urban/urban_commercial_05x.json) | 1440×900 · 1097 KiB | 112.99 | 68.83 | 0.0 | 4.49 | 35.8 | **`LAVADA`** |
-| [urban_commercial_10x.png](v2/urban/urban_commercial_10x.png) | escena diurna | [`v2/urban/urban_commercial_10x.json`](v2/urban/urban_commercial_10x.json) | 1440×900 · 1212 KiB | 121.34 | 64.12 | 0.0 | 4.54 | 35.8 | **`LAVADA`** |
-| [urban_industrial_05x.png](v2/urban/urban_industrial_05x.png) | escena diurna | [`v2/urban/urban_industrial_05x.json`](v2/urban/urban_industrial_05x.json) | 1440×900 · 1073 KiB | 113.61 | 68.48 | 0.0 | 4.6 | 35.8 | **`LAVADA`** |
-| [urban_industrial_10x.png](v2/urban/urban_industrial_10x.png) | escena diurna | [`v2/urban/urban_industrial_10x.json`](v2/urban/urban_industrial_10x.json) | 1440×900 · 1145 KiB | 121.72 | 64.29 | 0.0 | 4.62 | 35.8 | **`LAVADA`** |
-| [urban_residential_05x.png](v2/urban/urban_residential_05x.png) | escena diurna | [`v2/urban/urban_residential_05x.json`](v2/urban/urban_residential_05x.json) | 1440×900 · 1120 KiB | 112.59 | 68.43 | 0.0 | 4.47 | 35.8 | **`LAVADA`** |
-| [urban_residential_10x.png](v2/urban/urban_residential_10x.png) | escena diurna | [`v2/urban/urban_residential_10x.json`](v2/urban/urban_residential_10x.json) | 1440×900 · 1209 KiB | 120.07 | 64.37 | 0.0 | 4.49 | 35.8 | **`LAVADA`** |
+| [urban_civic_05x.png](v2/urban/urban_civic_05x.png) | escena diurna | [`v2/urban/urban_civic_05x.json`](v2/urban/urban_civic_05x.json) | 1440×900 · 1129 KiB | 84.39 | 37.82 | 0.0 | 0.04 | 35.8 | — |
+| [urban_civic_10x.png](v2/urban/urban_civic_10x.png) | escena diurna | [`v2/urban/urban_civic_10x.json`](v2/urban/urban_civic_10x.json) | 1440×900 · 1227 KiB | 98.18 | 38.27 | 0.0 | 0.14 | 35.8 | — |
+| [urban_commercial_05x.png](v2/urban/urban_commercial_05x.png) | escena diurna | [`v2/urban/urban_commercial_05x.json`](v2/urban/urban_commercial_05x.json) | 1440×900 · 1097 KiB | 84.25 | 37.77 | 0.0 | 0.03 | 35.8 | — |
+| [urban_commercial_10x.png](v2/urban/urban_commercial_10x.png) | escena diurna | [`v2/urban/urban_commercial_10x.json`](v2/urban/urban_commercial_10x.json) | 1440×900 · 1212 KiB | 94.66 | 34.96 | 0.0 | 0.07 | 35.8 | — |
+| [urban_industrial_05x.png](v2/urban/urban_industrial_05x.png) | escena diurna | [`v2/urban/urban_industrial_05x.json`](v2/urban/urban_industrial_05x.json) | 1440×900 · 1073 KiB | 85.16 | 37.58 | 0.0 | 0.02 | 35.8 | — |
+| [urban_industrial_10x.png](v2/urban/urban_industrial_10x.png) | escena diurna | [`v2/urban/urban_industrial_10x.json`](v2/urban/urban_industrial_10x.json) | 1440×900 · 1145 KiB | 95.22 | 35.8 | 0.0 | 0.04 | 35.8 | — |
+| [urban_residential_05x.png](v2/urban/urban_residential_05x.png) | escena diurna | [`v2/urban/urban_residential_05x.json`](v2/urban/urban_residential_05x.json) | 1440×900 · 1120 KiB | 83.87 | 36.41 | 0.0 | 0.02 | 35.8 | — |
+| [urban_residential_10x.png](v2/urban/urban_residential_10x.png) | escena diurna | [`v2/urban/urban_residential_10x.json`](v2/urban/urban_residential_10x.json) | 1440×900 · 1209 KiB | 93.09 | 34.3 | 0.0 | 0.03 | 35.8 | — |
 
 ## `v2/weathering/`
 
@@ -226,7 +264,6 @@ a un JSON con su nombre.
 - `phaser/fx_v2/atribucion/halo_retirado_fire_lighting.png` — sondas de atribución del halo de FASE 5 (`f606813`), citadas con sus RGB en `apps/web/src/fx-lab/fx-effects.ts` §5.2; la corrida que las disparó no las nombró en ningún JSON.
 - `phaser/fx_v2/atribucion/halo_sin_lighting.png` — sondas de atribución del halo de FASE 5 (`f606813`), citadas con sus RGB en `apps/web/src/fx-lab/fx-effects.ts` §5.2; la corrida que las disparó no las nombró en ningún JSON.
 - `v2/ag/quality_ab.png` — render intermedio de WP02 (`9a48fee`) pegado sobre negro para el A/B de calidad; sus dos fuentes sí tienen JSON hermano en `v2/ag/`.
-- `v2/fire/fire_blender_ab.png` — hoja de FASE 3 (`b58f263`) escrita por `tools/art-pipeline/blender/ext_lab/fire_ab_sheet.py`; las medidas por panel sí están, en `v2/fire/fire_blender_ab_readings.json`, indexadas como `{familia}-{mood}-{brazo}` y no por nombre de archivo.
 - `v2/fire/fire_control_detail.png` — diagnóstico de FASE 2 (`9e95206`): la hoja de control y su detalle se escribieron antes de que el script dejara procedencia por archivo.
 - `v2/fire/fire_control_sheet.png` — diagnóstico de FASE 2 (`9e95206`): la hoja de control y su detalle se escribieron antes de que el script dejara procedencia por archivo.
 - `v2/sheets/ag_civic_ab.png` — hoja compuesta en WP02-WP05 (`9a48fee`, `464608f`, `348eb78`), antes de que existiera `firmar_hoja()`. Regenerarla reescribiría una imagen ya revisada: decide el responsable si se vuelve a publicar con firma.

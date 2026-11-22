@@ -362,5 +362,20 @@
   "vegetación": true,
   "mobiliario": true,
   "terreno horneado": true
- }
+ },
+ "analysisExcludeRects": [
+  [
+   0,
+   0,
+   1440,
+   130
+  ],
+  [
+   16,
+   736,
+   556,
+   884
+  ]
+ ],
+ "analysisExcludeNote": "D-111.2 cierre FASE 6.2 · región de análisis sin HUD: la captura completa original se conserva; estas dos áreas (banda superior de la HUD de React y panel inferior izquierdo) salen de la medida de luma y de recorte a blanco en wp08-index.py. Bandas medidas sobre las 8 capturas: la HUD ocupa las mismas posiciones en todas."
 }

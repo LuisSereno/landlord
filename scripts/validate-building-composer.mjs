@@ -46,6 +46,17 @@ const PATHS = {
 };
 const STAGING_PREFIX = "blender_artist/staging/";
 const PROMOTIONS_PATH = join(REPO_ROOT, "blender_artist/manifests/runtime-promotions.json");
+/**
+ * D-111.2 cierre FASE 6.4 · los perfiles candidatos WP06 también pasan por el gate. Sus cuatro
+ * metadata (evidence/v2/candidates/) se validan con el MISMO `checkCandidate`/`checkSceneEvidence`
+ * que las promociones — sin promocionar nada: son evidencia QA y el resultado va aparte en el
+ * informe (`candidateProfiles`).
+ */
+const CANDIDATE_PROFILES_DIR = join(
+  REPO_ROOT,
+  "docs/art/graphics-capabilities/evidence/v2/candidates",
+);
+const CANDIDATE_PROFILE_TYPES = ["row_house", "mixed_tenement", "town_hall", "warehouse"];
 const ALLOWED_LICENSES = ["CC0-1.0", "original"];
 const ALLOWED_SOURCE_PREFIXES = [STAGING_PREFIX, "blender_artist/sources/original/"];
 const SUPPORT_KINDS = ["base", "connector", "plinth", "pipe", "support"];
@@ -55,6 +66,13 @@ const TREATMENT_PATHS = [
   "atlas-directo",
   "atlas-profundo",
   "plano",
+  /**
+   * D-111.2 cierre FASE 6.4: la escalera del propio compositor (scene.py:1309) emite `sin-base-color`
+   * para un material cuyo Principled no tiene input Base Color — no es un tratamiento, es la ausencia
+   * medida de un origen de color. El gate sólo lo acepta si `colorSourceFound` lo corrobora: con un
+   * color source presente sería una mentira, no un vocabulario.
+   */
+  "sin-base-color",
   "sin-albedo-enlazado",
   "vfx-emisivo",
 ];
@@ -602,7 +620,11 @@ function checkSceneEvidence(candidate, modulesById, errors) {
   if (untreated.length > 0) {
     errors.push(`§11 ${label}: ${untreated.length} materiales con color de origen sin tratar`);
   }
-  const offLadder = variants.filter((variant) => !TREATMENT_PATHS.includes(variant.treatmentPath));
+  const offLadder = variants.filter(
+    (variant) =>
+      !TREATMENT_PATHS.includes(variant.treatmentPath) ||
+      (variant.treatmentPath === "sin-base-color" && variant.colorSourceFound !== false),
+  );
   if (offLadder.length > 0) {
     errors.push(
       `§11 ${label}: tratamiento fuera de la escalera: ${offLadder.map((variant) => `${variant.material}=${variant.treatmentPath}`).join(", ")}`,
@@ -792,6 +814,30 @@ function main() {
     }
   }
 
+  /** Los perfiles candidatos WP06, con el mismo gate que las promociones (D-111.2 cierre 6.4). */
+  let candidateProfiles = 0;
+  const profileSignatures = new Map();
+  for (const buildingType of CANDIDATE_PROFILE_TYPES) {
+    const metadataPath = join(CANDIDATE_PROFILES_DIR, `wp06_${buildingType}-candidata.json`);
+    if (!existsSync(metadataPath)) {
+      errors.push(`§24 perfil candidato ${buildingType}: falta la metadata '${metadataPath}'`);
+      continue;
+    }
+    const candidate = read(metadataPath);
+    checkCandidate(candidate, modulesById, sourcesById, grammars, dirname(metadataPath), errors);
+    checkSceneEvidence(candidate, modulesById, errors);
+    if (candidate.candidateProfile === undefined) {
+      errors.push(`§24 perfil candidato ${buildingType}: la metadata no declara candidateProfile`);
+    }
+    const seen = profileSignatures.get(candidate.compositionSignature);
+    if (seen)
+      errors.push(
+        `§14 firmas idénticas entre ${seen} y ${candidate.candidateId}: no son dos variantes`,
+      );
+    else profileSignatures.set(candidate.compositionSignature, candidate.candidateId);
+    candidateProfiles += 1;
+  }
+
   if (errors.length > 0) {
     console.error(errors.map((message) => `- ${message}`).join("\n"));
     process.exit(1);
@@ -806,6 +852,7 @@ function main() {
           ? options.manifest
           : "runtime-promotions.json",
       candidates,
+      candidateProfiles,
       note: "gramáticas contra catálogo y dominio, determinismo §13/§14/§16 medido sin Blender",
     }),
   );

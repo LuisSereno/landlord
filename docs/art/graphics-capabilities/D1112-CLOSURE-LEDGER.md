@@ -4,8 +4,10 @@ Ejecuta las fases pendientes sobre el baseline del runbook `D111-V2-VISUAL-QUALI
 (WP00–WP08 ya ejecutados y commiteados). Tabla `Fase | Estado | Commit | Evidencia | Pendiente`.
 Si una sesión se interrumpe, el siguiente agente continúa leyendo este archivo, el HEAD y el runbook.
 
-Estado objetivo: `READY FOR HUMAN VISUAL REVIEW` — sin promocionar nada a producción
-(`runtime-promotions.json` intacto).
+Estado objetivo alcanzado: **`READY FOR HUMAN VISUAL REVIEW`** — sin promocionar nada a producción
+(`runtime-promotions.json` intacto durante todo D-111.2). Validación final: diff-check, composer
+valid (15+4), capabilities-valid (24), licencias, typecheck, vitest 43/43, build, smoke, índice
+`--check` exit 0 (141 PNG, 0 duras, 12 legacy aislados), checker de anclajes OK.
 
 ## Baseline (verificado en FASE 1)
 
@@ -36,7 +38,7 @@ Estado objetivo: `READY FOR HUMAN VISUAL REVIEW` — sin promocionar nada a prod
 | 5 · exposición nocturna definitiva | pendiente | — | `night_lighting_final_ab.png` | — |
 | 6 · evidencias y validadores | pendiente | — | índice `--check` | ver defectos heredados |
 | 7 · WP09 y documentación | completada | (este commit) | capabilities.json (24 entradas), guía §39, ADR D-111 enmendado, ART.md/ART-PIPELINE.md, citas §6.x reapuntadas | revisión del propietario |
-| 8 · validación final y publicación | pendiente | — | informe corto | push al cerrar |
+| 8 · validación final y publicación | completada | (este commit) | informe corto al propietario | revisión visual humana de las hojas |
 
 ## Defectos heredados registrados en FASE 1 (sin regenerar evidencias antiguas)
 

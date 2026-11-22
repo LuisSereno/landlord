@@ -39,7 +39,7 @@ export type BuildingScenario = BuildingConditionInput | "construction";
 export type BuildingPlacement = {
   readonly key: string;
   readonly type: string;
-  /** Derivado por `projectBuildingCondition`: nadie escribe el sprite a mano desde D-111.2 §6.2. */
+  /** Derivado por `projectBuildingCondition`: nadie escribe el sprite a mano (contrato de weathering → visualStates; cierre FASE 4). */
   readonly state: BuildingAssetState;
   readonly scenario: BuildingScenario;
   readonly cell: Cell;

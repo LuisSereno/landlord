@@ -95,3 +95,32 @@ sprites, perfiles de material, filtros, luces y partículas sigue siendo revisi�
 efecto queda activado por defecto. `graphic_civic` permanece como control de runtime. No hubo cambios
 de dominio, `GameState`, guardados ni topología vial por razones visuales; el laboratorio de QA es la
 única superficie que lee las banderas de efectos.
+
+## Enmienda D-111.2 — cierre del runbook v2 (2026-11-22)
+
+El runbook `docs/art/graphics-capabilities/D111-V2-VISUAL-QUALITY-RUNBOOK.md` se ejecutó completo
+(WP00–WP08) y el brief de cierre dejó la fase de integración en `READY FOR HUMAN VISUAL REVIEW` —
+nunca `DONE` de promoción: `runtime-promotions.json` no se tocó en todo D-111.2. Lo que el cierre
+añadió sobre el estado anterior de esta enmienda:
+
+1. **Incendio híbrido Blender + Phaser** (`evidence/v2/closure/fire/`): la candidata `burning` entra
+   en Phaser por ruta QA con sus `fireAnchors` en metros; el adaptador metros→u,v reproduce el pivote
+   publicado a 4 decimales y el checker independiente mide Δ 0,00000. La variante QA del sprite
+   (`qaFlamePeakEmission 0,45`, mando opt-in del compositor) reduce los focos estáticos y el rig
+   anima las llamas sin duplicar columna de humo.
+2. **Candidatas WP06 en Phaser** (`evidence/v2/closure/urban/`): las cuatro visibles a 1× y 0,5×
+   sobre el mundo real con su control aprobado en el mismo fotograma, rotuladas como muestra QA.
+3. **Condición proyectada en gameplay** (cierre FASE 4): `buildingAssetStateFor` consume
+   `state/condition/structuralIntegrity` con la proyección del contrato de weathering; un operativo
+   con estructura intacta ya no se dibuja como ruina. El tier `aged` cae en `complete` hasta que
+   exista sprite envejecido aprobado (D-080).
+4. **Exposición nocturna**: los tres presets de WP07 verificados sin ajustes nuevos (σ nocturno 91 %
+   del día, 0 px recortados en WebGL, desmontaje sin fugas).
+5. **Evidencia y validadores**: índice por brazo con `--check` verde (141 PNG, 0 duras), región de
+   análisis sin HUD para las capturas urbanas, 12 históricos sin procedencia aislados como
+   `legacy_unverified`, y el gate del Composer extendido a los perfiles candidatos.
+
+Estado de la decisión: **sin cambios**. Nada de esto promociona assets, filtros o efectos a
+producción; las promociones siguen siendo revisión humana. La guía reutilizable para generar y
+revisar un edificio nuevo está en `docs/art/BUILDING-COMPOSER.md` §39 y el ledger por fases en
+`docs/art/graphics-capabilities/D1112-CLOSURE-LEDGER.md`.

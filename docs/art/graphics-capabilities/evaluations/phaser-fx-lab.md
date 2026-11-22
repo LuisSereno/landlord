@@ -150,3 +150,28 @@ node scripts/fx-lab-smoke.mjs                              # smoke barato, sin c
 
 Sin `FX_LAB_BASE_URL` el arnés intenta montar su propia vista previa. `dist-fxlab/` está ignorado por
 Git y no se comitea nunca.
+
+## Añadido D-111.2: presets de mood y verificación definitiva (WP07 + cierre FASE 5)
+
+WP07 convirtió la configuración suelta en tres **presets como configuraciones** (`day_balanced`,
+`night_balanced`, `night_fire`): fijan mood + lista de familias, se aplican por URL
+(`?fxPreset=night_fire`) o por botón, y la sonda distingue un preset puesto de una combinación movida
+a mano. La calibración nocturna se midió, no se afinó a ojo: ambiente `0x8f97a6` (luma 34,2,
+desviación 14,1 sobre el bake), difusa 1,25, radio de farola 132, charca aplastada sobre el pavimento
+(`lampPool`) en vez de un halo flotante, y emisión nocturna POR TIPO de emisivo (ventana 0,62, farola
+0,50, charca 0,34, fuego 0,85).
+
+La verificación definitiva del cierre (FASE 5, `evidence/v2/closure/night/`) re-mide los seis puntos
+del encargo sobre esos presets sin tocar una constante: día, noche, noche+fuego, 0,5×, CANVAS forzado
+y 8 ciclos de desmontaje. La σ del contenido nocturno queda en el 91 % de la diurna (23,4 vs 25,6) y
+el recorte a blanco es 0 px en los cuatro brazos WebGL y 13 px en CANVAS, donde no hay filtros que
+repartan la energía. El A/B completo con cifras por panel es `night_lighting_final_ab.png`.
+
+## El fuego híbrido Blender + Phaser (cierre FASE 2)
+
+El laboratorio es también el anfitrión del incendio híbrido: la candidata `mixed_tenement` en estado
+`burning` entra por `?fxCandidate` con sus `fireAnchors` publicados en metros por el compositor, el
+adaptador los lleva a coordenadas de sprite (misma cadena que `pivot_from_origin`, Δ 0,00000 contra
+una segunda implementación en `scripts/hybrid-fire-anchor-check.py`) y el rig anima las llamas sobre
+la variante QA del sprite con focos estáticos reducidos (`--qaFlamePeakEmission 0,45`), sin soltar
+humo encima del horneado. Evidencia: `evidence/v2/closure/fire/hybrid_fire_ab.png`.

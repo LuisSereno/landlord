@@ -1,5 +1,6 @@
 /**
- * D-111.2 §6.2 — la calle de pruebas elige el sprite, no lo escribe nadie.
+ * D-111.2 cierre FASE 4 — la calle de pruebas elige el sprite por la proyección del contrato de
+ * weathering, no lo escribe nadie.
  *
  * El defecto que se cierra aquí es el colapso `condition < 60 ⇒ damaged`: un edificio envejecido con
  * la estructura en pie se pintaba como ruina. Se comprueba la TABLA derivada (datos, sin navegador);
@@ -25,7 +26,7 @@ const escenario = (key: string): BuildingConditionInput | null => {
   return scenario === "construction" ? null : scenario;
 };
 
-describe("ruta de selección de la calle (D-111.2 §6.2)", () => {
+describe("ruta de selección de la calle (D-111.2 cierre FASE 4)", () => {
   it("ningún estado se escribe a mano: todos vienen de la proyección", () => {
     for (const placement of BUILDING_PLACEMENTS) {
       if (placement.scenario === "construction") {

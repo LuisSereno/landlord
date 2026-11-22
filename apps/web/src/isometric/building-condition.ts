@@ -1,7 +1,8 @@
 import type { BuildingAssetState } from "@landlord/shared";
 
 /**
- * D-111.2 §6.1 — proyección visual de conservación derivada del estado autoritativo.
+ * D-111.2 WP04 + cierre FASE 4 — proyección visual de conservación derivada del estado autoritativo
+ * (los umbrales son los que publica el contrato: blender_artist/manifests/building-weathering-contract.json → visualStates).
  *
  * El contrato de weathering (`blender_artist/manifests/building-weathering-contract.json`) separa
  * cuatro representaciones, pero el runtime sólo conocía tres `BuildingAssetState` y una regla:

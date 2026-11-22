@@ -97,6 +97,13 @@ matices de licencia en
 - CC0 no implica que debamos volcar ZIPs completos al repo: esperar política LFS/provenance.
 - El Building Composer gobierna hoy la producción modular de edificios; la antigua Building Factory
   está retirada (D-098). Mantener semillas, procedencia, huellas y validación dentro de esa cadena.
+- D-111.2 cerró en `READY FOR HUMAN VISUAL REVIEW` (ledger: `docs/art/graphics-capabilities/D1112-CLOSURE-LEDGER.md`):
+  la proyección de conservación distingue conservado/envejecido/dañado/ardiendo a partir de
+  `state/condition/structuralIntegrity` (`building-condition.ts`); el tier `aged` cae en el sprite
+  `complete` hasta que exista sprite envejecido aprobado (D-080). Las candidatas WP06 y el fuego
+  híbrido sólo se ven por rutas QA (`?fxCandidate` en /art-lab, `placeCandidateQa` en la escena);
+  nada está promocionado y `runtime-promotions.json` no se tocó.
+- Guía reutilizable para generar y revisar un edificio: `docs/art/BUILDING-COMPOSER.md` §39.
 
 ## Fuente extensa
 

@@ -1446,3 +1446,13 @@ Un contributor nuevo debe poder tomar un template aprobado, crear un asset y eje
 - declare autor/licencia/provenance.
 
 El Art Pipeline Specification define **cómo el arte de Landlord se convierte en contenido listo para software**.
+
+## Producción de edificios (D-111 / D-111.2)
+
+La producción modular de edificios la gobierna el Building Composer, no este pipeline de materiales:
+gramáticas y candidatos en `blender_artist/manifests/`, render con
+`scripts/build-building-composer.mjs` y validación única con `scripts/validate-building-composer.mjs`
+(que desde el cierre D-111.2 también cubre los perfiles candidatos WP06). La ruta completa —familia,
+módulos, composición, materiales y condición, render offline, carga QA en Phaser, captura y
+aprobación— está documentada como procedimiento reutilizable en `docs/art/BUILDING-COMPOSER.md` §39;
+el ledger del cierre, en `docs/art/graphics-capabilities/D1112-CLOSURE-LEDGER.md`.

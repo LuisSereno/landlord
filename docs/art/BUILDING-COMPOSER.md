@@ -1122,3 +1122,43 @@ el camino de Phaser.
   (WP09); mientras, lo sostiene `check_family_coverage`, que compara el vocabulario contra el perfil vivo.
 - **El brazo v1 de §3** (`gn_masonry_bays`, firma `b1d36ae74df6`) ya no es re-renderizable porque añadía
   una paleta y un perfil no añade opciones de eje. Su evidencia queda publicada con `axisChoices` y firma.
+
+## 39. Cómo generar y revisar un nuevo edificio con las capacidades actuales (D-111.2 cierre)
+
+El procedimiento completo, reutilizable sin depender de ninguna conversación:
+
+1. **Familia y módulos.** Elige el tipo (su gramática y familia viven en
+   `blender_artist/manifests/building-composer-grammars.json`) y, si el encargo es de autoría,
+   decláralo como perfil de candidato en `blender_artist/manifests/building-composer-candidates.json`
+   — un overlay por rol que pasa las mismas guardas §11/§17 que producción (WP06).
+2. **Composición y render offline.**
+   `node scripts/build-building-composer.mjs --types=<tipo> --seeds=<n> --states=<estado>`
+   `--mood=<mood> [--candidate=<perfil>] --outDir=<staging> --metrics=<json> --keepAttempts`.
+   El manifiesto publicado incluye firma de composición, pivote, huella, px/m, `fireAnchors` en
+   metros (si el estado arde) y los checks de escena. Para la variante QA de fuego híbrido añade
+   `--qaFlamePeakEmission=<pico>` (sólo llega por request; producción renderiza 1,35).
+3. **Materiales y condición.** El tier de conservación es MATERIAL (`conserved`/`aged` vía
+   `--weathering=`) y el daño es GEOMETRÍA (`damaged`/`burning`); el contrato vive en
+   `blender_artist/manifests/building-weathering-contract.json` y su proyección en runtime la
+   resuelve `apps/web/src/isometric/building-condition.ts` a partir de
+   `state/condition/structuralIntegrity` — un operativo con estructura intacta nunca dibuja geometría
+   de ruina.
+4. **Render y validación.** El validador es UNO:
+   `node scripts/validate-building-composer.mjs` valida gramáticas contra catálogo, determinismo
+   §13/§14/§16, las promociones de runtime y —desde el cierre— los cuatro perfiles candidatos WP06.
+   `pnpm art:capabilities:check` mantiene el catálogo de capacidades.
+5. **Carga en Phaser QA.** Copia el PNG+JSON a `apps/web/dist/qa-candidates/` (el arnés lo hace) y
+   usa una de las dos rutas explícitas: `?fxCandidate=<nombre>` en `/art-lab` (laboratorio) o
+   `__landlordCameraTest.placeCandidateQa(...)` (mundo real). Ninguna sirve en producción ni toca
+   `runtime-promotions.json`.
+6. **Captura visual.** Arnéses de referencia: `scripts/hybrid-fire-capture.mjs` (fuego híbrido con
+   verificación de anclajes por `scripts/hybrid-fire-anchor-check.py`),
+   `scripts/candidate-phaser-capture.mjs` (pareja control/candidata sobre el mundo real a 1× y 0,5×,
+   terreno verificado por píxel) y `scripts/building-condition-capture.mjs` (los cuatro casos de
+   condición con la textura que el renderizador realmente seleccionó).
+7. **Índice y gates.** `python3 scripts/wp08-index.py` regenera `evidence/INDEX.md`; `--check`
+   juzga por brazo y sale 0 con 0 defectos duros; los históricos sin procedencia quedan
+   `legacy_unverified` y aislados.
+8. **Solicitud de aprobación.** El cierre es `READY FOR HUMAN VISUAL REVIEW` en
+   `D1112-CLOSURE-LEDGER.md`; la promoción a producción (`runtime-promotions.json`) exige aprobación
+   humana explícita y jamás la ejecuta un arnés.

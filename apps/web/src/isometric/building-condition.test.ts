@@ -1,5 +1,5 @@
 /**
- * D-111.2 §6.1 — la proyección de conservación no puede volver a colapsar `aged` sobre `damaged`.
+ * D-111.2 WP04 + cierre FASE 4 — la proyección de conservación no puede volver a colapsar `aged` sobre `damaged`.
  *
  * Lo que se prueba aquí es la DISTINCIÓN, que es el objetivo de la fase: el mismo edificio con el
  * mismo `condition` cambia de representación según la integridad estructural real, y ningún edificio
@@ -26,7 +26,7 @@ const CONTRACT = resolve(
 );
 const contract = JSON.parse(readFileSync(CONTRACT, "utf8"));
 
-describe("proyección visual de conservación (D-111.2 §6.1)", () => {
+describe("proyección visual de conservación (D-111.2 WP04 + cierre FASE 4)", () => {
   it("mantiene el umbral y el vocabulario del contrato", () => {
     expect(AGED_CONDITION_BELOW).toBe(60);
     expect(contract["weatheringTokens"]).toEqual(["conserved", "aged"]);

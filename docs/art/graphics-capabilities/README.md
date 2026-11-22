@@ -69,23 +69,27 @@ retiran donde eran geométricamente falsos y se conservan donde la medida los so
 | `kenney_modular_buildings` | pack | `available` | no abierto en D-111 |
 | `kenney_retro_urban_kit` | pack | `tested` | garajes medidos a 1,00 m: no resuelven un muelle; rechazado para `warehouse` |
 | `kenney_mini_characters` | pack | `available` | rechazado para personajes jugables |
-| `phaser_fx_lab` | capacidad | `qa_integrated` | laboratorio disponible y medido brazo a brazo; **sin presets y sin validación visual nueva** |
+| `phaser_fx_lab` | capacidad | `qa_integrated` | tres presets como configuraciones (day_balanced, night_balanced, night_fire) verificados por sonda; noche legible (σ 91 % del día, 0 px recortados en WebGL) y desmontaje sin fugas (WP07 + cierre FASE 5) |
 | `phaser_filters` | capacidad | `qa_integrated` | grading cálido candidato (+33,3 ms p95 medido); nada activado por defecto |
 | `phaser_bloom` | capacidad | `qa_integrated` | por objeto barato y útil de noche (+6,7 ms); por umbral caro (+118,3 ms) y prohibido global |
 | `phaser_dynamic_lighting` | capacidad | `qa_integrated` | MEJORA de noche con radios calibrados, SIN MEJORA de día (+60/67 ms) |
 | `normal_maps` | capacidad | `tested` | es lo que hace legible la junta a zoom reducido; restringido a QA |
 | `phaser_particles` | capacidad | `qa_integrated` | **MEJORA** de legibilidad de estado (humo, polvo) |
 | `phaser_world_scale_capture` | capacidad | `qa_integrated` | la partida real a 1440×900 y 1×/0,5× con el censo del renderizador; sólo Centro Cívico cumple los siete contadores (WP08) |
+| `composer_candidate_qa_runtime` | capacidad | `qa_integrated` | las cuatro candidatas WP06 y el incendio híbrido Blender+Phaser dentro de Phaser por rutas QA explícitas, sin promocionar nada (cierre FASE 2-4) |
 | `tilemap_gpu_layer` | capacidad | `available` | condicionada a un problema real de terreno |
 
-Las cuatro entradas `qa_integrated` que añadió D-111.2 están sin promover. Las tres de Blender y del
+Las cinco entradas `qa_integrated` que añadió D-111.2 están sin promover. Las tres de Blender y del
 compositor (`blender_geometry_nodes`, `building_weathering_contract`, `composer_candidate_profiles`)
-viven en el pipeline offline de QA. La cuarta (`phaser_world_scale_capture`) es al revés: no introduce
-ningún asset, fotografía con el mismo harness el bundle ya promocionado y por eso su veredicto útil es
-negativo —la calle poblada existe, pero sólo el distrito cívico llega a los siete contadores y la HUD
-queda dentro del recorte a blanco que marca `LAVADA` el índice. Silenciarla en la captura de QA o
-aceptar el rótulo como parte de la evidencia decide el responsable; `runtime-promotions.json` no se tocó
-en WP00–WP08.
+viven en el pipeline offline de QA —aunque la proyección de conservación del contrato YA tiene call
+site jugable desde el cierre FASE 4: un operativo con `condition < 60` y estructura intacta ya no se
+dibuja como ruina, y el tier `aged` cae en el sprite `complete` mientras el catálogo no tenga sprite
+envejecido (D-080 pendiente). La cuarta (`phaser_world_scale_capture`) no introduce ningún asset:
+fotografía el bundle ya promocionado y su veredicto útil es negativo —sólo el distrito cívico llega
+a los siete contadores; el recorte a blanco del HUD se mide ahora sobre la región sin HUD (cierre
+FASE 6.2, capturas originales conservadas). La quinta (`composer_candidate_qa_runtime`) carga las
+candidatas WP06 y el fuego híbrido por rutas QA explícitas: `runtime-promotions.json` no se tocó en
+todo D-111.2.
 
 ## Evaluaciones
 

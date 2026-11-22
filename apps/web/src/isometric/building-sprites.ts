@@ -23,7 +23,7 @@ export type ProjectedBuildingState = "operational" | "burning" | "collapse_pendi
 /**
  * D-111.2 cierre FASE 4 · un solo clasificador. Con `structuralIntegrity` disponible (viaja en la
  * proyección de vista junto a `state` y `condition`) la regla la pone `buildingVisualTierFor` — la
- * proyección §6.1 del contrato de weathering — y el tier `aged` cae en el sprite `complete` porque
+ * proyección del contrato de weathering (building-weathering-contract.json → visualStates) — y el tier `aged` cae en el sprite `complete` porque
  * el catálogo runtime no tiene sprite envejecido (ausencia registrada, no simulada). Sin integrity,
  * la regla antigua `condition < 60 ⇒ damaged` se conserva para los consumidores que aún no la tienen.
  */

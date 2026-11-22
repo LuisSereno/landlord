@@ -30,12 +30,12 @@ Estado objetivo: `READY FOR HUMAN VISUAL REVIEW` — sin promocionar nada a prod
 | 3 · cuatro candidatas en Phaser | completada | `baa4de0` | `evidence/v2/closure/urban/` · `four_candidates_in_phaser{,_half}.png` + manifest | muestras QA sobre terreno del mundo real; parejas 1×/0,5×; revisión visual humana |
 | 4 · envejecimiento vs daño | completada | `bff341a` | `evidence/v2/closure/condition/` · `building_condition_in_phaser.png` | `aged` cae en `complete` (D-080 pendiente); migración de assets aprobados requiere autorización |
 | 5 · exposición nocturna definitiva | completada | `b9481af` | `evidence/v2/closure/night/` · `night_lighting_final_ab.png` + `mount_dismount.json` | sin ajustes nuevos: la calibración de la FASE 5 del runbook se sostiene (σ nocturno 91 % del día, 0 px de recorte a blanco salvo 13 en CANVAS) |
-| 6 · evidencias y validadores | completada | (este commit) | índice `--check` exit 0 (141 PNG, 0 duras, 12 legacy aislados) · candidatas fuego re-render | 12 históricos sin procedencia quedan `legacy_unverified`; revisión visual de las hojas |
+| 6 · evidencias y validadores | completada | `c9f1530` | índice `--check` exit 0 (141 PNG, 0 duras, 12 legacy aislados) · candidatas fuego re-render | 12 históricos sin procedencia quedan `legacy_unverified`; revisión visual de las hojas |
 | 3 · cuatro candidatas en Phaser | pendiente | — | `evidence/v2/closure/urban/` (por crear) | — |
 | 4 · envejecimiento vs daño | pendiente | — | `building_condition_in_phaser.png` | sprite `aged` no existe en catálogo runtime (D-080) |
 | 5 · exposición nocturna definitiva | pendiente | — | `night_lighting_final_ab.png` | — |
 | 6 · evidencias y validadores | pendiente | — | índice `--check` | ver defectos heredados |
-| 7 · WP09 y documentación | pendiente | — | README capabilities, guía de edificio nuevo | rótulos §6.1–§6.3 |
+| 7 · WP09 y documentación | completada | (este commit) | capabilities.json (24 entradas), guía §39, ADR D-111 enmendado, ART.md/ART-PIPELINE.md, citas §6.x reapuntadas | revisión del propietario |
 | 8 · validación final y publicación | pendiente | — | informe corto | push al cerrar |
 
 ## Defectos heredados registrados en FASE 1 (sin regenerar evidencias antiguas)

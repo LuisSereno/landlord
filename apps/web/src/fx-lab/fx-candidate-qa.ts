@@ -62,6 +62,45 @@ export function candidateMetadataUrl(name: string): string {
 }
 
 /**
+ * FINAL-ASSET-QA 2.3 · prohibición de sustituciones silenciosas. La ruta QA sólo acepta la candidata
+ * solicitada: valida que la metadata declare identidad (`candidateId`, `candidateProfile`,
+ * `compositionSignature`), que el TIPO sea el pedido (el nombre es el `buildingType`, o
+ * `buildingType-estado` para variantes) y que el ESTADO corresponda. Si algo falla se informa
+ * explícitamente — nunca se muestra otro edificio antiguo como sustituto.
+ */
+export type CandidateQaValidation =
+  | { readonly ok: true; readonly requestedName: string }
+  | { readonly ok: false; readonly requestedName: string; readonly problems: readonly string[] };
+
+export function validateCandidateQa(
+  meta: CandidateQaMetadata,
+  requestedName: string,
+): CandidateQaValidation {
+  const problems: string[] = [];
+  if (!meta.candidateId) problems.push("metadata sin candidateId");
+  if (!meta.candidateProfile) problems.push("metadata sin candidateProfile");
+  if (!meta.compositionSignature) problems.push("metadata sin compositionSignature");
+  if (!meta.buildingType) {
+    problems.push("metadata sin buildingType");
+  } else if (requestedName !== meta.buildingType && !requestedName.startsWith(`${meta.buildingType}-`)) {
+    problems.push(
+      `tipo solicitado "${requestedName}" no corresponde a la candidata "${meta.buildingType}"`,
+    );
+  }
+  if (!meta.state) {
+    problems.push("metadata sin state");
+  } else if (meta.buildingType && requestedName.startsWith(`${meta.buildingType}-`)) {
+    const requestedState = requestedName.slice(meta.buildingType.length + 1);
+    if (requestedState !== meta.state) {
+      problems.push(`variante pedida "${requestedState}" no disponible; la candidata es "${meta.state}"`);
+    }
+  }
+  return problems.length
+    ? { ok: false, requestedName, problems }
+    : { ok: true, requestedName };
+}
+
+/**
  * Metros de la escena del compositor → píxel del PNG final. Misma cadena que `pivot_from_origin`:
  * proyección ortográfica sobre el lienzo renderizado (px/m del framing), menos el offset del
  * recorte, reescalado al PNG publicado por el factor `final/cropped` (supersample).

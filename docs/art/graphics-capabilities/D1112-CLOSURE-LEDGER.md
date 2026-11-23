@@ -44,8 +44,8 @@ legacy (`bld_*`) queden como controles históricos. Sin tocar `GameState`, promo
 | Paso | Estado | Commit | Evidencia | Pendiente |
 | --- | --- | --- | --- | --- |
 | 0 · baseline y registro | DONE | `ba073fd` | esta sección | — |
-| 1 · cuatro inconsistencias de auditoría | DONE | — | ledger dedup · fixture `qaStates=damaged` → `ruin` + test · README sin contador · hueco WP06 eliminado · `zooms` desde capturas | — |
-| 2 · mapa de procedencias + anti-sustitución | PENDING | — | `FINAL-ASSET-SOURCES.md` (por crear) | — |
+| 1 · cuatro inconsistencias de auditoría | DONE | `b0c8de9` | ledger dedup · fixture `qaStates=damaged` → `ruin` + test · README sin contador · hueco WP06 eliminado · `zooms` desde capturas | — |
+| 2 · mapa de procedencias + anti-sustitución | DONE | — | `FINAL-ASSET-SOURCES.md` · `validateCandidateQa` en la ruta QA · `listCandidateQaErrors()` en la escena | — |
 | 3 · variantes WP06 que faltan | PENDING | — | — | — |
 | 4 · demostraciones de incendio WP06 | PENDING | — | `modern_building_fire_ab.png` (por crear) | — |
 | 5 · comparativa de conservación WP06 | PENDING | — | `modern_building_condition_ab.png` (por crear) | — |

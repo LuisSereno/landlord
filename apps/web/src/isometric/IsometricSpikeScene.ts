@@ -455,6 +455,8 @@ type CameraTestApi = {
    */
   placeCandidateQa(items: CandidateQaPlacement[]): void;
   listCandidateQa(): CandidateQaProbe[];
+  /** FINAL-ASSET-QA 2.3 · variantes pedidas que NO cargaron: sin sustituciones silenciosas. */
+  listCandidateQaErrors(): string[];
   listParcelMarks(): Array<{
     id: string;
     parcelId: string;
@@ -581,6 +583,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * catálogo: ninguna de estas texturas entra en el cache de variantes ni en el presupuesto D-101.
    */
   private candidateQaSamples = new Map<string, CandidateQaProbe>();
+  private candidateQaLoadErrors: string[] = [];
   private pendingVariantTextures = new Map<string, { bytes: number; districtId: string }>();
   private pendingCourtyardTextures = new Set<string>();
   private variantCache = new DistrictTextureCache(VARIANT_CACHE_BUDGET_BYTES);
@@ -2763,12 +2766,23 @@ export class IsometricSpikeScene extends Phaser.Scene {
         this.load.image(key, item.url);
       }
     }
+    // FINAL-ASSET-QA 2.3 · sin sustituciones silenciosas: si la variante pedida no carga se
+    // registra quién falló y con qué URL, nunca se deja el hueco sin decirlo.
+    this.load.once("loaderror", (file: { key: string; src: string }) => {
+      if (!file.key.startsWith("qa-candidate-")) return;
+      this.candidateQaLoadErrors.push(`${file.key.slice("qa-candidate-".length)}: PNG no cargó (${file.src})`);
+    });
     const placeAll = (): void => {
       if (this.sceneDestroyed) return;
       for (const item of items) {
         if (this.candidateQaSamples.has(item.name)) continue;
         const key = `qa-candidate-${item.name}`;
-        if (!this.textures.exists(key)) continue;
+        if (!this.textures.exists(key)) {
+          if (!this.candidateQaLoadErrors.some((entry) => entry.startsWith(`${item.name}:`))) {
+            this.candidateQaLoadErrors.push(`${item.name}: la textura no llegó a existir (${item.url})`);
+          }
+          continue;
+        }
         const center = gridToScreen(footprintCenter(item.cell, item.footprint), this.layout);
         const sprite = this.add.image(center.x, center.y, key);
         const origin = originFromPivot({ pivot: item.pivot });
@@ -3501,6 +3515,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
         this.placeCandidateQaItems(items);
       },
       listCandidateQa: () => [...this.candidateQaSamples.values()],
+      listCandidateQaErrors: () => [...this.candidateQaLoadErrors],
       listScenery: () => {
         camera.preRender();
         const view = camera.worldView;

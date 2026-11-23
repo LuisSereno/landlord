@@ -22,7 +22,12 @@ import {
   type FxRenderer,
 } from "./fx-lab-types";
 import type { FxLabProbeWindow } from "./mount";
-import { candidateMetadataUrl, candidatePngUrl, type CandidateQaMetadata } from "./fx-candidate-qa";
+import {
+  candidateMetadataUrl,
+  candidatePngUrl,
+  validateCandidateQa,
+  type CandidateQaMetadata,
+} from "./fx-candidate-qa";
 
 const CAPTURE_VIEWPORT = { width: 960, height: 540 };
 
@@ -45,9 +50,11 @@ export function FxLabPanel() {
    * D-111.2 cierre: la candidata QA se resuelve ANTES de montar. Si el parámetro `fxCandidate`
    * explicita una candidata y su JSON no está (la ruta `/qa-candidates/` sólo la escribe el arnés),
    * el lab NO se monta: una captura sin candidata no puede pasar por híbrida.
+   * FINAL-ASSET-QA 2.3: además se valida identidad/tipo/estado y el PNG — sin sustituciones
+   * silenciosas, el error dice qué se pidió y por qué no se sirve.
    */
   const [candidate, setCandidate] = useState<
-    { metadata: CandidateQaMetadata; pngUrl: string; textureKey: string } | "failed" | null
+    { metadata: CandidateQaMetadata; pngUrl: string; textureKey: string } | { error: string } | null
   >(null);
 
   useEffect(() => {
@@ -63,6 +70,14 @@ export function FxLabPanel() {
         return response.json() as Promise<CandidateQaMetadata>;
       })
       .then((metadata) => {
+        const validation = validateCandidateQa(metadata, name);
+        if (!validation.ok) throw new Error(validation.problems.join(" · "));
+        return fetch(candidatePngUrl(name)).then((response) => {
+          if (!response.ok) throw new Error(`PNG ${candidatePngUrl(name)}: HTTP ${response.status}`);
+          return metadata;
+        });
+      })
+      .then((metadata) => {
         if (alive) {
           setCandidate({
             metadata,
@@ -71,8 +86,13 @@ export function FxLabPanel() {
           });
         }
       })
-      .catch(() => {
-        if (alive) setCandidate("failed");
+      .catch((error: unknown) => {
+        if (alive) {
+          const detail = error instanceof Error ? error.message : String(error);
+          setCandidate({
+            error: `La candidata "${name}" no se sirve: ${detail}. El lab no se monta sin ella.`,
+          });
+        }
       });
     return () => {
       alive = false;
@@ -83,7 +103,7 @@ export function FxLabPanel() {
   useEffect(() => {
     if (!container.current || !initial) return;
     if (initial.candidate && !candidate) return;
-    if (candidate === "failed") return;
+    if (candidate && "error" in candidate) return;
     const mounted = mountFxLab(container.current, {
       effects: initial.effects,
       preset: initial.preset,
@@ -91,7 +111,7 @@ export function FxLabPanel() {
       zoom,
       perf,
       renderer,
-      candidate: candidate ?? null,
+      candidate: candidate && !("error" in candidate) ? candidate : null,
       ...CAPTURE_VIEWPORT,
     });
     controller.current = mounted;
@@ -160,10 +180,9 @@ export function FxLabPanel() {
           {probe?.webgl ? "WebGL" : "CANVAS"} · {renderer}
         </span>
       </header>
-      {candidate === "failed" && (
+      {candidate && "error" in candidate && (
         <p className="fx-lab-note" data-testid="fx-lab-candidate-error">
-          La candidata <code>{initial?.candidate}</code> no está en <code>/qa-candidates/</code>: la
-          ruta QA sólo la escribe el arnés de captura y el lab no se monta sin ella.
+          {candidate.error}
         </p>
       )}
 

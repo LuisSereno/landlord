@@ -2059,10 +2059,10 @@
  "triangleCount": 7896,
  "materialCount": 18,
  "textureCount": 7,
- "renderTime": 9390.88,
- "pngBytes": 958124,
- "sha256": "7b4f6eb7b04c5fc6ecf6869fd8b734368eae5698f42cf3cadafc6ddc37a3ba68",
- "pixelSha256": "4a98ac62708a40ed29d238fc2cabba8ae7206bf172755627a65099398c877acf",
+ "renderTime": 8725.35,
+ "pngBytes": 958125,
+ "sha256": "0f240f66037581aeedd67c66a2b5a7a2c1f6bc3f0cc186292b7540e9ae47d4cb",
+ "pixelSha256": "f4fb8ac0ebd483e8aefef31036f1d5f1ae354c5bfac3a495cb8795eeb130df7d",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -2114,12 +2114,11 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
   "width": 1394,
   "height": 944,
-  "sha256": "7b4f6eb7b04c5fc6ecf6869fd8b734368eae5698f42cf3cadafc6ddc37a3ba68",
-  "bytes": 958124,
-  "pathNote": "D-111.2 cierre FASE 6.1: la ruta de staging /tmp/wp06/... dejó de existir; el campo pasa a apuntar a la copia de evidencia en el repo, cuyo sha256 coincide con el que la metadata publicó en WP06 (verificado 2026-11-22). El PNG no se regeneró ni re-renderizó."
+  "sha256": "0f240f66037581aeedd67c66a2b5a7a2c1f6bc3f0cc186292b7540e9ae47d4cb",
+  "bytes": 958125
  },
  "trim": {
   "rendered": {
@@ -2241,7 +2240,7 @@
   "renderPixels": {
    "width": 1596,
    "height": 1074,
-   "sha256": "342693020aebc687541f2bf70616c2f68b494c5bb31c4c55d8ff67c76904e6c4"
+   "sha256": "4e064756e586f89b7058703ad959d5a5ee3e645cc891509a50a14cbb357c0944"
   },
   "pixels": {
    "width": 4788,
@@ -2250,10 +2249,10 @@
   }
  },
  "render": {
-  "renderMs": 9390.88,
-  "prepMs": 10490.96,
-  "totalMs": 34970.25,
-  "peakRssMb": 3643.6
+  "renderMs": 8725.35,
+  "prepMs": 9605.79,
+  "totalMs": 31602.95,
+  "peakRssMb": 3662.9
  },
  "request": {
   "candidateId": "w06cnd_warehouse_2",
@@ -2271,8 +2270,8 @@
   "state": "complete",
   "constructionStage": null,
   "candidateProfile": "gn_industrial_v2",
-  "output": "/tmp/wp06/out/attempts/2026-11-21T1459/w06cnd_warehouse_2.png",
-  "metadata": "/tmp/wp06/out/attempts/2026-11-21T1459/w06cnd_warehouse_2.json"
+  "output": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
+  "metadata": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.json"
  },
  "composition": {
   "buildingType": "warehouse",

@@ -1,0 +1,40 @@
+{
+ "schemaVersion": 1,
+ "arm": "damage_warehouse-damaged",
+ "captureMode": "art-lab-qa-candidate-scene",
+ "captureModeNote": "Art Lab es la herramienta QA de candidatos: NO es una captura de la escena jugable ni de una partida",
+ "requested": {
+  "mood": "night",
+  "preset": null,
+  "zoom": 1
+ },
+ "probe": {
+  "mood": "night",
+  "zoom": 1,
+  "candidate": {
+   "candidateId": "w06cnd_warehouse_2_damaged",
+   "compositionSignature": "a149cc2401e13c9914bf434d61f4d074c45edf1a3223931700a096a523359c85",
+   "candidateProfile": "gn_industrial_v2",
+   "state": "damaged",
+   "textureKey": "fx-candidate-warehouse-damaged",
+   "fireAnchors": 0,
+   "smokeFromSprite": true,
+   "anchorsUv": []
+  },
+  "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "preset": null,
+  "effects": [],
+  "lights": 0,
+  "litObjects": 0,
+  "emissive": 12,
+  "particles": 0,
+  "fireActive": false
+ },
+ "candidateName": "warehouse-damaged",
+ "compositionSignature": "a149cc2401e13c9914bf434d61f4d074c45edf1a3223931700a096a523359c85",
+ "sourceSprite": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_damaged.png",
+ "sourceSpriteSha256": "671c7dc1e6b316eae7c3a4d1b5cc4da7f64583f3df254920777a56e49cc188f8",
+ "canvasCaptureSha256": "d6f4714fd14971a594bf6551a733ba1c0f0efeaf7d57e8f86d9426f8c02685ad",
+ "pngBytes": 203061,
+ "url": "http://127.0.0.1:4217/art-lab?artQa=1&fxMood=night&fxPerf=1&fxZoom=1&fxCandidate=warehouse-damaged"
+}

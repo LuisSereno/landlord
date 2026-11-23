@@ -1,0 +1,46 @@
+{
+ "schemaVersion": 1,
+ "arm": "night_balanced_town_hall",
+ "captureMode": "art-lab-qa-candidate-scene",
+ "captureModeNote": "Art Lab es la herramienta QA de candidatos: NO es una captura de la escena jugable ni de una partida",
+ "requested": {
+  "mood": "night",
+  "preset": "night_balanced",
+  "zoom": 1
+ },
+ "probe": {
+  "mood": "night",
+  "zoom": 1,
+  "candidate": {
+   "candidateId": "w06cnd_town_hall_5",
+   "compositionSignature": "8a193df6dc8be8d6dbe70f6852cbf79b8149eb02dfcfe1a1e8bb1bbe01af17cf",
+   "candidateProfile": "neoclassical_town_hall_v1",
+   "state": "complete",
+   "textureKey": "fx-candidate-town_hall",
+   "fireAnchors": 0,
+   "smokeFromSprite": true,
+   "anchorsUv": []
+  },
+  "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "preset": "night_balanced",
+  "effects": [
+   "grading",
+   "bloomObjects",
+   "lighting",
+   "lightingNormals",
+   "particles"
+  ],
+  "lights": 4,
+  "litObjects": 8,
+  "emissive": 12,
+  "particles": 0,
+  "fireActive": false
+ },
+ "candidateName": "town_hall",
+ "compositionSignature": "8a193df6dc8be8d6dbe70f6852cbf79b8149eb02dfcfe1a1e8bb1bbe01af17cf",
+ "sourceSprite": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.png",
+ "sourceSpriteSha256": "2e038e54163b96d2db4c4485dfca8e46e6fc1dd3739afc2825c12f936fa4e6b9",
+ "canvasCaptureSha256": "54613249ae604f24725f604ac1e4302b547cb799a8aa2e3ffe5f650a5b23ef47",
+ "pngBytes": 226104,
+ "url": "http://127.0.0.1:4217/art-lab?artQa=1&fxMood=night&fxPerf=1&fxZoom=1&fxCandidate=town_hall&fxPreset=night_balanced"
+}

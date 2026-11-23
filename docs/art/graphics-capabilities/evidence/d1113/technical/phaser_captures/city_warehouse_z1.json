@@ -1,0 +1,40 @@
+{
+ "schemaVersion": 1,
+ "arm": "city_warehouse_z1",
+ "captureMode": "art-lab-qa-candidate-scene",
+ "captureModeNote": "Art Lab es la herramienta QA de candidatos: NO es una captura de la escena jugable ni de una partida",
+ "requested": {
+  "mood": "day",
+  "preset": null,
+  "zoom": 1
+ },
+ "probe": {
+  "mood": "day",
+  "zoom": 1,
+  "candidate": {
+   "candidateId": "w06cnd_warehouse_2",
+   "compositionSignature": "460b94c4e4476931c4c8367228778f5c944cdfa5ca36898df1bbcc1e62200701",
+   "candidateProfile": "gn_industrial_v2",
+   "state": "complete",
+   "textureKey": "fx-candidate-warehouse",
+   "fireAnchors": 0,
+   "smokeFromSprite": true,
+   "anchorsUv": []
+  },
+  "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "preset": null,
+  "effects": [],
+  "lights": 0,
+  "litObjects": 0,
+  "emissive": 12,
+  "particles": 0,
+  "fireActive": false
+ },
+ "candidateName": "warehouse",
+ "compositionSignature": "460b94c4e4476931c4c8367228778f5c944cdfa5ca36898df1bbcc1e62200701",
+ "sourceSprite": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
+ "sourceSpriteSha256": "0f240f66037581aeedd67c66a2b5a7a2c1f6bc3f0cc186292b7540e9ae47d4cb",
+ "canvasCaptureSha256": "627568836955c16ee66548bfbc0d90793fa13d34380b31e509645490812a932b",
+ "pngBytes": 198384,
+ "url": "http://127.0.0.1:4217/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=warehouse"
+}

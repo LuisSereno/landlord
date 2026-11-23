@@ -6462,7 +6462,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -6477,7 +6477,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -6492,7 +6492,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -6572,7 +6572,7 @@
    "family": "interior",
    "elevationReach": "en_bruto",
    "measuredChain": [],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -6587,7 +6587,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -6600,7 +6600,7 @@
    "family": "metal",
    "elevationReach": "en_bruto",
    "measuredChain": [],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_MetalConcrete_BaseColor"
@@ -6788,10 +6788,10 @@
  "triangleCount": 14348,
  "materialCount": 16,
  "textureCount": 15,
- "renderTime": 15329.0,
- "pngBytes": 1995340,
- "sha256": "a64d7855169033ce7312d8853da463ab4d0774009d4b513a501be7e8d976a3e9",
- "pixelSha256": "4690c4f5d13f15eb4987443184857422fb588e787bd7f2f677de323b00dbf9db",
+ "renderTime": 16810.24,
+ "pngBytes": 1995026,
+ "sha256": "2e038e54163b96d2db4c4485dfca8e46e6fc1dd3739afc2825c12f936fa4e6b9",
+ "pixelSha256": "8a51d92c586118ac23b34a4868c72d402b4c1c4e2d17a7a3f583d43b1297eb2f",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -6834,11 +6834,11 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/tmp/d1113/attempts/2026-11-23T1326/w06cnd_town_hall_5.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.png",
   "width": 1530,
   "height": 1537,
-  "sha256": "a64d7855169033ce7312d8853da463ab4d0774009d4b513a501be7e8d976a3e9",
-  "bytes": 1995340
+  "sha256": "2e038e54163b96d2db4c4485dfca8e46e6fc1dd3739afc2825c12f936fa4e6b9",
+  "bytes": 1995026
  },
  "trim": {
   "rendered": {
@@ -6929,12 +6929,8 @@
    "litWindows": 0
   },
   "deepReach": {
-   "deepStyledNodes": 6,
-   "deepStyledAtlases": [
-    "T_MetalConcrete_BaseColor",
-    "T_RedBrick_BaseColor",
-    "T_Trim_BaseColor"
-   ],
+   "deepStyledNodes": 0,
+   "deepStyledAtlases": [],
    "flatStyledMaterials": [],
    "linkedWithoutColorSource": [
     "MI_FakeInterior",
@@ -6942,14 +6938,7 @@
     "MI_Glass.001"
    ]
   },
-  "deepReachDetail": [
-   "MI_InteriorWall.001←T_RedBrick_BaseColor",
-   "MI_InteriorWall←T_RedBrick_BaseColor",
-   "MI_Trim_Dark←T_Trim_BaseColor",
-   "MI_Trim_Green←T_Trim_BaseColor",
-   "MI_Trim_MetalConcrete.002←T_MetalConcrete_BaseColor",
-   "MI_Trim←T_Trim_BaseColor"
-  ]
+  "deepReachDetail": []
  },
  "toolchain": {
   "blender": "5.2.2 LTS",
@@ -6971,7 +6960,7 @@
   "renderPixels": {
    "width": 1697,
    "height": 1537,
-   "sha256": "6943bef541b65b63f481386a4157720d35a4c1eb5aaf5c60dbae685e2df83666"
+   "sha256": "c28594484691fd920042ca24120e2d8d4f37a392417f4e31f55a79495e6e0d88"
   },
   "pixels": {
    "width": 5091,
@@ -6980,10 +6969,10 @@
   }
  },
  "render": {
-  "renderMs": 15329.0,
-  "prepMs": 17235.86,
-  "totalMs": 69300.18,
-  "peakRssMb": 5426.9
+  "renderMs": 16810.24,
+  "prepMs": 20501.99,
+  "totalMs": 75971.45,
+  "peakRssMb": 5404.0
  },
  "request": {
   "candidateId": "w06cnd_town_hall_5",
@@ -7001,8 +6990,8 @@
   "state": "complete",
   "constructionStage": null,
   "candidateProfile": "neoclassical_town_hall_v1",
-  "output": "/tmp/d1113/attempts/2026-11-23T1326/w06cnd_town_hall_5.png",
-  "metadata": "/tmp/d1113/attempts/2026-11-23T1326/w06cnd_town_hall_5.json"
+  "output": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.png",
+  "metadata": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.json"
  },
  "composition": {
   "buildingType": "town_hall",

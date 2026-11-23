@@ -1,0 +1,46 @@
+{
+ "schemaVersion": 1,
+ "arm": "night_balanced_mixed",
+ "captureMode": "art-lab-qa-candidate-scene",
+ "captureModeNote": "Art Lab es la herramienta QA de candidatos: NO es una captura de la escena jugable ni de una partida",
+ "requested": {
+  "mood": "night",
+  "preset": "night_balanced",
+  "zoom": 1
+ },
+ "probe": {
+  "mood": "night",
+  "zoom": 1,
+  "candidate": {
+   "candidateId": "w06cnd_mixed_tenement_2",
+   "compositionSignature": "64fbeb4619e2abf36f012017dc765502055c8d81fda9f8313e8400e46af66342",
+   "candidateProfile": "gn_residential_v2",
+   "state": "complete",
+   "textureKey": "fx-candidate-mixed_tenement",
+   "fireAnchors": 0,
+   "smokeFromSprite": true,
+   "anchorsUv": []
+  },
+  "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "preset": "night_balanced",
+  "effects": [
+   "grading",
+   "bloomObjects",
+   "lighting",
+   "lightingNormals",
+   "particles"
+  ],
+  "lights": 4,
+  "litObjects": 8,
+  "emissive": 12,
+  "particles": 0,
+  "fireActive": false
+ },
+ "candidateName": "mixed_tenement",
+ "compositionSignature": "64fbeb4619e2abf36f012017dc765502055c8d81fda9f8313e8400e46af66342",
+ "sourceSprite": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+ "sourceSpriteSha256": "8397aff3fe45abae2e221f27aa4faa0d12bee4ad7ba8aa2216178bf46d84c050",
+ "canvasCaptureSha256": "b932af9b678718866a2da0e5f46d46a8f806ce7730d0e00f4c51da3bbfbc06d4",
+ "pngBytes": 226434,
+ "url": "http://127.0.0.1:4217/art-lab?artQa=1&fxMood=night&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement&fxPreset=night_balanced"
+}

@@ -1,0 +1,40 @@
+{
+ "schemaVersion": 1,
+ "arm": "city_row_house_z05",
+ "captureMode": "art-lab-qa-candidate-scene",
+ "captureModeNote": "Art Lab es la herramienta QA de candidatos: NO es una captura de la escena jugable ni de una partida",
+ "requested": {
+  "mood": "day",
+  "preset": null,
+  "zoom": 0.5
+ },
+ "probe": {
+  "mood": "day",
+  "zoom": 0.5,
+  "candidate": {
+   "candidateId": "w06cnd_row_house_17",
+   "compositionSignature": "28304f99ce1366efa31181a7676746c60ee616360b56abc3bfc3e31767a00f38",
+   "candidateProfile": "gn_residential_v2",
+   "state": "complete",
+   "textureKey": "fx-candidate-row_house",
+   "fireAnchors": 0,
+   "smokeFromSprite": true,
+   "anchorsUv": []
+  },
+  "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+  "preset": null,
+  "effects": [],
+  "lights": 0,
+  "litObjects": 0,
+  "emissive": 12,
+  "particles": 0,
+  "fireActive": false
+ },
+ "candidateName": "row_house",
+ "compositionSignature": "28304f99ce1366efa31181a7676746c60ee616360b56abc3bfc3e31767a00f38",
+ "sourceSprite": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+ "sourceSpriteSha256": "c7cce596610444bd7f775a002280d25126420b4c80188e979ea9b94dda08279e",
+ "canvasCaptureSha256": "5e1a07fbb1550c020034470a9d85c55e2e1b89f4802987fbad99167f6a4ca3f0",
+ "pngBytes": 65875,
+ "url": "http://127.0.0.1:4217/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=0.5&fxCandidate=row_house"
+}

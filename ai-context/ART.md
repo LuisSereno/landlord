@@ -107,6 +107,12 @@ matices de licencia en
   históricos — la ruta QA lo valida (`validateCandidateQa`) y existe el mapa de procedencias
   (`docs/art/graphics-capabilities/FINAL-ASSET-SOURCES.md`).
 - Guía reutilizable para generar y revisar un edificio: `docs/art/BUILDING-COMPOSER.md` §39.
+- D-111.3 (2026-11-23): franjas de fachada corregidas (sombra key + ambiente neutro), interior
+  dressing de daños/incendios determinista (`_compose_damage_interior`, sin tocar el PRNG de los
+  anclajes), envejecimiento v3 legible a escala de juego (D-080 sigue abierto) y town hall
+  neoclásico como candidata QA (`neoclassical_town_hall_v1`; `ag_civic_v2` intacto). Ledger:
+  `docs/art/graphics-capabilities/D1113-ART-REWORK-LEDGER.md`; aceptación:
+  `D1113-ART-ACCEPTANCE.md`. Reutilización: `BUILDING-COMPOSER.md` §40.
 
 ## Fuente extensa
 

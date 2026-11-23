@@ -2815,21 +2815,6 @@
    "extractionStrategy": "whole_asset"
   },
   {
-   "id": "mod_kenney_pallet",
-   "category": "interior",
-   "role": "interior_prop",
-   "note": "D-111.3 FASE 3: palé de mercancía para interiores dañados residenciales e industriales",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "meshes": [
-    "pallet"
-   ],
-   "allowedFamilies": [
-    "residential_low",
-    "industrial_heavy"
-   ],
-   "extractionStrategy": "whole_asset"
-  },
-  {
    "id": "mod_kenney_detail_beam",
    "category": "interior",
    "role": "interior_beam",

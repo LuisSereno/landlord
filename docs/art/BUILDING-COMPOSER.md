@@ -1162,3 +1162,26 @@ El procedimiento completo, reutilizable sin depender de ninguna conversación:
 8. **Solicitud de aprobación.** El cierre es `READY FOR HUMAN VISUAL REVIEW` en
    `D1112-CLOSURE-LEDGER.md`; la promoción a producción (`runtime-promotions.json`) exige aprobación
    humana explícita y jamás la ejecuta un arnés.
+
+## 40. Reutilización D-111.3: fachadas sin franja, interior dressing, aged v3 y ayuntamiento neoclásico
+
+1. **Franjas de fachada (causa + fix).** Si un paño de ladrillo muestra una franja oscura anómala,
+   la causa medida (D-111.3 FASE 1, `evidence/d1113/facade_diagnosis.md`) es la sombra de la key
+   sobre elementos salientes + ambiente frío. Fix aplicado: carpintería GN casi al plano
+   (`gn_facade_grammar.py`) y ambiente day_civic neutro (`style_layer_graphic_civic.json`, fill/rim
+   world propios; noche intacta). Reproducir el diagnóstico con sondas A/B antes de tocar nada.
+2. **Interior dressing de daños.** `_compose_damage_interior()` (compose.py) se activa sola cuando
+   `_compose_damage` abre cubierta/fachada: forjados parciales, tabique, tramo de escalera, vigas y
+   props por familia (roles `interior_*` del catálogo). USA OFFSETS FIJOS y no consume el PRNG:
+   los anclajes de fuego de la variante burning deben seguir coincidiendo con el control. Módulos
+   nuevos se registran vía `building-modules-selection.json` + `build-building-modules.mjs` y se
+   clasifican en `build-building-style.mjs` (categoría `interior`).
+3. **Envejecimiento v3.** Las fuerzas del contrato (`building-weathering-contract.json`) están
+   reforzadas para legibilidad a 0,5×/1× (fase5v3). `interior` comparte receta con `brick` (el test
+   del contrato lo exige). Los pines del contrato (catálogo/perfil) se re-miden tras CUALQUIER
+   cambio de módulos.
+4. **Ayuntamiento neoclásico.** Perfil `neoclassical_town_hall_v1`: receta `grand_neoclassical_hall`
+   (sorteo de seed — la 5 la elige) + overlay de `recipeFeatures`/`facadePalettes` sobre módulos
+   originales sin material (`create_original_neoclassical_townhall.py`): el gris claro por defecto
+   del pipeline es la piedra caliza. `ag_civic_v2` y su arcada quedan intactos. La columna/paño
+   originales exigen el permiso de `sources/original` en el validador de módulos.

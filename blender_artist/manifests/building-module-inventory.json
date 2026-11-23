@@ -145248,17 +145248,19 @@
    "unresolvedTextures": [],
    "hierarchy": [
     {
-     "name": "ROOT",
+     "name": "NeoclassicalColumn",
      "type": "MESH",
      "parent": "IMPORT_ROOT",
      "materials": [],
-     "vertices": 0,
-     "triangles": 0,
-     "looseParts": 1
+     "vertices": 36,
+     "triangles": 72,
+     "looseParts": 6
     }
    ],
    "classification": "whole_asset_only",
-   "classificationReason": "unidad sustancial única generada por create_original_neoclassical_townhall.py (D-111.3 FASE 6)"
+   "classificationReason": "unidad sustancial única generada por create_original_neoclassical_townhall.py (D-111.3 FASE 6)",
+   "triangles": 72,
+   "vertices": 36
   },
   {
    "sourceId": "src_original_neoclassical_wall",
@@ -145274,17 +145276,19 @@
    "unresolvedTextures": [],
    "hierarchy": [
     {
-     "name": "ROOT",
+     "name": "NeoclassicalWall",
      "type": "MESH",
      "parent": "IMPORT_ROOT",
      "materials": [],
-     "vertices": 0,
-     "triangles": 0,
-     "looseParts": 1
+     "vertices": 16,
+     "triangles": 24,
+     "looseParts": 2
     }
    ],
    "classification": "whole_asset_only",
-   "classificationReason": "unidad sustancial única generada por create_original_neoclassical_townhall.py (D-111.3 FASE 6)"
+   "classificationReason": "unidad sustancial única generada por create_original_neoclassical_townhall.py (D-111.3 FASE 6)",
+   "triangles": 24,
+   "vertices": 16
   }
  ]
 }

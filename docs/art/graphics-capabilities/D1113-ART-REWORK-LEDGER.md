@@ -45,4 +45,14 @@ regenera sin necesidad.
 | 5 · envejecimiento reconocible | DONE | — | `building-weathering-contract.json` (fuerzas 0,42-0,55→0,5-0,7, mugre más oscura, regueros 1,6×, pines re-medidos; interior alineado con brick), `scripts/d1113-weathering-sheet.py` | `evidence/d1113/weathering_v3_ab.png` (v2 diff 9,2/255 vs v3 16,1/255; 30 %→48 % px claramente distintos; se conserva a 0,5×) | aged sigue sin promocionar (D-080, propietario) |
 | 6 · town hall neoclásico | DONE | — | `create_original_neoclassical_townhall.py` + 2 GLB originales (columna blanca, paño calizo), catálogo 196 módulos, `building-composer-candidates.json` (perfil `neoclassical_town_hall_v1`: receta grand_neoclassical_hall + 4 overrides), `scripts/d1113-townhall-sheet.py` | `evidence/d1113/townhall/town_hall_neoclassical_ab.png` | candidata QA pendiente de revisión; ag_civic_v2 intacto; frontón parcialmente tapado por la cornisa desde el ángulo de cámara |
 | 7 · integración Phaser | DONE | — | `scripts/d1113-phaser-capture.mjs` + `scripts/d1113-final-sheets.py` | `evidence/d1113/final/d1113_{city_candidates,damage_fire,ageing,town_hall}.png` · 14 brazos, 0 errores de página, ruta QA con validación anti-sustitución activa | revisión visual humana |
-| 8 · validación y cierre | PENDING | — | — | `D1113-ART-ACCEPTANCE.md` (por crear) | — |
+| 8 · validación y cierre | DONE | — | `BUILDING-COMPOSER.md` §40, `ai-context/ART.md`, `D1113-ART-ACCEPTANCE.md`, `scripts/validate-building-modules.mjs` (fuentes originales + categoría interior) | `D1113-ART-ACCEPTANCE.md` | todo pendiente de revisión humana; nada promocionado |
+
+
+## Cierre
+
+Estado final: **`READY FOR HUMAN VISUAL REVIEW`** — las nueve fases ejecutadas con commit por fase,
+validaciones verdes (composer, contrato de weathering, licencias, capabilities, diff-check; el
+validador de módulos arrastra 52 fallos preexistentes a D-111.3, ninguno sobre módulos nuevos) y
+evidencias reproducibles en `evidence/d1113/`. `runtime-promotions.json` intacto en todo el trabajo.
+Pendiente: revisión visual humana y las decisiones que de ella derivan (promociones, D-080,
+aceptación del neoclásico).

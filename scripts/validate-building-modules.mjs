@@ -28,6 +28,11 @@ const SOURCES_PATH = "blender_artist/manifests/staging-sources.json";
 
 const STAGING_PREFIX = "blender_artist/staging/";
 const ALLOWED_LICENSES = ["CC0-1.0"];
+// D-111.3 FASE 8 · los módulos originales (civic_pediment desde WP02, neoclassical_* de FASE 6)
+// viven en `blender_artist/sources/original/` con licencia `original`; el builder ya los acepta
+// (ORIGINAL_PREFIX) y el validador los venía marcando en rojo sin que nadie los hubiera cambiado.
+const ORIGINAL_PREFIX = "blender_artist/sources/original/";
+const isOriginalSource = (module) => module.sourcePath?.startsWith(ORIGINAL_PREFIX);
 const ALLOWED_CONVENTIONS = new Set([
   "centered",
   "positive-from-origin",
@@ -157,7 +162,7 @@ for (const module of catalog.modules ?? []) {
   // 1) sourceId inexistente + 3) licencia no permitida.
   const source = sourcesById.get(module.sourceId);
   if (!source) fail(id, `sourceId inexistente en staging-sources.json: ${module.sourceId}`);
-  if (!ALLOWED_LICENSES.includes(module.license)) {
+  if (!ALLOWED_LICENSES.includes(module.license) && !isOriginalSource(module)) {
     fail(id, `licencia no permitida: ${module.license}`);
   }
   if (source && source.license !== module.license) {
@@ -168,7 +173,7 @@ for (const module of catalog.modules ?? []) {
   }
 
   // 2) sourcePath fuera de staging.
-  if (!module.sourcePath?.startsWith(STAGING_PREFIX)) {
+  if (!module.sourcePath?.startsWith(STAGING_PREFIX) && !isOriginalSource(module)) {
     fail(id, `sourcePath fuera de staging: ${module.sourcePath}`);
   } else if (!existsSync(join(REPO_ROOT, module.sourcePath))) {
     fail(id, `sourcePath no existe en disco: ${module.sourcePath}`);
@@ -244,7 +249,12 @@ for (const module of catalog.modules ?? []) {
     }
     if (!module.measured?.triangles) fail(id, "módulo sin geometría real (0 triángulos)");
     if (!module.measured?.meshObjects) fail(id, "módulo sin objetos de mesh seleccionados");
-    if (!module.measured?.materials?.length) fail(id, "módulo sin materiales resueltos");
+    // D-111.3 · un módulo original sin material se renderiza con el gris claro por defecto del
+    // pipeline (así lee blanco el frontón cívico desde WP02): las comprobaciones de albedo sólo
+    // aplican a los que sí traen material medido.
+    if (!module.measured?.materials?.length) {
+      if (!isOriginalSource(module)) fail(id, "módulo sin materiales resueltos");
+    } else {
     if (!module.measured?.images?.length)
       fail(id, "módulo sin texturas resueltas (quedaría magenta)");
 
@@ -269,6 +279,7 @@ for (const module of catalog.modules ?? []) {
       if (kind.startsWith("atlas:") && !measuredImages.has(kind.slice(6))) {
         fail(id, `la cadena cita una textura que el módulo no importa: ${kind}`);
       }
+    }
     }
   }
 

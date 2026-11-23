@@ -11,7 +11,8 @@ Abierto por D-111 (§2). La pregunta que responde cada entrada no es «¿existe?
 
 ## Cómo se lee
 
-- `capabilities.json` es la fuente de verdad. Cada una de las 23 entradas lleva los 17 campos obligatorios:
+- `capabilities.json` es la fuente de verdad y su único recuento de entradas (el de este texto es
+  deliberadamente sin número, para que no se desincronice). Cada entrada lleva los 17 campos obligatorios:
   `id`, `kind`, `technology`, `versionTested`, `officialSource`, `license`, `hostCompatibility`,
   `state`, `scriptOrModule`, `objectTypeUse`, `reproducibleExample`, `inputResources`,
   `outputResources`, `evidenceCaptures`, `visualResult`, `limitations`, `integrationDecision`.

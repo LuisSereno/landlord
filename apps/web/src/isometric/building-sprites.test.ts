@@ -11,6 +11,7 @@ import { BUILDING_DEFINITIONS } from "@landlord/simulation";
 import runtimeAssets from "../generated/runtime-assets.json";
 import {
   animationFrameFor,
+  applyQaStateOverride,
   assetFor,
   buildingAssetStateFor,
   buildingSpritePlan,
@@ -28,6 +29,7 @@ import {
   spriteKeyFor,
   spriteScaleFor,
 } from "./building-sprites";
+import type { ProjectedBuildingState } from "./building-sprites";
 
 const ASSETS = parseRuntimeAssetManifest(runtimeAssets);
 
@@ -63,6 +65,34 @@ describe("WP4.15 sprites de edificios", () => {
     // Ruina y fuego no cambian con la integrity.
     expect(buildingAssetStateFor("ruin", 35, 0)).toBe("damaged");
     expect(buildingAssetStateFor("burning", 60, 50)).toBe("burning");
+  });
+
+  it("FINAL-ASSET-QA 1.2: cada escenario qaStates selecciona el estado visual esperado", () => {
+    const tierOf = (b: Record<string, unknown>) =>
+      buildingAssetStateFor(
+        b.state as ProjectedBuildingState,
+        b.condition as number,
+        b.structuralIntegrity as number,
+      );
+    const economy = {
+      buildings: [
+        { id: "b1", type: "mixed_tenement", state: "operational", condition: 95, structuralIntegrity: 100 },
+      ],
+      constructionSites: [] as Array<Record<string, unknown>>,
+    };
+    // `damaged` es daño estructural real (state `ruin`), no envejecimiento.
+    const damaged = applyQaStateOverride(economy, "damaged");
+    expect(damaged.buildings[0]?.state).toBe("ruin");
+    expect(tierOf(damaged.buildings[0]!)).toBe("damaged");
+    // `burning` es incendio.
+    const burning = applyQaStateOverride(economy, "burning");
+    expect(burning.buildings[0]?.state).toBe("burning");
+    expect(tierOf(burning.buildings[0]!)).toBe("burning");
+    // `complete` no toca nada y `construction` vacía edificios a favor de las obras.
+    expect(applyQaStateOverride(economy, "complete")).toBe(economy);
+    const construction = applyQaStateOverride(economy, "construction");
+    expect(construction.buildings).toHaveLength(0);
+    expect(construction.constructionSites).toHaveLength(1);
   });
 
   it("genera claves estables y encuentra el asset por tipo", () => {

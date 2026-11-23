@@ -33,12 +33,8 @@ valid (15+4), capabilities-valid (24), licencias, typecheck, vitest 43/43, build
 | 4 · envejecimiento vs daño | completada | `bff341a` | `evidence/v2/closure/condition/` · `building_condition_in_phaser.png` | `aged` cae en `complete` (D-080 pendiente); migración de assets aprobados requiere autorización |
 | 5 · exposición nocturna definitiva | completada | `b9481af` | `evidence/v2/closure/night/` · `night_lighting_final_ab.png` + `mount_dismount.json` | sin ajustes nuevos: la calibración de la FASE 5 del runbook se sostiene (σ nocturno 91 % del día, 0 px de recorte a blanco salvo 13 en CANVAS) |
 | 6 · evidencias y validadores | completada | `c9f1530` | índice `--check` exit 0 (141 PNG, 0 duras, 12 legacy aislados) · candidatas fuego re-render | 12 históricos sin procedencia quedan `legacy_unverified`; revisión visual de las hojas |
-| 3 · cuatro candidatas en Phaser | pendiente | — | `evidence/v2/closure/urban/` (por crear) | — |
-| 4 · envejecimiento vs daño | pendiente | — | `building_condition_in_phaser.png` | sprite `aged` no existe en catálogo runtime (D-080) |
-| 5 · exposición nocturna definitiva | pendiente | — | `night_lighting_final_ab.png` | — |
-| 6 · evidencias y validadores | pendiente | — | índice `--check` | ver defectos heredados |
-| 7 · WP09 y documentación | completada | (este commit) | capabilities.json (24 entradas), guía §39, ADR D-111 enmendado, ART.md/ART-PIPELINE.md, citas §6.x reapuntadas | revisión del propietario |
-| 8 · validación final y publicación | completada | (este commit) | informe corto al propietario | revisión visual humana de las hojas |
+| 7 · WP09 y documentación | completada | `55c3329` | capabilities.json (24 entradas), guía §39, ADR D-111 enmendado, ART.md/ART-PIPELINE.md, citas §6.x reapuntadas | revisión del propietario |
+| 8 · validación final y publicación | completada | `8c72d88` | informe corto al propietario | revisión visual humana de las hojas |
 
 ## FINAL-ASSET-QA (corrección final D-111.2, brief 2026-11-23, HEAD inicial `8c72d88`)
 
@@ -47,8 +43,8 @@ legacy (`bld_*`) queden como controles históricos. Sin tocar `GameState`, promo
 
 | Paso | Estado | Commit | Evidencia | Pendiente |
 | --- | --- | --- | --- | --- |
-| 0 · baseline y registro | PENDING | — | esta sección | — |
-| 1 · cuatro inconsistencias de auditoría | PENDING | — | — | — |
+| 0 · baseline y registro | DONE | `ba073fd` | esta sección | — |
+| 1 · cuatro inconsistencias de auditoría | DONE | — | ledger dedup · fixture `qaStates=damaged` → `ruin` + test · README sin contador · hueco WP06 eliminado · `zooms` desde capturas | — |
 | 2 · mapa de procedencias + anti-sustitución | PENDING | — | `FINAL-ASSET-SOURCES.md` (por crear) | — |
 | 3 · variantes WP06 que faltan | PENDING | — | — | — |
 | 4 · demostraciones de incendio WP06 | PENDING | — | `modern_building_fire_ab.png` (por crear) | — |

@@ -384,7 +384,6 @@ try {
     const pair = qaPairs[index];
     const midCell = { x: pair.start + 3, y: pair.row };
     pair.midCell = midCell;
-    pair.zooms = [];
   });
   for (const zoom of [1, 0.5]) {
     for (const [index, type] of TYPES.entries()) {
@@ -405,6 +404,13 @@ try {
         placed: probe.filter((entry) => entry.name.startsWith(`${type}-`)),
       });
     }
+  }
+  // `zooms` se deriva de las capturas verificables (mismo pairRow/pairStartX), no se declara vacío.
+  for (const pair of qaPairs) {
+    pair.zooms = captures
+      .filter((c) => c.pairRow === pair.row && c.pairStartX === pair.start)
+      .map((c) => c.zoom)
+      .sort((a, b) => a - b);
   }
 
   const manifest = {

@@ -72,7 +72,11 @@ export function applyQaStateOverride<
     ...economy,
     constructionSites: [],
     buildings: economy.buildings.map((b) =>
-      qa === "burning" ? { ...b, state: "burning" } : { ...b, state: "operational", condition: 40 },
+      qa === "burning"
+        ? { ...b, state: "burning" }
+        : // FINAL-ASSET-QA 1.2 · `damaged` es daño estructural real (state de dominio `ruin`),
+          // no envejecimiento: `operational` + `condition: 40` ahora clasifica tier `aged`.
+          { ...b, state: "ruin", condition: 40, structuralIntegrity: 0 },
     ),
   } as E;
 }

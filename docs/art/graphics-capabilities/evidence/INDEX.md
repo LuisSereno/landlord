@@ -9,7 +9,7 @@ puede cerrar con una impresión visual.
 - sin JSON de procedencia: **12**
 - con defecto duro para su brazo: **0**
 - con algún defecto de raster marcado: **84**
-- huecos declarados (abajo): **5** · hallazgos abiertos: **3**
+- huecos declarados (abajo): **4** · hallazgos abiertos: **3**
 
 Leyenda de banderas: `NEGRA` luma media < 45 · `PLANA` desviación < 18 ·
 `CASI-TODO-NEGRO` > 60 % del píxel bajo 12 de luma · `LAVADA` > 3 % recortado a blanco ·
@@ -285,7 +285,6 @@ a un JSON con su nombre.
 
 | Lo que pide el encargo | Por qué no hay imagen |
 | --- | --- |
-| Fachadas candidatas WP06 dentro de una escena Phaser | las candidatas se componen en Blender y se publican en `docs/art/building-composer/candidates/`, que no está servido por el bundle; `urban/` fotografía el set runtime (`qa_approved`), que es otra autoría. La A/B de candidatas existe a escala de Blender en `sheets/wp06_candidates_ab.png`. |
 | Calle poblada de noche en el mundo real | el bundle runtime promocionado es de día (`day_civic`); la noche sólo existe en el laboratorio (`phaser/fx_v2/preset_night_*.png`). Promover noche al mundo es decisión del responsable. |
 | Sprite `aged` en catálogo runtime | FASE 6 derivó el tier `aged` pero el manifiesto runtime no tiene ese estado: no hay píxel que enseñar en juego. Ver `building-weathering-contract.json → derivation.runtimeConflict`. |
 | Esquina cívica a pico | necesita geometría nueva sobre el extremo de la banda; forzar `brick_post` compone 0/60 semillas y limitar el módulo a `municipal_block` mueve 56 de 105 colocaciones. No se fuerza con parche. |

@@ -167,12 +167,6 @@ _REGISTROS: dict[Path, dict] = {}
 # Lo que pide el encargo y no tiene imagen: se declara aquí para que el índice lo imprima.
 HUECOS = [
     (
-        "Fachadas candidatas WP06 dentro de una escena Phaser",
-        "las candidatas se componen en Blender y se publican en `docs/art/building-composer/candidates/`, "
-        "que no está servido por el bundle; `urban/` fotografía el set runtime (`qa_approved`), que es otra "
-        "autoría. La A/B de candidatas existe a escala de Blender en `sheets/wp06_candidates_ab.png`.",
-    ),
-    (
         "Calle poblada de noche en el mundo real",
         "el bundle runtime promocionado es de día (`day_civic`); la noche sólo existe en el laboratorio "
         "(`phaser/fx_v2/preset_night_*.png`). Promover noche al mundo es decisión del responsable.",

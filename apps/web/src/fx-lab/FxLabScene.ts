@@ -137,6 +137,8 @@ export type FxLabSceneOptions = {
     pngUrl: string;
     textureKey: string;
   } | null;
+  /** FINAL-ASSET-QA 4.3: submuestreo uniforme de focos del fuego; `null` = todos. */
+  fociLimit: number | null;
 };
 
 export type FxLabProbeData = {
@@ -169,6 +171,8 @@ export type FxLabProbeData = {
   candidate: {
     candidateId: string;
     compositionSignature: string;
+    candidateProfile: string | null;
+    state: string;
     textureKey: string;
     fireAnchors: number;
     smokeFromSprite: boolean;
@@ -187,6 +191,23 @@ function percentile(sorted: readonly number[], q: number): number {
   if (!sorted.length) return 0;
   const index = Math.min(sorted.length - 1, Math.max(0, Math.round(q * (sorted.length - 1))));
   return sorted[index] ?? 0;
+}
+
+/**
+ * FINAL-ASSET-QA 4.3 · submuestreo uniforme con extremos conservados: la lectura de "el edificio
+ * arde por dentro" necesita techo y fachada, y el submuestreo debe repartirse por los anclajes que
+ * publicó el compositor, no quedarse con los primeros n.
+ */
+function sampleFoci<T>(foci: readonly T[], limit: number): T[] {
+  if (foci.length <= limit) return [...foci];
+  if (limit <= 1) return [foci[0] as T];
+  const picked: T[] = [];
+  for (let i = 0; i < limit; i += 1) {
+    const index = Math.round((i * (foci.length - 1)) / (limit - 1));
+    const item = foci[index];
+    if (item !== undefined && !picked.includes(item)) picked.push(item);
+  }
+  return picked;
 }
 
 export class FxLabScene extends Phaser.Scene {
@@ -477,6 +498,8 @@ export class FxLabScene extends Phaser.Scene {
         return {
           candidateId: candidate.metadata.candidateId,
           compositionSignature: candidate.metadata.compositionSignature,
+          candidateProfile: candidate.metadata.candidateProfile ?? null,
+          state: candidate.metadata.state,
           textureKey: candidate.textureKey,
           fireAnchors: placed.fireMetadata?.length ?? 0,
           smokeFromSprite: placed.smokeFromSprite,
@@ -756,7 +779,9 @@ export class FxLabScene extends Phaser.Scene {
     this.buildings.push({
       key: candidate.textureKey,
       type: `${meta.buildingType} (candidata ${meta.candidateId})`,
-      state: "burning",
+      // El estado lo declara la metadata (complete/damaged/burning/aged); `placeFireRigs` sólo monta
+      // focos sobre `burning`, y una candidata no-burning sin anclajes no genera rig.
+      state: meta.state === "burning" ? "burning" : "complete",
       sprite,
       emissive: null,
       boost: 0,
@@ -855,7 +880,10 @@ export class FxLabScene extends Phaser.Scene {
       this.fire = null;
       return;
     }
-    this.fire = createFireRig(this, this.fireFoci, {
+    const foci = this.options.fociLimit
+      ? sampleFoci(this.fireFoci, this.options.fociLimit)
+      : this.fireFoci;
+    this.fire = createFireRig(this, foci, {
       mood: this.options.mood,
       seed: FIRE_PRESENTATION_SEED,
       active: this.fireActive,

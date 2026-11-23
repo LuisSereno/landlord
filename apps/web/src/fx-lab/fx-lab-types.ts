@@ -35,6 +35,12 @@ export type FxLabOptions = {
    * y ningún candidato entra al catálogo por aquí.
    */
   readonly candidate: string | null;
+  /**
+   * FINAL-ASSET-QA 4.3 · intensidad selectiva del incendio QA (`?fxFoci=8`): submuestreo uniforme
+   * de los focos que publica la metadata — los anclajes disponibles NO se inventan, sólo se elige
+   * cuántos montar. `null` = todos (la intensidad de referencia).
+   */
+  readonly fociLimit: number | null;
 };
 
 /** Cadena canónica de efectos activos: vacía ⇒ ninguno (estado por defecto del laboratorio). */
@@ -121,7 +127,14 @@ export function parseFxLabOptions(search: string): FxLabOptions {
     perf: params.get("fxPerf") === "1",
     preset,
     candidate: params.get("fxCandidate"),
+    fociLimit: parseFxFoci(params.get("fxFoci")),
   };
+}
+
+function parseFxFoci(value: string | null): number | null {
+  if (!value) return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= 1 && n <= 64 ? Math.round(n) : null;
 }
 
 /** Etiquetas legibles para la UI de QA y para el manifiesto de evidencia. */

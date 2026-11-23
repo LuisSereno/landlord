@@ -1,0 +1,144 @@
+{
+ "schemaVersion": 1,
+ "arm": "warehouse_moderate_day",
+ "mood": "day",
+ "legacy": false,
+ "fociLimit": 6,
+ "candidateName": "warehouse-burning",
+ "candidate": {
+  "candidateId": "w06cnd_warehouse_2_burning",
+  "compositionSignature": "f8ad50bff26d5e8085e5e49deb02286c9ed9c762779ce14718475630bb20325d",
+  "textureKey": "fx-candidate-warehouse-burning",
+  "fireAnchors": 19,
+  "smokeFromSprite": true,
+  "anchorsUv": [
+   {
+    "u": 0.6499,
+    "v": 0.77109,
+    "flameFraction": 0.12519,
+    "kind": "roof"
+   },
+   {
+    "u": 0.65047,
+    "v": 0.77782,
+    "flameFraction": 0.05735,
+    "kind": "roof"
+   },
+   {
+    "u": 0.62313,
+    "v": 0.77273,
+    "flameFraction": 0.07019,
+    "kind": "roof"
+   },
+   {
+    "u": 0.69003,
+    "v": 0.76692,
+    "flameFraction": 0.04706,
+    "kind": "roof"
+   },
+   {
+    "u": 0.63072,
+    "v": 0.77935,
+    "flameFraction": 0.04964,
+    "kind": "roof"
+   },
+   {
+    "u": 0.59149,
+    "v": 0.63334,
+    "flameFraction": 0.16416,
+    "kind": "roof"
+   },
+   {
+    "u": 0.5948,
+    "v": 0.63694,
+    "flameFraction": 0.08668,
+    "kind": "roof"
+   },
+   {
+    "u": 0.59599,
+    "v": 0.64259,
+    "flameFraction": 0.06197,
+    "kind": "roof"
+   },
+   {
+    "u": 0.59489,
+    "v": 0.63458,
+    "flameFraction": 0.08668,
+    "kind": "roof"
+   },
+   {
+    "u": 0.61887,
+    "v": 0.62355,
+    "flameFraction": 0.09333,
+    "kind": "roof"
+   },
+   {
+    "u": 0.81267,
+    "v": 0.66808,
+    "flameFraction": 0.11544,
+    "kind": "roof"
+   },
+   {
+    "u": 0.78491,
+    "v": 0.6685,
+    "flameFraction": 0.0743,
+    "kind": "roof"
+   },
+   {
+    "u": 0.81151,
+    "v": 0.67315,
+    "flameFraction": 0.06405,
+    "kind": "roof"
+   },
+   {
+    "u": 0.8043,
+    "v": 0.68684,
+    "flameFraction": 0.05375,
+    "kind": "roof"
+   },
+   {
+    "u": 0.79057,
+    "v": 0.68,
+    "flameFraction": 0.04604,
+    "kind": "roof"
+   },
+   {
+    "u": 0.74776,
+    "v": 0.53207,
+    "flameFraction": 0.16144,
+    "kind": "roof"
+   },
+   {
+    "u": 0.73614,
+    "v": 0.55243,
+    "flameFraction": 0.08201,
+    "kind": "roof"
+   },
+   {
+    "u": 0.72736,
+    "v": 0.53103,
+    "flameFraction": 0.07841,
+    "kind": "roof"
+   },
+   {
+    "u": 0.73039,
+    "v": 0.5305,
+    "flameFraction": 0.07947,
+    "kind": "roof"
+   }
+  ]
+ },
+ "fire": {
+  "foci": 6,
+  "flameImages": 30,
+  "emitters": 6,
+  "particlesAlive": 6,
+  "lights": 0,
+  "glowImages": 6
+ },
+ "fireAnchorsAvailable": 19,
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "url": "http://127.0.0.1:4210/art-lab?artQa=1&fx=fire&fxMood=day&fxPerf=1&fxCandidate=warehouse-burning&fxFoci=6",
+ "pngSha256": "13460090ff5eb2eb533a4cd373ec37eb0c52a499af36d8d61592733d9cb84f20",
+ "pngBytes": 202728
+}

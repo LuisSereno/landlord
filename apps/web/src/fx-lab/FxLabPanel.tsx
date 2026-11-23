@@ -112,6 +112,7 @@ export function FxLabPanel() {
       perf,
       renderer,
       candidate: candidate && !("error" in candidate) ? candidate : null,
+      fociLimit: initial.fociLimit ?? null,
       ...CAPTURE_VIEWPORT,
     });
     controller.current = mounted;

@@ -1,0 +1,126 @@
+{
+ "schemaVersion": 1,
+ "arm": "mixed_intense_night",
+ "mood": "night",
+ "legacy": false,
+ "fociLimit": null,
+ "candidateName": "mixed_tenement-burning",
+ "candidate": {
+  "candidateId": "hybq_mixed_tenement_2_burning",
+  "compositionSignature": "3442cb6e46440d29b956e7a10b2ec6abc030c6c559c8ee8a50288300c3f3cb7b",
+  "textureKey": "fx-candidate-mixed_tenement-burning",
+  "fireAnchors": 16,
+  "smokeFromSprite": true,
+  "anchorsUv": [
+   {
+    "u": 0.49094,
+    "v": 0.56925,
+    "flameFraction": 0.13508,
+    "kind": "roof"
+   },
+   {
+    "u": 0.45609,
+    "v": 0.58031,
+    "flameFraction": 0.07354,
+    "kind": "roof"
+   },
+   {
+    "u": 0.46179,
+    "v": 0.5778,
+    "flameFraction": 0.06823,
+    "kind": "roof"
+   },
+   {
+    "u": 0.4685,
+    "v": 0.58021,
+    "flameFraction": 0.0789,
+    "kind": "roof"
+   },
+   {
+    "u": 0.64299,
+    "v": 0.5798,
+    "flameFraction": 0.15396,
+    "kind": "roof"
+   },
+   {
+    "u": 0.68435,
+    "v": 0.57384,
+    "flameFraction": 0.06533,
+    "kind": "roof"
+   },
+   {
+    "u": 0.65789,
+    "v": 0.56885,
+    "flameFraction": 0.05319,
+    "kind": "roof"
+   },
+   {
+    "u": 0.65649,
+    "v": 0.56655,
+    "flameFraction": 0.0687,
+    "kind": "roof"
+   },
+   {
+    "u": 0.86745,
+    "v": 0.59502,
+    "flameFraction": 0.15345,
+    "kind": "roof"
+   },
+   {
+    "u": 0.83882,
+    "v": 0.6016,
+    "flameFraction": 0.07696,
+    "kind": "roof"
+   },
+   {
+    "u": 0.82906,
+    "v": 0.5984,
+    "flameFraction": 0.0687,
+    "kind": "roof"
+   },
+   {
+    "u": 0.88454,
+    "v": 0.58226,
+    "flameFraction": 0.08425,
+    "kind": "roof"
+   },
+   {
+    "u": 0.90378,
+    "v": 0.5863,
+    "flameFraction": 0.0687,
+    "kind": "roof"
+   },
+   {
+    "u": 0.65602,
+    "v": 0.70206,
+    "flameFraction": 0.02529,
+    "kind": "wall"
+   },
+   {
+    "u": 0.41801,
+    "v": 0.72698,
+    "flameFraction": 0.02036,
+    "kind": "wall"
+   },
+   {
+    "u": 0.65602,
+    "v": 0.8285,
+    "flameFraction": 0.02613,
+    "kind": "wall"
+   }
+  ]
+ },
+ "fire": {
+  "foci": 16,
+  "flameImages": 80,
+  "emitters": 16,
+  "particlesAlive": 16,
+  "lights": 0,
+  "glowImages": 16
+ },
+ "fireAnchorsAvailable": 16,
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "url": "http://127.0.0.1:4210/art-lab?artQa=1&fx=fire&fxMood=night&fxPerf=1&fxCandidate=mixed_tenement-burning",
+ "pngSha256": "a09b5f66222122ca51aa84b8d87960dd22a3d9e148d19a18a853913f4ca8df8b",
+ "pngBytes": 208442
+}

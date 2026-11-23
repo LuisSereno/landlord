@@ -46,8 +46,8 @@ legacy (`bld_*`) queden como controles históricos. Sin tocar `GameState`, promo
 | 0 · baseline y registro | DONE | `ba073fd` | esta sección | — |
 | 1 · cuatro inconsistencias de auditoría | DONE | `b0c8de9` | ledger dedup · fixture `qaStates=damaged` → `ruin` + test · README sin contador · hueco WP06 eliminado · `zooms` desde capturas | — |
 | 2 · mapa de procedencias + anti-sustitución | DONE | `83094b7` | `FINAL-ASSET-SOURCES.md` · `validateCandidateQa` en la ruta QA · `listCandidateQaErrors()` en la escena | — |
-| 3 · variantes WP06 que faltan | DONE | — | `evidence/v2/candidates/wp06_{mixed_tenement-aged,mixed_tenement-damaged,warehouse-burning,warehouse-damaged}.{png,json}` · burning mixed_tenement reutilizado de `closure/fire/hybrid_sprite_*` (sha OK) · exclusión `Texture` en el contrato de weathering | — |
-| 4 · demostraciones de incendio WP06 | PENDING | — | `modern_building_fire_ab.png` (por crear) | — |
+| 3 · variantes WP06 que faltan | DONE | `5d7b176` | `evidence/v2/candidates/wp06_{mixed_tenement-aged,mixed_tenement-damaged,warehouse-burning,warehouse-damaged}.{png,json}` · burning mixed_tenement reutilizado de `closure/fire/hybrid_sprite_*` (sha OK) · exclusión `Texture` en el contrato de weathering | — |
+| 4 · demostraciones de incendio WP06 | DONE | — | `evidence/v2/final-assets/modern_building_fire_ab.png` · 10 brazos día/noche (control legacy + mixed_tenement y warehouse intenso/moderado) · `fxFoci` QA · `wp06_warehouse-burning-day` | — |
 | 5 · comparativa de conservación WP06 | PENDING | — | `modern_building_condition_ab.png` (por crear) | — |
 | 6 · validación, documentación y cierre | PENDING | — | — | — |
 

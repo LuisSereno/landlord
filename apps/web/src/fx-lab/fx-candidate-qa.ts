@@ -51,7 +51,8 @@ export type CandidateQaMetadata = {
   };
   readonly framing: { readonly pixelsPerMeter: number };
   readonly pivot: { readonly x: number; readonly y: number };
-  readonly fireAnchors: readonly ComposerFireAnchor[];
+  /** Sólo los candidatos `burning` publican focos; `complete`/`damaged`/`aged` no traen la clave. */
+  readonly fireAnchors?: readonly ComposerFireAnchor[];
 };
 
 /** Cómo se llaman los hermanos dentro de la ruta QA de la captura; el arnés los copia juntos. */
@@ -152,7 +153,7 @@ export function composerPointToSpriteUv(
  */
 export function candidateFireMetadata(meta: CandidateQaMetadata): FireAnchorMetadata[] {
   const out: FireAnchorMetadata[] = [];
-  for (const anchor of meta.fireAnchors) {
+  for (const anchor of meta.fireAnchors ?? []) {
     if (!anchor.purpose.startsWith("fire:flame")) continue;
     const [x, y, z] = anchor.position;
     const [zMin, zMax] = anchor.zRangeMeters;

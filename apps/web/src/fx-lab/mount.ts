@@ -33,6 +33,8 @@ export type FxLabMountOptions = {
    * la calle del laboratorio con sus colocaciones de siempre.
    */
   candidate?: { metadata: CandidateQaMetadata; pngUrl: string; textureKey: string } | null;
+  /** FINAL-ASSET-QA 4.3: intensidad selectiva (`?fxFoci=n`); `null` = todos los focos. */
+  fociLimit?: number | null;
 };
 
 /** Cadena del driver WebGL real. En esta máquina sale ANGLE/llvmpipe: es la prueba del suelo blando. */
@@ -71,6 +73,7 @@ export function mountFxLab(container: HTMLElement, options: FxLabMountOptions): 
     perf: options.perf,
     preset: options.preset ?? null,
     candidate: options.candidate ?? null,
+    fociLimit: options.fociLimit ?? null,
   });
   const game = new Phaser.Game({
     type: options.renderer === "canvas" ? Phaser.CANVAS : Phaser.AUTO,

@@ -48,7 +48,7 @@ legacy (`bld_*`) queden como controles históricos. Sin tocar `GameState`, promo
 | 2 · mapa de procedencias + anti-sustitución | DONE | `83094b7` | `FINAL-ASSET-SOURCES.md` · `validateCandidateQa` en la ruta QA · `listCandidateQaErrors()` en la escena | — |
 | 3 · variantes WP06 que faltan | DONE | `5d7b176` | `evidence/v2/candidates/wp06_{mixed_tenement-aged,mixed_tenement-damaged,warehouse-burning,warehouse-damaged}.{png,json}` · burning mixed_tenement reutilizado de `closure/fire/hybrid_sprite_*` (sha OK) · exclusión `Texture` en el contrato de weathering | — |
 | 4 · demostraciones de incendio WP06 | DONE | — | `evidence/v2/final-assets/modern_building_fire_ab.png` · 10 brazos día/noche (control legacy + mixed_tenement y warehouse intenso/moderado) · `fxFoci` QA · `wp06_warehouse-burning-day` | — |
-| 5 · comparativa de conservación WP06 | PENDING | — | `modern_building_condition_ab.png` (por crear) | — |
+| 5 · comparativa de conservación WP06 | DONE | — | `evidence/v2/final-assets/modern_building_condition_ab.png` · mixed_tenement conservado/envejecido/dañado/en llamas a 2,5× (misma arquitectura) | — |
 | 6 · validación, documentación y cierre | PENDING | — | — | — |
 
 ## Defectos heredados registrados en FASE 1 (sin regenerar evidencias antiguas)

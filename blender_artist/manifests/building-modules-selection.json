@@ -2843,6 +2843,34 @@
     "industrial_heavy"
    ],
    "extractionStrategy": "whole_asset"
+  },
+  {
+   "id": "mod_original_neoclassical_column",
+   "category": "civic",
+   "role": "column",
+   "note": "D-111.3 FASE 6: columna exenta blanca (basa, fuste, capitel) para el pórtico monumental del town_hall neoclásico; sustituye a la de ladrillo en el overlay del perfil",
+   "sourcePath": "blender_artist/sources/original/neoclassical_column.glb",
+   "meshes": [
+    "NeoclassicalColumn"
+   ],
+   "allowedFamilies": [
+    "civic_landmark"
+   ],
+   "extractionStrategy": "whole_asset"
+  },
+  {
+   "id": "mod_original_neoclassical_wall_2m",
+   "category": "facade",
+   "role": "wall_panel",
+   "note": "D-111.3 FASE 6: paño calizo claro de 2 m con cornisa corrida, fachada principal del ayuntamiento neoclásico",
+   "sourcePath": "blender_artist/sources/original/neoclassical_wall_2m.glb",
+   "meshes": [
+    "NeoclassicalWall"
+   ],
+   "allowedFamilies": [
+    "civic_landmark"
+   ],
+   "extractionStrategy": "whole_asset"
   }
  ]
 }

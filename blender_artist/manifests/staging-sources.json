@@ -1,697 +1,719 @@
 {
-  "schemaVersion": 1,
-  "purpose": "Local staging inventory; paths under ignored staging are not repository assets.",
-  "sources": [
-    {
-      "id": "src_quaternius_downtown_city_megakit",
-      "path": "blender_artist/staging/third_party/cc0/quaternius/Downtown City MegaKit[Standard].zip",
-      "sha256": "5b1a945576d54cdbb4ccc9c3d52711e6d530da74c74c586407ecc28b165335da",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://quaternius.itch.io/downtown-city-megakit",
-      "unitScale": 1,
-      "extractDir": "quaternius/downtown-city-megakit",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_quaternius_base_characters",
-      "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Base Characters[Standard].zip",
-      "sha256": "fdbf1804c90dfc1ea03e992bff7da2dfd1a79318e13270a660180f9308455f40",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://quaternius.itch.io/universal-base-characters",
-      "unitScale": 1,
-      "extractDir": "quaternius/base-characters",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_quaternius_animation_library",
-      "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Animation Library[Standard].zip",
-      "sha256": "cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://quaternius.itch.io/universal-animation-library",
-      "extractDir": "quaternius/animation-library",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_quaternius_animation_library_2",
-      "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Animation Library 2[Standard].zip",
-      "sha256": "4008ea208a604773a2b2177d965f0f5d3195498b5bf838c3f5785d68e95f2a68",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://quaternius.itch.io/universal-animation-library-2",
-      "extractDir": "quaternius/animation-library-2",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_kenney_city_commercial",
-      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-commercial_2.1.zip",
-      "sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://kenney.nl/assets/city-kit-commercial",
-      "unitScale": 4,
-      "extractDir": "kenney/city-kit-commercial",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_kenney_city_industrial",
-      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-industrial_2.0.zip",
-      "sha256": "5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://kenney.nl/assets/city-kit-industrial",
-      "unitScale": 4,
-      "extractDir": "kenney/city-kit-industrial",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_kenney_city_roads",
-      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-roads.zip",
-      "sha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://kenney.nl/assets/city-kit-roads",
-      "unitScale": 4,
-      "extractDir": "kenney/city-kit-roads",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_kenney_city_suburban",
-      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-suburban_20.zip",
-      "sha256": "5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://kenney.nl/assets/city-kit-suburban",
-      "unitScale": 4,
-      "extractDir": "kenney/city-kit-suburban",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_kenney_car_kit",
-      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_car-kit.zip",
-      "sha256": "fac7dacac5c7874348cf19729af3ef205f3d366493edaf0a827d93f4fdf3d0c4",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://kenney.nl/assets/car-kit",
-      "unitScale": 1.3,
-      "extractDir": "kenney/car-kit",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_kenney_nature_kit",
-      "path": "blender_artist/staging/third_party/cc0/kenney/kenney_nature-kit.zip",
-      "sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://kenney.nl/assets/nature-kit",
-      "unitScale": 4,
-      "extractDir": "kenney/nature-kit",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_kaykit_city_builder_bits",
-      "path": "blender_artist/staging/third_party/cc0/kaykit/kaykit_city-builder-bits_1.0.zip",
-      "sha256": "0d1a41ef653751fcd718a57531c29d600be61eb71700cb7f062f75cdea0d7e0b",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "CC0 asserted by the author at the sourceUrl and shipped inside the archive as Assets/LICENSE.txt",
-      "sourceUrl": "https://kaylousberg.itch.io/city-builder-bits",
-      "unitScale": 4,
-      "extractDir": "kaykit/city-builder-bits",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_polyhaven_asphalt_07",
-      "path": "blender_artist/staging/third_party/cc0/polyhaven/asphalt_07_4k.blend.zip",
-      "sha256": "b086d6f9057c5b9440dff260b4c89197f15940f342b3b2f44558fcc7fc579390",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/asphalt_07",
-      "extractDir": "polyhaven/asphalt_07",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_polyhaven_concrete_wall_003",
-      "path": "blender_artist/staging/third_party/cc0/polyhaven/concrete_wall_003_4k.blend.zip",
-      "sha256": "07c66b0cd77273baab5791859f6779cfb548ad80f59801960759eefa9d6bbf7a",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/concrete_wall_003",
-      "extractDir": "polyhaven/concrete_wall_003",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_polyhaven_red_brick_03",
-      "path": "blender_artist/staging/third_party/cc0/polyhaven/red_brick_03_4k.blend.zip",
-      "sha256": "1ec3c85d5823330dbc7cec11815c70eb716246d4de336a252c76fa0c4dbcdd41",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/red_brick_03",
-      "extractDir": "polyhaven/red_brick_03",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_polyhaven_red_bricks_02",
-      "path": "blender_artist/staging/third_party/cc0/polyhaven/red_bricks_02_4k.blend.zip",
-      "sha256": "5e41523565e97c29c97d73955c44b828590ef8b8ef448a854a01ce9e092bfcc1",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/red_bricks_02",
-      "extractDir": "polyhaven/red_bricks_02",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_polyhaven_rusty_metal_02",
-      "path": "blender_artist/staging/third_party/cc0/polyhaven/rusty_metal_02_4k.blend.zip",
-      "sha256": "fec102ef9f95e0436c056e70487085e3f3601e6336037cff9d88b5bba2d350c1",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/rusty_metal_02",
-      "extractDir": "polyhaven/rusty_metal_02",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_polyhaven_wood_planks_grey",
-      "path": "blender_artist/staging/third_party/cc0/polyhaven/wood_planks_grey_4k.blend.zip",
-      "sha256": "0799b6462bca626a7988aa87bacfaa6047010e643c1583a870ba38267c6d39af",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://polyhaven.com/a/wood_planks_grey",
-      "extractDir": "polyhaven/wood_planks_grey",
-      "integrity": {
-        "type": "archived",
-        "archivedOn": "2026-11-04",
-        "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
-      }
-    },
-    {
-      "id": "src_polyhaven_cobblestone_pavement",
-      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/cobblestone_pavement/cobblestone_pavement_2k.blend",
-      "sha256": "95ef2d8af89844a0c62c25d1159d208e75289467ee4414627f1cbeec6cfafa1f",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
-      "sourceUrl": "https://polyhaven.com/a/cobblestone_pavement",
-      "unitScale": 1,
-      "extractDir": "polyhaven/cobblestone_pavement"
-    },
-    {
-      "id": "src_polyhaven_stone_wall_02",
-      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/stone_wall_02/stone_wall_02_2k.blend",
-      "sha256": "010453981b1beab2b53ccc6e89c553a5db00da91baa91f10e95865897b81b486",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
-      "sourceUrl": "https://polyhaven.com/a/stone_wall_02",
-      "unitScale": 1,
-      "extractDir": "polyhaven/stone_wall_02"
-    },
-    {
-      "id": "src_polyhaven_corrugated_iron_03",
-      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
-      "sha256": "cc3eb289e2f65f6f14657cfe2a03ed4b67b5f2e52ed46c43469015fa46bf9790",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
-      "sourceUrl": "https://polyhaven.com/a/corrugated_iron_03",
-      "unitScale": 1,
-      "extractDir": "polyhaven/corrugated_iron_03"
-    },
-    {
-      "id": "src_polyhaven_brown_mud_03",
-      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/brown_mud_03/brown_mud_03_2k.blend",
-      "sha256": "56c01405a339db261390e4f32aed0c9844cf4b218d9a99a489e360d127d0f37a",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
-      "sourceUrl": "https://polyhaven.com/a/brown_mud_03",
-      "unitScale": 1,
-      "extractDir": "polyhaven/brown_mud_03"
-    },
-    {
-      "id": "src_polyhaven_grass_ground",
-      "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/grass_ground/grass_ground_2k.blend",
-      "sha256": "d1a6c062b7b4d55dfbd857ed67c6e97a0225eefd89bd338b9c0fbe125ac841b4",
-      "origin": "public_domain",
-      "license": "CC0-1.0",
-      "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
-      "sourceUrl": "https://polyhaven.com/a/grass_ground",
-      "unitScale": 1,
-      "extractDir": "polyhaven/grass_ground"
-    },
-    {
-      "id": "src_microsoft_rocketbox",
-      "path": "blender_artist/staging/third_party/mit/rocketbox",
-      "origin": "licensed",
-      "license": "MIT",
-      "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
-      "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
-      "unitScale": 1,
-      "author": "Microsoft",
-      "attribution": {
-        "licenseUrl": "https://opensource.org/licenses/MIT",
-        "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
-        "verifiedAt": "2026-10-26"
-      },
-      "integrity": {
-        "type": "git-commit",
-        "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",
-        "licenseFile": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
-        "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
-      }
-    },
-    {
-      "id": "src_original_civic_pediment",
-      "path": "blender_artist/sources/original/civic_pediment.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_civic_pediment.py",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_school_cupola",
-      "path": "blender_artist/sources/original/school_cupola.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_school_cupola.py",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_construction_scaffold",
-      "path": "blender_artist/sources/original/construction_scaffold.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_scaffold.py",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_construction_barrier",
-      "path": "blender_artist/sources/original/construction_barrier.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_state_modules.py",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_damage_debris",
-      "path": "blender_artist/sources/original/damage_debris.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_state_modules.py",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_fire_flame",
-      "path": "blender_artist/sources/original/fire_flame.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_state_modules.py",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_fire_smoke",
-      "path": "blender_artist/sources/original/fire_smoke.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_state_modules.py",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_school_playground",
-      "path": "blender_artist/sources/original/school_playground.glb",
-      "sha256": "814c7e69f1260179a52801200a193a012813d0774c39e96db2089e18556deb48",
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_school_playground.py",
-      "sourceUrl": "tools/art-pipeline/blender/create_original_school_playground.py",
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_market_stall",
-      "path": "blender_artist/sources/original/market_stall.glb",
-      "sha256": "c5995cd7cb04282a4c9234ab0968547ff4a3ab9116ee33f5e80527808ab547cb",
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_market_stall.py",
-      "sourceUrl": "tools/art-pipeline/blender/create_original_market_stall.py",
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_flagpole",
-      "path": "blender_artist/sources/original/flagpole.glb",
-      "sha256": "be19dbcee94da2f66bfca676971b732f2f2b2fde99705ef006ff472aa3550885",
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por create_original_flagpole.py",
-      "sourceUrl": "tools/art-pipeline/blender/create_original_flagpole.py",
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_kenney_building_kit",
-      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit",
-      "sha256": "43ff0da1574673e562a16817850a6359d01f31d6c65608059ad9ac84a47eba61",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
-      "sourceUrl": "https://kenney.nl/assets/building-kit",
-      "version": "1.0",
-      "unitScale": null,
-      "extractDir": "kenney/building-kit",
-      "integrity": {
-        "type": "tree-sha256",
-        "fileCount": 407,
-        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
-      },
-      "registeredAt": "2026-11-20",
-      "downloadedAt": null
-    },
-    {
-      "id": "src_kenney_mini_characters",
-      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters",
-      "sha256": "335cec4dd9f007bbfadb1fe2f82b1c45f1683cffa1a49ebc8bc48568b5ece708",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
-      "sourceUrl": "https://kenney.nl/assets/mini-characters",
-      "version": "2.0",
-      "unitScale": 1,
-      "extractDir": "kenney/mini-characters",
-      "integrity": {
-        "type": "tree-sha256",
-        "fileCount": 224,
-        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
-      },
-      "registeredAt": "2026-11-20",
-      "downloadedAt": null
-    },
-    {
-      "id": "src_kenney_modular_buildings",
-      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/modular-buildings",
-      "sha256": "54cc58c0061ad45caed4a1357efcefec30cc4d08b266441f76afd0303b6039dc",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
-      "sourceUrl": "https://kenney.nl/assets/modular-buildings",
-      "version": "2.1",
-      "unitScale": null,
-      "extractDir": "kenney/modular-buildings",
-      "integrity": {
-        "type": "tree-sha256",
-        "fileCount": 554,
-        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
-      },
-      "archive": {
-        "path": "blender_artist/staging/third_party/cc0/downloads/kenney-modular-buildings/kenney_modular-buildings.zip",
-        "sha256": "47e1614686b4c0fe55190e88b22ff2b8b10935edf61f37f478a9b6a99477edc6",
-        "contentsMatchTree": true
-      },
-      "registeredAt": "2026-11-20",
-      "downloadedAt": null
-    },
-    {
-      "id": "src_kenney_retro_textures_fantasy",
-      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy",
-      "sha256": "5490ff72a070d40aead1e61a4083b76adef3d4015323a4d9b60287b2000bc010",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
-      "sourceUrl": "https://kenney.nl/assets/retro-textures-fantasy",
-      "version": "1.0",
-      "unitScale": null,
-      "extractDir": "kenney/retro-textures-fantasy",
-      "integrity": {
-        "type": "tree-sha256",
-        "fileCount": 122,
-        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
-      },
-      "registeredAt": "2026-11-20",
-      "downloadedAt": null
-    },
-    {
-      "id": "src_kenney_retro_urban_kit",
-      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit",
-      "sha256": "2730682cc922ef50af354ca9024d6aa40c0e35f615c1cfe24c584178a1d2913c",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
-      "sourceUrl": "https://kenney.nl/assets/retro-urban-kit",
-      "version": "2.0",
-      "unitScale": null,
-      "extractDir": "kenney/retro-urban-kit",
-      "integrity": {
-        "type": "tree-sha256",
-        "fileCount": 693,
-        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
-      },
-      "registeredAt": "2026-11-20",
-      "downloadedAt": null
-    },
-    {
-      "id": "src_quaternius_ultimate_buildings",
-      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings",
-      "sha256": "ef20dc675200e1cf3dec1bac082c4268e4877ba69d2245ec56aeccdaf89d8d64",
-      "origin": "licensed",
-      "license": "CC0-1.0",
-      "verification": "Pack-specific official page and Quaternius FAQ label this December 2019 release CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
-      "sourceUrl": "https://quaternius.com/packs/ultimatetexturedbuildings.html",
-      "version": "2019",
-      "unitScale": 2,
-      "extractDir": "quaternius/ultimate-buildings",
-      "integrity": {
-        "type": "tree-sha256",
-        "fileCount": 420,
-        "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
-      },
-      "registeredAt": "2026-11-20",
-      "downloadedAt": null
-    },
-    {
-      "id": "src_original_gn_window_bay",
-      "path": "blender_artist/sources/original/gn_window_bay_2m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte window_bay: hueco de ventana con montantes instanciados, dintel, alféizar y revelco) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_shopfront_bay",
-      "path": "blender_artist/sources/original/gn_shopfront_bay_2m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte shopfront_bay: escaparate comercial con pilstras, friso y carpintería) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_plinth",
-      "path": "blender_artist/sources/original/gn_plinth_2m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte plinth: zócalo de piedra con juntas) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_cornice",
-      "path": "blender_artist/sources/original/gn_cornice_2m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte cornice: cornisa con dentículos instanciados) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_balcony_door_bay",
-      "path": "blender_artist/sources/original/gn_balcony_door_bay_2m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte balcony_door_bay: puerta-balcón losa, barandilla de balaustres y hojas) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_metal_siding_bay",
-      "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_siding_bay: paño de chapa perfilada de nave de 4 m con nervaduras instanciadas, travesaños, solera, alero, junta de nave y bajante) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_metal_window_bay",
-      "path": "blender_artist/sources/original/gn_metal_window_bay_4m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_window_bay: crujía de chapa de 4 m con franja alta de vidrios de 2,60 × 0,75 m, hueco atravesado con reveco de cuatro caras, montantes instanciados, chapa de alféizar con goterón y nervaduras cortadas en el hueco) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_truck_dock_bay",
-      "path": "blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte truck_dock_bay: portón de muelle de 4 m con hueco libre de 2,60 × 2,68 m medido cara a cara en ext_lab/dock_probe.py —de Z 0,06 a 2,74—, hoja seccionada de lamas vivas, guías, dintel, pletina de niveladora, puerta personal de 0,85 × 2,05 m con mirilla y topes de goma) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_gn_metal_parapet",
-      "path": "blender_artist/sources/original/gn_metal_parapet_4m.glb",
-      "sha256": null,
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_parapet: pretil ciego de chapa de 4 m con capa volada, banda de sombra, juntas verticales instanciadas y continuidad de la bajante del paño) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
-      "sourceUrl": null,
-      "unitScale": 1,
-      "extractDir": null
-    },
-    {
-      "id": "src_original_ag_arcade_bay",
-      "path": "blender_artist/sources/original/ag_arcade_bay_2m.glb",
-      "sha256": "cd84ed402a5100b8d41338a586214abd6d42bf1b2955ea66a0a8ec447a2b31a1",
-      "origin": "original",
-      "license": "original",
-      "verification": "geometría propia horneada por tools/art-pipeline/blender/ext_lab/ag_module_bake.py llamando a bpy.ops.mesh.arch_create() + arch_props de Arch Generator 1.0.1 (instalada en un perfil aislado de /tmp, sin redistribuir el add-on) y recortada a la crujía de 2 m; los materiales son los flats autorados de gn_facade_grammar.py",
-      "sourceUrl": "tools/art-pipeline/blender/ext_lab/ag_module_bake.py",
-      "unitScale": 1,
-      "extractDir": null
-    }
-  ],
-  "quarantined": [
-    "FBX-20261021T083555Z-1-001.zip",
-    "Ultimate Nature Pack - Jun 2019-20261021T084100Z-1-001.zip",
-    "aerial_asphalt_01_4k.blend.zip",
-    "brick_pavement_4k.blend.zip",
-    "pavement_03_4k.blend.zip",
-    "red_brick_4k.blend.zip",
-    "kenney_board-game-icons.zip",
-    "kenney_game-icons.zip",
-    "kenney_ui-audio.zip",
-    "kenney_ui-pack.zip"
-  ]
+ "schemaVersion": 1,
+ "purpose": "Local staging inventory; paths under ignored staging are not repository assets.",
+ "sources": [
+  {
+   "id": "src_quaternius_downtown_city_megakit",
+   "path": "blender_artist/staging/third_party/cc0/quaternius/Downtown City MegaKit[Standard].zip",
+   "sha256": "5b1a945576d54cdbb4ccc9c3d52711e6d530da74c74c586407ecc28b165335da",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://quaternius.itch.io/downtown-city-megakit",
+   "unitScale": 1,
+   "extractDir": "quaternius/downtown-city-megakit",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_quaternius_base_characters",
+   "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Base Characters[Standard].zip",
+   "sha256": "fdbf1804c90dfc1ea03e992bff7da2dfd1a79318e13270a660180f9308455f40",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://quaternius.itch.io/universal-base-characters",
+   "unitScale": 1,
+   "extractDir": "quaternius/base-characters",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_quaternius_animation_library",
+   "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Animation Library[Standard].zip",
+   "sha256": "cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://quaternius.itch.io/universal-animation-library",
+   "extractDir": "quaternius/animation-library",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_quaternius_animation_library_2",
+   "path": "blender_artist/staging/third_party/cc0/quaternius/Universal Animation Library 2[Standard].zip",
+   "sha256": "4008ea208a604773a2b2177d965f0f5d3195498b5bf838c3f5785d68e95f2a68",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://quaternius.itch.io/universal-animation-library-2",
+   "extractDir": "quaternius/animation-library-2",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_kenney_city_commercial",
+   "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-commercial_2.1.zip",
+   "sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://kenney.nl/assets/city-kit-commercial",
+   "unitScale": 4,
+   "extractDir": "kenney/city-kit-commercial",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_kenney_city_industrial",
+   "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-industrial_2.0.zip",
+   "sha256": "5b381164e5760f3830a2dbee43b972deee38b2a695d091b56e238ab2910c96d2",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://kenney.nl/assets/city-kit-industrial",
+   "unitScale": 4,
+   "extractDir": "kenney/city-kit-industrial",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_kenney_city_roads",
+   "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-roads.zip",
+   "sha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://kenney.nl/assets/city-kit-roads",
+   "unitScale": 4,
+   "extractDir": "kenney/city-kit-roads",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_kenney_city_suburban",
+   "path": "blender_artist/staging/third_party/cc0/kenney/kenney_city-kit-suburban_20.zip",
+   "sha256": "5869c35cf30b1c87bdb2d197b6d325eebadd2ef08ea27f04797e8e08d77a9a39",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://kenney.nl/assets/city-kit-suburban",
+   "unitScale": 4,
+   "extractDir": "kenney/city-kit-suburban",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_kenney_car_kit",
+   "path": "blender_artist/staging/third_party/cc0/kenney/kenney_car-kit.zip",
+   "sha256": "fac7dacac5c7874348cf19729af3ef205f3d366493edaf0a827d93f4fdf3d0c4",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://kenney.nl/assets/car-kit",
+   "unitScale": 1.3,
+   "extractDir": "kenney/car-kit",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_kenney_nature_kit",
+   "path": "blender_artist/staging/third_party/cc0/kenney/kenney_nature-kit.zip",
+   "sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://kenney.nl/assets/nature-kit",
+   "unitScale": 4,
+   "extractDir": "kenney/nature-kit",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_kaykit_city_builder_bits",
+   "path": "blender_artist/staging/third_party/cc0/kaykit/kaykit_city-builder-bits_1.0.zip",
+   "sha256": "0d1a41ef653751fcd718a57531c29d600be61eb71700cb7f062f75cdea0d7e0b",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "CC0 asserted by the author at the sourceUrl and shipped inside the archive as Assets/LICENSE.txt",
+   "sourceUrl": "https://kaylousberg.itch.io/city-builder-bits",
+   "unitScale": 4,
+   "extractDir": "kaykit/city-builder-bits",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_polyhaven_asphalt_07",
+   "path": "blender_artist/staging/third_party/cc0/polyhaven/asphalt_07_4k.blend.zip",
+   "sha256": "b086d6f9057c5b9440dff260b4c89197f15940f342b3b2f44558fcc7fc579390",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://polyhaven.com/a/asphalt_07",
+   "extractDir": "polyhaven/asphalt_07",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_polyhaven_concrete_wall_003",
+   "path": "blender_artist/staging/third_party/cc0/polyhaven/concrete_wall_003_4k.blend.zip",
+   "sha256": "07c66b0cd77273baab5791859f6779cfb548ad80f59801960759eefa9d6bbf7a",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://polyhaven.com/a/concrete_wall_003",
+   "extractDir": "polyhaven/concrete_wall_003",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_polyhaven_red_brick_03",
+   "path": "blender_artist/staging/third_party/cc0/polyhaven/red_brick_03_4k.blend.zip",
+   "sha256": "1ec3c85d5823330dbc7cec11815c70eb716246d4de336a252c76fa0c4dbcdd41",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://polyhaven.com/a/red_brick_03",
+   "extractDir": "polyhaven/red_brick_03",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_polyhaven_red_bricks_02",
+   "path": "blender_artist/staging/third_party/cc0/polyhaven/red_bricks_02_4k.blend.zip",
+   "sha256": "5e41523565e97c29c97d73955c44b828590ef8b8ef448a854a01ce9e092bfcc1",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://polyhaven.com/a/red_bricks_02",
+   "extractDir": "polyhaven/red_bricks_02",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_polyhaven_rusty_metal_02",
+   "path": "blender_artist/staging/third_party/cc0/polyhaven/rusty_metal_02_4k.blend.zip",
+   "sha256": "fec102ef9f95e0436c056e70487085e3f3601e6336037cff9d88b5bba2d350c1",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://polyhaven.com/a/rusty_metal_02",
+   "extractDir": "polyhaven/rusty_metal_02",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_polyhaven_wood_planks_grey",
+   "path": "blender_artist/staging/third_party/cc0/polyhaven/wood_planks_grey_4k.blend.zip",
+   "sha256": "0799b6462bca626a7988aa87bacfaa6047010e643c1583a870ba38267c6d39af",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://polyhaven.com/a/wood_planks_grey",
+   "extractDir": "polyhaven/wood_planks_grey",
+   "integrity": {
+    "type": "archived",
+    "archivedOn": "2026-11-04",
+    "reason": "Archive not retained locally: the physical pack duplicates cc0/extracted/, so the working copy is the extraction and sha256 + sourceUrl stay as the re-provisioning contract."
+   }
+  },
+  {
+   "id": "src_polyhaven_cobblestone_pavement",
+   "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/cobblestone_pavement/cobblestone_pavement_2k.blend",
+   "sha256": "95ef2d8af89844a0c62c25d1159d208e75289467ee4414627f1cbeec6cfafa1f",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+   "sourceUrl": "https://polyhaven.com/a/cobblestone_pavement",
+   "unitScale": 1,
+   "extractDir": "polyhaven/cobblestone_pavement"
+  },
+  {
+   "id": "src_polyhaven_stone_wall_02",
+   "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/stone_wall_02/stone_wall_02_2k.blend",
+   "sha256": "010453981b1beab2b53ccc6e89c553a5db00da91baa91f10e95865897b81b486",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+   "sourceUrl": "https://polyhaven.com/a/stone_wall_02",
+   "unitScale": 1,
+   "extractDir": "polyhaven/stone_wall_02"
+  },
+  {
+   "id": "src_polyhaven_corrugated_iron_03",
+   "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/corrugated_iron_03/corrugated_iron_03_2k.blend",
+   "sha256": "cc3eb289e2f65f6f14657cfe2a03ed4b67b5f2e52ed46c43469015fa46bf9790",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+   "sourceUrl": "https://polyhaven.com/a/corrugated_iron_03",
+   "unitScale": 1,
+   "extractDir": "polyhaven/corrugated_iron_03"
+  },
+  {
+   "id": "src_polyhaven_brown_mud_03",
+   "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/brown_mud_03/brown_mud_03_2k.blend",
+   "sha256": "56c01405a339db261390e4f32aed0c9844cf4b218d9a99a489e360d127d0f37a",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+   "sourceUrl": "https://polyhaven.com/a/brown_mud_03",
+   "unitScale": 1,
+   "extractDir": "polyhaven/brown_mud_03"
+  },
+  {
+   "id": "src_polyhaven_grass_ground",
+   "path": "blender_artist/staging/third_party/cc0/extracted/polyhaven/grass_ground/grass_ground_2k.blend",
+   "sha256": "d1a6c062b7b4d55dfbd857ed67c6e97a0225eefd89bd338b9c0fbe125ac841b4",
+   "origin": "public_domain",
+   "license": "CC0-1.0",
+   "verification": "Poly Haven API CC0; acquired 2026-11-09 by scripts/provision-polyhaven-materials.mjs (V.j.7)",
+   "sourceUrl": "https://polyhaven.com/a/grass_ground",
+   "unitScale": 1,
+   "extractDir": "polyhaven/grass_ground"
+  },
+  {
+   "id": "src_microsoft_rocketbox",
+   "path": "blender_artist/staging/third_party/mit/rocketbox",
+   "origin": "licensed",
+   "license": "MIT",
+   "verification": "documented in docs/art/BOOTSTRAP-ASSET-LIBRARY.md",
+   "sourceUrl": "https://github.com/microsoft/Microsoft-Rocketbox",
+   "unitScale": 1,
+   "author": "Microsoft",
+   "attribution": {
+    "licenseUrl": "https://opensource.org/licenses/MIT",
+    "attributionText": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft",
+    "verifiedAt": "2026-10-26"
+   },
+   "integrity": {
+    "type": "git-commit",
+    "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",
+    "licenseFile": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
+    "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+   }
+  },
+  {
+   "id": "src_original_civic_pediment",
+   "path": "blender_artist/sources/original/civic_pediment.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_civic_pediment.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_school_cupola",
+   "path": "blender_artist/sources/original/school_cupola.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_school_cupola.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_construction_scaffold",
+   "path": "blender_artist/sources/original/construction_scaffold.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_scaffold.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_construction_barrier",
+   "path": "blender_artist/sources/original/construction_barrier.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_state_modules.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_damage_debris",
+   "path": "blender_artist/sources/original/damage_debris.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_state_modules.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_fire_flame",
+   "path": "blender_artist/sources/original/fire_flame.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_state_modules.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_fire_smoke",
+   "path": "blender_artist/sources/original/fire_smoke.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_state_modules.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_school_playground",
+   "path": "blender_artist/sources/original/school_playground.glb",
+   "sha256": "814c7e69f1260179a52801200a193a012813d0774c39e96db2089e18556deb48",
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_school_playground.py",
+   "sourceUrl": "tools/art-pipeline/blender/create_original_school_playground.py",
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_market_stall",
+   "path": "blender_artist/sources/original/market_stall.glb",
+   "sha256": "c5995cd7cb04282a4c9234ab0968547ff4a3ab9116ee33f5e80527808ab547cb",
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_market_stall.py",
+   "sourceUrl": "tools/art-pipeline/blender/create_original_market_stall.py",
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_flagpole",
+   "path": "blender_artist/sources/original/flagpole.glb",
+   "sha256": "be19dbcee94da2f66bfca676971b732f2f2b2fde99705ef006ff472aa3550885",
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_flagpole.py",
+   "sourceUrl": "tools/art-pipeline/blender/create_original_flagpole.py",
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_kenney_building_kit",
+   "path": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit",
+   "sha256": "43ff0da1574673e562a16817850a6359d01f31d6c65608059ad9ac84a47eba61",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+   "sourceUrl": "https://kenney.nl/assets/building-kit",
+   "version": "1.0",
+   "unitScale": null,
+   "extractDir": "kenney/building-kit",
+   "integrity": {
+    "type": "tree-sha256",
+    "fileCount": 407,
+    "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+   },
+   "registeredAt": "2026-11-20",
+   "downloadedAt": null
+  },
+  {
+   "id": "src_kenney_mini_characters",
+   "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters",
+   "sha256": "335cec4dd9f007bbfadb1fe2f82b1c45f1683cffa1a49ebc8bc48568b5ece708",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+   "sourceUrl": "https://kenney.nl/assets/mini-characters",
+   "version": "2.0",
+   "unitScale": 1,
+   "extractDir": "kenney/mini-characters",
+   "integrity": {
+    "type": "tree-sha256",
+    "fileCount": 224,
+    "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+   },
+   "registeredAt": "2026-11-20",
+   "downloadedAt": null
+  },
+  {
+   "id": "src_kenney_modular_buildings",
+   "path": "blender_artist/staging/third_party/cc0/extracted/kenney/modular-buildings",
+   "sha256": "54cc58c0061ad45caed4a1357efcefec30cc4d08b266441f76afd0303b6039dc",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+   "sourceUrl": "https://kenney.nl/assets/modular-buildings",
+   "version": "2.1",
+   "unitScale": null,
+   "extractDir": "kenney/modular-buildings",
+   "integrity": {
+    "type": "tree-sha256",
+    "fileCount": 554,
+    "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+   },
+   "archive": {
+    "path": "blender_artist/staging/third_party/cc0/downloads/kenney-modular-buildings/kenney_modular-buildings.zip",
+    "sha256": "47e1614686b4c0fe55190e88b22ff2b8b10935edf61f37f478a9b6a99477edc6",
+    "contentsMatchTree": true
+   },
+   "registeredAt": "2026-11-20",
+   "downloadedAt": null
+  },
+  {
+   "id": "src_kenney_retro_textures_fantasy",
+   "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy",
+   "sha256": "5490ff72a070d40aead1e61a4083b76adef3d4015323a4d9b60287b2000bc010",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+   "sourceUrl": "https://kenney.nl/assets/retro-textures-fantasy",
+   "version": "1.0",
+   "unitScale": null,
+   "extractDir": "kenney/retro-textures-fantasy",
+   "integrity": {
+    "type": "tree-sha256",
+    "fileCount": 122,
+    "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+   },
+   "registeredAt": "2026-11-20",
+   "downloadedAt": null
+  },
+  {
+   "id": "src_kenney_retro_urban_kit",
+   "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit",
+   "sha256": "2730682cc922ef50af354ca9024d6aa40c0e35f615c1cfe24c584178a1d2913c",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "Included License.txt and official Kenney asset page: CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+   "sourceUrl": "https://kenney.nl/assets/retro-urban-kit",
+   "version": "2.0",
+   "unitScale": null,
+   "extractDir": "kenney/retro-urban-kit",
+   "integrity": {
+    "type": "tree-sha256",
+    "fileCount": 693,
+    "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+   },
+   "registeredAt": "2026-11-20",
+   "downloadedAt": null
+  },
+  {
+   "id": "src_quaternius_ultimate_buildings",
+   "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings",
+   "sha256": "ef20dc675200e1cf3dec1bac082c4268e4877ba69d2245ec56aeccdaf89d8d64",
+   "origin": "licensed",
+   "license": "CC0-1.0",
+   "verification": "Pack-specific official page and Quaternius FAQ label this December 2019 release CC0; see docs/art/NEW-SOURCE-PACKS-2026-11-20.md",
+   "sourceUrl": "https://quaternius.com/packs/ultimatetexturedbuildings.html",
+   "version": "2019",
+   "unitScale": 2,
+   "extractDir": "quaternius/ultimate-buildings",
+   "integrity": {
+    "type": "tree-sha256",
+    "fileCount": 420,
+    "algorithm": "sha256(sorted(relative POSIX path + NUL + SHA-256 bytes + LF))"
+   },
+   "registeredAt": "2026-11-20",
+   "downloadedAt": null
+  },
+  {
+   "id": "src_original_gn_window_bay",
+   "path": "blender_artist/sources/original/gn_window_bay_2m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte window_bay: hueco de ventana con montantes instanciados, dintel, alféizar y revelco) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_shopfront_bay",
+   "path": "blender_artist/sources/original/gn_shopfront_bay_2m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte shopfront_bay: escaparate comercial con pilstras, friso y carpintería) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_plinth",
+   "path": "blender_artist/sources/original/gn_plinth_2m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte plinth: zócalo de piedra con juntas) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_cornice",
+   "path": "blender_artist/sources/original/gn_cornice_2m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte cornice: cornisa con dentículos instanciados) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_balcony_door_bay",
+   "path": "blender_artist/sources/original/gn_balcony_door_bay_2m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte balcony_door_bay: puerta-balcón losa, barandilla de balaustres y hojas) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_metal_siding_bay",
+   "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_siding_bay: paño de chapa perfilada de nave de 4 m con nervaduras instanciadas, travesaños, solera, alero, junta de nave y bajante) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_metal_window_bay",
+   "path": "blender_artist/sources/original/gn_metal_window_bay_4m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_window_bay: crujía de chapa de 4 m con franja alta de vidrios de 2,60 × 0,75 m, hueco atravesado con reveco de cuatro caras, montantes instanciados, chapa de alféizar con goterón y nervaduras cortadas en el hueco) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_truck_dock_bay",
+   "path": "blender_artist/sources/original/gn_truck_dock_bay_4m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte truck_dock_bay: portón de muelle de 4 m con hueco libre de 2,60 × 2,68 m medido cara a cara en ext_lab/dock_probe.py —de Z 0,06 a 2,74—, hoja seccionada de lamas vivas, guías, dintel, pletina de niveladora, puerta personal de 0,85 × 2,05 m con mirilla y topes de goma) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_gn_metal_parapet",
+   "path": "blender_artist/sources/original/gn_metal_parapet_4m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por tools/art-pipeline/blender/gn_facade_grammar.py (parte metal_parapet: pretil ciego de chapa de 4 m con capa volada, banda de sombra, juntas verticales instanciadas y continuidad de la bajante del paño) desde un árbol Geometry Nodes paramétrico; el .blend vivo es blender_artist/sources/original/gn_facade_system.blend",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_ag_arcade_bay",
+   "path": "blender_artist/sources/original/ag_arcade_bay_2m.glb",
+   "sha256": "cd84ed402a5100b8d41338a586214abd6d42bf1b2955ea66a0a8ec447a2b31a1",
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia horneada por tools/art-pipeline/blender/ext_lab/ag_module_bake.py llamando a bpy.ops.mesh.arch_create() + arch_props de Arch Generator 1.0.1 (instalada en un perfil aislado de /tmp, sin redistribuir el add-on) y recortada a la crujía de 2 m; los materiales son los flats autorados de gn_facade_grammar.py",
+   "sourceUrl": "tools/art-pipeline/blender/ext_lab/ag_module_bake.py",
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_neoclassical_column",
+   "path": "blender_artist/sources/original/neoclassical_column.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_neoclassical_townhall.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  },
+  {
+   "id": "src_original_neoclassical_wall",
+   "path": "blender_artist/sources/original/neoclassical_wall_2m.glb",
+   "sha256": null,
+   "origin": "original",
+   "license": "original",
+   "verification": "geometría propia generada por create_original_neoclassical_townhall.py",
+   "sourceUrl": null,
+   "unitScale": 1,
+   "extractDir": null
+  }
+ ],
+ "quarantined": [
+  "FBX-20261021T083555Z-1-001.zip",
+  "Ultimate Nature Pack - Jun 2019-20261021T084100Z-1-001.zip",
+  "aerial_asphalt_01_4k.blend.zip",
+  "brick_pavement_4k.blend.zip",
+  "pavement_03_4k.blend.zip",
+  "red_brick_4k.blend.zip",
+  "kenney_board-game-icons.zip",
+  "kenney_game-icons.zip",
+  "kenney_ui-audio.zip",
+  "kenney_ui-pack.zip"
+ ]
 }

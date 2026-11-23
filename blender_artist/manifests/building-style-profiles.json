@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "3d1a5735b020066ee8e56146946017d86dade5d3aab2ba2e6481052e8d806b16",
-      "selectionSha256": "032ba4e4bcb96b9e1f3d623d908589476967e221b0afd9ecc665aa8a96797a7d",
+      "moduleCatalogSha256": "6522422b7653a11ce4828a93fa079089f4cdb05583fda3726aecf22673006a13",
+      "selectionSha256": "b1c2b66fd968ecb7a283f4ce1b74b71e203bb6f6f51c6cba2eb16453715b6f0c",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -40,9 +40,9 @@
               "measured": [
                 {
                   "value": 3,
-                  "count": 26,
+                  "count": 27,
                   "moduleIds": [
-                    "mod_gn_metal_window_bay_4m (3 m)"
+                    "mod_original_neoclassical_wall_2m (3 m)"
                   ]
                 },
                 {
@@ -95,9 +95,9 @@
               "measured": [
                 {
                   "value": 2,
-                  "count": 17,
+                  "count": 18,
                   "moduleIds": [
-                    "mod_gn_plinth_2m"
+                    "mod_original_neoclassical_wall_2m"
                   ]
                 },
                 {
@@ -213,6 +213,7 @@
               0.071,
               0.15,
               0.174,
+              0.22,
               0.3
             ],
             "baseWallThicknessMeters": 0.2,
@@ -1129,13 +1130,13 @@
         "detailDensity": {
           "value": {
             "trianglesPerModule": {
-              "p50": 119,
-              "p90": 1044.3,
+              "p50": 117,
+              "p90": 1038.5,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
-              "p50": 28.45,
-              "p90": 78.14
+              "p50": 25.2,
+              "p90": 75.76
             },
             "budgetReference": {
               "maxBinaryBytes": 1048576,
@@ -2515,6 +2516,12 @@
                 "heightMeters": 0.972,
                 "nearestFloorCount": 1,
                 "deviationPercent": -67.6
+              },
+              {
+                "id": "mod_original_neoclassical_column",
+                "heightMeters": 5.74,
+                "nearestFloorCount": 2,
+                "deviationPercent": -4.3
               }
             ],
             "rule": "no estirar masas: elegir el módulo cuyo alto cae en la retícula de pisos"
@@ -3116,13 +3123,19 @@
                   "heightMeters": 0.972,
                   "nearestFloorCount": 1,
                   "deviationPercent": -67.6
+                },
+                {
+                  "id": "mod_original_neoclassical_column",
+                  "heightMeters": 5.74,
+                  "nearestFloorCount": 2,
+                  "deviationPercent": -4.3
                 }
               ],
               "how": "altura medida de cada masa completa frente a múltiplos de la altura de piso",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.heightMeters"
             }
           ],
-          "rationale": "82 de 99 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
+          "rationale": "83 de 100 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
         }
       },
       "materialFamilies": [
@@ -7432,8 +7445,8 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "3d1a5735b020066ee8e56146946017d86dade5d3aab2ba2e6481052e8d806b16",
-      "selectionSha256": "032ba4e4bcb96b9e1f3d623d908589476967e221b0afd9ecc665aa8a96797a7d",
+      "moduleCatalogSha256": "6522422b7653a11ce4828a93fa079089f4cdb05583fda3726aecf22673006a13",
+      "selectionSha256": "b1c2b66fd968ecb7a283f4ce1b74b71e203bb6f6f51c6cba2eb16453715b6f0c",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -7449,9 +7462,9 @@
               "measured": [
                 {
                   "value": 3,
-                  "count": 26,
+                  "count": 27,
                   "moduleIds": [
-                    "mod_gn_metal_window_bay_4m (3 m)"
+                    "mod_original_neoclassical_wall_2m (3 m)"
                   ]
                 },
                 {
@@ -7504,9 +7517,9 @@
               "measured": [
                 {
                   "value": 2,
-                  "count": 17,
+                  "count": 18,
                   "moduleIds": [
-                    "mod_gn_plinth_2m"
+                    "mod_original_neoclassical_wall_2m"
                   ]
                 },
                 {
@@ -7622,6 +7635,7 @@
               0.071,
               0.15,
               0.174,
+              0.22,
               0.3
             ],
             "baseWallThicknessMeters": 0.2,
@@ -8538,13 +8552,13 @@
         "detailDensity": {
           "value": {
             "trianglesPerModule": {
-              "p50": 119,
-              "p90": 1044.3,
+              "p50": 117,
+              "p90": 1038.5,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
-              "p50": 28.45,
-              "p90": 78.14
+              "p50": 25.2,
+              "p90": 75.76
             },
             "budgetReference": {
               "maxBinaryBytes": 1048576,
@@ -9924,6 +9938,12 @@
                 "heightMeters": 0.972,
                 "nearestFloorCount": 1,
                 "deviationPercent": -67.6
+              },
+              {
+                "id": "mod_original_neoclassical_column",
+                "heightMeters": 5.74,
+                "nearestFloorCount": 2,
+                "deviationPercent": -4.3
               }
             ],
             "rule": "no estirar masas: elegir el módulo cuyo alto cae en la retícula de pisos"
@@ -10525,13 +10545,19 @@
                   "heightMeters": 0.972,
                   "nearestFloorCount": 1,
                   "deviationPercent": -67.6
+                },
+                {
+                  "id": "mod_original_neoclassical_column",
+                  "heightMeters": 5.74,
+                  "nearestFloorCount": 2,
+                  "deviationPercent": -4.3
                 }
               ],
               "how": "altura medida de cada masa completa frente a múltiplos de la altura de piso",
               "source": "blender_artist/manifests/building-modules.json → nominalBounds.heightMeters"
             }
           ],
-          "rationale": "82 de 99 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
+          "rationale": "83 de 100 masas licenciadas no caen en la retícula de 3 m. El compositor decide con los datos: o usa la masa tal cual (y la azotea no alineará con el paso de piso) o compone la masa con paneles. Escalar una masa para forzar la retícula deformaría sus marcos, así que está prohibido."
         }
       },
       "materialFamilies": [
@@ -14867,13 +14893,13 @@
     }
   ],
   "counts": {
-    "modules": 194,
+    "modules": 196,
     "texturesSampled": 35,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
-    "modulesFullyTreatedToday": 99,
+    "modulesFullyTreatedToday": 101,
     "modulesWithRawMaterial": 95,
     "texturesSplitAcrossModules": 5
   }

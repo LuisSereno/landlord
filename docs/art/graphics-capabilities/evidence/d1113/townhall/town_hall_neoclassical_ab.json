@@ -1,0 +1,21 @@
+{
+ "schemaVersion": 1,
+ "sheet": "town_hall_neoclassical_ab.png",
+ "building": "town_hall",
+ "seed": 5,
+ "recipe": "grand_neoclassical_hall (receta de la gramática de producción, elegida por sorteo de seed)",
+ "profile": "neoclassical_town_hall_v1",
+ "profileChanges": [
+  "recipe.grand_neoclassical_hall.grand_portico_columns=mod_original_neoclassical_column (blanca, original)",
+  "facade.warm_limestone.wall_panel=mod_original_neoclassical_wall_2m (caliza clara, original)",
+  "facade.warm_limestone.window_bay=mod_megakit_civic_piano_nobile_window",
+  "silhouette.metal_cornice.corniceModule=mod_megakit_cornice_trim_center_2m (pálida)"
+ ],
+ "after": {
+  "signature": "8a193df6dc8b…",
+  "footprintCells": "5×3",
+  "floors": 3
+ },
+ "agCivicV2Kept": true,
+ "before": "evidence/v2/candidates/wp06_town_hall-candidata.png (firma d950e513e67e…)"
+}

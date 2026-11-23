@@ -68,14 +68,14 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 194,
-    "sources": 193,
+    "modules": 196,
+    "sources": 195,
     "byCategory": {
-      "facade": 36,
+      "facade": 37,
       "window": 12,
       "door": 8,
       "roof": 14,
-      "civic": 69,
+      "civic": 70,
       "canopy": 5,
       "intrinsic_prop": 5,
       "mass": 25,
@@ -88,7 +88,7 @@
     "byFamily": {
       "residential_low": 65,
       "industrial_heavy": 57,
-      "civic_landmark": 156
+      "civic_landmark": 158
     },
     "bySource": {
       "src_quaternius_downtown_city_megakit": 102,
@@ -117,7 +117,9 @@
       "src_original_gn_truck_dock_bay": 1,
       "src_original_gn_metal_parapet": 1,
       "src_kenney_building_kit": 1,
-      "src_kenney_retro_urban_kit": 2
+      "src_kenney_retro_urban_kit": 2,
+      "src_original_neoclassical_column": 1,
+      "src_original_neoclassical_wall": 1
     }
   },
   "modules": [
@@ -26856,6 +26858,226 @@
         "fileTriangles": 44,
         "fileHierarchy": [
           "detail-beam:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_neoclassical_column",
+      "category": "civic",
+      "role": "column",
+      "note": "D-111.3 FASE 6: columna exenta blanca (basa, fuste, capitel) para el pórtico monumental del town_hall neoclásico; sustituye a la de ladrillo en el overlay del perfil",
+      "sourceId": "src_original_neoclassical_column",
+      "sourcePath": "blender_artist/sources/original/neoclassical_column.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "NeoclassicalColumn"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "unidad sustancial única generada por create_original_neoclassical_townhall.py (D-111.3 FASE 6)"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.86,
+        "depthMeters": 0.86,
+        "heightMeters": 5.74
+      },
+      "anchor": {
+        "datum": "normalized_import_root",
+        "datumObject": null,
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "centered"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": null,
+        "datumOffsetFromGroundCenterMeters": null,
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.43,
+            "max": 0.43
+          },
+          "y": {
+            "min": -0.43,
+            "max": 0.43
+          },
+          "z": {
+            "min": 0,
+            "max": 5.74
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 144,
+        "triangles": 72,
+        "shells": 36,
+        "materials": [],
+        "images": [],
+        "selectedObjects": [
+          "NeoclassicalColumn"
+        ],
+        "baseColorChains": []
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.86,
+          "depth": 0.86,
+          "height": 5.74,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileHierarchy": [
+          "NeoclassicalColumn:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_original_neoclassical_wall_2m",
+      "category": "facade",
+      "role": "wall_panel",
+      "note": "D-111.3 FASE 6: paño calizo claro de 2 m con cornisa corrida, fachada principal del ayuntamiento neoclásico",
+      "sourceId": "src_original_neoclassical_wall",
+      "sourcePath": "blender_artist/sources/original/neoclassical_wall_2m.glb",
+      "license": "original",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "NeoclassicalWall"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "civic_landmark"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "unidad sustancial única generada por create_original_neoclassical_townhall.py (D-111.3 FASE 6)"
+      },
+      "nominalBounds": {
+        "widthMeters": 2,
+        "depthMeters": 0.42,
+        "heightMeters": 3
+      },
+      "anchor": {
+        "datum": "normalized_import_root",
+        "datumObject": null,
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "centered"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": null,
+        "datumOffsetFromGroundCenterMeters": null,
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -1,
+            "max": 1
+          },
+          "y": {
+            "min": -0.21,
+            "max": 0.21
+          },
+          "z": {
+            "min": 0,
+            "max": 3
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 48,
+        "triangles": 24,
+        "shells": 12,
+        "materials": [],
+        "images": [],
+        "selectedObjects": [
+          "NeoclassicalWall"
+        ],
+        "baseColorChains": []
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 2,
+          "depth": 0.42,
+          "height": 3,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileHierarchy": [
+          "NeoclassicalWall:MESH"
         ]
       }
     }

@@ -1,0 +1,22 @@
+{
+ "schemaVersion": 1,
+ "arm": "damage_warehouse_damaged_night",
+ "mood": "night",
+ "zoom": 1,
+ "candidateName": "warehouse-damaged",
+ "candidate": {
+  "candidateId": "w06cnd_warehouse_2_damaged",
+  "compositionSignature": "e46be2888e5f1378271a95c8f128fd2c79956cda6fbaf8f86ddeb0f443f39a31",
+  "candidateProfile": "gn_industrial_v2",
+  "state": "damaged",
+  "textureKey": "fx-candidate-warehouse-damaged",
+  "fireAnchors": 0,
+  "smokeFromSprite": true,
+  "anchorsUv": []
+ },
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "servedPngSha256": "94d41e4a462c5c49ae8aa2e83760b47a1cb2d6eefb3dc0c3420562e9d69bf653",
+ "pngBytes": 202918,
+ "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=night&fxPerf=1&fxZoom=1&fxCandidate=warehouse-damaged",
+ "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_damaged"
+}

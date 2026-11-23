@@ -1,0 +1,22 @@
+{
+ "schemaVersion": 1,
+ "arm": "city_row_house_day",
+ "mood": "day",
+ "zoom": 1,
+ "candidateName": "row_house",
+ "candidate": {
+  "candidateId": "w06cnd_row_house_17",
+  "compositionSignature": "5468186522adad63b78e8d20c2d299b6442cab4a0fb4d533ded9714b365fae7b",
+  "candidateProfile": "gn_residential_v2",
+  "state": "complete",
+  "textureKey": "fx-candidate-row_house",
+  "fireAnchors": 0,
+  "smokeFromSprite": true,
+  "anchorsUv": []
+ },
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "servedPngSha256": "32a091433e3de06e7f062cbd9692731ca0de4b913cfc7d002bd2fa00109bff53",
+ "pngBytes": 198542,
+ "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=row_house",
+ "spriteSource": "/tmp/d1113/fixed3_row/w06cnd_row_house_17"
+}

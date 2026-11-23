@@ -1,0 +1,22 @@
+{
+ "schemaVersion": 1,
+ "arm": "ageing_aged_day_1x",
+ "mood": "day",
+ "zoom": 1,
+ "candidateName": "mixed_tenement-aged",
+ "candidate": {
+  "candidateId": "w06cnd_mixed_tenement_2_aged",
+  "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+  "candidateProfile": "gn_residential_v2",
+  "state": "complete",
+  "textureKey": "fx-candidate-mixed_tenement-aged",
+  "fireAnchors": 0,
+  "smokeFromSprite": true,
+  "anchorsUv": []
+ },
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "servedPngSha256": "f565b1266f50f03facb34992f18a3ebffebf841f384c0a5bebde25a85378b72d",
+ "pngBytes": 210908,
+ "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement-aged",
+ "spriteSource": "/tmp/d1113/aged_v3/w06cnd_mixed_tenement_2_aged"
+}

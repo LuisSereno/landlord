@@ -1,0 +1,119 @@
+{
+ "schemaVersion": 1,
+ "arm": "damage_mixed_burning_day",
+ "mood": "day",
+ "zoom": 1,
+ "candidateName": "mixed_tenement-burning",
+ "candidate": {
+  "candidateId": "w06cnd_mixed_tenement_2_burning",
+  "compositionSignature": "59e4d099a49b16aebe8b04f4fec1f0ed657ba202e87a059fa8fa179f1a253a86",
+  "candidateProfile": "gn_residential_v2",
+  "state": "burning",
+  "textureKey": "fx-candidate-mixed_tenement-burning",
+  "fireAnchors": 16,
+  "smokeFromSprite": true,
+  "anchorsUv": [
+   {
+    "u": 0.55333,
+    "v": 0.5927,
+    "flameFraction": 0.12876,
+    "kind": "roof"
+   },
+   {
+    "u": 0.55422,
+    "v": 0.59167,
+    "flameFraction": 0.09064,
+    "kind": "roof"
+   },
+   {
+    "u": 0.57311,
+    "v": 0.578,
+    "flameFraction": 0.06287,
+    "kind": "roof"
+   },
+   {
+    "u": 0.59468,
+    "v": 0.58661,
+    "flameFraction": 0.06684,
+    "kind": "roof"
+   },
+   {
+    "u": 0.56823,
+    "v": 0.58151,
+    "flameFraction": 0.05442,
+    "kind": "roof"
+   },
+   {
+    "u": 0.70534,
+    "v": 0.58584,
+    "flameFraction": 0.12669,
+    "kind": "roof"
+   },
+   {
+    "u": 0.71029,
+    "v": 0.56505,
+    "flameFraction": 0.08918,
+    "kind": "roof"
+   },
+   {
+    "u": 0.67674,
+    "v": 0.59258,
+    "flameFraction": 0.07874,
+    "kind": "roof"
+   },
+   {
+    "u": 0.66694,
+    "v": 0.58929,
+    "flameFraction": 0.07029,
+    "kind": "roof"
+   },
+   {
+    "u": 0.67287,
+    "v": 0.48584,
+    "flameFraction": 0.12928,
+    "kind": "roof"
+   },
+   {
+    "u": 0.69831,
+    "v": 0.48736,
+    "flameFraction": 0.05589,
+    "kind": "roof"
+   },
+   {
+    "u": 0.66741,
+    "v": 0.48595,
+    "flameFraction": 0.08223,
+    "kind": "roof"
+   },
+   {
+    "u": 0.687,
+    "v": 0.4976,
+    "flameFraction": 0.07426,
+    "kind": "roof"
+   },
+   {
+    "u": 0.65602,
+    "v": 0.69499,
+    "flameFraction": 0.03351,
+    "kind": "wall"
+   },
+   {
+    "u": 0.65602,
+    "v": 0.82435,
+    "flameFraction": 0.02661,
+    "kind": "wall"
+   },
+   {
+    "u": 0.49995,
+    "v": 0.62457,
+    "flameFraction": 0.02372,
+    "kind": "wall"
+   }
+  ]
+ },
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "servedPngSha256": "216e8606a9c1b9f3fd0b0350499e6486d7c5e285fa3af30e30d8a33a92bcd037",
+ "pngBytes": 211478,
+ "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement-burning",
+ "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning"
+}

@@ -1,0 +1,528 @@
+{
+ "schemaVersion": 1,
+ "purpose": "integración Phaser de las correcciones D-111.3: fachadas, interiores de daño/fuego, aged v3 y town hall neoclásico, sobre la ruta QA validada (sin sustituciones)",
+ "arms": [
+  {
+   "schemaVersion": 1,
+   "arm": "city_mixed_day",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "mixed_tenement",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2",
+    "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+    "candidateProfile": "gn_residential_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-mixed_tenement",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "9a7f6a813b70aa21bd8526a4b7addce85a8acdbc06f89b9c07412b850a1c55da",
+   "pngBytes": 211083,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement",
+   "spriteSource": "/tmp/d1113/fixed3_mixed/w06cnd_mixed_tenement_2"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "city_row_house_day",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "row_house",
+   "candidate": {
+    "candidateId": "w06cnd_row_house_17",
+    "compositionSignature": "5468186522adad63b78e8d20c2d299b6442cab4a0fb4d533ded9714b365fae7b",
+    "candidateProfile": "gn_residential_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-row_house",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "32a091433e3de06e7f062cbd9692731ca0de4b913cfc7d002bd2fa00109bff53",
+   "pngBytes": 198542,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=row_house",
+   "spriteSource": "/tmp/d1113/fixed3_row/w06cnd_row_house_17"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "city_warehouse_day",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "warehouse",
+   "candidate": {
+    "candidateId": "w06cnd_warehouse_2",
+    "compositionSignature": "460b94c4e4476931c4c8367228778f5c944cdfa5ca36898df1bbcc1e62200701",
+    "candidateProfile": "gn_industrial_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-warehouse",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "627568836955c16ee66548bfbc0d90793fa13d34380b31e509645490812a932b",
+   "pngBytes": 198384,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=warehouse",
+   "spriteSource": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "city_town_hall_day",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "town_hall",
+   "candidate": {
+    "candidateId": "w06cnd_town_hall_5",
+    "compositionSignature": "8a193df6dc8be8d6dbe70f6852cbf79b8149eb02dfcfe1a1e8bb1bbe01af17cf",
+    "candidateProfile": "neoclassical_town_hall_v1",
+    "state": "complete",
+    "textureKey": "fx-candidate-town_hall",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "3a6a68c16d07cc004e34982390bb2b46146696fd4559ada8f0248907fdf8b437",
+   "pngBytes": 205773,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=town_hall",
+   "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "city_town_hall_night",
+   "mood": "night",
+   "zoom": 1,
+   "candidateName": "town_hall",
+   "candidate": {
+    "candidateId": "w06cnd_town_hall_5",
+    "compositionSignature": "8a193df6dc8be8d6dbe70f6852cbf79b8149eb02dfcfe1a1e8bb1bbe01af17cf",
+    "candidateProfile": "neoclassical_town_hall_v1",
+    "state": "complete",
+    "textureKey": "fx-candidate-town_hall",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "542922549bfd4fd305411ee5e36800110379c2267f575b148a2377f886ccd7f2",
+   "pngBytes": 206892,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=night&fxPerf=1&fxZoom=1&fxCandidate=town_hall",
+   "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "damage_mixed_damaged_day",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "mixed_tenement-damaged",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2_damaged",
+    "compositionSignature": "38cb309ac36eb2af655c9c4e89a19ba61bd9623b9dbc612d260debd38764eff5",
+    "candidateProfile": "gn_residential_v2",
+    "state": "damaged",
+    "textureKey": "fx-candidate-mixed_tenement-damaged",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "e3c2958c793ac6342674ad8b2d95e0d28e9eabee1e37f147c299c1eea71bc0aa",
+   "pngBytes": 210863,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement-damaged",
+   "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "damage_mixed_burning_day",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "mixed_tenement-burning",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2_burning",
+    "compositionSignature": "59e4d099a49b16aebe8b04f4fec1f0ed657ba202e87a059fa8fa179f1a253a86",
+    "candidateProfile": "gn_residential_v2",
+    "state": "burning",
+    "textureKey": "fx-candidate-mixed_tenement-burning",
+    "fireAnchors": 16,
+    "smokeFromSprite": true,
+    "anchorsUv": [
+     {
+      "u": 0.55333,
+      "v": 0.5927,
+      "flameFraction": 0.12876,
+      "kind": "roof"
+     },
+     {
+      "u": 0.55422,
+      "v": 0.59167,
+      "flameFraction": 0.09064,
+      "kind": "roof"
+     },
+     {
+      "u": 0.57311,
+      "v": 0.578,
+      "flameFraction": 0.06287,
+      "kind": "roof"
+     },
+     {
+      "u": 0.59468,
+      "v": 0.58661,
+      "flameFraction": 0.06684,
+      "kind": "roof"
+     },
+     {
+      "u": 0.56823,
+      "v": 0.58151,
+      "flameFraction": 0.05442,
+      "kind": "roof"
+     },
+     {
+      "u": 0.70534,
+      "v": 0.58584,
+      "flameFraction": 0.12669,
+      "kind": "roof"
+     },
+     {
+      "u": 0.71029,
+      "v": 0.56505,
+      "flameFraction": 0.08918,
+      "kind": "roof"
+     },
+     {
+      "u": 0.67674,
+      "v": 0.59258,
+      "flameFraction": 0.07874,
+      "kind": "roof"
+     },
+     {
+      "u": 0.66694,
+      "v": 0.58929,
+      "flameFraction": 0.07029,
+      "kind": "roof"
+     },
+     {
+      "u": 0.67287,
+      "v": 0.48584,
+      "flameFraction": 0.12928,
+      "kind": "roof"
+     },
+     {
+      "u": 0.69831,
+      "v": 0.48736,
+      "flameFraction": 0.05589,
+      "kind": "roof"
+     },
+     {
+      "u": 0.66741,
+      "v": 0.48595,
+      "flameFraction": 0.08223,
+      "kind": "roof"
+     },
+     {
+      "u": 0.687,
+      "v": 0.4976,
+      "flameFraction": 0.07426,
+      "kind": "roof"
+     },
+     {
+      "u": 0.65602,
+      "v": 0.69499,
+      "flameFraction": 0.03351,
+      "kind": "wall"
+     },
+     {
+      "u": 0.65602,
+      "v": 0.82435,
+      "flameFraction": 0.02661,
+      "kind": "wall"
+     },
+     {
+      "u": 0.49995,
+      "v": 0.62457,
+      "flameFraction": 0.02372,
+      "kind": "wall"
+     }
+    ]
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "216e8606a9c1b9f3fd0b0350499e6486d7c5e285fa3af30e30d8a33a92bcd037",
+   "pngBytes": 211478,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement-burning",
+   "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "damage_warehouse_damaged_night",
+   "mood": "night",
+   "zoom": 1,
+   "candidateName": "warehouse-damaged",
+   "candidate": {
+    "candidateId": "w06cnd_warehouse_2_damaged",
+    "compositionSignature": "e46be2888e5f1378271a95c8f128fd2c79956cda6fbaf8f86ddeb0f443f39a31",
+    "candidateProfile": "gn_industrial_v2",
+    "state": "damaged",
+    "textureKey": "fx-candidate-warehouse-damaged",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "94d41e4a462c5c49ae8aa2e83760b47a1cb2d6eefb3dc0c3420562e9d69bf653",
+   "pngBytes": 202918,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=night&fxPerf=1&fxZoom=1&fxCandidate=warehouse-damaged",
+   "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_damaged"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "damage_warehouse_burning_night",
+   "mood": "night",
+   "zoom": 1,
+   "candidateName": "warehouse-burning",
+   "candidate": {
+    "candidateId": "w06cnd_warehouse_2_burning",
+    "compositionSignature": "549c21a24de979ccf7d92bda193ef833476f2b04392366e7fe9b312487104339",
+    "candidateProfile": "gn_industrial_v2",
+    "state": "burning",
+    "textureKey": "fx-candidate-warehouse-burning",
+    "fireAnchors": 19,
+    "smokeFromSprite": true,
+    "anchorsUv": [
+     {
+      "u": 0.6499,
+      "v": 0.77109,
+      "flameFraction": 0.12519,
+      "kind": "roof"
+     },
+     {
+      "u": 0.65047,
+      "v": 0.77782,
+      "flameFraction": 0.05735,
+      "kind": "roof"
+     },
+     {
+      "u": 0.62313,
+      "v": 0.77273,
+      "flameFraction": 0.07019,
+      "kind": "roof"
+     },
+     {
+      "u": 0.69003,
+      "v": 0.76692,
+      "flameFraction": 0.04706,
+      "kind": "roof"
+     },
+     {
+      "u": 0.63072,
+      "v": 0.77935,
+      "flameFraction": 0.04964,
+      "kind": "roof"
+     },
+     {
+      "u": 0.59149,
+      "v": 0.63334,
+      "flameFraction": 0.16416,
+      "kind": "roof"
+     },
+     {
+      "u": 0.5948,
+      "v": 0.63694,
+      "flameFraction": 0.08668,
+      "kind": "roof"
+     },
+     {
+      "u": 0.59599,
+      "v": 0.64259,
+      "flameFraction": 0.06197,
+      "kind": "roof"
+     },
+     {
+      "u": 0.59489,
+      "v": 0.63458,
+      "flameFraction": 0.08668,
+      "kind": "roof"
+     },
+     {
+      "u": 0.61887,
+      "v": 0.62355,
+      "flameFraction": 0.09333,
+      "kind": "roof"
+     },
+     {
+      "u": 0.81267,
+      "v": 0.66808,
+      "flameFraction": 0.11544,
+      "kind": "roof"
+     },
+     {
+      "u": 0.78491,
+      "v": 0.6685,
+      "flameFraction": 0.0743,
+      "kind": "roof"
+     },
+     {
+      "u": 0.81151,
+      "v": 0.67315,
+      "flameFraction": 0.06405,
+      "kind": "roof"
+     },
+     {
+      "u": 0.8043,
+      "v": 0.68684,
+      "flameFraction": 0.05375,
+      "kind": "roof"
+     },
+     {
+      "u": 0.79057,
+      "v": 0.68,
+      "flameFraction": 0.04604,
+      "kind": "roof"
+     },
+     {
+      "u": 0.74776,
+      "v": 0.53207,
+      "flameFraction": 0.16144,
+      "kind": "roof"
+     },
+     {
+      "u": 0.73614,
+      "v": 0.55243,
+      "flameFraction": 0.08201,
+      "kind": "roof"
+     },
+     {
+      "u": 0.72736,
+      "v": 0.53103,
+      "flameFraction": 0.07841,
+      "kind": "roof"
+     },
+     {
+      "u": 0.73039,
+      "v": 0.5305,
+      "flameFraction": 0.07947,
+      "kind": "roof"
+     }
+    ]
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "bb47d565168e97cc43f1c18024a63ea1698c0f534638a41c7714301ba2f749ad",
+   "pngBytes": 203829,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=night&fxPerf=1&fxZoom=1&fxCandidate=warehouse-burning",
+   "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_burning"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "ageing_aged_day_1x",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "mixed_tenement-aged",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2_aged",
+    "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+    "candidateProfile": "gn_residential_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-mixed_tenement-aged",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "f565b1266f50f03facb34992f18a3ebffebf841f384c0a5bebde25a85378b72d",
+   "pngBytes": 210908,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement-aged",
+   "spriteSource": "/tmp/d1113/aged_v3/w06cnd_mixed_tenement_2_aged"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "ageing_aged_day_05x",
+   "mood": "day",
+   "zoom": 0.5,
+   "candidateName": "mixed_tenement-aged",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2_aged",
+    "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+    "candidateProfile": "gn_residential_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-mixed_tenement-aged",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "bc2a0003c4e2a97fe7212ee346ac836e5d66e596c9f3898475f7bf2aca2de9b5",
+   "pngBytes": 69567,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=0.5&fxCandidate=mixed_tenement-aged",
+   "spriteSource": "/tmp/d1113/aged_v3/w06cnd_mixed_tenement_2_aged"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "ageing_aged_day_25x",
+   "mood": "day",
+   "zoom": 2.5,
+   "candidateName": "mixed_tenement-aged",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2_aged",
+    "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+    "candidateProfile": "gn_residential_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-mixed_tenement-aged",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "e176940307d1ab828b77a4f69b15c24e340eefa2a450ba0c674be7358a5ecb0b",
+   "pngBytes": 433560,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=2.5&fxCandidate=mixed_tenement-aged",
+   "spriteSource": "/tmp/d1113/aged_v3/w06cnd_mixed_tenement_2_aged"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "ageing_conserved_day_1x",
+   "mood": "day",
+   "zoom": 1,
+   "candidateName": "mixed_tenement",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2",
+    "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+    "candidateProfile": "gn_residential_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-mixed_tenement",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "9a7f6a813b70aa21bd8526a4b7addce85a8acdbc06f89b9c07412b850a1c55da",
+   "pngBytes": 211083,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=mixed_tenement",
+   "spriteSource": "/tmp/d1113/fixed3_mixed/w06cnd_mixed_tenement_2"
+  },
+  {
+   "schemaVersion": 1,
+   "arm": "ageing_conserved_day_25x",
+   "mood": "day",
+   "zoom": 2.5,
+   "candidateName": "mixed_tenement",
+   "candidate": {
+    "candidateId": "w06cnd_mixed_tenement_2",
+    "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+    "candidateProfile": "gn_residential_v2",
+    "state": "complete",
+    "textureKey": "fx-candidate-mixed_tenement",
+    "fireAnchors": 0,
+    "smokeFromSprite": true,
+    "anchorsUv": []
+   },
+   "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+   "servedPngSha256": "ca56e5c46b6641d8bc4fa666c6966c8d14fd6e20bc3d5b24261f5afffaba3bf4",
+   "pngBytes": 436749,
+   "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=2.5&fxCandidate=mixed_tenement",
+   "spriteSource": "/tmp/d1113/fixed3_mixed/w06cnd_mixed_tenement_2"
+  }
+ ],
+ "pageErrors": [],
+ "capturedAt": "2026-11-23T13:38:10.391Z"
+}

@@ -1,0 +1,22 @@
+{
+ "schemaVersion": 1,
+ "arm": "city_town_hall_day",
+ "mood": "day",
+ "zoom": 1,
+ "candidateName": "town_hall",
+ "candidate": {
+  "candidateId": "w06cnd_town_hall_5",
+  "compositionSignature": "8a193df6dc8be8d6dbe70f6852cbf79b8149eb02dfcfe1a1e8bb1bbe01af17cf",
+  "candidateProfile": "neoclassical_town_hall_v1",
+  "state": "complete",
+  "textureKey": "fx-candidate-town_hall",
+  "fireAnchors": 0,
+  "smokeFromSprite": true,
+  "anchorsUv": []
+ },
+ "glRenderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+ "servedPngSha256": "3a6a68c16d07cc004e34982390bb2b46146696fd4559ada8f0248907fdf8b437",
+ "pngBytes": 205773,
+ "url": "http://127.0.0.1:4214/art-lab?artQa=1&fxMood=day&fxPerf=1&fxZoom=1&fxCandidate=town_hall",
+ "spriteSource": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5"
+}

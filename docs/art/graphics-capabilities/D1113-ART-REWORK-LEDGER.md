@@ -40,7 +40,7 @@ regenera sin necesidad.
 | 0 · preparación y controles | PENDING | — | este ledger | controles arriba | — |
 | 1 · diagnóstico franjas fachadas | DONE | `4a48cc8` | `gn_facade_grammar.py` (sólo lectura), sondas /tmp | `evidence/d1113/facade_diagnosis.{png,md}` | — |
 | 2 · corrección fachadas residenciales | DONE | — | `tools/art-pipeline/blender/gn_facade_grammar.py` (antepecho/dintel 0,15→0,04 m), `tools/art-pipeline/blender/style_layer_graphic_civic.json` (day_civic fill/rim/world neutros), `scripts/d1113-facade-fix-sheet.py` | `evidence/d1113/facades/facade_fix_{mixed_tenement,row_house}_ab.png` + sprites tras-corrección · px verde-azulados −63 % en ambos | revisión visual humana; firmas de composición intactas (94f1106d… / 54681865…) |
-| 3 · interiores dañados | PENDING | — | — | `damaged_interior_mixed_tenement_ab.png` (por crear) | — |
+| 3 · interiores dañados | DONE | — | `compose.py` (_compose_damage_interior), `building-modules-selection.json` + catálogo medido (194: escalera/palé/viga CC0 nuevos), `building-style-profiles.json` (clasificación de sus materiales), `scripts/d1113-interior-sheet.py` | `evidence/d1113/damaged_interior_mixed_tenement_ab.png` + variantes en `evidence/d1113/interiors/` | forjado superior flota sin apoyo visible a 1× (aceptable en lectura doll-house); revisión humana |
 | 4 · interiores industriales + fuego | PENDING | — | — | `damage_fire_interiors_ab.png` (por crear) | — |
 | 5 · envejecimiento reconocible | PENDING | — | — | `weathering_v3_ab.png` (por crear) | no promocionar aged (D-080) |
 | 6 · town hall neoclásico | PENDING | — | — | `town_hall_neoclassical_ab.png` (por crear) | candidata QA |

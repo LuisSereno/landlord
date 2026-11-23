@@ -8,7 +8,7 @@
     "catalog": "blender_artist/manifests/building-modules.json",
     "styleLayer": {
       "path": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
-      "sha256": "930efd4bac4bf692aa87b4557ba157b7e2434f9e2de5ad323185a377889cb3c6"
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
     },
     "toolchain": {
       "blender": "5.2.2 LTS",
@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "96da3c82722915283ecf9dfcb5f5fa3492f5656883c6170669aa24acd781122e",
-      "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
+      "moduleCatalogSha256": "3d1a5735b020066ee8e56146946017d86dade5d3aab2ba2e6481052e8d806b16",
+      "selectionSha256": "032ba4e4bcb96b9e1f3d623d908589476967e221b0afd9ecc665aa8a96797a7d",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -422,7 +422,8 @@
               "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
               "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
               "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
-              "src_original_gn_metal_parapet: 0.55/0.62/0.92"
+              "src_original_gn_metal_parapet: 0.55/0.62/0.92",
+              "src_kenney_building_kit: 1"
             ],
             "perFamily": {
               "brick": {
@@ -521,13 +522,14 @@
                 "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
                 "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
                 "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
-                "src_original_gn_metal_parapet: 0.55/0.62/0.92"
+                "src_original_gn_metal_parapet: 0.55/0.62/0.92",
+                "src_kenney_building_kit: 1"
               ],
               "how": "factores de Roughness por pack donde el socket NO está enlazado: son los únicos que el override toca",
               "source": "/tmp/landlord-vf-style/measurements.json → materialReport[].surface.Roughness.value"
             }
           ],
-          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74; src_original_gn_metal_siding_bay: 0.55/0.62/0.92; src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92; src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92; src_original_gn_metal_parapet: 0.55/0.62/0.92) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
+          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74; src_original_gn_metal_siding_bay: 0.55/0.62/0.92; src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92; src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92; src_original_gn_metal_parapet: 0.55/0.62/0.92; src_kenney_building_kit: 1) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
         },
         "materialMetallic": {
           "value": {
@@ -720,6 +722,27 @@
               },
               {
                 "image": "colormap",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+                "dominantPredicted": {
+                  "hueDegrees": 15.6,
+                  "saturation": 0.211,
+                  "value": 0.459
+                },
+                "dominantInput": {
+                  "hueDegrees": 298.7,
+                  "saturation": 0.226,
+                  "value": 0.44
+                },
+                "bandsClaimingIt": [
+                  "facade_blue_grey_to_warm_stone",
+                  "neutral_dark_asphalt",
+                  "violet_accents_muted",
+                  "warm_accents_muted"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "colormap",
                 "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
                 "dominantPredicted": {
                   "hueDegrees": 26.3,
@@ -802,6 +825,60 @@
                   "roof_and_verge_green_to_slate",
                   "violet_accents_muted",
                   "warm_accents_muted"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "metal",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+                "dominantPredicted": {
+                  "hueDegrees": null,
+                  "saturation": 0.052,
+                  "value": 0.58
+                },
+                "dominantInput": {
+                  "hueDegrees": null,
+                  "saturation": 0.052,
+                  "value": 0.658
+                },
+                "bandsClaimingIt": [
+                  "pale_neutral"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "planks",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+                "dominantPredicted": {
+                  "hueDegrees": 27.7,
+                  "saturation": 0.245,
+                  "value": 0.4
+                },
+                "dominantInput": {
+                  "hueDegrees": 27.7,
+                  "saturation": 0.288,
+                  "value": 0.406
+                },
+                "bandsClaimingIt": [
+                  "neutral_dark_asphalt"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "roof",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
+                "dominantPredicted": {
+                  "hueDegrees": 32.1,
+                  "saturation": 0.063,
+                  "value": 0.4
+                },
+                "dominantInput": {
+                  "hueDegrees": 32.1,
+                  "saturation": 0.074,
+                  "value": 0.342
+                },
+                "bandsClaimingIt": [
+                  "neutral_dark_asphalt"
                 ],
                 "windowGlow": false
               },
@@ -999,10 +1076,14 @@
             {
               "measured": [
                 "citybits_texture ← blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png: grey 0.357→Hn/a S0.078 V0.573, orange 0.226→H23 S0.504 V0.71, cyan 0.121→H176.1 S0.826 V0.437, blue 0.104→H206.7 S0.51 V0.597, red 0.082→H359.1 S0.71 V0.815, yellow 0.074→H43.6 S0.223 V0.497, green 0.031→H62.4 S0.804 V0.692",
+                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png: grey 0.606→Hn/a S0.1 V0.24, blue 0.145→H227.5 S0.294 V0.658, orange 0.134→H21 S0.52 V0.826, magenta 0.058→H279.4 S0.504 V0.913, red 0.026→H3.8 S0.638 V0.836",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png: grey 0.455→Hn/a S0.152 V0.366, blue 0.25→H227.4 S0.255 V0.599, orange 0.15→H18.8 S0.526 V0.826, magenta 0.057→H279.6 S0.503 V0.913, green 0.032→H143.8 S0.522 V0.796, cyan 0.031→H154.6 S0.645 V0.65, red 0.025→H3.7 S0.636 V0.834",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png: blue 0.356→H227.1 S0.279 V0.654, grey 0.332→Hn/a S0.198 V0.598, orange 0.136→H20 S0.505 V0.793, magenta 0.089→H288.2 S0.399 V0.92, green 0.032→H143.8 S0.522 V0.796, cyan 0.031→H154.6 S0.646 V0.65, red 0.025→H3.7 S0.636 V0.834",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png: grey 0.418→Hn/a S0.251 V0.495, blue 0.27→H228.3 S0.252 V0.587, orange 0.104→H20.6 S0.521 V0.826, magenta 0.089→H288.2 S0.399 V0.92, red 0.057→H357.6 S0.531 V0.811, green 0.031→H143.8 S0.522 V0.796, cyan 0.031→H154.6 S0.645 V0.651",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey 0.457→Hn/a S0.151 V0.365, blue 0.249→H227.5 S0.258 V0.602, orange 0.137→H19.2 S0.526 V0.836, magenta 0.057→H279.8 S0.502 V0.915, red 0.038→H5.7 S0.617 V0.819, green 0.032→H143.8 S0.522 V0.796, cyan 0.031→H154.5 S0.648 V0.651",
+                "metal ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png: grey 1→Hn/a S0.052 V0.658",
+                "planks ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png: orange 1→H27.7 S0.288 V0.406",
+                "roof ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png: grey 0.924→Hn/a S0.07 V0.346, orange 0.058→H32.1 S0.143 V0.27",
                 "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey 1→Hn/a S0.041 V0.231",
                 "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey 1→Hn/a S0.042 V0.499",
                 "T_Dirt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png: orange 0.988→H25.7 S0.221 V0.353",
@@ -1020,10 +1101,14 @@
             {
               "measured": [
                 "citybits_texture ← blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png: grey pale_neutral→V0.58, orange warm_accents_muted→V0.55, cyan roof_and_verge_green_to_slate→V0.149, blue window_blue_to_dark_glass→V0.222, red warm_accents_muted→V0.55, yellow neutral_dark_asphalt→V0.4, green headlamp_yellow→V0.42",
+                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.453, red warm_accents_muted→V0.55",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.453, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.55",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png: blue facade_blue_grey_to_warm_stone→V0.61, grey warm_accents_muted→V0.55, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.456, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.55",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.456, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.454, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222",
+                "metal ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png: grey pale_neutral→V0.58",
+                "planks ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png: orange neutral_dark_asphalt→V0.4",
+                "roof ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png: grey neutral_dark_asphalt→V0.4, orange neutral_dark_asphalt→V0.4",
                 "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey neutral_dark_asphalt→V0.4",
                 "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey neutral_dark_asphalt→V0.4",
                 "T_Dirt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png: orange neutral_dark_asphalt→V0.4",
@@ -1044,8 +1129,8 @@
         "detailDensity": {
           "value": {
             "trianglesPerModule": {
-              "p50": 120,
-              "p90": 1053,
+              "p50": 119,
+              "p90": 1044.3,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -1896,7 +1981,7 @@
           "evidence": [
             {
               "measured": {
-                "sha256": "930efd4bac4bf692aa87b4557ba157b7e2434f9e2de5ad323185a377889cb3c6",
+                "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da",
                 "palette": "graphic_civic",
                 "treatmentVersion": 7
               },
@@ -3295,9 +3380,10 @@
           "measuredMaterials": [
             "MI_Trim_MetalConcrete",
             "gn_metal_trim",
-            "gn_painted_metal"
+            "gn_painted_metal",
+            "metal"
           ],
-          "moduleCount": 43,
+          "moduleCount": 44,
           "moduleExamples": [
             "mod_gn_balcony_door_bay_2m",
             "mod_gn_metal_parapet_4m",
@@ -3305,6 +3391,7 @@
             "mod_gn_metal_window_bay_4m"
           ],
           "sourceIds": [
+            "src_kenney_retro_urban_kit",
             "src_original_gn_balcony_door_bay",
             "src_original_gn_metal_parapet",
             "src_original_gn_metal_siding_bay",
@@ -3315,7 +3402,8 @@
           "baseColorChain": [
             "MIX:sin imagen",
             "TEX_IMAGE:T_MetalConcrete_BaseColor",
-            "factor plano"
+            "factor plano",
+            "sin Principled BSDF"
           ],
           "blendMethods": [
             "HASHED"
@@ -3630,25 +3718,28 @@
           "family": "wood",
           "present": true,
           "measuredMaterials": [
+            "planks",
             "scaffold_plank",
             "wood",
             "woodBark",
             "woodBarkDark",
             "woodDark"
           ],
-          "moduleCount": 9,
+          "moduleCount": 10,
           "moduleExamples": [
+            "mod_kenney_pallet",
             "mod_nature_civic_sign",
             "mod_nature_civic_urn_large",
-            "mod_nature_civic_urn_small",
-            "mod_nature_tree_cone"
+            "mod_nature_civic_urn_small"
           ],
           "sourceIds": [
             "src_kenney_nature_kit",
+            "src_kenney_retro_urban_kit",
             "src_original_construction_scaffold"
           ],
           "baseColorChain": [
-            "factor plano"
+            "factor plano",
+            "sin Principled BSDF"
           ],
           "blendMethods": [
             "HASHED"
@@ -3857,6 +3948,15 @@
               "colorTextureFiles": [
                 "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
               ]
+            },
+            {
+              "pack": "src_kenney_building_kit",
+              "colorTextures": [
+                "colormap"
+              ],
+              "colorTextureFiles": [
+                "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+              ]
             }
           ],
           "pbrPacks": [
@@ -3873,7 +3973,8 @@
             "src_original_gn_metal_siding_bay",
             "src_original_gn_metal_window_bay",
             "src_original_gn_truck_dock_bay",
-            "src_original_gn_metal_parapet"
+            "src_original_gn_metal_parapet",
+            "src_kenney_retro_urban_kit"
           ],
           "familiesPartlyTreated": [
             {
@@ -3939,7 +4040,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay, src_original_gn_metal_siding_bay, src_original_gn_metal_window_bay, src_original_gn_truck_dock_bay, src_original_gn_metal_parapet) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings, src_kenney_building_kit) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay, src_original_gn_metal_siding_bay, src_original_gn_metal_window_bay, src_original_gn_truck_dock_bay, src_original_gn_metal_parapet, src_kenney_retro_urban_kit) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -3996,6 +4097,58 @@
             "otherImages": [],
             "scalarRoughness": [
               0.4
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_kenney_building_kit",
+            "license": "CC0-1.0",
+            "moduleCount": 1,
+            "materials": 1,
+            "materialsReachedByTreatment": [
+              "colormap"
+            ],
+            "materialsRawAlways": [],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 1,
+            "modulesWithRawMaterial": 0,
+            "rawModuleExamples": [],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "TEX_IMAGE:colormap"
+            ],
+            "materialReach": [
+              {
+                "material": "colormap",
+                "family": "atlas",
+                "baseColorChains": [
+                  "TEX_IMAGE:colormap ×1"
+                ],
+                "colorTextures": [
+                  "colormap"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+                ],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 1,
+                "modulesRaw": 0,
+                "splitWithinPack": false,
+                "reachedByTreatment": true
+              }
+            ],
+            "colorTextures": [
+              "colormap"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+            ],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              1
             ],
             "shippedJobs": []
           },
@@ -4453,6 +4606,99 @@
             "scalarRoughness": [
               1
             ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_kenney_retro_urban_kit",
+            "license": "CC0-1.0",
+            "moduleCount": 2,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "metal",
+              "planks",
+              "roof"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 2,
+            "rawModuleExamples": [
+              "pallet.glb: 1 de 1 materiales en bruto",
+              "detail-beam.glb: 2 de 2 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "sin Principled BSDF"
+            ],
+            "materialReach": [
+              {
+                "material": "metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "sin Principled BSDF ×1"
+                ],
+                "colorTextures": [
+                  "metal"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "planks",
+                "family": "wood",
+                "baseColorChains": [
+                  "sin Principled BSDF ×1"
+                ],
+                "colorTextures": [
+                  "planks"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "roof",
+                "family": "atlas",
+                "baseColorChains": [
+                  "sin Principled BSDF ×1"
+                ],
+                "colorTextures": [
+                  "roof"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [
+              "metal",
+              "planks",
+              "roof"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+              "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+              "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png"
+            ],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [],
             "shippedJobs": []
           },
           {
@@ -6149,6 +6395,8 @@
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb (src_kenney_retro_urban_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb (src_kenney_retro_urban_kit): 1 de 1 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/ag_arcade_bay_2m.glb (src_original_ag_arcade_bay): 3 de 3 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/construction_barrier.glb (src_original_construction_barrier): 3 de 3 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/construction_scaffold.glb (src_original_construction_scaffold): 2 de 2 materiales con Base Color fuera de la banda",
@@ -6294,6 +6542,15 @@
             "colorTextureFiles": [
               "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
             ]
+          },
+          {
+            "pack": "src_kenney_building_kit",
+            "colorTextures": [
+              "colormap"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+            ]
           }
         ],
         "pbrPacks": [
@@ -6310,11 +6567,22 @@
           "src_original_gn_metal_siding_bay",
           "src_original_gn_metal_window_bay",
           "src_original_gn_truck_dock_bay",
-          "src_original_gn_metal_parapet"
+          "src_original_gn_metal_parapet",
+          "src_kenney_retro_urban_kit"
         ],
         "requiredWork": "V.f.4 debe extender el traversal hasta la TEX_IMAGE real que alimenta el MIX (o aplicar las bandas sobre la imagen de entrada del mezclador) para que las instancias en bruto entren en la misma escalera de valor. Sin eso hay que listar módulos: los de `modulesRawList` quedan fuera de los alzados que se juzguen tratados.",
         "measuredBrightnessGap": {
           "facadeBandPredictions": [
+            {
+              "image": "colormap",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+              "band": "facade_blue_grey_to_warm_stone",
+              "hueBucket": "blue",
+              "share": 0.145,
+              "inputValue": 0.658,
+              "predictedValue": 0.61,
+              "predictedSaturation": 0.456
+            },
             {
               "image": "colormap",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
@@ -6714,6 +6982,22 @@
               "rawIsBrighterBy": 0.148
             },
             {
+              "image": "colormap",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+              "modulesWithAtlasDirect": [
+                "mod_kenney_stairs_center"
+              ],
+              "modulesWithAtlasMixed": [],
+              "reachedByTreatment": true,
+              "rawForEveryModule": false,
+              "splitAcrossModules": false,
+              "modulesReached": 1,
+              "modulesRaw": 0,
+              "inputValue": 0.44,
+              "treatedValue": 0.459,
+              "rawIsBrighterBy": -0.019
+            },
+            {
               "image": "T_Concrete_Asphalt_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
               "modulesWithAtlasDirect": [
@@ -6789,6 +7073,54 @@
               "rawIsBrighterBy": -0.113
             },
             {
+              "image": "metal",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_kenney_detail_beam"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 1,
+              "inputValue": 0.658,
+              "treatedValue": 0.58,
+              "rawIsBrighterBy": 0.078
+            },
+            {
+              "image": "planks",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_kenney_pallet"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 1,
+              "inputValue": 0.406,
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": 0.006
+            },
+            {
+              "image": "roof",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_kenney_detail_beam"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 1,
+              "inputValue": 0.342,
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": -0.058
+            },
+            {
               "image": "Texture_Green.png.001",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
               "modulesWithAtlasDirect": [],
@@ -6807,6 +7139,9 @@
             }
           ],
           "texturesNeverReachedByTreatment": [
+            "metal",
+            "planks",
+            "roof",
             "Texture_Green.png.001"
           ],
           "texturesSplitAcrossModules": [
@@ -6942,6 +7277,38 @@
               "windowGlow": false,
               "modulesWithAtlasDirect": 0,
               "modulesWithAtlasMixed": 2
+            },
+            {
+              "pack": "src_kenney_building_kit",
+              "image": "colormap",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 1,
+              "modulesWithAtlasMixed": 0
+            },
+            {
+              "pack": "src_kenney_retro_urban_kit",
+              "image": "metal",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 1
+            },
+            {
+              "pack": "src_kenney_retro_urban_kit",
+              "image": "planks",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 1
+            },
+            {
+              "pack": "src_kenney_retro_urban_kit",
+              "image": "roof",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 1
             }
           ],
           "litWindowsObserved": [
@@ -6981,6 +7348,9 @@
             "src_kenney_nature_kit/woodBark: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
             "src_kenney_nature_kit/woodBarkDark: Base Color factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 3",
             "src_kenney_nature_kit/woodDark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_kenney_retro_urban_kit/metal: Base Color sin Principled BSDF ×1; atlas de color metal; módulos alcanzados 0, en bruto 1",
+            "src_kenney_retro_urban_kit/planks: Base Color sin Principled BSDF ×1; atlas de color planks; módulos alcanzados 0, en bruto 1",
+            "src_kenney_retro_urban_kit/roof: Base Color sin Principled BSDF ×1; atlas de color roof; módulos alcanzados 0, en bruto 1",
             "src_original_ag_arcade_bay/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_ag_arcade_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_ag_arcade_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
@@ -7044,10 +7414,10 @@
         }
       },
       "knownGaps": [
-        "glass (materiales MI_Glass, gn_dark_glass sin textura de color mapeable); wood (materiales scaffold_plank, wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
-        "nombres de textura que no identifican un archivo (colormap ×4): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
+        "glass (materiales MI_Glass, gn_dark_glass sin textura de color mapeable); wood (materiales planks, scaffold_plank, wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
+        "nombres de textura que no identifican un archivo (colormap ×5): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
         "metal vs stone: sólo los separa el shading (rugosidad o metallic), no el albedo. Si V.f.4 aplanara esos canales, esas familias colapsarían.",
-        "atlas que el tratamiento no alcanza en NINGÚN módulo (Texture_Green.png.001 (2 módulos)): su destino en este perfil es un objetivo para V.f.4, medido sobre la misma textura pero por una cadena de nodos que el render actual no recorre.",
+        "atlas que el tratamiento no alcanza en NINGÚN módulo (metal (1 módulos), planks (1 módulos), roof (1 módulos), Texture_Green.png.001 (2 módulos)): su destino en este perfil es un objetivo para V.f.4, medido sobre la misma textura pero por una cadena de nodos que el render actual no recorre.",
         "atlas alcanzados sólo en parte (T_Concrete_BaseColor: 3 módulos directos / 1 con Base Color mezclado; T_MarbleFloor_BaseColor: 2 módulos directos / 1 con Base Color mezclado; T_MetalConcrete_BaseColor: 21 módulos directos / 17 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 41 con Base Color mezclado; T_Trim_BaseColor: 17 módulos directos / 29 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
         "El bucket medio de un atlas no decide el windowGlow texel a texel: la media de una familia de tono puede caer bajo el umbral de la banda de cristal y aun así dejar texeles encendidos (ventanas observadas en los renders embarcados: 2–10 por edificio).",
         "proportions.doorHeight del style layer (2.1 m) queda desactualizado contra la hoja medida (2.2 m); se corrige en la documentación tras la revisión humana, no a mano en el JSON canónico."
@@ -7062,8 +7432,8 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "96da3c82722915283ecf9dfcb5f5fa3492f5656883c6170669aa24acd781122e",
-      "selectionSha256": "5bb091acd5ee0ea3fc9c716b7310d279cc2ae4cec9cd7172756e4788643184e1",
+      "moduleCatalogSha256": "3d1a5735b020066ee8e56146946017d86dade5d3aab2ba2e6481052e8d806b16",
+      "selectionSha256": "032ba4e4bcb96b9e1f3d623d908589476967e221b0afd9ecc665aa8a96797a7d",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -7461,7 +7831,8 @@
               "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
               "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
               "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
-              "src_original_gn_metal_parapet: 0.55/0.62/0.92"
+              "src_original_gn_metal_parapet: 0.55/0.62/0.92",
+              "src_kenney_building_kit: 1"
             ],
             "perFamily": {
               "brick": {
@@ -7560,13 +7931,14 @@
                 "src_original_gn_metal_siding_bay: 0.55/0.62/0.92",
                 "src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92",
                 "src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92",
-                "src_original_gn_metal_parapet: 0.55/0.62/0.92"
+                "src_original_gn_metal_parapet: 0.55/0.62/0.92",
+                "src_kenney_building_kit: 1"
               ],
               "how": "factores de Roughness por pack donde el socket NO está enlazado: son los únicos que el override toca",
               "source": "/tmp/landlord-vf-style/measurements.json → materialReport[].surface.Roughness.value"
             }
           ],
-          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74; src_original_gn_metal_siding_bay: 0.55/0.62/0.92; src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92; src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92; src_original_gn_metal_parapet: 0.55/0.62/0.92) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
+          "rationale": "El override canónico (0.88) sólo se aplica a sockets NO enlazados (runtime_asset.py:669-672): unifica los factores planos (src_quaternius_downtown_city_megakit: 0.5; src_kenney_city_industrial: 1; src_kenney_city_suburban: 1; src_kenney_city_commercial: 1; src_kaykit_city_builder_bits: 0.4; src_kenney_nature_kit: 1; src_kenney_city_roads: 1; src_original_ag_arcade_bay: 0.14/0.74/0.86; src_original_construction_scaffold: 0.7; src_original_construction_barrier: 0.8; src_original_damage_debris: 0.8; src_original_fire_flame: 0.8; src_original_fire_smoke: 1; src_original_gn_window_bay: 0.14/0.74/0.86; src_original_gn_shopfront_bay: 0.14/0.68/0.74/0.86; src_original_gn_plinth: 0.74; src_original_gn_cornice: 0.74/0.86; src_original_gn_balcony_door_bay: 0.14/0.55/0.68/0.74; src_original_gn_metal_siding_bay: 0.55/0.62/0.92; src_original_gn_metal_window_bay: 0.14/0.55/0.62/0.92; src_original_gn_truck_dock_bay: 0.14/0.48/0.55/0.62/0.92; src_original_gn_metal_parapet: 0.55/0.62/0.92; src_kenney_building_kit: 1) y respeta los ORM enlazados, cuyas medias reales (0.741–0.948) ya caen dentro de la banda que la dirección acepta. Por eso el perfil no fija una rugosidad única: §11 prohíbe aplanar todos los materiales y la pipeline ya preserva el relieve cuando existe."
         },
         "materialMetallic": {
           "value": {
@@ -7759,6 +8131,27 @@
               },
               {
                 "image": "colormap",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+                "dominantPredicted": {
+                  "hueDegrees": 15.6,
+                  "saturation": 0.211,
+                  "value": 0.459
+                },
+                "dominantInput": {
+                  "hueDegrees": 298.7,
+                  "saturation": 0.226,
+                  "value": 0.44
+                },
+                "bandsClaimingIt": [
+                  "facade_blue_grey_to_warm_stone",
+                  "neutral_dark_asphalt",
+                  "violet_accents_muted",
+                  "warm_accents_muted"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "colormap",
                 "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
                 "dominantPredicted": {
                   "hueDegrees": 26.3,
@@ -7841,6 +8234,60 @@
                   "roof_and_verge_green_to_slate",
                   "violet_accents_muted",
                   "warm_accents_muted"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "metal",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+                "dominantPredicted": {
+                  "hueDegrees": null,
+                  "saturation": 0.052,
+                  "value": 0.58
+                },
+                "dominantInput": {
+                  "hueDegrees": null,
+                  "saturation": 0.052,
+                  "value": 0.658
+                },
+                "bandsClaimingIt": [
+                  "pale_neutral"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "planks",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+                "dominantPredicted": {
+                  "hueDegrees": 27.7,
+                  "saturation": 0.245,
+                  "value": 0.4
+                },
+                "dominantInput": {
+                  "hueDegrees": 27.7,
+                  "saturation": 0.288,
+                  "value": 0.406
+                },
+                "bandsClaimingIt": [
+                  "neutral_dark_asphalt"
+                ],
+                "windowGlow": false
+              },
+              {
+                "image": "roof",
+                "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
+                "dominantPredicted": {
+                  "hueDegrees": 32.1,
+                  "saturation": 0.063,
+                  "value": 0.4
+                },
+                "dominantInput": {
+                  "hueDegrees": 32.1,
+                  "saturation": 0.074,
+                  "value": 0.342
+                },
+                "bandsClaimingIt": [
+                  "neutral_dark_asphalt"
                 ],
                 "windowGlow": false
               },
@@ -8038,10 +8485,14 @@
             {
               "measured": [
                 "citybits_texture ← blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png: grey 0.357→Hn/a S0.078 V0.573, orange 0.226→H23 S0.504 V0.71, cyan 0.121→H176.1 S0.826 V0.437, blue 0.104→H206.7 S0.51 V0.597, red 0.082→H359.1 S0.71 V0.815, yellow 0.074→H43.6 S0.223 V0.497, green 0.031→H62.4 S0.804 V0.692",
+                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png: grey 0.606→Hn/a S0.1 V0.24, blue 0.145→H227.5 S0.294 V0.658, orange 0.134→H21 S0.52 V0.826, magenta 0.058→H279.4 S0.504 V0.913, red 0.026→H3.8 S0.638 V0.836",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png: grey 0.455→Hn/a S0.152 V0.366, blue 0.25→H227.4 S0.255 V0.599, orange 0.15→H18.8 S0.526 V0.826, magenta 0.057→H279.6 S0.503 V0.913, green 0.032→H143.8 S0.522 V0.796, cyan 0.031→H154.6 S0.645 V0.65, red 0.025→H3.7 S0.636 V0.834",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png: blue 0.356→H227.1 S0.279 V0.654, grey 0.332→Hn/a S0.198 V0.598, orange 0.136→H20 S0.505 V0.793, magenta 0.089→H288.2 S0.399 V0.92, green 0.032→H143.8 S0.522 V0.796, cyan 0.031→H154.6 S0.646 V0.65, red 0.025→H3.7 S0.636 V0.834",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png: grey 0.418→Hn/a S0.251 V0.495, blue 0.27→H228.3 S0.252 V0.587, orange 0.104→H20.6 S0.521 V0.826, magenta 0.089→H288.2 S0.399 V0.92, red 0.057→H357.6 S0.531 V0.811, green 0.031→H143.8 S0.522 V0.796, cyan 0.031→H154.6 S0.645 V0.651",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey 0.457→Hn/a S0.151 V0.365, blue 0.249→H227.5 S0.258 V0.602, orange 0.137→H19.2 S0.526 V0.836, magenta 0.057→H279.8 S0.502 V0.915, red 0.038→H5.7 S0.617 V0.819, green 0.032→H143.8 S0.522 V0.796, cyan 0.031→H154.5 S0.648 V0.651",
+                "metal ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png: grey 1→Hn/a S0.052 V0.658",
+                "planks ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png: orange 1→H27.7 S0.288 V0.406",
+                "roof ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png: grey 0.924→Hn/a S0.07 V0.346, orange 0.058→H32.1 S0.143 V0.27",
                 "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey 1→Hn/a S0.041 V0.231",
                 "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey 1→Hn/a S0.042 V0.499",
                 "T_Dirt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png: orange 0.988→H25.7 S0.221 V0.353",
@@ -8059,10 +8510,14 @@
             {
               "measured": [
                 "citybits_texture ← blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/citybits_texture.png: grey pale_neutral→V0.58, orange warm_accents_muted→V0.55, cyan roof_and_verge_green_to_slate→V0.149, blue window_blue_to_dark_glass→V0.222, red warm_accents_muted→V0.55, yellow neutral_dark_asphalt→V0.4, green headlamp_yellow→V0.42",
+                "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.453, red warm_accents_muted→V0.55",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.453, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.55",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-industrial/Models/GLB format/Textures/colormap.png: blue facade_blue_grey_to_warm_stone→V0.61, grey warm_accents_muted→V0.55, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.456, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222, red warm_accents_muted→V0.55",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-roads/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.456, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222",
                 "colormap ← blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-suburban/Models/GLB format/Textures/colormap.png: grey neutral_dark_asphalt→V0.4, blue facade_blue_grey_to_warm_stone→V0.61, orange warm_accents_muted→V0.55, magenta violet_accents_muted→V0.454, red warm_accents_muted→V0.55, green roof_and_verge_green_to_slate→V0.271, cyan roof_and_verge_green_to_slate→V0.222",
+                "metal ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png: grey pale_neutral→V0.58",
+                "planks ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png: orange neutral_dark_asphalt→V0.4",
+                "roof ← blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png: grey neutral_dark_asphalt→V0.4, orange neutral_dark_asphalt→V0.4",
                 "T_Concrete_Asphalt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png: grey neutral_dark_asphalt→V0.4",
                 "T_Concrete_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png: grey neutral_dark_asphalt→V0.4",
                 "T_Dirt_BaseColor ← blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Dirt_BaseColor.png: orange neutral_dark_asphalt→V0.4",
@@ -8083,8 +8538,8 @@
         "detailDensity": {
           "value": {
             "trianglesPerModule": {
-              "p50": 120,
-              "p90": 1053,
+              "p50": 119,
+              "p90": 1044.3,
               "max": 2960
             },
             "facadeTrianglesPerSquareMeter": {
@@ -8935,7 +9390,7 @@
           "evidence": [
             {
               "measured": {
-                "sha256": "930efd4bac4bf692aa87b4557ba157b7e2434f9e2de5ad323185a377889cb3c6",
+                "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da",
                 "palette": "graphic_civic",
                 "treatmentVersion": 7
               },
@@ -10334,9 +10789,10 @@
           "measuredMaterials": [
             "MI_Trim_MetalConcrete",
             "gn_metal_trim",
-            "gn_painted_metal"
+            "gn_painted_metal",
+            "metal"
           ],
-          "moduleCount": 43,
+          "moduleCount": 44,
           "moduleExamples": [
             "mod_gn_balcony_door_bay_2m",
             "mod_gn_metal_parapet_4m",
@@ -10344,6 +10800,7 @@
             "mod_gn_metal_window_bay_4m"
           ],
           "sourceIds": [
+            "src_kenney_retro_urban_kit",
             "src_original_gn_balcony_door_bay",
             "src_original_gn_metal_parapet",
             "src_original_gn_metal_siding_bay",
@@ -10354,7 +10811,8 @@
           "baseColorChain": [
             "MIX:sin imagen",
             "TEX_IMAGE:T_MetalConcrete_BaseColor",
-            "factor plano"
+            "factor plano",
+            "sin Principled BSDF"
           ],
           "blendMethods": [
             "HASHED"
@@ -10669,25 +11127,28 @@
           "family": "wood",
           "present": true,
           "measuredMaterials": [
+            "planks",
             "scaffold_plank",
             "wood",
             "woodBark",
             "woodBarkDark",
             "woodDark"
           ],
-          "moduleCount": 9,
+          "moduleCount": 10,
           "moduleExamples": [
+            "mod_kenney_pallet",
             "mod_nature_civic_sign",
             "mod_nature_civic_urn_large",
-            "mod_nature_civic_urn_small",
-            "mod_nature_tree_cone"
+            "mod_nature_civic_urn_small"
           ],
           "sourceIds": [
             "src_kenney_nature_kit",
+            "src_kenney_retro_urban_kit",
             "src_original_construction_scaffold"
           ],
           "baseColorChain": [
-            "factor plano"
+            "factor plano",
+            "sin Principled BSDF"
           ],
           "blendMethods": [
             "HASHED"
@@ -10896,6 +11357,15 @@
               "colorTextureFiles": [
                 "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
               ]
+            },
+            {
+              "pack": "src_kenney_building_kit",
+              "colorTextures": [
+                "colormap"
+              ],
+              "colorTextureFiles": [
+                "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+              ]
             }
           ],
           "pbrPacks": [
@@ -10912,7 +11382,8 @@
             "src_original_gn_metal_siding_bay",
             "src_original_gn_metal_window_bay",
             "src_original_gn_truck_dock_bay",
-            "src_original_gn_metal_parapet"
+            "src_original_gn_metal_parapet",
+            "src_kenney_retro_urban_kit"
           ],
           "familiesPartlyTreated": [
             {
@@ -10978,7 +11449,7 @@
               ]
             }
           ],
-          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay, src_original_gn_metal_siding_bay, src_original_gn_metal_window_bay, src_original_gn_truck_dock_bay, src_original_gn_metal_parapet) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
+          "note": "La separación no opera igual en los dos mecanismos de color. En los packs de atlas único (src_kenney_city_industrial, src_kenney_city_suburban, src_kenney_city_commercial, src_kaykit_city_builder_bits, src_kenney_city_roads, src_original_construction_barrier, src_original_fire_flame, src_original_fire_smoke, src_quaternius_ultimate_buildings, src_kenney_building_kit) la deciden las bandas de tono texel a texel: un solo material puede dar ladrillo en unos texeles y cristal en otros, así que esas familias se miden sobre los buckets de la imagen, no sobre el material. En el pack PBR (src_quaternius_downtown_city_megakit, src_kenney_nature_kit, src_original_ag_arcade_bay, src_original_construction_scaffold, src_original_damage_debris, src_original_gn_window_bay, src_original_gn_shopfront_bay, src_original_gn_plinth, src_original_gn_cornice, src_original_gn_balcony_door_bay, src_original_gn_metal_siding_bay, src_original_gn_metal_window_bay, src_original_gn_truck_dock_bay, src_original_gn_metal_parapet, src_kenney_retro_urban_kit) la decide la cadena de nodos de cada instancia de material, y sólo separa si el nombre casa con la regla de familia. Las familias brick, plaster, metal, stone tienen destino medido pero el tratamiento no alcanza todos sus módulos (ver `treatmentReach`): su separación por albedo es un objetivo de V.f.4, no el render de hoy."
         },
         "state": "satisfecha"
       },
@@ -11035,6 +11506,58 @@
             "otherImages": [],
             "scalarRoughness": [
               0.4
+            ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_kenney_building_kit",
+            "license": "CC0-1.0",
+            "moduleCount": 1,
+            "materials": 1,
+            "materialsReachedByTreatment": [
+              "colormap"
+            ],
+            "materialsRawAlways": [],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 1,
+            "modulesWithRawMaterial": 0,
+            "rawModuleExamples": [],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "TEX_IMAGE:colormap"
+            ],
+            "materialReach": [
+              {
+                "material": "colormap",
+                "family": "atlas",
+                "baseColorChains": [
+                  "TEX_IMAGE:colormap ×1"
+                ],
+                "colorTextures": [
+                  "colormap"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+                ],
+                "roughness": [
+                  1
+                ],
+                "modulesWithAtlasDirect": 1,
+                "modulesRaw": 0,
+                "splitWithinPack": false,
+                "reachedByTreatment": true
+              }
+            ],
+            "colorTextures": [
+              "colormap"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+            ],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [
+              1
             ],
             "shippedJobs": []
           },
@@ -11492,6 +12015,99 @@
             "scalarRoughness": [
               1
             ],
+            "shippedJobs": []
+          },
+          {
+            "pack": "src_kenney_retro_urban_kit",
+            "license": "CC0-1.0",
+            "moduleCount": 2,
+            "materials": 3,
+            "materialsReachedByTreatment": [],
+            "materialsRawAlways": [
+              "metal",
+              "planks",
+              "roof"
+            ],
+            "materialsSplitWithinPack": [],
+            "modulesFullyTreated": 0,
+            "modulesWithRawMaterial": 2,
+            "rawModuleExamples": [
+              "pallet.glb: 1 de 1 materiales en bruto",
+              "detail-beam.glb: 2 de 2 materiales en bruto"
+            ],
+            "mixesTreatmentLadders": false,
+            "baseColorChains": [
+              "sin Principled BSDF"
+            ],
+            "materialReach": [
+              {
+                "material": "metal",
+                "family": "metal",
+                "baseColorChains": [
+                  "sin Principled BSDF ×1"
+                ],
+                "colorTextures": [
+                  "metal"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "planks",
+                "family": "wood",
+                "baseColorChains": [
+                  "sin Principled BSDF ×1"
+                ],
+                "colorTextures": [
+                  "planks"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              },
+              {
+                "material": "roof",
+                "family": "atlas",
+                "baseColorChains": [
+                  "sin Principled BSDF ×1"
+                ],
+                "colorTextures": [
+                  "roof"
+                ],
+                "colorTextureFiles": [
+                  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png"
+                ],
+                "roughness": [],
+                "modulesWithAtlasDirect": 0,
+                "modulesRaw": 1,
+                "splitWithinPack": false,
+                "reachedByTreatment": false
+              }
+            ],
+            "colorTextures": [
+              "metal",
+              "planks",
+              "roof"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+              "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+              "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png"
+            ],
+            "ormImages": [],
+            "otherImages": [],
+            "scalarRoughness": [],
             "shippedJobs": []
           },
           {
@@ -13188,6 +13804,8 @@
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_oak.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_pineTallA.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
           "third_party/cc0/extracted/kenney/nature-kit/Models/GLTF format/tree_small.glb (src_kenney_nature_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb (src_kenney_retro_urban_kit): 2 de 2 materiales con Base Color fuera de la banda",
+          "third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb (src_kenney_retro_urban_kit): 1 de 1 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/ag_arcade_bay_2m.glb (src_original_ag_arcade_bay): 3 de 3 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/construction_barrier.glb (src_original_construction_barrier): 3 de 3 materiales con Base Color fuera de la banda",
           "blender_artist/sources/original/construction_scaffold.glb (src_original_construction_scaffold): 2 de 2 materiales con Base Color fuera de la banda",
@@ -13333,6 +13951,15 @@
             "colorTextureFiles": [
               "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
             ]
+          },
+          {
+            "pack": "src_kenney_building_kit",
+            "colorTextures": [
+              "colormap"
+            ],
+            "colorTextureFiles": [
+              "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+            ]
           }
         ],
         "pbrPacks": [
@@ -13349,11 +13976,22 @@
           "src_original_gn_metal_siding_bay",
           "src_original_gn_metal_window_bay",
           "src_original_gn_truck_dock_bay",
-          "src_original_gn_metal_parapet"
+          "src_original_gn_metal_parapet",
+          "src_kenney_retro_urban_kit"
         ],
         "requiredWork": "V.f.4 debe extender el traversal hasta la TEX_IMAGE real que alimenta el MIX (o aplicar las bandas sobre la imagen de entrada del mezclador) para que las instancias en bruto entren en la misma escalera de valor. Sin eso hay que listar módulos: los de `modulesRawList` quedan fuera de los alzados que se juzguen tratados.",
         "measuredBrightnessGap": {
           "facadeBandPredictions": [
+            {
+              "image": "colormap",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+              "band": "facade_blue_grey_to_warm_stone",
+              "hueBucket": "blue",
+              "share": 0.145,
+              "inputValue": 0.658,
+              "predictedValue": 0.61,
+              "predictedSaturation": 0.456
+            },
             {
               "image": "colormap",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
@@ -13753,6 +14391,22 @@
               "rawIsBrighterBy": 0.148
             },
             {
+              "image": "colormap",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+              "modulesWithAtlasDirect": [
+                "mod_kenney_stairs_center"
+              ],
+              "modulesWithAtlasMixed": [],
+              "reachedByTreatment": true,
+              "rawForEveryModule": false,
+              "splitAcrossModules": false,
+              "modulesReached": 1,
+              "modulesRaw": 0,
+              "inputValue": 0.44,
+              "treatedValue": 0.459,
+              "rawIsBrighterBy": -0.019
+            },
+            {
               "image": "T_Concrete_Asphalt_BaseColor",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
               "modulesWithAtlasDirect": [
@@ -13828,6 +14482,54 @@
               "rawIsBrighterBy": -0.113
             },
             {
+              "image": "metal",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_kenney_detail_beam"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 1,
+              "inputValue": 0.658,
+              "treatedValue": 0.58,
+              "rawIsBrighterBy": 0.078
+            },
+            {
+              "image": "planks",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_kenney_pallet"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 1,
+              "inputValue": 0.406,
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": 0.006
+            },
+            {
+              "image": "roof",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
+              "modulesWithAtlasDirect": [],
+              "modulesWithAtlasMixed": [
+                "mod_kenney_detail_beam"
+              ],
+              "reachedByTreatment": false,
+              "rawForEveryModule": true,
+              "splitAcrossModules": false,
+              "modulesReached": 0,
+              "modulesRaw": 1,
+              "inputValue": 0.342,
+              "treatedValue": 0.4,
+              "rawIsBrighterBy": -0.058
+            },
+            {
               "image": "Texture_Green.png.001",
               "textureFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png",
               "modulesWithAtlasDirect": [],
@@ -13846,6 +14548,9 @@
             }
           ],
           "texturesNeverReachedByTreatment": [
+            "metal",
+            "planks",
+            "roof",
             "Texture_Green.png.001"
           ],
           "texturesSplitAcrossModules": [
@@ -13981,6 +14686,38 @@
               "windowGlow": false,
               "modulesWithAtlasDirect": 0,
               "modulesWithAtlasMixed": 2
+            },
+            {
+              "pack": "src_kenney_building_kit",
+              "image": "colormap",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 1,
+              "modulesWithAtlasMixed": 0
+            },
+            {
+              "pack": "src_kenney_retro_urban_kit",
+              "image": "metal",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 1
+            },
+            {
+              "pack": "src_kenney_retro_urban_kit",
+              "image": "planks",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 1
+            },
+            {
+              "pack": "src_kenney_retro_urban_kit",
+              "image": "roof",
+              "textureFile": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
+              "windowGlow": false,
+              "modulesWithAtlasDirect": 0,
+              "modulesWithAtlasMixed": 1
             }
           ],
           "litWindowsObserved": [
@@ -14020,6 +14757,9 @@
             "src_kenney_nature_kit/woodBark: Base Color factor plano ×4; atlas de color ninguno; módulos alcanzados 0, en bruto 4",
             "src_kenney_nature_kit/woodBarkDark: Base Color factor plano ×3; atlas de color ninguno; módulos alcanzados 0, en bruto 3",
             "src_kenney_nature_kit/woodDark: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
+            "src_kenney_retro_urban_kit/metal: Base Color sin Principled BSDF ×1; atlas de color metal; módulos alcanzados 0, en bruto 1",
+            "src_kenney_retro_urban_kit/planks: Base Color sin Principled BSDF ×1; atlas de color planks; módulos alcanzados 0, en bruto 1",
+            "src_kenney_retro_urban_kit/roof: Base Color sin Principled BSDF ×1; atlas de color roof; módulos alcanzados 0, en bruto 1",
             "src_original_ag_arcade_bay/gn_brick_wall: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_ag_arcade_bay/gn_dark_glass: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
             "src_original_ag_arcade_bay/gn_stone_trim: Base Color factor plano ×1; atlas de color ninguno; módulos alcanzados 0, en bruto 1",
@@ -14083,10 +14823,10 @@
         }
       },
       "knownGaps": [
-        "glass (materiales MI_Glass, gn_dark_glass sin textura de color mapeable); wood (materiales scaffold_plank, wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
-        "nombres de textura que no identifican un archivo (colormap ×4): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
+        "glass (materiales MI_Glass, gn_dark_glass sin textura de color mapeable); wood (materiales planks, scaffold_plank, wood, woodBark, woodBarkDark, woodDark sin textura de color mapeable): la familia existe en la geometría, pero su color no vive en un atlas mapeable, así que §11 no puede separarla por albedo. Se decide por emisión y roughness en V.f.4.",
+        "nombres de textura que no identifican un archivo (colormap ×5): son PNG distintos con el mismo nombre de datablock, porque cada archivo se importa en una escena limpia. El muestreo y el remape van por ruta (`textureFile`); cualquier consumidor que agrupe por nombre atribuiría el color de un pack a los demás.",
         "metal vs stone: sólo los separa el shading (rugosidad o metallic), no el albedo. Si V.f.4 aplanara esos canales, esas familias colapsarían.",
-        "atlas que el tratamiento no alcanza en NINGÚN módulo (Texture_Green.png.001 (2 módulos)): su destino en este perfil es un objetivo para V.f.4, medido sobre la misma textura pero por una cadena de nodos que el render actual no recorre.",
+        "atlas que el tratamiento no alcanza en NINGÚN módulo (metal (1 módulos), planks (1 módulos), roof (1 módulos), Texture_Green.png.001 (2 módulos)): su destino en este perfil es un objetivo para V.f.4, medido sobre la misma textura pero por una cadena de nodos que el render actual no recorre.",
         "atlas alcanzados sólo en parte (T_Concrete_BaseColor: 3 módulos directos / 1 con Base Color mezclado; T_MarbleFloor_BaseColor: 2 módulos directos / 1 con Base Color mezclado; T_MetalConcrete_BaseColor: 21 módulos directos / 17 con Base Color mezclado; T_RedBrick_BaseColor: 7 módulos directos / 41 con Base Color mezclado; T_Trim_BaseColor: 17 módulos directos / 29 con Base Color mezclado): el valor medido en `materialFamilies` es el del lado tratado. El compositor listador debe elegir módulos por `packCoexistence.modulesRawList`, no por nombre de material, o un mismo alzado mostrará dos temperaturas de brillo.",
         "El bucket medio de un atlas no decide el windowGlow texel a texel: la media de una familia de tono puede caer bajo el umbral de la banda de cristal y aun así dejar texeles encendidos (ventanas observadas en los renders embarcados: 2–10 por edificio).",
         "proportions.doorHeight del style layer (2.1 m) queda desactualizado contra la hoja medida (2.2 m); se corrige en la documentación tras la revisión humana, no a mano en el JSON canónico."
@@ -14127,14 +14867,14 @@
     }
   ],
   "counts": {
-    "modules": 191,
-    "texturesSampled": 31,
+    "modules": 194,
+    "texturesSampled": 35,
     "familiesPresentInGeometry": 6,
     "familiesMeasuredByAlbedo": 4,
     "familyPairsChecked": 6,
     "collapsedPairs": 0,
-    "modulesFullyTreatedToday": 98,
-    "modulesWithRawMaterial": 93,
+    "modulesFullyTreatedToday": 99,
+    "modulesWithRawMaterial": 95,
     "texturesSplitAcrossModules": 5
   }
 }

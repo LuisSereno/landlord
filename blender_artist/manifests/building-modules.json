@@ -68,8 +68,8 @@
   },
   "orientationPolicy": "Los módulos sólo rotan en múltiplos de 90°: la retícula del dominio y el rig isométrico (azimut 45°) no admiten giros arbitrarios sin romper el encaje de fachadas.",
   "counts": {
-    "modules": 191,
-    "sources": 190,
+    "modules": 194,
+    "sources": 193,
     "byCategory": {
       "facade": 36,
       "window": 12,
@@ -82,11 +82,12 @@
       "utility": 6,
       "chimney": 4,
       "industrial": 5,
-      "balcony": 2
+      "balcony": 2,
+      "interior": 3
     },
     "byFamily": {
-      "residential_low": 62,
-      "industrial_heavy": 54,
+      "residential_low": 65,
+      "industrial_heavy": 57,
       "civic_landmark": 156
     },
     "bySource": {
@@ -114,7 +115,9 @@
       "src_original_gn_metal_siding_bay": 1,
       "src_original_gn_metal_window_bay": 1,
       "src_original_gn_truck_dock_bay": 1,
-      "src_original_gn_metal_parapet": 1
+      "src_original_gn_metal_parapet": 1,
+      "src_kenney_building_kit": 1,
+      "src_kenney_retro_urban_kit": 2
     }
   },
   "modules": [
@@ -26445,6 +26448,414 @@
         "fileTriangles": 180,
         "fileHierarchy": [
           "GnMetalParapet:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_kenney_stairs_center",
+      "category": "interior",
+      "role": "interior_stair",
+      "note": "D-111.3 FASE 3: tramo de escalera interior para el dressing de daños (edificio seccionado que no parece cascarón vacío)",
+      "sourceId": "src_kenney_building_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/stairs-center.glb",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "stairs-center"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 55 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1.3,
+        "depthMeters": 4,
+        "heightMeters": 2.5
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "stairs-center",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.65,
+            "max": 0.65
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 2.5
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.65,
+            "max": 0.65
+          },
+          "y": {
+            "min": -2,
+            "max": 2
+          },
+          "z": {
+            "min": 0,
+            "max": 2.5
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 224,
+        "triangles": 114,
+        "shells": 55,
+        "materials": [
+          "colormap"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+        ],
+        "selectedObjects": [
+          "stairs-center"
+        ],
+        "baseColorChains": [
+          "colormap=atlas:blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1.3,
+          "depth": 4,
+          "height": 2.5,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 114,
+        "fileHierarchy": [
+          "stairs-center:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_kenney_pallet",
+      "category": "interior",
+      "role": "interior_prop",
+      "note": "D-111.3 FASE 3: palé de mercancía para interiores dañados residenciales e industriales",
+      "sourceId": "src_kenney_retro_urban_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "pallet"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 42 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 1,
+        "depthMeters": 1,
+        "heightMeters": 0.15
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "pallet",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.5,
+            "max": 0.5
+          },
+          "y": {
+            "min": -0.5,
+            "max": 0.5
+          },
+          "z": {
+            "min": 0,
+            "max": 0.15
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.5,
+            "max": 0.5
+          },
+          "y": {
+            "min": -0.5,
+            "max": 0.5
+          },
+          "z": {
+            "min": 0,
+            "max": 0.15
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 168,
+        "triangles": 84,
+        "shells": 42,
+        "materials": [
+          "planks"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png"
+        ],
+        "selectedObjects": [
+          "pallet"
+        ],
+        "baseColorChains": [
+          "planks=sin_superficie"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 1,
+          "depth": 1,
+          "height": 0.15,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 84,
+        "fileHierarchy": [
+          "pallet:MESH"
+        ]
+      }
+    },
+    {
+      "id": "mod_kenney_detail_beam",
+      "category": "interior",
+      "role": "interior_beam",
+      "note": "D-111.3 FASE 3: viga para el arranque de cubierta visible en los edificios seccionados",
+      "sourceId": "src_kenney_retro_urban_kit",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+      "license": "CC0-1.0",
+      "unitScale": 1,
+      "objectSelector": {
+        "meshes": [
+          "detail-beam"
+        ]
+      },
+      "nodeSelector": {
+        "root": "IMPORT_ROOT",
+        "reparentTo": "COMPOSITION_ROOT"
+      },
+      "allowedFamilies": [
+        "residential_low",
+        "industrial_heavy"
+      ],
+      "extraction": {
+        "strategy": "whole_asset",
+        "classification": "whole_asset_only",
+        "reason": "una sola unidad sustancial (100% de los triángulos, 16 cáscaras): usable como módulo de masa completo"
+      },
+      "nominalBounds": {
+        "widthMeters": 0.25,
+        "depthMeters": 1,
+        "heightMeters": 0.25
+      },
+      "anchor": {
+        "datum": "authored_object_origin",
+        "datumObject": "detail-beam",
+        "convention": {
+          "x": "centered",
+          "y": "centered",
+          "z": "positive-from-origin"
+        },
+        "frontAxis": "symmetric-Y",
+        "symmetricAboutFront": true,
+        "boundsRelativeToOriginMeters": {
+          "x": {
+            "min": -0.125,
+            "max": 0.125
+          },
+          "y": {
+            "min": -0.5,
+            "max": 0.5
+          },
+          "z": {
+            "min": 0,
+            "max": 0.25
+          }
+        },
+        "datumOffsetFromGroundCenterMeters": [
+          0,
+          0,
+          0
+        ],
+        "moduleBoundsInPlacementFrameMeters": {
+          "x": {
+            "min": -0.125,
+            "max": 0.125
+          },
+          "y": {
+            "min": -0.5,
+            "max": 0.5
+          },
+          "z": {
+            "min": 0,
+            "max": 0.25
+          }
+        },
+        "originToGroundMeters": 0,
+        "offsetToFootprintCenterMeters": [
+          0,
+          0
+        ],
+        "anchorTransform": {
+          "translation": [
+            0,
+            0,
+            0
+          ],
+          "rotationZDegrees": 0
+        }
+      },
+      "orientation": {
+        "allowedRotationsDegrees": [
+          0,
+          90,
+          180,
+          270
+        ],
+        "symmetricAboutFront": true
+      },
+      "measured": {
+        "meshObjects": 1,
+        "vertices": 72,
+        "triangles": 44,
+        "shells": 16,
+        "materials": [
+          "metal",
+          "roof"
+        ],
+        "images": [
+          "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
+          "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png"
+        ],
+        "selectedObjects": [
+          "detail-beam"
+        ],
+        "baseColorChains": [
+          "metal=sin_superficie",
+          "roof=sin_superficie"
+        ]
+      },
+      "provenance": {
+        "sourceBounds": {
+          "width": 0.25,
+          "depth": 1,
+          "height": 0.25,
+          "minZ": 0
+        },
+        "importScale": 1,
+        "importOffset": [
+          0,
+          0,
+          0
+        ],
+        "fileTriangles": 44,
+        "fileHierarchy": [
+          "detail-beam:MESH"
         ]
       }
     }

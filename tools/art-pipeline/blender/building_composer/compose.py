@@ -1843,6 +1843,99 @@ class Composition:
             self._damage_z = None
         self._damage_openings = removed_openings
         self._scatter_debris()
+        self._compose_damage_interior()
+
+    def _compose_damage_interior(self):
+        """D-111.3 FASE 3 · interior dressing en la sección que el daño abrió.
+
+        Un edificio seccionado que sólo muestra escombros leé como cascarón vacío. Donde el daño
+        destapó cubierta y fachada se sugiere el interior: forjados parciales (con hueco, que la
+        destrucción no deja suelos completos), un tramo de escalera, un tabique, vigas del arranque
+        de la cubierta perdida y palés. Determinista con la semilla sellada, limitado al rectángulo
+        del daño con margen para que nada atraviese paños, y ausente en los volúmenes intactos.
+        No añade estados, datos ni mobiliario al dominio: es composición visual derivada.
+        """
+        rect = getattr(self, "_damage_rect", None)
+        if not rect:
+            return
+        stair = self.catalog.pools.get((self.family, "interior_stair"))
+        prop = self.catalog.pools.get((self.family, "interior_prop"))
+        beam = self.catalog.pools.get((self.family, "interior_beam"))
+        slab = self.catalog.pools.get((self.family, "slab"))
+        partition = self.catalog.pools.get((self.family, "wall_panel"))
+        if not slab:
+            return
+        slab = self.catalog.pick(self.family, "slab")
+        partition = self.catalog.pick(self.family, "wall_panel") if partition else None
+        gap = getattr(self, "_damage_z") or (self.levels * self.level, self.levels * self.level)
+        gap_z = gap[0]
+        x0, y0, x1, y1 = rect
+        mid_x = (x0 + x1) / 2.0
+        mid_y = (y0 + y1) / 2.0
+        # Niveles ventilados: la fachada frontal se abrió en level>=2 (etiquetas 1-based), así que el
+        # interior visible empieza en el índice 1 y sólo llega hasta el hueco de cubierta.
+        for level_index in range(1, self.levels):
+            z = level_index * self.level
+            if z > gap_z:
+                break
+            # Forjado parcial: dos losas con un hueco entre ellas.
+            span_x = x1 - x0
+            self.add(
+                slab,
+                0,
+                (x0 + span_x * 0.25, mid_y + self._rand(-0.3, 0.3), z),
+                "damage:interior:slab",
+            )
+            self.add(
+                slab,
+                0,
+                (x0 + span_x * 0.75, mid_y + self._rand(-0.3, 0.3), z),
+                "damage:interior:slab",
+            )
+            # Un tabique perpendicular a fachada, a media profundidad.
+            if partition:
+                self.add(
+                    partition,
+                    90,
+                    (mid_x + self._rand(-0.8, 0.8), y0 + (y1 - y0) * 0.3, z),
+                    "damage:interior:partition",
+                )
+            # Un tramo de escalera en el primer nivel ventilado: sube hacia el forjado siguiente.
+            if stair and level_index == 1:
+                self.add(
+                    self.catalog.pick(self.family, "interior_stair"),
+                    0,
+                    (x1 - 1.6, mid_y + self._rand(-0.4, 0.4), z),
+                    "damage:interior:stair",
+                )
+            # Palés sobre el forjado, cerca de la abertura para que se lean.
+            if prop:
+                for offset in (0.22, 0.55):
+                    self.add(
+                        self.catalog.pick(self.family, "interior_prop"),
+                        int(self.rng.percent() // 25) * 90,
+                        (
+                            x0 + span_x * offset,
+                            mid_y + self._rand(-0.6, 0.6),
+                            z,
+                        ),
+                        "damage:interior:prop",
+                    )
+        # Vigas del arranque de cubierta perdido: cruzan el hueco justo por debajo de la cota del corte.
+        if beam:
+            beam_module = self.catalog.pick(self.family, "interior_beam")
+            for fraction in (0.25, 0.5, 0.75):
+                self.add(
+                    beam_module,
+                    90,
+                    (
+                        x0 + (x1 - x0) * fraction,
+                        mid_y,
+                        max(0.0, gap_z - 0.4),
+                    ),
+                    "damage:interior:beam",
+                    scale=3.0,
+                )
 
     def _scatter_debris(self):
         debris = self.catalog.pick(self.family, "debris")

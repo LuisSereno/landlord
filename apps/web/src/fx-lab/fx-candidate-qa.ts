@@ -31,6 +31,8 @@ export type CandidateQaMetadata = {
   readonly state: string;
   readonly compositionSignature: string;
   readonly candidateProfile?: string;
+  /** `weathering.visualState` es lo que hace que `mixed_tenement-aged` exista como variante QA. */
+  readonly weathering?: unknown;
   readonly footprintCells: { readonly width: number; readonly height: number };
   readonly camera: {
     readonly azimuthDegrees: number;
@@ -91,7 +93,13 @@ export function validateCandidateQa(
     problems.push("metadata sin state");
   } else if (meta.buildingType && requestedName.startsWith(`${meta.buildingType}-`)) {
     const requestedState = requestedName.slice(meta.buildingType.length + 1);
-    if (requestedState !== meta.state) {
+    // `aged` es una proyección de MATERIAL sobre `complete` (contrato de weathering), no un cuarto
+    // estado geométrico: la variante pedida es válida cuando la metadata la declara en `weathering`.
+    const weatheringState =
+      typeof meta.weathering === "object" && meta.weathering !== null
+        ? ((meta.weathering as { visualState?: string }).visualState ?? null)
+        : null;
+    if (requestedState !== meta.state && requestedState !== weatheringState) {
       problems.push(`variante pedida "${requestedState}" no disponible; la candidata es "${meta.state}"`);
     }
   }

@@ -1,485 +1,777 @@
 {
-  "schemaVersion": 1,
-  "id": "graphic_civic_weathering_v1",
-  "task": "D-111 WP04 — contrato de selección de material por (material semántico × estado visual × mood)",
-  "generated": "2026-11-21",
-  "status": "candidate_offline_no_promotion",
-  "purpose": "Dice qué tratamiento de superficie le corresponde a cada material semántico del Building Composer según el estado visual del edificio y el mood de render, derivando ese estado de campos que la simulación YA publica. Es la única fuente de parámetros de envejecimiento: el código los lee aquí y falla si le falta una entrada, en vez de inventar un número razonable en el shader.",
-  "consumers": [
-    "tools/art-pipeline/blender/building_composer/weathering.py",
-    "tools/art-pipeline/blender/test_building_weathering_contract.py",
-    "tools/art-pipeline/blender/ext_lab/compose_review_sheets.py (hoja A/B/C)"
-  ],
-  "pins": {
-    "styleProfileId": "graphic_civic_buildings_v1",
-    "styleProfilesSha256": "f78033bd170d72f21800573f620134943d7219f3f41ba5ad9b519bf7a7f8c42d",
-    "moduleCatalogSha256": "96da3c82722915283ecf9dfcb5f5fa3492f5656883c6170669aa24acd781122e",
-    "styleLayer": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
-    "materialDecisions": "docs/art/graphics-capabilities/material-decisions.json",
-    "evidence": "Por qué los tres hashes: el vocabulario de familias semánticas no lo declara este contrato, lo mide `building-style-profiles.json` sobre `building-modules.json`. Sin el pin, añadir un módulo con un material nuevo dejaría el contrato incompleto en silencio y el render mezclaría paños tratados con paños en bruto (§11).",
-    "restamped": "2026-11-21, D-111.2 FASE 3 (segunda pasada): vuelven a subir los dos hashes porque `fire_smoke` se re-autoriza. El módulo era una columna de cinco esferas enhebradas con 5,079 m de cota, así que cualquier instancia del compositor repetía el collar de cuentas DENTRO de sí mismo: el defecto que FASE 2 midió volvía por otra puerta. Ahora es una bocanada de cuatro lóbulos solapados, más ancha que alta (1,569 × 1,344 × 1,953 m, 432 vértices, 672 triángulos), con los mismos dos materiales y los mismos alfas 0,62/0,34; suben `segments`/`rings` de 8/6 a 12/8 para que el contorno no lea poliedro a escala 2, coste que sólo paga Blender porque el navegador recibe el PNG. La columna la arma el compositor apilando tres bocanadas de escala creciente dimensionadas desde el tope. `fire_flame` no cambia de forma en esta pasada: su re-autorado anterior (cinco lenguas, tres zonas de emisión) sigue tal cual en el catálogo. No entra ninguna familia nueva —los dos materiales del humo siguen fuera del envejecimiento por `exclusions.materialNamePatterns` (`fire_*`)— y el diff de `building-style-profiles.json` cabe entero en los registros de esos dos módulos, así que no hay textura de edificio que re-medir. El pin es tripwire, no la guarda: `weathering.apply_material` aborta en cada corrida si el perfil vivo no clasifica un material o si el contrato no le da receta ni exclusión, de modo que un re-estampado que escondiera una familia nueva sigue fallando igual. Las justificaciones de los re-estampados previos (la primera pasada de FASE 3 y WP06) quedan en el historial de git de este archivo; el texto anterior citaba una función llamada `check_family_coverage`, que no existe —el guard real es el nombrado aquí—"
+ "schemaVersion": 1,
+ "id": "graphic_civic_weathering_v1",
+ "task": "D-111 WP04 — contrato de selección de material por (material semántico × estado visual × mood)",
+ "generated": "2026-11-21",
+ "status": "candidate_offline_no_promotion",
+ "purpose": "Dice qué tratamiento de superficie le corresponde a cada material semántico del Building Composer según el estado visual del edificio y el mood de render, derivando ese estado de campos que la simulación YA publica. Es la única fuente de parámetros de envejecimiento: el código los lee aquí y falla si le falta una entrada, en vez de inventar un número razonable en el shader.",
+ "consumers": [
+  "tools/art-pipeline/blender/building_composer/weathering.py",
+  "tools/art-pipeline/blender/test_building_weathering_contract.py",
+  "tools/art-pipeline/blender/ext_lab/compose_review_sheets.py (hoja A/B/C)"
+ ],
+ "pins": {
+  "styleProfileId": "graphic_civic_buildings_v1",
+  "styleProfilesSha256": "f78033bd170d72f21800573f620134943d7219f3f41ba5ad9b519bf7a7f8c42d",
+  "moduleCatalogSha256": "96da3c82722915283ecf9dfcb5f5fa3492f5656883c6170669aa24acd781122e",
+  "styleLayer": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+  "materialDecisions": "docs/art/graphics-capabilities/material-decisions.json",
+  "evidence": "Por qué los tres hashes: el vocabulario de familias semánticas no lo declara este contrato, lo mide `building-style-profiles.json` sobre `building-modules.json`. Sin el pin, añadir un módulo con un material nuevo dejaría el contrato incompleto en silencio y el render mezclaría paños tratados con paños en bruto (§11).",
+  "restamped": "2026-11-21, D-111.2 FASE 3 (segunda pasada): vuelven a subir los dos hashes porque `fire_smoke` se re-autoriza. El módulo era una columna de cinco esferas enhebradas con 5,079 m de cota, así que cualquier instancia del compositor repetía el collar de cuentas DENTRO de sí mismo: el defecto que FASE 2 midió volvía por otra puerta. Ahora es una bocanada de cuatro lóbulos solapados, más ancha que alta (1,569 × 1,344 × 1,953 m, 432 vértices, 672 triángulos), con los mismos dos materiales y los mismos alfas 0,62/0,34; suben `segments`/`rings` de 8/6 a 12/8 para que el contorno no lea poliedro a escala 2, coste que sólo paga Blender porque el navegador recibe el PNG. La columna la arma el compositor apilando tres bocanadas de escala creciente dimensionadas desde el tope. `fire_flame` no cambia de forma en esta pasada: su re-autorado anterior (cinco lenguas, tres zonas de emisión) sigue tal cual en el catálogo. No entra ninguna familia nueva —los dos materiales del humo siguen fuera del envejecimiento por `exclusions.materialNamePatterns` (`fire_*`)— y el diff de `building-style-profiles.json` cabe entero en los registros de esos dos módulos, así que no hay textura de edificio que re-medir. El pin es tripwire, no la guarda: `weathering.apply_material` aborta en cada corrida si el perfil vivo no clasifica un material o si el contrato no le da receta ni exclusión, de modo que un re-estampado que escondiera una familia nueva sigue fallando igual. Las justificaciones de los re-estampados previos (la primera pasada de FASE 3 y WP06) quedan en el historial de git de este archivo; el texto anterior citaba una función llamada `check_family_coverage`, que no existe —el guard real es el nombrado aquí—"
+ },
+ "semanticMaterials": "Las claves de `materials` son las familias del perfil (`materialReach[].family` de `building-style-profiles.json`), que es como el compositor clasifica un material de origen: `MI_RedBrick`→brick, `MI_Trim`→plaster, `MI_Roof_Slate`→stone, `colormap`→atlas. No se introduce un vocabulario propio: si el contrato y el perfil difieren, `weathering.py` aborta.",
+ "weatheringTokens": [
+  "conserved",
+  "aged"
+ ],
+ "weatheringTokensNote": "Estados que aceptan `request.weathering` / `--weathering`. No se derivan de `materialProjection`: `conserved` proyecta cero capas a propósito, es el control que demuestra que la bandera opt-in no perturba los sprites aprobados, y filtrar por esa columna habría borrado el brazo A de la hoja A/B/C. `damaged` y `burning` quedan fuera porque son estados de geometría y se eligen con `request.state`.",
+ "visualStates": {
+  "conserved": {
+   "label": "conservado",
+   "tier": 0,
+   "materialProjection": false,
+   "geometryChange": false,
+   "spriteState": "complete",
+   "derivation": "state == 'operational' y condition >= 60",
+   "note": "Control: el edificio sale exactamente como lo produce la pipeline hoy (capa de estilo Graphic Civic sobre el albedo de la fuente). `materialProjection: false` no es un ahorro: es la prueba de que la bandera opt-in no perturba los 888 sprites aprobados.",
+   "goodStateCandidates": [
+    "D-111 §5 aprobó `wall_stone.png` (zócalo), `floor_wood_planks.png` (madera), `roof_clay_grey_center.png` (teja) y `floor_stone_pattern.png` (pavimento) como candidatos en buen estado. Son recursos de exploración: aplicarlos sería una promoción artística y corresponde al responsable, así que el nivel conservado NO los carga."
+   ]
   },
-  "semanticMaterials": "Las claves de `materials` son las familias del perfil (`materialReach[].family` de `building-style-profiles.json`), que es como el compositor clasifica un material de origen: `MI_RedBrick`→brick, `MI_Trim`→plaster, `MI_Roof_Slate`→stone, `colormap`→atlas. No se introduce un vocabulario propio: si el contrato y el perfil difieren, `weathering.py` aborta.",
-  "weatheringTokens": ["conserved", "aged"],
-  "weatheringTokensNote": "Estados que aceptan `request.weathering` / `--weathering`. No se derivan de `materialProjection`: `conserved` proyecta cero capas a propósito, es el control que demuestra que la bandera opt-in no perturba los sprites aprobados, y filtrar por esa columna habría borrado el brazo A de la hoja A/B/C. `damaged` y `burning` quedan fuera porque son estados de geometría y se eligen con `request.state`.",
-  "visualStates": {
+  "aged": {
+   "label": "envejecido",
+   "tier": 1,
+   "materialProjection": true,
+   "geometryChange": false,
+   "spriteState": "complete",
+   "derivation": "state == 'operational' y condition < 60 y structuralIntegrity > 0",
+   "note": "Suciedad superficial: mancha, óxido y reguero. Geometría y silueta intactas, huecos sin dividir y cubierta sin secciones. Si un revisor lo confunde con `damaged`, el tier está mal calibrado y se corrige aquí, no en el shader.",
+   "distinguishersFromDamage": [
+    "no hay huecos ni secciones abiertas (no se retira ningún módulo)",
+    "la máscara es de baja frecuencia y anisotrópica (reguero vertical), no de contacto con escombros",
+    "el albedo se oscurece hacia el color de mugre de la familia, sin quemar a negro (el hollín de daño usa [0.30,0.26,0.24] a fuerza 0,45 sobre TODO el material)"
+   ]
+  },
+  "damaged": {
+   "label": "dañado",
+   "tier": 2,
+   "materialProjection": false,
+   "geometryChange": true,
+   "spriteState": "damaged",
+   "composerState": "damaged",
+   "derivation": "state == 'ruin', o condition < 60 con structuralIntegrity <= 0. Desde D-111.2 §6.1 la elige apps/web/src/isometric/building-condition.ts; el mapeo jugable sigue usando la regla antigua (ver runtimeConflict abajo).",
+   "geometry": {
+    "removes": [
+     "colocaciones con purpose que EMPIEZA por 'roof' en el semiplano x >= 0 (sección de cubierta que deja ver el interior)",
+     "colocaciones con purpose que EMPIEZA por 'cornice' en el semiplano x >= 0 (sección del perfil de cornisa; los dormerios viajan ya bajo 'roof:…')",
+     "bandas de fachada 'band:front:…:level<N>' con N >= 2 en x >= 0 (paños altos del frente)",
+     "todos los soportes del secundario (self.supports = [])"
+    ],
+    "adds": [
+     "4 montículos del pool 'debris' de la familia, derramados frente a la recta de daño real (compose.py:_scatter_debris)"
+    ],
+    "measured": {
+     "candidate": "vw_mixed_tenement_1001_damaged (huella 4×2, 3 plantas, seed 1001)",
+     "placements": "115 → 97",
+     "byGroup": {
+      "roof:x": "16 → 8 (las 8 del semiplano x>=0 retiradas)",
+      "cornice:{side}:{n}": "16 → 8 (las 8 del semiplano x>=0 retiradas desde WP04-D1)",
+      "band:front:level2": "8 → 4",
+      "band:front:level3": "6 → 4",
+      "damage:debris": "0 → 4"
+     },
+     "corniceInDamagedHalfPlane": "8 → 0",
+     "damageRectY": "-4.017 → -4.428 m (la cornisa salía 0,411 m del paño y ensanchaba la caja desde la que se anclan escombros y fuego)",
+     "triangulos": "22702",
+     "measuredOn": "2026-11-22",
+     "measuredBy": "tools/art-pipeline/blender/ext_lab/damage_section_probe.py"
+    },
+    "resolvedDefect": {
+     "id": "WP04-D1",
+     "summary": "la rama de cornisas y dormerios del daño estaba inerte",
+     "detail": "compose.py:_compose_damage comparaba `purpose in ('dormer', 'cornice')`, pero el compositor publica purposes prefijados ('cornice:front:3'), así que la igualdad nunca casaba y la cornisa sobrevive a la sección de cubierta. Cerrado en D-111.2 FASE 6 cambiando la igualdad por prefijos: `purpose.startswith(('roof', 'cornice'))`. Los dormerios no necesitan rama propia porque ya se publican como 'roof:{along}:{side}:row{n}:bay{i}'.",
+     "coste": "Recomponer y re-renderizar los candidatos damaged/burning (firma 105→97 colocaciones, c8cf952053b8 → 3be7cc2c1c7c y 84817436f627 → 891e79956f5d). conserved/aged conservan la firma 175d2309dd83: el fix no toca geometría intacta. Ningún sprite jugable cambia: los estados damaged/burning del catálogo runtime se banean con runtime_asset.py, no con el compositor.",
+     "decisionOwner": "responsable del proyecto",
+     "closedOn": "2026-11-22",
+     "evidence": [
+      "docs/art/graphics-capabilities/evidence/v2/weathering/damage_section_probe.json",
+      "docs/art/graphics-capabilities/evidence/v2/sheets/building_condition_states.png"
+     ],
+     "recordedIn": "docs/art/graphics-capabilities/evidence/v2/README.md (WP04 y FASE 6)"
+    },
+    "material": "apply_soot(0.45) sobre el albedo ya tratado (scene.py:apply_soot)",
+    "implementedIn": [
+     "tools/art-pipeline/blender/building_composer/compose.py:_compose_damage",
+     "tools/art-pipeline/blender/building_composer/compose.py:_scatter_debris",
+     "tools/art-pipeline/blender/building_composer/scene.py:apply_soot"
+    ]
+   },
+   "distinguishedFrom": "conservado y envejecido",
+   "note": "El daño NO es un tratamiento de material: lo produce el compositor con el mismo request y la misma seed. Por eso este contrato lo declara pero no lo parametriza: duplicar aquí la geometría sería una segunda fuente de verdad."
+  },
+  "burning": {
+   "label": "en llamas",
+   "tier": 3,
+   "materialProjection": false,
+   "geometryChange": true,
+   "spriteState": "burning",
+   "composerState": "burning",
+   "derivation": "state in {burning, collapse_pending} (packages/simulation/src/systems.ts:178, :1065-1066)",
+   "geometry": {
+    "removes": [
+     "las mismas secciones que `damaged` (llama a _compose_damage)"
+    ],
+    "adds": [
+     "16 llamas del pool 'flame' (13 en el hueco de cubierta retirada, en 3 focos con una dominante cada uno, + 3 lenguas por ventana)",
+     "3 columnas de humo del pool 'smoke'"
+    ],
+    "measured": {
+     "candidate": "vw_mixed_tenement_1001_burning (misma huella y seed que damaged)",
+     "placements": "115 → 116 (97 del daño + 19 de fuego/humo)",
+     "focos": "3 · por (u1-u0)/2,4 m de frente del hueco, no por constante",
+     "measuredOn": "2026-11-22",
+     "measuredBy": "tools/art-pipeline/blender/ext_lab/damage_section_probe.py",
+     "nota": "El texto de WP04 decía '5 llamas y 2 columnas': era el incendio anterior a FASE 3, que estampaba cinco conos idénticos a Δx fijo."
+    },
+    "material": "apply_soot(0.7) + boost_flame_emission(2.0) (scene.py:apply_soot, :boost_flame_emission)",
+    "implementedIn": [
+     "tools/art-pipeline/blender/building_composer/compose.py:_compose_fire"
+    ]
+   },
+   "distinguishedFrom": "dañado",
+   "note": "Marcas de fuego y destrucción: ya existen y están medidas en el catálogo (vg_*_burning). WP04 las usa de contraste para probar que el tier envejecido no se les parece."
+  }
+ },
+ "derivation": {
+  "newDomainFieldsIntroduced": false,
+  "fields": [
+   {
+    "name": "condition",
+    "type": "number 0..100",
+    "declared": "packages/shared/src/domain.ts:512 (schema zod en :1202)",
+    "moves": "desgaste por mantenimiento: MAINTENANCE_POLICY.wearPerSettlement 5 / recoveryPerSettlement 5 (packages/simulation/src/game-data.ts:672-673), riesgo de deterioro (80-condition)·1.5 % (:779-781)",
+    "visualRole": "Único disparador del tier envejecido. No cambia la geometría."
+   },
+   {
+    "name": "structuralIntegrity",
+    "type": "number 0..100",
+    "declared": "packages/shared/src/domain.ts:516 (zod :1206)",
+    "moves": "incidentes de fuego: packages/simulation/src/systems.ts:1044-1076; <= 0 → collapse_pending (:1065, :1146) → ruin (:1076)",
+    "visualRole": "Disparador del tier dañado. Una fachada con condition 10 e integridad 40 sigue en pie: se envejece, no se derrumba."
+   },
+   {
+    "name": "state",
+    "type": "operational | burning | collapse_pending | ruin",
+    "declared": "packages/shared/src/domain.ts (Building.state)",
+    "visualRole": "Prioridad máxima: si el edificio arde o se derrumba, el tier es dañado con independencia de condition."
+   }
+  ],
+  "thresholds": [
+   {
+    "value": 60,
+    "unit": "condition",
+    "meaning": "umbral entre conservado y envejecido",
+    "origin": "apps/web/src/isometric/building-sprites.ts:28 (`condition < 60 ? \"damaged\" : \"complete\"`), documentado en ai-context/DECISIONS.md:780 y en docs/engineering/adr/D-080-contrato-assets-y-factoria.md:39",
+    "invented": false
+   },
+   {
+    "value": 20,
+    "unit": "condition",
+    "meaning": "desahucio por degradación (consecuencia de dominio, no visual)",
+    "origin": "packages/simulation/src/systems.ts:517",
+    "visualRole": "No se usa para elegir material: registrar el número evita que alguien lo tome como 'envejecimiento extremo' y pile dos capas de mugre.",
+    "invented": false
+   }
+  ],
+  "runtimeConflict": {
+   "summary": "`buildingAssetStateFor` (apps/web/src/isometric/building-sprites.ts:28) sigue convirtiendo condition < 60 en el estado de sprite `damaged`, que arrastra geometría estructural. Un edificio simplemente desatendido se dibuja seccionado y con escombros.",
+   "proposedResolution": "Publicar la variante envejecida bajo el estado `complete` y elegir el material por un eje de presentación derivado de condition, sin tocar GameState.",
+   "appliedInThisPackage": "PARCIAL. La derivación ya existe y está testada como módulo de presentación (apps/web/src/isometric/building-condition.ts, D-111.2 §6.1) y es la ruta de selección de la calle QA del FX Lab (apps/web/src/fx-lab/fx-street.ts). No se ha movido ningún call site jugable: apps/web/src/isometric/building-sprites.ts:212 y apps/web/src/isometric/gameplay-visual-adapter.ts:2258 siguen con la regla antigua.",
+   "bloqueaPromocion": "El catálogo runtime no tiene sprite `aged`: los estados publicados son complete/construction/damaged/burning (21 complete + 6/6/6, apps/web/src/generated/runtime-assets-blender.json). projectBuildingCondition devuelve para aged `assetState: complete` + `weathering: aged`, y en jugo ese token no tiene consumidor, así que promocionar el call site cambiaría el tier sin cambiar un píxel. Hace falta una decisión de contrato de assets (D-080) y hornear la variante envejecida antes de tocar la vista del jugador.",
+   "codeTouched": "presentación: sí (nuevo módulo + ruta QA). simulación y GameState: no."
+  }
+ },
+ "moodGroups": {
+  "day": [
+   "day_civic",
+   "day_industrial",
+   "material_maquette_day"
+  ],
+  "night": [
+   "night_civic",
+   "material_maquette_night"
+  ]
+ },
+ "recipeSchema": {
+  "strength": "Factor máximo de la mezcla mugre→albedo (0..1). El factor por texel es strength·máscara.",
+  "baseSoiling": "Película de suciedad uniforme que se SUMA a la máscara antes de la rampa de gravedad (0..1). Es lo que hace que un paño se lea usado y no sólo manchado: sin este término la máscara es alta frecuencia y promedia a cero contra el control, así que el edificio cambia de textura pero mantiene el brillo de obra nueva. Medido con `tools/art-pipeline/blender/ext_lab/weathering_mask_probe.py`, no a ojo.",
+  "grimeColor": "RGB lineal. Se declara en lineal porque `default_value` de un nodo Blender trabaja en lineal.",
+  "grimeColorSrgb": "El mismo color en 8 bits sRGB (0..255): lo que mira un revisor en el selector de color de Blender o en el editor. El shader nunca lo lee; si los dos valores discrepan, el lineal manda y el sRGB se corrige.",
+  "cavity": "Máscara de poros/juntas: mapa `_depth` de Kenney (gris) invertido y pasada por un ramp [apagar, encender]. Muestreado en metros de espacio mundo (Position de Geometry), no por UV: los UV de un atlas no son métricos y la densidad cambiaría por módulo.",
+  "patch": "Mancha de baja frecuencia. `scale` es un mapeo anisotrópico sobre coordenadas mundo: valores altos en X/Y y bajos en Z dan regueros verticales (el agua baja), un valor isótropo da moho en parches.",
+  "gravity": "Rampa lineal de Z (world) que multiplica la máscara: 1 en zLow, 0 en zHigh, más `boost` de margen en la base del edificio.",
+  "blendSource": "En vez de un color plano de mugre, se mezcla hacia el albedo de un escaneo Poly Haven (oxidación, madera meteorizada). `maxResolution` rebaja el 4k en memoria y se declara: la densidad real es la que entra en el render.",
+  "roughnessAdd": "Suma a la rugosidad (envejecer = perder el brillo de obra nueva).",
+  "emissionScale": "Multiplicador de `Emission Strength` sólo donde el pase de estilo cableó el brillo de ventana (runtime_asset.py:671-673). Cristal sucio deja salir menos luz; de día no hay emisión que escalar."
+ },
+ "materials": {
+  "brick": {
+   "surfaceDecision": "brick_wall",
+   "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#brick_wall",
+   "states": {
     "conserved": {
-      "label": "conservado",
-      "tier": 0,
-      "materialProjection": false,
-      "geometryChange": false,
-      "spriteState": "complete",
-      "derivation": "state == 'operational' y condition >= 60",
-      "note": "Control: el edificio sale exactamente como lo produce la pipeline hoy (capa de estilo Graphic Civic sobre el albedo de la fuente). `materialProjection: false` no es un ahorro: es la prueba de que la bandera opt-in no perturba los 888 sprites aprobados.",
-      "goodStateCandidates": [
-        "D-111 §5 aprobó `wall_stone.png` (zócalo), `floor_wood_planks.png` (madera), `roof_clay_grey_center.png` (teja) y `floor_stone_pattern.png` (pavimento) como candidatos en buen estado. Son recursos de exploración: aplicarlos sería una promoción artística y corresponde al responsable, así que el nivel conservado NO los carga."
-      ]
+     "treatment": "baseline",
+     "note": "atlas `T_RedBrick` tratado por la capa de estilo. §5 rechazó la loseta Kenney de ladrillo (gris azulado, se lee sillería) y restringió `red_brick_03` a mood de degradado, nunca en paño visible de un edificio hero."
     },
     "aged": {
-      "label": "envejecido",
-      "tier": 1,
-      "materialProjection": true,
-      "geometryChange": false,
-      "spriteState": "complete",
-      "derivation": "state == 'operational' y condition < 60 y structuralIntegrity > 0",
-      "note": "Suciedad superficial: mancha, óxido y reguero. Geometría y silueta intactas, huecos sin dividir y cubierta sin secciones. Si un revisor lo confunde con `damaged`, el tier está mal calibrado y se corrige aquí, no en el shader.",
-      "distinguishersFromDamage": [
-        "no hay huecos ni secciones abiertas (no se retira ningún módulo)",
-        "la máscara es de baja frecuencia y anisotrópica (reguero vertical), no de contacto con escombros",
-        "el albedo se oscurece hacia el color de mugre de la familia, sin quemar a negro (el hollín de daño usa [0.30,0.26,0.24] a fuerza 0,45 sobre TODO el material)"
-      ]
+     "recipe": {
+      "strength": 0.42,
+      "baseSoiling": 0.38,
+      "grimeColor": [
+       0.0423,
+       0.0307,
+       0.0232
+      ],
+      "grimeColorSrgb": [
+       58,
+       49,
+       42
+      ],
+      "cavity": {
+       "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_brick_stone_center_depth.png",
+       "license": "CC0-1.0",
+       "tileMeters": 0.5,
+       "weight": 0.55,
+       "ramp": [
+        0.3,
+        0.72
+       ]
+      },
+      "patch": {
+       "scale": [
+        1.1,
+        1.1,
+        0.35
+       ],
+       "noiseScale": 0.55,
+       "detail": 2.0,
+       "threshold": 0.52,
+       "width": 0.28,
+       "weight": 0.5
+      },
+      "gravity": {
+       "zLowMeters": 0.0,
+       "zHighMeters": 5.0,
+       "boost": 0.45
+      },
+      "blendSource": null,
+      "roughnessAdd": 0.06,
+      "emissionScale": null
+     },
+     "moodModifiers": {
+      "day": {},
+      "night": {
+       "strengthScale": 0.8
+      }
+     },
+     "note": "La junta de ladrillo es la que acumula: la máscara de cavidad va ponderada por encima de la mancha. El §5 prohibe poner `red_brick_03` sobre el paño de un edificio hero, así que el envejecimiento de ladrillo se hace con la `_depth` ya aprobada, no con el escaneo."
     },
     "damaged": {
-      "label": "dañado",
-      "tier": 2,
-      "materialProjection": false,
-      "geometryChange": true,
-      "spriteState": "damaged",
-      "composerState": "damaged",
-      "derivation": "state == 'ruin', o condition < 60 con structuralIntegrity <= 0. Desde D-111.2 §6.1 la elige apps/web/src/isometric/building-condition.ts; el mapeo jugable sigue usando la regla antigua (ver runtimeConflict abajo).",
-      "geometry": {
-        "removes": [
-          "colocaciones con purpose que EMPIEZA por 'roof' en el semiplano x >= 0 (sección de cubierta que deja ver el interior)",
-          "colocaciones con purpose que EMPIEZA por 'cornice' en el semiplano x >= 0 (sección del perfil de cornisa; los dormerios viajan ya bajo 'roof:…')",
-          "bandas de fachada 'band:front:…:level<N>' con N >= 2 en x >= 0 (paños altos del frente)",
-          "todos los soportes del secundario (self.supports = [])"
-        ],
-        "adds": [
-          "4 montículos del pool 'debris' de la familia, derramados frente a la recta de daño real (compose.py:_scatter_debris)"
-        ],
-        "measured": {
-          "candidate": "vw_mixed_tenement_1001_damaged (huella 4×2, 3 plantas, seed 1001)",
-          "placements": "115 → 97",
-          "byGroup": {
-            "roof:x": "16 → 8 (las 8 del semiplano x>=0 retiradas)",
-            "cornice:{side}:{n}": "16 → 8 (las 8 del semiplano x>=0 retiradas desde WP04-D1)",
-            "band:front:level2": "8 → 4",
-            "band:front:level3": "6 → 4",
-            "damage:debris": "0 → 4"
-          },
-          "corniceInDamagedHalfPlane": "8 → 0",
-          "damageRectY": "-4.017 → -4.428 m (la cornisa salía 0,411 m del paño y ensanchaba la caja desde la que se anclan escombros y fuego)",
-          "triangulos": "22702",
-          "measuredOn": "2026-11-22",
-          "measuredBy": "tools/art-pipeline/blender/ext_lab/damage_section_probe.py"
-        },
-        "resolvedDefect": {
-          "id": "WP04-D1",
-          "summary": "la rama de cornisas y dormerios del daño estaba inerte",
-          "detail": "compose.py:_compose_damage comparaba `purpose in ('dormer', 'cornice')`, pero el compositor publica purposes prefijados ('cornice:front:3'), así que la igualdad nunca casaba y la cornisa sobrevive a la sección de cubierta. Cerrado en D-111.2 FASE 6 cambiando la igualdad por prefijos: `purpose.startswith(('roof', 'cornice'))`. Los dormerios no necesitan rama propia porque ya se publican como 'roof:{along}:{side}:row{n}:bay{i}'.",
-          "coste": "Recomponer y re-renderizar los candidatos damaged/burning (firma 105→97 colocaciones, c8cf952053b8 → 3be7cc2c1c7c y 84817436f627 → 891e79956f5d). conserved/aged conservan la firma 175d2309dd83: el fix no toca geometría intacta. Ningún sprite jugable cambia: los estados damaged/burning del catálogo runtime se banean con runtime_asset.py, no con el compositor.",
-          "decisionOwner": "responsable del proyecto",
-          "closedOn": "2026-11-22",
-          "evidence": [
-            "docs/art/graphics-capabilities/evidence/v2/weathering/damage_section_probe.json",
-            "docs/art/graphics-capabilities/evidence/v2/sheets/building_condition_states.png"
-          ],
-          "recordedIn": "docs/art/graphics-capabilities/evidence/v2/README.md (WP04 y FASE 6)"
-        },
-        "material": "apply_soot(0.45) sobre el albedo ya tratado (scene.py:apply_soot)",
-        "implementedIn": [
-          "tools/art-pipeline/blender/building_composer/compose.py:_compose_damage",
-          "tools/art-pipeline/blender/building_composer/compose.py:_scatter_debris",
-          "tools/art-pipeline/blender/building_composer/scene.py:apply_soot"
-        ]
-      },
-      "distinguishedFrom": "conservado y envejecido",
-      "note": "El daño NO es un tratamiento de material: lo produce el compositor con el mismo request y la misma seed. Por eso este contrato lo declara pero no lo parametriza: duplicar aquí la geometría sería una segunda fuente de verdad."
+     "ownedBy": "visualStates.damaged"
     },
     "burning": {
-      "label": "en llamas",
-      "tier": 3,
-      "materialProjection": false,
-      "geometryChange": true,
-      "spriteState": "burning",
-      "composerState": "burning",
-      "derivation": "state in {burning, collapse_pending} (packages/simulation/src/systems.ts:178, :1065-1066)",
-      "geometry": {
-        "removes": ["las mismas secciones que `damaged` (llama a _compose_damage)"],
-        "adds": [
-          "16 llamas del pool 'flame' (13 en el hueco de cubierta retirada, en 3 focos con una dominante cada uno, + 3 lenguas por ventana)",
-          "3 columnas de humo del pool 'smoke'"
-        ],
-        "measured": {
-          "candidate": "vw_mixed_tenement_1001_burning (misma huella y seed que damaged)",
-          "placements": "115 → 116 (97 del daño + 19 de fuego/humo)",
-          "focos": "3 · por (u1-u0)/2,4 m de frente del hueco, no por constante",
-          "measuredOn": "2026-11-22",
-          "measuredBy": "tools/art-pipeline/blender/ext_lab/damage_section_probe.py",
-          "nota": "El texto de WP04 decía '5 llamas y 2 columnas': era el incendio anterior a FASE 3, que estampaba cinco conos idénticos a Δx fijo."
-        },
-        "material": "apply_soot(0.7) + boost_flame_emission(2.0) (scene.py:apply_soot, :boost_flame_emission)",
-        "implementedIn": ["tools/art-pipeline/blender/building_composer/compose.py:_compose_fire"]
-      },
-      "distinguishedFrom": "dañado",
-      "note": "Marcas de fuego y destrucción: ya existen y están medidas en el catálogo (vg_*_burning). WP04 las usa de contraste para probar que el tier envejecido no se les parece."
+     "ownedBy": "visualStates.burning"
     }
+   }
   },
-  "derivation": {
-    "newDomainFieldsIntroduced": false,
-    "fields": [
-      {
-        "name": "condition",
-        "type": "number 0..100",
-        "declared": "packages/shared/src/domain.ts:512 (schema zod en :1202)",
-        "moves": "desgaste por mantenimiento: MAINTENANCE_POLICY.wearPerSettlement 5 / recoveryPerSettlement 5 (packages/simulation/src/game-data.ts:672-673), riesgo de deterioro (80-condition)·1.5 % (:779-781)",
-        "visualRole": "Único disparador del tier envejecido. No cambia la geometría."
+  "plaster": {
+   "surfaceDecision": "stucco_wall",
+   "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#stucco_wall",
+   "states": {
+    "conserved": {
+     "treatment": "baseline",
+     "note": "paño crema `MI_Trim`/`MI_Ornaments` tratado por la capa de estilo."
+    },
+    "aged": {
+     "recipe": {
+      "strength": 0.45,
+      "baseSoiling": 0.42,
+      "grimeColor": [
+       0.0931,
+       0.0782,
+       0.0545
+      ],
+      "grimeColorSrgb": [
+       86,
+       79,
+       66
+      ],
+      "cavity": null,
+      "patch": {
+       "scale": [
+        3.2,
+        3.2,
+        0.12
+       ],
+       "noiseScale": 0.6,
+       "detail": 2.0,
+       "threshold": 0.46,
+       "width": 0.34,
+       "weight": 0.8
       },
-      {
-        "name": "structuralIntegrity",
-        "type": "number 0..100",
-        "declared": "packages/shared/src/domain.ts:516 (zod :1206)",
-        "moves": "incidentes de fuego: packages/simulation/src/systems.ts:1044-1076; <= 0 → collapse_pending (:1065, :1146) → ruin (:1076)",
-        "visualRole": "Disparador del tier dañado. Una fachada con condition 10 e integridad 40 sigue en pie: se envejece, no se derrumba."
+      "gravity": {
+       "zLowMeters": 0.0,
+       "zHighMeters": 8.5,
+       "boost": 0.7
       },
-      {
-        "name": "state",
-        "type": "operational | burning | collapse_pending | ruin",
-        "declared": "packages/shared/src/domain.ts (Building.state)",
-        "visualRole": "Prioridad máxima: si el edificio arde o se derrumba, el tier es dañado con independencia de condition."
+      "blendSource": null,
+      "roughnessAdd": 0.05,
+      "emissionScale": null
+     },
+     "moodModifiers": {
+      "day": {},
+      "night": {
+       "strengthScale": 0.7
       }
-    ],
-    "thresholds": [
-      {
-        "value": 60,
-        "unit": "condition",
-        "meaning": "umbral entre conservado y envejecido",
-        "origin": "apps/web/src/isometric/building-sprites.ts:28 (`condition < 60 ? \"damaged\" : \"complete\"`), documentado en ai-context/DECISIONS.md:780 y en docs/engineering/adr/D-080-contrato-assets-y-factoria.md:39",
-        "invented": false
-      },
-      {
-        "value": 20,
-        "unit": "condition",
-        "meaning": "desahucio por degradación (consecuencia de dominio, no visual)",
-        "origin": "packages/simulation/src/systems.ts:517",
-        "visualRole": "No se usa para elegir material: registrar el número evita que alguien lo tome como 'envejecimiento extremo' y pile dos capas de mugre.",
-        "invented": false
-      }
-    ],
-    "runtimeConflict": {
-      "summary": "`buildingAssetStateFor` (apps/web/src/isometric/building-sprites.ts:28) sigue convirtiendo condition < 60 en el estado de sprite `damaged`, que arrastra geometría estructural. Un edificio simplemente desatendido se dibuja seccionado y con escombros.",
-      "proposedResolution": "Publicar la variante envejecida bajo el estado `complete` y elegir el material por un eje de presentación derivado de condition, sin tocar GameState.",
-      "appliedInThisPackage": "PARCIAL. La derivación ya existe y está testada como módulo de presentación (apps/web/src/isometric/building-condition.ts, D-111.2 §6.1) y es la ruta de selección de la calle QA del FX Lab (apps/web/src/fx-lab/fx-street.ts). No se ha movido ningún call site jugable: apps/web/src/isometric/building-sprites.ts:212 y apps/web/src/isometric/gameplay-visual-adapter.ts:2258 siguen con la regla antigua.",
-      "bloqueaPromocion": "El catálogo runtime no tiene sprite `aged`: los estados publicados son complete/construction/damaged/burning (21 complete + 6/6/6, apps/web/src/generated/runtime-assets-blender.json). projectBuildingCondition devuelve para aged `assetState: complete` + `weathering: aged`, y en jugo ese token no tiene consumidor, así que promocionar el call site cambiaría el tier sin cambiar un píxel. Hace falta una decisión de contrato de assets (D-080) y hornear la variante envejecida antes de tocar la vista del jugador.",
-      "codeTouched": "presentación: sí (nuevo módulo + ruta QA). simulación y GameState: no."
+     },
+     "note": "El revoco no tiene junta profunda: la mugre entra como reguero (escala Z 0,12 = casi constante en la vertical) y como lavado de base. `concrete_wall_003` queda EXCLUIDO de este tier: §5 lo rechazó porque sus manchas de humedad sobre paño continuo hacen el edificio parecer abandonado, que es el estado que en Landlord comunica ruina."
+    },
+    "damaged": {
+     "ownedBy": "visualStates.damaged"
+    },
+    "burning": {
+     "ownedBy": "visualStates.burning"
     }
+   }
   },
-  "moodGroups": {
-    "day": ["day_civic", "day_industrial", "material_maquette_day"],
-    "night": ["night_civic", "material_maquette_night"]
-  },
-  "recipeSchema": {
-    "strength": "Factor máximo de la mezcla mugre→albedo (0..1). El factor por texel es strength·máscara.",
-    "baseSoiling": "Película de suciedad uniforme que se SUMA a la máscara antes de la rampa de gravedad (0..1). Es lo que hace que un paño se lea usado y no sólo manchado: sin este término la máscara es alta frecuencia y promedia a cero contra el control, así que el edificio cambia de textura pero mantiene el brillo de obra nueva. Medido con `tools/art-pipeline/blender/ext_lab/weathering_mask_probe.py`, no a ojo.",
-    "grimeColor": "RGB lineal. Se declara en lineal porque `default_value` de un nodo Blender trabaja en lineal.",
-    "grimeColorSrgb": "El mismo color en 8 bits sRGB (0..255): lo que mira un revisor en el selector de color de Blender o en el editor. El shader nunca lo lee; si los dos valores discrepan, el lineal manda y el sRGB se corrige.",
-    "cavity": "Máscara de poros/juntas: mapa `_depth` de Kenney (gris) invertido y pasada por un ramp [apagar, encender]. Muestreado en metros de espacio mundo (Position de Geometry), no por UV: los UV de un atlas no son métricos y la densidad cambiaría por módulo.",
-    "patch": "Mancha de baja frecuencia. `scale` es un mapeo anisotrópico sobre coordenadas mundo: valores altos en X/Y y bajos en Z dan regueros verticales (el agua baja), un valor isótropo da moho en parches.",
-    "gravity": "Rampa lineal de Z (world) que multiplica la máscara: 1 en zLow, 0 en zHigh, más `boost` de margen en la base del edificio.",
-    "blendSource": "En vez de un color plano de mugre, se mezcla hacia el albedo de un escaneo Poly Haven (oxidación, madera meteorizada). `maxResolution` rebaja el 4k en memoria y se declara: la densidad real es la que entra en el render.",
-    "roughnessAdd": "Suma a la rugosidad (envejecer = perder el brillo de obra nueva).",
-    "emissionScale": "Multiplicador de `Emission Strength` sólo donde el pase de estilo cableó el brillo de ventana (runtime_asset.py:671-673). Cristal sucio deja salir menos luz; de día no hay emisión que escalar."
-  },
-  "materials": {
-    "brick": {
-      "surfaceDecision": "brick_wall",
-      "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#brick_wall",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "atlas `T_RedBrick` tratado por la capa de estilo. §5 rechazó la loseta Kenney de ladrillo (gris azulado, se lee sillería) y restringió `red_brick_03` a mood de degradado, nunca en paño visible de un edificio hero."},
-        "aged": {
-          "recipe": {
-            "strength": 0.42,
-            "baseSoiling": 0.38,
-            "grimeColor": [0.0423, 0.0307, 0.0232],
-            "grimeColorSrgb": [58, 49, 42],
-            "cavity": {
-              "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_brick_stone_center_depth.png",
-              "license": "CC0-1.0",
-              "tileMeters": 0.5,
-              "weight": 0.55,
-              "ramp": [0.3, 0.72]
-            },
-            "patch": {"scale": [1.1, 1.1, 0.35], "noiseScale": 0.55, "detail": 2.0, "threshold": 0.52, "width": 0.28, "weight": 0.5},
-            "gravity": {"zLowMeters": 0.0, "zHighMeters": 5.0, "boost": 0.45},
-            "blendSource": null,
-            "roughnessAdd": 0.06,
-            "emissionScale": null
-          },
-          "moodModifiers": {"day": {}, "night": {"strengthScale": 0.8}},
-          "note": "La junta de ladrillo es la que acumula: la máscara de cavidad va ponderada por encima de la mancha. El §5 prohibe poner `red_brick_03` sobre el paño de un edificio hero, así que el envejecimiento de ladrillo se hace con la `_depth` ya aprobada, no con el escaneo."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
-      }
+  "stone": {
+   "surfaceDecision": "stone_plinth",
+   "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#stone_plinth",
+   "coversRoof": "El perfil clasifica `MI_Roof_Slate` como stone: la pizarra de cubierta comparte tier. §5 aprobó `roof_clay_grey_center.png` para teja, pero eso es un cambio de recurso de origen, no de envejecimiento.",
+   "states": {
+    "conserved": {
+     "treatment": "baseline",
+     "note": "sillería media (0.355,0.325,0.275) y pizarra de cubierta."
     },
-    "plaster": {
-      "surfaceDecision": "stucco_wall",
-      "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#stucco_wall",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "paño crema `MI_Trim`/`MI_Ornaments` tratado por la capa de estilo."},
-        "aged": {
-          "recipe": {
-            "strength": 0.45,
-            "baseSoiling": 0.42,
-            "grimeColor": [0.0931, 0.0782, 0.0545],
-            "grimeColorSrgb": [86, 79, 66],
-            "cavity": null,
-            "patch": {"scale": [3.2, 3.2, 0.12], "noiseScale": 0.6, "detail": 2.0, "threshold": 0.46, "width": 0.34, "weight": 0.8},
-            "gravity": {"zLowMeters": 0.0, "zHighMeters": 8.5, "boost": 0.7},
-            "blendSource": null,
-            "roughnessAdd": 0.05,
-            "emissionScale": null
-          },
-          "moodModifiers": {"day": {}, "night": {"strengthScale": 0.7}},
-          "note": "El revoco no tiene junta profunda: la mugre entra como reguero (escala Z 0,12 = casi constante en la vertical) y como lavado de base. `concrete_wall_003` queda EXCLUIDO de este tier: §5 lo rechazó porque sus manchas de humedad sobre paño continuo hacen el edificio parecer abandonado, que es el estado que en Landlord comunica ruina."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
-      }
-    },
-    "stone": {
-      "surfaceDecision": "stone_plinth",
-      "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#stone_plinth",
-      "coversRoof": "El perfil clasifica `MI_Roof_Slate` como stone: la pizarra de cubierta comparte tier. §5 aprobó `roof_clay_grey_center.png` para teja, pero eso es un cambio de recurso de origen, no de envejecimiento.",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "sillería media (0.355,0.325,0.275) y pizarra de cubierta."},
-        "aged": {
-          "recipe": {
-            "strength": 0.34,
-            "baseSoiling": 0.34,
-            "grimeColor": [0.0513, 0.0545, 0.0578],
-            "grimeColorSrgb": [64, 66, 68],
-            "cavity": {
-              "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_stone_depth.png",
-              "license": "CC0-1.0",
-              "tileMeters": 0.5,
-              "weight": 0.65,
-              "ramp": [0.28, 0.7]
-            },
-            "patch": {"scale": [0.8, 0.8, 0.5], "noiseScale": 0.45, "detail": 2.0, "threshold": 0.56, "width": 0.3, "weight": 0.35},
-            "gravity": {"zLowMeters": 0.0, "zHighMeters": 4.0, "boost": 0.3},
-            "blendSource": null,
-            "roughnessAdd": 0.04,
-            "emissionScale": null
-          },
-          "moodModifiers": {"day": {}, "night": {"strengthScale": 0.75}},
-          "note": "Piedra: la mugre es fría (el único grime azulado del lote) y vive en la junta, no en el canto. Es la superficie donde §5 aprobó la loseta Kenney, así que su mapa `_depth` es la máscara natural."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
-      }
-    },
-    "wood": {
-      "surfaceDecision": "timber",
-      "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#timber",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "ocre plano de la paleta industrial; §5 aprobó `floor_wood_planks.png` como candidato en buen estado (no promovido)."},
-        "aged": {
-          "recipe": {
-            "strength": 0.55,
-            "baseSoiling": 0.3,
-            "grimeColor": [0.0685, 0.0578, 0.0452],
-            "grimeColorSrgb": [74, 68, 60],
-            "cavity": {
-              "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/floor_wood_planks_depth.png",
-              "license": "CC0-1.0",
-              "tileMeters": 0.6,
-              "weight": 0.4,
-              "ramp": [0.3, 0.75]
-            },
-            "patch": {"scale": [0.9, 0.9, 0.9], "noiseScale": 0.5, "detail": 3.0, "threshold": 0.5, "width": 0.3, "weight": 0.75},
-            "gravity": {"zLowMeters": 0.0, "zHighMeters": 6.0, "boost": 0.2},
-            "blendSource": {
-              "texture": "blender_artist/staging/third_party/cc0/extracted/polyhaven/wood_planks_grey/textures/wood_planks_grey_diff_4k.jpg",
-              "license": "CC0-1.0",
-              "tileMeters": 1.2,
-              "maxResolution": 1024
-            },
-            "roughnessAdd": 0.08,
-            "emissionScale": null
-          },
-          "moodModifiers": {"day": {}, "night": {"strengthScale": 0.85}},
-          "note": "Aquí sí se reutiliza el escaneo manchado que pide WP04: §5 describe `wood_planks_grey` como 'madera gris meteorizada… correcta para obra abandonada' y la reserva para envejecimiento, no para carpintería en uso."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
-      }
-    },
-    "metal": {
-      "surfaceDecision": "metal_sheet",
-      "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#metal_sheet",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "chapa dibujada en atlas; la receta `industrial_metal` del style layer ya declara `PolyHaven/rusty_metal_02` con rustAmount 0,45 para la familia industrial."},
-        "aged": {
-          "recipe": {
-            "strength": 0.5,
-            "baseSoiling": 0.32,
-            "grimeColor": [0.0931, 0.0343, 0.013],
-            "grimeColorSrgb": [86, 52, 30],
-            "cavity": null,
-            "patch": {"scale": [1.4, 1.4, 0.6], "noiseScale": 0.7, "detail": 3.0, "threshold": 0.54, "width": 0.26, "weight": 0.85},
-            "gravity": {"zLowMeters": 0.0, "zHighMeters": 7.0, "boost": 0.5},
-            "blendSource": {
-              "texture": "blender_artist/staging/third_party/cc0/extracted/polyhaven/rusty_metal_02/textures/rusty_metal_02_diff_4k.jpg",
-              "license": "CC0-1.0",
-              "tileMeters": 1.2,
-              "maxResolution": 1024
-            },
-            "roughnessAdd": 0.12,
-            "emissionScale": null
-          },
-          "moodModifiers": {"day": {}, "night": {"strengthScale": 0.8}},
-          "note": "Óxido = el caso canónico de 'reaprovechar Poly Haven oxidado' (WP04). La mancha va anisótropa hacia abajo: una chapa oxidada gotea, no se decolora en manchas redondas."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
-      }
-    },
-    "glass": {
-      "surfaceDecision": "window_glass",
-      "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#window_glass",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "vidrio oscuro de día (0.055,0.075,0.098) y emisión cálida de noche (`windowGlow`)."},
-        "aged": {
-          "recipe": {
-            "strength": 0.0,
-            "baseSoiling": 0.0,
-            "grimeColor": [0.0685, 0.0612, 0.0513],
-            "grimeColorSrgb": [74, 70, 64],
-            "cavity": null,
-            "patch": null,
-            "gravity": null,
-            "blendSource": null,
-            "roughnessAdd": 0.22,
-            "emissionScale": null
-          },
-          "moodModifiers": {"day": {"roughnessAdd": 0.0}, "night": {}},
-          "measured": {
-            "date": "2026-11-21",
-            "glowPixelsAboveNoiseFloor": "0,0 % (19.618 píxeles con luma 0,45-0,60 en el control nocturno)",
-            "glassEmissionSocket": "sin enlazar y default 0: `apply_material` registra `skipped: el mood no cableó emisión en este material`",
-            "windowGlowLivesOn": "atlas (`externalTreatment.emissiveTexels` 10.144, `litWindows` 25 en mixed_tenement 1001 night_civic)",
-            "consequence": "El brillo de los huecos NO cambia entre conservado y envejecido, y así se mantiene: es señal de ocupación, no propiedad del material. La regla «cristal sucio transmite menos» se aplica al atlas, que sí tiene el socket cableado."
-          },
-          "note": "Restricción de vidrio por día/noche que pide WP04: de día el hueco NO se oscurece más (ya es casi negro; bajarlo lo convertiría en un agujero y borraría la retícula de crujías); envejece por difuminado (rugosidad). De noche el cristal sucio transmitiría menos luz, pero en este compositor MI_Glass no tiene emisión que escalar (ver `measured`): declarar `emissionScale` aquí daba un registro `skipped` y una hoja afirmando algo que el raster desmentía, así que el valor se retira y la regla vive en `atlas`. La `_lit` de Kenney no se activa aquí: §5 midió que de día quema el cupón."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
-      }
-    },
-    "atlas": {
-      "surfaceDecision": null,
-      "decisionRef": "docs/art/graphics-capabilities/material-decisions.json (superficies mixtas del atlas de runtime)",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "`colormap` y afines: un solo atlas de runtime pinta pared, techo, ventana y calzada a la vez. La capa de estilo lo remapea por bandas de tono, no por material."},
-        "aged": {
-          "recipe": {
-            "strength": 0.42,
-            "baseSoiling": 0.45,
-            "grimeColor": [0.0685, 0.0612, 0.0513],
-            "grimeColorSrgb": [74, 70, 64],
-            "cavity": null,
-            "patch": {"scale": [0.7, 0.7, 0.25], "noiseScale": 0.35, "detail": 2.0, "threshold": 0.58, "width": 0.3, "weight": 0.6},
-            "gravity": {"zLowMeters": 0.0, "zHighMeters": 6.0, "boost": 0.35},
-            "blendSource": null,
-            "roughnessAdd": 0.05,
-            "emissionScale": 0.78
-          },
-          "moodModifiers": {"day": {}, "night": {"strengthScale": 0.7}},
-          "note": "El material más cauteloso del contrato: como su atlas también lleva el swatch de ventana, cualquier mugre agresiva ensuciaría el hueco y el reguero de fachada a la vez, y el `emissionScale` de la noche vive aquí (runtime_asset.py:671 cablea la fuerza sobre el material del atlas, no sobre MI_Glass). Nunca más fuerte que plaster."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
-      }
-    },
-    "interior": {
-      "surfaceDecision": "brick_wall",
-      "decisionRef": "blender_artist/manifests/building-modules.json:mod_megakit_trim_window_2m.measured.images",
-      "coversWalls": "El MegaKit llama `MI_InteriorWall` al MATERIAL DEL CUERPO DE PAÑO: su Base Color es `T_RedBrick_BaseColor` y pinta el alzado visible de `Trim_Window`, `Trim_Plain` y `Brick_TopTrim`. El nombre describe la intención del autor del kit, no lo que ve la cámara.",
-      "states": {
-        "conserved": {"treatment": "baseline", "note": "el paño de ladrillo del kit, tratado por la capa de estilo como cualquier alzado."},
-        "aged": {
-          "recipe": {
-            "strength": 0.4,
-            "baseSoiling": 0.36,
-            "grimeColor": [0.0423, 0.0307, 0.0232],
-            "grimeColorSrgb": [58, 49, 42],
-            "cavity": {
-              "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_brick_stone_center_depth.png",
-              "license": "CC0-1.0",
-              "tileMeters": 0.5,
-              "weight": 0.5,
-              "ramp": [0.3, 0.72]
-            },
-            "patch": {"scale": [1.1, 1.1, 0.35], "noiseScale": 0.55, "detail": 2.0, "threshold": 0.52, "width": 0.28, "weight": 0.5},
-            "gravity": {"zLowMeters": 0.0, "zHighMeters": 6.0, "boost": 0.45},
-            "blendSource": null,
-            "roughnessAdd": 0.06,
-            "emissionScale": null
-          },
-          "moodModifiers": {"day": {}, "night": {"strengthScale": 0.8}},
-          "note": "Misma receta que `brick` con la junta un punto más baja: es el mismo alzado de ladrillo pintado, y si divergiera el paño envejecería a dos velocidades dentro del mismo módulo. Los falsos interiores y forjados sí quedan fuera, por nombre, en `exclusions.materialNamePatterns`."
-        },
-        "damaged": {"ownedBy": "visualStates.damaged"},
-        "burning": {"ownedBy": "visualStates.burning"}
+    "aged": {
+     "recipe": {
+      "strength": 0.34,
+      "baseSoiling": 0.34,
+      "grimeColor": [
+       0.0513,
+       0.0545,
+       0.0578
+      ],
+      "grimeColorSrgb": [
+       64,
+       66,
+       68
+      ],
+      "cavity": {
+       "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_stone_depth.png",
+       "license": "CC0-1.0",
+       "tileMeters": 0.5,
+       "weight": 0.65,
+       "ramp": [
+        0.28,
+        0.7
+       ]
       },
-      "measured": {
-        "date": "2026-11-21",
-        "defect": "WP04-D2 — el paño de fachada no envejecía",
-        "method": "Sondeo de mugre verde: manifiesto de trabajo con TODAS las recetas aged a strength 1,0 y baseSoiling 1,0 y `grimeColor` [0,1,0] (`/tmp/wp04-probe/green-contract.json`); si un píxel del sprite no se vuelve verde, la capa no llega a su material. Se comparó pixel a pixel contra el brazo conservado con umbral |Δmax| > 8/255.",
-        "untreatedOpaqueArea": "53,9 % de los 600.960 píxeles opacos de `vw_mixed_tenement_1001_conserved.png` (46,1 % tratados)",
-        "cause": "`exclusions.families` contenía `interior` en bloque. La familia la publica el perfil por nombre de material y en el MegaKit ese nombre cae sobre `MI_InteriorWall*`, que es el paño de ladrillo del alzado: excluir la familia equivalía a excluir la fachada.",
-        "resolution": "Familias excluidas = []; los materiales realmente no visibles se excluyen por nombre (`MI_FakeInterior*`, `MI_InteriorFloor*`, `MI_InteriorRoof*`). El paño pasa a llevar la receta de ladrillo."
+      "patch": {
+       "scale": [
+        0.8,
+        0.8,
+        0.5
+       ],
+       "noiseScale": 0.45,
+       "detail": 2.0,
+       "threshold": 0.56,
+       "width": 0.3,
+       "weight": 0.35
+      },
+      "gravity": {
+       "zLowMeters": 0.0,
+       "zHighMeters": 4.0,
+       "boost": 0.3
+      },
+      "blendSource": null,
+      "roughnessAdd": 0.04,
+      "emissionScale": null
+     },
+     "moodModifiers": {
+      "day": {},
+      "night": {
+       "strengthScale": 0.75
       }
+     },
+     "note": "Piedra: la mugre es fría (el único grime azulado del lote) y vive en la junta, no en el canto. Es la superficie donde §5 aprobó la loseta Kenney, así que su mapa `_depth` es la máscara natural."
+    },
+    "damaged": {
+     "ownedBy": "visualStates.damaged"
+    },
+    "burning": {
+     "ownedBy": "visualStates.burning"
     }
+   }
   },
-  "exclusions": {
-    "families": [],
-    "materialNamePatterns": [
-      "flame_*",
-      "fire_*",
-      "scaffold_*",
-      "debris_*",
-      "barrier_*",
-      "ground_*",
-      "lab_*",
-      "MI_FakeInterior*",
-      "MI_InteriorFloor*",
-      "MI_InteriorRoof*"
-    ],
-    "reason": "Dos grupos distintos y por eso se listan aparte. Equipo de obra, escombros, vallas y VFX traen su propio color intencional y `apply_soot` ya los respeta (scene.py:377). Falsos interiores, forjados y cubiertas interiores son el fondo del hueco: no definen la temperatura cromática de un alzado y sólo se ven a través del cristal. Ninguno de los dos es una familia del perfil, así que se excluyen por nombre y no en bloque: excluir `interior` por familia se llevó por delante el paño de ladrillo del MegaKit (WP04-D2, medido 53,9 % del sprite sin tratar).",
-    "familiesAreEmptyBecause": "Una familia del perfil agrupa materiales por nombre de origen, no por visibilidad. Retirar una familia entera del envejecimiento es una decisión sobre el vocabulario del catálogo, no sobre la imagen, y el sondeo verde midió que esa decisión dejaba sin tratar más de la mitad del alzado. Si una familia vuelve a necesitar exclusión total, primero hay que medir cuántos píxeles opacos cubre."
+  "wood": {
+   "surfaceDecision": "timber",
+   "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#timber",
+   "states": {
+    "conserved": {
+     "treatment": "baseline",
+     "note": "ocre plano de la paleta industrial; §5 aprobó `floor_wood_planks.png` como candidato en buen estado (no promovido)."
+    },
+    "aged": {
+     "recipe": {
+      "strength": 0.55,
+      "baseSoiling": 0.3,
+      "grimeColor": [
+       0.0685,
+       0.0578,
+       0.0452
+      ],
+      "grimeColorSrgb": [
+       74,
+       68,
+       60
+      ],
+      "cavity": {
+       "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/floor_wood_planks_depth.png",
+       "license": "CC0-1.0",
+       "tileMeters": 0.6,
+       "weight": 0.4,
+       "ramp": [
+        0.3,
+        0.75
+       ]
+      },
+      "patch": {
+       "scale": [
+        0.9,
+        0.9,
+        0.9
+       ],
+       "noiseScale": 0.5,
+       "detail": 3.0,
+       "threshold": 0.5,
+       "width": 0.3,
+       "weight": 0.75
+      },
+      "gravity": {
+       "zLowMeters": 0.0,
+       "zHighMeters": 6.0,
+       "boost": 0.2
+      },
+      "blendSource": {
+       "texture": "blender_artist/staging/third_party/cc0/extracted/polyhaven/wood_planks_grey/textures/wood_planks_grey_diff_4k.jpg",
+       "license": "CC0-1.0",
+       "tileMeters": 1.2,
+       "maxResolution": 1024
+      },
+      "roughnessAdd": 0.08,
+      "emissionScale": null
+     },
+     "moodModifiers": {
+      "day": {},
+      "night": {
+       "strengthScale": 0.85
+      }
+     },
+     "note": "Aquí sí se reutiliza el escaneo manchado que pide WP04: §5 describe `wood_planks_grey` como 'madera gris meteorizada… correcta para obra abandonada' y la reserva para envejecimiento, no para carpintería en uso."
+    },
+    "damaged": {
+     "ownedBy": "visualStates.damaged"
+    },
+    "burning": {
+     "ownedBy": "visualStates.burning"
+    }
+   }
   },
-  "guards": {
-    "notTouched": [
-      "apps/web/src/generated/runtime-assets.json",
-      "apps/web/src/generated/runtime-assets-blender.json",
-      "apps/web/src/generated/runtime-assets-blender-day.json",
-      "blender_artist/manifests/world-catalogs/material-assets.json",
-      "packages/shared/src/domain.ts",
-      "apps/web/src/isometric/building-sprites.ts"
-    ],
-    "promotion": "El tier envejecido existe sólo en evidencia offline (`weathering` opt-in en el request). Ningún sprite del catálogo publicado se regenera con él hasta la revisión humana de WP08/WP09.",
-    "optInOnly": "Sin el campo `weathering` en el request, `render_candidate` no carga el contrato ni inserta un nodo: el baseline de 888 sprites es byte a byte el de antes."
+  "metal": {
+   "surfaceDecision": "metal_sheet",
+   "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#metal_sheet",
+   "states": {
+    "conserved": {
+     "treatment": "baseline",
+     "note": "chapa dibujada en atlas; la receta `industrial_metal` del style layer ya declara `PolyHaven/rusty_metal_02` con rustAmount 0,45 para la familia industrial."
+    },
+    "aged": {
+     "recipe": {
+      "strength": 0.5,
+      "baseSoiling": 0.32,
+      "grimeColor": [
+       0.0931,
+       0.0343,
+       0.013
+      ],
+      "grimeColorSrgb": [
+       86,
+       52,
+       30
+      ],
+      "cavity": null,
+      "patch": {
+       "scale": [
+        1.4,
+        1.4,
+        0.6
+       ],
+       "noiseScale": 0.7,
+       "detail": 3.0,
+       "threshold": 0.54,
+       "width": 0.26,
+       "weight": 0.85
+      },
+      "gravity": {
+       "zLowMeters": 0.0,
+       "zHighMeters": 7.0,
+       "boost": 0.5
+      },
+      "blendSource": {
+       "texture": "blender_artist/staging/third_party/cc0/extracted/polyhaven/rusty_metal_02/textures/rusty_metal_02_diff_4k.jpg",
+       "license": "CC0-1.0",
+       "tileMeters": 1.2,
+       "maxResolution": 1024
+      },
+      "roughnessAdd": 0.12,
+      "emissionScale": null
+     },
+     "moodModifiers": {
+      "day": {},
+      "night": {
+       "strengthScale": 0.8
+      }
+     },
+     "note": "Óxido = el caso canónico de 'reaprovechar Poly Haven oxidado' (WP04). La mancha va anisótropa hacia abajo: una chapa oxidada gotea, no se decolora en manchas redondas."
+    },
+    "damaged": {
+     "ownedBy": "visualStates.damaged"
+    },
+    "burning": {
+     "ownedBy": "visualStates.burning"
+    }
+   }
+  },
+  "glass": {
+   "surfaceDecision": "window_glass",
+   "decisionRef": "docs/art/graphics-capabilities/material-decisions.json#window_glass",
+   "states": {
+    "conserved": {
+     "treatment": "baseline",
+     "note": "vidrio oscuro de día (0.055,0.075,0.098) y emisión cálida de noche (`windowGlow`)."
+    },
+    "aged": {
+     "recipe": {
+      "strength": 0.0,
+      "baseSoiling": 0.0,
+      "grimeColor": [
+       0.0685,
+       0.0612,
+       0.0513
+      ],
+      "grimeColorSrgb": [
+       74,
+       70,
+       64
+      ],
+      "cavity": null,
+      "patch": null,
+      "gravity": null,
+      "blendSource": null,
+      "roughnessAdd": 0.22,
+      "emissionScale": null
+     },
+     "moodModifiers": {
+      "day": {
+       "roughnessAdd": 0.0
+      },
+      "night": {}
+     },
+     "measured": {
+      "date": "2026-11-21",
+      "glowPixelsAboveNoiseFloor": "0,0 % (19.618 píxeles con luma 0,45-0,60 en el control nocturno)",
+      "glassEmissionSocket": "sin enlazar y default 0: `apply_material` registra `skipped: el mood no cableó emisión en este material`",
+      "windowGlowLivesOn": "atlas (`externalTreatment.emissiveTexels` 10.144, `litWindows` 25 en mixed_tenement 1001 night_civic)",
+      "consequence": "El brillo de los huecos NO cambia entre conservado y envejecido, y así se mantiene: es señal de ocupación, no propiedad del material. La regla «cristal sucio transmite menos» se aplica al atlas, que sí tiene el socket cableado."
+     },
+     "note": "Restricción de vidrio por día/noche que pide WP04: de día el hueco NO se oscurece más (ya es casi negro; bajarlo lo convertiría en un agujero y borraría la retícula de crujías); envejece por difuminado (rugosidad). De noche el cristal sucio transmitiría menos luz, pero en este compositor MI_Glass no tiene emisión que escalar (ver `measured`): declarar `emissionScale` aquí daba un registro `skipped` y una hoja afirmando algo que el raster desmentía, así que el valor se retira y la regla vive en `atlas`. La `_lit` de Kenney no se activa aquí: §5 midió que de día quema el cupón."
+    },
+    "damaged": {
+     "ownedBy": "visualStates.damaged"
+    },
+    "burning": {
+     "ownedBy": "visualStates.burning"
+    }
+   }
+  },
+  "atlas": {
+   "surfaceDecision": null,
+   "decisionRef": "docs/art/graphics-capabilities/material-decisions.json (superficies mixtas del atlas de runtime)",
+   "states": {
+    "conserved": {
+     "treatment": "baseline",
+     "note": "`colormap` y afines: un solo atlas de runtime pinta pared, techo, ventana y calzada a la vez. La capa de estilo lo remapea por bandas de tono, no por material."
+    },
+    "aged": {
+     "recipe": {
+      "strength": 0.42,
+      "baseSoiling": 0.45,
+      "grimeColor": [
+       0.0685,
+       0.0612,
+       0.0513
+      ],
+      "grimeColorSrgb": [
+       74,
+       70,
+       64
+      ],
+      "cavity": null,
+      "patch": {
+       "scale": [
+        0.7,
+        0.7,
+        0.25
+       ],
+       "noiseScale": 0.35,
+       "detail": 2.0,
+       "threshold": 0.58,
+       "width": 0.3,
+       "weight": 0.6
+      },
+      "gravity": {
+       "zLowMeters": 0.0,
+       "zHighMeters": 6.0,
+       "boost": 0.35
+      },
+      "blendSource": null,
+      "roughnessAdd": 0.05,
+      "emissionScale": 0.78
+     },
+     "moodModifiers": {
+      "day": {},
+      "night": {
+       "strengthScale": 0.7
+      }
+     },
+     "note": "El material más cauteloso del contrato: como su atlas también lleva el swatch de ventana, cualquier mugre agresiva ensuciaría el hueco y el reguero de fachada a la vez, y el `emissionScale` de la noche vive aquí (runtime_asset.py:671 cablea la fuerza sobre el material del atlas, no sobre MI_Glass). Nunca más fuerte que plaster."
+    },
+    "damaged": {
+     "ownedBy": "visualStates.damaged"
+    },
+    "burning": {
+     "ownedBy": "visualStates.burning"
+    }
+   }
+  },
+  "interior": {
+   "surfaceDecision": "brick_wall",
+   "decisionRef": "blender_artist/manifests/building-modules.json:mod_megakit_trim_window_2m.measured.images",
+   "coversWalls": "El MegaKit llama `MI_InteriorWall` al MATERIAL DEL CUERPO DE PAÑO: su Base Color es `T_RedBrick_BaseColor` y pinta el alzado visible de `Trim_Window`, `Trim_Plain` y `Brick_TopTrim`. El nombre describe la intención del autor del kit, no lo que ve la cámara.",
+   "states": {
+    "conserved": {
+     "treatment": "baseline",
+     "note": "el paño de ladrillo del kit, tratado por la capa de estilo como cualquier alzado."
+    },
+    "aged": {
+     "recipe": {
+      "strength": 0.4,
+      "baseSoiling": 0.36,
+      "grimeColor": [
+       0.0423,
+       0.0307,
+       0.0232
+      ],
+      "grimeColorSrgb": [
+       58,
+       49,
+       42
+      ],
+      "cavity": {
+       "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_brick_stone_center_depth.png",
+       "license": "CC0-1.0",
+       "tileMeters": 0.5,
+       "weight": 0.5,
+       "ramp": [
+        0.3,
+        0.72
+       ]
+      },
+      "patch": {
+       "scale": [
+        1.1,
+        1.1,
+        0.35
+       ],
+       "noiseScale": 0.55,
+       "detail": 2.0,
+       "threshold": 0.52,
+       "width": 0.28,
+       "weight": 0.5
+      },
+      "gravity": {
+       "zLowMeters": 0.0,
+       "zHighMeters": 6.0,
+       "boost": 0.45
+      },
+      "blendSource": null,
+      "roughnessAdd": 0.06,
+      "emissionScale": null
+     },
+     "moodModifiers": {
+      "day": {},
+      "night": {
+       "strengthScale": 0.8
+      }
+     },
+     "note": "Misma receta que `brick` con la junta un punto más baja: es el mismo alzado de ladrillo pintado, y si divergiera el paño envejecería a dos velocidades dentro del mismo módulo. Los falsos interiores y forjados sí quedan fuera, por nombre, en `exclusions.materialNamePatterns`."
+    },
+    "damaged": {
+     "ownedBy": "visualStates.damaged"
+    },
+    "burning": {
+     "ownedBy": "visualStates.burning"
+    }
+   },
+   "measured": {
+    "date": "2026-11-21",
+    "defect": "WP04-D2 — el paño de fachada no envejecía",
+    "method": "Sondeo de mugre verde: manifiesto de trabajo con TODAS las recetas aged a strength 1,0 y baseSoiling 1,0 y `grimeColor` [0,1,0] (`/tmp/wp04-probe/green-contract.json`); si un píxel del sprite no se vuelve verde, la capa no llega a su material. Se comparó pixel a pixel contra el brazo conservado con umbral |Δmax| > 8/255.",
+    "untreatedOpaqueArea": "53,9 % de los 600.960 píxeles opacos de `vw_mixed_tenement_1001_conserved.png` (46,1 % tratados)",
+    "cause": "`exclusions.families` contenía `interior` en bloque. La familia la publica el perfil por nombre de material y en el MegaKit ese nombre cae sobre `MI_InteriorWall*`, que es el paño de ladrillo del alzado: excluir la familia equivalía a excluir la fachada.",
+    "resolution": "Familias excluidas = []; los materiales realmente no visibles se excluyen por nombre (`MI_FakeInterior*`, `MI_InteriorFloor*`, `MI_InteriorRoof*`). El paño pasa a llevar la receta de ladrillo."
+   }
   }
+ },
+ "exclusions": {
+  "families": [],
+  "materialNamePatterns": [
+   "flame_*",
+   "fire_*",
+   "scaffold_*",
+   "debris_*",
+   "barrier_*",
+   "ground_*",
+   "lab_*",
+   "MI_FakeInterior*",
+   "MI_InteriorFloor*",
+   "MI_InteriorRoof*",
+   "Texture"
+  ],
+  "reason": "Dos grupos distintos y por eso se listan aparte. Equipo de obra, escombros, vallas y VFX traen su propio color intencional y `apply_soot` ya los respeta (scene.py:377). Falsos interiores, forjados y cubiertas interiores son el fondo del hueco: no definen la temperatura cromática de un alzado y sólo se ven a través del cristal. Ninguno de los dos es una familia del perfil, así que se excluyen por nombre y no en bloque: excluir `interior` por familia se llevó por delante el paño de ladrillo del MegaKit (WP04-D2, medido 53,9 % del sprite sin tratar). FINAL-ASSET-QA 3.1: `Texture` (puerta Quaternius, tratamiento `sin-base-color`, cadena `sin_superficie`) no tiene grafo Principled que aloje la capa de mugre: excluida por imposibilidad física, no por criterio estético (el guard de `surface_bsdf` exige fallar cerrado).",
+  "familiesAreEmptyBecause": "Una familia del perfil agrupa materiales por nombre de origen, no por visibilidad. Retirar una familia entera del envejecimiento es una decisión sobre el vocabulario del catálogo, no sobre la imagen, y el sondeo verde midió que esa decisión dejaba sin tratar más de la mitad del alzado. Si una familia vuelve a necesitar exclusión total, primero hay que medir cuántos píxeles opacos cubre."
+ },
+ "guards": {
+  "notTouched": [
+   "apps/web/src/generated/runtime-assets.json",
+   "apps/web/src/generated/runtime-assets-blender.json",
+   "apps/web/src/generated/runtime-assets-blender-day.json",
+   "blender_artist/manifests/world-catalogs/material-assets.json",
+   "packages/shared/src/domain.ts",
+   "apps/web/src/isometric/building-sprites.ts"
+  ],
+  "promotion": "El tier envejecido existe sólo en evidencia offline (`weathering` opt-in en el request). Ningún sprite del catálogo publicado se regenera con él hasta la revisión humana de WP08/WP09.",
+  "optInOnly": "Sin el campo `weathering` en el request, `render_candidate` no carga el contrato ni inserta un nodo: el baseline de 888 sprites es byte a byte el de antes."
+ }
 }

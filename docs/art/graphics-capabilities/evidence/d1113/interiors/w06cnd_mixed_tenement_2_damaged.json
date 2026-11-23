@@ -11,7 +11,7 @@
  "styleProfileId": "graphic_civic_buildings_v1",
  "moodId": "day_civic",
  "materialExperiment": null,
- "compositionSignature": "38cb309ac36eb2af655c9c4e89a19ba61bd9623b9dbc612d260debd38764eff5",
+ "compositionSignature": "49b1ba0e68e3d7859738c7ea046929870a4c73408f9e7382851d8d666a58d211",
  "axisChoices": {
   "massing": "uniform_block",
   "facade": "brick_commercial",
@@ -1068,7 +1068,7 @@
    "rotationDegrees": 180,
    "position": [
     -7.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1078,7 +1078,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1099,7 +1099,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1109,7 +1109,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1130,7 +1130,7 @@
    "rotationDegrees": 180,
    "position": [
     -3.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1140,7 +1140,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1161,7 +1161,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1171,7 +1171,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1192,7 +1192,7 @@
    "rotationDegrees": 180,
    "position": [
     3.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1202,7 +1202,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1223,7 +1223,7 @@
    "rotationDegrees": 180,
    "position": [
     5.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1233,7 +1233,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1254,7 +1254,7 @@
    "rotationDegrees": 180,
    "position": [
     7.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1264,7 +1264,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1285,7 +1285,7 @@
    "rotationDegrees": 0,
    "position": [
     -7.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1294,7 +1294,7 @@
      "max": -6.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1316,7 +1316,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1325,7 +1325,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1347,7 +1347,7 @@
    "rotationDegrees": 0,
    "position": [
     -3.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1356,7 +1356,7 @@
      "max": -2.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1378,7 +1378,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1387,7 +1387,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1409,7 +1409,7 @@
    "rotationDegrees": 0,
    "position": [
     1.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1418,7 +1418,7 @@
      "max": 2.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1440,7 +1440,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1449,7 +1449,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1471,7 +1471,7 @@
    "rotationDegrees": 0,
    "position": [
     5.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1480,7 +1480,7 @@
      "max": 6.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1502,7 +1502,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1511,7 +1511,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1532,14 +1532,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     -3.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": -4.0,
@@ -1563,14 +1563,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     -1.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": -2.0,
@@ -1594,14 +1594,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     1.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": 0.0,
@@ -1625,14 +1625,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     3.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": 2.0,
@@ -1656,13 +1656,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     -3.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1687,13 +1687,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     -1.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1718,13 +1718,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     1.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1749,13 +1749,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     3.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1812,7 +1812,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -1822,7 +1822,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -1874,7 +1874,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -1884,7 +1884,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -1936,7 +1936,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -1945,7 +1945,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1998,7 +1998,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2007,7 +2007,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2060,7 +2060,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2069,7 +2069,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2122,7 +2122,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2131,7 +2131,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2432,7 +2432,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2442,7 +2442,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2494,7 +2494,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2504,7 +2504,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2556,7 +2556,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2565,7 +2565,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2618,7 +2618,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2627,7 +2627,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2680,7 +2680,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2689,7 +2689,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2742,7 +2742,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2751,7 +2751,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -4168,7 +4168,7 @@
    "rotationDegrees": 0,
    "position": [
     2.0,
-    0.018,
+    0.1,
     3.0
    ],
    "bounds": {
@@ -4177,8 +4177,8 @@
      "max": 3.0
     },
     "y": {
-     "min": -0.9818181818181819,
-     "max": 1.018181818181818
+     "min": -0.9000000000000001,
+     "max": 1.0999999999999999
     },
     "z": {
      "min": 3.0,
@@ -4199,7 +4199,7 @@
    "rotationDegrees": 0,
    "position": [
     6.0,
-    -0.388,
+    -0.25,
     3.0
    ],
    "bounds": {
@@ -4208,8 +4208,8 @@
      "max": 7.0
     },
     "y": {
-     "min": -1.387878787878788,
-     "max": 0.6121212121212121
+     "min": -1.25,
+     "max": 0.7499999999999999
     },
     "z": {
      "min": 3.0,
@@ -4229,14 +4229,14 @@
    "license": "CC0-1.0",
    "rotationDegrees": 90,
    "position": [
-    4.493,
+    4.7,
     -1.74,
     3.0
    ],
    "bounds": {
     "x": {
-     "min": 4.392929292929294,
-     "max": 4.592929292929293
+     "min": 4.6000000000000005,
+     "max": 4.8
     },
     "y": {
      "min": -2.7400000000000007,
@@ -4261,7 +4261,7 @@
    "rotationDegrees": 0,
    "position": [
     6.4,
-    -0.064,
+    0.2,
     3.0
    ],
    "bounds": {
@@ -4270,8 +4270,8 @@
      "max": 7.050000000000001
     },
     "y": {
-     "min": -2.0636363636363635,
-     "max": 1.9363636363636363
+     "min": -1.8,
+     "max": 2.1999999999999997
     },
     "z": {
      "min": 3.0,
@@ -4284,68 +4284,6 @@
    "purpose": "damage:interior:stair"
   },
   {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 180,
-   "position": [
-    1.76,
-    -0.348,
-    3.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 1.26,
-     "max": 2.26
-    },
-    "y": {
-     "min": -0.8484848484848486,
-     "max": 0.15151515151515144
-    },
-    "z": {
-     "min": 3.0,
-     "max": 3.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 270,
-   "position": [
-    4.4,
-    -0.094,
-    3.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 3.9000000000000004,
-     "max": 4.9
-    },
-    "y": {
-     "min": -0.593939393939394,
-     "max": 0.406060606060606
-    },
-    "z": {
-     "min": 3.0,
-     "max": 3.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
-  },
-  {
    "moduleId": "mod_megakit_floor_slab_2m",
    "role": "slab",
    "sourceId": "src_quaternius_downtown_city_megakit",
@@ -4354,7 +4292,7 @@
    "rotationDegrees": 0,
    "position": [
     2.0,
-    -0.018,
+    0.3,
     6.0
    ],
    "bounds": {
@@ -4363,8 +4301,8 @@
      "max": 3.0
     },
     "y": {
-     "min": -1.0181818181818183,
-     "max": 0.9818181818181817
+     "min": -0.7000000000000001,
+     "max": 1.2999999999999998
     },
     "z": {
      "min": 6.0,
@@ -4385,7 +4323,7 @@
    "rotationDegrees": 0,
    "position": [
     6.0,
-    -0.115,
+    -0.4,
     6.0
    ],
    "bounds": {
@@ -4394,8 +4332,8 @@
      "max": 7.0
     },
     "y": {
-     "min": -1.1151515151515152,
-     "max": 0.8848484848484848
+     "min": -1.4000000000000001,
+     "max": 0.5999999999999999
     },
     "z": {
      "min": 6.0,
@@ -4415,14 +4353,14 @@
    "license": "CC0-1.0",
    "rotationDegrees": 90,
    "position": [
-    3.232,
+    3.3,
     -1.74,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.132323232323232,
-     "max": 3.3323232323232324
+     "min": 3.1999999999999997,
+     "max": 3.4
     },
     "y": {
      "min": -2.7400000000000007,
@@ -4437,68 +4375,6 @@
    "meshObjects": 1,
    "elevationReach": "en_bruto",
    "purpose": "damage:interior:partition"
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 0,
-   "position": [
-    1.76,
-    -0.445,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 1.26,
-     "max": 2.26
-    },
-    "y": {
-     "min": -0.9454545454545455,
-     "max": 0.05454545454545445
-    },
-    "z": {
-     "min": 6.0,
-     "max": 6.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 90,
-   "position": [
-    4.4,
-    -0.215,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 3.9000000000000004,
-     "max": 4.9
-    },
-    "y": {
-     "min": -0.7151515151515152,
-     "max": 0.2848484848484848
-    },
-    "z": {
-     "min": 6.0,
-     "max": 6.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
   },
   {
    "moduleId": "mod_kenney_detail_beam",
@@ -4618,7 +4494,6 @@
   "mod_gn_window_bay_2m",
   "mod_kenney_com_awning_1_6m",
   "mod_kenney_detail_beam",
-  "mod_kenney_pallet",
   "mod_kenney_stairs_center",
   "mod_megakit_brick_wall_2m",
   "mod_megakit_doorframe_trim",
@@ -4646,7 +4521,6 @@
   "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/stairs-center.glb",
   "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/detail-awning.glb",
   "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
-  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_3.gltf",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Trim.gltf",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_2x2.gltf",
@@ -4694,7 +4568,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -4709,7 +4583,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -4724,7 +4598,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -4789,7 +4663,7 @@
    "family": "interior",
    "elevationReach": "en_bruto",
    "measuredChain": [],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -4804,7 +4678,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -4889,19 +4763,6 @@
    "moduleId": "mod_kenney_detail_beam",
    "material": "roof",
    "family": "atlas",
-   "elevationReach": "en_bruto",
-   "measuredChain": [
-    "sin_superficie"
-   ],
-   "treatmentPath": "sin-base-color",
-   "colorSourceFound": false,
-   "styledAtlasesInScene": [],
-   "untreatedColorSources": 0
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "material": "planks",
-   "family": "wood",
    "elevationReach": "en_bruto",
    "measuredChain": [
     "sin_superficie"
@@ -5024,6 +4885,8 @@
    "T_Concrete_Asphalt_BaseColor",
    "T_Concrete_BaseColor",
    "T_MarbleFloor_BaseColor",
+   "T_RedBrick_BaseColor",
+   "T_Trim_BaseColor",
    "colormap",
    "colormap.001"
   ],
@@ -5037,7 +4900,7 @@
    "sootStrength": 0.45,
    "localized": true,
    "materialsScorched": 20,
-   "materialsSkipped": 7,
+   "materialsSkipped": 6,
    "coreOpacity": 0.405,
    "familyPeaks": {
     "atlas": 0.324,
@@ -5077,7 +4940,7 @@
  "checks": {
   "groundContactInsideFootprint": true,
   "groundToleranceMeters": 0.05,
-  "distinctModuleIds": 13,
+  "distinctModuleIds": 12,
   "distinctSources": 9,
   "supportTriangleShare": 0.0,
   "elevationTreatmentLadders": [
@@ -5093,15 +4956,15 @@
    "lowestZMeters": 0.0
   },
   "scene": {
-   "triangles": 12754,
-   "meshObjects": 146,
+   "triangles": 12418,
+   "meshObjects": 142,
    "worldSizeMeters": {
     "x": 16.2,
     "y": 9.3954,
     "z": 10.0
    }
   },
-  "sourcesImported": 13,
+  "sourcesImported": 12,
   "pivotValidator": {
    "rawNormalized": {
     "x": 0.5312,
@@ -5178,13 +5041,13 @@
   "width": 4,
   "height": 2
  },
- "triangleCount": 12754,
- "materialCount": 27,
- "textureCount": 21,
- "renderTime": 15900.11,
- "pngBytes": 1404004,
- "sha256": "2610f47d13c0dfca1fc725559f4849b8ed83a11cf1dfab0ee0137a848850b444",
- "pixelSha256": "9e459655b608bda871347ec974429e8ede13defb58bec82cf34a5838c4b7b622",
+ "triangleCount": 12418,
+ "materialCount": 26,
+ "textureCount": 20,
+ "renderTime": 15737.42,
+ "pngBytes": 1400323,
+ "sha256": "bb46c116038026f97f2ac4d71066b0993ade88fec71751dc9d2b11a8c0268683",
+ "pixelSha256": "a7d2d17eec385a1b842c2380d050e0d1a95420d0546a893576eeb193d1bf426d",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -5227,11 +5090,11 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/tmp/d1113/attempts/2026-11-23T1221/w06cnd_mixed_tenement_2_damaged.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.png",
   "width": 1091,
   "height": 1067,
-  "sha256": "2610f47d13c0dfca1fc725559f4849b8ed83a11cf1dfab0ee0137a848850b444",
-  "bytes": 1404004
+  "sha256": "bb46c116038026f97f2ac4d71066b0993ade88fec71751dc9d2b11a8c0268683",
+  "bytes": 1400323
  },
  "trim": {
   "rendered": {
@@ -5251,9 +5114,9 @@
   "supersample": 1
  },
  "metrics": {
-  "placements": 146,
-  "meshObjects": 146,
-  "distinctModuleIds": 13,
+  "placements": 142,
+  "meshObjects": 142,
+  "distinctModuleIds": 12,
   "sources": [
    "src_kenney_building_kit",
    "src_kenney_city_commercial",
@@ -5265,8 +5128,8 @@
    "src_quaternius_downtown_city_megakit",
    "src_quaternius_ultimate_buildings"
   ],
-  "triangles": 12754,
-  "licensedTriangles": 12754,
+  "triangles": 12418,
+  "licensedTriangles": 12418,
   "supportTriangles": 0,
   "licensedGeometryRatio": 1.0,
   "materials": [
@@ -5289,14 +5152,12 @@
    "gn_painted_metal",
    "gn_stone_trim",
    "metal",
-   "planks",
    "roof"
   ],
   "textures": [
    "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
    "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
    "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
-   "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
    "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
@@ -5333,6 +5194,8 @@
     "T_Concrete_Asphalt_BaseColor",
     "T_Concrete_BaseColor",
     "T_MarbleFloor_BaseColor",
+    "T_RedBrick_BaseColor",
+    "T_Trim_BaseColor",
     "colormap",
     "colormap.001"
    ],
@@ -5341,11 +5204,8 @@
    "litWindows": 0
   },
   "deepReach": {
-   "deepStyledNodes": 5,
-   "deepStyledAtlases": [
-    "T_RedBrick_BaseColor",
-    "T_Trim_BaseColor"
-   ],
+   "deepStyledNodes": 0,
+   "deepStyledAtlases": [],
    "flatStyledMaterials": [
     "debris_brick",
     "debris_char",
@@ -5364,13 +5224,7 @@
     "MI_Glass"
    ]
   },
-  "deepReachDetail": [
-   "MI_InteriorWall.001←T_RedBrick_BaseColor",
-   "MI_InteriorWall←T_RedBrick_BaseColor",
-   "MI_RedBrick←T_RedBrick_BaseColor",
-   "MI_Trim_Green←T_Trim_BaseColor",
-   "MI_Trim←T_Trim_BaseColor"
-  ]
+  "deepReachDetail": []
  },
  "toolchain": {
   "blender": "5.2.2 LTS",
@@ -5392,7 +5246,7 @@
   "renderPixels": {
    "width": 1439,
    "height": 1408,
-   "sha256": "6f0aff668d9830a39c298f0bd07cec2bb56140ce25c7957c327cced74088c6ee"
+   "sha256": "aa75bf87e335c8349cf7f28c284be12cf93d33ac094107aad4f9cf2e3f9a8fa5"
   },
   "pixels": {
    "width": 4317,
@@ -5401,10 +5255,10 @@
   }
  },
  "render": {
-  "renderMs": 15900.11,
-  "prepMs": 20104.77,
-  "totalMs": 52095.6,
-  "peakRssMb": 4439.7
+  "renderMs": 15737.42,
+  "prepMs": 20197.72,
+  "totalMs": 51850.96,
+  "peakRssMb": 4390.7
  },
  "request": {
   "candidateId": "w06cnd_mixed_tenement_2_damaged",
@@ -5422,8 +5276,8 @@
   "state": "damaged",
   "constructionStage": null,
   "candidateProfile": "gn_residential_v2",
-  "output": "/tmp/d1113/attempts/2026-11-23T1221/w06cnd_mixed_tenement_2_damaged.png",
-  "metadata": "/tmp/d1113/attempts/2026-11-23T1221/w06cnd_mixed_tenement_2_damaged.json"
+  "output": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.png",
+  "metadata": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.json"
  },
  "composition": {
   "buildingType": "mixed_tenement",
@@ -6472,7 +6326,7 @@
     "rotationDegrees": 180,
     "position": [
      -7.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6482,7 +6336,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6503,7 +6357,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6513,7 +6367,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6534,7 +6388,7 @@
     "rotationDegrees": 180,
     "position": [
      -3.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6544,7 +6398,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6565,7 +6419,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6575,7 +6429,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6596,7 +6450,7 @@
     "rotationDegrees": 180,
     "position": [
      3.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6606,7 +6460,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6627,7 +6481,7 @@
     "rotationDegrees": 180,
     "position": [
      5.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6637,7 +6491,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6658,7 +6512,7 @@
     "rotationDegrees": 180,
     "position": [
      7.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6668,7 +6522,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6689,7 +6543,7 @@
     "rotationDegrees": 0,
     "position": [
      -7.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6698,7 +6552,7 @@
       "max": -6.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6720,7 +6574,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6729,7 +6583,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6751,7 +6605,7 @@
     "rotationDegrees": 0,
     "position": [
      -3.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6760,7 +6614,7 @@
       "max": -2.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6782,7 +6636,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6791,7 +6645,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6813,7 +6667,7 @@
     "rotationDegrees": 0,
     "position": [
      1.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6822,7 +6676,7 @@
       "max": 2.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6844,7 +6698,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6853,7 +6707,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6875,7 +6729,7 @@
     "rotationDegrees": 0,
     "position": [
      5.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6884,7 +6738,7 @@
       "max": 6.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6906,7 +6760,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -6915,7 +6769,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -6936,14 +6790,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      -3.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": -4.0,
@@ -6967,14 +6821,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      -1.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": -2.0,
@@ -6998,14 +6852,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      1.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": 0.0,
@@ -7029,14 +6883,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      3.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": 2.0,
@@ -7060,13 +6914,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      -3.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7091,13 +6945,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      -1.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7122,13 +6976,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      1.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7153,13 +7007,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      3.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7216,7 +7070,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -7226,7 +7080,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -7278,7 +7132,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -7288,7 +7142,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -7340,7 +7194,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -7349,7 +7203,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7402,7 +7256,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -7411,7 +7265,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7464,7 +7318,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -7473,7 +7327,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7526,7 +7380,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -7535,7 +7389,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7836,7 +7690,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -7846,7 +7700,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -7898,7 +7752,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -7908,7 +7762,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -7960,7 +7814,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -7969,7 +7823,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8022,7 +7876,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -8031,7 +7885,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8084,7 +7938,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -8093,7 +7947,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8146,7 +8000,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -8155,7 +8009,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -9572,7 +9426,7 @@
     "rotationDegrees": 0,
     "position": [
      2.0,
-     0.018,
+     0.1,
      3.0
     ],
     "bounds": {
@@ -9581,8 +9435,8 @@
       "max": 3.0
      },
      "y": {
-      "min": -0.9818181818181819,
-      "max": 1.018181818181818
+      "min": -0.9000000000000001,
+      "max": 1.0999999999999999
      },
      "z": {
       "min": 3.0,
@@ -9603,7 +9457,7 @@
     "rotationDegrees": 0,
     "position": [
      6.0,
-     -0.388,
+     -0.25,
      3.0
     ],
     "bounds": {
@@ -9612,8 +9466,8 @@
       "max": 7.0
      },
      "y": {
-      "min": -1.387878787878788,
-      "max": 0.6121212121212121
+      "min": -1.25,
+      "max": 0.7499999999999999
      },
      "z": {
       "min": 3.0,
@@ -9633,14 +9487,14 @@
     "license": "CC0-1.0",
     "rotationDegrees": 90,
     "position": [
-     4.493,
+     4.7,
      -1.74,
      3.0
     ],
     "bounds": {
      "x": {
-      "min": 4.392929292929294,
-      "max": 4.592929292929293
+      "min": 4.6000000000000005,
+      "max": 4.8
      },
      "y": {
       "min": -2.7400000000000007,
@@ -9665,7 +9519,7 @@
     "rotationDegrees": 0,
     "position": [
      6.4,
-     -0.064,
+     0.2,
      3.0
     ],
     "bounds": {
@@ -9674,8 +9528,8 @@
       "max": 7.050000000000001
      },
      "y": {
-      "min": -2.0636363636363635,
-      "max": 1.9363636363636363
+      "min": -1.8,
+      "max": 2.1999999999999997
      },
      "z": {
       "min": 3.0,
@@ -9688,68 +9542,6 @@
     "purpose": "damage:interior:stair"
    },
    {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 180,
-    "position": [
-     1.76,
-     -0.348,
-     3.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 1.26,
-      "max": 2.26
-     },
-     "y": {
-      "min": -0.8484848484848486,
-      "max": 0.15151515151515144
-     },
-     "z": {
-      "min": 3.0,
-      "max": 3.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
-   },
-   {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 270,
-    "position": [
-     4.4,
-     -0.094,
-     3.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 3.9000000000000004,
-      "max": 4.9
-     },
-     "y": {
-      "min": -0.593939393939394,
-      "max": 0.406060606060606
-     },
-     "z": {
-      "min": 3.0,
-      "max": 3.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
-   },
-   {
     "moduleId": "mod_megakit_floor_slab_2m",
     "role": "slab",
     "sourceId": "src_quaternius_downtown_city_megakit",
@@ -9758,7 +9550,7 @@
     "rotationDegrees": 0,
     "position": [
      2.0,
-     -0.018,
+     0.3,
      6.0
     ],
     "bounds": {
@@ -9767,8 +9559,8 @@
       "max": 3.0
      },
      "y": {
-      "min": -1.0181818181818183,
-      "max": 0.9818181818181817
+      "min": -0.7000000000000001,
+      "max": 1.2999999999999998
      },
      "z": {
       "min": 6.0,
@@ -9789,7 +9581,7 @@
     "rotationDegrees": 0,
     "position": [
      6.0,
-     -0.115,
+     -0.4,
      6.0
     ],
     "bounds": {
@@ -9798,8 +9590,8 @@
       "max": 7.0
      },
      "y": {
-      "min": -1.1151515151515152,
-      "max": 0.8848484848484848
+      "min": -1.4000000000000001,
+      "max": 0.5999999999999999
      },
      "z": {
       "min": 6.0,
@@ -9819,14 +9611,14 @@
     "license": "CC0-1.0",
     "rotationDegrees": 90,
     "position": [
-     3.232,
+     3.3,
      -1.74,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.132323232323232,
-      "max": 3.3323232323232324
+      "min": 3.1999999999999997,
+      "max": 3.4
      },
      "y": {
       "min": -2.7400000000000007,
@@ -9841,68 +9633,6 @@
     "meshObjects": 1,
     "elevationReach": "en_bruto",
     "purpose": "damage:interior:partition"
-   },
-   {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 0,
-    "position": [
-     1.76,
-     -0.445,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 1.26,
-      "max": 2.26
-     },
-     "y": {
-      "min": -0.9454545454545455,
-      "max": 0.05454545454545445
-     },
-     "z": {
-      "min": 6.0,
-      "max": 6.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
-   },
-   {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 90,
-    "position": [
-     4.4,
-     -0.215,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 3.9000000000000004,
-      "max": 4.9
-     },
-     "y": {
-      "min": -0.7151515151515152,
-      "max": 0.2848484848484848
-     },
-     "z": {
-      "min": 6.0,
-      "max": 6.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
    },
    {
     "moduleId": "mod_kenney_detail_beam",
@@ -10043,7 +9773,7 @@
   "checks": {
    "groundContactInsideFootprint": true,
    "groundToleranceMeters": 0.05,
-   "distinctModuleIds": 13,
+   "distinctModuleIds": 12,
    "distinctSources": 9,
    "supportTriangleShare": 0.0,
    "elevationTreatmentLadders": [
@@ -10053,9 +9783,9 @@
    ]
   },
   "metrics": {
-   "placements": 146,
-   "meshObjects": 146,
-   "distinctModuleIds": 13,
+   "placements": 142,
+   "meshObjects": 142,
+   "distinctModuleIds": 12,
    "sources": [
     "src_kenney_building_kit",
     "src_kenney_city_commercial",
@@ -10067,8 +9797,8 @@
     "src_quaternius_downtown_city_megakit",
     "src_quaternius_ultimate_buildings"
    ],
-   "triangles": 12754,
-   "licensedTriangles": 12754,
+   "triangles": 12418,
+   "licensedTriangles": 12418,
    "supportTriangles": 0,
    "licensedGeometryRatio": 1.0,
    "materials": [
@@ -10091,14 +9821,12 @@
     "gn_painted_metal",
     "gn_stone_trim",
     "metal",
-    "planks",
     "roof"
    ],
    "textures": [
     "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
     "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
     "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
-    "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
     "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
     "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
     "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
@@ -10116,7 +9844,7 @@
     "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
    ]
   },
-  "compositionSignature": "38cb309ac36eb2af655c9c4e89a19ba61bd9623b9dbc612d260debd38764eff5"
+  "compositionSignature": "49b1ba0e68e3d7859738c7ea046929870a4c73408f9e7382851d8d666a58d211"
  },
  "candidateProfile": "gn_residential_v2",
  "candidateOverlay": [

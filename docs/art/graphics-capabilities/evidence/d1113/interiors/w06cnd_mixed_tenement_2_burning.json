@@ -11,7 +11,7 @@
  "styleProfileId": "graphic_civic_buildings_v1",
  "moodId": "day_civic",
  "materialExperiment": null,
- "compositionSignature": "59e4d099a49b16aebe8b04f4fec1f0ed657ba202e87a059fa8fa179f1a253a86",
+ "compositionSignature": "848ee068f2c6bc68c047d62cba2a23f8ed6470772e7ad03a8b22e152a75eeb16",
  "axisChoices": {
   "massing": "uniform_block",
   "facade": "brick_commercial",
@@ -43,13 +43,13 @@
   },
   "z": {
    "min": 0.0,
-   "max": 12.724242424242426
+   "max": 13.249494949494949
   }
  },
  "envelopeMeters": {
   "x": 16.2,
   "y": 9.395,
-  "z": 12.724
+  "z": 13.249
  },
  "volumes": [
   {
@@ -1068,7 +1068,7 @@
    "rotationDegrees": 180,
    "position": [
     -7.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1078,7 +1078,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1099,7 +1099,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1109,7 +1109,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1130,7 +1130,7 @@
    "rotationDegrees": 180,
    "position": [
     -3.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1140,7 +1140,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1161,7 +1161,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1171,7 +1171,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1192,7 +1192,7 @@
    "rotationDegrees": 180,
    "position": [
     3.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1202,7 +1202,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1223,7 +1223,7 @@
    "rotationDegrees": 180,
    "position": [
     5.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1233,7 +1233,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1254,7 +1254,7 @@
    "rotationDegrees": 180,
    "position": [
     7.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1264,7 +1264,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1285,7 +1285,7 @@
    "rotationDegrees": 0,
    "position": [
     -7.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1294,7 +1294,7 @@
      "max": -6.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1316,7 +1316,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1325,7 +1325,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1347,7 +1347,7 @@
    "rotationDegrees": 0,
    "position": [
     -3.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1356,7 +1356,7 @@
      "max": -2.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1378,7 +1378,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1387,7 +1387,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1409,7 +1409,7 @@
    "rotationDegrees": 0,
    "position": [
     1.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1418,7 +1418,7 @@
      "max": 2.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1440,7 +1440,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1449,7 +1449,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1471,7 +1471,7 @@
    "rotationDegrees": 0,
    "position": [
     5.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1480,7 +1480,7 @@
      "max": 6.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1502,7 +1502,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1511,7 +1511,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1532,14 +1532,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     -3.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": -4.0,
@@ -1563,14 +1563,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     -1.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": -2.0,
@@ -1594,14 +1594,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     1.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": 0.0,
@@ -1625,14 +1625,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     3.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": 2.0,
@@ -1656,13 +1656,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     -3.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1687,13 +1687,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     -1.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1718,13 +1718,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     1.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1749,13 +1749,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     3.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1812,7 +1812,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -1822,7 +1822,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -1874,7 +1874,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -1884,7 +1884,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -1936,7 +1936,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -1945,7 +1945,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1998,7 +1998,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2007,7 +2007,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2060,7 +2060,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2069,7 +2069,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2122,7 +2122,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2131,7 +2131,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2432,7 +2432,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2442,7 +2442,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2494,7 +2494,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2504,7 +2504,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2556,7 +2556,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2565,7 +2565,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2618,7 +2618,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2627,7 +2627,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2680,7 +2680,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2689,7 +2689,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2742,7 +2742,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2751,7 +2751,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -4168,7 +4168,7 @@
    "rotationDegrees": 0,
    "position": [
     2.0,
-    0.018,
+    0.1,
     3.0
    ],
    "bounds": {
@@ -4177,8 +4177,8 @@
      "max": 3.0
     },
     "y": {
-     "min": -0.9818181818181819,
-     "max": 1.018181818181818
+     "min": -0.9000000000000001,
+     "max": 1.0999999999999999
     },
     "z": {
      "min": 3.0,
@@ -4199,7 +4199,7 @@
    "rotationDegrees": 0,
    "position": [
     6.0,
-    -0.388,
+    -0.25,
     3.0
    ],
    "bounds": {
@@ -4208,8 +4208,8 @@
      "max": 7.0
     },
     "y": {
-     "min": -1.387878787878788,
-     "max": 0.6121212121212121
+     "min": -1.25,
+     "max": 0.7499999999999999
     },
     "z": {
      "min": 3.0,
@@ -4229,14 +4229,14 @@
    "license": "CC0-1.0",
    "rotationDegrees": 90,
    "position": [
-    4.493,
+    4.7,
     -1.74,
     3.0
    ],
    "bounds": {
     "x": {
-     "min": 4.392929292929294,
-     "max": 4.592929292929293
+     "min": 4.6000000000000005,
+     "max": 4.8
     },
     "y": {
      "min": -2.7400000000000007,
@@ -4261,7 +4261,7 @@
    "rotationDegrees": 0,
    "position": [
     6.4,
-    -0.064,
+    0.2,
     3.0
    ],
    "bounds": {
@@ -4270,8 +4270,8 @@
      "max": 7.050000000000001
     },
     "y": {
-     "min": -2.0636363636363635,
-     "max": 1.9363636363636363
+     "min": -1.8,
+     "max": 2.1999999999999997
     },
     "z": {
      "min": 3.0,
@@ -4284,68 +4284,6 @@
    "purpose": "damage:interior:stair"
   },
   {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 180,
-   "position": [
-    1.76,
-    -0.348,
-    3.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 1.26,
-     "max": 2.26
-    },
-    "y": {
-     "min": -0.8484848484848486,
-     "max": 0.15151515151515144
-    },
-    "z": {
-     "min": 3.0,
-     "max": 3.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 270,
-   "position": [
-    4.4,
-    -0.094,
-    3.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 3.9000000000000004,
-     "max": 4.9
-    },
-    "y": {
-     "min": -0.593939393939394,
-     "max": 0.406060606060606
-    },
-    "z": {
-     "min": 3.0,
-     "max": 3.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
-  },
-  {
    "moduleId": "mod_megakit_floor_slab_2m",
    "role": "slab",
    "sourceId": "src_quaternius_downtown_city_megakit",
@@ -4354,7 +4292,7 @@
    "rotationDegrees": 0,
    "position": [
     2.0,
-    -0.018,
+    0.3,
     6.0
    ],
    "bounds": {
@@ -4363,8 +4301,8 @@
      "max": 3.0
     },
     "y": {
-     "min": -1.0181818181818183,
-     "max": 0.9818181818181817
+     "min": -0.7000000000000001,
+     "max": 1.2999999999999998
     },
     "z": {
      "min": 6.0,
@@ -4385,7 +4323,7 @@
    "rotationDegrees": 0,
    "position": [
     6.0,
-    -0.115,
+    -0.4,
     6.0
    ],
    "bounds": {
@@ -4394,8 +4332,8 @@
      "max": 7.0
     },
     "y": {
-     "min": -1.1151515151515152,
-     "max": 0.8848484848484848
+     "min": -1.4000000000000001,
+     "max": 0.5999999999999999
     },
     "z": {
      "min": 6.0,
@@ -4415,14 +4353,14 @@
    "license": "CC0-1.0",
    "rotationDegrees": 90,
    "position": [
-    3.232,
+    3.3,
     -1.74,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.132323232323232,
-     "max": 3.3323232323232324
+     "min": 3.1999999999999997,
+     "max": 3.4
     },
     "y": {
      "min": -2.7400000000000007,
@@ -4437,68 +4375,6 @@
    "meshObjects": 1,
    "elevationReach": "en_bruto",
    "purpose": "damage:interior:partition"
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 0,
-   "position": [
-    1.76,
-    -0.445,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 1.26,
-     "max": 2.26
-    },
-    "y": {
-     "min": -0.9454545454545455,
-     "max": 0.05454545454545445
-    },
-    "z": {
-     "min": 6.0,
-     "max": 6.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "role": "interior_prop",
-   "sourceId": "src_kenney_retro_urban_kit",
-   "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-   "license": "CC0-1.0",
-   "rotationDegrees": 90,
-   "position": [
-    4.4,
-    -0.215,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 3.9000000000000004,
-     "max": 4.9
-    },
-    "y": {
-     "min": -0.7151515151515152,
-     "max": 0.2848484848484848
-    },
-    "z": {
-     "min": 6.0,
-     "max": 6.15
-    }
-   },
-   "triangles": 84,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "damage:interior:prop"
   },
   {
    "moduleId": "mod_kenney_detail_beam",
@@ -4602,24 +4478,24 @@
    "sourceId": "src_original_fire_flame",
    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
    "license": "original",
-   "rotationDegrees": 180,
+   "rotationDegrees": 90,
    "position": [
-    2.779,
-    -2.211,
+    1.025,
+    -2.056,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 2.08466668970298,
-     "max": 3.4729090678727768
+     "min": 0.3681672773186411,
+     "max": 1.6823377731864095
     },
     "y": {
-     "min": -2.8331065019283743,
-     "max": -1.5881056192837464
+     "min": -2.84907909391435,
+     "max": -1.263042118206862
     },
     "z": {
      "min": 6.0,
-     "max": 8.986363636363636
+     "max": 9.204545454545453
     }
    },
    "triangles": 240,
@@ -4627,9 +4503,157 @@
    "elevationReach": "en_bruto",
    "purpose": "fire:flame",
    "scale": [
-    1.725,
-    1.776,
-    2.986
+    1.971,
+    1.874,
+    3.205
+   ]
+  },
+  {
+   "moduleId": "mod_original_fire_flame",
+   "role": "flame",
+   "sourceId": "src_original_fire_flame",
+   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+   "license": "original",
+   "rotationDegrees": 90,
+   "position": [
+    0.9,
+    -2.824,
+    6.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 0.4456687603305785,
+     "max": 1.3543312396694216
+    },
+    "y": {
+     "min": -3.321491964270807,
+     "max": -2.3259827832039406
+    },
+    "z": {
+     "min": 6.0,
+     "max": 7.745454545454545
+    }
+   },
+   "triangles": 240,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "fire:flame",
+   "mirrorX": true,
+   "scale": [
+    1.237,
+    1.296,
+    1.745
+   ]
+  },
+  {
+   "moduleId": "mod_original_fire_flame",
+   "role": "flame",
+   "sourceId": "src_original_fire_flame",
+   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+   "license": "original",
+   "rotationDegrees": 180,
+   "position": [
+    0.9,
+    -2.678,
+    6.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 0.46276149457817845,
+     "max": 1.3372385054218217
+    },
+    "y": {
+     "min": -3.070406231037649,
+     "max": -2.2861594255280075
+    },
+    "z": {
+     "min": 6.0,
+     "max": 7.618787878787879
+    }
+   },
+   "triangles": 240,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "fire:flame",
+   "mirrorX": true,
+   "scale": [
+    1.087,
+    1.118,
+    1.619
+   ]
+  },
+  {
+   "moduleId": "mod_original_fire_flame",
+   "role": "flame",
+   "sourceId": "src_original_fire_flame",
+   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+   "license": "original",
+   "rotationDegrees": 0,
+   "position": [
+    1.056,
+    -2.662,
+    6.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 0.37401455723694266,
+     "max": 1.7370965538741685
+    },
+    "y": {
+     "min": -3.242905404591368,
+     "max": -2.0813370196510563
+    },
+    "z": {
+     "min": 6.0,
+     "max": 7.872121212121212
+    }
+   },
+   "triangles": 240,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "fire:flame",
+   "mirrorX": true,
+   "scale": [
+    1.694,
+    1.657,
+    1.872
+   ]
+  },
+  {
+   "moduleId": "mod_original_fire_flame",
+   "role": "flame",
+   "sourceId": "src_original_fire_flame",
+   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+   "license": "original",
+   "rotationDegrees": 180,
+   "position": [
+    3.28,
+    -0.414,
+    6.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 2.5286117825968777,
+     "max": 4.030984176999081
+    },
+    "y": {
+     "min": -1.1098999542699723,
+     "max": 0.2826272269972457
+    },
+    "z": {
+     "min": 6.0,
+     "max": 9.653030303030302
+    }
+   },
+   "triangles": 240,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "fire:flame",
+   "mirrorX": true,
+   "scale": [
+    1.867,
+    1.986,
+    3.653
    ]
   },
   {
@@ -4640,92 +4664,18 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    2.761,
-    -2.17,
+    3.637,
+    0.289,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 2.2915360991735536,
-     "max": 3.229676022038567
+     "min": 3.189543246280991,
+     "max": 4.085204228466482
     },
     "y": {
-     "min": -2.6697473797545705,
-     "max": -1.67065666064947
-    },
-    "z": {
-     "min": 6.0,
-     "max": 8.102424242424242
-    }
-   },
-   "triangles": 240,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "fire:flame",
-   "mirrorX": true,
-   "scale": [
-    1.241,
-    1.338,
-    2.102
-   ]
-  },
-  {
-   "moduleId": "mod_original_fire_flame",
-   "role": "flame",
-   "sourceId": "src_original_fire_flame",
-   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-   "license": "original",
-   "rotationDegrees": 180,
-   "position": [
-    2.615,
-    -1.54,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 2.1239605694765835,
-     "max": 3.106342460826446
-    },
-    "y": {
-     "min": -1.9951767529843893,
-     "max": -1.0846212268135904
-    },
-    "z": {
-     "min": 6.0,
-     "max": 7.457575757575757
-    }
-   },
-   "triangles": 240,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "fire:flame",
-   "mirrorX": true,
-   "scale": [
-    1.221,
-    1.299,
-    1.458
-   ]
-  },
-  {
-   "moduleId": "mod_original_fire_flame",
-   "role": "flame",
-   "sourceId": "src_original_fire_flame",
-   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-   "license": "original",
-   "rotationDegrees": 270,
-   "position": [
-    3.136,
-    -1.508,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 2.68853314527089,
-     "max": 3.5841941274563816
-    },
-    "y": {
-     "min": -1.9533504505524666,
-     "max": -1.061801064599048
+     "min": -0.15638075358276948,
+     "max": 0.7351686323706491
     },
     "z": {
      "min": 6.0,
@@ -4751,18 +4701,18 @@
    "license": "original",
    "rotationDegrees": 180,
    "position": [
-    2.652,
-    -1.702,
+    3.153,
+    0.095,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 2.304715720585691,
-     "max": 2.998314582444611
+     "min": 2.805725821595792,
+     "max": 3.499324683454712
     },
     "y": {
-     "min": -2.012531155922865,
-     "max": -1.390499147107438
+     "min": -0.2155614589531678,
+     "max": 0.4064705498622593
     },
     "z": {
      "min": 6.0,
@@ -4787,33 +4737,32 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    4.532,
-    -0.068,
+    3.068,
+    0.144,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.9985854389348026,
-     "max": 5.0660610257116625
+     "min": 2.624265961432507,
+     "max": 3.5110875739210283
     },
     "y": {
-     "min": -0.7301565541497618,
-     "max": 0.5937929177861262
+     "min": -0.39613617913125704,
+     "max": 0.6840149670100457
     },
     "z": {
      "min": 6.0,
-     "max": 8.937878787878788
+     "max": 7.63030303030303
     }
    },
    "triangles": 240,
    "meshObjects": 1,
    "elevationReach": "en_bruto",
    "purpose": "fire:flame",
-   "mirrorX": true,
    "scale": [
-    1.645,
-    1.522,
-    2.938
+    1.342,
+    1.265,
+    1.63
    ]
   },
   {
@@ -4824,22 +4773,22 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    4.005,
-    0.586,
+    6.599,
+    2.02,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.420667777303615,
-     "max": 4.589433232797395
+     "min": 5.949022299326488,
+     "max": 7.24895749865331
     },
     "y": {
-     "min": 0.0041680293847570216,
-     "max": 1.1685592433425165
+     "min": 1.3721619498622584,
+     "max": 2.66723198953168
     },
     "z": {
      "min": 6.0,
-     "max": 8.067878787878788
+     "max": 9.64090909090909
     }
    },
    "triangles": 240,
@@ -4847,9 +4796,9 @@
    "elevationReach": "en_bruto",
    "purpose": "fire:flame",
    "scale": [
-    1.452,
-    1.661,
-    2.068
+    1.615,
+    1.847,
+    3.641
    ]
   },
   {
@@ -4860,18 +4809,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    4.357,
-    -0.626,
+    6.423,
+    1.462,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.874906217271336,
-     "max": 4.838225095859977
+     "min": 5.941572883938003,
+     "max": 6.904891762526644
     },
     "y": {
-     "min": -1.0545088591368224,
-     "max": -0.19700629237832834
+     "min": 1.0333699287419644,
+     "max": 1.8908724955004585
     },
     "z": {
      "min": 6.0,
@@ -4896,18 +4845,18 @@
    "license": "original",
    "rotationDegrees": 0,
    "position": [
-    4.138,
-    -0.658,
+    6.205,
+    1.43,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 3.6540898251406633,
-     "max": 4.622677851627015
+     "min": 5.72075649180733,
+     "max": 6.689344518293681
     },
     "y": {
-     "min": -1.132668936639118,
-     "max": -0.18349267952249737
+     "min": 0.9552098512396688,
+     "max": 1.9043861083562894
     },
     "z": {
      "min": 6.0,
@@ -4933,32 +4882,33 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    1.276,
-    2.356,
+    6.447,
+    2.61,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 0.7463003862258955,
-     "max": 1.8052147652892563
+     "min": 6.014268365105601,
+     "max": 6.880681129843894
     },
     "y": {
-     "min": 1.8334534388099168,
-     "max": 2.878667773311294
+     "min": 2.1205209385330988,
+     "max": 3.098670980658819
     },
     "z": {
      "min": 6.0,
-     "max": 8.998484848484848
+     "max": 7.998787878787879
     }
    },
    "triangles": 240,
    "meshObjects": 1,
    "elevationReach": "en_bruto",
    "purpose": "fire:flame",
+   "mirrorX": true,
    "scale": [
-    1.299,
-    1.51,
-    2.998
+    1.215,
+    1.236,
+    1.999
    ]
   },
   {
@@ -4967,24 +4917,24 @@
    "sourceId": "src_original_fire_flame",
    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
    "license": "original",
-   "rotationDegrees": 90,
+   "rotationDegrees": 0,
    "position": [
-    1.645,
-    2.639,
+    6.811,
+    2.739,
     6.0
    ],
    "bounds": {
     "x": {
-     "min": 1.2432864044077134,
-     "max": 2.0476226865013776
+     "min": 6.344904116230069,
+     "max": 7.277318105992153
     },
     "y": {
-     "min": 2.1703079792303193,
-     "max": 3.1074697985474575
+     "min": 2.354368580348943,
+     "max": 3.123409197428833
     },
     "z": {
      "min": 6.0,
-     "max": 7.296363636363637
+     "max": 7.63030303030303
     }
    },
    "triangles": 240,
@@ -4992,9 +4942,81 @@
    "elevationReach": "en_bruto",
    "purpose": "fire:flame",
    "scale": [
-    1.164,
-    1.147,
-    1.296
+    1.159,
+    1.097,
+    1.63
+   ]
+  },
+  {
+   "moduleId": "mod_original_fire_flame",
+   "role": "flame",
+   "sourceId": "src_original_fire_flame",
+   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+   "license": "original",
+   "rotationDegrees": 0,
+   "position": [
+    7.0,
+    -3.838,
+    6.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 6.782704,
+     "max": 7.217296
+    },
+    "y": {
+     "min": -4.027824,
+     "max": -3.6491759999999998
+    },
+    "z": {
+     "min": 6.0,
+     "max": 6.6
+    }
+   },
+   "triangles": 240,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "fire:flame:window",
+   "scale": [
+    0.54,
+    0.54,
+    0.6
+   ]
+  },
+  {
+   "moduleId": "mod_original_fire_flame",
+   "role": "flame",
+   "sourceId": "src_original_fire_flame",
+   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+   "license": "original",
+   "rotationDegrees": 0,
+   "position": [
+    1.0,
+    -3.9,
+    3.0
+   ],
+   "bounds": {
+    "x": {
+     "min": 0.824956,
+     "max": 1.175044
+    },
+    "y": {
+     "min": -4.052511,
+     "max": -3.747489
+    },
+    "z": {
+     "min": 3.0,
+     "max": 3.4833333333333334
+    }
+   },
+   "triangles": 240,
+   "meshObjects": 1,
+   "elevationReach": "en_bruto",
+   "purpose": "fire:flame:window",
+   "scale": [
+    0.435,
+    0.435,
+    0.483
    ]
   },
   {
@@ -5005,131 +5027,22 @@
    "license": "original",
    "rotationDegrees": 180,
    "position": [
-    1.209,
-    2.283,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 0.467093273858586,
-     "max": 1.9510885443232324
-    },
-    "y": {
-     "min": 1.6837294222222217,
-     "max": 2.882937244444444
-    },
-    "z": {
-     "min": 6.0,
-     "max": 7.906666666666666
-    }
-   },
-   "triangles": 240,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "fire:flame",
-   "scale": [
-    1.844,
-    1.71,
-    1.907
-   ]
-  },
-  {
-   "moduleId": "mod_original_fire_flame",
-   "role": "flame",
-   "sourceId": "src_original_fire_flame",
-   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-   "license": "original",
-   "rotationDegrees": 0,
-   "position": [
-    1.791,
-    2.203,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 1.3008078941952863,
-     "max": 2.2810102876228955
-    },
-    "y": {
-     "min": 1.7596784969696964,
-     "max": 2.6453720080808076
-    },
-    "z": {
-     "min": 6.0,
-     "max": 7.722424242424243
-    }
-   },
-   "triangles": 240,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "fire:flame",
-   "mirrorX": true,
-   "scale": [
-    1.218,
-    1.263,
-    1.722
-   ]
-  },
-  {
-   "moduleId": "mod_original_fire_flame",
-   "role": "flame",
-   "sourceId": "src_original_fire_flame",
-   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-   "license": "original",
-   "rotationDegrees": 0,
-   "position": [
     7.0,
-    -3.8,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 6.7187224,
-     "max": 7.2812776
-    },
-    "y": {
-     "min": -4.0450694,
-     "max": -3.5549305999999996
-    },
-    "z": {
-     "min": 6.0,
-     "max": 6.776666666666666
-    }
-   },
-   "triangles": 240,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "fire:flame:window",
-   "scale": [
-    0.699,
-    0.699,
-    0.777
-   ]
-  },
-  {
-   "moduleId": "mod_original_fire_flame",
-   "role": "flame",
-   "sourceId": "src_original_fire_flame",
-   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-   "license": "original",
-   "rotationDegrees": 0,
-   "position": [
-    7.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
     "x": {
-     "min": 6.776668,
-     "max": 7.223332
+     "min": 6.7754608,
+     "max": 7.2245392
     },
     "y": {
-     "min": -3.994583,
-     "max": -3.6054169999999996
+     "min": -4.0341347999999995,
+     "max": -3.6428651999999997
     },
     "z": {
      "min": 3.0,
-     "max": 3.6166666666666667
+     "max": 3.62
     }
    },
    "triangles": 240,
@@ -5137,45 +5050,9 @@
    "elevationReach": "en_bruto",
    "purpose": "fire:flame:window",
    "scale": [
-    0.555,
-    0.555,
-    0.617
-   ]
-  },
-  {
-   "moduleId": "mod_original_fire_flame",
-   "role": "flame",
-   "sourceId": "src_original_fire_flame",
-   "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-   "license": "original",
-   "rotationDegrees": 0,
-   "position": [
-    3.0,
-    -3.8,
-    6.0
-   ],
-   "bounds": {
-    "x": {
-     "min": 2.800812,
-     "max": 3.199188
-    },
-    "y": {
-     "min": -3.973547,
-     "max": -3.6264529999999997
-    },
-    "z": {
-     "min": 6.0,
-     "max": 6.55
-    }
-   },
-   "triangles": 240,
-   "meshObjects": 1,
-   "elevationReach": "en_bruto",
-   "purpose": "fire:flame:window",
-   "scale": [
-    0.495,
-    0.495,
-    0.55
+    0.558,
+    0.558,
+    0.62
    ]
   },
   {
@@ -5184,24 +5061,24 @@
    "sourceId": "src_original_fire_smoke",
    "sourcePath": "blender_artist/sources/original/fire_smoke.glb",
    "license": "original",
-   "rotationDegrees": 90,
+   "rotationDegrees": 0,
    "position": [
-    2.865,
-    -0.018,
-    7.924
+    3.842,
+    0.018,
+    8.449
    ],
    "bounds": {
     "x": {
-     "min": 2.3696588770154796,
-     "max": 3.3612740173451123
+     "min": 3.2669025870385107,
+     "max": 4.417719928900629
     },
     "y": {
-     "min": -0.5933810555981645,
-     "max": 0.5574362862639537
+     "min": -0.47061012409139896,
+     "max": 0.5066626518140203
     },
     "z": {
-     "min": 7.924242424242425,
-     "max": 9.357078245137947
+     "min": 8.449494949494948,
+     "max": 9.882330770390471
     }
    },
    "triangles": 672,
@@ -5210,7 +5087,7 @@
    "purpose": "fire:smoke",
    "scale": [
     0.734,
-    0.738,
+    0.727,
     0.734
    ]
   },
@@ -5220,24 +5097,24 @@
    "sourceId": "src_original_fire_smoke",
    "sourcePath": "blender_artist/sources/original/fire_smoke.glb",
    "license": "original",
-   "rotationDegrees": 90,
+   "rotationDegrees": 270,
    "position": [
-    2.523,
-    0.169,
-    8.641
+    4.145,
+    -0.147,
+    9.166
    ],
    "bounds": {
     "x": {
-     "min": 1.7517655601199957,
-     "max": 3.294167334240596
+     "min": 3.4130518730758563,
+     "max": 4.876570642863284
     },
     "y": {
-     "min": -0.6942672092455123,
-     "max": 1.0319588035476652
+     "min": -1.010086742535278,
+     "max": 0.7161392702578993
     },
     "z": {
-     "min": 8.640660334690185,
-     "max": 10.78991406603347
+     "min": 9.16591285994271,
+     "max": 11.315166591285994
     }
    },
    "triangles": 672,
@@ -5246,7 +5123,7 @@
    "purpose": "fire:smoke",
    "scale": [
     1.1,
-    1.148,
+    1.089,
     1.1
    ]
   },
@@ -5258,22 +5135,22 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    2.18,
-    0.356,
-    9.715
+    4.447,
+    -0.312,
+    10.241
    ],
    "bounds": {
     "x": {
-     "min": 1.18110244607147,
-     "max": 3.1798304482891218
+     "min": 3.457986911957694,
+     "max": 5.436635603981447
     },
     "y": {
-     "min": -0.8526942299859661,
-     "max": 1.5640221879244824
+     "min": -1.5203319450939135,
+     "max": 0.8963844728165347
     },
     "z": {
-     "min": 9.715287200361828,
-     "max": 12.724242424242426
+     "min": 10.24053972561435,
+     "max": 13.249494949494949
     }
    },
    "triangles": 672,
@@ -5282,7 +5159,7 @@
    "purpose": "fire:smoke",
    "scale": [
     1.541,
-    1.487,
+    1.472,
     1.541
    ]
   }
@@ -5307,24 +5184,24 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    2.779,
-    -2.211,
+    1.025,
+    -2.056,
     6.0
    ],
-   "rotationDegrees": 180,
+   "rotationDegrees": 90,
    "mirrorX": false,
    "scale": [
-    1.725,
-    1.776,
-    2.986
+    1.971,
+    1.874,
+    3.205
    ],
    "zRangeMeters": [
     6.0,
-    8.986
+    9.205
    ],
    "footprintMeters": {
-    "width": 1.388,
-    "depth": 1.245
+    "width": 1.314,
+    "depth": 1.586
    }
   },
   {
@@ -5332,24 +5209,24 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    2.761,
-    -2.17,
+    0.9,
+    -2.824,
     6.0
    ],
-   "rotationDegrees": 270,
+   "rotationDegrees": 90,
    "mirrorX": true,
    "scale": [
-    1.241,
-    1.338,
-    2.102
+    1.237,
+    1.296,
+    1.745
    ],
    "zRangeMeters": [
     6.0,
-    8.102
+    7.745
    ],
    "footprintMeters": {
-    "width": 0.938,
-    "depth": 0.999
+    "width": 0.909,
+    "depth": 0.996
    }
   },
   {
@@ -5357,24 +5234,24 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    2.615,
-    -1.54,
+    0.9,
+    -2.678,
     6.0
    ],
    "rotationDegrees": 180,
    "mirrorX": true,
    "scale": [
-    1.221,
-    1.299,
-    1.458
+    1.087,
+    1.118,
+    1.619
    ],
    "zRangeMeters": [
     6.0,
-    7.458
+    7.619
    ],
    "footprintMeters": {
-    "width": 0.982,
-    "depth": 0.911
+    "width": 0.874,
+    "depth": 0.784
    }
   },
   {
@@ -5382,8 +5259,58 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    3.136,
-    -1.508,
+    1.056,
+    -2.662,
+    6.0
+   ],
+   "rotationDegrees": 0,
+   "mirrorX": true,
+   "scale": [
+    1.694,
+    1.657,
+    1.872
+   ],
+   "zRangeMeters": [
+    6.0,
+    7.872
+   ],
+   "footprintMeters": {
+    "width": 1.363,
+    "depth": 1.162
+   }
+  },
+  {
+   "focus": "fire:flame:4",
+   "purpose": "fire:flame",
+   "moduleId": "mod_original_fire_flame",
+   "position": [
+    3.28,
+    -0.414,
+    6.0
+   ],
+   "rotationDegrees": 180,
+   "mirrorX": true,
+   "scale": [
+    1.867,
+    1.986,
+    3.653
+   ],
+   "zRangeMeters": [
+    6.0,
+    9.653
+   ],
+   "footprintMeters": {
+    "width": 1.502,
+    "depth": 1.393
+   }
+  },
+  {
+   "focus": "fire:flame:5",
+   "purpose": "fire:flame",
+   "moduleId": "mod_original_fire_flame",
+   "position": [
+    3.637,
+    0.289,
     6.0
    ],
    "rotationDegrees": 270,
@@ -5403,12 +5330,12 @@
    }
   },
   {
-   "focus": "fire:flame:4",
+   "focus": "fire:flame:6",
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    2.652,
-    -1.702,
+    3.153,
+    0.095,
     6.0
    ],
    "rotationDegrees": 180,
@@ -5428,62 +5355,62 @@
    }
   },
   {
-   "focus": "fire:flame:5",
+   "focus": "fire:flame:7",
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    4.532,
-    -0.068,
+    3.068,
+    0.144,
     6.0
    ],
    "rotationDegrees": 270,
-   "mirrorX": true,
+   "mirrorX": false,
    "scale": [
-    1.645,
-    1.522,
-    2.938
+    1.342,
+    1.265,
+    1.63
    ],
    "zRangeMeters": [
     6.0,
-    8.938
+    7.63
    ],
    "footprintMeters": {
-    "width": 1.067,
-    "depth": 1.324
+    "width": 0.887,
+    "depth": 1.08
    }
   },
   {
-   "focus": "fire:flame:6",
+   "focus": "fire:flame:8",
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    4.005,
-    0.586,
+    6.599,
+    2.02,
     6.0
    ],
    "rotationDegrees": 0,
    "mirrorX": false,
    "scale": [
-    1.452,
-    1.661,
-    2.068
+    1.615,
+    1.847,
+    3.641
    ],
    "zRangeMeters": [
     6.0,
-    8.068
+    9.641
    ],
    "footprintMeters": {
-    "width": 1.169,
-    "depth": 1.164
+    "width": 1.3,
+    "depth": 1.295
    }
   },
   {
-   "focus": "fire:flame:7",
+   "focus": "fire:flame:9",
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    4.357,
-    -0.626,
+    6.423,
+    1.462,
     6.0
    ],
    "rotationDegrees": 0,
@@ -5503,12 +5430,12 @@
    }
   },
   {
-   "focus": "fire:flame:8",
+   "focus": "fire:flame:10",
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    4.138,
-    -0.658,
+    6.205,
+    1.43,
     6.0
    ],
    "rotationDegrees": 0,
@@ -5528,78 +5455,28 @@
    }
   },
   {
-   "focus": "fire:flame:9",
-   "purpose": "fire:flame",
-   "moduleId": "mod_original_fire_flame",
-   "position": [
-    1.276,
-    2.356,
-    6.0
-   ],
-   "rotationDegrees": 270,
-   "mirrorX": false,
-   "scale": [
-    1.299,
-    1.51,
-    2.998
-   ],
-   "zRangeMeters": [
-    6.0,
-    8.998
-   ],
-   "footprintMeters": {
-    "width": 1.059,
-    "depth": 1.045
-   }
-  },
-  {
-   "focus": "fire:flame:10",
-   "purpose": "fire:flame",
-   "moduleId": "mod_original_fire_flame",
-   "position": [
-    1.645,
-    2.639,
-    6.0
-   ],
-   "rotationDegrees": 90,
-   "mirrorX": false,
-   "scale": [
-    1.164,
-    1.147,
-    1.296
-   ],
-   "zRangeMeters": [
-    6.0,
-    7.296
-   ],
-   "footprintMeters": {
-    "width": 0.804,
-    "depth": 0.937
-   }
-  },
-  {
    "focus": "fire:flame:11",
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    1.209,
-    2.283,
+    6.447,
+    2.61,
     6.0
    ],
-   "rotationDegrees": 180,
-   "mirrorX": false,
+   "rotationDegrees": 270,
+   "mirrorX": true,
    "scale": [
-    1.844,
-    1.71,
-    1.907
+    1.215,
+    1.236,
+    1.999
    ],
    "zRangeMeters": [
     6.0,
-    7.907
+    7.999
    ],
    "footprintMeters": {
-    "width": 1.484,
-    "depth": 1.199
+    "width": 0.866,
+    "depth": 0.978
    }
   },
   {
@@ -5607,24 +5484,24 @@
    "purpose": "fire:flame",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    1.791,
-    2.203,
+    6.811,
+    2.739,
     6.0
    ],
    "rotationDegrees": 0,
-   "mirrorX": true,
+   "mirrorX": false,
    "scale": [
-    1.218,
-    1.263,
-    1.722
+    1.159,
+    1.097,
+    1.63
    ],
    "zRangeMeters": [
     6.0,
-    7.722
+    7.63
    ],
    "footprintMeters": {
-    "width": 0.98,
-    "depth": 0.886
+    "width": 0.932,
+    "depth": 0.769
    }
   },
   {
@@ -5633,23 +5510,23 @@
    "moduleId": "mod_original_fire_flame",
    "position": [
     7.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "rotationDegrees": 0,
    "mirrorX": false,
    "scale": [
-    0.699,
-    0.699,
-    0.777
+    0.54,
+    0.54,
+    0.6
    ],
    "zRangeMeters": [
     6.0,
-    6.777
+    6.6
    ],
    "footprintMeters": {
-    "width": 0.563,
-    "depth": 0.49
+    "width": 0.435,
+    "depth": 0.379
    }
   },
   {
@@ -5657,24 +5534,24 @@
    "purpose": "fire:flame:window",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    7.0,
-    -3.8,
+    1.0,
+    -3.9,
     3.0
    ],
    "rotationDegrees": 0,
    "mirrorX": false,
    "scale": [
-    0.555,
-    0.555,
-    0.617
+    0.435,
+    0.435,
+    0.483
    ],
    "zRangeMeters": [
     3.0,
-    3.617
+    3.483
    ],
    "footprintMeters": {
-    "width": 0.447,
-    "depth": 0.389
+    "width": 0.35,
+    "depth": 0.305
    }
   },
   {
@@ -5682,24 +5559,24 @@
    "purpose": "fire:flame:window",
    "moduleId": "mod_original_fire_flame",
    "position": [
-    3.0,
-    -3.8,
-    6.0
+    7.0,
+    -3.838,
+    3.0
    ],
-   "rotationDegrees": 0,
+   "rotationDegrees": 180,
    "mirrorX": false,
    "scale": [
-    0.495,
-    0.495,
-    0.55
+    0.558,
+    0.558,
+    0.62
    ],
    "zRangeMeters": [
-    6.0,
-    6.55
+    3.0,
+    3.62
    ],
    "footprintMeters": {
-    "width": 0.398,
-    "depth": 0.347
+    "width": 0.449,
+    "depth": 0.391
    }
   },
   {
@@ -5707,24 +5584,24 @@
    "purpose": "fire:smoke",
    "moduleId": "mod_original_fire_smoke",
    "position": [
-    2.865,
-    -0.018,
-    7.924
+    3.842,
+    0.018,
+    8.449
    ],
-   "rotationDegrees": 90,
+   "rotationDegrees": 0,
    "mirrorX": false,
    "scale": [
     0.734,
-    0.738,
+    0.727,
     0.734
    ],
    "zRangeMeters": [
-    7.924,
-    9.357
+    8.449,
+    9.882
    ],
    "footprintMeters": {
-    "width": 0.992,
-    "depth": 1.151
+    "width": 1.151,
+    "depth": 0.977
    }
   },
   {
@@ -5732,23 +5609,23 @@
    "purpose": "fire:smoke",
    "moduleId": "mod_original_fire_smoke",
    "position": [
-    2.523,
-    0.169,
-    8.641
+    4.145,
+    -0.147,
+    9.166
    ],
-   "rotationDegrees": 90,
+   "rotationDegrees": 270,
    "mirrorX": false,
    "scale": [
     1.1,
-    1.148,
+    1.089,
     1.1
    ],
    "zRangeMeters": [
-    8.641,
-    10.79
+    9.166,
+    11.315
    ],
    "footprintMeters": {
-    "width": 1.542,
+    "width": 1.464,
     "depth": 1.726
    }
   },
@@ -5757,23 +5634,23 @@
    "purpose": "fire:smoke",
    "moduleId": "mod_original_fire_smoke",
    "position": [
-    2.18,
-    0.356,
-    9.715
+    4.447,
+    -0.312,
+    10.241
    ],
    "rotationDegrees": 270,
    "mirrorX": false,
    "scale": [
     1.541,
-    1.487,
+    1.472,
     1.541
    ],
    "zRangeMeters": [
-    9.715,
-    12.724
+    10.241,
+    13.249
    ],
    "footprintMeters": {
-    "width": 1.999,
+    "width": 1.979,
     "depth": 2.417
    }
   }
@@ -5785,7 +5662,6 @@
   "mod_gn_window_bay_2m",
   "mod_kenney_com_awning_1_6m",
   "mod_kenney_detail_beam",
-  "mod_kenney_pallet",
   "mod_kenney_stairs_center",
   "mod_megakit_brick_wall_2m",
   "mod_megakit_doorframe_trim",
@@ -5819,7 +5695,6 @@
   "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/stairs-center.glb",
   "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/detail-awning.glb",
   "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
-  "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Brick_Plain_3.gltf",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Trim.gltf",
   "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_2x2.gltf",
@@ -5867,7 +5742,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -5882,7 +5757,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -5897,7 +5772,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -5962,7 +5837,7 @@
    "family": "interior",
    "elevationReach": "en_bruto",
    "measuredChain": [],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -5977,7 +5852,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -6062,19 +5937,6 @@
    "moduleId": "mod_kenney_detail_beam",
    "material": "roof",
    "family": "atlas",
-   "elevationReach": "en_bruto",
-   "measuredChain": [
-    "sin_superficie"
-   ],
-   "treatmentPath": "sin-base-color",
-   "colorSourceFound": false,
-   "styledAtlasesInScene": [],
-   "untreatedColorSources": 0
-  },
-  {
-   "moduleId": "mod_kenney_pallet",
-   "material": "planks",
-   "family": "wood",
    "elevationReach": "en_bruto",
    "measuredChain": [
     "sin_superficie"
@@ -6262,6 +6124,8 @@
    "T_Concrete_Asphalt_BaseColor",
    "T_Concrete_BaseColor",
    "T_MarbleFloor_BaseColor",
+   "T_RedBrick_BaseColor",
+   "T_Trim_BaseColor",
    "colormap",
    "colormap.001"
   ],
@@ -6275,7 +6139,7 @@
    "sootStrength": 0.7,
    "localized": true,
    "materialsScorched": 20,
-   "materialsSkipped": 12,
+   "materialsSkipped": 11,
    "coreOpacity": 0.63,
    "familyPeaks": {
     "atlas": 0.504,
@@ -6391,14 +6255,14 @@
    "focos": 13,
    "posiciones": [
     [
-     3.01,
-     -1.63,
-     7.56
+     1.68,
+     -1.66,
+     7.61
     ],
     [
-     2.69,
-     1.34,
-     7.79
+     5.63,
+     1.45,
+     7.93
     ]
    ]
   }
@@ -6406,7 +6270,7 @@
  "checks": {
   "groundContactInsideFootprint": true,
   "groundToleranceMeters": 0.05,
-  "distinctModuleIds": 15,
+  "distinctModuleIds": 14,
   "distinctSources": 11,
   "supportTriangleShare": 0.0,
   "elevationTreatmentLadders": [
@@ -6422,36 +6286,36 @@
    "lowestZMeters": 0.0
   },
   "scene": {
-   "triangles": 18610,
-   "meshObjects": 165,
+   "triangles": 18274,
+   "meshObjects": 161,
    "worldSizeMeters": {
     "x": 16.2,
     "y": 9.3954,
-    "z": 12.7246
+    "z": 13.2506
    }
   },
-  "sourcesImported": 15,
+  "sourcesImported": 14,
   "pivotValidator": {
    "rawNormalized": {
     "x": 0.5312,
-    "y": 0.7635
+    "y": 0.7692
    },
    "footprintProjected": [
     [
-     0.0631,
-     0.6931
+     0.0628,
+     0.7003
     ],
     [
-     0.6872,
-     0.9747
+     0.6873,
+     0.9757
     ],
     [
-     0.9993,
-     0.8339
+     0.9995,
+     0.838
     ],
     [
      0.3751,
-     0.5523
+     0.5626
     ]
    ],
    "insideFootprint": true,
@@ -6501,19 +6365,19 @@
  },
  "pivot": {
   "x": 0.5312,
-  "y": 0.7635
+  "y": 0.7692
  },
  "footprint": {
   "width": 4,
   "height": 2
  },
- "triangleCount": 18610,
- "materialCount": 32,
- "textureCount": 21,
- "renderTime": 19649.69,
- "pngBytes": 1497258,
- "sha256": "a7ca9984b903d38b3e138fb619214b4b56175c3dd33abe5255dec86aba5c4d60",
- "pixelSha256": "fd83dc4eb5423ebf8466b3483cd4b908c1d0abcf55acc87fc04e44bbe3088ee4",
+ "triangleCount": 18274,
+ "materialCount": 31,
+ "textureCount": 20,
+ "renderTime": 19967.84,
+ "pngBytes": 1508289,
+ "sha256": "c2dc2884a437ba800dd8a8a83bdbf5e77dcf3b196110dd02a16f24dd1f0bb352",
+ "pixelSha256": "0dc92cb0f320b69ab9f0686ae7cfdfa63b1762d8edb2c4a31e9aec643e98753a",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -6556,33 +6420,33 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "/tmp/d1113/attempts/2026-11-23T1226/w06cnd_mixed_tenement_2_burning.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning.png",
   "width": 1091,
-  "height": 1209,
-  "sha256": "a7ca9984b903d38b3e138fb619214b4b56175c3dd33abe5255dec86aba5c4d60",
-  "bytes": 1497258
+  "height": 1237,
+  "sha256": "c2dc2884a437ba800dd8a8a83bdbf5e77dcf3b196110dd02a16f24dd1f0bb352",
+  "bytes": 1508289
  },
  "trim": {
   "rendered": {
    "width": 1439,
-   "height": 1595
+   "height": 1632
   },
   "cropped": {
    "width": 1091,
-   "height": 1209,
+   "height": 1237,
    "offsetX": 140,
-   "offsetY": 206
+   "offsetY": 210
   },
   "final": {
    "width": 1091,
-   "height": 1209
+   "height": 1237
   },
   "supersample": 1
  },
  "metrics": {
-  "placements": 165,
-  "meshObjects": 165,
-  "distinctModuleIds": 15,
+  "placements": 161,
+  "meshObjects": 161,
+  "distinctModuleIds": 14,
   "sources": [
    "src_kenney_building_kit",
    "src_kenney_city_commercial",
@@ -6596,8 +6460,8 @@
    "src_quaternius_downtown_city_megakit",
    "src_quaternius_ultimate_buildings"
   ],
-  "triangles": 18610,
-  "licensedTriangles": 18610,
+  "triangles": 18274,
+  "licensedTriangles": 18274,
   "supportTriangles": 0,
   "licensedGeometryRatio": 1.0,
   "materials": [
@@ -6625,14 +6489,12 @@
    "gn_painted_metal",
    "gn_stone_trim",
    "metal",
-   "planks",
    "roof"
   ],
   "textures": [
    "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
    "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
    "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
-   "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
    "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
    "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
@@ -6652,13 +6514,13 @@
  },
  "framing": {
   "projectedWidthMeters": 18.099,
-  "projectedHeightMeters": 20.069,
+  "projectedHeightMeters": 20.524,
   "marginUsed": 1.3205,
   "pixelsPerMeter": 60.2,
-  "orthoScale": 26.501,
+  "orthoScale": 27.102,
   "canvasPixels": [
    1439,
-   1595
+   1632
   ]
  },
  "style": {
@@ -6669,6 +6531,8 @@
     "T_Concrete_Asphalt_BaseColor",
     "T_Concrete_BaseColor",
     "T_MarbleFloor_BaseColor",
+    "T_RedBrick_BaseColor",
+    "T_Trim_BaseColor",
     "colormap",
     "colormap.001"
    ],
@@ -6677,11 +6541,8 @@
    "litWindows": 0
   },
   "deepReach": {
-   "deepStyledNodes": 5,
-   "deepStyledAtlases": [
-    "T_RedBrick_BaseColor",
-    "T_Trim_BaseColor"
-   ],
+   "deepStyledNodes": 0,
+   "deepStyledAtlases": [],
    "flatStyledMaterials": [
     "debris_brick",
     "debris_char",
@@ -6700,13 +6561,7 @@
     "MI_Glass"
    ]
   },
-  "deepReachDetail": [
-   "MI_InteriorWall.001←T_RedBrick_BaseColor",
-   "MI_InteriorWall←T_RedBrick_BaseColor",
-   "MI_RedBrick←T_RedBrick_BaseColor",
-   "MI_Trim_Green←T_Trim_BaseColor",
-   "MI_Trim←T_Trim_BaseColor"
-  ]
+  "deepReachDetail": []
  },
  "toolchain": {
   "blender": "5.2.2 LTS",
@@ -6717,8 +6572,8 @@
   "projection": "ORTHO",
   "azimuthDegrees": 45,
   "elevationDegrees": 30,
-  "orthoScale": 26.500999450683594,
-  "targetZ": 6.362
+  "orthoScale": 27.101999282836914,
+  "targetZ": 6.625
  },
  "shadow": {
   "pass": true,
@@ -6727,20 +6582,20 @@
   "frameScale": 3,
   "renderPixels": {
    "width": 1439,
-   "height": 1595,
-   "sha256": "cf0a4064a14baacb7553354a71b4030fcdddda23f91f43bdcc8d7cf3c0d46642"
+   "height": 1632,
+   "sha256": "d2b14ce7c03e63d35031e9564d45248759f37f3aecbb9b1743538b6d29bfc7b2"
   },
   "pixels": {
    "width": 4317,
-   "height": 4785,
-   "sha256": "bc604768e67eb0723131e5a102448054b71adf1e79db4758baa0d45fc062b74c"
+   "height": 4896,
+   "sha256": "ff68fb6cf216d38255b7ff88c6419f447233fbb7201249a30eae53b3f414fb92"
   }
  },
  "render": {
-  "renderMs": 19649.69,
-  "prepMs": 18478.02,
-  "totalMs": 54307.71,
-  "peakRssMb": 4869.5
+  "renderMs": 19967.84,
+  "prepMs": 20949.77,
+  "totalMs": 78851.8,
+  "peakRssMb": 4961.2
  },
  "request": {
   "candidateId": "w06cnd_mixed_tenement_2_burning",
@@ -6758,8 +6613,8 @@
   "state": "burning",
   "constructionStage": null,
   "candidateProfile": "gn_residential_v2",
-  "output": "/tmp/d1113/attempts/2026-11-23T1226/w06cnd_mixed_tenement_2_burning.png",
-  "metadata": "/tmp/d1113/attempts/2026-11-23T1226/w06cnd_mixed_tenement_2_burning.json"
+  "output": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning.png",
+  "metadata": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning.json"
  },
  "composition": {
   "buildingType": "mixed_tenement",
@@ -7808,7 +7663,7 @@
     "rotationDegrees": 180,
     "position": [
      -7.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7818,7 +7673,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7839,7 +7694,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7849,7 +7704,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7870,7 +7725,7 @@
     "rotationDegrees": 180,
     "position": [
      -3.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7880,7 +7735,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7901,7 +7756,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7911,7 +7766,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7932,7 +7787,7 @@
     "rotationDegrees": 180,
     "position": [
      3.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7942,7 +7797,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7963,7 +7818,7 @@
     "rotationDegrees": 180,
     "position": [
      5.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7973,7 +7828,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7994,7 +7849,7 @@
     "rotationDegrees": 180,
     "position": [
      7.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -8004,7 +7859,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -8025,7 +7880,7 @@
     "rotationDegrees": 0,
     "position": [
      -7.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8034,7 +7889,7 @@
       "max": -6.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8056,7 +7911,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8065,7 +7920,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8087,7 +7942,7 @@
     "rotationDegrees": 0,
     "position": [
      -3.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8096,7 +7951,7 @@
       "max": -2.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8118,7 +7973,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8127,7 +7982,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8149,7 +8004,7 @@
     "rotationDegrees": 0,
     "position": [
      1.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8158,7 +8013,7 @@
       "max": 2.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8180,7 +8035,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8189,7 +8044,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8211,7 +8066,7 @@
     "rotationDegrees": 0,
     "position": [
      5.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8220,7 +8075,7 @@
       "max": 6.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8242,7 +8097,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -8251,7 +8106,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8272,14 +8127,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      -3.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": -4.0,
@@ -8303,14 +8158,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      -1.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": -2.0,
@@ -8334,14 +8189,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      1.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": 0.0,
@@ -8365,14 +8220,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      3.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": 2.0,
@@ -8396,13 +8251,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      -3.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -8427,13 +8282,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      -1.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -8458,13 +8313,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      1.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -8489,13 +8344,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      3.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -8552,7 +8407,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -8562,7 +8417,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -8614,7 +8469,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -8624,7 +8479,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -8676,7 +8531,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -8685,7 +8540,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8738,7 +8593,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -8747,7 +8602,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8800,7 +8655,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -8809,7 +8664,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8862,7 +8717,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -8871,7 +8726,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -9172,7 +9027,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -9182,7 +9037,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -9234,7 +9089,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -9244,7 +9099,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -9296,7 +9151,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -9305,7 +9160,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -9358,7 +9213,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -9367,7 +9222,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -9420,7 +9275,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -9429,7 +9284,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -9482,7 +9337,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -9491,7 +9346,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -10908,7 +10763,7 @@
     "rotationDegrees": 0,
     "position": [
      2.0,
-     0.018,
+     0.1,
      3.0
     ],
     "bounds": {
@@ -10917,8 +10772,8 @@
       "max": 3.0
      },
      "y": {
-      "min": -0.9818181818181819,
-      "max": 1.018181818181818
+      "min": -0.9000000000000001,
+      "max": 1.0999999999999999
      },
      "z": {
       "min": 3.0,
@@ -10939,7 +10794,7 @@
     "rotationDegrees": 0,
     "position": [
      6.0,
-     -0.388,
+     -0.25,
      3.0
     ],
     "bounds": {
@@ -10948,8 +10803,8 @@
       "max": 7.0
      },
      "y": {
-      "min": -1.387878787878788,
-      "max": 0.6121212121212121
+      "min": -1.25,
+      "max": 0.7499999999999999
      },
      "z": {
       "min": 3.0,
@@ -10969,14 +10824,14 @@
     "license": "CC0-1.0",
     "rotationDegrees": 90,
     "position": [
-     4.493,
+     4.7,
      -1.74,
      3.0
     ],
     "bounds": {
      "x": {
-      "min": 4.392929292929294,
-      "max": 4.592929292929293
+      "min": 4.6000000000000005,
+      "max": 4.8
      },
      "y": {
       "min": -2.7400000000000007,
@@ -11001,7 +10856,7 @@
     "rotationDegrees": 0,
     "position": [
      6.4,
-     -0.064,
+     0.2,
      3.0
     ],
     "bounds": {
@@ -11010,8 +10865,8 @@
       "max": 7.050000000000001
      },
      "y": {
-      "min": -2.0636363636363635,
-      "max": 1.9363636363636363
+      "min": -1.8,
+      "max": 2.1999999999999997
      },
      "z": {
       "min": 3.0,
@@ -11024,68 +10879,6 @@
     "purpose": "damage:interior:stair"
    },
    {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 180,
-    "position": [
-     1.76,
-     -0.348,
-     3.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 1.26,
-      "max": 2.26
-     },
-     "y": {
-      "min": -0.8484848484848486,
-      "max": 0.15151515151515144
-     },
-     "z": {
-      "min": 3.0,
-      "max": 3.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
-   },
-   {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 270,
-    "position": [
-     4.4,
-     -0.094,
-     3.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 3.9000000000000004,
-      "max": 4.9
-     },
-     "y": {
-      "min": -0.593939393939394,
-      "max": 0.406060606060606
-     },
-     "z": {
-      "min": 3.0,
-      "max": 3.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
-   },
-   {
     "moduleId": "mod_megakit_floor_slab_2m",
     "role": "slab",
     "sourceId": "src_quaternius_downtown_city_megakit",
@@ -11094,7 +10887,7 @@
     "rotationDegrees": 0,
     "position": [
      2.0,
-     -0.018,
+     0.3,
      6.0
     ],
     "bounds": {
@@ -11103,8 +10896,8 @@
       "max": 3.0
      },
      "y": {
-      "min": -1.0181818181818183,
-      "max": 0.9818181818181817
+      "min": -0.7000000000000001,
+      "max": 1.2999999999999998
      },
      "z": {
       "min": 6.0,
@@ -11125,7 +10918,7 @@
     "rotationDegrees": 0,
     "position": [
      6.0,
-     -0.115,
+     -0.4,
      6.0
     ],
     "bounds": {
@@ -11134,8 +10927,8 @@
       "max": 7.0
      },
      "y": {
-      "min": -1.1151515151515152,
-      "max": 0.8848484848484848
+      "min": -1.4000000000000001,
+      "max": 0.5999999999999999
      },
      "z": {
       "min": 6.0,
@@ -11155,14 +10948,14 @@
     "license": "CC0-1.0",
     "rotationDegrees": 90,
     "position": [
-     3.232,
+     3.3,
      -1.74,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.132323232323232,
-      "max": 3.3323232323232324
+      "min": 3.1999999999999997,
+      "max": 3.4
      },
      "y": {
       "min": -2.7400000000000007,
@@ -11177,68 +10970,6 @@
     "meshObjects": 1,
     "elevationReach": "en_bruto",
     "purpose": "damage:interior:partition"
-   },
-   {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 0,
-    "position": [
-     1.76,
-     -0.445,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 1.26,
-      "max": 2.26
-     },
-     "y": {
-      "min": -0.9454545454545455,
-      "max": 0.05454545454545445
-     },
-     "z": {
-      "min": 6.0,
-      "max": 6.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
-   },
-   {
-    "moduleId": "mod_kenney_pallet",
-    "role": "interior_prop",
-    "sourceId": "src_kenney_retro_urban_kit",
-    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/pallet.glb",
-    "license": "CC0-1.0",
-    "rotationDegrees": 90,
-    "position": [
-     4.4,
-     -0.215,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 3.9000000000000004,
-      "max": 4.9
-     },
-     "y": {
-      "min": -0.7151515151515152,
-      "max": 0.2848484848484848
-     },
-     "z": {
-      "min": 6.0,
-      "max": 6.15
-     }
-    },
-    "triangles": 84,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "damage:interior:prop"
    },
    {
     "moduleId": "mod_kenney_detail_beam",
@@ -11342,24 +11073,24 @@
     "sourceId": "src_original_fire_flame",
     "sourcePath": "blender_artist/sources/original/fire_flame.glb",
     "license": "original",
-    "rotationDegrees": 180,
+    "rotationDegrees": 90,
     "position": [
-     2.779,
-     -2.211,
+     1.025,
+     -2.056,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 2.08466668970298,
-      "max": 3.4729090678727768
+      "min": 0.3681672773186411,
+      "max": 1.6823377731864095
      },
      "y": {
-      "min": -2.8331065019283743,
-      "max": -1.5881056192837464
+      "min": -2.84907909391435,
+      "max": -1.263042118206862
      },
      "z": {
       "min": 6.0,
-      "max": 8.986363636363636
+      "max": 9.204545454545453
      }
     },
     "triangles": 240,
@@ -11367,9 +11098,157 @@
     "elevationReach": "en_bruto",
     "purpose": "fire:flame",
     "scale": [
-     1.725,
-     1.776,
-     2.986
+     1.971,
+     1.874,
+     3.205
+    ]
+   },
+   {
+    "moduleId": "mod_original_fire_flame",
+    "role": "flame",
+    "sourceId": "src_original_fire_flame",
+    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+    "license": "original",
+    "rotationDegrees": 90,
+    "position": [
+     0.9,
+     -2.824,
+     6.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 0.4456687603305785,
+      "max": 1.3543312396694216
+     },
+     "y": {
+      "min": -3.321491964270807,
+      "max": -2.3259827832039406
+     },
+     "z": {
+      "min": 6.0,
+      "max": 7.745454545454545
+     }
+    },
+    "triangles": 240,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "fire:flame",
+    "mirrorX": true,
+    "scale": [
+     1.237,
+     1.296,
+     1.745
+    ]
+   },
+   {
+    "moduleId": "mod_original_fire_flame",
+    "role": "flame",
+    "sourceId": "src_original_fire_flame",
+    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+    "license": "original",
+    "rotationDegrees": 180,
+    "position": [
+     0.9,
+     -2.678,
+     6.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 0.46276149457817845,
+      "max": 1.3372385054218217
+     },
+     "y": {
+      "min": -3.070406231037649,
+      "max": -2.2861594255280075
+     },
+     "z": {
+      "min": 6.0,
+      "max": 7.618787878787879
+     }
+    },
+    "triangles": 240,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "fire:flame",
+    "mirrorX": true,
+    "scale": [
+     1.087,
+     1.118,
+     1.619
+    ]
+   },
+   {
+    "moduleId": "mod_original_fire_flame",
+    "role": "flame",
+    "sourceId": "src_original_fire_flame",
+    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+    "license": "original",
+    "rotationDegrees": 0,
+    "position": [
+     1.056,
+     -2.662,
+     6.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 0.37401455723694266,
+      "max": 1.7370965538741685
+     },
+     "y": {
+      "min": -3.242905404591368,
+      "max": -2.0813370196510563
+     },
+     "z": {
+      "min": 6.0,
+      "max": 7.872121212121212
+     }
+    },
+    "triangles": 240,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "fire:flame",
+    "mirrorX": true,
+    "scale": [
+     1.694,
+     1.657,
+     1.872
+    ]
+   },
+   {
+    "moduleId": "mod_original_fire_flame",
+    "role": "flame",
+    "sourceId": "src_original_fire_flame",
+    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+    "license": "original",
+    "rotationDegrees": 180,
+    "position": [
+     3.28,
+     -0.414,
+     6.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 2.5286117825968777,
+      "max": 4.030984176999081
+     },
+     "y": {
+      "min": -1.1098999542699723,
+      "max": 0.2826272269972457
+     },
+     "z": {
+      "min": 6.0,
+      "max": 9.653030303030302
+     }
+    },
+    "triangles": 240,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "fire:flame",
+    "mirrorX": true,
+    "scale": [
+     1.867,
+     1.986,
+     3.653
     ]
    },
    {
@@ -11380,92 +11259,18 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     2.761,
-     -2.17,
+     3.637,
+     0.289,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 2.2915360991735536,
-      "max": 3.229676022038567
+      "min": 3.189543246280991,
+      "max": 4.085204228466482
      },
      "y": {
-      "min": -2.6697473797545705,
-      "max": -1.67065666064947
-     },
-     "z": {
-      "min": 6.0,
-      "max": 8.102424242424242
-     }
-    },
-    "triangles": 240,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "fire:flame",
-    "mirrorX": true,
-    "scale": [
-     1.241,
-     1.338,
-     2.102
-    ]
-   },
-   {
-    "moduleId": "mod_original_fire_flame",
-    "role": "flame",
-    "sourceId": "src_original_fire_flame",
-    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-    "license": "original",
-    "rotationDegrees": 180,
-    "position": [
-     2.615,
-     -1.54,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 2.1239605694765835,
-      "max": 3.106342460826446
-     },
-     "y": {
-      "min": -1.9951767529843893,
-      "max": -1.0846212268135904
-     },
-     "z": {
-      "min": 6.0,
-      "max": 7.457575757575757
-     }
-    },
-    "triangles": 240,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "fire:flame",
-    "mirrorX": true,
-    "scale": [
-     1.221,
-     1.299,
-     1.458
-    ]
-   },
-   {
-    "moduleId": "mod_original_fire_flame",
-    "role": "flame",
-    "sourceId": "src_original_fire_flame",
-    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-    "license": "original",
-    "rotationDegrees": 270,
-    "position": [
-     3.136,
-     -1.508,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 2.68853314527089,
-      "max": 3.5841941274563816
-     },
-     "y": {
-      "min": -1.9533504505524666,
-      "max": -1.061801064599048
+      "min": -0.15638075358276948,
+      "max": 0.7351686323706491
      },
      "z": {
       "min": 6.0,
@@ -11491,18 +11296,18 @@
     "license": "original",
     "rotationDegrees": 180,
     "position": [
-     2.652,
-     -1.702,
+     3.153,
+     0.095,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 2.304715720585691,
-      "max": 2.998314582444611
+      "min": 2.805725821595792,
+      "max": 3.499324683454712
      },
      "y": {
-      "min": -2.012531155922865,
-      "max": -1.390499147107438
+      "min": -0.2155614589531678,
+      "max": 0.4064705498622593
      },
      "z": {
       "min": 6.0,
@@ -11527,33 +11332,32 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     4.532,
-     -0.068,
+     3.068,
+     0.144,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.9985854389348026,
-      "max": 5.0660610257116625
+      "min": 2.624265961432507,
+      "max": 3.5110875739210283
      },
      "y": {
-      "min": -0.7301565541497618,
-      "max": 0.5937929177861262
+      "min": -0.39613617913125704,
+      "max": 0.6840149670100457
      },
      "z": {
       "min": 6.0,
-      "max": 8.937878787878788
+      "max": 7.63030303030303
      }
     },
     "triangles": 240,
     "meshObjects": 1,
     "elevationReach": "en_bruto",
     "purpose": "fire:flame",
-    "mirrorX": true,
     "scale": [
-     1.645,
-     1.522,
-     2.938
+     1.342,
+     1.265,
+     1.63
     ]
    },
    {
@@ -11564,22 +11368,22 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     4.005,
-     0.586,
+     6.599,
+     2.02,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.420667777303615,
-      "max": 4.589433232797395
+      "min": 5.949022299326488,
+      "max": 7.24895749865331
      },
      "y": {
-      "min": 0.0041680293847570216,
-      "max": 1.1685592433425165
+      "min": 1.3721619498622584,
+      "max": 2.66723198953168
      },
      "z": {
       "min": 6.0,
-      "max": 8.067878787878788
+      "max": 9.64090909090909
      }
     },
     "triangles": 240,
@@ -11587,9 +11391,9 @@
     "elevationReach": "en_bruto",
     "purpose": "fire:flame",
     "scale": [
-     1.452,
-     1.661,
-     2.068
+     1.615,
+     1.847,
+     3.641
     ]
    },
    {
@@ -11600,18 +11404,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     4.357,
-     -0.626,
+     6.423,
+     1.462,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.874906217271336,
-      "max": 4.838225095859977
+      "min": 5.941572883938003,
+      "max": 6.904891762526644
      },
      "y": {
-      "min": -1.0545088591368224,
-      "max": -0.19700629237832834
+      "min": 1.0333699287419644,
+      "max": 1.8908724955004585
      },
      "z": {
       "min": 6.0,
@@ -11636,18 +11440,18 @@
     "license": "original",
     "rotationDegrees": 0,
     "position": [
-     4.138,
-     -0.658,
+     6.205,
+     1.43,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 3.6540898251406633,
-      "max": 4.622677851627015
+      "min": 5.72075649180733,
+      "max": 6.689344518293681
      },
      "y": {
-      "min": -1.132668936639118,
-      "max": -0.18349267952249737
+      "min": 0.9552098512396688,
+      "max": 1.9043861083562894
      },
      "z": {
       "min": 6.0,
@@ -11673,32 +11477,33 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     1.276,
-     2.356,
+     6.447,
+     2.61,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 0.7463003862258955,
-      "max": 1.8052147652892563
+      "min": 6.014268365105601,
+      "max": 6.880681129843894
      },
      "y": {
-      "min": 1.8334534388099168,
-      "max": 2.878667773311294
+      "min": 2.1205209385330988,
+      "max": 3.098670980658819
      },
      "z": {
       "min": 6.0,
-      "max": 8.998484848484848
+      "max": 7.998787878787879
      }
     },
     "triangles": 240,
     "meshObjects": 1,
     "elevationReach": "en_bruto",
     "purpose": "fire:flame",
+    "mirrorX": true,
     "scale": [
-     1.299,
-     1.51,
-     2.998
+     1.215,
+     1.236,
+     1.999
     ]
    },
    {
@@ -11707,24 +11512,24 @@
     "sourceId": "src_original_fire_flame",
     "sourcePath": "blender_artist/sources/original/fire_flame.glb",
     "license": "original",
-    "rotationDegrees": 90,
+    "rotationDegrees": 0,
     "position": [
-     1.645,
-     2.639,
+     6.811,
+     2.739,
      6.0
     ],
     "bounds": {
      "x": {
-      "min": 1.2432864044077134,
-      "max": 2.0476226865013776
+      "min": 6.344904116230069,
+      "max": 7.277318105992153
      },
      "y": {
-      "min": 2.1703079792303193,
-      "max": 3.1074697985474575
+      "min": 2.354368580348943,
+      "max": 3.123409197428833
      },
      "z": {
       "min": 6.0,
-      "max": 7.296363636363637
+      "max": 7.63030303030303
      }
     },
     "triangles": 240,
@@ -11732,9 +11537,81 @@
     "elevationReach": "en_bruto",
     "purpose": "fire:flame",
     "scale": [
-     1.164,
-     1.147,
-     1.296
+     1.159,
+     1.097,
+     1.63
+    ]
+   },
+   {
+    "moduleId": "mod_original_fire_flame",
+    "role": "flame",
+    "sourceId": "src_original_fire_flame",
+    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+    "license": "original",
+    "rotationDegrees": 0,
+    "position": [
+     7.0,
+     -3.838,
+     6.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 6.782704,
+      "max": 7.217296
+     },
+     "y": {
+      "min": -4.027824,
+      "max": -3.6491759999999998
+     },
+     "z": {
+      "min": 6.0,
+      "max": 6.6
+     }
+    },
+    "triangles": 240,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "fire:flame:window",
+    "scale": [
+     0.54,
+     0.54,
+     0.6
+    ]
+   },
+   {
+    "moduleId": "mod_original_fire_flame",
+    "role": "flame",
+    "sourceId": "src_original_fire_flame",
+    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
+    "license": "original",
+    "rotationDegrees": 0,
+    "position": [
+     1.0,
+     -3.9,
+     3.0
+    ],
+    "bounds": {
+     "x": {
+      "min": 0.824956,
+      "max": 1.175044
+     },
+     "y": {
+      "min": -4.052511,
+      "max": -3.747489
+     },
+     "z": {
+      "min": 3.0,
+      "max": 3.4833333333333334
+     }
+    },
+    "triangles": 240,
+    "meshObjects": 1,
+    "elevationReach": "en_bruto",
+    "purpose": "fire:flame:window",
+    "scale": [
+     0.435,
+     0.435,
+     0.483
     ]
    },
    {
@@ -11745,131 +11622,22 @@
     "license": "original",
     "rotationDegrees": 180,
     "position": [
-     1.209,
-     2.283,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 0.467093273858586,
-      "max": 1.9510885443232324
-     },
-     "y": {
-      "min": 1.6837294222222217,
-      "max": 2.882937244444444
-     },
-     "z": {
-      "min": 6.0,
-      "max": 7.906666666666666
-     }
-    },
-    "triangles": 240,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "fire:flame",
-    "scale": [
-     1.844,
-     1.71,
-     1.907
-    ]
-   },
-   {
-    "moduleId": "mod_original_fire_flame",
-    "role": "flame",
-    "sourceId": "src_original_fire_flame",
-    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-    "license": "original",
-    "rotationDegrees": 0,
-    "position": [
-     1.791,
-     2.203,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 1.3008078941952863,
-      "max": 2.2810102876228955
-     },
-     "y": {
-      "min": 1.7596784969696964,
-      "max": 2.6453720080808076
-     },
-     "z": {
-      "min": 6.0,
-      "max": 7.722424242424243
-     }
-    },
-    "triangles": 240,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "fire:flame",
-    "mirrorX": true,
-    "scale": [
-     1.218,
-     1.263,
-     1.722
-    ]
-   },
-   {
-    "moduleId": "mod_original_fire_flame",
-    "role": "flame",
-    "sourceId": "src_original_fire_flame",
-    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-    "license": "original",
-    "rotationDegrees": 0,
-    "position": [
      7.0,
-     -3.8,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 6.7187224,
-      "max": 7.2812776
-     },
-     "y": {
-      "min": -4.0450694,
-      "max": -3.5549305999999996
-     },
-     "z": {
-      "min": 6.0,
-      "max": 6.776666666666666
-     }
-    },
-    "triangles": 240,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "fire:flame:window",
-    "scale": [
-     0.699,
-     0.699,
-     0.777
-    ]
-   },
-   {
-    "moduleId": "mod_original_fire_flame",
-    "role": "flame",
-    "sourceId": "src_original_fire_flame",
-    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-    "license": "original",
-    "rotationDegrees": 0,
-    "position": [
-     7.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
      "x": {
-      "min": 6.776668,
-      "max": 7.223332
+      "min": 6.7754608,
+      "max": 7.2245392
      },
      "y": {
-      "min": -3.994583,
-      "max": -3.6054169999999996
+      "min": -4.0341347999999995,
+      "max": -3.6428651999999997
      },
      "z": {
       "min": 3.0,
-      "max": 3.6166666666666667
+      "max": 3.62
      }
     },
     "triangles": 240,
@@ -11877,45 +11645,9 @@
     "elevationReach": "en_bruto",
     "purpose": "fire:flame:window",
     "scale": [
-     0.555,
-     0.555,
-     0.617
-    ]
-   },
-   {
-    "moduleId": "mod_original_fire_flame",
-    "role": "flame",
-    "sourceId": "src_original_fire_flame",
-    "sourcePath": "blender_artist/sources/original/fire_flame.glb",
-    "license": "original",
-    "rotationDegrees": 0,
-    "position": [
-     3.0,
-     -3.8,
-     6.0
-    ],
-    "bounds": {
-     "x": {
-      "min": 2.800812,
-      "max": 3.199188
-     },
-     "y": {
-      "min": -3.973547,
-      "max": -3.6264529999999997
-     },
-     "z": {
-      "min": 6.0,
-      "max": 6.55
-     }
-    },
-    "triangles": 240,
-    "meshObjects": 1,
-    "elevationReach": "en_bruto",
-    "purpose": "fire:flame:window",
-    "scale": [
-     0.495,
-     0.495,
-     0.55
+     0.558,
+     0.558,
+     0.62
     ]
    },
    {
@@ -11924,24 +11656,24 @@
     "sourceId": "src_original_fire_smoke",
     "sourcePath": "blender_artist/sources/original/fire_smoke.glb",
     "license": "original",
-    "rotationDegrees": 90,
+    "rotationDegrees": 0,
     "position": [
-     2.865,
-     -0.018,
-     7.924
+     3.842,
+     0.018,
+     8.449
     ],
     "bounds": {
      "x": {
-      "min": 2.3696588770154796,
-      "max": 3.3612740173451123
+      "min": 3.2669025870385107,
+      "max": 4.417719928900629
      },
      "y": {
-      "min": -0.5933810555981645,
-      "max": 0.5574362862639537
+      "min": -0.47061012409139896,
+      "max": 0.5066626518140203
      },
      "z": {
-      "min": 7.924242424242425,
-      "max": 9.357078245137947
+      "min": 8.449494949494948,
+      "max": 9.882330770390471
      }
     },
     "triangles": 672,
@@ -11950,7 +11682,7 @@
     "purpose": "fire:smoke",
     "scale": [
      0.734,
-     0.738,
+     0.727,
      0.734
     ]
    },
@@ -11960,24 +11692,24 @@
     "sourceId": "src_original_fire_smoke",
     "sourcePath": "blender_artist/sources/original/fire_smoke.glb",
     "license": "original",
-    "rotationDegrees": 90,
+    "rotationDegrees": 270,
     "position": [
-     2.523,
-     0.169,
-     8.641
+     4.145,
+     -0.147,
+     9.166
     ],
     "bounds": {
      "x": {
-      "min": 1.7517655601199957,
-      "max": 3.294167334240596
+      "min": 3.4130518730758563,
+      "max": 4.876570642863284
      },
      "y": {
-      "min": -0.6942672092455123,
-      "max": 1.0319588035476652
+      "min": -1.010086742535278,
+      "max": 0.7161392702578993
      },
      "z": {
-      "min": 8.640660334690185,
-      "max": 10.78991406603347
+      "min": 9.16591285994271,
+      "max": 11.315166591285994
      }
     },
     "triangles": 672,
@@ -11986,7 +11718,7 @@
     "purpose": "fire:smoke",
     "scale": [
      1.1,
-     1.148,
+     1.089,
      1.1
     ]
    },
@@ -11998,22 +11730,22 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     2.18,
-     0.356,
-     9.715
+     4.447,
+     -0.312,
+     10.241
     ],
     "bounds": {
      "x": {
-      "min": 1.18110244607147,
-      "max": 3.1798304482891218
+      "min": 3.457986911957694,
+      "max": 5.436635603981447
      },
      "y": {
-      "min": -0.8526942299859661,
-      "max": 1.5640221879244824
+      "min": -1.5203319450939135,
+      "max": 0.8963844728165347
      },
      "z": {
-      "min": 9.715287200361828,
-      "max": 12.724242424242426
+      "min": 10.24053972561435,
+      "max": 13.249494949494949
      }
     },
     "triangles": 672,
@@ -12022,7 +11754,7 @@
     "purpose": "fire:smoke",
     "scale": [
      1.541,
-     1.487,
+     1.472,
      1.541
     ]
    }
@@ -12039,13 +11771,13 @@
    },
    "z": {
     "min": 0.0,
-    "max": 12.724242424242426
+    "max": 13.249494949494949
    }
   },
   "envelopeMeters": {
    "x": 16.2,
    "y": 9.395,
-   "z": 12.724
+   "z": 13.249
   },
   "groundContactMeters": {
    "x": 16.0,
@@ -12072,24 +11804,24 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     2.779,
-     -2.211,
+     1.025,
+     -2.056,
      6.0
     ],
-    "rotationDegrees": 180,
+    "rotationDegrees": 90,
     "mirrorX": false,
     "scale": [
-     1.725,
-     1.776,
-     2.986
+     1.971,
+     1.874,
+     3.205
     ],
     "zRangeMeters": [
      6.0,
-     8.986
+     9.205
     ],
     "footprintMeters": {
-     "width": 1.388,
-     "depth": 1.245
+     "width": 1.314,
+     "depth": 1.586
     }
    },
    {
@@ -12097,24 +11829,24 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     2.761,
-     -2.17,
+     0.9,
+     -2.824,
      6.0
     ],
-    "rotationDegrees": 270,
+    "rotationDegrees": 90,
     "mirrorX": true,
     "scale": [
-     1.241,
-     1.338,
-     2.102
+     1.237,
+     1.296,
+     1.745
     ],
     "zRangeMeters": [
      6.0,
-     8.102
+     7.745
     ],
     "footprintMeters": {
-     "width": 0.938,
-     "depth": 0.999
+     "width": 0.909,
+     "depth": 0.996
     }
    },
    {
@@ -12122,24 +11854,24 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     2.615,
-     -1.54,
+     0.9,
+     -2.678,
      6.0
     ],
     "rotationDegrees": 180,
     "mirrorX": true,
     "scale": [
-     1.221,
-     1.299,
-     1.458
+     1.087,
+     1.118,
+     1.619
     ],
     "zRangeMeters": [
      6.0,
-     7.458
+     7.619
     ],
     "footprintMeters": {
-     "width": 0.982,
-     "depth": 0.911
+     "width": 0.874,
+     "depth": 0.784
     }
    },
    {
@@ -12147,8 +11879,58 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     3.136,
-     -1.508,
+     1.056,
+     -2.662,
+     6.0
+    ],
+    "rotationDegrees": 0,
+    "mirrorX": true,
+    "scale": [
+     1.694,
+     1.657,
+     1.872
+    ],
+    "zRangeMeters": [
+     6.0,
+     7.872
+    ],
+    "footprintMeters": {
+     "width": 1.363,
+     "depth": 1.162
+    }
+   },
+   {
+    "focus": "fire:flame:4",
+    "purpose": "fire:flame",
+    "moduleId": "mod_original_fire_flame",
+    "position": [
+     3.28,
+     -0.414,
+     6.0
+    ],
+    "rotationDegrees": 180,
+    "mirrorX": true,
+    "scale": [
+     1.867,
+     1.986,
+     3.653
+    ],
+    "zRangeMeters": [
+     6.0,
+     9.653
+    ],
+    "footprintMeters": {
+     "width": 1.502,
+     "depth": 1.393
+    }
+   },
+   {
+    "focus": "fire:flame:5",
+    "purpose": "fire:flame",
+    "moduleId": "mod_original_fire_flame",
+    "position": [
+     3.637,
+     0.289,
      6.0
     ],
     "rotationDegrees": 270,
@@ -12168,12 +11950,12 @@
     }
    },
    {
-    "focus": "fire:flame:4",
+    "focus": "fire:flame:6",
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     2.652,
-     -1.702,
+     3.153,
+     0.095,
      6.0
     ],
     "rotationDegrees": 180,
@@ -12193,62 +11975,62 @@
     }
    },
    {
-    "focus": "fire:flame:5",
+    "focus": "fire:flame:7",
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     4.532,
-     -0.068,
+     3.068,
+     0.144,
      6.0
     ],
     "rotationDegrees": 270,
-    "mirrorX": true,
+    "mirrorX": false,
     "scale": [
-     1.645,
-     1.522,
-     2.938
+     1.342,
+     1.265,
+     1.63
     ],
     "zRangeMeters": [
      6.0,
-     8.938
+     7.63
     ],
     "footprintMeters": {
-     "width": 1.067,
-     "depth": 1.324
+     "width": 0.887,
+     "depth": 1.08
     }
    },
    {
-    "focus": "fire:flame:6",
+    "focus": "fire:flame:8",
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     4.005,
-     0.586,
+     6.599,
+     2.02,
      6.0
     ],
     "rotationDegrees": 0,
     "mirrorX": false,
     "scale": [
-     1.452,
-     1.661,
-     2.068
+     1.615,
+     1.847,
+     3.641
     ],
     "zRangeMeters": [
      6.0,
-     8.068
+     9.641
     ],
     "footprintMeters": {
-     "width": 1.169,
-     "depth": 1.164
+     "width": 1.3,
+     "depth": 1.295
     }
    },
    {
-    "focus": "fire:flame:7",
+    "focus": "fire:flame:9",
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     4.357,
-     -0.626,
+     6.423,
+     1.462,
      6.0
     ],
     "rotationDegrees": 0,
@@ -12268,12 +12050,12 @@
     }
    },
    {
-    "focus": "fire:flame:8",
+    "focus": "fire:flame:10",
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     4.138,
-     -0.658,
+     6.205,
+     1.43,
      6.0
     ],
     "rotationDegrees": 0,
@@ -12293,78 +12075,28 @@
     }
    },
    {
-    "focus": "fire:flame:9",
-    "purpose": "fire:flame",
-    "moduleId": "mod_original_fire_flame",
-    "position": [
-     1.276,
-     2.356,
-     6.0
-    ],
-    "rotationDegrees": 270,
-    "mirrorX": false,
-    "scale": [
-     1.299,
-     1.51,
-     2.998
-    ],
-    "zRangeMeters": [
-     6.0,
-     8.998
-    ],
-    "footprintMeters": {
-     "width": 1.059,
-     "depth": 1.045
-    }
-   },
-   {
-    "focus": "fire:flame:10",
-    "purpose": "fire:flame",
-    "moduleId": "mod_original_fire_flame",
-    "position": [
-     1.645,
-     2.639,
-     6.0
-    ],
-    "rotationDegrees": 90,
-    "mirrorX": false,
-    "scale": [
-     1.164,
-     1.147,
-     1.296
-    ],
-    "zRangeMeters": [
-     6.0,
-     7.296
-    ],
-    "footprintMeters": {
-     "width": 0.804,
-     "depth": 0.937
-    }
-   },
-   {
     "focus": "fire:flame:11",
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     1.209,
-     2.283,
+     6.447,
+     2.61,
      6.0
     ],
-    "rotationDegrees": 180,
-    "mirrorX": false,
+    "rotationDegrees": 270,
+    "mirrorX": true,
     "scale": [
-     1.844,
-     1.71,
-     1.907
+     1.215,
+     1.236,
+     1.999
     ],
     "zRangeMeters": [
      6.0,
-     7.907
+     7.999
     ],
     "footprintMeters": {
-     "width": 1.484,
-     "depth": 1.199
+     "width": 0.866,
+     "depth": 0.978
     }
    },
    {
@@ -12372,24 +12104,24 @@
     "purpose": "fire:flame",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     1.791,
-     2.203,
+     6.811,
+     2.739,
      6.0
     ],
     "rotationDegrees": 0,
-    "mirrorX": true,
+    "mirrorX": false,
     "scale": [
-     1.218,
-     1.263,
-     1.722
+     1.159,
+     1.097,
+     1.63
     ],
     "zRangeMeters": [
      6.0,
-     7.722
+     7.63
     ],
     "footprintMeters": {
-     "width": 0.98,
-     "depth": 0.886
+     "width": 0.932,
+     "depth": 0.769
     }
    },
    {
@@ -12398,23 +12130,23 @@
     "moduleId": "mod_original_fire_flame",
     "position": [
      7.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "rotationDegrees": 0,
     "mirrorX": false,
     "scale": [
-     0.699,
-     0.699,
-     0.777
+     0.54,
+     0.54,
+     0.6
     ],
     "zRangeMeters": [
      6.0,
-     6.777
+     6.6
     ],
     "footprintMeters": {
-     "width": 0.563,
-     "depth": 0.49
+     "width": 0.435,
+     "depth": 0.379
     }
    },
    {
@@ -12422,24 +12154,24 @@
     "purpose": "fire:flame:window",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     7.0,
-     -3.8,
+     1.0,
+     -3.9,
      3.0
     ],
     "rotationDegrees": 0,
     "mirrorX": false,
     "scale": [
-     0.555,
-     0.555,
-     0.617
+     0.435,
+     0.435,
+     0.483
     ],
     "zRangeMeters": [
      3.0,
-     3.617
+     3.483
     ],
     "footprintMeters": {
-     "width": 0.447,
-     "depth": 0.389
+     "width": 0.35,
+     "depth": 0.305
     }
    },
    {
@@ -12447,24 +12179,24 @@
     "purpose": "fire:flame:window",
     "moduleId": "mod_original_fire_flame",
     "position": [
-     3.0,
-     -3.8,
-     6.0
+     7.0,
+     -3.838,
+     3.0
     ],
-    "rotationDegrees": 0,
+    "rotationDegrees": 180,
     "mirrorX": false,
     "scale": [
-     0.495,
-     0.495,
-     0.55
+     0.558,
+     0.558,
+     0.62
     ],
     "zRangeMeters": [
-     6.0,
-     6.55
+     3.0,
+     3.62
     ],
     "footprintMeters": {
-     "width": 0.398,
-     "depth": 0.347
+     "width": 0.449,
+     "depth": 0.391
     }
    },
    {
@@ -12472,24 +12204,24 @@
     "purpose": "fire:smoke",
     "moduleId": "mod_original_fire_smoke",
     "position": [
-     2.865,
-     -0.018,
-     7.924
+     3.842,
+     0.018,
+     8.449
     ],
-    "rotationDegrees": 90,
+    "rotationDegrees": 0,
     "mirrorX": false,
     "scale": [
      0.734,
-     0.738,
+     0.727,
      0.734
     ],
     "zRangeMeters": [
-     7.924,
-     9.357
+     8.449,
+     9.882
     ],
     "footprintMeters": {
-     "width": 0.992,
-     "depth": 1.151
+     "width": 1.151,
+     "depth": 0.977
     }
    },
    {
@@ -12497,23 +12229,23 @@
     "purpose": "fire:smoke",
     "moduleId": "mod_original_fire_smoke",
     "position": [
-     2.523,
-     0.169,
-     8.641
+     4.145,
+     -0.147,
+     9.166
     ],
-    "rotationDegrees": 90,
+    "rotationDegrees": 270,
     "mirrorX": false,
     "scale": [
      1.1,
-     1.148,
+     1.089,
      1.1
     ],
     "zRangeMeters": [
-     8.641,
-     10.79
+     9.166,
+     11.315
     ],
     "footprintMeters": {
-     "width": 1.542,
+     "width": 1.464,
      "depth": 1.726
     }
    },
@@ -12522,23 +12254,23 @@
     "purpose": "fire:smoke",
     "moduleId": "mod_original_fire_smoke",
     "position": [
-     2.18,
-     0.356,
-     9.715
+     4.447,
+     -0.312,
+     10.241
     ],
     "rotationDegrees": 270,
     "mirrorX": false,
     "scale": [
      1.541,
-     1.487,
+     1.472,
      1.541
     ],
     "zRangeMeters": [
-     9.715,
-     12.724
+     10.241,
+     13.249
     ],
     "footprintMeters": {
-     "width": 1.999,
+     "width": 1.979,
      "depth": 2.417
     }
    }
@@ -12546,7 +12278,7 @@
   "checks": {
    "groundContactInsideFootprint": true,
    "groundToleranceMeters": 0.05,
-   "distinctModuleIds": 15,
+   "distinctModuleIds": 14,
    "distinctSources": 11,
    "supportTriangleShare": 0.0,
    "elevationTreatmentLadders": [
@@ -12556,9 +12288,9 @@
    ]
   },
   "metrics": {
-   "placements": 165,
-   "meshObjects": 165,
-   "distinctModuleIds": 15,
+   "placements": 161,
+   "meshObjects": 161,
+   "distinctModuleIds": 14,
    "sources": [
     "src_kenney_building_kit",
     "src_kenney_city_commercial",
@@ -12572,8 +12304,8 @@
     "src_quaternius_downtown_city_megakit",
     "src_quaternius_ultimate_buildings"
    ],
-   "triangles": 18610,
-   "licensedTriangles": 18610,
+   "triangles": 18274,
+   "licensedTriangles": 18274,
    "supportTriangles": 0,
    "licensedGeometryRatio": 1.0,
    "materials": [
@@ -12601,14 +12333,12 @@
     "gn_painted_metal",
     "gn_stone_trim",
     "metal",
-    "planks",
     "roof"
    ],
    "textures": [
     "blender_artist/staging/third_party/cc0/extracted/kenney/building-kit/Models/GLB format/Textures/colormap.png",
     "blender_artist/staging/third_party/cc0/extracted/kenney/city-kit-commercial/Models/GLB format/Textures/colormap.png",
     "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/metal.png",
-    "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/planks.png",
     "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/Textures/roof.png",
     "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_Asphalt_BaseColor.png",
     "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Concrete_BaseColor.png",
@@ -12626,7 +12356,7 @@
     "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
    ]
   },
-  "compositionSignature": "59e4d099a49b16aebe8b04f4fec1f0ed657ba202e87a059fa8fa179f1a253a86"
+  "compositionSignature": "848ee068f2c6bc68c047d62cba2a23f8ed6470772e7ad03a8b22e152a75eeb16"
  },
  "candidateProfile": "gn_residential_v2",
  "candidateOverlay": [

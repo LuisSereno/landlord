@@ -1846,25 +1846,34 @@ class Composition:
         self._compose_damage_interior()
 
     def _compose_damage_interior(self):
-        """D-111.3 FASE 3 · interior dressing en la sección que el daño abrió.
+        """D-111.3 FASE 3 · interior dressing en la sección que el daño abrió (〔D-111.3-T FASE 2〕).
 
         Un edificio seccionado que sólo muestra escombros leé como cascarón vacío. Donde el daño
         destapó cubierta y fachada se sugiere el interior: forjados parciales (con hueco, que la
         destrucción no deja suelos completos), un tramo de escalera, un tabique, vigas del arranque
-        de la cubierta perdida y palés. Determinista con la semilla sellada, limitado al rectángulo
-        del daño con margen para que nada atraviese paños, y ausente en los volúmenes intactos.
-        No añade estados, datos ni mobiliario al dominio: es composición visual derivada. Usa
-        offsets FIJOS y no toca el PRNG sellado: el stream que consume _compose_fire ha de quedar
-        idéntico para que los anclajes de fuego de la variante nueva coincidan con el control.
+        de la cubierta perdida y, en la nave industrial, pilares metálicos bajo los forjados que
+        quedan en pie (〔FASE 2.3〕: el almacén pedía más estructura reconocible; se resuelve con
+        `mod_megakit_column_metal_bottom`, módulo legal ya en el pool `column` de la familia — no
+        se crea recurso nuevo ni se toca el exterior aprobado). Determinista con la semilla sellada,
+        limitado al rectángulo del daño con margen para que nada atraviese paños, y ausente en los
+        volúmenes intactos. No añade estados, datos ni mobiliario al dominio: es composición visual
+        derivada. Usa offsets FIJOS y no toca el PRNG sellado: el stream que consume _compose_fire
+        ha de quedar idéntico para que los anclajes de fuego de la variante nueva coincidan con el
+        control.
+
+        Mercancías y estanterías NO se representan: el único candidato (el palé Kenney) es mobiliario
+        contextual y §22 lo excluye del catálogo arquitectónico — duplicaría la colocación de solar
+        en runtime (V.d-7C). La limitación queda documentada aquí y en `damage_module_consistency.json`
+        en vez de eludir la guarda cambiando el nombre o la categoría del módulo.
         """
         rect = getattr(self, "_damage_rect", None)
         if not rect:
             return
         stair = self.catalog.pools.get((self.family, "interior_stair"))
-        prop = self.catalog.pools.get((self.family, "interior_prop"))
         beam = self.catalog.pools.get((self.family, "interior_beam"))
         slab = self.catalog.pools.get((self.family, "slab"))
         partition = self.catalog.pools.get((self.family, "wall_panel"))
+        columns = self.catalog.pools.get((self.family, "column"))
         if not slab:
             return
         slab = self.catalog.pick(self.family, "slab")
@@ -1910,19 +1919,6 @@ class Composition:
                     (x1 - 1.6, mid_y + 0.3, z),
                     "damage:interior:stair",
                 )
-            # Palés sobre el forjado, cerca de la abertura para que se lean.
-            if prop:
-                for offset, angle in ((0.22, 90), (0.55, 0)):
-                    self.add(
-                        self.catalog.pick(self.family, "interior_prop"),
-                        angle,
-                        (
-                            x0 + span_x * offset,
-                            mid_y + (0.5 if offset < 0.4 else -0.5),
-                            z,
-                        ),
-                        "damage:interior:prop",
-                    )
         # Vigas del arranque de cubierta perdido: cruzan el hueco justo por debajo de la cota del corte.
         if beam:
             beam_module = self.catalog.pick(self.family, "interior_beam")
@@ -1937,6 +1933,19 @@ class Composition:
                     ),
                     "damage:interior:beam",
                     scale=3.0,
+                )
+        # Pilares del pórtico sobre el suelo de la nave (〔FASE 2.3〕): la nave es de una planta, así
+        # que no tiene niveles ventilados y el interior pedía estructura reconocible; se resuelve con
+        # `mod_megakit_column_metal_bottom`, módulo legal ya en el pool `column` de la familia. Los
+        # pilares van bajo las fracciones del vano donde ya caen las vigas, sin tocar el exterior.
+        if columns and self.family == "industrial_heavy":
+            column = self.catalog.pick(self.family, "column")
+            for fraction in (0.25, 0.75):
+                self.add(
+                    column,
+                    0,
+                    (x0 + (x1 - x0) * fraction, mid_y, 0.0),
+                    "damage:interior:column",
                 )
 
     def _scatter_debris(self):

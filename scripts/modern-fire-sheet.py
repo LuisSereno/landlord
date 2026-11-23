@@ -82,6 +82,29 @@ def main() -> None:
             draw.multiline_text((x, y + 24), caption(arm), fill=MUTED, spacing=6)
         y += CELL_H + CAPTION_H + PAD
     sheet.save(OUT_DIR / "modern_building_fire_ab.png")
+    arms = [
+        json.loads((OUT_DIR / f"{row_key}_{mood}.json").read_text(encoding="utf-8"))
+        for row_key, _title in ROWS
+        for mood in MOODS
+    ]
+    meta = {
+        "schemaVersion": 1,
+        "sheet": "modern_building_fire_ab.png",
+        "generator": "scripts/modern-fire-sheet.py",
+        "rows": [row_key for row_key, _title in ROWS],
+        "moods": MOODS,
+        "arms": [
+            {"arm": arm["arm"], "candidateName": arm.get("candidateName"), "pngSha256": arm["pngSha256"]}
+            for arm in arms
+        ],
+        "purpose": (
+            "control histórico legacy vs mixed_tenement/warehouse WP06 ardiendo, intenso y moderado "
+            "(fxFoci), día y noche; los focos proceden de los fireAnchors publicados por el compositor"
+        ),
+    }
+    (OUT_DIR / "modern_building_fire_ab.json").write_text(
+        json.dumps(meta, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     print(f"modern_building_fire_ab.png {sheet.width}×{sheet.height}")
 
 

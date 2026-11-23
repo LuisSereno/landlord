@@ -550,13 +550,13 @@
    "license": "MIT (Phaser) sobre código original de Landlord; los sprites candidatos son renders propios (fuentes CC0 + geometría original)",
    "hostCompatibility": "Chromium headless (SwiftShader); la ruta sólo la activa el arnés de captura (/?fxCandidate o __landlordCameraTest), ningún camino de gameplay puede alcanzarla",
    "state": "qa_integrated",
-   "scriptOrModule": "scripts/hybrid-fire-capture.mjs + scripts/hybrid-fire-anchor-check.py + scripts/candidate-phaser-capture.mjs + scripts/building-condition-capture.mjs + scripts/build-building-composer.mjs --qaFlamePeakEmission (variante QA de focos estáticos reducidos, default 1.35 intacto)",
+   "scriptOrModule": "scripts/hybrid-fire-capture.mjs + scripts/hybrid-fire-anchor-check.py + scripts/candidate-phaser-capture.mjs + scripts/building-condition-capture.mjs + scripts/build-building-composer.mjs --qaFlamePeakEmission (variante QA de focos estáticos reducidos, default 1.35 intacto) + scripts/modern-fire-capture.mjs + scripts/modern-condition-capture.mjs (FINAL-ASSET-QA: ?fxFoci= intensidad selectiva y validateCandidateQa anti-sustitución)",
    "objectTypeUse": "las cuatro candidatas WP06 y la variante burning del mixed_tenement fotografiadas sobre el mundo real o el laboratorio, rotuladas como muestra QA",
    "reproducibleExample": "cd apps/web && npx vite build --emptyOutDir && node scripts/hybrid-fire-capture.mjs && node scripts/candidate-phaser-capture.mjs && node scripts/building-condition-capture.mjs",
    "inputResources": "evidence/v2/candidates/wp06_*.png+json (4 candidatas) · evidence/v2/closure/fire/hybrid_sprite_*.png+json (variante QA burning) · metadata §24 del compositor (cámara ortográfica 45°/30°, trim, framing, fireAnchors en metros)",
    "outputResources": "evidence/v2/closure/fire/ (hybrid_fire_ab.png, hybrid_fire_anchors.json, 6 fotogramas), evidence/v2/closure/urban/ (4 parejas × 2 zoom + candidate-runtime-qa-manifest.json), evidence/v2/closure/condition/ (4 casos + building_condition_in_phaser.png)",
-   "visualResult": "anclajes verificados por dos implementaciones independientes (Δ 0,00000; 15/16 focos con llama en el PNG); 16 focos animados naciendo de los vanos quemados sin columna de humo duplicada; recorte a blanco del híbrido 0,086 % día / 0,058 % noche; las cuatro candidatas visibles a 1× y 0,5× con control en el mismo fotograma; 0 desajustes de condición en los cuatro casos",
-   "limitations": "1/16 focos (fire:flame:window:1) sin llama visible en el bake del sprite QA; el índice distingue las hojas compuestas como documentos (brazo hoja de trabajo); ninguna candidata entra en runtime-promotions.json",
+   "visualResult": "anclajes verificados por dos implementaciones independientes (Δ 0,00000; 15/16 focos con llama en el PNG); 16 focos animados naciendo de los vanos quemados sin columna de humo duplicada; recorte a blanco del híbrido 0,086 % día / 0,058 % noche; las cuatro candidatas visibles a 1× y 0,5× con control en el mismo fotograma; 0 desajustes de condición en los cuatro casos; FINAL-ASSET-QA: mixed_tenement y warehouse WP06 ardiendo (intenso/moderado, día/noche) contra control histórico legacy, y las cuatro condiciones de conservado/envejecido/dañado/en llamas sobre la MISMA arquitectura a 2,5×",
+   "limitations": "1/16 focos (fire:flame:window:1) sin llama visible en el bake del sprite QA; el índice distingue las hojas compuestas como documentos (brazo hoja de trabajo); ninguna candidata entra en runtime-promotions.json; la variante aged QA existe pero el runtime sigue sin sprite envejecido aprobado (D-080)",
    "integrationDecision": "sólo QA: producción no sirve /qa-candidates/ y el catálogo runtime no cambia; la promoción de candidatas y el sprite aged siguen siendo decisión del propietario",
    "evidenceCaptures": [
     "docs/art/graphics-capabilities/evidence/v2/closure/fire/hybrid_fire_ab.png",
@@ -579,7 +579,10 @@
     "docs/art/graphics-capabilities/evidence/v2/closure/condition/condition_aged.png",
     "docs/art/graphics-capabilities/evidence/v2/closure/condition/condition_ruin.png",
     "docs/art/graphics-capabilities/evidence/v2/closure/condition/condition_burning.png",
-    "docs/art/graphics-capabilities/evidence/v2/closure/night/night_lighting_final_ab.png"
+    "docs/art/graphics-capabilities/evidence/v2/closure/night/night_lighting_final_ab.png",
+    "docs/art/graphics-capabilities/evidence/v2/final-assets/modern_building_fire_ab.png",
+    "docs/art/graphics-capabilities/evidence/v2/final-assets/modern_building_condition_ab.png",
+    "docs/art/graphics-capabilities/evidence/v2/final-assets/modern_candidates_in_phaser.png"
    ]
   }
  ]

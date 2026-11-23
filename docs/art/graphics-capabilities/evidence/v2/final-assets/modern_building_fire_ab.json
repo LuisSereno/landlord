@@ -1,0 +1,69 @@
+{
+ "schemaVersion": 1,
+ "sheet": "modern_building_fire_ab.png",
+ "generator": "scripts/modern-fire-sheet.py",
+ "rows": [
+  "legacy_control",
+  "mixed_intense",
+  "mixed_moderate",
+  "warehouse_intense",
+  "warehouse_moderate"
+ ],
+ "moods": [
+  "day",
+  "night"
+ ],
+ "arms": [
+  {
+   "arm": "legacy_control_day",
+   "candidateName": null,
+   "pngSha256": "7f9f68830464656d74c52698feaa9cf0892cdb7ad377f1ef2a7f2f0012b7b16a"
+  },
+  {
+   "arm": "legacy_control_night",
+   "candidateName": null,
+   "pngSha256": "5f64bc63832d96d7c45ee3dcaac9a9d90d9c3c40e37b29a2c587469d68818f27"
+  },
+  {
+   "arm": "mixed_intense_day",
+   "candidateName": "mixed_tenement-burning",
+   "pngSha256": "46b6694b1708ad6803e654e17b38b1f74017e54774fabc002607a2ed6c9a4505"
+  },
+  {
+   "arm": "mixed_intense_night",
+   "candidateName": "mixed_tenement-burning",
+   "pngSha256": "a09b5f66222122ca51aa84b8d87960dd22a3d9e148d19a18a853913f4ca8df8b"
+  },
+  {
+   "arm": "mixed_moderate_day",
+   "candidateName": "mixed_tenement-burning",
+   "pngSha256": "48ef212034ab12dbe3f3d41db20beb3e2f33a0341d9be1501ea87b5691345d25"
+  },
+  {
+   "arm": "mixed_moderate_night",
+   "candidateName": "mixed_tenement-burning",
+   "pngSha256": "09b9b91aa216fe66b79faa80fad34bb74cf789bf1a028aa483eed86d1ab3d096"
+  },
+  {
+   "arm": "warehouse_intense_day",
+   "candidateName": "warehouse-burning",
+   "pngSha256": "825d4f588ee11a15d5b71657c33e935d19b0c02ef95f325434e7a8304e1f3baf"
+  },
+  {
+   "arm": "warehouse_intense_night",
+   "candidateName": "warehouse-burning",
+   "pngSha256": "f51dd4eafb907e618414683b90ca43bc848b589e3b49d08e441b06b089c2f925"
+  },
+  {
+   "arm": "warehouse_moderate_day",
+   "candidateName": "warehouse-burning",
+   "pngSha256": "13460090ff5eb2eb533a4cd373ec37eb0c52a499af36d8d61592733d9cb84f20"
+  },
+  {
+   "arm": "warehouse_moderate_night",
+   "candidateName": "warehouse-burning",
+   "pngSha256": "764e8749716420c6ad1ea7fa1a3c5b1f5d040cd8280cb8d54e8a4aa0830c848d"
+  }
+ ],
+ "purpose": "control histórico legacy vs mixed_tenement/warehouse WP06 ardiendo, intenso y moderado (fxFoci), día y noche; los focos proceden de los fireAnchors publicados por el compositor"
+}

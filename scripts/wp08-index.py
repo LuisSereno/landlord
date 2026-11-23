@@ -131,6 +131,10 @@ BRAZOS_POR_RUTA = {
     "v2/closure/urban/four_candidates_in_phaser.png": BRAZO_HOJA,
     "v2/closure/condition/building_condition_in_phaser.png": BRAZO_HOJA,
     "v2/closure/night/night_lighting_final_ab.png": BRAZO_HOJA,
+    # Hojas de FINAL-ASSET-QA (mismo lienzo de documento 11,20,34; scripts/modern-*-sheet.py):
+    "v2/final-assets/modern_building_fire_ab.png": BRAZO_HOJA,
+    "v2/final-assets/modern_building_condition_ab.png": BRAZO_HOJA,
+    "v2/final-assets/modern_candidates_in_phaser.png": BRAZO_HOJA,
     # Canales y atlases que alimentan la receta de envejecimiento (FASE 6): no son imagen de escena.
     "v2/weathering/mask/": BRAZO_MAPA,
     # Las tres sondas del halo de FASE 5 son la calle de noche (`fx-effects.ts` §5.2 mide el filamento de

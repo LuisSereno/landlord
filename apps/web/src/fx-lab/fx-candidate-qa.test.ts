@@ -43,7 +43,8 @@ describe("FINAL-ASSET-QA 2.3 · ruta QA sin sustituciones silenciosas", () => {
       requestedName: "warehouse",
       problems: ['tipo solicitado "warehouse" no corresponde a la candidata "mixed_tenement"'],
     });
-    const incomplete = { ...base, candidateId: "", candidateProfile: undefined, compositionSignature: "" };
+    const { candidateProfile: _omit, ...rest } = base;
+    const incomplete = { ...rest, candidateId: "", compositionSignature: "" };
     const result = validateCandidateQa(incomplete, "mixed_tenement");
     expect(result.ok).toBe(false);
     if (!result.ok) {

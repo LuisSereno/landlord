@@ -1,0 +1,46 @@
+{
+ "schemaVersion": 1,
+ "sheet": "modern_building_condition_ab.png",
+ "generator": "scripts/modern-condition-sheet.py",
+ "panels": [
+  {
+   "arm": "condition_conserved",
+   "title": "CONSERVADO · tier conserved (sprite complete)"
+  },
+  {
+   "arm": "condition_aged",
+   "title": "ENVEJECIDO · proyección material QA (weathering aged)"
+  },
+  {
+   "arm": "condition_damaged",
+   "title": "DAÑADO · geometría damaged del compositor"
+  },
+  {
+   "arm": "condition_burning",
+   "title": "EN LLAMAS · variante híbrida con anclajes reales"
+  }
+ ],
+ "arms": [
+  {
+   "arm": "condition_conserved",
+   "candidateName": "mixed_tenement",
+   "pngSha256": "6e315f6f2e644d0e226bf6279b3e3c7f0c18ef20afdca5ffd1aa503cd68ab72b"
+  },
+  {
+   "arm": "condition_aged",
+   "candidateName": "mixed_tenement-aged",
+   "pngSha256": "3be504c95b1102d5665288e609c9869134f4741378a2005f39943815893d5514"
+  },
+  {
+   "arm": "condition_damaged",
+   "candidateName": "mixed_tenement-damaged",
+   "pngSha256": "baef27310d598860a9081f83e89cb24ad673849e51a0fd6c4c93679e8c5c2b3c"
+  },
+  {
+   "arm": "condition_burning",
+   "candidateName": "mixed_tenement-burning",
+   "pngSha256": "3eb1a911e8845aa9ac78097a41a6d863b601e8a718330cdf5cd4ddd72f2d771f"
+  }
+ ],
+ "purpose": "conservado/envejecido/dañado/en llamas sobre la MISMA arquitectura (mixed_tenement WP06) a zoom 2,5; el envejecido es la proyección material QA (weathering aged), no un estado nuevo"
+}

@@ -41,15 +41,21 @@ valid (15+4), capabilities-valid (24), licencias, typecheck, vitest 43/43, build
 Objetivo: que las demostraciones de fuego/humo/daño usen la arquitectura WP06 y los edificios
 legacy (`bld_*`) queden como controles históricos. Sin tocar `GameState`, promociones ni runtime.
 
+Estado final: **`READY FOR HUMAN VISUAL REVIEW`** — las tres comparativas de cierre viven en
+`evidence/v2/final-assets/` (`modern_building_fire_ab.png`, `modern_building_condition_ab.png`,
+`modern_candidates_in_phaser.png`); `runtime-promotions.json` intacto verificado contra `8c72d88`.
+Pendiente de revisión visual humana; la variante `aged` QA existe como proyección material pero el
+runtime sigue sin sprite envejecido aprobado (D-080, decisión del propietario).
+
 | Paso | Estado | Commit | Evidencia | Pendiente |
 | --- | --- | --- | --- | --- |
 | 0 · baseline y registro | DONE | `ba073fd` | esta sección | — |
 | 1 · cuatro inconsistencias de auditoría | DONE | `b0c8de9` | ledger dedup · fixture `qaStates=damaged` → `ruin` + test · README sin contador · hueco WP06 eliminado · `zooms` desde capturas | — |
 | 2 · mapa de procedencias + anti-sustitución | DONE | `83094b7` | `FINAL-ASSET-SOURCES.md` · `validateCandidateQa` en la ruta QA · `listCandidateQaErrors()` en la escena | — |
 | 3 · variantes WP06 que faltan | DONE | `5d7b176` | `evidence/v2/candidates/wp06_{mixed_tenement-aged,mixed_tenement-damaged,warehouse-burning,warehouse-damaged}.{png,json}` · burning mixed_tenement reutilizado de `closure/fire/hybrid_sprite_*` (sha OK) · exclusión `Texture` en el contrato de weathering | — |
-| 4 · demostraciones de incendio WP06 | DONE | — | `evidence/v2/final-assets/modern_building_fire_ab.png` · 10 brazos día/noche (control legacy + mixed_tenement y warehouse intenso/moderado) · `fxFoci` QA · `wp06_warehouse-burning-day` | — |
-| 5 · comparativa de conservación WP06 | DONE | — | `evidence/v2/final-assets/modern_building_condition_ab.png` · mixed_tenement conservado/envejecido/dañado/en llamas a 2,5× (misma arquitectura) | — |
-| 6 · validación, documentación y cierre | PENDING | — | — | — |
+| 4 · demostraciones de incendio WP06 | DONE | `c93bdc7` | `evidence/v2/final-assets/modern_building_fire_ab.png` · 10 brazos día/noche (control legacy + mixed_tenement y warehouse intenso/moderado) · `fxFoci` QA · `wp06_warehouse-burning-day` | — |
+| 5 · comparativa de conservación WP06 | DONE | `5e1a27f` | `evidence/v2/final-assets/modern_building_condition_ab.png` · mixed_tenement conservado/envejecido/dañado/en llamas a 2,5× (misma arquitectura) | — |
+| 6 · validación, documentación y cierre | DONE | — | índice `--check` exit 0 (163 PNG, 0 duras, 12 legacy aislados) · capabilities-valid · composer valid (15+4) · licencias · typecheck · vitest 245/249 · smoke sin errores · README/ART.md/capabilities.json actualizados | — |
 
 ## Defectos heredados registrados en FASE 1 (sin regenerar evidencias antiguas)
 

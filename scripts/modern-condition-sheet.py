@@ -76,6 +76,28 @@ def main() -> None:
         draw.text((x, y + 4), title, fill=TEXT)
         draw.multiline_text((x, y + 26), caption(arm), fill=MUTED, spacing=6)
     sheet.save(OUT_DIR / "modern_building_condition_ab.png")
+    arms = [
+        json.loads((OUT_DIR / f"{arm}.json").read_text(encoding="utf-8")) for arm, _title in PANELS
+    ]
+    meta = {
+        "schemaVersion": 1,
+        "sheet": "modern_building_condition_ab.png",
+        "generator": "scripts/modern-condition-sheet.py",
+        "panels": [
+            {"arm": arm, "title": title} for arm, title in PANELS
+        ],
+        "arms": [
+            {"arm": a["arm"], "candidateName": a.get("candidateName"), "pngSha256": a["pngSha256"]}
+            for a in arms
+        ],
+        "purpose": (
+            "conservado/envejecido/dañado/en llamas sobre la MISMA arquitectura (mixed_tenement WP06) "
+            "a zoom 2,5; el envejecido es la proyección material QA (weathering aged), no un estado nuevo"
+        ),
+    }
+    (OUT_DIR / "modern_building_condition_ab.json").write_text(
+        json.dumps(meta, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     print(f"modern_building_condition_ab.png {sheet.width}×{sheet.height}")
 
 

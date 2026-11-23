@@ -77,7 +77,18 @@ retiran donde eran geométricamente falsos y se conservan donde la medida los so
 | `normal_maps` | capacidad | `tested` | es lo que hace legible la junta a zoom reducido; restringido a QA |
 | `phaser_particles` | capacidad | `qa_integrated` | **MEJORA** de legibilidad de estado (humo, polvo) |
 | `phaser_world_scale_capture` | capacidad | `qa_integrated` | la partida real a 1440×900 y 1×/0,5× con el censo del renderizador; sólo Centro Cívico cumple los siete contadores (WP08) |
-| `composer_candidate_qa_runtime` | capacidad | `qa_integrated` | las cuatro candidatas WP06 y el incendio híbrido Blender+Phaser dentro de Phaser por rutas QA explícitas, sin promocionar nada (cierre FASE 2-4) |
+| `composer_candidate_qa_runtime` | capacidad | `qa_integrated` | las cuatro candidatas WP06 y el incendio híbrido Blender+Phaser dentro de Phaser por rutas QA explícitas, sin promocionar nada (cierre FASE 2-4); FINAL-ASSET-QA: incendios y conservación demostrados sobre arquitectura WP06 con control histórico etiquetado |
+
+## FINAL-ASSET-QA: qué edificio debe aparecer en cada demostración (2026-11-23)
+
+Las demostraciones de fuego, humo y daño de D-111.2 deben usar los candidatos WP06
+(`row_house`, `mixed_tenement`, `warehouse`, `town_hall`) y sus variantes QA
+(`evidence/v2/candidates/wp06_*.{png,json}`). Los edificios legacy `bld_*` del laboratorio son
+**controles históricos** para regresión y comparativa A/B — nunca sustitutos silenciosos de un
+candidato que falte. La ruta QA lo valida antes de montar (`validateCandidateQa`) y la escena
+reporta las variantes que no cargaron (`listCandidateQaErrors`). El mapa completo de procedencias
+está en `FINAL-ASSET-SOURCES.md`; las comparativas de cierre viven en `evidence/v2/final-assets/`.
+Nada de esto promociona sprites: `runtime-promotions.json` no cambia.
 | `tilemap_gpu_layer` | capacidad | `available` | condicionada a un problema real de terreno |
 
 Las cinco entradas `qa_integrated` que añadió D-111.2 están sin promover. Las tres de Blender y del

@@ -1,0 +1,13 @@
+{
+ "schemaVersion": 1,
+ "purpose": "las cuatro candidatas WP06 dentro de Phaser, con su control del catálogo al lado (muestra rotulada, no evolución de la partida)",
+ "source": "evidence/v2/closure/urban/four_candidates_in_phaser.png",
+ "sourceSha256": "ffa6a70e250ea42a87d9bf2498474c151e8fdb75277c83bf569729b7a5f6ddec",
+ "note": "FINAL-ASSET-QA 6.1: capturas válidas ya existentes, reutilizadas sin regenerar. Las parejas control/candidata a 1× y 0,5× viven en closure/urban/ con su manifiesto candidate-runtime-qa-manifest.json (zooms verificados).",
+ "buildings": [
+  "row_house",
+  "mixed_tenement",
+  "town_hall",
+  "warehouse"
+ ]
+}

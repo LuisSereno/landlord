@@ -102,7 +102,10 @@ matices de licencia en
   `state/condition/structuralIntegrity` (`building-condition.ts`); el tier `aged` cae en el sprite
   `complete` hasta que exista sprite envejecido aprobado (D-080). Las candidatas WP06 y el fuego
   híbrido sólo se ven por rutas QA (`?fxCandidate` en /art-lab, `placeCandidateQa` en la escena);
-  nada está promocionado y `runtime-promotions.json` no se tocó.
+  nada está promocionado y `runtime-promotions.json` no se tocó. FINAL-ASSET-QA (2026-11-23): las
+  demostraciones de fuego/daño deben usar arquitectura WP06; los `bld_*` legacy son controles
+  históricos — la ruta QA lo valida (`validateCandidateQa`) y existe el mapa de procedencias
+  (`docs/art/graphics-capabilities/FINAL-ASSET-SOURCES.md`).
 - Guía reutilizable para generar y revisar un edificio: `docs/art/BUILDING-COMPOSER.md` §39.
 
 ## Fuente extensa

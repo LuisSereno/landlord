@@ -1,0 +1,53 @@
+{
+ "schemaVersion": 1,
+ "sheet": "facade_diagnosis.png",
+ "building": "mixed_tenement",
+ "seed": 2,
+ "candidateProfile": "gn_residential_v2",
+ "mood": "day_civic",
+ "region": {
+  "rect": [
+   60,
+   240,
+   60,
+   400
+  ],
+  "note": "cabecera del paño encastrado, fachada izquierda"
+ },
+ "arms": {
+  "A_control": {
+   "pxOscuros": 10968,
+   "rgbMedio": [
+    51.9,
+    52.8,
+    53.1
+   ]
+  },
+  "C_noshadow": {
+   "pxOscuros": 5505,
+   "rgbMedio": [
+    60.0,
+    53.6,
+    46.3
+   ]
+  },
+  "G_key_overhead": {
+   "pxOscuros": 7059,
+   "rgbMedio": [
+    53.3,
+    48.5,
+    40.5
+   ]
+  },
+  "E_glass_opaque": {
+   "pxOscuros": 4319,
+   "rgbMedio": [
+    71.2,
+    60.1,
+    46.6
+   ]
+  }
+ },
+ "labSource": "facade_lab/*.png (render Blender 720², misma cámara y encuadre del compositor)",
+ "publishedControl": "evidence/v2/candidates/wp06_mixed_tenement-candidata.png (reproducido a ±3/255)"
+}

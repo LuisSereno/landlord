@@ -12,8 +12,8 @@
  ],
  "pins": {
   "styleProfileId": "graphic_civic_buildings_v1",
-  "styleProfilesSha256": "f78033bd170d72f21800573f620134943d7219f3f41ba5ad9b519bf7a7f8c42d",
-  "moduleCatalogSha256": "96da3c82722915283ecf9dfcb5f5fa3492f5656883c6170669aa24acd781122e",
+  "styleProfilesSha256": "1d9d26f74a5eaeb1baec5d109b94fe5e29db280e8bc0a7ae5d7f3b9abdd1050e",
+  "moduleCatalogSha256": "3d1a5735b020066ee8e56146946017d86dade5d3aab2ba2e6481052e8d806b16",
   "styleLayer": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
   "materialDecisions": "docs/art/graphics-capabilities/material-decisions.json",
   "evidence": "Por qué los tres hashes: el vocabulario de familias semánticas no lo declara este contrato, lo mide `building-style-profiles.json` sobre `building-modules.json`. Sin el pin, añadir un módulo con un material nuevo dejaría el contrato incompleto en silencio y el render mezclaría paños tratados con paños en bruto (§11).",
@@ -225,17 +225,17 @@
     },
     "aged": {
      "recipe": {
-      "strength": 0.42,
+      "strength": 0.62,
       "baseSoiling": 0.38,
       "grimeColor": [
-       0.0423,
-       0.0307,
-       0.0232
+       0.030257,
+       0.023104,
+       0.016988
       ],
       "grimeColorSrgb": [
-       58,
-       49,
-       42
+       52,
+       46,
+       40
       ],
       "cavity": {
        "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_brick_stone_center_depth.png",
@@ -257,12 +257,12 @@
        "detail": 2.0,
        "threshold": 0.52,
        "width": 0.28,
-       "weight": 0.5
+       "weight": 0.625
       },
       "gravity": {
        "zLowMeters": 0.0,
-       "zHighMeters": 5.0,
-       "boost": 0.45
+       "zHighMeters": 8.0,
+       "boost": 0.675
       },
       "blendSource": null,
       "roughnessAdd": 0.06,
@@ -294,17 +294,17 @@
     },
     "aged": {
      "recipe": {
-      "strength": 0.45,
+      "strength": 0.62,
       "baseSoiling": 0.42,
       "grimeColor": [
-       0.0931,
-       0.0782,
-       0.0545
+       0.054592,
+       0.044553,
+       0.031551
       ],
       "grimeColorSrgb": [
-       86,
-       79,
-       66
+       68,
+       62,
+       53
       ],
       "cavity": null,
       "patch": {
@@ -317,15 +317,15 @@
        "detail": 2.0,
        "threshold": 0.46,
        "width": 0.34,
-       "weight": 0.8
+       "weight": 0.95
       },
       "gravity": {
        "zLowMeters": 0.0,
-       "zHighMeters": 8.5,
-       "boost": 0.7
+       "zHighMeters": 13.6,
+       "boost": 0.8
       },
       "blendSource": null,
-      "roughnessAdd": 0.05,
+      "roughnessAdd": 0.06,
       "emissionScale": null
      },
      "moodModifiers": {
@@ -355,17 +355,17 @@
     },
     "aged": {
      "recipe": {
-      "strength": 0.34,
+      "strength": 0.5,
       "baseSoiling": 0.34,
       "grimeColor": [
-       0.0513,
-       0.0545,
-       0.0578
+       0.035614,
+       0.038473,
+       0.041452
       ],
       "grimeColorSrgb": [
-       64,
-       66,
-       68
+       56,
+       58,
+       60
       ],
       "cavity": {
        "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_stone_depth.png",
@@ -387,15 +387,15 @@
        "detail": 2.0,
        "threshold": 0.56,
        "width": 0.3,
-       "weight": 0.35
+       "weight": 0.438
       },
       "gravity": {
        "zLowMeters": 0.0,
-       "zHighMeters": 4.0,
-       "boost": 0.3
+       "zHighMeters": 6.4,
+       "boost": 0.45
       },
       "blendSource": null,
-      "roughnessAdd": 0.04,
+      "roughnessAdd": 0.05,
       "emissionScale": null
      },
      "moodModifiers": {
@@ -424,17 +424,17 @@
     },
     "aged": {
      "recipe": {
-      "strength": 0.55,
+      "strength": 0.7,
       "baseSoiling": 0.3,
       "grimeColor": [
-       0.0685,
-       0.0578,
-       0.0452
+       0.044553,
+       0.025371,
+       0.013473
       ],
       "grimeColorSrgb": [
-       74,
-       68,
-       60
+       62,
+       48,
+       36
       ],
       "cavity": {
        "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/floor_wood_planks_depth.png",
@@ -456,12 +456,12 @@
        "detail": 3.0,
        "threshold": 0.5,
        "width": 0.3,
-       "weight": 0.75
+       "weight": 0.938
       },
       "gravity": {
        "zLowMeters": 0.0,
-       "zHighMeters": 6.0,
-       "boost": 0.2
+       "zHighMeters": 9.6,
+       "boost": 0.3
       },
       "blendSource": {
        "texture": "blender_artist/staging/third_party/cc0/extracted/polyhaven/wood_planks_grey/textures/wood_planks_grey_diff_4k.jpg",
@@ -498,16 +498,16 @@
     },
     "aged": {
      "recipe": {
-      "strength": 0.5,
+      "strength": 0.62,
       "baseSoiling": 0.32,
       "grimeColor": [
-       0.0931,
-       0.0343,
-       0.013
+       0.058187,
+       0.025371,
+       0.009021
       ],
       "grimeColorSrgb": [
-       86,
-       52,
+       70,
+       48,
        30
       ],
       "cavity": null,
@@ -521,12 +521,12 @@
        "detail": 3.0,
        "threshold": 0.54,
        "width": 0.26,
-       "weight": 0.85
+       "weight": 0.95
       },
       "gravity": {
        "zLowMeters": 0.0,
-       "zHighMeters": 7.0,
-       "boost": 0.5
+       "zHighMeters": 11.2,
+       "boost": 0.75
       },
       "blendSource": {
        "texture": "blender_artist/staging/third_party/cc0/extracted/polyhaven/rusty_metal_02/textures/rusty_metal_02_diff_4k.jpg",
@@ -615,17 +615,17 @@
     },
     "aged": {
      "recipe": {
-      "strength": 0.42,
+      "strength": 0.62,
       "baseSoiling": 0.45,
       "grimeColor": [
-       0.0685,
-       0.0612,
-       0.0513
+       0.038473,
+       0.031551,
+       0.023104
       ],
       "grimeColorSrgb": [
-       74,
-       70,
-       64
+       58,
+       53,
+       46
       ],
       "cavity": null,
       "patch": {
@@ -638,15 +638,15 @@
        "detail": 2.0,
        "threshold": 0.58,
        "width": 0.3,
-       "weight": 0.6
+       "weight": 0.75
       },
       "gravity": {
        "zLowMeters": 0.0,
-       "zHighMeters": 6.0,
-       "boost": 0.35
+       "zHighMeters": 9.6,
+       "boost": 0.525
       },
       "blendSource": null,
-      "roughnessAdd": 0.05,
+      "roughnessAdd": 0.07,
       "emissionScale": 0.78
      },
      "moodModifiers": {
@@ -676,17 +676,17 @@
     },
     "aged": {
      "recipe": {
-      "strength": 0.4,
+      "strength": 0.62,
       "baseSoiling": 0.36,
       "grimeColor": [
-       0.0423,
-       0.0307,
-       0.0232
+       0.030257,
+       0.023104,
+       0.016988
       ],
       "grimeColorSrgb": [
-       58,
-       49,
-       42
+       52,
+       46,
+       40
       ],
       "cavity": {
        "texture": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-textures-fantasy/PNG/wall_brick_stone_center_depth.png",
@@ -708,12 +708,12 @@
        "detail": 2.0,
        "threshold": 0.52,
        "width": 0.28,
-       "weight": 0.5
+       "weight": 0.625
       },
       "gravity": {
        "zLowMeters": 0.0,
-       "zHighMeters": 6.0,
-       "boost": 0.45
+       "zHighMeters": 9.6,
+       "boost": 0.675
       },
       "blendSource": null,
       "roughnessAdd": 0.06,
@@ -773,5 +773,7 @@
   ],
   "promotion": "El tier envejecido existe sólo en evidencia offline (`weathering` opt-in en el request). Ningún sprite del catálogo publicado se regenera con él hasta la revisión humana de WP08/WP09.",
   "optInOnly": "Sin el campo `weathering` en el request, `render_candidate` no carga el contrato ni inserta un nodo: el baseline de 888 sprites es byte a byte el de antes."
- }
+ },
+ "recipeSchemaNote": "",
+ "fase5v3": "2026-11-23 D-111.3 FASE 5: fuerzas de receta subidas (0,34-0,55 -> 0,5-0,7), mugre más oscura, regueros de gravedad 1,6× más altos con más refuerzo de base, parches más presentes. Objetivo: envejecimiento legible a 0,5×/1×. Pines de catálogo/perfil re-medidos tras los 3 módulos de interior de FASE 3. Exclusiones intactas (incluida Texture)."
 }

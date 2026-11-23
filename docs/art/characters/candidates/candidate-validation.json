@@ -1,0 +1,655 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "sourceManifest": "docs/art/characters/candidates/candidate-manifest.json",
+  "sourceManifestSha256": "577e767a6e9ca5682eb413f0805e5f67bfbcbfbefa2209152f408ee8e74d60d0",
+  "jobs": [
+    {
+      "id": "char_supervisor_candidate",
+      "status": "passed",
+      "framesValidated": 16,
+      "errors": []
+    },
+    {
+      "id": "char_construction_worker_candidate",
+      "status": "passed",
+      "framesValidated": 16,
+      "errors": []
+    },
+    {
+      "id": "char_enforcer_candidate",
+      "status": "passed",
+      "framesValidated": 16,
+      "errors": []
+    }
+  ],
+  "outputs": [
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d0-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d0-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        153,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d0-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        157,
+        255
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d0-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        148,
+        221
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d1-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d1-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d1-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        145,
+        254
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d1-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        99,
+        218
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d2-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        249
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d2-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        153,
+        249
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d2-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        157,
+        242
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d2-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        148,
+        221
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d3-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d3-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        249
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d3-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        145,
+        244
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_supervisor_candidate/char_supervisor_candidate-d3-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        100,
+        206
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d0-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d0-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d0-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        157,
+        255
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d0-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        147,
+        221
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d1-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d1-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d1-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        145,
+        254
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d1-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        98,
+        218
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d2-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d2-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d2-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        157,
+        242
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d2-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        146,
+        220
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d3-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d3-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d3-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        145,
+        244
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_construction_worker_candidate/char_construction_worker_candidate-d3-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        100,
+        205
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d0-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        253
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d0-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        254
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d0-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        256
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d0-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        115,
+        220
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d1-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        253
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d1-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        253
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d1-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        152,
+        256
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d1-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        129,
+        219
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d2-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        252
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d2-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        150,
+        250
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d2-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        237
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d2-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        114,
+        217
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d3-idle-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        254
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d3-idle-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        151,
+        255
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d3-walk-0.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        152,
+        237
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    },
+    {
+      "path": "docs/art/characters/candidates/char_enforcer_candidate/char_enforcer_candidate-d3-walk-1.png",
+      "status": "passed",
+      "alphaBBox": [
+        0,
+        0,
+        129,
+        195
+      ],
+      "contentTouchesBorder": true,
+      "magentaPixels": 0,
+      "errors": []
+    }
+  ],
+  "errors": []
+}

@@ -13,7 +13,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 OUT = Path("docs/art/graphics-capabilities/evidence/d1113")
-TMP = Path("/tmp/d1113")
+TMP = Path("docs/art/graphics-capabilities/evidence/d1113/interiors")
 BG = (11, 20, 34)
 PANEL_BG = (17, 27, 43)
 TEXT = (232, 236, 244)
@@ -23,10 +23,10 @@ CELL_W, CELL_H = 500, 430
 CAPTION_H = 84
 PAD = 20
 PANELS = [
-    ("mixed_damaged", "residencial DAÑADO · mixed_tenement", TMP / "interior/w06cnd_mixed_tenement_2_damaged.png"),
-    ("mixed_burning", "residencial EN LLAMAS · mixed_tenement", TMP / "f4_mixed_burn/w06cnd_mixed_tenement_2_burning.png"),
-    ("warehouse_damaged", "almacén DAÑADO · warehouse", TMP / "f4_wh_dmg/w06cnd_warehouse_2_damaged.png"),
-    ("warehouse_burning", "almacén EN LLAMAS · warehouse", TMP / "f4_wh_burn/w06cnd_warehouse_2_burning.png"),
+    ("mixed_damaged", "residencial DAÑADO · mixed_tenement", TMP / "w06cnd_mixed_tenement_2_damaged.png"),
+    ("mixed_burning", "residencial EN LLAMAS · mixed_tenement", TMP / "w06cnd_mixed_tenement_2_burning.png"),
+    ("warehouse_damaged", "almacén DAÑADO · warehouse", TMP / "w06cnd_warehouse_2_damaged.png"),
+    ("warehouse_burning", "almacén EN LLAMAS · warehouse", TMP / "w06cnd_warehouse_2_burning.png"),
 ]
 
 

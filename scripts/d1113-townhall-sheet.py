@@ -13,7 +13,7 @@ from PIL import Image, ImageDraw
 
 OUT = Path("docs/art/graphics-capabilities/evidence/d1113")
 CAND = Path("docs/art/graphics-capabilities/evidence/v2/candidates")
-AFTER = Path("/tmp/d1113/th_neo2/w06cnd_town_hall_5.png")
+AFTER = Path("docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.png")
 BG = (11, 20, 34)
 PANEL_BG = (17, 27, 43)
 TEXT = (232, 236, 244)
@@ -108,8 +108,9 @@ def main() -> None:
     (OUT / "townhall" / "town_hall_neoclassical_ab.json").write_text(
         json.dumps(meta, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
     )
-    shutil.copy(AFTER, OUT / "townhall" / "w06cnd_town_hall_5.png")
-    shutil.copy(AFTER.with_suffix(".json"), OUT / "townhall" / "w06cnd_town_hall_5.json")
+    if AFTER.resolve() != (OUT / "townhall" / "w06cnd_town_hall_5.png").resolve():
+        shutil.copy(AFTER, OUT / "townhall" / "w06cnd_town_hall_5.png")
+        shutil.copy(AFTER.with_suffix(".json"), OUT / "townhall" / "w06cnd_town_hall_5.json")
     print(f"town_hall_neoclassical_ab.png {sheet.width}×{sheet.height}")
 
 

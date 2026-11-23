@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 
 OUT = Path("docs/art/graphics-capabilities/evidence/d1113")
 CAND = Path("docs/art/graphics-capabilities/evidence/v2/candidates")
-AFTER = Path("/tmp/d1113/f4b_mixed_dmg/w06cnd_mixed_tenement_2_damaged.png")
+AFTER = Path("docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.png")
 BG = (11, 20, 34)
 PANEL_BG = (17, 27, 43)
 TEXT = (232, 236, 244)
@@ -119,9 +119,10 @@ def main() -> None:
         json.dumps(meta, indent=1, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     shutil = __import__("shutil")
-    shutil.copy(AFTER, OUT / "interiors" / "w06cnd_mixed_tenement_2_damaged.png")
+    if AFTER.resolve() != (OUT / "interiors" / "w06cnd_mixed_tenement_2_damaged.png").resolve():
+        shutil.copy(AFTER, OUT / "interiors" / "w06cnd_mixed_tenement_2_damaged.png")
     shutil.copy(
-        "/tmp/d1113/interior/w06cnd_mixed_tenement_2_damaged.json",
+        str(OUT / "interiors" / "w06cnd_mixed_tenement_2_damaged.json"),
         OUT / "interiors" / "w06cnd_mixed_tenement_2_damaged.json",
     )
     print(f"damaged_interior_mixed_tenement_ab.png {sheet.width}×{sheet.height}")

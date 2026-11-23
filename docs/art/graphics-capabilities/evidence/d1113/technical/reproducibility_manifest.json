@@ -1,0 +1,174 @@
+{
+ "schemaVersion": 1,
+ "phase": "D-111.3-T FASE 3",
+ "inputs": {
+  "glbVentanaCorregido": {
+   "path": "blender_artist/sources/original/gn_window_bay_2m.glb",
+   "sha256": "24c729e0e07f895a9996c66e0d0d79fac542e143ebeb35080a97ffb798cb91cc"
+  },
+  "blendVivo": {
+   "path": "blender_artist/sources/original/gn_facade_system.blend",
+   "sha256": "cb71f1e860540f35e84d0131de7d9eab635d14daa8e041a13602001c929c1134"
+  },
+  "reporteGenerador": {
+   "path": "blender_artist/sources/original/gn-facade-report-seed7.json",
+   "sha256": "9b97c7604422b51ddacb5610d0f69aee40b4ecb0964f1c16c2b6e71db326371c"
+  },
+  "catalogo": {
+   "path": "blender_artist/manifests/building-modules.json",
+   "sha256": "916a2a195df986cf007899e8db55b7e5c8bcfad630c56fad6cf6532f5e0b9526"
+  },
+  "perfilEstilo": {
+   "path": "blender_artist/manifests/building-style-profiles.json",
+   "sha256": "ff8bfdd4dc32dcca6349e0e7c1b8c382e6f9e1f51bd5dc404f3099c832f627d9"
+  },
+  "contratoWeathering": {
+   "path": "blender_artist/manifests/building-weathering-contract.json",
+   "sha256": "9533e86f0801d54b769fe93379590065503073769870ad5389bdd8450e2d74e7"
+  },
+  "perfilCandidatos": {
+   "path": "blender_artist/manifests/building-composer-candidates.json",
+   "sha256": "e3079b489ad1e16cad8f1989b59b08d695ee478bdccaf27c72783e360a49be8e"
+  },
+  "capaEstilo": {
+   "path": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+   "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+  },
+  "candidatasDIA": [
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+    "sha256": "8397aff3fe45abae2e221f27aa4faa0d12bee4ad7ba8aa2216178bf46d84c050"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.json",
+    "sha256": "4bc4983ce1625b45a45adf31fc5a0d1da83e0776e31ea2718cbd1f4840b48912"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+    "sha256": "c7cce596610444bd7f775a002280d25126420b4c80188e979ea9b94dda08279e"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.json",
+    "sha256": "8c99a90961a19ff86624ee3abef771b6400482db41c3a4476ee9583cbf492548"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.png",
+    "sha256": "7b4f6eb7b04c5fc6ecf6869fd8b734368eae5698f42cf3cadafc6ddc37a3ba68"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-candidata.json",
+    "sha256": "5d11765705cfcabf0cd5fcee3d69cfcbc0222dbdbf8b58c33729f4fa187f01fd"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.png",
+    "sha256": "f75a826ae42dc9293adaadbb7ef2920b9d1a41e7a599661048bcf870a78aa23c"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.json",
+    "sha256": "b342d81ac1afc92c1d1e43e97095f84392ea13b61ee5848e8fd2b4542c763896"
+   }
+  ],
+  "variantesDano": [
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.png",
+    "sha256": "bb46c116038026f97f2ac4d71066b0993ade88fec71751dc9d2b11a8c0268683"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.json",
+    "sha256": "8a76d99d7a413713f806c32b04bfed23f8aeead7ea214ac04bd803a0a2811b80"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning.png",
+    "sha256": "c2dc2884a437ba800dd8a8a83bdbf5e77dcf3b196110dd02a16f24dd1f0bb352"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning.json",
+    "sha256": "0c6a3b2cb7748415b30d46a1ddf2ebfc786e00cca05d3092d3fa2c351f9c7dbe"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_damaged.png",
+    "sha256": "671c7dc1e6b316eae7c3a4d1b5cc4da7f64583f3df254920777a56e49cc188f8"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_damaged.json",
+    "sha256": "82728553d3953a1f2d22ffa52140df744a097aa789e055e70938b5a6641f663d"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_burning.png",
+    "sha256": "4e0fb4c6768ca089a61ba55d445d741786fe8dbfed68e19bdb47a7d6d402a543"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_burning.json",
+    "sha256": "091b6391f2fcc225e5d92edea21e15fe4addd19e3d1ecf982f2b6d45f98b1e98"
+   }
+  ],
+  "agedV3": [
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/w06cnd_mixed_tenement_2_aged.png",
+    "sha256": "54b500b174bb550b3c18f39d7694dcc6d753328d9e84ab285dfc60e62f5f4f5d"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/w06cnd_mixed_tenement_2_aged.json",
+    "sha256": "56445a2e90f2b8144b94218287d59ae49bacb72ec43647ccd7f6956a59a74c12"
+   }
+  ],
+  "townHallNeoclasico": [
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.png",
+    "sha256": "a64d7855169033ce7312d8853da463ab4d0774009d4b513a501be7e8d976a3e9"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.json",
+    "sha256": "6be880dd975d9dd2a57835edd7d72ecab929a98c530d49472244c5239dd1798a"
+   }
+  ],
+  "controles": [
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1112/wp06_mixed_tenement-candidata.png",
+    "sha256": "f797af0ba251054d494a6aac693707b5adbe77c1a51759d9884239a033bebf7a"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1112/wp06_row_house-candidata.png",
+    "sha256": "e166549013cea5b807cdd660a0733f76ca352d35b3b50811131a89f342cad11b"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_mixed_tenement_2_damaged.png",
+    "sha256": "2610f47d13c0dfca1fc725559f4849b8ed83a11cf1dfab0ee0137a848850b444"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_mixed_tenement_2_burning.png",
+    "sha256": "a7ca9984b903d38b3e138fb619214b4b56175c3dd33abe5255dec86aba5c4d60"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_warehouse_2_damaged.png",
+    "sha256": "beee551fe6cece8f88678fe3c30e485bcd826d8c1efa8396e8a233601ee204a4"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_warehouse_2_burning.png",
+    "sha256": "27d100cb7da25616867841b03286bec5aa286b64fa8a18070de61f91491cf9b3"
+   },
+   {
+    "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/aged_v3_d1113.png",
+    "sha256": "70675242f81f76325ab5cc33070371801c2379e92c54b5dd98e2199adf1f55c5"
+   }
+  ]
+ },
+ "commands": {
+  "regenerarGLBVentana": "blender -b --factory-startup -P tools/art-pipeline/blender/gn_facade_grammar.py -- --out-dir=<tmp> --seed=7 --parts=window_bay (publicar solo window_bay; los otros 8 GLB son byte-deterministas)",
+  "recrearCadenaCatalogo": [
+   "node scripts/inventory-building-modules.mjs  # OJO: re-mide fuego y omite neoclásicos; trasplantar solo gn_window_bay_2m",
+   "node scripts/build-building-modules.mjs",
+   "node scripts/build-building-style.mjs",
+   "actualizar pins de building-weathering-contract.json (moduleCatalogSha256, styleProfilesSha256)"
+  ],
+  "renderCandidato": "LANDLORD_ART_MOOD=<day_civic|night_civic> blender -b --factory-startup -P tools/art-pipeline/blender/build_building_composer.py -- --requests=<requests.json> --manifest=<manifest.json>  (un candidato por proceso: el lote multi-candidato puede dejar en blanco el segundo PNG)",
+  "hojaFachadaFinal": "python3 scripts/d1113t-facade-final-sheet.py",
+  "guardaVariantes": "python3 scripts/d1113t-damage-consistency.py",
+  "capturasPhaser": "pnpm --filter @landlord/web build && node scripts/d1113-phaser-capture.mjs (entradas: sprites versionados listados arriba)"
+ },
+ "notes": {
+  "mood": "el mood NO viaja en el request: se selecciona con LANDLORD_ART_MOOD; sin esa variable el activo es night_civic y los renders salen nocturnos",
+  "determinismoPixel": "firma de composición determinista; el PNG puede variar en el último dígito de sha por el pase de sombra de EEVEE (mismo contenido visual)",
+  "deudaInventariado": "scripts/inventory-building-modules.mjs no conoce src_original_neoclassical_* ni re-mide fuego sin cambiar clasificaciones: la regeneración completa del inventario sigue siendo destructiva (registrado en el ledger técnico)"
+ }
+}

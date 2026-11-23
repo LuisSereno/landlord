@@ -14,7 +14,8 @@ from PIL import Image, ImageDraw
 
 OUT = Path("docs/art/graphics-capabilities/evidence/d1113/facades")
 CAND = Path("docs/art/graphics-capabilities/evidence/v2/candidates")
-FIXED = Path("/tmp/d1113")
+FIXED = Path("docs/art/graphics-capabilities/evidence/v2/candidates")
+CONTROLS = Path("docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1112")
 BG = (11, 20, 34)
 PANEL_BG = (17, 27, 43)
 TEXT = (232, 236, 244)
@@ -29,8 +30,8 @@ SHEETS = [
         "name": "facade_fix_mixed_tenement_ab",
         "building": "mixed_tenement",
         "seed": 2,
-        "control": CAND / "wp06_mixed_tenement-candidata.png",
-        "fixed": FIXED / "fixed3_mixed/w06cnd_mixed_tenement_2.png",
+        "control": CONTROLS / "wp06_mixed_tenement-candidata.png",
+        "fixed": CAND / "wp06_mixed_tenement-candidata.png",
         # Detalle: cabecera de los paños encastrados de la fachada izquierda
         "detail": (180, 430, 620, 870),
     },
@@ -38,8 +39,8 @@ SHEETS = [
         "name": "facade_fix_row_house_ab",
         "building": "row_house",
         "seed": 17,
-        "control": CAND / "wp06_row_house-candidata.png",
-        "fixed": FIXED / "fixed3_row/w06cnd_row_house_17.png",
+        "control": CONTROLS / "wp06_row_house-candidata.png",
+        "fixed": CAND / "wp06_row_house-candidata.png",
         # Detalle: muro lateral de ladrillo bajo el alero de la mansarda
         "detail": (640, 560, 996, 980),
     },

@@ -12,7 +12,7 @@
  *  - `d1113_phaser_summary.json` con todos los brazos.
  */
 import { createHash } from "node:crypto";
-import { copyFileSync, mkdirSync, writeFileSync } from "node:fs";
+import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { spawn } from "node:child_process";
 import { chromium } from "@playwright/test";
@@ -23,7 +23,6 @@ const REPO_ROOT = resolve(import.meta.dirname, "..");
 const OUTPUT_DIR = "docs/art/graphics-capabilities/evidence/d1113/final";
 const VIEWPORT = { width: 1440, height: 900 };
 
-const FIXED = "/tmp/d1113";
 const CAND = "docs/art/graphics-capabilities/evidence/v2/candidates";
 const INTERIORS = "docs/art/graphics-capabilities/evidence/d1113/interiors";
 const TOWNHALL = "docs/art/graphics-capabilities/evidence/d1113/townhall";
@@ -32,8 +31,8 @@ const WEATHERING = "docs/art/graphics-capabilities/evidence/d1113/weathering";
 const sha256 = (bytes) => createHash("sha256").update(bytes).digest("hex");
 
 const ARMS = [
-  { id: "city_mixed_day", candidate: "mixed_tenement", sprite: `${FIXED}/fixed3_mixed/w06cnd_mixed_tenement_2`, mood: "day", zoom: 1 },
-  { id: "city_row_house_day", candidate: "row_house", sprite: `${FIXED}/fixed3_row/w06cnd_row_house_17`, mood: "day", zoom: 1 },
+  { id: "city_mixed_day", candidate: "mixed_tenement", sprite: `${CAND}/wp06_mixed_tenement-candidata`, mood: "day", zoom: 1 },
+  { id: "city_row_house_day", candidate: "row_house", sprite: `${CAND}/wp06_row_house-candidata`, mood: "day", zoom: 1 },
   { id: "city_warehouse_day", candidate: "warehouse", sprite: `${CAND}/wp06_warehouse-candidata`, mood: "day", zoom: 1 },
   { id: "city_town_hall_day", candidate: "town_hall", sprite: `${TOWNHALL}/w06cnd_town_hall_5`, mood: "day", zoom: 1 },
   { id: "city_town_hall_night", candidate: "town_hall", sprite: `${TOWNHALL}/w06cnd_town_hall_5`, mood: "night", zoom: 1 },
@@ -41,11 +40,11 @@ const ARMS = [
   { id: "damage_mixed_burning_day", candidate: "mixed_tenement-burning", sprite: `${INTERIORS}/w06cnd_mixed_tenement_2_burning`, mood: "day", zoom: 1 },
   { id: "damage_warehouse_damaged_night", candidate: "warehouse-damaged", sprite: `${INTERIORS}/w06cnd_warehouse_2_damaged`, mood: "night", zoom: 1 },
   { id: "damage_warehouse_burning_night", candidate: "warehouse-burning", sprite: `${INTERIORS}/w06cnd_warehouse_2_burning`, mood: "night", zoom: 1 },
-  { id: "ageing_aged_day_1x", candidate: "mixed_tenement-aged", sprite: `${FIXED}/aged_v3/w06cnd_mixed_tenement_2_aged`, mood: "day", zoom: 1 },
-  { id: "ageing_aged_day_05x", candidate: "mixed_tenement-aged", sprite: `${FIXED}/aged_v3/w06cnd_mixed_tenement_2_aged`, mood: "day", zoom: 0.5 },
-  { id: "ageing_aged_day_25x", candidate: "mixed_tenement-aged", sprite: `${FIXED}/aged_v3/w06cnd_mixed_tenement_2_aged`, mood: "day", zoom: 2.5 },
-  { id: "ageing_conserved_day_1x", candidate: "mixed_tenement", sprite: `${FIXED}/fixed3_mixed/w06cnd_mixed_tenement_2`, mood: "day", zoom: 1, skipIfSeen: "city_mixed_day" },
-  { id: "ageing_conserved_day_25x", candidate: "mixed_tenement", sprite: `${FIXED}/fixed3_mixed/w06cnd_mixed_tenement_2`, mood: "day", zoom: 2.5 },
+  { id: "ageing_aged_day_1x", candidate: "mixed_tenement-aged", sprite: `${WEATHERING}/w06cnd_mixed_tenement_2_aged`, mood: "day", zoom: 1 },
+  { id: "ageing_aged_day_05x", candidate: "mixed_tenement-aged", sprite: `${WEATHERING}/w06cnd_mixed_tenement_2_aged`, mood: "day", zoom: 0.5 },
+  { id: "ageing_aged_day_25x", candidate: "mixed_tenement-aged", sprite: `${WEATHERING}/w06cnd_mixed_tenement_2_aged`, mood: "day", zoom: 2.5 },
+  { id: "ageing_conserved_day_1x", candidate: "mixed_tenement", sprite: `${CAND}/wp06_mixed_tenement-candidata`, mood: "day", zoom: 1, skipIfSeen: "city_mixed_day" },
+  { id: "ageing_conserved_day_25x", candidate: "mixed_tenement", sprite: `${CAND}/wp06_mixed_tenement-candidata`, mood: "day", zoom: 2.5 },
 ];
 
 mkdirSync(join(REPO_ROOT, OUTPUT_DIR), { recursive: true });
@@ -85,12 +84,24 @@ const distQa = join(REPO_ROOT, "apps/web/dist/qa-candidates");
 
 function stageCandidate(arm) {
   mkdirSync(distQa, { recursive: true });
+  let sourceSpriteSha256 = null;
   for (const suffix of [".png", ".json"]) {
-    const source = arm.sprite.startsWith("/")
-      ? `${arm.sprite}${suffix}`
-      : join(REPO_ROOT, `${arm.sprite}${suffix}`);
-    copyFileSync(source, join(distQa, `${arm.candidate}${suffix}`));
+    if (!arm.sprite.startsWith("/")) {
+      const source = join(REPO_ROOT, `${arm.sprite}${suffix}`);
+      copyFileSync(source, join(distQa, `${arm.candidate}${suffix}`));
+      if (suffix === ".png") {
+        sourceSpriteSha256 = sha256(readFileSync(source));
+        const staged = sha256(readFileSync(join(distQa, `${arm.candidate}${suffix}`)));
+        if (staged !== sourceSpriteSha256) {
+          throw new Error(`${arm.id}: el sprite servido no coincide con la fuente versionada`);
+        }
+      }
+    } else {
+      copyFileSync(`${arm.sprite}${suffix}`, join(distQa, `${arm.candidate}${suffix}`));
+      if (suffix === ".png") sourceSpriteSha256 = sha256(readFileSync(`${arm.sprite}${suffix}`));
+    }
   }
+  return sourceSpriteSha256;
 }
 
 const results = [];
@@ -99,7 +110,7 @@ try {
   serverUp = true;
   const canvas = page.locator('[data-testid="fx-lab-scene"] canvas');
   for (const arm of ARMS) {
-    stageCandidate(arm);
+    const sourceSpriteSha256 = stageCandidate(arm);
     const params = new URLSearchParams({
       artQa: "1",
       fxMood: arm.mood,
@@ -129,7 +140,8 @@ try {
       candidateName: arm.candidate,
       candidate: probe.candidate,
       glRenderer: probe.glRenderer,
-      servedPngSha256: sha256(png),
+      sourceSpriteSha256,
+      canvasCaptureSha256: sha256(png),
       pngBytes: png.length,
       url: `${BASE_URL}/art-lab?${params.toString()}`,
       spriteSource: arm.sprite,

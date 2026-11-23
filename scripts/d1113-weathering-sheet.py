@@ -22,13 +22,13 @@ ACCENT = (255, 170, 90)
 CELL_W, CELL_H = 460, 470
 CAPTION_H = 92
 PAD = 20
-CONS = Path("/tmp/d1113/fixed3_mixed/w06cnd_mixed_tenement_2.png")
-V2 = Path("/tmp/d1113/aged_v2b/w06cnd_mixed_tenement_2_aged.png")
-V3 = Path("/tmp/d1113/aged_v3/w06cnd_mixed_tenement_2_aged.png")
+CONS = Path("docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png")
+V2 = Path("docs/art/graphics-capabilities/evidence/d1113/weathering/aged_v2.png")
+V3 = Path("docs/art/graphics-capabilities/evidence/d1113/weathering/w06cnd_mixed_tenement_2_aged.png")
 COLUMNS = [
     (CONS, "CONSERVADO · tier conserved"),
-    (V2, "ENVEJECIDO v2 · receta anterior (diff 9,2/255)"),
-    (V3, "ENVEJECIDO v3 · receta reforzada (diff 16,1/255)"),
+    (V2, "ENVEJECIDO v2 · receta anterior"),
+    (V3, "ENVEJECIDO v3 · receta reforzada"),
 ]
 # Detalle a 2,5×: cabecera de los paños con regueros y hollín bajo cornisa.
 DETAIL = (180, 430, 620, 870)

@@ -4,7 +4,7 @@
 Cuatro paneles del laboratorio de fachada sobre `mixed_tenement` seed 2 (`gn_residential_v2`,
 day_civic): A control, B materiales neutros, C sin sombra de la key, E cristales opacos. Cada pie
 lleva la medición de la franja de su render. Generado por scripts/d1113-facade-diagnosis.py a partir
-de /tmp/d1113/lab; los PNG fuente se copian a evidence/d1113/ como procedencia.
+de evidence/d1113/facade_lab (versionado desde D-111.3-T FASE 3).
 """
 
 import json
@@ -14,7 +14,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
 
-SRC = Path("/tmp/d1113/lab")
+SRC = Path("docs/art/graphics-capabilities/evidence/d1113/facade_lab")
 OUT = Path("docs/art/graphics-capabilities/evidence/d1113")
 BG = (11, 20, 34)
 TEXT = (232, 236, 244)

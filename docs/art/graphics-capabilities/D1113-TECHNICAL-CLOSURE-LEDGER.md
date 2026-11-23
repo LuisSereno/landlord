@@ -12,7 +12,7 @@ comprobable de franjas negras/verdosas en fachadas, no basta hash nuevo).
 | Fase | Estado | Commit | Archivos | Evidencia | Bloqueos |
 |---|---|---|---|---|---|
 | 0 · Baseline y registro de problemas | DONE | (este commit) | este ledger | mediciones abajo | — |
-| 1 · GLB ventana GN + eliminación de franjas | PENDING | — | — | — | — |
+| 1 · GLB ventana GN + eliminación de franjas | DONE | (este commit) | `gn_window_bay_2m.glb`, `gn_facade_system.blend`, `gn-facade-report-seed7.json`, catálogo/inventario/estilo/pines, `building_composer/scene.py` (`strip_baked_vertex_lighting`), `scripts/d1113t-facade-lab.py`, `d1113t-facade-lab2.py`, `d1113t-facade-final-sheet.py`, candidatas doradas mixed/row | `evidence/d1113/technical/`: `facade_black_green_artifacts_final_ab.png`, `facade_black_green_artifacts_diagnosis.md`, `facade_black_green_metrics.json`, `gn_window_source_fix.json`, `gn_window_rebuild_ab.png`, `facade_lab/` (12 celdas day), `facade_states/` (o90), `controls_d1112/` | franja = `COLOR_0` horneado del export Godot (no sombra); 0 px tras corrección; tests candidatos OK |
 | 2 · Variantes daño/incendio sin referencias inválidas | PENDING | — | — | — | — |
 | 3 · Eliminar dependencias de /tmp + metadatos aged | PENDING | — | — | — | — |
 | 4 · Evidencias Phaser (1×/0,5×, noche real, daño) | PENDING | — | — | — | — |

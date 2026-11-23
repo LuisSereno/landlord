@@ -1,0 +1,28 @@
+{
+ "mixed_tenement · seed 2 · day_civic · 1x": {
+  "tealAntes": 1321,
+  "tealDespues": 0,
+  "lumStepAntes": 39.0,
+  "lumStepDespues": 8.8
+ },
+ "mixed_tenement · recorte paño izquierdo (cabecera de panel)": {
+  "tealAntes": 1321,
+  "tealDespues": 0,
+  "lumStepAntes": 39.0,
+  "lumStepDespues": 8.8
+ },
+ "row_house · seed 17 · day_civic · 1x": {
+  "tealAntes": 1104,
+  "tealDespues": 0
+ },
+ "row_house · recorte muro lateral de ladrillo": {
+  "tealAntes": 1104,
+  "tealDespues": 0
+ },
+ "mixed_tenement · orientacion 90° · 1x (regresion)": {
+  "tealAntes": 2555,
+  "tealDespues": 0,
+  "lumStepAntes": 23.2,
+  "lumStepDespues": 13.5
+ }
+}

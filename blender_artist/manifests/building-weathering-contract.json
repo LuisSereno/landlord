@@ -12,8 +12,8 @@
  ],
  "pins": {
   "styleProfileId": "graphic_civic_buildings_v1",
-  "styleProfilesSha256": "5ab4222ecc7f9f2adb4ca12b4a3ddc0d284cfb091f358d21465157cdb333e0b9",
-  "moduleCatalogSha256": "c24f5edb6b1115a390f38545ed7ddc8a106722206b818dd1472f7229193fe2fc",
+  "styleProfilesSha256": "ff8bfdd4dc32dcca6349e0e7c1b8c382e6f9e1f51bd5dc404f3099c832f627d9",
+  "moduleCatalogSha256": "916a2a195df986cf007899e8db55b7e5c8bcfad630c56fad6cf6532f5e0b9526",
   "styleLayer": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
   "materialDecisions": "docs/art/graphics-capabilities/material-decisions.json",
   "evidence": "Por qué los tres hashes: el vocabulario de familias semánticas no lo declara este contrato, lo mide `building-style-profiles.json` sobre `building-modules.json`. Sin el pin, añadir un módulo con un material nuevo dejaría el contrato incompleto en silencio y el render mezclaría paños tratados con paños en bruto (§11).",

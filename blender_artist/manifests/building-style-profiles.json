@@ -23,7 +23,7 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "c24f5edb6b1115a390f38545ed7ddc8a106722206b818dd1472f7229193fe2fc",
+      "moduleCatalogSha256": "916a2a195df986cf007899e8db55b7e5c8bcfad630c56fad6cf6532f5e0b9526",
       "selectionSha256": "5670cd8d333becb83f26d0d4d997c5dd5947ebd210631b38deade7b9c681118b",
       "appliesToFamilies": [
         "residential_low",
@@ -185,8 +185,8 @@
                 0.271,
                 0.277,
                 0.304,
+                0.323,
                 0.374,
-                0.4,
                 0.5
               ],
               "how": "profundidades medidas de las crujías acristaladas (el relieve del hueco, no un cristal aparte)",
@@ -202,7 +202,6 @@
               0.029,
               0.076,
               0.077,
-              0.2,
               0.013,
               0.024,
               0.031,
@@ -211,8 +210,10 @@
               0.048,
               0.061,
               0.071,
+              0.123,
               0.15,
               0.174,
+              0.2,
               0.22,
               0.3
             ],
@@ -222,10 +223,10 @@
               0.229,
               0.276,
               0.277,
-              0.4,
               0.213,
               0.224,
-              0.231
+              0.231,
+              0.24
             ]
           },
           "unit": "m",
@@ -262,13 +263,6 @@
                   ]
                 },
                 {
-                  "value": 0.4,
-                  "count": 2,
-                  "moduleIds": [
-                    "mod_gn_shopfront_bay_2m"
-                  ]
-                },
-                {
                   "value": 0.213,
                   "count": 1,
                   "moduleIds": [
@@ -287,6 +281,13 @@
                   "count": 1,
                   "moduleIds": [
                     "mod_megakit_metal_fullwindow_2m"
+                  ]
+                },
+                {
+                  "value": 0.24,
+                  "count": 1,
+                  "moduleIds": [
+                    "mod_megakit_trim_window_2m"
                   ]
                 }
               ],
@@ -7373,7 +7374,7 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "c24f5edb6b1115a390f38545ed7ddc8a106722206b818dd1472f7229193fe2fc",
+      "moduleCatalogSha256": "916a2a195df986cf007899e8db55b7e5c8bcfad630c56fad6cf6532f5e0b9526",
       "selectionSha256": "5670cd8d333becb83f26d0d4d997c5dd5947ebd210631b38deade7b9c681118b",
       "appliesToFamilies": [
         "residential_low",
@@ -7535,8 +7536,8 @@
                 0.271,
                 0.277,
                 0.304,
+                0.323,
                 0.374,
-                0.4,
                 0.5
               ],
               "how": "profundidades medidas de las crujías acristaladas (el relieve del hueco, no un cristal aparte)",
@@ -7552,7 +7553,6 @@
               0.029,
               0.076,
               0.077,
-              0.2,
               0.013,
               0.024,
               0.031,
@@ -7561,8 +7561,10 @@
               0.048,
               0.061,
               0.071,
+              0.123,
               0.15,
               0.174,
+              0.2,
               0.22,
               0.3
             ],
@@ -7572,10 +7574,10 @@
               0.229,
               0.276,
               0.277,
-              0.4,
               0.213,
               0.224,
-              0.231
+              0.231,
+              0.24
             ]
           },
           "unit": "m",
@@ -7612,13 +7614,6 @@
                   ]
                 },
                 {
-                  "value": 0.4,
-                  "count": 2,
-                  "moduleIds": [
-                    "mod_gn_shopfront_bay_2m"
-                  ]
-                },
-                {
                   "value": 0.213,
                   "count": 1,
                   "moduleIds": [
@@ -7637,6 +7632,13 @@
                   "count": 1,
                   "moduleIds": [
                     "mod_megakit_metal_fullwindow_2m"
+                  ]
+                },
+                {
+                  "value": 0.24,
+                  "count": 1,
+                  "moduleIds": [
+                    "mod_megakit_trim_window_2m"
                   ]
                 }
               ],

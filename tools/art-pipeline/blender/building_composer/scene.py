@@ -8,12 +8,16 @@ es literalmente lo que firma §14.
 
 Dos cosas viven aquí, y no en `runtime_asset.py`, porque §26 prohíbe tocar la pipeline embarcada:
 
-- **Alcance profundo de §11.** El MegaKit enlaza su atlas a `Base Color` a través de un MULTIPLY con el
-  color de vértice (medido en la fuente real: `Mix.blend_type=MULTIPLY`, factor 1, A=TEX_IMAGE,
-  B=VERTEX_COLOR), y `apply_external_treatment` sólo mira el primer salto del socket
-  (`runtime_asset.py:620-622`). Sin este paso la fachada Quaternius entraría en su albedo de origen
-  junto a muros Kenney ya tratados: dos temperaturas de brillo en el mismo alzado, que es justo lo que
-  §11 prohíbe. Se reutiliza `_styled_image`, no una segunda matemática de paleta (§10).
+- **Alcance profundo de §11 y lighting horneado.** El MegaKit venía enlazando su atlas a `Base Color`
+  a través de un MULTIPLY con el color de vértice (medido en la fuente real: `Mix.blend_type=MULTIPLY`,
+  factor 1, A=TEX_IMAGE, B=VERTEX_COLOR), y `apply_external_treatment` sólo mira el primer salto del
+  socket (`runtime_asset.py:620-622`). Sin este paso la fachada Quaternius entraría en su albedo de
+  origen junto a muros Kenney ya tratados: dos temperaturas de brillo en el mismo alzado, que es justo
+  lo que §11 prohíbe. Se reutiliza `_styled_image`, no una segunda matemática de paleta (§10). Desde
+  〔D-111.3-T FASE 1〕 el COLOR_0 horneado del export "glTF (Godot)" —una fila inferior de vértices
+  (0, 0.126, 0.126) que pintaba de negro-verdoso la cabecera de cada paño— se neutraliza al importar
+  (`strip_baked_vertex_lighting`): el MULTIPLY se resuelve al atlas directo y la escalera de §11 se
+  aplica sobre el color real del ladrillo, sin doble sombreado.
 - **Verificación de anclaje, huella y encuadre.** El marco de colocación declarado de cada módulo se
   contrasta con lo que Blender obtiene al importar, la caja de cada colocación con la que compuso la
   gramática, y el pivot proyectado con la parcela que ocupa: un módulo inexistente, mal seleccionado,
@@ -779,6 +783,73 @@ def bake_import_root(objects):
     bpy.context.view_layer.update()
 
 
+def strip_baked_vertex_lighting(objects, path):
+    """Quita el vertex lighting horneado de las fuentes CC0 antes de que doble sombree el paño.
+
+    Medido en la fuente real (〔D-111.3-T FASE 1〕, `Brick_Plain_3.gltf` del export "glTF (Godot)"
+    del MegaKit): el atributo `COLOR_0` guarda la iluminación horneada de la escena original de
+    Godot — la fila inferior de vértices vale (0, 0.126, 0.126), verde-azulada casi negra, y el
+    resto blanco. El importador de glTF conecta ese COLOR_0 a `Base Color` mediante un MULTIPLY
+    (〔§11〕 lo documentaba para alcanzar el atlas), así que cada panel de ladrillo llega con una
+    banda degradada negro-verdosa propia, independiente del rig de luz: la franja que el
+    propietario rechazó. El laboratorio de fachada (scripts/d1113t-facade-lab.py) demostró que la
+    banda persiste con las sombras de la key apagadas y con cornisas, losas y paneles sin
+    proyectar: no es sombra proyectada ni tinte del ambiente, es esta multiplicación.
+
+    La corrección es geométricamente neutra: no toca vértices ni UVs; desconecta el MULTIPLY
+    dejando el atlas como única fuente de color y elimina el atributo de color horneado. El rig
+    de tres luces y el tratamiento externo (§11) siguen decidiendo la sombra, ahora una sola vez.
+    Sólo actúa cuando el color de vértice entra por un MIX MULTIPLY con factor constante: si otro
+    grafo usara COLOR_0 con intención de diseño, se queda intacto.
+    """
+    for obj in objects:
+        if obj.type != "MESH":
+            continue
+        layers = set()
+        for material in obj.data.materials:
+            tree = material.node_tree if material and material.use_nodes else None
+            if tree is None:
+                continue
+            for node in [n for n in tree.nodes if n.type == "VERTEX_COLOR"]:
+                outputs = node.outputs
+                color_out = next((s for s in outputs if s.type == "RGBA"), None)
+                if color_out is None or not color_out.links:
+                    tree.nodes.remove(node)
+                    continue
+                bypassed = True
+                for link in list(color_out.links):
+                    mix = link.to_node
+                    if mix.type != "MIX" or getattr(mix, "blend_type", None) != "MULTIPLY":
+                        bypassed = False
+                        continue
+                    factor = mix.inputs[0]
+                    if factor.is_linked or abs(factor.default_value - 1.0) > 1e-4:
+                        bypassed = False
+                        continue
+                    sources = [
+                        s
+                        for s in mix.inputs
+                        if s.type == "RGBA" and s.is_linked and s != link.to_socket
+                    ]
+                    outs = [s for s in mix.outputs if s.type == "RGBA" and s.is_linked]
+                    if len(sources) != 1 or len(outs) != 1:
+                        bypassed = False
+                        continue
+                    source_socket = sources[0].links[0].from_socket
+                    for out_link in list(outs[0].links):
+                        tree.links.new(source_socket, out_link.to_socket)
+                    tree.nodes.remove(mix)
+                if bypassed:
+                    layers.add(node.layer_name)
+                    tree.nodes.remove(node)
+        if not layers:
+            continue
+        for attr in list(obj.data.attributes):
+            if attr.data_type in ("BYTE_COLOR", "FLOAT_COLOR") and attr.name in layers:
+                obj.data.attributes.remove(attr)
+        print(f"strip_baked_vertex_lighting: {obj.name} ← {Path(path).name} (COLOR_0 horneado retirado)")
+
+
 def import_module_source(module, cache):
     """Importa y normaliza la fuente de un módulo una sola vez por corrida (§12)."""
     path = Path(module.source_path)
@@ -791,6 +862,7 @@ def import_module_source(module, cache):
     if path.suffix.lower() == ".fbx":
         fix_texture_paths(path)
     assert_textures_resolved(objects, path)
+    strip_baked_vertex_lighting(objects, path)
     armatures = [obj.name for obj in objects if obj.type == "ARMATURE"]
     if armatures:
         raise SceneError(

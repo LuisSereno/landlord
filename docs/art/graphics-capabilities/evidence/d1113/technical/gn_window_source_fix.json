@@ -1,0 +1,48 @@
+{
+ "schemaVersion": 1,
+ "phase": "D-111.3-T FASE 1",
+ "moduleId": "mod_gn_window_bay_2m",
+ "glbPath": "blender_artist/sources/original/gn_window_bay_2m.glb",
+ "sha256": {
+  "antes": "4cc900cfb9ccd47d65a310b2c9efab880798bbdccd49655718c00e2a18af5b49",
+  "despues": "24c729e0e07f895a9996c66e0d0d79fac542e143ebeb35080a97ffb798cb91cc"
+ },
+ "gitBlob": {
+  "antes": "9c7df2c3515216c39f6805aa3cbedcec5bda4762",
+  "despues": "a504ff718ffdba04722a93f2639feebcf47d3dc0"
+ },
+ "sourceFixCommit": "4a48cc8 (D-111.3 FASE 2, gn_facade_grammar.py _build_window_bay: antepecho y dintel menos salientes)",
+ "publicationGap": "el GLB publicado conservaba el blob 9c7df2c3 identico a cd7bb6b: la correccion vivia solo en el generador hasta esta fase",
+ "command": "blender -b --factory-startup -P tools/art-pipeline/blender/gn_facade_grammar.py -- --out-dir=<tmp> --seed=7 --parts=window_bay",
+ "determinism": "corrida completa (9 partes, seed 7): los otros 8 GLB byte-identicos a los publicados; window_bay identico entre corrida simple y completa",
+ "measurements": {
+  "antes": {
+   "triangles": 216,
+   "boundsY": [
+    -0.15,
+    0.25
+   ],
+   "depthMeters": 0.4
+  },
+  "despues": {
+   "triangles": 216,
+   "boundsY": [
+    -0.14,
+    0.183
+   ],
+   "depthMeters": 0.323
+  }
+ },
+ "catalogChain": [
+  "scripts/inventory-building-modules.mjs (medicion oficial) -> transplantado solo el bloque medido de gn_window_bay_2m.glb al inventario; la regeneracion completa se descarto porque el inventariado no conoce las fuentes originales neoclasica (borraria sus entradas) y re-mediaria fire_flame/fire_smoke (ajeno a la fase)",
+  "node scripts/build-building-modules.mjs -> catalogo 195 modulos, diff semantico acotado a mod_gn_window_bay_2m",
+  "node scripts/build-building-style.mjs -> perfil graphic_civic_buildings_v1 re-medido",
+  "pines de building-weathering-contract.json: moduleCatalogSha256 c24f5edb6b11->916a2a195df9, styleProfilesSha256 5ab4222ecc7f->ff8bfdd4dc32",
+  "test_building_weathering_contract.py OK; test_building_composer_candidates.py OK tras regenerar las dos candidatas doradas (firmas 94f1106d02e6->64fbeb4619e2 y 5468186522ad->28304f99ce13); controles D-111.2 archivados en evidence/d1113/technical/controls_d1112/"
+ ],
+ "affectedModules": [
+  "mod_gn_window_bay_2m"
+ ],
+ "blend": "blender_artist/sources/original/gn_facade_system.blend re-creado con el arbol vivo corregido (9 partes, seed 7)",
+ "note": "la franja negro-verdosa NO provenia de este vano: ver facade_black_green_artifacts_diagnosis.md (causa: COLOR_0 horneado del export glTF (Godot) del MegaKit)"
+}

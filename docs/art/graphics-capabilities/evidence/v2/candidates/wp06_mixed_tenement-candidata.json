@@ -11,7 +11,7 @@
  "styleProfileId": "graphic_civic_buildings_v1",
  "moodId": "day_civic",
  "materialExperiment": null,
- "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816",
+ "compositionSignature": "64fbeb4619e2abf36f012017dc765502055c8d81fda9f8313e8400e46af66342",
  "axisChoices": {
   "massing": "uniform_block",
   "facade": "brick_commercial",
@@ -1068,7 +1068,7 @@
    "rotationDegrees": 180,
    "position": [
     -7.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1078,7 +1078,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1099,7 +1099,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1109,7 +1109,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1130,7 +1130,7 @@
    "rotationDegrees": 180,
    "position": [
     -3.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1140,7 +1140,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1161,7 +1161,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1171,7 +1171,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1192,7 +1192,7 @@
    "rotationDegrees": 180,
    "position": [
     3.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1202,7 +1202,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1223,7 +1223,7 @@
    "rotationDegrees": 180,
    "position": [
     5.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1233,7 +1233,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1254,7 +1254,7 @@
    "rotationDegrees": 180,
    "position": [
     7.0,
-    -3.8,
+    -3.838,
     0.0
    ],
    "bounds": {
@@ -1264,7 +1264,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 0.0,
@@ -1285,7 +1285,7 @@
    "rotationDegrees": 0,
    "position": [
     -7.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1294,7 +1294,7 @@
      "max": -6.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1316,7 +1316,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1325,7 +1325,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1347,7 +1347,7 @@
    "rotationDegrees": 0,
    "position": [
     -3.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1356,7 +1356,7 @@
      "max": -2.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1378,7 +1378,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1387,7 +1387,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1409,7 +1409,7 @@
    "rotationDegrees": 0,
    "position": [
     1.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1418,7 +1418,7 @@
      "max": 2.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1440,7 +1440,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1449,7 +1449,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1471,7 +1471,7 @@
    "rotationDegrees": 0,
    "position": [
     5.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1480,7 +1480,7 @@
      "max": 6.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1502,7 +1502,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     0.0
    ],
    "bounds": {
@@ -1511,7 +1511,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -1532,14 +1532,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     -3.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": -4.0,
@@ -1563,14 +1563,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     -1.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": -2.0,
@@ -1594,14 +1594,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     1.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": 0.0,
@@ -1625,14 +1625,14 @@
    "license": "original",
    "rotationDegrees": 90,
    "position": [
-    -7.8,
+    -7.838,
     3.0,
     0.0
    ],
    "bounds": {
     "x": {
      "min": -8.0,
-     "max": -7.6
+     "max": -7.677
     },
     "y": {
      "min": 2.0,
@@ -1656,13 +1656,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     -3.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1687,13 +1687,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     -1.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1718,13 +1718,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     1.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1749,13 +1749,13 @@
    "license": "original",
    "rotationDegrees": 270,
    "position": [
-    7.8,
+    7.838,
     3.0,
     0.0
    ],
    "bounds": {
     "x": {
-     "min": 7.6,
+     "min": 7.677,
      "max": 8.0
     },
     "y": {
@@ -1812,7 +1812,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -1822,7 +1822,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -1874,7 +1874,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -1884,7 +1884,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -1936,7 +1936,7 @@
    "rotationDegrees": 180,
    "position": [
     3.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -1946,7 +1946,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -1998,7 +1998,7 @@
    "rotationDegrees": 180,
    "position": [
     7.0,
-    -3.8,
+    -3.838,
     3.0
    ],
    "bounds": {
@@ -2008,7 +2008,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 3.0,
@@ -2060,7 +2060,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2069,7 +2069,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2122,7 +2122,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2131,7 +2131,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2184,7 +2184,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2193,7 +2193,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2246,7 +2246,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     3.0
    ],
    "bounds": {
@@ -2255,7 +2255,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2556,7 +2556,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2566,7 +2566,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2618,7 +2618,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2628,7 +2628,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2680,7 +2680,7 @@
    "rotationDegrees": 180,
    "position": [
     3.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2690,7 +2690,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2742,7 +2742,7 @@
    "rotationDegrees": 180,
    "position": [
     7.0,
-    -3.8,
+    -3.838,
     6.0
    ],
    "bounds": {
@@ -2752,7 +2752,7 @@
     },
     "y": {
      "min": -4.0,
-     "max": -3.5999999999999996
+     "max": -3.6769999999999996
     },
     "z": {
      "min": 6.0,
@@ -2804,7 +2804,7 @@
    "rotationDegrees": 0,
    "position": [
     -5.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2813,7 +2813,7 @@
      "max": -4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2866,7 +2866,7 @@
    "rotationDegrees": 0,
    "position": [
     -1.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2875,7 +2875,7 @@
      "max": 0.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2928,7 +2928,7 @@
    "rotationDegrees": 0,
    "position": [
     3.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2937,7 +2937,7 @@
      "max": 4.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -2990,7 +2990,7 @@
    "rotationDegrees": 0,
    "position": [
     7.0,
-    3.8,
+    3.838,
     6.0
    ],
    "bounds": {
@@ -2999,7 +2999,7 @@
      "max": 8.0
     },
     "y": {
-     "min": 3.5999999999999996,
+     "min": 3.6769999999999996,
      "max": 4.0
     },
     "z": {
@@ -5224,7 +5224,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -5239,7 +5239,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -5254,7 +5254,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -5319,7 +5319,7 @@
    "family": "interior",
    "elevationReach": "en_bruto",
    "measuredChain": [],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -5334,7 +5334,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -5463,6 +5463,8 @@
    "T_Concrete_Asphalt_BaseColor",
    "T_Concrete_BaseColor",
    "T_MarbleFloor_BaseColor",
+   "T_RedBrick_BaseColor",
+   "T_Trim_BaseColor",
    "colormap"
   ],
   "flatMaterials": 0,
@@ -5578,10 +5580,10 @@
  "triangleCount": 14264,
  "materialCount": 20,
  "textureCount": 16,
- "renderTime": 16842.29,
- "pngBytes": 1369213,
- "sha256": "f797af0ba251054d494a6aac693707b5adbe77c1a51759d9884239a033bebf7a",
- "pixelSha256": "5fe40e2993bafb6c7f27c56fe529049d10ea9fdc366d3650db59f8ac4163c905",
+ "renderTime": 15516.53,
+ "pngBytes": 1362172,
+ "sha256": "8397aff3fe45abae2e221f27aa4faa0d12bee4ad7ba8aa2216178bf46d84c050",
+ "pixelSha256": "8534deb7327dfff9c3cddb66587619375a26db6b9c8003f9ef0e7e419927c1b7",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -5624,12 +5626,11 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
   "width": 1048,
   "height": 1046,
-  "sha256": "f797af0ba251054d494a6aac693707b5adbe77c1a51759d9884239a033bebf7a",
-  "bytes": 1369213,
-  "pathNote": "D-111.2 cierre FASE 6.1: la ruta de staging /tmp/wp06/... dejó de existir; el campo pasa a apuntar a la copia de evidencia en el repo, cuyo sha256 coincide con el que la metadata publicó en WP06 (verificado 2026-11-22). El PNG no se regeneró ni re-renderizó."
+  "sha256": "8397aff3fe45abae2e221f27aa4faa0d12bee4ad7ba8aa2216178bf46d84c050",
+  "bytes": 1362172
  },
  "trim": {
   "rendered": {
@@ -5718,6 +5719,8 @@
     "T_Concrete_Asphalt_BaseColor",
     "T_Concrete_BaseColor",
     "T_MarbleFloor_BaseColor",
+    "T_RedBrick_BaseColor",
+    "T_Trim_BaseColor",
     "colormap"
    ],
    "flatMaterials": 0,
@@ -5725,11 +5728,8 @@
    "litWindows": 0
   },
   "deepReach": {
-   "deepStyledNodes": 5,
-   "deepStyledAtlases": [
-    "T_RedBrick_BaseColor",
-    "T_Trim_BaseColor"
-   ],
+   "deepStyledNodes": 0,
+   "deepStyledAtlases": [],
    "flatStyledMaterials": [
     "gn_brick_wall",
     "gn_brick_wall.001",
@@ -5745,13 +5745,7 @@
     "MI_Glass"
    ]
   },
-  "deepReachDetail": [
-   "MI_InteriorWall.001←T_RedBrick_BaseColor",
-   "MI_InteriorWall←T_RedBrick_BaseColor",
-   "MI_RedBrick←T_RedBrick_BaseColor",
-   "MI_Trim_Green←T_Trim_BaseColor",
-   "MI_Trim←T_Trim_BaseColor"
-  ]
+  "deepReachDetail": []
  },
  "toolchain": {
   "blender": "5.2.2 LTS",
@@ -5773,7 +5767,7 @@
   "renderPixels": {
    "width": 1383,
    "height": 1380,
-   "sha256": "2c7c3dae1401f995b8892c177e29958747ad471561cda54b20e5fdb3b88f12ee"
+   "sha256": "23d5c58199cd833a0a79e78a9abf55848f2ba250093be16ffb0f872e3568c49b"
   },
   "pixels": {
    "width": 4149,
@@ -5782,10 +5776,10 @@
   }
  },
  "render": {
-  "renderMs": 16842.29,
-  "prepMs": 21001.69,
-  "totalMs": 53420.54,
-  "peakRssMb": 4181.8
+  "renderMs": 15516.53,
+  "prepMs": 20442.3,
+  "totalMs": 51058.42,
+  "peakRssMb": 4209.7
  },
  "request": {
   "candidateId": "w06cnd_mixed_tenement_2",
@@ -5803,8 +5797,8 @@
   "state": "complete",
   "constructionStage": null,
   "candidateProfile": "gn_residential_v2",
-  "output": "/tmp/wp06/out/attempts/2026-11-21T1458/w06cnd_mixed_tenement_2.png",
-  "metadata": "/tmp/wp06/out/attempts/2026-11-21T1458/w06cnd_mixed_tenement_2.json"
+  "output": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+  "metadata": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.json"
  },
  "composition": {
   "buildingType": "mixed_tenement",
@@ -6853,7 +6847,7 @@
     "rotationDegrees": 180,
     "position": [
      -7.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6863,7 +6857,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6884,7 +6878,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6894,7 +6888,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6915,7 +6909,7 @@
     "rotationDegrees": 180,
     "position": [
      -3.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6925,7 +6919,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6946,7 +6940,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6956,7 +6950,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -6977,7 +6971,7 @@
     "rotationDegrees": 180,
     "position": [
      3.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -6987,7 +6981,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7008,7 +7002,7 @@
     "rotationDegrees": 180,
     "position": [
      5.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7018,7 +7012,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7039,7 +7033,7 @@
     "rotationDegrees": 180,
     "position": [
      7.0,
-     -3.8,
+     -3.838,
      0.0
     ],
     "bounds": {
@@ -7049,7 +7043,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 0.0,
@@ -7070,7 +7064,7 @@
     "rotationDegrees": 0,
     "position": [
      -7.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7079,7 +7073,7 @@
       "max": -6.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7101,7 +7095,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7110,7 +7104,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7132,7 +7126,7 @@
     "rotationDegrees": 0,
     "position": [
      -3.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7141,7 +7135,7 @@
       "max": -2.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7163,7 +7157,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7172,7 +7166,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7194,7 +7188,7 @@
     "rotationDegrees": 0,
     "position": [
      1.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7203,7 +7197,7 @@
       "max": 2.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7225,7 +7219,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7234,7 +7228,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7256,7 +7250,7 @@
     "rotationDegrees": 0,
     "position": [
      5.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7265,7 +7259,7 @@
       "max": 6.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7287,7 +7281,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      0.0
     ],
     "bounds": {
@@ -7296,7 +7290,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7317,14 +7311,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      -3.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": -4.0,
@@ -7348,14 +7342,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      -1.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": -2.0,
@@ -7379,14 +7373,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      1.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": 0.0,
@@ -7410,14 +7404,14 @@
     "license": "original",
     "rotationDegrees": 90,
     "position": [
-     -7.8,
+     -7.838,
      3.0,
      0.0
     ],
     "bounds": {
      "x": {
       "min": -8.0,
-      "max": -7.6
+      "max": -7.677
      },
      "y": {
       "min": 2.0,
@@ -7441,13 +7435,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      -3.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7472,13 +7466,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      -1.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7503,13 +7497,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      1.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7534,13 +7528,13 @@
     "license": "original",
     "rotationDegrees": 270,
     "position": [
-     7.8,
+     7.838,
      3.0,
      0.0
     ],
     "bounds": {
      "x": {
-      "min": 7.6,
+      "min": 7.677,
       "max": 8.0
      },
      "y": {
@@ -7597,7 +7591,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -7607,7 +7601,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -7659,7 +7653,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -7669,7 +7663,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -7721,7 +7715,7 @@
     "rotationDegrees": 180,
     "position": [
      3.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -7731,7 +7725,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -7783,7 +7777,7 @@
     "rotationDegrees": 180,
     "position": [
      7.0,
-     -3.8,
+     -3.838,
      3.0
     ],
     "bounds": {
@@ -7793,7 +7787,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 3.0,
@@ -7845,7 +7839,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -7854,7 +7848,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7907,7 +7901,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -7916,7 +7910,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -7969,7 +7963,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -7978,7 +7972,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8031,7 +8025,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      3.0
     ],
     "bounds": {
@@ -8040,7 +8034,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8341,7 +8335,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -8351,7 +8345,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -8403,7 +8397,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -8413,7 +8407,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -8465,7 +8459,7 @@
     "rotationDegrees": 180,
     "position": [
      3.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -8475,7 +8469,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -8527,7 +8521,7 @@
     "rotationDegrees": 180,
     "position": [
      7.0,
-     -3.8,
+     -3.838,
      6.0
     ],
     "bounds": {
@@ -8537,7 +8531,7 @@
      },
      "y": {
       "min": -4.0,
-      "max": -3.5999999999999996
+      "max": -3.6769999999999996
      },
      "z": {
       "min": 6.0,
@@ -8589,7 +8583,7 @@
     "rotationDegrees": 0,
     "position": [
      -5.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -8598,7 +8592,7 @@
       "max": -4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8651,7 +8645,7 @@
     "rotationDegrees": 0,
     "position": [
      -1.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -8660,7 +8654,7 @@
       "max": 0.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8713,7 +8707,7 @@
     "rotationDegrees": 0,
     "position": [
      3.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -8722,7 +8716,7 @@
       "max": 4.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -8775,7 +8769,7 @@
     "rotationDegrees": 0,
     "position": [
      7.0,
-     3.8,
+     3.838,
      6.0
     ],
     "bounds": {
@@ -8784,7 +8778,7 @@
       "max": 8.0
      },
      "y": {
-      "min": 3.5999999999999996,
+      "min": 3.6769999999999996,
       "max": 4.0
      },
      "z": {
@@ -11025,7 +11019,7 @@
     "blender_artist/staging/third_party/cc0/extracted/quaternius/ultimate-buildings/Textured Models/Textures/Texture_Green.png"
    ]
   },
-  "compositionSignature": "94f1106d02e6de5dcc73d03cb2396db72f55def33116e5c7926d62fc0e889816"
+  "compositionSignature": "64fbeb4619e2abf36f012017dc765502055c8d81fda9f8313e8400e46af66342"
  },
  "candidateProfile": "gn_residential_v2",
  "candidateOverlay": [

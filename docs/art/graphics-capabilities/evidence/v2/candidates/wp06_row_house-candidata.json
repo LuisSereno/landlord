@@ -11,7 +11,7 @@
  "styleProfileId": "graphic_civic_buildings_v1",
  "moodId": "day_civic",
  "materialExperiment": null,
- "compositionSignature": "5468186522adad63b78e8d20c2d299b6442cab4a0fb4d533ded9714b365fae7b",
+ "compositionSignature": "28304f99ce1366efa31181a7676746c60ee616360b56abc3bfc3e31767a00f38",
  "axisChoices": {
   "massing": "terrace",
   "facade": "brick_terrace",
@@ -1068,7 +1068,7 @@
    "rotationDegrees": 180,
    "position": [
     -7.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1078,7 +1078,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -1099,7 +1099,7 @@
    "rotationDegrees": 180,
    "position": [
     -5.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1109,7 +1109,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -1130,7 +1130,7 @@
    "rotationDegrees": 180,
    "position": [
     -3.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1140,7 +1140,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -1161,7 +1161,7 @@
    "rotationDegrees": 180,
    "position": [
     -1.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1171,7 +1171,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -1192,7 +1192,7 @@
    "rotationDegrees": 180,
    "position": [
     1.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1202,7 +1202,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -1223,7 +1223,7 @@
    "rotationDegrees": 180,
    "position": [
     3.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1233,7 +1233,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -1254,7 +1254,7 @@
    "rotationDegrees": 180,
    "position": [
     5.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1264,7 +1264,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -1285,7 +1285,7 @@
    "rotationDegrees": 180,
    "position": [
     7.0,
-    -1.8,
+    -1.839,
     3.0
    ],
    "bounds": {
@@ -1295,7 +1295,7 @@
     },
     "y": {
      "min": -2.0,
-     "max": -1.6
+     "max": -1.677
     },
     "z": {
      "min": 3.0,
@@ -2977,7 +2977,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -2992,7 +2992,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -3007,7 +3007,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_Trim_BaseColor"
@@ -3085,7 +3085,7 @@
    "family": "interior",
    "elevationReach": "en_bruto",
    "measuredChain": [],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -3100,7 +3100,7 @@
    "measuredChain": [
     "enlazado:MIX"
    ],
-   "treatmentPath": "atlas-profundo",
+   "treatmentPath": "atlas-directo",
    "colorSourceFound": true,
    "styledAtlasesInScene": [
     "styled_T_RedBrick_BaseColor"
@@ -3233,6 +3233,7 @@
    "T_Concrete_BaseColor",
    "T_MarbleFloor_BaseColor",
    "T_MetalConcrete_BaseColor",
+   "T_RedBrick_BaseColor",
    "T_RoofSlate_BaseColor",
    "T_Trim_BaseColor"
   ],
@@ -3394,10 +3395,10 @@
  "triangleCount": 12080,
  "materialCount": 20,
  "textureCount": 18,
- "renderTime": 11403.08,
- "pngBytes": 1143414,
- "sha256": "e166549013cea5b807cdd660a0733f76ca352d35b3b50811131a89f342cad11b",
- "pixelSha256": "93a32fc50a4d7eae32e72f75aee1b2027290aaa48d462d0f84467ff51df563ef",
+ "renderTime": 11882.26,
+ "pngBytes": 1147264,
+ "sha256": "c7cce596610444bd7f775a002280d25126420b4c80188e979ea9b94dda08279e",
+ "pixelSha256": "653e46c9f137ea5593e529b54a43a4ca8ce03f0ae8722f2a9912630e08485f6e",
  "orientationStatus": {
   "cameraAzimuthDegrees": 45.0,
   "cameraElevationDegrees": 30.0,
@@ -3485,12 +3486,11 @@
   "evidence": "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
  },
  "image": {
-  "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+  "path": "/home/luis/RepositorioGitHub/landlord/docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
   "width": 996,
   "height": 1203,
-  "sha256": "e166549013cea5b807cdd660a0733f76ca352d35b3b50811131a89f342cad11b",
-  "bytes": 1143414,
-  "pathNote": "D-111.2 cierre FASE 6.1: la ruta de staging /tmp/wp06/... dejó de existir; el campo pasa a apuntar a la copia de evidencia en el repo, cuyo sha256 coincide con el que la metadata publicó en WP06 (verificado 2026-11-22). El PNG no se regeneró ni re-renderizó."
+  "sha256": "c7cce596610444bd7f775a002280d25126420b4c80188e979ea9b94dda08279e",
+  "bytes": 1147264
  },
  "trim": {
   "rendered": {
@@ -3577,6 +3577,7 @@
     "T_Concrete_BaseColor",
     "T_MarbleFloor_BaseColor",
     "T_MetalConcrete_BaseColor",
+    "T_RedBrick_BaseColor",
     "T_RoofSlate_BaseColor",
     "T_Trim_BaseColor"
    ],
@@ -3585,11 +3586,8 @@
    "litWindows": 0
   },
   "deepReach": {
-   "deepStyledNodes": 5,
-   "deepStyledAtlases": [
-    "T_RedBrick_BaseColor",
-    "T_Trim_BaseColor"
-   ],
+   "deepStyledNodes": 0,
+   "deepStyledAtlases": [],
    "flatStyledMaterials": [
     "gn_brick_wall",
     "gn_brick_wall.001",
@@ -3602,13 +3600,7 @@
     "MI_Glass"
    ]
   },
-  "deepReachDetail": [
-   "MI_InteriorWall.001←T_RedBrick_BaseColor",
-   "MI_InteriorWall←T_RedBrick_BaseColor",
-   "MI_RedBrick←T_RedBrick_BaseColor",
-   "MI_Trim_Green←T_Trim_BaseColor",
-   "MI_Trim←T_Trim_BaseColor"
-  ]
+  "deepReachDetail": []
  },
  "toolchain": {
   "blender": "5.2.2 LTS",
@@ -3630,7 +3622,7 @@
   "renderPixels": {
    "width": 1138,
    "height": 1203,
-   "sha256": "a031f4f51fd0456d1d056ccaeb038237e6ab38a1cca7da3aaca655b8baa7ddb7"
+   "sha256": "bc643bbb839455abfee793dc5d406dcc530cfacd1cb5c0d9e587f0c5f64f82f2"
   },
   "pixels": {
    "width": 3414,
@@ -3639,10 +3631,10 @@
   }
  },
  "render": {
-  "renderMs": 11403.08,
-  "prepMs": 23922.04,
-  "totalMs": 66256.59,
-  "peakRssMb": 3371.3
+  "renderMs": 11882.26,
+  "prepMs": 23226.08,
+  "totalMs": 86817.6,
+  "peakRssMb": 3376.4
  },
  "request": {
   "candidateId": "w06cnd_row_house_17",
@@ -3660,8 +3652,8 @@
   "state": "complete",
   "constructionStage": null,
   "candidateProfile": "gn_residential_v2",
-  "output": "/tmp/wp06/out/attempts/2026-11-21T1457/w06cnd_row_house_17.png",
-  "metadata": "/tmp/wp06/out/attempts/2026-11-21T1457/w06cnd_row_house_17.json"
+  "output": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+  "metadata": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.json"
  },
  "composition": {
   "buildingType": "row_house",
@@ -4710,7 +4702,7 @@
     "rotationDegrees": 180,
     "position": [
      -7.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4720,7 +4712,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -4741,7 +4733,7 @@
     "rotationDegrees": 180,
     "position": [
      -5.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4751,7 +4743,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -4772,7 +4764,7 @@
     "rotationDegrees": 180,
     "position": [
      -3.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4782,7 +4774,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -4803,7 +4795,7 @@
     "rotationDegrees": 180,
     "position": [
      -1.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4813,7 +4805,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -4834,7 +4826,7 @@
     "rotationDegrees": 180,
     "position": [
      1.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4844,7 +4836,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -4865,7 +4857,7 @@
     "rotationDegrees": 180,
     "position": [
      3.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4875,7 +4867,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -4896,7 +4888,7 @@
     "rotationDegrees": 180,
     "position": [
      5.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4906,7 +4898,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -4927,7 +4919,7 @@
     "rotationDegrees": 180,
     "position": [
      7.0,
-     -1.8,
+     -1.839,
      3.0
     ],
     "bounds": {
@@ -4937,7 +4929,7 @@
      },
      "y": {
       "min": -2.0,
-      "max": -1.6
+      "max": -1.677
      },
      "z": {
       "min": 3.0,
@@ -6650,7 +6642,7 @@
     "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Textures/T_Trim_ORM.png"
    ]
   },
-  "compositionSignature": "5468186522adad63b78e8d20c2d299b6442cab4a0fb4d533ded9714b365fae7b"
+  "compositionSignature": "28304f99ce1366efa31181a7676746c60ee616360b56abc3bfc3e31767a00f38"
  },
  "candidateProfile": "gn_residential_v2",
  "candidateOverlay": [

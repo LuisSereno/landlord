@@ -1,0 +1,20 @@
+{
+ "schemaVersion": 1,
+ "sheet": "facade_fix_row_house_ab.png",
+ "building": "row_house",
+ "seed": 17,
+ "before": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+ "afterSource": "re-render del pipeline oficial (gn_facade_grammar.py carpintería corregida + style layer day_civic ambiente neutro)",
+ "detailRect": [
+  640,
+  560,
+  996,
+  980
+ ],
+ "controlsKept": true,
+ "after": {
+  "png": "w06cnd_row_house_17.png",
+  "metadata": "w06cnd_row_house_17.json",
+  "note": "re-render oficial del candidato; misma firma de composición que el control"
+ }
+}

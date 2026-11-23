@@ -1,0 +1,20 @@
+{
+ "schemaVersion": 1,
+ "sheet": "facade_fix_mixed_tenement_ab.png",
+ "building": "mixed_tenement",
+ "seed": 2,
+ "before": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+ "afterSource": "re-render del pipeline oficial (gn_facade_grammar.py carpintería corregida + style layer day_civic ambiente neutro)",
+ "detailRect": [
+  180,
+  430,
+  620,
+  870
+ ],
+ "controlsKept": true,
+ "after": {
+  "png": "w06cnd_mixed_tenement_2.png",
+  "metadata": "w06cnd_mixed_tenement_2.json",
+  "note": "re-render oficial del candidato; misma firma de composición que el control"
+ }
+}

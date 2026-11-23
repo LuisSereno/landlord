@@ -1,505 +1,795 @@
 {
-  "schemaVersion": 1,
-  "palette": "graphic_civic",
-  "description": "Style layer configuration for WP4.15-V visual slice. Maps CC0 geometry and Poly Haven PBR materials to the approved graphic_civic aesthetic.",
-  "materialRecipes": {
-    "road_asphalt": {
-      "source": "PolyHaven/asphalt_07",
-      "baseColorTint": [0.15, 0.15, 0.16],
-      "roughnessRange": [0.85, 0.95],
-      "normalStrength": 0.6,
-      "textureScaleMeters": 2.0,
-      "description": "Road surface with slight color grading toward cool gray"
+ "schemaVersion": 1,
+ "palette": "graphic_civic",
+ "description": "Style layer configuration for WP4.15-V visual slice. Maps CC0 geometry and Poly Haven PBR materials to the approved graphic_civic aesthetic.",
+ "materialRecipes": {
+  "road_asphalt": {
+   "source": "PolyHaven/asphalt_07",
+   "baseColorTint": [
+    0.15,
+    0.15,
+    0.16
+   ],
+   "roughnessRange": [
+    0.85,
+    0.95
+   ],
+   "normalStrength": 0.6,
+   "textureScaleMeters": 2.0,
+   "description": "Road surface with slight color grading toward cool gray"
+  },
+  "residential_brick": {
+   "source": "PolyHaven/red_brick_03",
+   "tint": [
+    0.52,
+    0.28,
+    0.26
+   ],
+   "saturation": 0.85,
+   "roughness": 0.78,
+   "description": "Warm brick for residential building facades"
+  },
+  "industrial_metal": {
+   "source": "PolyHaven/rusty_metal_02",
+   "rustAmount": 0.45,
+   "metallic": 0.35,
+   "roughness": 0.68,
+   "description": "Weathered metal for industrial structures"
+  },
+  "concrete": {
+   "source": "PolyHaven/concrete_wall_003",
+   "tint": [
+    0.62,
+    0.61,
+    0.58
+   ],
+   "roughness": 0.82,
+   "description": "Concrete for sidewalks and building bases"
+  },
+  "wood": {
+   "source": "PolyHaven/wood_planks_grey",
+   "tint": [
+    0.45,
+    0.42,
+    0.38
+   ],
+   "roughness": 0.75,
+   "description": "Weathered wood for doors, frames, and props"
+  }
+ },
+ "paletteOverrides": {
+  "window": {
+   "baseColor": [
+    0.98,
+    0.75,
+    0.25
+   ],
+   "emission": [
+    0.98,
+    0.75,
+    0.25
+   ],
+   "emissionStrength": 2.6,
+   "roughness": 0.15,
+   "description": "Warm lit windows (graphic_civic signature)"
+  },
+  "green": {
+   "baseColor": [
+    0.22,
+    0.36,
+    0.28
+   ],
+   "roughness": 0.8,
+   "description": "Vegetation (trees, plants)"
+  },
+  "plaster": {
+   "baseColor": [
+    0.68,
+    0.67,
+    0.54
+   ],
+   "roughness": 0.62,
+   "description": "Light plaster for building accents"
+  }
+ },
+ "proportions": {
+  "characterHeight": 1.8,
+  "buildingFloorHeight": 3.0,
+  "doorHeight": 2.1,
+  "cellSizeMeters": 4.0,
+  "note": "cellSizeMeters is visual convention for WP4.15-V, not yet a simulation contract"
+ },
+ "activeMood": "night_civic",
+ "moodProfiles": {
+  "night_civic": {
+   "lighting": {
+    "keyEnergy": 2.35,
+    "keyColor": [
+     0.95,
+     0.88,
+     0.78
+    ],
+    "keyDirection": [
+     0.35,
+     0.82,
+     0.45
+    ],
+    "fillEnergy": 0.6,
+    "fillColor": [
+     0.5,
+     0.62,
+     0.8
+    ],
+    "fillDirection": [
+     -0.5,
+     0.3,
+     -0.2
+    ],
+    "rimEnergy": 1.3,
+    "rimColor": [
+     0.55,
+     0.7,
+     0.9
+    ],
+    "worldColor": [
+     0.16,
+     0.22,
+     0.34
+    ],
+    "worldStrength": 0.4,
+    "description": "WP4.15-V.b1: la key ya no es un sol de mediodia. Baja energia calida (farola lejana), relleno frio tenue y un rim que separa el volumen del fondo; el ambiente sube de 0.22 a 0.4 pero con color de noche, no gris. Las irradiancias van a pares con las escaleras de valor de externalTreatment: el asset se oscurece en el atlas y la luz deja de volver a quemarlo.",
+    "keyPosition": [
+     9.0,
+     16.0,
+     10.0
+    ],
+    "fillPosition": [
+     -10.0,
+     -6.0,
+     8.0
+    ],
+    "rimPosition": [
+     0.0,
+     -12.0,
+     6.0
+    ]
+   },
+   "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 45,
+    "elevationDegrees": 30,
+    "rollDegrees": 0,
+    "description": "Isometric camera matching approved direction"
+   },
+   "rendering": {
+    "renderer": "EEVEE",
+    "filmTransparent": true,
+    "colorDepth": "RGBA_8BIT",
+    "postProcessing": "AgX - Medium High Contrast",
+    "exposure": -0.25,
+    "description": "Render settings for runtime asset pipeline"
+   },
+   "externalTreatment": {
+    "version": 7,
+    "note": "WP4.15-V.b1. Tratamiento de color de los assets externos, evaluado sobre el HSV del atlas de ORIGEN y sobre una copia en memoria: las fuentes nunca se reescriben. Se aplica a cualquier pack sin reglas por archivo.",
+    "global": {
+     "saturationScale": 1.0,
+     "valueScale": 1.55,
+     "multiplySrgb": [
+      1.0,
+      1.0,
+      1.0
+     ],
+     "description": "El nivel de noche es una decision de VALOR, no de croma. Con saturationScale 0.62 aqui, las bandas que subian su croma (fachadas 1.43) se cancelaban y la ciudad salia gris azulada; ahora cada familia declara su croma final. valueScale 1.55 levanta el albedo antes de que las bandas lo recorten, para que la escalera siga teniendo peldaños despues de la luz. El tinte azul se quita del albedo y pasa a ser solo del rig: restar azul en las dos capas convertia todo en azul oscuro, que es justo lo que la paleta prohibe."
     },
-    "residential_brick": {
-      "source": "PolyHaven/red_brick_03",
-      "tint": [0.52, 0.28, 0.26],
-      "saturation": 0.85,
-      "roughness": 0.78,
-      "description": "Warm brick for residential building facades"
+    "architecturalReadability": {
+     "kind": "building",
+     "floors": {
+      "facade_blue_grey_to_warm_stone": 0.61,
+      "near_white_trim": 0.61,
+      "pale_neutral": 0.58,
+      "pale_cyan_wash": 0.55,
+      "warm_accents_muted": 0.55,
+      "neutral_dark_asphalt": 0.4,
+      "headlamp_yellow": 0.42,
+      "unclassified_night_fallback": 0.42
+     },
+     "description": "R2: separa 'world/night mood' de 'architectural readability'. El global y las bandas calibradas para Kenney convierten una fachada MegaKit continua de 16 m en una mancha negra cuando el texel original es oscuro. Se impone un suelo de valor por banda SOLO cuando kind=='building', preservando intactas las bandas atmosféricas (tejados, vidrio, teal cívico, violetas) que mantienen el mood nocturno. El ladrillo del MegaKit cae en warm_accents_muted y el hormigón en neutral_dark_asphalt: sin floor, esas dos bandas eran la causa de la fachada negra que el responsable documentó en c1a635b."
     },
-    "industrial_metal": {
-      "source": "PolyHaven/rusty_metal_02",
-      "rustAmount": 0.45,
-      "metallic": 0.35,
-      "roughness": 0.68,
-      "description": "Weathered metal for industrial structures"
+    "kindOverrides": {
+     "terrain": {
+      "saturationScale": 0.6,
+      "valueScale": 0.85
+     },
+     "vehicle": {
+      "saturationScale": 1.0,
+      "valueScale": 1.15
+     },
+     "character": {
+      "saturationScale": 0.85,
+      "valueScale": 1.0
+     },
+     "description": "Modulan el global en multiplicacion. Vehiculos dejan de desaturarse: son elementos de interes y su pintura es el unico acento cromatico movil del plano. Terreno baja a 0.60/0.85 para que el suelo quede por debajo de edificios y coches."
     },
-    "concrete": {
-      "source": "PolyHaven/concrete_wall_003",
-      "tint": [0.62, 0.61, 0.58],
-      "roughness": 0.82,
-      "description": "Concrete for sidewalks and building bases"
+    "hueBands": [
+     {
+      "id": "roof_and_verge_green_to_slate",
+      "hue": [
+       70,
+       178
+      ],
+      "sat": [
+       0.15,
+       1.0
+      ],
+      "value": [
+       0.1,
+       1.0
+      ],
+      "saturationScale": 0.22,
+      "valueScale": 0.22,
+      "hueTo": 165,
+      "description": "Tejados y bordillos verdes de Kenney: pizarra fria casi neutra. Es la banda que quita al techo el protagonismo de dia."
+     },
+     {
+      "id": "civic_teal_accent",
+      "hue": [
+       178,
+       196
+      ],
+      "sat": [
+       0.28,
+       1.0
+      ],
+      "value": [
+       0.1,
+       1.0
+      ],
+      "saturationScale": 0.7,
+      "valueScale": 0.29,
+      "hueTo": 186,
+      "description": "Acento civico teal: se conserva como acento, no como color dominante, y por eso mantiene croma pero baja valor."
+     },
+     {
+      "id": "headlamp_yellow",
+      "hue": [
+       40,
+       70
+      ],
+      "sat": [
+       0.25,
+       1.0
+      ],
+      "value": [
+       0.4,
+       1.0
+      ],
+      "saturationScale": 0.9,
+      "valueScale": 0.34,
+      "hueTo": 48,
+      "description": "Faros y senalizacion amarilla. Va antes que la banda de vehiculos para que un faro no se confunda con la carroceria."
+     },
+     {
+      "id": "window_blue_to_dark_glass",
+      "hue": [
+       195,
+       250
+      ],
+      "sat": [
+       0.35,
+       1.0
+      ],
+      "value": [
+       0.55,
+       1.0
+      ],
+      "saturationScale": 0.45,
+      "valueScale": 0.24,
+      "hueTo": 216,
+      "description": "Cristal del atlas: vidrio oscuro de noche. La luz calida no viene del albedo sino del windowGlow, que decide cara a cara que ventana esta encendida."
+     },
+     {
+      "id": "pale_cyan_wash",
+      "hue": [
+       170,
+       200
+      ],
+      "sat": [
+       0.16,
+       0.4
+      ],
+      "value": [
+       0.5,
+       1.0
+      ],
+      "saturationScale": 0.55,
+      "valueScale": 0.31,
+      "hueTo": 200,
+      "description": "Lavados cyan palidos (chapas, toldos, cornisas): se apagan sin volverse grises del todo."
+     },
+     {
+      "id": "facade_blue_grey_to_warm_stone",
+      "hue": [
+       200,
+       250
+      ],
+      "sat": [
+       0.08,
+       0.34
+      ],
+      "value": [
+       0.52,
+       0.75
+      ],
+      "saturationScale": 1.55,
+      "valueScale": 0.51,
+      "hueTo": 36,
+      "kinds": [
+       "building",
+       "prop"
+      ],
+      "description": "Fachadas gris azulado -> piedra calida. Con el global desaturando, el 1.43 anterior se cancelaba y la fachada salia gris; ahora el croma sube de verdad y el edificio es lo mas claro del plano."
+     },
+     {
+      "id": "panel_lavender_stays_cool",
+      "hue": [
+       200,
+       250
+      ],
+      "sat": [
+       0.08,
+       0.34
+      ],
+      "value": [
+       0.75,
+       1.0
+      ],
+      "saturationScale": 1.35,
+      "valueScale": 0.3,
+      "hueTo": 219,
+      "kinds": [
+       "building",
+       "prop"
+      ],
+      "description": "Paneles lavanda muy palidos: se quedan frios a proposito para que el edificio tenga dos temperaturas y no un solo bloque."
+     },
+     {
+      "id": "near_white_trim",
+      "hue": [
+       0,
+       360
+      ],
+      "sat": [
+       0.0,
+       0.16
+      ],
+      "value": [
+       0.85,
+       1.0
+      ],
+      "saturationScale": 1.0,
+      "valueScale": 0.35,
+      "description": "Remates y marcos casi blancos: el escalon mas alto de la noche."
+     },
+     {
+      "id": "pale_neutral",
+      "hue": [
+       0,
+       360
+      ],
+      "sat": [
+       0.0,
+       0.16
+      ],
+      "value": [
+       0.5,
+       0.85
+      ],
+      "saturationScale": 1.0,
+      "valueScale": 0.4,
+      "description": "Neutros medios: hormigon, yeso, chapas sin pigmento."
+     },
+     {
+      "id": "neutral_dark_asphalt",
+      "hue": [
+       0,
+       360
+      ],
+      "sat": [
+       0.0,
+       0.34
+      ],
+      "value": [
+       0.1,
+       0.52
+      ],
+      "saturationScale": 0.85,
+      "valueScale": 0.33,
+      "description": "Asfaltos y grises oscuros: el suelo tiene que quedar por debajo de todo lo demas."
+     },
+     {
+      "id": "warm_accents_muted",
+      "hue": [
+       330,
+       40
+      ],
+      "sat": [
+       0.09,
+       1.0
+      ],
+      "value": [
+       0.1,
+       1.0
+      ],
+      "saturationScale": 0.8,
+      "valueScale": 0.34,
+      "description": "Rojos, naranjas y marrones de props y terreno: se atenuan pero conservan su familia."
+     },
+     {
+      "id": "violet_accents_muted",
+      "hue": [
+       250,
+       330
+      ],
+      "sat": [
+       0.09,
+       1.0
+      ],
+      "value": [
+       0.1,
+       1.0
+      ],
+      "saturationScale": 0.6,
+      "valueScale": 0.32,
+      "description": "Violetas de KayKit y nature-kit. Sin esta banda se caian en el hueco 250-265 y seguian quedandose a brillo de dia, que es como aparecio el punto violeta de la captura V.b0."
+     },
+     {
+      "id": "unclassified_night_fallback",
+      "hue": [
+       0,
+       360
+      ],
+      "sat": [
+       0.0,
+       1.0
+      ],
+      "value": [
+       0.05,
+       1.0
+      ],
+      "saturationScale": 0.75,
+      "valueScale": 0.42,
+      "description": "Red de seguridad: cualquier texel que ninguna banda anterior reclamó baja igualmente a la noche. Con primer-match-gana no puede acumular escalas sobre otra banda."
+     }
+    ],
+    "windowGlow": {
+     "kinds": [
+      "building"
+     ],
+     "hue": [
+      195,
+      250
+     ],
+     "sat": [
+      0.35,
+      0.9
+     ],
+     "value": [
+      0.55,
+      1.0
+     ],
+     "strength": 1.15,
+     "colorSrgb": [
+      255,
+      199,
+      146
+     ],
+     "litFraction": 0.42,
+     "salt": 1741,
+     "description": "Ventanas del atlas Kenney = cara con texeles en la familia de cristal. La seleccion de cuales estan encendidas es por cara de malla (hash del baricentro 3D), no por texel: todas las ventanas comparten un swatch, asi que la geometria es la unica identificacion fiable. Reproduce un bloque real, donde media ciudad duerme."
     },
-    "wood": {
-      "source": "PolyHaven/wood_planks_grey",
-      "tint": [0.45, 0.42, 0.38],
-      "roughness": 0.75,
-      "description": "Weathered wood for doors, frames, and props"
+    "flatMaterials": [
+     {
+      "match": [
+       "leaf",
+       "green"
+      ],
+      "hueTo": 138,
+      "saturationScale": 0.62,
+      "valueScale": 0.55,
+      "description": "Follaje plano de nature-kit: verde de noche, distinguible de la pizarra de los tejados. Va por encima de lo que pediria el suelo porque `flatMaterials` no pasa por `global.valueScale`: sin esta compensacion el arbol caia al mismo valor que la loseta y desaparecia de la jerarquia."
+     },
+     {
+      "match": [
+       "bark",
+       "wood",
+       "trunk"
+      ],
+      "saturationScale": 0.55,
+      "valueScale": 0.42
+     },
+     {
+      "match": [
+       "default"
+      ],
+      "valueScale": 0.6
+     }
+    ],
+    "metallic": 0.0,
+    "roughness": 0.88,
+    "acceptance": {
+     "nightValueCeiling": 0.62,
+     "darkestValueFloor": 0.05,
+     "description": "Umbrales que comprueba check_style_layer.py sobre el albedo resultante: ningun swatch puede quedarse en luz de dia (techo) ni aplastarse a negro (suelo)."
     }
+   },
+   "shadow": {
+    "enabled": true,
+    "keySunAngleDegrees": 3.0,
+    "strength": 1.5,
+    "colorSrgb": [
+     4,
+     6,
+     10
+    ],
+    "direction2D": [
+     -9.0,
+     -16.0
+    ],
+    "angleDegrees": 240.6,
+    "description": "Segunda pasada con plano blanco: la sombra es la del rig SUN, con dirección y tamaño reales. direction2D es la proyección XY de keyPosition=[9,16,10]→origen; angleDegrees=240.6° (0°=E, 90°=N). Para Phaser (Y-down): 330.6°."
+   }
   },
-  "paletteOverrides": {
-    "window": {
-      "baseColor": [0.98, 0.75, 0.25],
-      "emission": [0.98, 0.75, 0.25],
-      "emissionStrength": 2.6,
-      "roughness": 0.15,
-      "description": "Warm lit windows (graphic_civic signature)"
+  "day_civic": {
+   "extends": "night_civic",
+   "lighting": {
+    "keyEnergy": 4.2,
+    "keyColor": [
+     1.0,
+     0.96,
+     0.88
+    ],
+    "fillEnergy": 1.15,
+    "rimEnergy": 0.9,
+    "worldColor": [
+     0.6,
+     0.61,
+     0.62
+    ],
+    "worldStrength": 0.9,
+    "fillColor": [
+     0.62,
+     0.64,
+     0.75
+    ],
+    "rimColor": [
+     0.68,
+     0.72,
+     0.82
+    ],
+    "noteWarmAmbient": "D-111.3 FASE 2: fill/rim/world propios calentados (fill y rim antes heredados fríos de night_civic; mundo cian) para que la sombra del ladrillo cálido lea neutra en vez de verde-azulada; causa 4 de facade_diagnosis.md. Key y noche intactos."
+   },
+   "rendering": {
+    "postProcessing": "Standard - Medium Contrast",
+    "exposure": 0.0
+   },
+   "externalTreatment": {
+    "global": {
+     "valueScale": 1.7
     },
-    "green": {
-      "baseColor": [0.22, 0.36, 0.28],
-      "roughness": 0.8,
-      "description": "Vegetation (trees, plants)"
+    "kindOverrides": {
+     "terrain": {
+      "saturationScale": 0.78,
+      "valueScale": 0.92
+     }
     },
-    "plaster": {
-      "baseColor": [0.68, 0.67, 0.54],
-      "roughness": 0.62,
-      "description": "Light plaster for building accents"
+    "bandOverrides": {
+     "roof_and_verge_green_to_slate": {
+      "valueScale": 0.42
+     },
+     "civic_teal_accent": {
+      "valueScale": 0.5
+     },
+     "headlamp_yellow": {
+      "valueScale": 0.62
+     },
+     "window_blue_to_dark_glass": {
+      "valueScale": 0.4
+     },
+     "pale_cyan_wash": {
+      "valueScale": 0.5
+     },
+     "facade_blue_grey_to_warm_stone": {
+      "valueScale": 0.72
+     },
+     "panel_lavender_stays_cool": {
+      "valueScale": 0.5
+     },
+     "near_white_trim": {
+      "valueScale": 0.8
+     },
+     "pale_neutral": {
+      "valueScale": 0.66
+     },
+     "neutral_dark_asphalt": {
+      "valueScale": 0.46
+     },
+     "warm_accents_muted": {
+      "valueScale": 0.55
+     },
+     "violet_accents_muted": {
+      "valueScale": 0.5
+     },
+     "unclassified_night_fallback": {
+      "valueScale": 0.52
+     }
+    },
+    "windowGlow": {
+     "litFraction": 0.08,
+     "strength": 0.4
+    },
+    "architecturalReadability": {
+     "floorsByKind": {
+      "terrain": 0.34,
+      "pavement": 0.34,
+      "building": {
+       "facade_blue_grey_to_warm_stone": 0.66,
+       "near_white_trim": 0.72,
+       "pale_neutral": 0.66,
+       "pale_cyan_wash": 0.66,
+       "warm_accents_muted": 0.66,
+       "neutral_dark_asphalt": 0.34,
+       "headlamp_yellow": 0.78,
+       "unclassified_night_fallback": 0.52
+      },
+      "prop": 0.44,
+      "vehicle": 0.44,
+      "character": 0.44
+     }
     }
+   },
+   "shadow": {
+    "keySunAngleDegrees": 1.5,
+    "strength": 0.75,
+    "colorSrgb": [
+     44,
+     52,
+     64
+    ]
+   }
   },
-  "proportions": {
-    "characterHeight": 1.8,
-    "buildingFloorHeight": 3.0,
-    "doorHeight": 2.1,
-    "cellSizeMeters": 4.0,
-    "note": "cellSizeMeters is visual convention for WP4.15-V, not yet a simulation contract"
+  "day_industrial": {
+   "extends": "day_civic",
+   "externalTreatment": {
+    "bandOverrides": {
+     "near_white_trim": {
+      "valueScale": 0.5
+     },
+     "facade_blue_grey_to_warm_stone": {
+      "valueScale": 0.6
+     }
+    },
+    "description": "Grade diurno para las familias industriales claras. Con day_civic el global 1.7 por near_white_trim 0.8 (neto 1.36 sobre albedo 0.85-1.00) y facade_blue_grey_to_warm_stone 0.72 (neto 1.22) empujaba el albedo por encima de 1.0: chimeneas, silos, cornisas y panos claros salian blancos, planos y sin volumen. Se bajan solo esas dos bandas; iluminacion, sombra, windowGlow y suelo de legibilidad del diurno quedan intactos."
+   }
   },
-  "activeMood": "night_civic",
-  "moodProfiles": {
-    "night_civic": {
-      "lighting": {
-        "keyEnergy": 2.35,
-        "keyColor": [0.95, 0.88, 0.78],
-        "keyDirection": [0.35, 0.82, 0.45],
-        "fillEnergy": 0.6,
-        "fillColor": [0.5, 0.62, 0.8],
-        "fillDirection": [-0.5, 0.3, -0.2],
-        "rimEnergy": 1.3,
-        "rimColor": [0.55, 0.7, 0.9],
-        "worldColor": [0.16, 0.22, 0.34],
-        "worldStrength": 0.4,
-        "description": "WP4.15-V.b1: la key ya no es un sol de mediodia. Baja energia calida (farola lejana), relleno frio tenue y un rim que separa el volumen del fondo; el ambiente sube de 0.22 a 0.4 pero con color de noche, no gris. Las irradiancias van a pares con las escaleras de valor de externalTreatment: el asset se oscurece en el atlas y la luz deja de volver a quemarlo.",
-        "keyPosition": [9.0, 16.0, 10.0],
-        "fillPosition": [-10.0, -6.0, 8.0],
-        "rimPosition": [0.0, -12.0, 6.0]
-      },
-      "camera": {
-        "projection": "ORTHO",
-        "azimuthDegrees": 45,
-        "elevationDegrees": 30,
-        "rollDegrees": 0,
-        "description": "Isometric camera matching approved direction"
-      },
-      "rendering": {
-        "renderer": "EEVEE",
-        "filmTransparent": true,
-        "colorDepth": "RGBA_8BIT",
-        "postProcessing": "AgX - Medium High Contrast",
-        "exposure": -0.25,
-        "description": "Render settings for runtime asset pipeline"
-      },
-      "externalTreatment": {
-        "version": 7,
-        "note": "WP4.15-V.b1. Tratamiento de color de los assets externos, evaluado sobre el HSV del atlas de ORIGEN y sobre una copia en memoria: las fuentes nunca se reescriben. Se aplica a cualquier pack sin reglas por archivo.",
-        "global": {
-          "saturationScale": 1.0,
-          "valueScale": 1.55,
-          "multiplySrgb": [1.0, 1.0, 1.0],
-          "description": "El nivel de noche es una decision de VALOR, no de croma. Con saturationScale 0.62 aqui, las bandas que subian su croma (fachadas 1.43) se cancelaban y la ciudad salia gris azulada; ahora cada familia declara su croma final. valueScale 1.55 levanta el albedo antes de que las bandas lo recorten, para que la escalera siga teniendo pelda\u00f1os despues de la luz. El tinte azul se quita del albedo y pasa a ser solo del rig: restar azul en las dos capas convertia todo en azul oscuro, que es justo lo que la paleta prohibe."
-        },
-        "architecturalReadability": {
-          "kind": "building",
-          "floors": {
-            "facade_blue_grey_to_warm_stone": 0.61,
-            "near_white_trim": 0.61,
-            "pale_neutral": 0.58,
-            "pale_cyan_wash": 0.55,
-            "warm_accents_muted": 0.55,
-            "neutral_dark_asphalt": 0.4,
-            "headlamp_yellow": 0.42,
-            "unclassified_night_fallback": 0.42
-          },
-          "description": "R2: separa 'world/night mood' de 'architectural readability'. El global y las bandas calibradas para Kenney convierten una fachada MegaKit continua de 16 m en una mancha negra cuando el texel original es oscuro. Se impone un suelo de valor por banda SOLO cuando kind=='building', preservando intactas las bandas atmosféricas (tejados, vidrio, teal cívico, violetas) que mantienen el mood nocturno. El ladrillo del MegaKit cae en warm_accents_muted y el hormigón en neutral_dark_asphalt: sin floor, esas dos bandas eran la causa de la fachada negra que el responsable documentó en c1a635b."
-        },
-        "kindOverrides": {
-          "terrain": {
-            "saturationScale": 0.6,
-            "valueScale": 0.85
-          },
-          "vehicle": {
-            "saturationScale": 1.0,
-            "valueScale": 1.15
-          },
-          "character": {
-            "saturationScale": 0.85,
-            "valueScale": 1.0
-          },
-          "description": "Modulan el global en multiplicacion. Vehiculos dejan de desaturarse: son elementos de interes y su pintura es el unico acento cromatico movil del plano. Terreno baja a 0.60/0.85 para que el suelo quede por debajo de edificios y coches."
-        },
-        "hueBands": [
-          {
-            "id": "roof_and_verge_green_to_slate",
-            "hue": [70, 178],
-            "sat": [0.15, 1.0],
-            "value": [0.1, 1.0],
-            "saturationScale": 0.22,
-            "valueScale": 0.22,
-            "hueTo": 165,
-            "description": "Tejados y bordillos verdes de Kenney: pizarra fria casi neutra. Es la banda que quita al techo el protagonismo de dia."
-          },
-          {
-            "id": "civic_teal_accent",
-            "hue": [178, 196],
-            "sat": [0.28, 1.0],
-            "value": [0.1, 1.0],
-            "saturationScale": 0.7,
-            "valueScale": 0.29,
-            "hueTo": 186,
-            "description": "Acento civico teal: se conserva como acento, no como color dominante, y por eso mantiene croma pero baja valor."
-          },
-          {
-            "id": "headlamp_yellow",
-            "hue": [40, 70],
-            "sat": [0.25, 1.0],
-            "value": [0.4, 1.0],
-            "saturationScale": 0.9,
-            "valueScale": 0.34,
-            "hueTo": 48,
-            "description": "Faros y senalizacion amarilla. Va antes que la banda de vehiculos para que un faro no se confunda con la carroceria."
-          },
-          {
-            "id": "window_blue_to_dark_glass",
-            "hue": [195, 250],
-            "sat": [0.35, 1.0],
-            "value": [0.55, 1.0],
-            "saturationScale": 0.45,
-            "valueScale": 0.24,
-            "hueTo": 216,
-            "description": "Cristal del atlas: vidrio oscuro de noche. La luz calida no viene del albedo sino del windowGlow, que decide cara a cara que ventana esta encendida."
-          },
-          {
-            "id": "pale_cyan_wash",
-            "hue": [170, 200],
-            "sat": [0.16, 0.4],
-            "value": [0.5, 1.0],
-            "saturationScale": 0.55,
-            "valueScale": 0.31,
-            "hueTo": 200,
-            "description": "Lavados cyan palidos (chapas, toldos, cornisas): se apagan sin volverse grises del todo."
-          },
-          {
-            "id": "facade_blue_grey_to_warm_stone",
-            "hue": [200, 250],
-            "sat": [0.08, 0.34],
-            "value": [0.52, 0.75],
-            "saturationScale": 1.55,
-            "valueScale": 0.51,
-            "hueTo": 36,
-            "kinds": ["building", "prop"],
-            "description": "Fachadas gris azulado -> piedra calida. Con el global desaturando, el 1.43 anterior se cancelaba y la fachada salia gris; ahora el croma sube de verdad y el edificio es lo mas claro del plano."
-          },
-          {
-            "id": "panel_lavender_stays_cool",
-            "hue": [200, 250],
-            "sat": [0.08, 0.34],
-            "value": [0.75, 1.0],
-            "saturationScale": 1.35,
-            "valueScale": 0.3,
-            "hueTo": 219,
-            "kinds": ["building", "prop"],
-            "description": "Paneles lavanda muy palidos: se quedan frios a proposito para que el edificio tenga dos temperaturas y no un solo bloque."
-          },
-          {
-            "id": "near_white_trim",
-            "hue": [0, 360],
-            "sat": [0.0, 0.16],
-            "value": [0.85, 1.0],
-            "saturationScale": 1.0,
-            "valueScale": 0.35,
-            "description": "Remates y marcos casi blancos: el escalon mas alto de la noche."
-          },
-          {
-            "id": "pale_neutral",
-            "hue": [0, 360],
-            "sat": [0.0, 0.16],
-            "value": [0.5, 0.85],
-            "saturationScale": 1.0,
-            "valueScale": 0.4,
-            "description": "Neutros medios: hormigon, yeso, chapas sin pigmento."
-          },
-          {
-            "id": "neutral_dark_asphalt",
-            "hue": [0, 360],
-            "sat": [0.0, 0.34],
-            "value": [0.1, 0.52],
-            "saturationScale": 0.85,
-            "valueScale": 0.33,
-            "description": "Asfaltos y grises oscuros: el suelo tiene que quedar por debajo de todo lo demas."
-          },
-          {
-            "id": "warm_accents_muted",
-            "hue": [330, 40],
-            "sat": [0.09, 1.0],
-            "value": [0.1, 1.0],
-            "saturationScale": 0.8,
-            "valueScale": 0.34,
-            "description": "Rojos, naranjas y marrones de props y terreno: se atenuan pero conservan su familia."
-          },
-          {
-            "id": "violet_accents_muted",
-            "hue": [250, 330],
-            "sat": [0.09, 1.0],
-            "value": [0.1, 1.0],
-            "saturationScale": 0.6,
-            "valueScale": 0.32,
-            "description": "Violetas de KayKit y nature-kit. Sin esta banda se caian en el hueco 250-265 y seguian quedandose a brillo de dia, que es como aparecio el punto violeta de la captura V.b0."
-          },
-          {
-            "id": "unclassified_night_fallback",
-            "hue": [0, 360],
-            "sat": [0.0, 1.0],
-            "value": [0.05, 1.0],
-            "saturationScale": 0.75,
-            "valueScale": 0.42,
-            "description": "Red de seguridad: cualquier texel que ninguna banda anterior reclam\u00f3 baja igualmente a la noche. Con primer-match-gana no puede acumular escalas sobre otra banda."
-          }
-        ],
-        "windowGlow": {
-          "kinds": ["building"],
-          "hue": [195, 250],
-          "sat": [0.35, 0.9],
-          "value": [0.55, 1.0],
-          "strength": 1.15,
-          "colorSrgb": [255, 199, 146],
-          "litFraction": 0.42,
-          "salt": 1741,
-          "description": "Ventanas del atlas Kenney = cara con texeles en la familia de cristal. La seleccion de cuales estan encendidas es por cara de malla (hash del baricentro 3D), no por texel: todas las ventanas comparten un swatch, asi que la geometria es la unica identificacion fiable. Reproduce un bloque real, donde media ciudad duerme."
-        },
-        "flatMaterials": [
-          {
-            "match": ["leaf", "green"],
-            "hueTo": 138,
-            "saturationScale": 0.62,
-            "valueScale": 0.55,
-            "description": "Follaje plano de nature-kit: verde de noche, distinguible de la pizarra de los tejados. Va por encima de lo que pediria el suelo porque `flatMaterials` no pasa por `global.valueScale`: sin esta compensacion el arbol caia al mismo valor que la loseta y desaparecia de la jerarquia."
-          },
-          {
-            "match": ["bark", "wood", "trunk"],
-            "saturationScale": 0.55,
-            "valueScale": 0.42
-          },
-          {
-            "match": ["default"],
-            "valueScale": 0.6
-          }
-        ],
-        "metallic": 0.0,
-        "roughness": 0.88,
-        "acceptance": {
-          "nightValueCeiling": 0.62,
-          "darkestValueFloor": 0.05,
-          "description": "Umbrales que comprueba check_style_layer.py sobre el albedo resultante: ningun swatch puede quedarse en luz de dia (techo) ni aplastarse a negro (suelo)."
-        }
-      },
-      "shadow": {
-        "enabled": true,
-        "keySunAngleDegrees": 3.0,
-        "strength": 1.5,
-        "colorSrgb": [4, 6, 10],
-        "direction2D": [-9.0, -16.0],
-        "angleDegrees": 240.6,
-        "description": "Segunda pasada con plano blanco: la sombra es la del rig SUN, con direcci\u00f3n y tama\u00f1o reales. direction2D es la proyecci\u00f3n XY de keyPosition=[9,16,10]\u2192origen; angleDegrees=240.6\u00b0 (0\u00b0=E, 90\u00b0=N). Para Phaser (Y-down): 330.6\u00b0."
-      }
+  "material_maquette_day": {
+   "extends": "day_civic",
+   "lighting": {
+    "keyEnergy": 3.8,
+    "keyColor": [
+     1.0,
+     0.9,
+     0.76
+    ],
+    "fillEnergy": 1.35,
+    "fillColor": [
+     0.72,
+     0.68,
+     0.58
+    ],
+    "rimEnergy": 0.65,
+    "worldColor": [
+     0.62,
+     0.57,
+     0.47
+    ],
+    "worldStrength": 0.88,
+    "description": "D-111 pilot: warm, diffuse daylight for matte brick, plaster, stone and painted metal."
+   },
+   "rendering": {
+    "postProcessing": "Standard - Medium Contrast",
+    "exposure": -0.05
+   },
+   "externalTreatment": {
+    "global": {
+     "saturationScale": 0.92,
+     "valueScale": 1.35
     },
-    "day_civic": {
-      "extends": "night_civic",
-      "lighting": {
-        "keyEnergy": 4.2,
-        "keyColor": [1.0, 0.96, 0.88],
-        "fillEnergy": 1.15,
-        "rimEnergy": 0.9,
-        "worldColor": [0.52, 0.6, 0.7],
-        "worldStrength": 0.9
-      },
-      "rendering": {
-        "postProcessing": "Standard - Medium Contrast",
-        "exposure": 0.0
-      },
-      "externalTreatment": {
-        "global": { "valueScale": 1.7 },
-        "kindOverrides": {
-          "terrain": { "saturationScale": 0.78, "valueScale": 0.92 }
-        },
-        "bandOverrides": {
-          "roof_and_verge_green_to_slate": { "valueScale": 0.42 },
-          "civic_teal_accent": { "valueScale": 0.5 },
-          "headlamp_yellow": { "valueScale": 0.62 },
-          "window_blue_to_dark_glass": { "valueScale": 0.4 },
-          "pale_cyan_wash": { "valueScale": 0.5 },
-          "facade_blue_grey_to_warm_stone": { "valueScale": 0.72 },
-          "panel_lavender_stays_cool": { "valueScale": 0.5 },
-          "near_white_trim": { "valueScale": 0.8 },
-          "pale_neutral": { "valueScale": 0.66 },
-          "neutral_dark_asphalt": { "valueScale": 0.46 },
-          "warm_accents_muted": { "valueScale": 0.55 },
-          "violet_accents_muted": { "valueScale": 0.5 },
-          "unclassified_night_fallback": { "valueScale": 0.52 }
-        },
-        "windowGlow": { "litFraction": 0.08, "strength": 0.4 },
-        "architecturalReadability": {
-          "floorsByKind": {
-            "terrain": 0.34,
-            "pavement": 0.34,
-            "building": {
-              "facade_blue_grey_to_warm_stone": 0.66,
-              "near_white_trim": 0.72,
-              "pale_neutral": 0.66,
-              "pale_cyan_wash": 0.66,
-              "warm_accents_muted": 0.66,
-              "neutral_dark_asphalt": 0.34,
-              "headlamp_yellow": 0.78,
-              "unclassified_night_fallback": 0.52
-            },
-            "prop": 0.44,
-            "vehicle": 0.44,
-            "character": 0.44
-          }
-        }
-      },
-      "shadow": {
-        "keySunAngleDegrees": 1.5,
-        "strength": 0.75,
-        "colorSrgb": [44, 52, 64]
-      }
+    "kindOverrides": {
+     "terrain": {
+      "saturationScale": 0.82,
+      "valueScale": 0.9
+     }
     },
-    "day_industrial": {
-      "extends": "day_civic",
-      "externalTreatment": {
-        "bandOverrides": {
-          "near_white_trim": { "valueScale": 0.5 },
-          "facade_blue_grey_to_warm_stone": { "valueScale": 0.6 }
-        },
-        "description": "Grade diurno para las familias industriales claras. Con day_civic el global 1.7 por near_white_trim 0.8 (neto 1.36 sobre albedo 0.85-1.00) y facade_blue_grey_to_warm_stone 0.72 (neto 1.22) empujaba el albedo por encima de 1.0: chimeneas, silos, cornisas y panos claros salian blancos, planos y sin volumen. Se bajan solo esas dos bandas; iluminacion, sombra, windowGlow y suelo de legibilidad del diurno quedan intactos."
-      }
+    "bandOverrides": {
+     "facade_blue_grey_to_warm_stone": {
+      "valueScale": 0.68
+     },
+     "near_white_trim": {
+      "valueScale": 0.68
+     },
+     "warm_accents_muted": {
+      "valueScale": 0.62
+     }
     },
-    "material_maquette_day": {
-      "extends": "day_civic",
-      "lighting": {
-        "keyEnergy": 3.8,
-        "keyColor": [
-          1.0,
-          0.9,
-          0.76
-        ],
-        "fillEnergy": 1.35,
-        "fillColor": [
-          0.72,
-          0.68,
-          0.58
-        ],
-        "rimEnergy": 0.65,
-        "worldColor": [
-          0.62,
-          0.57,
-          0.47
-        ],
-        "worldStrength": 0.88,
-        "description": "D-111 pilot: warm, diffuse daylight for matte brick, plaster, stone and painted metal."
-      },
-      "rendering": {
-        "postProcessing": "Standard - Medium Contrast",
-        "exposure": -0.05
-      },
-      "externalTreatment": {
-        "global": {
-          "saturationScale": 0.92,
-          "valueScale": 1.35
-        },
-        "kindOverrides": {
-          "terrain": {
-            "saturationScale": 0.82,
-            "valueScale": 0.9
-          }
-        },
-        "bandOverrides": {
-          "facade_blue_grey_to_warm_stone": {
-            "valueScale": 0.68
-          },
-          "near_white_trim": {
-            "valueScale": 0.68
-          },
-          "warm_accents_muted": {
-            "valueScale": 0.62
-          }
-        },
-        "description": "D-111 candidate grade: warmer, quieter material response; inherited band floors retain readability."
-      },
-      "shadow": {
-        "keySunAngleDegrees": 1.5,
-        "strength": 0.66,
-        "colorSrgb": [
-          66,
-          58,
-          48
-        ]
-      }
-    },
-    "material_maquette_night": {
-      "extends": "night_civic",
-      "lighting": {
-        "keyEnergy": 2.45,
-        "keyColor": [
-          1.0,
-          0.86,
-          0.68
-        ],
-        "fillEnergy": 0.8,
-        "fillColor": [
-          0.64,
-          0.66,
-          0.69
-        ],
-        "rimEnergy": 0.8,
-        "worldColor": [
-          0.23,
-          0.24,
-          0.27
-        ],
-        "worldStrength": 0.46,
-        "description": "D-111 candidate: warm local light with restrained ambient fill for night facade readability."
-      },
-      "rendering": {
-        "postProcessing": "AgX - Medium High Contrast",
-        "exposure": -0.1
-      },
-      "externalTreatment": {
-        "global": {
-          "saturationScale": 0.95,
-          "valueScale": 1.5
-        },
-        "bandOverrides": {
-          "facade_blue_grey_to_warm_stone": {
-            "valueScale": 0.72
-          },
-          "near_white_trim": {
-            "valueScale": 0.72
-          },
-          "warm_accents_muted": {
-            "valueScale": 0.62
-          }
-        },
-        "description": "D-111 night candidate: warm practical light and readable matte facades, preserving the night value hierarchy."
-      },
-      "shadow": {
-        "keySunAngleDegrees": 1.5,
-        "strength": 0.44,
-        "colorSrgb": [
-          48,
-          43,
-          38
-        ]
-      }
-    }
+    "description": "D-111 candidate grade: warmer, quieter material response; inherited band floors retain readability."
+   },
+   "shadow": {
+    "keySunAngleDegrees": 1.5,
+    "strength": 0.66,
+    "colorSrgb": [
+     66,
+     58,
+     48
+    ]
+   }
   },
-  "styleLayerRule": "Quaternius/Kenney \u2192 geometry; Poly Haven \u2192 material base/PBR; Graphic Civic Style Layer \u2192 color grading + roughness + scale + lighting"
+  "material_maquette_night": {
+   "extends": "night_civic",
+   "lighting": {
+    "keyEnergy": 2.45,
+    "keyColor": [
+     1.0,
+     0.86,
+     0.68
+    ],
+    "fillEnergy": 0.8,
+    "fillColor": [
+     0.64,
+     0.66,
+     0.69
+    ],
+    "rimEnergy": 0.8,
+    "worldColor": [
+     0.23,
+     0.24,
+     0.27
+    ],
+    "worldStrength": 0.46,
+    "description": "D-111 candidate: warm local light with restrained ambient fill for night facade readability."
+   },
+   "rendering": {
+    "postProcessing": "AgX - Medium High Contrast",
+    "exposure": -0.1
+   },
+   "externalTreatment": {
+    "global": {
+     "saturationScale": 0.95,
+     "valueScale": 1.5
+    },
+    "bandOverrides": {
+     "facade_blue_grey_to_warm_stone": {
+      "valueScale": 0.72
+     },
+     "near_white_trim": {
+      "valueScale": 0.72
+     },
+     "warm_accents_muted": {
+      "valueScale": 0.62
+     }
+    },
+    "description": "D-111 night candidate: warm practical light and readable matte facades, preserving the night value hierarchy."
+   },
+   "shadow": {
+    "keySunAngleDegrees": 1.5,
+    "strength": 0.44,
+    "colorSrgb": [
+     48,
+     43,
+     38
+    ]
+   }
+  }
+ },
+ "styleLayerRule": "Quaternius/Kenney → geometry; Poly Haven → material base/PBR; Graphic Civic Style Layer → color grading + roughness + scale + lighting"
 }

@@ -524,8 +524,12 @@ def _build_window_bay(params):
         ow + 2 * bar, oh + 2 * bar, bar, bar + 0.02, centre_z, front + bar / 2.0 - 0.012
     )
     stone_parts += [
-        tree.box((ow + 2 * bar + 0.16, t + 0.20, 0.075), (0.0, 0.05, sill - 0.037)),
-        tree.box((ow + 2 * bar + 0.22, t + 0.05, 0.17), (0.0, 0.02, centre_z + oh / 2.0 + bar + 0.05)),
+        # D-111.3 FASE 2 · antepecho y dintel vuelven casi al plano de fachada (0,04/0,01 m de
+        # proyección frente a 0,15/0,045): su sombra de key caía sobre el paño de ladrillo del vano
+        # siguiente y a 60 px/m leía como franja negra-verdosa (facade_diagnosis.md). El REVECO real
+        # de 8,5 cm y el marco en relieve se conservan: ahí vive la profundidad de la ventana.
+        tree.box((ow + 2 * bar + 0.16, t + 0.08, 0.075), (0.0, 0.0, sill - 0.037)),
+        tree.box((ow + 2 * bar + 0.22, t + 0.02, 0.17), (0.0, 0.0, centre_z + oh / 2.0 + bar + 0.05)),
     ]
     glass_y = front - recess
     mullion_pts = tree.points_row(ow, "mullions", (0.0, glass_y + 0.03, centre_z))

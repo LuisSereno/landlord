@@ -40,6 +40,21 @@ valid (15+4), capabilities-valid (24), licencias, typecheck, vitest 43/43, build
 | 7 · WP09 y documentación | completada | (este commit) | capabilities.json (24 entradas), guía §39, ADR D-111 enmendado, ART.md/ART-PIPELINE.md, citas §6.x reapuntadas | revisión del propietario |
 | 8 · validación final y publicación | completada | (este commit) | informe corto al propietario | revisión visual humana de las hojas |
 
+## FINAL-ASSET-QA (corrección final D-111.2, brief 2026-11-23, HEAD inicial `8c72d88`)
+
+Objetivo: que las demostraciones de fuego/humo/daño usen la arquitectura WP06 y los edificios
+legacy (`bld_*`) queden como controles históricos. Sin tocar `GameState`, promociones ni runtime.
+
+| Paso | Estado | Commit | Evidencia | Pendiente |
+| --- | --- | --- | --- | --- |
+| 0 · baseline y registro | PENDING | — | esta sección | — |
+| 1 · cuatro inconsistencias de auditoría | PENDING | — | — | — |
+| 2 · mapa de procedencias + anti-sustitución | PENDING | — | `FINAL-ASSET-SOURCES.md` (por crear) | — |
+| 3 · variantes WP06 que faltan | PENDING | — | — | — |
+| 4 · demostraciones de incendio WP06 | PENDING | — | `modern_building_fire_ab.png` (por crear) | — |
+| 5 · comparativa de conservación WP06 | PENDING | — | `modern_building_condition_ab.png` (por crear) | — |
+| 6 · validación, documentación y cierre | PENDING | — | — | — |
+
 ## Defectos heredados registrados en FASE 1 (sin regenerar evidencias antiguas)
 
 1. Las 8 capturas `evidence/v2/urban/` marcan `LAVADA` por el HUD dentro del recorte

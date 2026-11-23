@@ -6,7 +6,7 @@
  "candidateProfile": "gn_residential_v2",
  "before": "evidence/v2/candidates/wp06_mixed_tenement-damaged.png (firma d1685fc830ea…)",
  "after": {
-  "signature": "38cb309ac36e…",
+  "signature": "d59f2ab367bc…",
   "newModules": [
    "mod_megakit_floor_slab_2m (forjados parciales)",
    "mod_megakit_brick_wall_2m (tabique)",

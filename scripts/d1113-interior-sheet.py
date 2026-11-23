@@ -14,7 +14,7 @@ from PIL import Image, ImageDraw
 
 OUT = Path("docs/art/graphics-capabilities/evidence/d1113")
 CAND = Path("docs/art/graphics-capabilities/evidence/v2/candidates")
-AFTER = Path("/tmp/d1113/interior/w06cnd_mixed_tenement_2_damaged.png")
+AFTER = Path("/tmp/d1113/f4b_mixed_dmg/w06cnd_mixed_tenement_2_damaged.png")
 BG = (11, 20, 34)
 PANEL_BG = (17, 27, 43)
 TEXT = (232, 236, 244)
@@ -103,7 +103,7 @@ def main() -> None:
         "candidateProfile": "gn_residential_v2",
         "before": "evidence/v2/candidates/wp06_mixed_tenement-damaged.png (firma d1685fc830ea…)",
         "after": {
-            "signature": "38cb309ac36e…",
+            "signature": "d59f2ab367bc…",
             "newModules": [
                 "mod_megakit_floor_slab_2m (forjados parciales)",
                 "mod_megakit_brick_wall_2m (tabique)",

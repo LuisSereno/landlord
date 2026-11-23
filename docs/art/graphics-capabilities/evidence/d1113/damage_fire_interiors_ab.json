@@ -1,0 +1,31 @@
+{
+ "schemaVersion": 1,
+ "sheet": "damage_fire_interiors_ab.png",
+ "panels": {
+  "mixed_damaged": {
+   "signature": "38cb309ac36eb2af655c9c4e89a19ba61bd9623b9dbc612d260debd38764eff5",
+   "mood": "day_civic",
+   "fireAnchors": 0,
+   "png": "w06cnd_mixed_tenement_2_damaged.png"
+  },
+  "mixed_burning": {
+   "signature": "59e4d099a49b16aebe8b04f4fec1f0ed657ba202e87a059fa8fa179f1a253a86",
+   "mood": "day_civic",
+   "fireAnchors": 19,
+   "png": "w06cnd_mixed_tenement_2_burning.png"
+  },
+  "warehouse_damaged": {
+   "signature": "e46be2888e5f1378271a95c8f128fd2c79956cda6fbaf8f86ddeb0f443f39a31",
+   "mood": "night_civic",
+   "fireAnchors": 0,
+   "png": "w06cnd_warehouse_2_damaged.png"
+  },
+  "warehouse_burning": {
+   "signature": "549c21a24de979ccf7d92bda193ef833476f2b04392366e7fe9b312487104339",
+   "mood": "night_civic",
+   "fireAnchors": 22,
+   "png": "w06cnd_warehouse_2_burning.png"
+  }
+ },
+ "note": "llamas/humo/anclajes aprobados intactos; el interior dressing añade forjados, vigas, tabiques y palés sólo en la sección abierta"
+}

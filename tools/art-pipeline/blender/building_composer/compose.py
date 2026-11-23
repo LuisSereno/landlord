@@ -1853,7 +1853,9 @@ class Composition:
         destrucción no deja suelos completos), un tramo de escalera, un tabique, vigas del arranque
         de la cubierta perdida y palés. Determinista con la semilla sellada, limitado al rectángulo
         del daño con margen para que nada atraviese paños, y ausente en los volúmenes intactos.
-        No añade estados, datos ni mobiliario al dominio: es composición visual derivada.
+        No añade estados, datos ni mobiliario al dominio: es composición visual derivada. Usa
+        offsets FIJOS y no toca el PRNG sellado: el stream que consume _compose_fire ha de quedar
+        idéntico para que los anclajes de fuego de la variante nueva coincidan con el control.
         """
         rect = getattr(self, "_damage_rect", None)
         if not rect:
@@ -1883,13 +1885,13 @@ class Composition:
             self.add(
                 slab,
                 0,
-                (x0 + span_x * 0.25, mid_y + self._rand(-0.3, 0.3), z),
+                (x0 + span_x * 0.25, mid_y + 0.2 * level_index, z),
                 "damage:interior:slab",
             )
             self.add(
                 slab,
                 0,
-                (x0 + span_x * 0.75, mid_y + self._rand(-0.3, 0.3), z),
+                (x0 + span_x * 0.75, mid_y - 0.15 * level_index, z),
                 "damage:interior:slab",
             )
             # Un tabique perpendicular a fachada, a media profundidad.
@@ -1897,7 +1899,7 @@ class Composition:
                 self.add(
                     partition,
                     90,
-                    (mid_x + self._rand(-0.8, 0.8), y0 + (y1 - y0) * 0.3, z),
+                    (mid_x + 0.7 if level_index == 1 else mid_x - 0.7, y0 + (y1 - y0) * 0.3, z),
                     "damage:interior:partition",
                 )
             # Un tramo de escalera en el primer nivel ventilado: sube hacia el forjado siguiente.
@@ -1905,18 +1907,18 @@ class Composition:
                 self.add(
                     self.catalog.pick(self.family, "interior_stair"),
                     0,
-                    (x1 - 1.6, mid_y + self._rand(-0.4, 0.4), z),
+                    (x1 - 1.6, mid_y + 0.3, z),
                     "damage:interior:stair",
                 )
             # Palés sobre el forjado, cerca de la abertura para que se lean.
             if prop:
-                for offset in (0.22, 0.55):
+                for offset, angle in ((0.22, 90), (0.55, 0)):
                     self.add(
                         self.catalog.pick(self.family, "interior_prop"),
-                        int(self.rng.percent() // 25) * 90,
+                        angle,
                         (
                             x0 + span_x * offset,
-                            mid_y + self._rand(-0.6, 0.6),
+                            mid_y + (0.5 if offset < 0.4 else -0.5),
                             z,
                         ),
                         "damage:interior:prop",

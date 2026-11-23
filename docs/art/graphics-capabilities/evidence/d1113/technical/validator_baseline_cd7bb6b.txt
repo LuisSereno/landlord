@@ -1,0 +1,93 @@
+El catálogo de módulos falla (92 problemas):
+  · mod_nature_civic_obelisk: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_statue_column: módulo sin texturas resueltas (quedaría magenta)
+  · mod_roads_civic_lamp_curved: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_roads_civic_lamp_curved_double: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_nature_civic_urn_large: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_urn_large: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_nature_civic_urn_small: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_urn_small: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_megakit_civic_planter: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_megakit_civic_trim_90_top: heightMeters = 0.02 m sin que la medición declare el eje z como degenerado
+  · mod_nature_civic_statue_head: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_statue_block: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_statue_ring: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_statue_column_damaged: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_bridge_stone: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_bridge_stone_round: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_civic_sign: módulo sin texturas resueltas (quedaría magenta)
+  · mod_roads_civic_lamp_square: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_roads_civic_lamp_square_double: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_roads_civic_lamp_square_cross: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_roads_civic_lamp_curved_cross: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_kaykit_civic_bench: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_kaykit_civic_streetlight: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /street.?lamp|lamppost|traffic|sign.?post|billboard|\bkiosk\b|bench|\bpole\b/i
+  · mod_original_civic_pediment: licencia no permitida: original
+  · mod_original_civic_pediment: sourcePath fuera de staging: blender_artist/sources/original/civic_pediment.glb
+  · mod_original_civic_pediment: módulo sin materiales resueltos
+  · mod_original_civic_pediment: módulo sin texturas resueltas (quedaría magenta)
+  · mod_original_civic_pediment: sin cadenas de Base Color medidas
+  · mod_ag_arcade_bay_2m: licencia no permitida: original
+  · mod_ag_arcade_bay_2m: sourcePath fuera de staging: blender_artist/sources/original/ag_arcade_bay_2m.glb
+  · mod_ag_arcade_bay_2m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_tree_pine_tall: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_tree_pine_tall: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_nature_tree_oak: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_tree_oak: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_nature_tree_cone: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_tree_cone: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_nature_tree_detailed: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_tree_detailed: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_nature_tree_small: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_tree_small: módulo contextual prohibido por §22 (duplicaría property-grounds de V.d-7C): /\bhedge\b|\bplanter\b|flower|garden|vegetat|\btree\b|shrub|grass|\bpark\b|\bjardin\b|\barbol/i
+  · mod_nature_bush: módulo sin texturas resueltas (quedaría magenta)
+  · mod_nature_bush_large: módulo sin texturas resueltas (quedaría magenta)
+  · mod_original_school_cupola: licencia no permitida: original
+  · mod_original_school_cupola: sourcePath fuera de staging: blender_artist/sources/original/school_cupola.glb
+  · mod_original_school_cupola: módulo sin materiales resueltos
+  · mod_original_school_cupola: módulo sin texturas resueltas (quedaría magenta)
+  · mod_original_school_cupola: sin cadenas de Base Color medidas
+  · mod_original_construction_scaffold: licencia no permitida: original
+  · mod_original_construction_scaffold: sourcePath fuera de staging: blender_artist/sources/original/construction_scaffold.glb
+  · mod_original_construction_scaffold: módulo sin texturas resueltas (quedaría magenta)
+  · mod_original_construction_barrier: licencia no permitida: original
+  · mod_original_construction_barrier: sourcePath fuera de staging: blender_artist/sources/original/construction_barrier.glb
+  · mod_original_construction_barrier: módulo sin texturas resueltas (quedaría magenta)
+  · mod_original_damage_debris: licencia no permitida: original
+  · mod_original_damage_debris: sourcePath fuera de staging: blender_artist/sources/original/damage_debris.glb
+  · mod_original_damage_debris: módulo sin texturas resueltas (quedaría magenta)
+  · mod_original_fire_flame: licencia no permitida: original
+  · mod_original_fire_flame: sourcePath fuera de staging: blender_artist/sources/original/fire_flame.glb
+  · mod_original_fire_flame: triángulos del módulo (240) ≠ suma medida de sus objetos (108)
+  · mod_original_fire_flame: módulo sin texturas resueltas (quedaría magenta)
+  · mod_original_fire_smoke: licencia no permitida: original
+  · mod_original_fire_smoke: sourcePath fuera de staging: blender_artist/sources/original/fire_smoke.glb
+  · mod_original_fire_smoke: triángulos del módulo (672) ≠ suma medida de sus objetos (560)
+  · mod_original_fire_smoke: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_window_bay_2m: licencia no permitida: original
+  · mod_gn_window_bay_2m: sourcePath fuera de staging: blender_artist/sources/original/gn_window_bay_2m.glb
+  · mod_gn_window_bay_2m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_shopfront_bay_2m: licencia no permitida: original
+  · mod_gn_shopfront_bay_2m: sourcePath fuera de staging: blender_artist/sources/original/gn_shopfront_bay_2m.glb
+  · mod_gn_shopfront_bay_2m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_plinth_2m: licencia no permitida: original
+  · mod_gn_plinth_2m: sourcePath fuera de staging: blender_artist/sources/original/gn_plinth_2m.glb
+  · mod_gn_plinth_2m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_cornice_2m: licencia no permitida: original
+  · mod_gn_cornice_2m: sourcePath fuera de staging: blender_artist/sources/original/gn_cornice_2m.glb
+  · mod_gn_cornice_2m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_balcony_door_bay_2m: licencia no permitida: original
+  · mod_gn_balcony_door_bay_2m: sourcePath fuera de staging: blender_artist/sources/original/gn_balcony_door_bay_2m.glb
+  · mod_gn_balcony_door_bay_2m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_metal_siding_bay_4m: licencia no permitida: original
+  · mod_gn_metal_siding_bay_4m: sourcePath fuera de staging: blender_artist/sources/original/gn_metal_siding_bay_4m.glb
+  · mod_gn_metal_siding_bay_4m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_metal_window_bay_4m: licencia no permitida: original
+  · mod_gn_metal_window_bay_4m: sourcePath fuera de staging: blender_artist/sources/original/gn_metal_window_bay_4m.glb
+  · mod_gn_metal_window_bay_4m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_truck_dock_bay_4m: licencia no permitida: original
+  · mod_gn_truck_dock_bay_4m: sourcePath fuera de staging: blender_artist/sources/original/gn_truck_dock_bay_4m.glb
+  · mod_gn_truck_dock_bay_4m: módulo sin texturas resueltas (quedaría magenta)
+  · mod_gn_metal_parapet_4m: licencia no permitida: original
+  · mod_gn_metal_parapet_4m: sourcePath fuera de staging: blender_artist/sources/original/gn_metal_parapet_4m.glb
+  · mod_gn_metal_parapet_4m: módulo sin texturas resueltas (quedaría magenta)

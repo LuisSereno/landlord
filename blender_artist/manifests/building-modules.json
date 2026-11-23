@@ -45,7 +45,8 @@
     "industrial",
     "civic",
     "utility",
-    "intrinsic_prop"
+    "intrinsic_prop",
+    "interior"
   ],
   "extractionStrategies": [
     "source_object",

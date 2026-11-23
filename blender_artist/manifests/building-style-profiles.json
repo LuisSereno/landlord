@@ -23,8 +23,8 @@
       "id": "graphic_civic_buildings_v1",
       "label": "Edificios cívicos gráficos nocturnos, compuestos con geometría licenciada",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "916a2a195df986cf007899e8db55b7e5c8bcfad630c56fad6cf6532f5e0b9526",
-      "selectionSha256": "5670cd8d333becb83f26d0d4d997c5dd5947ebd210631b38deade7b9c681118b",
+      "moduleCatalogSha256": "dfcb1cbd9d776d6cb8fa3dedccaa49427acc426535ad1535f9f14db3c04bbf1d",
+      "selectionSha256": "cc727a54d6bb80fc93c6b1c7a45d1d4e342a310c4c20469952291b7fd35103e9",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",
@@ -7374,8 +7374,8 @@
       "id": "material_maquette_buildings_v1",
       "label": "Maqueta material: perfil geométrico controlado con prueba PBR Poly Haven",
       "moduleCatalogVersion": "vf-1",
-      "moduleCatalogSha256": "916a2a195df986cf007899e8db55b7e5c8bcfad630c56fad6cf6532f5e0b9526",
-      "selectionSha256": "5670cd8d333becb83f26d0d4d997c5dd5947ebd210631b38deade7b9c681118b",
+      "moduleCatalogSha256": "dfcb1cbd9d776d6cb8fa3dedccaa49427acc426535ad1535f9f14db3c04bbf1d",
+      "selectionSha256": "cc727a54d6bb80fc93c6b1c7a45d1d4e342a310c4c20469952291b7fd35103e9",
       "appliesToFamilies": [
         "residential_low",
         "industrial_heavy",

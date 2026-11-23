@@ -117,3 +117,5 @@ matices de licencia en
 ## Fuente extensa
 
 `docs/research/05-art-direction-and-pipeline-research.md`
+
+- **D-111.3-T (2026-11-23)**: cierre técnico de la renovación gráfica — GLB de ventana GN publicado (la corrección de D-111.3 vivía sólo en el generador), causa final de las franjas = `COLOR_0` horneado del export Godot del MegaKit (neutralizado en `strip_baked_vertex_lighting`, scene.py), variantes de daño sin refs inválidas + pilares en la nave, evidencia reproducible sin `/tmp` (`reproducibility_manifest.json`), capturas Phaser con hashes separados y preset nocturno verificado por sonda, auditoría individual del validador (baseline 92 → 52, 0 regresiones). Ledger: `docs/art/graphics-capabilities/D1113-TECHNICAL-CLOSURE-LEDGER.md`; reutilización: BUILDING-COMPOSER §41.

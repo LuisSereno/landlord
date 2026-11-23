@@ -108,4 +108,3 @@ puede volver a romperlo. Estos 2 errores no figuran en el conjunto actual.
 
 **Rojos: 52 (exit 1).** Cero errores atribuibles a D-111.3 o D-111.3-T, demostrado módulo a módulo.
 El validador NO se declara superado: sigue cerrando la corrida con errores y así se reporta en FASE 6.
-

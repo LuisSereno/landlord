@@ -31,3 +31,17 @@ validador de módulos: los 5 fallos sobre módulos nuevos de D-111.3 resueltos (
 añadida al vocabulario, fuentes originales aceptadas, jerarquías medidas); los 52 restantes son
 preexistentes (GN sin texturas, §22 contextual, fire_flame/smoke) y no bloquean esta fase ·
 captura Phaser: 14 brazos, 0 errores de página.
+
+
+## Addendum D-111.3-T (cierre técnico, 2026-11-23)
+
+- **Mixed Tenement / Row House:** el «−63 %» de D-111.3 era insuficiente: la causa final era el
+  `COLOR_0` horneado del export Godot del MegaKit (no la sombra proyectada). Tras
+  `strip_baked_vertex_lighting` + publicación del GLB de ventana, la franja mide **0 px** a 1× y
+  0,5× y en orientación 90° (`evidence/d1113/technical/facade_black_green_artifacts_final_ab.png`).
+  Las firmas de composición **sí cambiaron** (94f1106d…→64fbeb46… y 54681865…→28304f99…): el vano
+  GN corregido es otra geometría publicada. Dorados y controles archivados; tests en verde.
+- **Warehouse:** exterior intacto; sus variantes de daño suman los pilares del pórtico (FASE 2).
+- **Town Hall neoclásico:** sprite regenerado contra el pipeline corregido (sin franjas en sus
+  paños megakit); propuesta y defectos documentados sin cambios.
+- **Promociones:** ninguna. `runtime-promotions.json` sigue intacto en todo D-111.3 + D-111.3-T.

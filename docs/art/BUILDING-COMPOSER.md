@@ -1166,16 +1166,30 @@ El procedimiento completo, reutilizable sin depender de ninguna conversación:
 ## 40. Reutilización D-111.3: fachadas sin franja, interior dressing, aged v3 y ayuntamiento neoclásico
 
 1. **Franjas de fachada (causa + fix).** Si un paño de ladrillo muestra una franja oscura anómala,
-   la causa medida (D-111.3 FASE 1, `evidence/d1113/facade_diagnosis.md`) es la sombra de la key
-   sobre elementos salientes + ambiente frío. Fix aplicado: carpintería GN casi al plano
-   (`gn_facade_grammar.py`) y ambiente day_civic neutro (`style_layer_graphic_civic.json`, fill/rim
-   world propios; noche intacta). Reproducir el diagnóstico con sondas A/B antes de tocar nada.
+   la causa medida (D-111.3 FASE 1, `evidence/d1113/facade_diagnosis.md`) era la sombra de la key
+   sobre elementos salientes + ambiente frío — diagnóstico **incompleto**, corregido en D-111.3-T:
+   la causa final es el `COLOR_0` horneado por Godot en el export "glTF (Godot)" del MegaKit
+   (fila inferior del paño = (0, 0.126, 0.126), multiplicado sobre el atlas por el importador).
+   Fix definitivo: `strip_baked_vertex_lighting()` en `building_composer/scene.py` neutraliza el
+   vertex lighting horneado al importar (sólo cuando entra por un MIX MULTIPLY factor 1), y la
+   carpintería GN casi al plano sigue aplicada — pero su GLB debe **publicarse**: regenerar con
+   `blender -b -P tools/art-pipeline/blender/gn_facade_grammar.py -- --seed=7 --parts=window_bay`
+   y re-encadenar `build-building-modules.mjs` → `build-building-style.mjs` → pines del contrato.
+   Ambiente day_civic neutro conservado; noche intacta. Reproducir el diagnóstico con las celdas
+   A/B versionadas (`scripts/d1113t-facade-lab*.py`, `evidence/d1113/technical/facade_lab/`)
+   antes de tocar nada: la franja sobrevive a cualquier mutación de luz/sombra y sólo muere con
+   el material.
 2. **Interior dressing de daños.** `_compose_damage_interior()` (compose.py) se activa sola cuando
-   `_compose_damage` abre cubierta/fachada: forjados parciales, tabique, tramo de escalera, vigas y
-   props por familia (roles `interior_*` del catálogo). USA OFFSETS FIJOS y no consume el PRNG:
-   los anclajes de fuego de la variante burning deben seguir coincidiendo con el control. Módulos
-   nuevos se registran vía `building-modules-selection.json` + `build-building-modules.mjs` y se
-   clasifican en `build-building-style.mjs` (categoría `interior`).
+   `_compose_damage` abre cubierta/fachada: forjados parciales, tabique, tramo de escalera, vigas y,
+   en la nave industrial, pilares del pórtico a cota 0 (roles `interior_*` y `column` del catálogo).
+   No existe módulo legal para estanterías/mercancía: el palé Kenney fue retirado (§22, mobiliario
+   contextual) y no se sustituye renombrándolo — la limitación está documentada en
+   `evidence/d1113/interiors/damage_module_consistency.json`. USA OFFSETS FIJOS y no consume el PRNG:
+   los anclajes de fuego de la variante burning deben seguir coincidiendo con el control (o
+   justificarse explícitamente en esa guarda). Módulos nuevos se registran vía
+   `building-modules-selection.json` + `build-building-modules.mjs` y se clasifican en
+   `build-building-style.mjs` (categoría `interior`, declarada también en el vocabulario de la
+   selección humana: el builder regenera `categories` desde allí).
 3. **Envejecimiento v3.** Las fuerzas del contrato (`building-weathering-contract.json`) están
    reforzadas para legibilidad a 0,5×/1× (fase5v3). `interior` comparte receta con `brick` (el test
    del contrato lo exige). Los pines del contrato (catálogo/perfil) se re-miden tras CUALQUIER
@@ -1185,3 +1199,37 @@ El procedimiento completo, reutilizable sin depender de ninguna conversación:
    originales sin material (`create_original_neoclassical_townhall.py`): el gris claro por defecto
    del pipeline es la piedra caliza. `ag_civic_v2` y su arcada quedan intactos. La columna/paño
    originales exigen el permiso de `sources/original` en el validador de módulos.
+
+
+## 41. Cierre técnico D-111.3-T: reproducibilidad desde un checkout limpio
+
+1. **Regenerar el módulo GN corregido.** `blender -b --factory-startup -P
+   tools/art-pipeline/blender/gn_facade_grammar.py -- --out-dir=<tmp> --seed=7 --parts=window_bay`
+   (determinista: la corrida completa reproduce los otros 8 GLB byte-idénticos). Publicar el GLB,
+   trasplantar el bloque medido de `gn_window_bay_2m.glb` desde
+   `node scripts/inventory-building-modules.mjs` (NO promocionar el inventario completo: el
+   inventariado aún no conoce las fuentes originales neoclásicas y re-clasifica el fuego), y
+   re-encadenar `build-building-modules.mjs` → `build-building-style.mjs` → pines del contrato.
+2. **Variantes de daño con el catálogo actual.** Los cuatro requests originales están archivados
+   dentro de la metadata publicada (`composition.request`); lanzar
+   `build_building_composer.py --requests=…` **un candidato por proceso** (el lote puede dejar en
+   blanco el segundo PNG) con `LANDLORD_ART_MOOD` explícito — el mood NO viaja en el request y el
+   activo por defecto es `night_civic`. Guardar después con
+   `python3 scripts/d1113t-damage-consistency.py` (0 refs inválidas, interiores en región, focos
+   contra control con justificación versionada).
+3. **Aged V3.** `evidence/d1113/weathering/w06cnd_mixed_tenement_2_aged.{png,json}` (metadata §24
+   completa, regenerado sobre el pipeline corregido). El render D-111.3 sin JSON quedó congelado
+   como control en `technical/controls_d1113/aged_v3_d1113.png`.
+4. **Capturas QA sin /tmp.** `node scripts/d1113t-phaser-capture.mjs` (tras `pnpm --filter
+   @landlord/web build`): todas las entradas son rutas Git; registra `sourceSpriteSha256` (PNG
+   versionado, contrastado con el SHA-256 de su metadata) y `canvasCaptureSha256` (captura) por
+   separado, y verifica el preset nocturno en la sonda (`fxPreset=night_balanced`), no sólo la URL.
+   Hojas: `python3 scripts/d1113t-phaser-sheets.py`. Manifiesto de entradas+mandatos:
+   `scripts/d1113t-reproducibility-manifest.py` → `technical/reproducibility_manifest.json`.
+5. **Validador.** Sigue rojo con 52 errores históricos (33 sin texturas = autoría propia plana,
+   16 contextuales §22 por deseleccionar, 2 de inventario de fuego, 1 de `civic_trim_90_top`);
+   clasificación módulo-por-módulo contra el baseline `cd7bb6b` (92) en
+   `docs/art/graphics-capabilities/D1113-VALIDATOR-AUDIT.md`. Cero regresiones abiertas; el gate
+   no se declara superado.
+6. **Sin promociones.** Nada de esto toca `runtime-promotions.json`: candidatas, aged V3, pilares
+   y fachadas corregidas esperan decisión humana (D-080 incluido).

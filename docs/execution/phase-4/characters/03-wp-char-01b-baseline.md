@@ -134,3 +134,22 @@ fixtures/tests de edificios y documentos centrales de estado/decisiones.
 La Etapa A queda completa cuando existe una receta principal para cada personaje, un único smoke
 antes del lote y evidencia de que los archivos anteriores se conservan. No se renderizan 96 frames
 antes de validar geometría, texturas, accesorios y cámara en una muestra.
+
+## 11. Actualización de Etapas B/C
+
+- Se añadió `character_compositor.py`: envuelve `create_external_scene` en memoria, duplica el
+  material body por objeto, inserta un multiply de textura, elimina el enlace especular local y
+  añade accesorios low-poly.
+- Los accesorios usan `CHILD_OF` con `childof_set_inverse`; el sidecar mide la deriva entre frames.
+- Smoke supervisor: derivada 0 en idle y 3,0517578125e-5 en walk; casco y clipboard visibles.
+- Smoke obrero A: derivada 0; casco y cinturón de herramientas sobre `Male_Adult_12`.
+- Smoke enforcer A: se descartó `Male_Adult_10` para el resultado principal porque el chándal
+  deportivo dominaba incluso tintado. Se reasignó a `Male_Adult_09`, con gorra, cuello alto y
+  solapas oscuras.
+- Reasignaciones para evitar duplicaciones deportivas: obrero B usa `Male_Adult_02`; técnico usa
+  `Female_Adult_09`; enforcer B conserva `Female_Adult_09` con abrigo y sombrero.
+- El renderizador añadió `--python-exit-code 1`, sentinel, rechazo de tracebacks, borrado de slots
+  stale y hashes de manifiesto/compositor.
+- El validador sigue pasando los 48 frames históricos de WP-CHAR-01 sin modificarlos.
+
+Estado: **recetas principales validadas; lote completo aún no renderizado**.

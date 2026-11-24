@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "purpose": "WP-CHAR-02C: visually rework supervisor, enforcer and firefighter from diagnosed WP-CHAR-02B defects without runtime promotion.",
+  "status": "in_progress_visual_rework",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02c",
+  "branch": "wip/wp-char-02c-visual-rework",
+  "baseHead": "3b64d35f55a1507581704ed6f89206d8d0b4890e",
+  "diagnosisCommit": "ff69e73",
+  "sourcePolicy": {
+    "noDownloads": true,
+    "noExternalGeneration": true,
+    "sourceRepositoryRoot": "/home/luis/RepositorioGitHub/landlord",
+    "blender": "5.2.2 LTS",
+    "blenderBuildHash": "d13f752e3b9c",
+    "license": "CC0-1.0",
+    "licenseFile": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "licenseFileSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "referenceWorker": {
+    "sourceFile": "character-worker.glb",
+    "sourceSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+    "evidence": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json",
+    "artisticStatus": "owner_approved_as_style_reference",
+    "runtimePromotion": false
+  },
+  "policeControl": {
+    "sourceFile": "character-male-c.glb",
+    "sourceSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+    "evidence": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-prototype.json",
+    "action": "reuse_existing_frames_unless_new_defect_is_measured"
+  },
+  "camera": {
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "matrix": {
+    "directions": 4,
+    "idleSamples": 1,
+    "walkSamples": 8,
+    "walkDirections": 1,
+    "maxNewFrames": 36
+  },
+  "candidates": {
+    "supervisor": {
+      "canonicalId": "supervisor",
+      "sourceFile": "character-male-e.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+      "sourceSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "baseDecision": "retain_02b_base_while_testing_local_hair_and_larger_foreman_hat",
+      "headComponents": [1, 5],
+      "palette": {
+        "torso": "ochre",
+        "arms": "navy",
+        "legs": "denim",
+        "boots": "dark_brown",
+        "reflective": "pale_yellow",
+        "hair": "dark_brown",
+        "helmet": "sand",
+        "helmet_band": "charcoal",
+        "clipboard": "leather",
+        "paper": "paper",
+        "metal": "metal"
+      },
+      "accessories": ["supervisor_helmet", "clipboard_large"],
+      "bodyBands": {
+        "torsoReflective": [[0.57, 0.68], [0.80, 0.89]],
+        "armHands": [0.0, 0.18],
+        "bootRatio": 0.20
+      }
+    },
+    "enforcer": {
+      "canonicalId": "enforcer_male",
+      "sourceFile": "character-raider.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+      "sourceSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "baseDecision": "candidate_change_to_remove_dominant_beard_and_gain_stockier_clean_shaven_silhouette",
+      "headComponents": [],
+      "palette": {
+        "torso": "charcoal",
+        "arms": "slate",
+        "legs": "coal",
+        "boots": "black",
+        "shirt": "muted_blue",
+        "hair": "black",
+        "cap": "charcoal",
+        "belt": "leather",
+        "metal": "metal"
+      },
+      "accessories": ["enforcer_cap", "belt"],
+      "bodyBands": {
+        "torsoShirt": [0.84, 0.96],
+        "armHands": [0.0, 0.18],
+        "bootRatio": 0.22
+      }
+    },
+    "firefighter": {
+      "canonicalId": "firefighter",
+      "sourceFile": "character-male-a.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+      "sourceSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "baseDecision": "candidate_change_to_clean_shaven_male_a_after_male_b_beard_diagnosis",
+      "headComponents": [1],
+      "palette": {
+        "torso": "protective_charcoal",
+        "arms": "protective_charcoal",
+        "legs": "protective_charcoal",
+        "boots": "black",
+        "gloves": "dark_brown",
+        "reflective": "fire_yellow",
+        "hair": "black",
+        "helmet": "fire_yellow",
+        "helmet_shield": "charcoal",
+        "belt": "leather",
+        "metal": "metal"
+      },
+      "accessories": ["fire_helmet", "belt"],
+      "bodyBands": {
+        "torsoReflective": [[0.42, 0.55], [0.80, 0.91]],
+        "armReflective": [0.64, 0.78],
+        "armHands": [0.0, 0.18],
+        "bootRatio": 0.22
+      }
+    }
+  }
+}

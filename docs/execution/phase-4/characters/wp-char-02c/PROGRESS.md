@@ -19,3 +19,15 @@
 - Decisión: probar `character-raider.glb` para enforcer y `character-male-a.glb` para bombero; conservar `character-male-e.glb` para supervisor mientras el smoke no indique lo contrario.
 - Validación ejecutada: Blender `--python-exit-code 1`, 15/15 renders, hashes de fuente/licencia y controles B comparados píxel a píxel con 02B.
 - Pendiente: corrección progresiva y smoke de supervisor.
+
+## 2026-11-24 · Etapa B — Supervisor
+
+- Creados `character-experiments-02c.json`, `02-correction-design.md` y el renderizador local reutilizable.
+- Conservado `character-male-e.glb`; recoloreados localmente 92 polígonos de pelo (componentes 1 y 5).
+- Casco de capataz reconstruido: domo 76% y ala 88% del ancho de cabeza; clipboard 25×35 cm.
+- Generados idle y walk 4/8 en `prototypes/supervisor/smoke/`.
+- Medido: deriva máxima de accesorios `1.490116e-7 m`, suelo Z=0, 0 clipping, atlas empaquetado sin cambios.
+- Revisión local: mancha blanca ausente, casco proporcionado, chaleco/clipboard reconocibles y silueta distinta del obrero a 28 px.
+- Lámina: `docs/art/characters/prototypes/wp-char-02c/review/02-smoke-supervisor.png`.
+- Decisión: smoke aceptado para lote limitado; aprobación artística sigue pendiente del propietario.
+- Próximo paso: enforcer.

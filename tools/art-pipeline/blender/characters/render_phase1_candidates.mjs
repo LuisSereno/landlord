@@ -18,7 +18,11 @@ const blender =
   option("--blender") ??
   process.env.BLENDER_BIN ??
   join(sourceRoot, "blender_artist/toolchain/blender-5.2.2-linux-x64/blender");
-const jobsPath = join(repoRoot, "blender_artist/manifests/character-jobs-phase-1.json");
+const jobsPath = resolve(
+  repoRoot,
+  option("--manifest") ?? "blender_artist/manifests/character-jobs-phase-1.json",
+);
+const compositor = option("--compositor") ? resolve(repoRoot, option("--compositor")) : null;
 const manifest = JSON.parse(readFileSync(jobsPath, "utf8"));
 const outputRoot = resolve(repoRoot, manifest.outputDirectory);
 const runtimeScript = join(sourceRoot, "tools/art-pipeline/blender/runtime_asset.py");
@@ -26,6 +30,7 @@ const styleLayer = join(sourceRoot, "tools/art-pipeline/blender/style_layer_grap
 
 const sha256 = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
 const repoRelative = (path) => relative(repoRoot, path).split(sep).join("/");
+const sourceRelative = (path) => relative(sourceRoot, path).split(sep).join("/");
 
 function isInside(parent, child) {
   const path = relative(parent, child);
@@ -51,10 +56,12 @@ function run(command, commandArgs) {
   const result = spawnSync(command, commandArgs, {
     encoding: "utf8",
     maxBuffer: 64 * 1024 * 1024,
+    timeout: 180_000,
     env: { ...process.env, PYTHONDONTWRITEBYTECODE: "1" },
   });
-  if (result.status !== 0) {
-    throw new Error(`${command} falló (${result.status}):\n${result.stderr ?? result.stdout}`);
+  const output = `${result.stdout ?? ""}\n${result.stderr ?? ""}`;
+  if (result.status !== 0 || output.includes("Traceback (most recent call last)")) {
+    throw new Error(`${command} falló (${result.status}):\n${output}`);
   }
   return result.stdout;
 }
@@ -64,11 +71,13 @@ if (!existsSync(sourceRoot) || !existsSync(runtimeScript) || !existsSync(styleLa
   throw new Error(`Repositorio fuente incompleto: ${sourceRoot}`);
 }
 if (!existsSync(blender)) throw new Error(`Blender no disponible: ${blender}`);
+if (compositor && !existsSync(compositor))
+  throw new Error(`Compositor no disponible: ${compositor}`);
 if (manifest.status !== "candidate" || manifest.runtimePromotion !== false) {
   throw new Error("El manifiesto debe declarar candidate y runtimePromotion=false");
 }
-if (manifest.directions !== 4 || manifest.jobs.length !== 3) {
-  throw new Error("Se esperan exactamente tres trabajos y cuatro direcciones");
+if (manifest.directions !== 4 || !Array.isArray(manifest.jobs) || manifest.jobs.length === 0) {
+  throw new Error("Se esperan trabajos y cuatro direcciones");
 }
 
 const blenderVersion = run(blender, ["--version"]);
@@ -78,6 +87,8 @@ const sourceHead = run("git", ["-C", sourceRoot, "rev-parse", "HEAD"]).trim();
 const dependencyHashes = new Map([
   [runtimeScript, sha256(runtimeScript)],
   [styleLayer, sha256(styleLayer)],
+  [jobsPath, sha256(jobsPath)],
+  ...(compositor ? [[compositor, sha256(compositor)]] : []),
 ]);
 
 function assertDependenciesUnchanged() {
@@ -125,13 +136,28 @@ for (const job of manifest.jobs) {
         const metadataPath = join(jobDirectory, `${fileBase}.json`);
         const sourcePath = sourceFile(job.source.path);
         const clipPath = sourceFile(job.animationSources[animation].path);
-        run(blender, [
+        rmSync(png, { force: true });
+        rmSync(metadataPath, { force: true });
+        rmSync(metadataPath.replace(/\.json$/, ".composition.json"), { force: true });
+        const blenderOutput = run(blender, [
           "-t",
           "4",
           "--background",
+          "--python-exit-code",
+          "1",
           "--python",
-          runtimeScript,
+          compositor ?? runtimeScript,
           "--",
+          ...(compositor
+            ? [
+                "--runtime-asset",
+                runtimeScript,
+                "--character-config",
+                jobsPath,
+                "--character-job-id",
+                job.id,
+              ]
+            : []),
           "--asset",
           job.id,
           "--kind",
@@ -165,6 +191,9 @@ for (const job of manifest.jobs) {
           "--metadata",
           metadataPath,
         ]);
+        if (compositor && !blenderOutput.includes(`WP_CHAR_COMPOSITOR_OK ${job.id}`)) {
+          throw new Error(`Blender no confirmó el compositor para ${fileBase}`);
+        }
         if (!existsSync(png) || !existsSync(metadataPath)) {
           throw new Error(`Blender no produjo PNG/metadata para ${fileBase}`);
         }
@@ -177,6 +206,24 @@ for (const job of manifest.jobs) {
         ) {
           throw new Error(`Metadata de slot incorrecta para ${fileBase}`);
         }
+        let composition = null;
+        if (compositor) {
+          const compositionPath = metadataPath.replace(/\.json$/, ".composition.json");
+          if (!existsSync(compositionPath)) {
+            throw new Error(`Blender no produjo composición para ${fileBase}`);
+          }
+          composition = JSON.parse(readFileSync(compositionPath, "utf8"));
+          if (
+            composition.jobId !== job.id ||
+            composition.factoryCharacterId !== job.factoryCharacterId ||
+            composition.accessoryObjectCount < job.accessories.length ||
+            composition.maxAnchorDrift > 1e-4 ||
+            JSON.stringify(composition.accessories.map((entry) => [entry.type, entry.bone])) !==
+              JSON.stringify(job.accessories.map((entry) => [entry.type, entry.bone]))
+          ) {
+            throw new Error(`Composición incorrecta para ${fileBase}`);
+          }
+        }
         const imageSha256 = sha256(png);
         if (metadata.image?.sha256 !== imageSha256) {
           throw new Error(`Hash de imagen incorrecto para ${fileBase}`);
@@ -186,9 +233,18 @@ for (const job of manifest.jobs) {
           metadataPath: repoRelative(metadataPath),
           sha256: imageSha256,
           metadataSha256: sha256(metadataPath),
+          ...(composition
+            ? {
+                compositionPath: repoRelative(metadataPath.replace(/\.json$/, ".composition.json")),
+                compositionSha256: sha256(metadataPath.replace(/\.json$/, ".composition.json")),
+                accessoryObjectCount: composition.accessoryObjectCount,
+                maxAnchorDrift: composition.maxAnchorDrift,
+              }
+            : {}),
           width: metadata.image.width,
           height: metadata.image.height,
-          worldSizeMeters: metadata.source?.worldSizeMeters ?? null,
+          worldSizeMeters:
+            composition?.composedSizeMeters ?? metadata.source?.worldSizeMeters ?? null,
           direction,
           orientationDegrees:
             manifest.camera.azimuthBaseDegrees + direction * manifest.camera.azimuthStepDegrees,
@@ -234,18 +290,31 @@ const generatedManifest = {
   jobsManifest: repoRelative(jobsPath),
   jobsManifestSha256: sha256(jobsPath),
   outputDirectory: repoRelative(outputRoot),
+  matrix: {
+    directions: manifest.directions,
+    animations: manifest.animations,
+    frameIndices: manifest.frameIndices,
+  },
+  ...(compositor
+    ? {
+        compositor: repoRelative(compositor),
+        compositorSha256: dependencyHashes.get(compositor),
+      }
+    : {}),
+  materialPolicy: manifest.materialPolicy ?? null,
+  accessoryAnchorPolicy: manifest.accessoryAnchorPolicy ?? null,
   sourceRepository: {
     root: sourceRoot,
     head: sourceHead,
-    runtimeScript: repoRelative(runtimeScript),
+    runtimeScript: sourceRelative(runtimeScript),
     runtimeScriptSha256: dependencyHashes.get(runtimeScript),
-    styleLayer: repoRelative(styleLayer),
+    styleLayer: sourceRelative(styleLayer),
     styleLayerSha256: dependencyHashes.get(styleLayer),
   },
   toolchain: {
     blender: "5.2.2 LTS",
     buildHash,
-    command: repoRelative(blender),
+    command: sourceRelative(blender),
   },
   presentation: manifest.presentation,
   jobs: manifest.jobs.map((job) => ({

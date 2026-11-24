@@ -45,13 +45,21 @@ def main() -> int:
         print(f"Missing candidate manifest: {manifest_path}", file=sys.stderr)
         return 1
     manifest = load_json(manifest_path)
+    candidate_root = manifest_path.parent
     if manifest.get("status") != "candidate" or manifest.get("runtimePromotion") is not False:
         errors.append("Candidate manifest must remain candidate with runtimePromotion=false")
     if manifest.get("approval") != "pending_human":
         errors.append("Candidate manifest must remain pending human approval")
     jobs = manifest.get("jobs", [])
-    if len(jobs) != 3:
-        errors.append(f"Expected 3 candidate jobs, received {len(jobs)}")
+    if not isinstance(jobs, list) or not jobs:
+        errors.append("Candidate manifest must contain at least one job")
+        jobs = []
+    matrix = manifest.get("matrix", {})
+    directions = list(range(matrix.get("directions", 4)))
+    animations = matrix.get("animations", ["idle", "walk"])
+    frame_indices = matrix.get("frameIndices", [0, 1])
+    if directions != [0, 1, 2, 3] or animations != ["idle", "walk"] or frame_indices != [0, 1]:
+        errors.append("Candidate matrix must be four directions x idle/walk x two frames")
 
     source_root = Path(manifest["sourceRepository"]["root"]).resolve()
     jobs_manifest_path = REPO_ROOT / manifest["jobsManifest"]
@@ -61,6 +69,10 @@ def main() -> int:
         source_path = source_root / manifest["sourceRepository"][key.removesuffix("Sha256")]
         if not source_path.is_file() or sha256(source_path) != manifest["sourceRepository"][key]:
             errors.append(f"Dependency hash changed: {source_path}")
+    if manifest.get("compositor"):
+        compositor_path = REPO_ROOT / manifest["compositor"]
+        if not compositor_path.is_file() or sha256(compositor_path) != manifest["compositorSha256"]:
+            errors.append("Character compositor hash changed")
 
     source_policy = load_json(jobs_manifest_path)["sourcePolicy"]
     license_path = source_root / source_policy["licenseFile"]
@@ -68,7 +80,7 @@ def main() -> int:
         errors.append("Rocketbox license hash changed")
 
     output_root = (REPO_ROOT / manifest["outputDirectory"]).resolve()
-    if not inside(REPO_ROOT, output_root) or output_root != CANDIDATE_ROOT.resolve():
+    if not inside(REPO_ROOT, output_root) or output_root != candidate_root.resolve():
         errors.append("Candidate output directory is not the isolated docs directory")
 
     output_results = []
@@ -77,7 +89,7 @@ def main() -> int:
     for job in jobs:
         job_errors = []
         outputs = job.get("outputs", [])
-        expected_count = 4 * 2 * 2
+        expected_count = len(directions) * len(animations) * len(frame_indices)
         if len(outputs) != expected_count:
             job_errors.append(f"Expected {expected_count} frames, received {len(outputs)}")
         slots = set()
@@ -85,7 +97,7 @@ def main() -> int:
         source_path = source_root / job["source"]["path"]
         if not source_path.is_file() or sha256(source_path) != job["source"]["sha256"]:
             job_errors.append("Avatar source hash changed")
-        for animation in ("idle", "walk"):
+        for animation in animations:
             clip = source_root / job["animationSources"][animation]["path"]
             if not clip.is_file() or sha256(clip) != job["animationSources"][animation]["sha256"]:
                 job_errors.append(f"{animation} clip hash changed")
@@ -137,6 +149,37 @@ def main() -> int:
             if output.get("orientationDegrees") != expected_orientation:
                 local_errors.append("Candidate orientation mismatch")
 
+            composition_summary = {}
+            if manifest.get("compositor"):
+                composition_path = (REPO_ROOT / output["compositionPath"]).resolve()
+                if not inside(output_root, composition_path) or not composition_path.is_file():
+                    local_errors.append("Composition sidecar missing or outside candidate directory")
+                elif sha256(composition_path) != output["compositionSha256"]:
+                    local_errors.append("Composition sidecar hash mismatch")
+                else:
+                    composition = load_json(composition_path)
+                    if composition.get("jobId") != job["id"] or composition.get("factoryCharacterId") != job["factoryCharacterId"]:
+                        local_errors.append("Composition job identity mismatch")
+                    if composition.get("maxAnchorDrift", 1) > 1e-4:
+                        local_errors.append("Accessory anchor drift exceeds tolerance")
+                    if composition.get("accessoryObjectCount", 0) < len(job["accessories"]):
+                        local_errors.append("Composition accessory count mismatch")
+                    actual_accessories = [
+                        [entry.get("type"), entry.get("bone")]
+                        for entry in composition.get("accessories", [])
+                    ]
+                    expected_accessories = [
+                        [entry["type"], entry["bone"]] for entry in job["accessories"]
+                    ]
+                    if actual_accessories != expected_accessories:
+                        local_errors.append("Composition accessories differ from recipe")
+                    if composition.get("materialVariant") != job["materialVariant"]:
+                        local_errors.append("Composition material variant differs from recipe")
+                    composition_summary = {
+                        "maxAnchorDrift": composition.get("maxAnchorDrift"),
+                        "accessoryObjectCount": composition.get("accessoryObjectCount"),
+                    }
+
             alpha_bbox = None
             magenta_pixels = None
             with Image.open(png_path) as image:
@@ -168,6 +211,7 @@ def main() -> int:
                     "alphaBBox": alpha_bbox,
                     "contentTouchesBorder": content_touches_border,
                     "magentaPixels": magenta_pixels,
+                    **({"composition": composition_summary} if composition_summary else {}),
                     "errors": local_errors,
                 }
             )
@@ -176,18 +220,18 @@ def main() -> int:
 
         expected_slots = {
             (direction, animation, frame)
-            for direction in range(4)
-            for animation in ("idle", "walk")
-            for frame in (0, 1)
+            for direction in directions
+            for animation in animations
+            for frame in frame_indices
         }
         if slots != expected_slots:
-            job_errors.append("Matrix slots do not match 4 directions x idle/walk x 2 frames")
-        for direction in range(4):
+            job_errors.append("Matrix slots do not match the declared candidate matrix")
+        for direction in directions:
             idle = by_slot.get((direction, "idle", 0))
             walk = by_slot.get((direction, "walk", 0))
             if not idle or not walk or idle.get("sha256") == walk.get("sha256"):
                 job_errors.append(f"idle/walk are not differentiated in direction {direction}")
-            for animation in ("idle", "walk"):
+            for animation in animations:
                 first = by_slot.get((direction, animation, 0))
                 second = by_slot.get((direction, animation, 1))
                 if not first or not second or first.get("sha256") == second.get("sha256"):
@@ -213,7 +257,7 @@ def main() -> int:
         "outputs": output_results,
         "errors": errors,
     }
-    validation_path = CANDIDATE_ROOT / "candidate-validation.json"
+    validation_path = candidate_root / "candidate-validation.json"
     validation_path.write_text(json.dumps(validation, indent=2) + "\n", encoding="utf-8")
     print(
         json.dumps(

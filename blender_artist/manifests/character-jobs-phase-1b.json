@@ -1,0 +1,278 @@
+{
+  "schemaVersion": 1,
+  "purpose": "WP-CHAR-01B: six operational Rocketbox candidates with local materials and simple bone-anchored accessories; no runtime promotion.",
+  "status": "candidate",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "outputDirectory": "docs/art/characters/candidates/phase-1b",
+  "directions": 4,
+  "animations": ["idle", "walk"],
+  "frameIndices": [0, 1],
+  "frameDurationMs": {
+    "idle": 400,
+    "walk": 180
+  },
+  "camera": {
+    "orthoScale": 1.7,
+    "targetZ": 0.9,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90
+  },
+  "render": {
+    "width": 256,
+    "height": 256
+  },
+  "presentation": {
+    "sourceFramePixels": 256,
+    "targetHeightPixels": 28,
+    "gamma": 1.8,
+    "reviewScales": [0.5, 1, 2, 2.5]
+  },
+  "sourcePolicy": {
+    "runtimeActorSource": "Microsoft Rocketbox",
+    "sourceId": "src_microsoft_rocketbox",
+    "license": "MIT",
+    "licenseFile": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
+    "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa",
+    "attribution": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft"
+  },
+  "materialPolicy": {
+    "scope": "Local duplicate of the avatar body material only; head and opacity materials remain unchanged.",
+    "bodyMetallic": 0,
+    "bodyRoughness": 0.88,
+    "bodySpecularLevel": 0.25,
+    "tintMode": "multiply existing body color texture"
+  },
+  "accessoryAnchorPolicy": {
+    "rig": "Bip01",
+    "method": "Child Of constraint to a named pose bone with inverse matrix at the current frame.",
+    "weapons": false,
+    "allowedBones": [
+      "Bip01 Head",
+      "Bip01 Neck",
+      "Bip01 Spine2",
+      "Bip01 Pelvis",
+      "Bip01 L Hand",
+      "Bip01 R Hand"
+    ]
+  },
+  "jobs": [
+    {
+      "id": "phase1b_supervisor",
+      "factoryCharacterId": "supervisor",
+      "displayName": "Supervisor 01",
+      "role": "supervisor",
+      "domainSpecialty": "supervisor",
+      "status": "candidate",
+      "source": {
+        "kind": "fbx",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_03/Export/Male_Adult_03.fbx",
+        "sha256": "7064a9f50c95975c6d64ab0c5f5504364bad4ac987750728d0b5f1788fd59dcf"
+      },
+      "animationSources": {
+        "idle": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_01.max.fbx",
+          "sha256": "818cc185af21390575f7fbfdeb3012ba2ce5969fbcb220ea725a2617b339a6e2"
+        },
+        "walk": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx",
+          "sha256": "e6805ae6b6b49fe10f06c1b17b14ddde90d09b9fea689ac34793df252f44dcd0"
+        }
+      },
+      "unitScale": 1,
+      "materialVariant": {
+        "bodyTint": [0.72, 0.62, 0.5],
+        "description": "Muted brown-grey supervisor jacket over the existing woven texture."
+      },
+      "accessories": [
+        { "type": "hard_hat", "bone": "Bip01 Head", "material": "ochre" },
+        { "type": "clipboard", "bone": "Bip01 L Hand", "material": "leather_paper" }
+      ],
+      "knownLimitations": [
+        "The base avatar remains administrative; helmet and clipboard must carry the role at game scale.",
+        "Accessories are simple offline geometry and require human review for silhouette and period fit."
+      ]
+    },
+    {
+      "id": "phase1b_construction_worker_a",
+      "factoryCharacterId": "construction_worker_a",
+      "displayName": "Construction worker A",
+      "role": "construction_worker",
+      "domainSpecialty": "construction_worker",
+      "status": "candidate",
+      "source": {
+        "kind": "fbx",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx",
+        "sha256": "b44fa6011b934abd69954fd6c5025c1e2011e05c7892acb6bbc2e9cf70a84014"
+      },
+      "animationSources": {
+        "idle": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+          "sha256": "d6d13b12e1f8d677dfaffef342a5ffeacf5ee3b38036de83425ab68316cd4e5e"
+        },
+        "walk": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
+          "sha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2"
+        }
+      },
+      "unitScale": 1,
+      "materialVariant": {
+        "bodyTint": [0.62, 0.54, 0.44],
+        "description": "Worn brown workwear over the existing denim texture."
+      },
+      "accessories": [
+        { "type": "hard_hat", "bone": "Bip01 Head", "material": "ochre" },
+        { "type": "tool_belt", "bone": "Bip01 Pelvis", "material": "leather_metal" }
+      ],
+      "knownLimitations": [
+        "The source is the current chr_worker avatar; helmet and belt must differentiate it from the generic citizen and old crew sprite.",
+        "No toolbox is carried in this first recipe to avoid a floating hand prop."
+      ]
+    },
+    {
+      "id": "phase1b_construction_worker_b",
+      "factoryCharacterId": "construction_worker_b",
+      "displayName": "Construction worker B",
+      "role": "construction_worker",
+      "domainSpecialty": "construction_worker",
+      "status": "candidate",
+      "source": {
+        "kind": "fbx",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09.fbx",
+        "sha256": "ebb89800dbad28b4352369c7149314e010806268a28d7f5bb954a4393bba3d00"
+      },
+      "animationSources": {
+        "idle": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_02.max.fbx",
+          "sha256": "857e957cdf9eda42799563e5401ca0a57e5b586f71fe485dda7a0bf2843f6c58"
+        },
+        "walk": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
+          "sha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2"
+        }
+      },
+      "unitScale": 1,
+      "materialVariant": {
+        "bodyTint": [0.5, 0.55, 0.46],
+        "description": "Grey-olive workwear with a different material family from worker A."
+      },
+      "accessories": [
+        { "type": "work_cap", "bone": "Bip01 Head", "material": "olive" },
+        { "type": "tool_bag", "bone": "Bip01 R Hand", "material": "leather" }
+      ],
+      "knownLimitations": [
+        "The base avatar is also used by chr_firefighter; cap, tint and tool bag must establish a separate operational identity.",
+        "The bag is anchored to the hand and must be checked through both walk poses."
+      ]
+    },
+    {
+      "id": "phase1b_maintenance_technician",
+      "factoryCharacterId": "maintenance_technician",
+      "displayName": "Maintenance technician",
+      "role": "maintenance_technician",
+      "domainSpecialty": "maintenance_technician",
+      "status": "candidate",
+      "source": {
+        "kind": "fbx",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx",
+        "sha256": "1c65e292e9057a23f7f70969f6971c631c1316fcaaf93e575a4557201c835018"
+      },
+      "animationSources": {
+        "idle": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_01.max.fbx",
+          "sha256": "818cc185af21390575f7fbfdeb3012ba2ce5969fbcb220ea725a2617b339a6e2"
+        },
+        "walk": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx",
+          "sha256": "e6805ae6b6b49fe10f06c1b17b14ddde90d09b9fea689ac34793df252f44dcd0"
+        }
+      },
+      "unitScale": 1,
+      "materialVariant": {
+        "bodyTint": [0.4, 0.54, 0.58],
+        "description": "Slate-blue maintenance clothing with matte local shading."
+      },
+      "accessories": [
+        { "type": "work_cap", "bone": "Bip01 Head", "material": "slate" },
+        { "type": "tool_bag", "bone": "Bip01 L Hand", "material": "leather" },
+        { "type": "wrench", "bone": "Bip01 R Hand", "material": "metal" }
+      ],
+      "knownLimitations": [
+        "The base avatar is also used by chr_police; cap, slate tint, bag and wrench must avoid a police/citizen reading.",
+        "The wrench is deliberately small and non-threatening."
+      ]
+    },
+    {
+      "id": "phase1b_enforcer_male",
+      "factoryCharacterId": "enforcer_male",
+      "displayName": "Enforcer A",
+      "role": "enforcer",
+      "domainSpecialty": "enforcer",
+      "status": "candidate",
+      "source": {
+        "kind": "fbx",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_10/Export/Male_Adult_10.fbx",
+        "sha256": "6a7a693d9a7ea6c866037f0cc8e45c5243bbcff008665b2ae505f72a6648ae00"
+      },
+      "animationSources": {
+        "idle": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+          "sha256": "d6d13b12e1f8d677dfaffef342a5ffeacf5ee3b38036de83425ab68316cd4e5e"
+        },
+        "walk": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
+          "sha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2"
+        }
+      },
+      "unitScale": 1,
+      "materialVariant": {
+        "bodyTint": [0.2, 0.18, 0.16],
+        "description": "Dark charcoal-brown heavy jacket; the red sports texture is strongly muted."
+      },
+      "accessories": [
+        { "type": "flat_cap", "bone": "Bip01 Head", "material": "charcoal" },
+        { "type": "reinforced_collar", "bone": "Bip01 Neck", "material": "charcoal" }
+      ],
+      "knownLimitations": [
+        "The underlying source is still a tracksuit; the dark tint, cap and collar must remove the modern sports reading.",
+        "No weapon is present by design."
+      ]
+    },
+    {
+      "id": "phase1b_enforcer_female",
+      "factoryCharacterId": "enforcer_female",
+      "displayName": "Enforcer B",
+      "role": "enforcer",
+      "domainSpecialty": "enforcer",
+      "status": "candidate",
+      "source": {
+        "kind": "fbx",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09.fbx",
+        "sha256": "a578ec65cabf169d7b13c0bb0a6c472e898857e81f6207b2af7f846d8b0d8523"
+      },
+      "animationSources": {
+        "idle": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_01.max.fbx",
+          "sha256": "e470ba984484149c8269772b7640b754bd996ba83b23ae75535128412997aa45"
+        },
+        "walk": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_01.max.fbx",
+          "sha256": "20238709c689d46f5864aebaa58918cc1233cb9045b24aa4d58cf2752786a73b"
+        }
+      },
+      "unitScale": 1,
+      "materialVariant": {
+        "bodyTint": [0.24, 0.21, 0.24],
+        "description": "Dark plum-charcoal heavy clothing with matte local shading."
+      },
+      "accessories": [
+        { "type": "long_coat_panels", "bone": "Bip01 Spine2", "material": "charcoal" },
+        { "type": "brim_hat", "bone": "Bip01 Head", "material": "charcoal_brown" }
+      ],
+      "knownLimitations": [
+        "The base avatar is also used by chr_medical; long coat panels and hat must create a distinct enforcement silhouette.",
+        "Coat panels are simple geometry and require human review for clipping and period fit."
+      ]
+    }
+  ]
+}

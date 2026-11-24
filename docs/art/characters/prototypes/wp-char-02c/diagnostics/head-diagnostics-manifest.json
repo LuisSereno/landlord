@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "status": "head_diagnostic_review_pending",
+  "runtimePromotion": false,
+  "diagnosis": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/head-defects-diagnosis.json",
+  "diagnosisSha256": "0743eb4250c3884f5d1610cb2c336d5c99a0d167fad54167f3dac80835a73ccf",
+  "inputs": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-A_original-d0-idle-00.png",
+      "sha256": "c49c8f20e59ddd647edeb2c2dc32312a7086abffc1c993115a2db1d31f55191b",
+      "role": "supervisor"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-B_wp02b_candidate-d0-idle-00.png",
+      "sha256": "c4d4f192ae0578ec3ade9bae994a7a03d8ca7d8c520902d205fad86bfff584fc",
+      "role": "supervisor"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-C_no_accessories-d0-idle-00.png",
+      "sha256": "ff0c5dded58df65f03608bf753a587dadbe4e516f351ffe712fe5f5112c78540",
+      "role": "supervisor"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-C_material_map-d0-idle-00.png",
+      "sha256": "eaf1ac95ae00b9f9f2eb26f44a14d5439b95637f33add59c917bfbe6a3b5e8e8",
+      "role": "supervisor"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-C_component_map-d0-idle-00.png",
+      "sha256": "a567fdabc0b6a1208dbc1da92ee959ef5c33c449c44cb76386c801de4ccea1d1",
+      "role": "supervisor"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-A_original-d0-idle-00.png",
+      "sha256": "ea428d3e2bc8e4e73278d1172aca68a84cc20b6eb63ef1fa98289d72e545ef06",
+      "role": "enforcer"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-B_wp02b_candidate-d0-idle-00.png",
+      "sha256": "9d0616e1638b1ea2142d8fa66dae765486061fd99949260d8aeb94ae85f2bda9",
+      "role": "enforcer"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-C_no_accessories-d0-idle-00.png",
+      "sha256": "b6ec1b3ebc0d8007f5581ebfe1bdb9d962f15432d5100b088371435d03532130",
+      "role": "enforcer"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-C_material_map-d0-idle-00.png",
+      "sha256": "ff68dce5c7df1974bc32522ae8d8f3a86246400d8b39aa1ba750cde6179cfb38",
+      "role": "enforcer"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-C_component_map-d0-idle-00.png",
+      "sha256": "8976ba979a5ddfe02de9c0d7c86da67f1af4b06b89556b03eab9472f6776b96b",
+      "role": "enforcer"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-A_original-d0-idle-00.png",
+      "sha256": "276005249a0d25318ce2319df5dccf2cfbf6992afc0d7c7ff7d014271961226f",
+      "role": "firefighter"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-B_wp02b_candidate-d0-idle-00.png",
+      "sha256": "1c07e85cc7924a8fd4d574958ac88f03a9eb53c6d4ac893ea0c091dd1adbc82c",
+      "role": "firefighter"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-C_no_accessories-d0-idle-00.png",
+      "sha256": "119bc1dde08d1b7ab5c6c00e7a72d98438488cbfbd6f62f4dcd850d578d1a68b",
+      "role": "firefighter"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-C_material_map-d0-idle-00.png",
+      "sha256": "f267e25f984ea85625514f2af79f793b6c05831cf5d7252d4bcee8cd196ae58f",
+      "role": "firefighter"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-C_component_map-d0-idle-00.png",
+      "sha256": "774e99458eb407c5dd1ba24d8d15eb129169cd70c75dc53ecda7e0490bca3a41",
+      "role": "firefighter"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/01-head-supervisor.png",
+      "sha256": "7fca55bb6f530f9beba7f38aecae907a96cf1c02bfba2b3d8f88f700a23cdf5b",
+      "bytes": 236271,
+      "width": 1600,
+      "height": 1020
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/01-head-enforcer.png",
+      "sha256": "19e58ffee22cdac95d5e951d1e6b8b7cbce7faac9f7b7bb28352fdd6cea6ee7f",
+      "bytes": 218677,
+      "width": 1600,
+      "height": 1020
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/01-head-firefighter.png",
+      "sha256": "b9440b1f6ee3b039335550f9ddf125530a163efed9b7752d2348cb1b1136939a",
+      "bytes": 224524,
+      "width": 1600,
+      "height": 1020
+    }
+  ]
+}

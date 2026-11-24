@@ -153,3 +153,16 @@ antes de validar geometría, texturas, accesorios y cámara en una muestra.
 - El validador sigue pasando los 48 frames históricos de WP-CHAR-01 sin modificarlos.
 
 Estado: **recetas principales validadas; lote completo aún no renderizado**.
+
+## 12. Actualización de Etapa D
+
+- Obrero B: `Male_Adult_02`, gorra oliva, bolsa de herramientas y tint gris-oliva; derivada 0.
+- Técnico: `Female_Adult_09`, gorra slate, cinturón, bolsa y llave; derivada 0. El cinturón se
+  añadió para evitar una lectura de oficinista/blazer.
+- Enforcer B: `Female_Adult_09`, sombrero y abrigo cónico abierto por delante con cinturón y
+  solapas; derivada 0. Los paneles rígidos se sustituyeron por una envoltura continua.
+- Las gorras y sombreros se elevaron sobre el hueso de cabeza tras detectar el mismo desplazamiento
+  bajo que tuvo el primer casco.
+- Todas las recetas conservan estado `candidate`, sin promoción runtime ni aprobación artística.
+
+Estado: **seis recetas validadas en smoke; listo para el lote de 96 frames**.

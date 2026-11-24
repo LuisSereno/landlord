@@ -1,0 +1,10 @@
+{
+  "status": "failed",
+  "jobs": 83,
+  "errors": [
+    "id de job inválido: qa_mini_male",
+    "id de job inválido: qa_mini_female",
+    "id de job inválido: qa_mini_worker"
+  ],
+  "hint": "Revisa asset-jobs.json/runtime-promotions.json; jobs y promociones se validan antes de publicar."
+}

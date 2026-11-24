@@ -1,0 +1,547 @@
+{
+  "status": "failed",
+  "maxBytes": 1048576,
+  "violations": [
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/apartment_block-complete.png",
+      "bytes": 2809472
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/brickworks-complete.png",
+      "bytes": 1073192
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/cement_plant-complete.png",
+      "bytes": 1090407
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/market_hall-complete.png",
+      "bytes": 1564142
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/mixed_tenement-complete.png",
+      "bytes": 1781177
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/school_block-complete.png",
+      "bytes": 1993471
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/steelworks-complete.png",
+      "bytes": 1528929
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/town_hall-complete.png",
+      "bytes": 3203928
+    },
+    {
+      "path": "docs/art/day-candidates/apartment_block/vg_apartment_block_1002.png",
+      "bytes": 2809472
+    },
+    {
+      "path": "docs/art/day-candidates/brickworks/vg_brickworks_1000.png",
+      "bytes": 1073192
+    },
+    {
+      "path": "docs/art/day-candidates/cement_plant/vg_cement_plant_1001.png",
+      "bytes": 1090407
+    },
+    {
+      "path": "docs/art/day-candidates/market_hall/vg_market_hall_1000.png",
+      "bytes": 1564142
+    },
+    {
+      "path": "docs/art/day-candidates/mixed_tenement/vg_mixed_tenement_1001.png",
+      "bytes": 1781177
+    },
+    {
+      "path": "docs/art/day-candidates/school_block/vg_school_block_2000.png",
+      "bytes": 1993471
+    },
+    {
+      "path": "docs/art/day-candidates/steelworks/vg_steelworks_1003.png",
+      "bytes": 1528929
+    },
+    {
+      "path": "docs/art/day-candidates/town_hall/vf_town_hall_1006.png",
+      "bytes": 3203928
+    },
+    {
+      "path": "docs/art/facilities-v4/candidates/market_hall/vf_market_hall_1000.png",
+      "bytes": 1111803
+    },
+    {
+      "path": "docs/art/facilities-v4/candidates/school_block/vf_school_block_1000.png",
+      "bytes": 1274114
+    },
+    {
+      "path": "docs/art/facilities-v4/candidates/town_hall/vf_town_hall_1000.png",
+      "bytes": 2175154
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/damaged_interior_mixed_tenement_ab.png",
+      "bytes": 1455665
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/facades/facade_fix_mixed_tenement_ab.png",
+      "bytes": 1452494
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/facades/w06cnd_mixed_tenement_2.png",
+      "bytes": 1367637
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning.png",
+      "bytes": 1508289
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.png",
+      "bytes": 1400323
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_burning.png",
+      "bytes": 1056443
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1112/wp06_mixed_tenement-candidata.png",
+      "bytes": 1369213
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1112/wp06_row_house-candidata.png",
+      "bytes": 1143414
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/aged_v3_d1113.png",
+      "bytes": 1382601
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_mixed_tenement_2_burning.png",
+      "bytes": 1497258
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_mixed_tenement_2_damaged.png",
+      "bytes": 1404004
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_town_hall_5.png",
+      "bytes": 1995340
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_warehouse_2_burning.png",
+      "bytes": 1054007
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_black_green_artifacts_final_ab.png",
+      "bytes": 1940378
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_lab/M_primer_plano.png",
+      "bytes": 1171674
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_states/mixed_o90_after.png",
+      "bytes": 1376257
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_states/mixed_o90_before.png",
+      "bytes": 1387514
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/townhall/town_hall_neoclassical_ab.png",
+      "bytes": 1187988
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.png",
+      "bytes": 1995026
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/aged_v2.png",
+      "bytes": 1378617
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/conserved.png",
+      "bytes": 1367637
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/w06cnd_mixed_tenement_2_aged.png",
+      "bytes": 1378149
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering_v3_ab.png",
+      "bytes": 1711195
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/mixed_tenement-candidata.png",
+      "bytes": 1120413
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/mixed_tenement-control.png",
+      "bytes": 1270509
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/row_house-candidata.png",
+      "bytes": 1191128
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/town_hall-control.png",
+      "bytes": 1842251
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/warehouse-control.png",
+      "bytes": 1125402
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/sheets/gn_facade_ab.png",
+      "bytes": 1871393
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/sheets/pilots_sheet.png",
+      "bytes": 1253308
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/candidata/mixed_tenement-city-context-1x.png",
+      "bytes": 1263483
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/candidata/row_house-city-context-1x.png",
+      "bytes": 1199291
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/control/mixed_tenement-city-context-1x.png",
+      "bytes": 1279065
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/control/row_house-city-context-1x.png",
+      "bytes": 1214965
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-aged.png",
+      "bytes": 1381467
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+      "bytes": 1362172
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-damaged.png",
+      "bytes": 1376212
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+      "bytes": 1147264
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.png",
+      "bytes": 1784969
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-burning-day.png",
+      "bytes": 1323486
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-candidata.png",
+      "bytes": 1785084
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-control.png",
+      "bytes": 1842265
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/fire/hybrid_sprite_day.png",
+      "bytes": 1495278
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/fire/hybrid_sprite_night.png",
+      "bytes": 1266097
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/four_candidates_in_phaser.png",
+      "bytes": 1053391
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/mixed_tenement_pair_10x.png",
+      "bytes": 1161574
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/warehouse_pair_05x.png",
+      "bytes": 1055833
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/warehouse_pair_10x.png",
+      "bytes": 1332052
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/commercial/mixed_tenement-candidata.png",
+      "bytes": 1369148
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/commercial/mixed_tenement-control.png",
+      "bytes": 1461912
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/final-assets/modern_candidates_in_phaser.png",
+      "bytes": 1053391
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_day.png",
+      "bytes": 1624174
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_night.png",
+      "bytes": 1412550
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_day.png",
+      "bytes": 1382685
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_night.png",
+      "bytes": 1051959
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_day.png",
+      "bytes": 1466180
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_night.png",
+      "bytes": 1291388
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/control_warehouse_day.png",
+      "bytes": 1314229
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/fire_blender_ab.png",
+      "bytes": 4509522
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/fire_blender_ab_half.png",
+      "bytes": 1348804
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-candidata.png",
+      "bytes": 1128049
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-control.png",
+      "bytes": 1213426
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/ag_civic_ab.png",
+      "bytes": 1176527
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/ext_window_columns.png",
+      "bytes": 1123865
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/gn_v2_ab.png",
+      "bytes": 2256487
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/industrial_warehouse_ab.png",
+      "bytes": 1344840
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/weathering_states.png",
+      "bytes": 3553465
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/weathering_states_half.png",
+      "bytes": 1310735
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/wp06_candidates_ab.png",
+      "bytes": 3988337
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/wp06_candidates_ab_half.png",
+      "bytes": 1366807
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/wp08_arquitectura_avanzada.png",
+      "bytes": 1413967
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_05x.png",
+      "bytes": 1156547
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_10x.png",
+      "bytes": 1257001
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_05x.png",
+      "bytes": 1123750
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_10x.png",
+      "bytes": 1241814
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_05x.png",
+      "bytes": 1099559
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_10x.png",
+      "bytes": 1173135
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_05x.png",
+      "bytes": 1147559
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_10x.png",
+      "bytes": 1238251
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_aged.png",
+      "bytes": 1342036
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_burning.png",
+      "bytes": 1493923
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_conserved.png",
+      "bytes": 1352553
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_damaged.png",
+      "bytes": 1431107
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_aged.png",
+      "bytes": 1131451
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_conserved.png",
+      "bytes": 1153536
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/optout/vw_mixed_tenement_1001.png",
+      "bytes": 1352552
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/green_after_interior_fix.png",
+      "bytes": 1320302
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/green_before_interior_fix.png",
+      "bytes": 1378260
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/night_aged_emission_scale_0.png",
+      "bytes": 1131489
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/night_aged_emission_scale_1.png",
+      "bytes": 1131489
+    },
+    {
+      "path": "docs/art/material-maquette-spike/candidates/mm_mixed_tenement_1010.png",
+      "bytes": 1301541
+    },
+    {
+      "path": "docs/art/material-maquette-spike/candidates/mm_warehouse_1010.png",
+      "bytes": 1221931
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control-final/d111_mixed_tenement_1010.png",
+      "bytes": 1325135
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control-final/d111_warehouse_1010.png",
+      "bytes": 1328306
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control-warehouse-v2/d111_warehouse_1010.png",
+      "bytes": 1328306
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control/d111_mixed_tenement_1010.png",
+      "bytes": 1325135
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control/d111_warehouse_1010.png",
+      "bytes": 1121117
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-final/d111_mixed_tenement_1010.png",
+      "bytes": 1413088
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-final/d111_warehouse_1010.png",
+      "bytes": 1242610
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-verified/d111_mixed_tenement_1010.png",
+      "bytes": 1413088
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-verified/d111_warehouse_1010.png",
+      "bytes": 1082953
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-warehouse-v2/d111_warehouse_1010.png",
+      "bytes": 1242610
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material/d111_mixed_tenement_1010.png",
+      "bytes": 1413108
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material/d111_warehouse_1010.png",
+      "bytes": 1084806
+    },
+    {
+      "path": "docs/art/new-assets-integration/pilots-graphic/d111g2_mixed_tenement_2.png",
+      "bytes": 1462048
+    },
+    {
+      "path": "docs/art/new-assets-integration/pilots/d111q_mixed_tenement_2.png",
+      "bytes": 1609745
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_courtyard_5101.png",
+      "bytes": 1242665
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_courtyard_5101_o180.png",
+      "bytes": 1261142
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_courtyard_5101_o270.png",
+      "bytes": 1297956
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_courtyard_5101_o90.png",
+      "bytes": 1262992
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_cupola_5101.png",
+      "bytes": 1252303
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_cupola_5101_o180.png",
+      "bytes": 1241700
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_cupola_5101_o270.png",
+      "bytes": 1297635
+    },
+    {
+      "path": "docs/art/organization-headquarters/candidates/hq_headquarters_cupola_5101_o90.png",
+      "bytes": 1301305
+    },
+    {
+      "path": "docs/art/organization-headquarters/concepts/headquarters-courtyard-reference.png",
+      "bytes": 2589587
+    },
+    {
+      "path": "docs/art/organization-headquarters/concepts/headquarters-mansion-cupola-reference.png",
+      "bytes": 2711308
+    }
+  ],
+  "hint": "D-081: binarios nuevos por encima del presupuesto requieren LFS (Beta) o una excepción registrada en docs/art/BINARY-ALLOWLIST.json"
+}

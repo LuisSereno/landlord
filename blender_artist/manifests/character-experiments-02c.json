@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "WP-CHAR-02C: visually rework supervisor, enforcer and firefighter from diagnosed WP-CHAR-02B defects without runtime promotion.",
-  "status": "in_progress_visual_rework",
+  "status": "technical_complete_pending_human_review",
   "approval": "pending_human",
   "runtimePromotion": false,
   "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02c",

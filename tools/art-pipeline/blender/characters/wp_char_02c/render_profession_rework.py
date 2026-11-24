@@ -436,7 +436,7 @@ def main():
     configure_render(runtime_asset, style_layer, config)
     report = {
         "schemaVersion": 1,
-        "status": "smoke_rendered_pending_visual_review" if not args.final else "limited_prototype_rendered_pending_validation",
+        "status": "smoke_rendered_pending_visual_review" if not args.final else "technical_complete_pending_human_review",
         "role": args.role,
         "canonicalId": candidate["canonicalId"],
         "worktree": str(REPO_ROOT),

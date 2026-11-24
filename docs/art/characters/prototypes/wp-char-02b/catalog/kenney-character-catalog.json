@@ -1,0 +1,8327 @@
+{
+  "schemaVersion": 1,
+  "status": "visually_classified_pending_validation",
+  "manifest": "blender_artist/manifests/character-experiments-02b.json",
+  "manifestSha256": "a53be0ca7da4be0ad91a0f32e7449cbfb61329cfbcf364bb8cb8a2c70b44e47d",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "licenseFile": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+  "licenseFileSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+  "camera": {
+    "orthoScale": 2.6,
+    "targetZ": 1.0,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "models": [
+    {
+      "file": "character-male-a.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+      "exists": true,
+      "sha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "bytes": 245232,
+      "license": "CC0-1.0",
+      "armature": "character-male-a",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1355,
+      "triangles": 771,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.34,
+        "height": 0.671325
+      },
+      "unitScale": 2.68126521,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.34,
+          "height": 0.6713,
+          "minZ": 0.0
+        },
+        "importScale": 2.6812652062293827,
+        "importOffset": [
+          -0.0,
+          -0.0063,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-male-a",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.057,
+          "depth": 0.9116,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-male-a",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.006331,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.780363,
+          0.91163,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.203928,
+          "maxX": 0.735817,
+          "minY": 0.087214,
+          "maxY": 0.850328,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-a.png",
+          "sha256": "ac3f73f9585d5ba618bf8219bf58f4c1449f6022388fdbc0db95d73be178a510",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-male-a.glb",
+        "sourceSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126"
+      },
+      "visualDescription": "Gafas, camiseta verde, pantalón azul y zapatillas amarillas; silueta civil compacta.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Ciudadano A o técnico con accesorio pequeño.",
+      "requiredAdaptation": "Ninguna esencial; paleta local opcional.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-male-b.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-b.glb",
+      "exists": true,
+      "sha256": "81464391ab3291bc78d23c33d5a5313cfab43469285a8e1f02b974aecbd4f943",
+      "bytes": 238300,
+      "license": "CC0-1.0",
+      "armature": "character-male-b",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1266,
+      "triangles": 686,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.389472,
+        "height": 0.661325
+      },
+      "unitScale": 2.72180901,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.3895,
+          "height": 0.6613,
+          "minZ": 0.0
+        },
+        "importScale": 2.721809010891003,
+        "importOffset": [
+          -0.0,
+          0.0868,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-male-b",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.0881,
+          "depth": 1.0601,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-male-b",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          0.086757,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.807284,
+          1.060069,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.224794,
+          "maxX": 0.774267,
+          "minY": 0.09868,
+          "maxY": 0.856865,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-b.png",
+          "sha256": "84b8fd019b9136040acd432b4e2a68f071bf888ab912007a507018999138ec74",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-male-b.glb",
+        "sourceSha256": "81464391ab3291bc78d23c33d5a5313cfab43469285a8e1f02b974aecbd4f943"
+      },
+      "visualDescription": "Hombre barbudo y corpulento con camiseta naranja; buena base de volumen.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Bombero o supervisor robusto.",
+      "requiredAdaptation": "Materiales protectores y casco; conservar malla skineada.",
+      "risk": "Medio"
+    },
+    {
+      "file": "character-male-c.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+      "exists": true,
+      "sha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "bytes": 259876,
+      "license": "CC0-1.0",
+      "armature": "character-male-c",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1551,
+      "triangles": 837,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.460657,
+        "height": 0.792791
+      },
+      "unitScale": 2.27045927,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.4607,
+          "height": 0.7928,
+          "minZ": 0.0
+        },
+        "importScale": 2.270459270083425,
+        "importOffset": [
+          -0.0,
+          0.0961,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-male-c",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.7418,
+          "depth": 1.0459,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-male-c",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          0.096063,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.507587,
+          1.045904,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.27667,
+          "maxX": 0.731841,
+          "minY": 0.115274,
+          "maxY": 0.817671,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-c.png",
+          "sha256": "9efd3da59431729265aedb58b170847000a6e3f454aa5a36196eba72f985dccc",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-male-c.glb",
+        "sourceSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74"
+      },
+      "visualDescription": "Gorra y uniforme azul de policía integrados en geometría/atlas.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Policía.",
+      "requiredAdaptation": "Sólo insignia y cinturón rígidos; no recolorear como única profesión.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-male-d.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-d.glb",
+      "exists": true,
+      "sha256": "bded80fb516310186bf151b040696295395043b520a77d09533e20445dd4c02a",
+      "bytes": 243700,
+      "license": "CC0-1.0",
+      "armature": "character-male-d",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1335,
+      "triangles": 759,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.34,
+        "height": 0.721761
+      },
+      "unitScale": 2.49389868,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.34,
+          "height": 0.7218,
+          "minZ": 0.0
+        },
+        "importScale": 2.493898676977549,
+        "importOffset": [
+          -0.0,
+          -0.0059,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-male-d",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.9132,
+          "depth": 0.8479,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-male-d",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.005889,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.655951,
+          0.847926,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.224618,
+          "maxX": 0.728081,
+          "minY": 0.095043,
+          "maxY": 0.802571,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-d.png",
+          "sha256": "7471861105c2e99b4520ac17c97de8dff056be63dfd2dabc197e68b8ff72dec5",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-male-d.glb",
+        "sourceSha256": "bded80fb516310186bf151b040696295395043b520a77d09533e20445dd4c02a"
+      },
+      "visualDescription": "Traje oscuro y corbata; apariencia adulta formal.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Profesional municipal o civil formal.",
+      "requiredAdaptation": "Ninguna esencial; folder opcional.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-male-e.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+      "exists": true,
+      "sha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "bytes": 235644,
+      "license": "CC0-1.0",
+      "armature": "character-male-e",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1224,
+      "triangles": 758,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.341966,
+        "height": 0.675967
+      },
+      "unitScale": 2.66285385,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.342,
+          "height": 0.676,
+          "minZ": 0.0
+        },
+        "importScale": 2.662853849575111,
+        "importOffset": [
+          -0.0,
+          -0.0037,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-male-e",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.0429,
+          "depth": 0.9106,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-male-e",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.003669,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.768138,
+          0.910607,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.206673,
+          "maxX": 0.744245,
+          "minY": 0.09053,
+          "maxY": 0.845991,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-e.png",
+          "sha256": "6e9b8d03efa53989e70088789bc9d681bb8dd0a832e98bc648df6dbf55932a68",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-male-e.glb",
+        "sourceSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4"
+      },
+      "visualDescription": "Gafas, camisa blanca y mono/tirantes amarillos, sin casco; base de obra reconocible.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Supervisor o obrero B.",
+      "requiredAdaptation": "Casco rígido, clipboard y paleta propia; no duplicar al obrero A.",
+      "risk": "Medio"
+    },
+    {
+      "file": "character-male-f.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-f.glb",
+      "exists": true,
+      "sha256": "83fa60802557199778ab606e5ee3b2da2140ef35839ac4fb557ef95dbac9c5d4",
+      "bytes": 247520,
+      "license": "CC0-1.0",
+      "armature": "character-male-f",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1387,
+      "triangles": 749,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.34,
+        "height": 0.671325
+      },
+      "unitScale": 2.68126527,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.34,
+          "height": 0.6713,
+          "minZ": 0.0
+        },
+        "importScale": 2.6812652657444818,
+        "importOffset": [
+          -0.0,
+          -0.0063,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-male-f",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.057,
+          "depth": 0.9116,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-male-f",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.006331,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.780363,
+          0.91163,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.203928,
+          "maxX": 0.749916,
+          "minY": 0.089644,
+          "maxY": 0.850328,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-f.png",
+          "sha256": "d23670a31905a0e3e624ccdada87388c68023ffada16743c04faa8bf2ed6d83c",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-male-f.glb",
+        "sourceSha256": "83fa60802557199778ab606e5ee3b2da2140ef35839ac4fb557ef95dbac9c5d4"
+      },
+      "visualDescription": "Camiseta verde, mono marrón y calzado claro; complexión compacta.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Obrero B o técnico.",
+      "requiredAdaptation": "Casco y herramienta riggeados; variar paleta/silueta.",
+      "risk": "Medio"
+    },
+    {
+      "file": "character-male-g.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-g.glb",
+      "exists": true,
+      "sha256": "14e4b60c26a330b8dcd52f1e5a36ba124869600f9fa94075fbc6a4665f6f6525",
+      "bytes": 263036,
+      "license": "CC0-1.0",
+      "armature": "character-male-g",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1591,
+      "triangles": 877,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.398972,
+        "height": 0.671325
+      },
+      "unitScale": 2.68126527,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.399,
+          "height": 0.6713,
+          "minZ": 0.0
+        },
+        "importScale": 2.6812652657444818,
+        "importOffset": [
+          -0.0,
+          0.0727,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-male-g",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.057,
+          "depth": 1.0698,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-male-g",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          0.072729,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.780363,
+          1.06975,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.22543,
+          "maxX": 0.766718,
+          "minY": 0.100395,
+          "maxY": 0.861079,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-g.png",
+          "sha256": "ffde843650cea53ff88bc2b14a0fe11a6004abb960f7ad6da0f2417514cc9743",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-male-g.glb",
+        "sourceSha256": "14e4b60c26a330b8dcd52f1e5a36ba124869600f9fa94075fbc6a4665f6f6525"
+      },
+      "visualDescription": "Gafas redondas, barba, camisa azul clara y delantal/mono marrón; volumen ancho.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Enforcer A.",
+      "requiredAdaptation": "Paleta oscura, gorra y cinturón; no añadir abrigo rígido.",
+      "risk": "Medio"
+    },
+    {
+      "file": "character-female-a.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-a.glb",
+      "exists": true,
+      "sha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+      "bytes": 269200,
+      "license": "CC0-1.0",
+      "armature": "character-female-a",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1672,
+      "triangles": 924,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 1.098787,
+        "depth": 0.49953,
+        "height": 0.775528
+      },
+      "unitScale": 2.32099857,
+      "normalization": {
+        "sourceBounds": {
+          "width": 1.0988,
+          "depth": 0.4995,
+          "height": 0.7755,
+          "minZ": 0.0
+        },
+        "importScale": 2.320998571596586,
+        "importOffset": [
+          -0.0,
+          -0.0978,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-female-a",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.5503,
+          "depth": 1.1594,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-female-a",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.097775,
+          -0.0
+        ],
+        "groundingOffsetMeters": 0.12108,
+        "worldSizeMeters": [
+          2.041615,
+          1.159409,
+          1.92108
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.172844,
+          "maxX": 0.749263,
+          "minY": 0.027856,
+          "maxY": 0.857479,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-a.png",
+          "sha256": "c2ef9b4060e3cce065f952e53be5c52bf17cf4d8e2b649bb70f7f0d4d9fa37bc",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-female-a.glb",
+        "sourceSha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320"
+      },
+      "visualDescription": "Conjunto violeta con dos pistolas azules integradas y skineadas; anchura impropia para población general.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Enforcer B tras retirar armas, o personaje armado sólo con justificación.",
+      "requiredAdaptation": "Retirar/ocultar las pistolas y adaptar vestuario oscuro; no usar tal cual como civil.",
+      "risk": "Alto"
+    },
+    {
+      "file": "character-female-b.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-b.glb",
+      "exists": true,
+      "sha256": "3a0e6c3e431ae9d2016c2c9a91ec3abe8bb45243016a5cae80cbde0b61f8f2a9",
+      "bytes": 249988,
+      "license": "CC0-1.0",
+      "armature": "character-female-b",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1418,
+      "triangles": 790,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.418522,
+        "height": 0.723353
+      },
+      "unitScale": 2.48841105,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.4185,
+          "height": 0.7234,
+          "minZ": 0.0
+        },
+        "importScale": 2.48841104669843,
+        "importOffset": [
+          -0.0,
+          -0.004,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-female-b",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.909,
+          "depth": 1.0415,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-female-b",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.004037,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.652307,
+          1.041455,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.225724,
+          "maxX": 0.766448,
+          "minY": 0.093196,
+          "maxY": 0.862524,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-b.png",
+          "sha256": "c3371a2da9e74d59cb43073093edb07445da95c339e9bcbe0a3dc7cbe6d863c4",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-female-b.glb",
+        "sourceSha256": "3a0e6c3e431ae9d2016c2c9a91ec3abe8bb45243016a5cae80cbde0b61f8f2a9"
+      },
+      "visualDescription": "Coletas y diadema amarillas, camiseta amarilla y mono violeta; silueta civil diferenciada.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Ciudadana A.",
+      "requiredAdaptation": "Ninguna esencial.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-female-c.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-c.glb",
+      "exists": true,
+      "sha256": "163ed5cb5b130177a64724efd9cf4f681fd73d7072f4f9b83ed584307dad870a",
+      "bytes": 249904,
+      "license": "CC0-1.0",
+      "armature": "character-female-c",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1418,
+      "triangles": 780,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.49953,
+        "height": 0.775528
+      },
+      "unitScale": 2.32099826,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.4995,
+          "height": 0.7755,
+          "minZ": -0.0
+        },
+        "importScale": 2.320998259423588,
+        "importOffset": [
+          -0.0,
+          -0.0978,
+          0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-female-c",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.7806,
+          "depth": 1.1594,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-female-c",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.097775,
+          0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.541145,
+          1.159409,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.218609,
+          "maxX": 0.686767,
+          "minY": 0.085372,
+          "maxY": 0.817149,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-c.png",
+          "sha256": "49ce8f3c6f7a71745943153aba656eb8bd5d2bc32690ac0383b2ce92563150d7",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-female-c.glb",
+        "sourceSha256": "163ed5cb5b130177a64724efd9cf4f681fd73d7072f4f9b83ed584307dad870a"
+      },
+      "visualDescription": "Pelo oscuro, diadema roja, camiseta azul/roja y parte inferior marrón.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Ciudadana B o profesional municipal.",
+      "requiredAdaptation": "Ninguna esencial; folder opcional.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-female-d.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-d.glb",
+      "exists": true,
+      "sha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf",
+      "bytes": 255988,
+      "license": "CC0-1.0",
+      "armature": "character-female-d",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1497,
+      "triangles": 845,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.49953,
+        "height": 0.775528
+      },
+      "unitScale": 2.32099839,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.4995,
+          "height": 0.7755,
+          "minZ": 0.0
+        },
+        "importScale": 2.320998393212005,
+        "importOffset": [
+          -0.0,
+          -0.0978,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-female-d",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.7806,
+          "depth": 1.1594,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-female-d",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.097775,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.541145,
+          1.159409,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.218609,
+          "maxX": 0.687167,
+          "minY": 0.087476,
+          "maxY": 0.817148,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-d.png",
+          "sha256": "5182723cb4e60018f57062b13717ec341fd401e1c8b19cd04625cc23d1759555",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-female-d.glb",
+        "sourceSha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf"
+      },
+      "visualDescription": "Traje y pelo rojizo; apariencia formal adulta.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Profesional municipal o civil formal.",
+      "requiredAdaptation": "Ninguna esencial.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-female-e.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-e.glb",
+      "exists": true,
+      "sha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58",
+      "bytes": 245116,
+      "license": "CC0-1.0",
+      "armature": "character-female-e",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1350,
+      "triangles": 804,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.527062,
+        "height": 0.716475
+      },
+      "unitScale": 2.51229893,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.5271,
+          "height": 0.7165,
+          "minZ": 0.0
+        },
+        "importScale": 2.512298930323798,
+        "importOffset": [
+          -0.0,
+          -0.1404,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-female-e",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.9274,
+          "depth": 1.3241,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-female-e",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.140418,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.668169,
+          1.324136,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.186011,
+          "maxX": 0.715483,
+          "minY": 0.076226,
+          "maxY": 0.814457,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-e.png",
+          "sha256": "9b09b07c5a4762fd4c5e61de17af6f76e8801fc6421b6013bd71d7865da5636b",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-female-e.glb",
+        "sourceSha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58"
+      },
+      "visualDescription": "Bata clara integrada; lectura sanitaria directa.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Sanitario.",
+      "requiredAdaptation": "Ninguna esencial; bolsa médica pequeña opcional.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-female-f.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-f.glb",
+      "exists": true,
+      "sha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106",
+      "bytes": 256600,
+      "license": "CC0-1.0",
+      "armature": "character-female-f",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1506,
+      "triangles": 836,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.441112,
+        "height": 0.671325
+      },
+      "unitScale": 2.68126479,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.4411,
+          "height": 0.6713,
+          "minZ": 0.0
+        },
+        "importScale": 2.6812647896237616,
+        "importOffset": [
+          -0.0,
+          -0.0346,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-female-f",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.057,
+          "depth": 1.1827,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-female-f",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.034635,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.780363,
+          1.182739,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.196231,
+          "maxX": 0.820446,
+          "minY": 0.090655,
+          "maxY": 0.846479,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-f.png",
+          "sha256": "55ba7221bc75ab80b925cdae2982b25c9f555333f37c979ebe148d47cb9876d4",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-female-f.glb",
+        "sourceSha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106"
+      },
+      "visualDescription": "Coleta, camiseta de rayas, pantalón azul y detalle amarillo en muñeca/cintura.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Obrero B o técnico.",
+      "requiredAdaptation": "Casco y paleta; verificar silueta frente a otros femeninos.",
+      "risk": "Medio"
+    },
+    {
+      "file": "character-worker.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+      "exists": true,
+      "sha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "bytes": 260236,
+      "license": "CC0-1.0",
+      "armature": "character-worker",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1551,
+      "triangles": 893,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.464015,
+        "height": 0.824124
+      },
+      "unitScale": 2.18413771,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.464,
+          "height": 0.8241,
+          "minZ": 0.0
+        },
+        "importScale": 2.184137711166901,
+        "importOffset": [
+          -0.0,
+          0.075,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-worker",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.6756,
+          "depth": 1.0135,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-worker",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          0.07503,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.45027,
+          1.013472,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.272602,
+          "maxX": 0.739243,
+          "minY": 0.118833,
+          "maxY": 0.812632,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-worker.png",
+          "sha256": "782b6edc3f340a89ddb21c256c768a96f35cb19d97424e34ad7433babab0257d",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-worker.glb",
+        "sourceSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319"
+      },
+      "visualDescription": "Casco amarillo, camisa azul, mono/pantalón marrón y calzado claro; referencia artística aprobada.",
+      "classification": "SUITABLE",
+      "potentialLandlordUse": "Obrero A.",
+      "requiredAdaptation": "Ninguna esencial; preservar la receta de WP-CHAR-02A.",
+      "risk": "Bajo"
+    },
+    {
+      "file": "character-soldier.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-soldier.glb",
+      "exists": true,
+      "sha256": "5efff735e893f2fb03ef2863140a74cd40e3305ead1a609924738aee51e9b1ad",
+      "bytes": 281620,
+      "license": "CC0-1.0",
+      "armature": "character-soldier",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1841,
+      "triangles": 947,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.591664,
+        "height": 0.754876
+      },
+      "unitScale": 2.38449828,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.5917,
+          "height": 0.7549,
+          "minZ": 0.0
+        },
+        "importScale": 2.384498283972303,
+        "importOffset": [
+          -0.0,
+          0.0231,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-soldier",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.8293,
+          "depth": 1.4108,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-soldier",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          0.023129,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.583309,
+          1.410821,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.244519,
+          "maxX": 0.743765,
+          "minY": 0.102107,
+          "maxY": 0.816934,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-soldier.png",
+          "sha256": "9f8b9959c17f8993a37913953d7b2a0c5fd710e1710c6aadf3f039a7e7dcaa12",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-soldier.glb",
+        "sourceSha256": "5efff735e893f2fb03ef2863140a74cd40e3305ead1a609924738aee51e9b1ad"
+      },
+      "visualDescription": "Uniforme y casco verdes de soldado genérico; no es fantasía, pero sí lenguaje militar contemporáneo.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Policía/guardia o bombero con adaptación de uniforme.",
+      "requiredAdaptation": "Cambiar paleta y detalles de uniforme; evaluar casco y silueta.",
+      "risk": "Medio-alto"
+    },
+    {
+      "file": "character-raider.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+      "exists": true,
+      "sha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "bytes": 264756,
+      "license": "CC0-1.0",
+      "armature": "character-raider",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1614,
+      "triangles": 880,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.527062,
+        "height": 0.716475
+      },
+      "unitScale": 2.51229893,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.5271,
+          "height": 0.7165,
+          "minZ": 0.0
+        },
+        "importScale": 2.512298930323798,
+        "importOffset": [
+          -0.0,
+          -0.1404,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-raider",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.9274,
+          "depth": 1.3241,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-raider",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.140418,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.668169,
+          1.324136,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.186011,
+          "maxX": 0.715483,
+          "minY": 0.076226,
+          "maxY": 0.814457,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-raider.png",
+          "sha256": "2d7803454caeec572de647711275cc60b025ad6fa28fa0e7e611795d3d292a46",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-raider.glb",
+        "sourceSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4"
+      },
+      "visualDescription": "Aspecto civil real: camiseta verde y mono marrón; el nombre no coincide con la geometría.",
+      "classification": "ADAPTABLE",
+      "potentialLandlordUse": "Obrero B, técnico o civil trabajador.",
+      "requiredAdaptation": "Añadir casco/herramienta y variar paleta; no tratarlo como fantasy.",
+      "risk": "Medio"
+    },
+    {
+      "file": "character-knight.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-knight.glb",
+      "exists": true,
+      "sha256": "c596aef8085dc839f244e9500a2ec15f5f40d258bf74cdeabf2f6b2119f8035b",
+      "bytes": 258268,
+      "license": "CC0-1.0",
+      "armature": "character-knight",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1533,
+      "triangles": 780,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.485158,
+        "height": 0.813604
+      },
+      "unitScale": 2.21237786,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.4852,
+          "height": 0.8136,
+          "minZ": 0.0
+        },
+        "importScale": 2.2123778627626316,
+        "importOffset": [
+          -0.0,
+          -0.048,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-knight",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.6973,
+          "depth": 1.0734,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-knight",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.048016,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.469021,
+          1.073352,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.244066,
+          "maxX": 0.690696,
+          "minY": 0.097337,
+          "maxY": 0.809974,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-knight.png",
+          "sha256": "fd9a8897d596c0c08797538367ecd5095fbfb487f45818224bbbdd0ff2419b57",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-knight.glb",
+        "sourceSha256": "c596aef8085dc839f244e9500a2ec15f5f40d258bf74cdeabf2f6b2119f8035b"
+      },
+      "visualDescription": "Armadura medieval y casco fantástico.",
+      "classification": "UNSUITABLE",
+      "potentialLandlordUse": "Fuera de catálogo.",
+      "requiredAdaptation": "No utilizar.",
+      "risk": "Alto"
+    },
+    {
+      "file": "character-alien.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-alien.glb",
+      "exists": true,
+      "sha256": "c95efdc214cb6f43ae0a80ec9b2c39f1e92e8775314f3211be778c6f252cb08b",
+      "bytes": 273272,
+      "license": "CC0-1.0",
+      "armature": "character-alien",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1728,
+      "triangles": 926,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.34,
+        "height": 0.697638
+      },
+      "unitScale": 2.58013577,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.34,
+          "height": 0.6976,
+          "minZ": -0.0
+        },
+        "importScale": 2.5801357666764906,
+        "importOffset": [
+          -0.0,
+          -0.0061,
+          0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-alien",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.9794,
+          "depth": 0.8772,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-alien",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.006092,
+          0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.713213,
+          0.877246,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.215095,
+          "maxX": 0.735967,
+          "minY": 0.095504,
+          "maxY": 0.855821,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-alien.png",
+          "sha256": "12392ac53a75922d5a963c64387a311740e7c034fdbf9067c1bd50b7554c9c5d",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-alien.glb",
+        "sourceSha256": "c95efdc214cb6f43ae0a80ec9b2c39f1e92e8775314f3211be778c6f252cb08b"
+      },
+      "visualDescription": "Criatura alienígena violeta; fuera del setting.",
+      "classification": "UNSUITABLE",
+      "potentialLandlordUse": "Fuera de catálogo.",
+      "requiredAdaptation": "No utilizar.",
+      "risk": "Alto"
+    },
+    {
+      "file": "character-robot.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-robot.glb",
+      "exists": true,
+      "sha256": "ce2e1622c975d6e1901702b3bed070bc184c37a02eb9c819c976fd8ced359936",
+      "bytes": 264540,
+      "license": "CC0-1.0",
+      "armature": "character-robot",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1612,
+      "triangles": 870,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767799,
+        "depth": 0.321967,
+        "height": 0.844525
+      },
+      "unitScale": 2.13137598,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7678,
+          "depth": 0.322,
+          "height": 0.8445,
+          "minZ": 0.0
+        },
+        "importScale": 2.131375977713248,
+        "importOffset": [
+          -0.0,
+          -0.0029,
+          -0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-robot",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 1.6365,
+          "depth": 0.6862,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-robot",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.002937,
+          -0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.415698,
+          0.686232,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.26505,
+          "maxX": 0.68539,
+          "minY": 0.100901,
+          "maxY": 0.773939,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-robot.png",
+          "sha256": "28829d523fc2d8900231efa83c3b7b41774f28792b067fd612905e6a371979cb",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-robot.glb",
+        "sourceSha256": "ce2e1622c975d6e1901702b3bed070bc184c37a02eb9c819c976fd8ced359936"
+      },
+      "visualDescription": "Robot futurista; fuera del setting.",
+      "classification": "UNSUITABLE",
+      "potentialLandlordUse": "Fuera de catálogo.",
+      "requiredAdaptation": "No utilizar.",
+      "risk": "Alto"
+    },
+    {
+      "file": "character-zombie.glb",
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-zombie.glb",
+      "exists": true,
+      "sha256": "f13105173ed2e10abbb83e9935f015cfae8ca0caa125e6444992e9d866ee6b68",
+      "bytes": 239680,
+      "license": "CC0-1.0",
+      "armature": "character-zombie",
+      "bones": 7,
+      "meshCount": 2,
+      "vertices": 1283,
+      "triangles": 703,
+      "materials": [
+        "colormap"
+      ],
+      "images": [
+        "colormap"
+      ],
+      "actions": [
+        {
+          "name": "attack-kick-left",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-kick-right",
+          "frameRange": [
+            0.0,
+            12.800001
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-left",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "attack-melee-right",
+          "frameRange": [
+            0.0,
+            10.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "crouch",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "die",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "drive",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-no",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "emote-yes",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "fall",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-both-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-left-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "holding-right-shoot",
+          "frameRange": [
+            0.0,
+            4.8
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "idle",
+          "frameRange": [
+            0.0,
+            32.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-left",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "interact-right",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "jump",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "pick-up",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "sprint",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "static",
+          "frameRange": [
+            0.0,
+            2.4
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "walk",
+          "frameRange": [
+            0.0,
+            16.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-left",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-look-right",
+          "frameRange": [
+            0.0,
+            8.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-back",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-forward",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-left",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-move-right",
+          "frameRange": [
+            0.0,
+            12.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        },
+        {
+          "name": "wheelchair-sit",
+          "frameRange": [
+            0.0,
+            4.0
+          ],
+          "layerCount": 1,
+          "slotCount": 1
+        }
+      ],
+      "idleAction": "idle",
+      "sourceBounds": {
+        "width": 0.767168,
+        "depth": 0.34,
+        "height": 0.671325
+      },
+      "unitScale": 2.68126467,
+      "normalization": {
+        "sourceBounds": {
+          "width": 0.7672,
+          "depth": 0.34,
+          "height": 0.6713,
+          "minZ": -0.0
+        },
+        "importScale": 2.681264670593608,
+        "importOffset": [
+          -0.0,
+          -0.0063,
+          0.0
+        ],
+        "hierarchy": {
+          "armatures": [
+            {
+              "name": "character-zombie",
+              "bones": 7
+            }
+          ],
+          "skinnedMeshes": 2
+        },
+        "normalizedSize": {
+          "width": 2.057,
+          "depth": 0.9116,
+          "height": 1.8
+        }
+      },
+      "materialTreatment": {
+        "mode": "source",
+        "materials": [
+          {
+            "mesh": "body-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          },
+          {
+            "mesh": "head-mesh",
+            "originalMaterial": "colormap",
+            "localMaterial": "colormap_WP02A_source.001",
+            "metallic": 0.0,
+            "roughness": 0.9,
+            "specular": 0.22
+          }
+        ]
+      },
+      "render": {
+        "direction": 0,
+        "azimuthDegrees": 45,
+        "animation": "idle",
+        "sampleIndex": 0,
+        "frame": 0,
+        "phase": 0.0,
+        "action": "idle",
+        "actionSlot": "OBcharacter-zombie",
+        "rootBone": "root",
+        "rootPositionBeforeGrounding": [
+          0.0,
+          -0.006331,
+          0.0
+        ],
+        "groundingOffsetMeters": -0.0,
+        "worldSizeMeters": [
+          1.780363,
+          0.91163,
+          1.8
+        ],
+        "minZ": 0.0,
+        "cameraBounds": {
+          "minX": 0.203928,
+          "maxX": 0.745216,
+          "minY": 0.092705,
+          "maxY": 0.850328,
+          "clipped": false
+        },
+        "materialMode": "source",
+        "image": {
+          "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-zombie.png",
+          "sha256": "1ac1b3ff65e7d3926619f6f028b96926e81dca97b8b39c1f6cdb387646f780d3",
+          "width": 512,
+          "height": 512
+        },
+        "sourceFile": "character-zombie.glb",
+        "sourceSha256": "f13105173ed2e10abbb83e9935f015cfae8ca0caa125e6444992e9d866ee6b68"
+      },
+      "visualDescription": "No-muerto con piel verde; fuera del catálogo funcional.",
+      "classification": "UNSUITABLE",
+      "potentialLandlordUse": "Fuera de catálogo.",
+      "requiredAdaptation": "No utilizar.",
+      "risk": "Alto"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-a.png",
+      "sha256": "ac3f73f9585d5ba618bf8219bf58f4c1449f6022388fdbc0db95d73be178a510",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-b.png",
+      "sha256": "84b8fd019b9136040acd432b4e2a68f071bf888ab912007a507018999138ec74",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-c.png",
+      "sha256": "9efd3da59431729265aedb58b170847000a6e3f454aa5a36196eba72f985dccc",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-d.png",
+      "sha256": "7471861105c2e99b4520ac17c97de8dff056be63dfd2dabc197e68b8ff72dec5",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-e.png",
+      "sha256": "6e9b8d03efa53989e70088789bc9d681bb8dd0a832e98bc648df6dbf55932a68",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-f.png",
+      "sha256": "d23670a31905a0e3e624ccdada87388c68023ffada16743c04faa8bf2ed6d83c",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-g.png",
+      "sha256": "ffde843650cea53ff88bc2b14a0fe11a6004abb960f7ad6da0f2417514cc9743",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-a.png",
+      "sha256": "c2ef9b4060e3cce065f952e53be5c52bf17cf4d8e2b649bb70f7f0d4d9fa37bc",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-b.png",
+      "sha256": "c3371a2da9e74d59cb43073093edb07445da95c339e9bcbe0a3dc7cbe6d863c4",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-c.png",
+      "sha256": "49ce8f3c6f7a71745943153aba656eb8bd5d2bc32690ac0383b2ce92563150d7",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-d.png",
+      "sha256": "5182723cb4e60018f57062b13717ec341fd401e1c8b19cd04625cc23d1759555",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-e.png",
+      "sha256": "9b09b07c5a4762fd4c5e61de17af6f76e8801fc6421b6013bd71d7865da5636b",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-f.png",
+      "sha256": "55ba7221bc75ab80b925cdae2982b25c9f555333f37c979ebe148d47cb9876d4",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-worker.png",
+      "sha256": "782b6edc3f340a89ddb21c256c768a96f35cb19d97424e34ad7433babab0257d",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-soldier.png",
+      "sha256": "9f8b9959c17f8993a37913953d7b2a0c5fd710e1710c6aadf3f039a7e7dcaa12",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-raider.png",
+      "sha256": "2d7803454caeec572de647711275cc60b025ad6fa28fa0e7e611795d3d292a46",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-knight.png",
+      "sha256": "fd9a8897d596c0c08797538367ecd5095fbfb487f45818224bbbdd0ff2419b57",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-alien.png",
+      "sha256": "12392ac53a75922d5a963c64387a311740e7c034fdbf9067c1bd50b7554c9c5d",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-robot.png",
+      "sha256": "28829d523fc2d8900231efa83c3b7b41774f28792b067fd612905e6a371979cb",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-zombie.png",
+      "sha256": "1ac1b3ff65e7d3926619f6f028b96926e81dca97b8b39c1f6cdb387646f780d3",
+      "width": 512,
+      "height": 512
+    }
+  ]
+}

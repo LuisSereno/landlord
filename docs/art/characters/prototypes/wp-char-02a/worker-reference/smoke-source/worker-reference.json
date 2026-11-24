@@ -1,0 +1,567 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_rendered",
+  "manifest": "blender_artist/manifests/character-experiments-02a.json",
+  "manifestSha256": "2e57a2d33ff379fb570ba66632fae276ab0fd222ba72120d5959db2c40e67e94",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+    "sha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+    "licenseFile": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "licenseFileSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+    "license": "CC0-1.0"
+  },
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.464,
+      "height": 0.8241,
+      "minZ": 0.0
+    },
+    "importScale": 2.18,
+    "importOffset": [
+      -0.0,
+      0.0749,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-worker",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 1.6724,
+      "depth": 1.0116,
+      "height": 1.7966
+    }
+  },
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "camera": {
+    "orthoScale": 2.05,
+    "targetZ": 0.9,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "materialMode": "source",
+  "rig": {
+    "armature": "character-worker",
+    "bones": 7,
+    "meshes": [
+      {
+        "name": "body-mesh",
+        "vertices": 992,
+        "polygons": 562,
+        "materials": [
+          "colormap"
+        ],
+        "armatureModifiers": [
+          "Armature"
+        ]
+      },
+      {
+        "name": "head-mesh",
+        "vertices": 559,
+        "polygons": 331,
+        "materials": [
+          "colormap"
+        ],
+        "armatureModifiers": [
+          "Armature"
+        ]
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.79659
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.05893,
+        "maxY": 0.937203,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-idle-00.png",
+        "sha256": "aec9f9746c85616f7eb5424ac8b2cefc071d6dcbc1d32d4086ef2bffcb77abc1",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.79659
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.05893,
+        "maxY": 0.937203,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-00.png",
+        "sha256": "cbaf12447fca84765670e5cf0f0c31993529522033ccaf33ce3b2ca45db6cbac",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "frame": 2,
+      "phase": 0.125,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.06758
+      ],
+      "groundingOffsetMeters": -0.002273,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.861897
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.190812,
+        "maxX": 0.843855,
+        "minY": 0.105511,
+        "maxY": 0.965329,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-01.png",
+        "sha256": "104e1030bd6883d209d62385b74f36f3c66d9a5295cd58557f0dac8a3908434d",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "frame": 4,
+      "phase": 0.25,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.106727
+      ],
+      "groundingOffsetMeters": -0.065692,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.837626
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.179412,
+        "maxX": 0.870383,
+        "minY": 0.102548,
+        "maxY": 0.955432,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-02.png",
+        "sha256": "ad5e37cf347b62ee42b899f92d30f6699765995e288c1d95edb8847473955b37",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "frame": 6,
+      "phase": 0.375,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.013465
+      ],
+      "groundingOffsetMeters": 0.079861,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.862987
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.195698,
+        "maxX": 0.838451,
+        "minY": 0.10584,
+        "maxY": 0.965789,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-03.png",
+        "sha256": "d7900c375ad27ec6dd81495a69e6e0ad7ed1723aef4a499f829eef0e42206f8f",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.011897
+      ],
+      "groundingOffsetMeters": 0.037589,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.846075
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.078738,
+        "maxY": 0.958108,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-04.png",
+        "sha256": "fc1532dc23e685b2b0c8c17408260c9eee7dc956687e4b65e4673d50bceea88c",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "frame": 10,
+      "phase": 0.625,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.103985
+      ],
+      "groundingOffsetMeters": -0.048097,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.852479
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.218053,
+        "maxX": 0.806109,
+        "minY": 0.115651,
+        "maxY": 0.960366,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-05.png",
+        "sha256": "95f9e6fad569db67580ee9de2549918645a23e9eac0897b65808122f70ed53b9",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "frame": 12,
+      "phase": 0.75,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.110388
+      ],
+      "groundingOffsetMeters": -0.063731,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.843247
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.222351,
+        "maxX": 0.807925,
+        "minY": 0.129066,
+        "maxY": 0.956253,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-06.png",
+        "sha256": "0c18b6666782f13b6f94fa235a481aafb878962db537928160441643b8f47084",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "frame": 14,
+      "phase": 0.875,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.005237
+      ],
+      "groundingOffsetMeters": 0.043605,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.218053,
+        "maxX": 0.806109,
+        "minY": 0.078383,
+        "maxY": 0.957389,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-07.png",
+        "sha256": "b0988d9725103b5fac45bb5e7983b858a5c2d8ac5c6a33f0a96c3f78980539d9",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    }
+  ]
+}

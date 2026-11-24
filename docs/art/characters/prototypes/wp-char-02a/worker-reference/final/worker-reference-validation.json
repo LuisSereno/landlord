@@ -1,0 +1,1655 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "report": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json",
+  "reportSha256": "14b57610692ad1519ae4b5b4d78911dd184d9f427437b5058e4d886c303c7195",
+  "frameCount": 36,
+  "checkCount": 401,
+  "metrics": {
+    "consecutiveWalkMeanAbsoluteDifference": {
+      "0": [
+        16.3781,
+        5.8901,
+        7.9265,
+        9.6117,
+        8.0224,
+        4.5929,
+        7.2887
+      ],
+      "1": [
+        14.5985,
+        6.2625,
+        8.5418,
+        7.709,
+        8.1497,
+        5.0324,
+        6.6726
+      ],
+      "2": [
+        15.1277,
+        7.2034,
+        9.1086,
+        8.5927,
+        6.5071,
+        3.3625,
+        5.6705
+      ],
+      "3": [
+        14.1297,
+        5.4137,
+        7.3724,
+        7.0277,
+        7.5456,
+        5.6259,
+        6.9003
+      ]
+    }
+  },
+  "errors": [],
+  "checks": [
+    {
+      "label": "Blender 5.2.2 LTS",
+      "passed": true
+    },
+    {
+      "label": "Blender build hash",
+      "passed": true
+    },
+    {
+      "label": "local source-atlas material mode",
+      "passed": true
+    },
+    {
+      "label": "transparent render declared",
+      "passed": true
+    },
+    {
+      "label": "36 worker frames",
+      "passed": true
+    },
+    {
+      "label": "unique frame paths",
+      "passed": true
+    },
+    {
+      "label": "unique frame hashes",
+      "passed": true
+    },
+    {
+      "label": "Kenney source hash",
+      "passed": true
+    },
+    {
+      "label": "Kenney license hash",
+      "passed": true
+    },
+    {
+      "label": "7-bone Kenney rig",
+      "passed": true
+    },
+    {
+      "label": "893 triangles",
+      "passed": true
+    },
+    {
+      "label": "all meshes skinned",
+      "passed": true
+    },
+    {
+      "label": "local duplicate materials only",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha clear of canvas edge: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "9 frames direction 0",
+      "passed": true
+    },
+    {
+      "label": "one idle direction 0",
+      "passed": true
+    },
+    {
+      "label": "8 walk frames direction 0",
+      "passed": true
+    },
+    {
+      "label": "8 equidistant walk frames direction 0",
+      "passed": true
+    },
+    {
+      "label": "distinct walk frames direction 0",
+      "passed": true
+    },
+    {
+      "label": "visible change between walk frames direction 0",
+      "passed": true
+    },
+    {
+      "label": "idle/walk distinct direction 0",
+      "passed": true
+    },
+    {
+      "label": "9 frames direction 1",
+      "passed": true
+    },
+    {
+      "label": "one idle direction 1",
+      "passed": true
+    },
+    {
+      "label": "8 walk frames direction 1",
+      "passed": true
+    },
+    {
+      "label": "8 equidistant walk frames direction 1",
+      "passed": true
+    },
+    {
+      "label": "distinct walk frames direction 1",
+      "passed": true
+    },
+    {
+      "label": "visible change between walk frames direction 1",
+      "passed": true
+    },
+    {
+      "label": "idle/walk distinct direction 1",
+      "passed": true
+    },
+    {
+      "label": "9 frames direction 2",
+      "passed": true
+    },
+    {
+      "label": "one idle direction 2",
+      "passed": true
+    },
+    {
+      "label": "8 walk frames direction 2",
+      "passed": true
+    },
+    {
+      "label": "8 equidistant walk frames direction 2",
+      "passed": true
+    },
+    {
+      "label": "distinct walk frames direction 2",
+      "passed": true
+    },
+    {
+      "label": "visible change between walk frames direction 2",
+      "passed": true
+    },
+    {
+      "label": "idle/walk distinct direction 2",
+      "passed": true
+    },
+    {
+      "label": "9 frames direction 3",
+      "passed": true
+    },
+    {
+      "label": "one idle direction 3",
+      "passed": true
+    },
+    {
+      "label": "8 walk frames direction 3",
+      "passed": true
+    },
+    {
+      "label": "8 equidistant walk frames direction 3",
+      "passed": true
+    },
+    {
+      "label": "distinct walk frames direction 3",
+      "passed": true
+    },
+    {
+      "label": "visible change between walk frames direction 3",
+      "passed": true
+    },
+    {
+      "label": "idle/walk distinct direction 3",
+      "passed": true
+    }
+  ]
+}

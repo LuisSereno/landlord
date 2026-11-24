@@ -1,0 +1,388 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "manifest": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/review-manifest.json",
+  "manifestSha256": "0dd53079042bdbc36cd485ef8a21c1def952870873288b335011fea88a00478e",
+  "sheetCount": 9,
+  "inputCount": 17,
+  "checkCount": 94,
+  "errors": [],
+  "checks": [
+    {
+      "label": "runtime promotion disabled",
+      "passed": true
+    },
+    {
+      "label": "human approval pending",
+      "passed": true
+    },
+    {
+      "label": "nine review sheets",
+      "passed": true
+    },
+    {
+      "label": "unique sheet paths",
+      "passed": true
+    },
+    {
+      "label": "unique sheet hashes",
+      "passed": true
+    },
+    {
+      "label": "required sheet set",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-idle0.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-idle0.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-walk1.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-walk1.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: apps/web/public/assets/runtime/blender-day/chr_citizen-d0-idle-0.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: apps/web/public/assets/runtime/blender-day/chr_citizen-d0-idle-0.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: apps/web/public/assets/runtime/blender-day/row_house-complete.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: apps/web/public/assets/runtime/blender-day/row_house-complete.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: apps/web/public/assets/runtime/blender-day/workshop-complete.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: apps/web/public/assets/runtime/blender-day/workshop-complete.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: apps/web/public/assets/runtime/blender-day/veh_delivery.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: apps/web/public/assets/runtime/blender-day/veh_delivery.png",
+      "passed": true
+    },
+    {
+      "label": "input exists: apps/web/public/assets/runtime/blender-day/veh_truck.png",
+      "passed": true
+    },
+    {
+      "label": "input sha256: apps/web/public/assets/runtime/blender-day/veh_truck.png",
+      "passed": true
+    },
+    {
+      "label": "worker source report exists",
+      "passed": true
+    },
+    {
+      "label": "worker source report hash",
+      "passed": true
+    },
+    {
+      "label": "worker cycle closure exists",
+      "passed": true
+    },
+    {
+      "label": "Kenney root motion is zero",
+      "passed": true
+    },
+    {
+      "label": "Kenney loop closes exactly",
+      "passed": true
+    },
+    {
+      "label": "Kenney action slot bound",
+      "passed": true
+    },
+    {
+      "label": "worker frame validation exists",
+      "passed": true
+    },
+    {
+      "label": "worker frame validation passed",
+      "passed": true
+    },
+    {
+      "label": "worker validation covers 36 frames",
+      "passed": true
+    }
+  ]
+}

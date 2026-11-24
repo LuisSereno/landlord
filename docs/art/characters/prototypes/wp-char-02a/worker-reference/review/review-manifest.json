@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "status": "offline_review_package",
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "sourceReport": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json",
+  "sourceReportSha256": "14b57610692ad1519ae4b5b4d78911dd184d9f427437b5058e4d886c303c7195",
+  "inputs": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "sha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854",
+      "role": "new worker d0 idle 0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "sha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df",
+      "role": "new worker d0 walk 4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "sha256": "90641bdf318d2a96b084bb2e0afa4ea246be8bacbdb8525de4b569c12703cdaf",
+      "role": "new worker d1 idle 0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "sha256": "b814cd7f9f309cd5efd2e99eaf49467f5feb8a0e5ed4d23afd8b00981ac9d554",
+      "role": "new worker d1 walk 4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "sha256": "b134516937aa8f5972e5185594c902d6ab8a11184bc9836d37828ad1df607516",
+      "role": "new worker d2 idle 0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "sha256": "55e255c9640907ccc88aeb1d242124b82e15f44a8c96b0abc618628852282928",
+      "role": "new worker d2 walk 4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "sha256": "ae54b986487492ca40477193f2e72096683c12c30b27e81a35d289680f804753",
+      "role": "new worker d3 idle 0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "sha256": "ce9334b14758201db00a56b84e1dfd6eb821c2d12045c9b32f1de7a4592bffcd",
+      "role": "new worker d3 walk 4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-idle0.png",
+      "sha256": "797b77e3969430502b4be2177b9c9d037b51bcfc04e84cdff69fc3864238d26e",
+      "role": "WP-CHAR-01B worker A idle"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-walk1.png",
+      "sha256": "93bcfe0d9449568f19d1cb1ae8844cab0f88275f91b7ca52c73fa97a58396bde",
+      "role": "WP-CHAR-01B worker A walk midpoint"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "sha256": "92b8275214443c066840aa538173bb103bf9a4a3df109ce3ea146f68bcefc6ba",
+      "role": "Kenney source idle"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "sha256": "522385464ccc40390a9d319ebad71f68b887a3d2ff552d32ef32bf4145d4f5b3",
+      "role": "Kenney source walk midpoint"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/chr_citizen-d0-idle-0.png",
+      "sha256": "051b3b178b704efb218002fa018ad0402d945b576e7450a320894ee023cb0b59",
+      "role": "existing runtime citizen"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/row_house-complete.png",
+      "sha256": "36d58f26f0083a0e555e6aac67a2586c8627d45f1787f2e25a500e7a59dcae7a",
+      "role": "existing row house"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/workshop-complete.png",
+      "sha256": "a51cc46c7a477102909e3ade5b9ddd51454bef523054888bd757b8b017aba6be",
+      "role": "existing workshop"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/veh_delivery.png",
+      "sha256": "e1b9b489a064fc8b745bb3ebf9e3b6489f4a4372cd0ad82c152705c3706b023d",
+      "role": "existing delivery vehicle"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/veh_truck.png",
+      "sha256": "11b0be39d832a4773fc6256ce582a9561efd02510397b890bdad2052fe50f1b2",
+      "role": "existing truck"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png",
+      "sha256": "893ac58d94a17aaeee6192ab96d8a5e9524b7b84d3080836a2a744697626ee06",
+      "bytes": 156423,
+      "width": 1120,
+      "height": 780
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png",
+      "sha256": "1d377764fe3be2ad7bb97ad891785f7a012e237c4fc56c5ffd749be34ba6d5f8",
+      "bytes": 203119,
+      "width": 1120,
+      "height": 780
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png",
+      "sha256": "f0882658e3580ef13606cabc50ea3f0208064e626d93ad66932a995b6f2a75de",
+      "bytes": 80534,
+      "width": 900,
+      "height": 430
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png",
+      "sha256": "8594efd50d0565b1ea18dcc3698175a4e9fb6a21e516d28da2975053bb130a1f",
+      "bytes": 288275,
+      "width": 2040,
+      "height": 390
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png",
+      "sha256": "91fbdc5a75eb42d97d1a52cd6ba58b472bb6fb73dfb99bd5d586b9b65403a9f9",
+      "bytes": 320680,
+      "width": 1040,
+      "height": 760
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png",
+      "sha256": "c2340b605162ba393f654f6a7139b3f9515d17a9a19cb0fb01ca184a86bb65a9",
+      "bytes": 24535,
+      "width": 1040,
+      "height": 430
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png",
+      "sha256": "876cd55ce16357c7a7d8552a065e731edb76d6feed7722ea40a21d6e656905de",
+      "bytes": 39089,
+      "width": 1040,
+      "height": 930
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png",
+      "sha256": "fa9e0befeef126d941e3b570b13275445797c0a2ecb96f250022e134be768286",
+      "bytes": 82093,
+      "width": 900,
+      "height": 520
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png",
+      "sha256": "5247ef53421a0c590a01795e7ec9739e05584914f4ac40079ade796f39af5fa6",
+      "bytes": 403702,
+      "width": 1400,
+      "height": 900
+    }
+  ]
+}

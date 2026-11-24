@@ -56,3 +56,19 @@
 - Lámina: `docs/art/characters/prototypes/wp-char-02c/review/02-smoke-firefighter.png`.
 - Decisión: smoke aceptado para lote limitado; aprobación artística sigue pendiente.
 - Próximo paso: comprobar policía y renderizar 12 frames por cada personaje corregido.
+
+## 2026-11-24 · Etapas E–J — Lote, revisión y gates
+
+- Policía comprobado con su validador original: 542 checks, 0 errores; frames conservados.
+- Renderizados 36 frames nuevos (12 por supervisor/enforcer/bombero) y 12 láminas finales.
+- Validación de frames: 488 checks, 0 errores; paquete visual: 161 checks, 0 errores.
+- Manifiesto experimental cerrado como `technical_complete_pending_human_review`; reportes finales sincronizados.
+- Typecheck, arquitectura, Character Factory 14/14, web 437/437, shared 81/81, Blender 263/263, licencias, runtime assets y escalera de valor: PASS.
+- Binarios: 135 violaciones históricas, 0 nuevas de 02C tras medir con los archivos commiteados.
+- Catálogo stale, tres IDs `qa_mini_*`, lint 37 errores y style layer 13 bandas vacías: reproducidos en WP-CHAR-02B.
+- Simulación: 20 fallos/12 archivos de baseline; el fallo extra fue timeout de `headquarters` bajo concurrencia y pasó 4/4 aislado.
+- Fixture de simulación reescrito por la prueba restaurado byte a byte; no commiteado.
+- Original, WP-CHAR-02A y WP-CHAR-02B verificados limpios y en sus HEAD iniciales.
+- SHA de arte/pruebas/evidencia: `c79f663aed6ee314af744a1c9fb6b8a10e33a63e`.
+- Documentación final: `03-production.md`, `04-visual-review.md`, `05-results.md`.
+- Pendiente único: revisión visual humana y decisión del propietario.

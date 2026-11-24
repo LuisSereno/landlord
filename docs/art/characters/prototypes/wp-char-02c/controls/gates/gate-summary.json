@@ -3,7 +3,8 @@
     "exitCode": 1,
     "status": "failed",
     "violations": 135,
-    "new02c": []
+    "new02c": [],
+    "measuredAfterCommit": "c79f663"
   },
   "assetJobs": {
     "exitCode": 1,

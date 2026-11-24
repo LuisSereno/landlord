@@ -42,6 +42,22 @@
     {
       "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
       "sha256": "d41bd8f776d0867f08b51ebfff565e0d39c44502f7372d6f00ab0d736b5b1838"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+      "sha256": "1cde09ab71f6a247fce8578579d83601cd72e02ee7ae819548f1e37b26a5bd1c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+      "sha256": "4dc1717b43613111b170a1379184e89bd3094dbf6d14320f99856f0988d05a34"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "sha256": "7ac983b26f51e423df05498e129605f89d6e0944d85d28ee96a86abbb2d7ebd2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "sha256": "03399f4b8c32a9f43a0d3362aa70f1db572e114b18637403bdea6180c409a233"
     }
   ],
   "sheets": [
@@ -56,6 +72,13 @@
       "path": "docs/art/characters/prototypes/wp-char-02c/review/02-smoke-enforcer.png",
       "sha256": "d9325e7e57f1476a1b7164cb3849471181bc6eca02a9fb55325f810728fa0f21",
       "bytes": 298194,
+      "width": 1600,
+      "height": 940
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/02-smoke-firefighter.png",
+      "sha256": "f135b90901b1a65b54ab289a0f439f74264e7a136ffa6a2692e9268434613eaa",
+      "bytes": 294990,
       "width": 1600,
       "height": 940
     }

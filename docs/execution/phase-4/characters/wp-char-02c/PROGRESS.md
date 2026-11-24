@@ -44,3 +44,15 @@
 - Lámina: `docs/art/characters/prototypes/wp-char-02c/review/02-smoke-enforcer.png`.
 - Decisión: smoke aceptado para lote limitado; aprobación artística sigue pendiente.
 - Próximo paso: bombero.
+
+## 2026-11-24 · Etapa D — Bombero
+
+- Cambio de base aceptado localmente: `character-male-b.glb` → `character-male-a.glb`; elimina la barba geométrica de 64 polígonos.
+- Pelo corto recoloreado localmente (componente 0, 77 polígonos).
+- Casco nuevo: domo 1,04 m (86% de la cabeza), ala 1,16 m (95%), visera, reborde posterior, escudos y cresta.
+- Uniforme carbón con dos franjas amarillas, guantes y cinturón; generados idle y walk 4/8.
+- Medido: deriva máxima `1.192093e-7 m`, suelo Z=0, 0 clipping, atlas sin cambios.
+- Revisión local: casco dominante, rostro sin barba, franjas visibles y diferencia clara frente al obrero a 28 px.
+- Lámina: `docs/art/characters/prototypes/wp-char-02c/review/02-smoke-firefighter.png`.
+- Decisión: smoke aceptado para lote limitado; aprobación artística sigue pendiente.
+- Próximo paso: comprobar policía y renderizar 12 frames por cada personaje corregido.

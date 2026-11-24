@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "purpose": "WP-CHAR-03: final targeted Kenney art corrections and isolated Phaser scale calibration.",
-  "status": "in_progress",
+  "status": "technical_complete_pending_human_review",
   "approval": "pending_human",
   "runtimePromotion": false,
   "worktree": "/home/luis/RepositorioGitHub/landlord-characters-03",

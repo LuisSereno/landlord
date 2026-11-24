@@ -6,7 +6,7 @@
   "worktree": "/home/luis/RepositorioGitHub/landlord-characters-03",
   "branch": "wip/wp-char-02c-visual-rework",
   "manifest": "tools/art-pipeline/blender/characters/wp_char_03/manifest.json",
-  "manifestSha256": "9002e51bb12a8e4c05ae631550e8817de3668cab64c5b9c20b09e5ffa2d439f0",
+  "manifestSha256": "561cd18a9e19dea11a1fcf42743f9f9fdf0fec5c00b09dfcf4e1309d73f197a9",
   "blender": "5.2.2 LTS",
   "buildHash": "d13f752e3b9c",
   "source": {

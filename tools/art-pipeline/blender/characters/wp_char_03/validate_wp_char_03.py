@@ -48,6 +48,7 @@ def main():
         outputs = report["outputs"]
         check(len(outputs) == 12, f"12 final frames: {role}")
         check(report["source"]["sha256"] == expected_source, f"source hash: {role}")
+        check(report["manifestSha256"] == sha256(manifest_path), f"manifest hash: {role}")
         check(report["rig"]["bones"] == 7 and report["rig"]["actions"] == 32, f"Kenney rig/actions: {role}")
         check(report["maxAccessoryDrift"] <= 1e-4, f"accessory drift: {role}")
         check(bool(report["geometryChanges"]), f"documented local geometry correction: {role}")

@@ -16,7 +16,7 @@
     "consoleErrors": 0,
     "viewports": ["1280x720", "1920x1080"]
   },
-  "aggregateValidation": { "status": "passed", "checks": 460, "errors": 0 },
+  "aggregateValidation": { "status": "passed", "checks": 463, "errors": 0 },
   "webLint": {
     "status": "failed_baseline",
     "errors": 2,

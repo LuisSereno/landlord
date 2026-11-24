@@ -30,7 +30,16 @@
 - Rendimiento balanceado en dos órdenes; no hay penalización consistente de B.
 - Recomendación: **B, 34 px con zoom 1×**; aplicada como default sólo del laboratorio.
 - Pruebas unitarias 15/15; web 452/452; typecheck, arquitectura y builds PASS.
-- Validación agregada: 460 checks, 0 errores.
+- Validación agregada: 463 checks, 0 errores.
 - Web lint: sólo 2 errores preexistentes, reproducidos en 02C.
 - Documentos 04–07 creados.
 - Pendiente: acta 08, manifiesto agregado, commits y auditoría final de aislamiento.
+
+## 2026-11-24 · Cierre
+
+- Commits de arte/calibración y laboratorio/evidencia creados.
+- Acta 08 creada con SHA de contenido `268805cc9783527fd8390ab55b402167fe9730e7`.
+- Original y 02C limpios; diff protegido vacío.
+- 02A/02B siguen como entradas prunable y sus commits/evidencias permanecen disponibles.
+- Estado máximo: `TECHNICAL_COMPLETE / VISUAL_REVIEW_PENDING`.
+- Pendiente único: revisión humana y decisión de integración futura.

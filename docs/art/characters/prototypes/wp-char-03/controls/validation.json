@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "status": "passed",
   "manifest": "tools/art-pipeline/blender/characters/wp_char_03/manifest.json",
-  "manifestSha256": "9002e51bb12a8e4c05ae631550e8817de3668cab64c5b9c20b09e5ffa2d439f0",
-  "checkCount": 460,
+  "manifestSha256": "561cd18a9e19dea11a1fcf42743f9f9fdf0fec5c00b09dfcf4e1309d73f197a9",
+  "checkCount": 463,
   "errors": [],
   "checks": [
     {
@@ -16,6 +16,10 @@
     },
     {
       "label": "source hash: supervisor",
+      "passed": true
+    },
+    {
+      "label": "manifest hash: supervisor",
       "passed": true
     },
     {
@@ -247,6 +251,10 @@
       "passed": true
     },
     {
+      "label": "manifest hash: enforcer",
+      "passed": true
+    },
+    {
       "label": "Kenney rig/actions: enforcer",
       "passed": true
     },
@@ -472,6 +480,10 @@
     },
     {
       "label": "source hash: firefighter",
+      "passed": true
+    },
+    {
+      "label": "manifest hash: firefighter",
       "passed": true
     },
     {

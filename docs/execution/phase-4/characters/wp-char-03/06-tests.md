@@ -40,7 +40,7 @@ Cobertura:
 | Arquitectura | PASS |
 | Build web producción | PASS |
 | Build laboratorio aislado | PASS |
-| Validación agregada WP-CHAR-03 | **460 checks, 0 errores** |
+| Validación agregada WP-CHAR-03 | **463 checks, 0 errores** |
 | Web lint | 2 errores preexistentes, reproducidos en WP-CHAR-02C |
 
 Errores lint heredados: `fx-candidate-qa.test.ts:46` y `terrain-paint.ts:239`. El laboratorio no añade errores ni avisos.

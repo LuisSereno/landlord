@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "report": "docs/art/characters/prototypes/wp-char-02a/source-comparison/source-comparison.json",
+  "reportSha256": "ac999c51c9d87829253482785008f185f719105a4743288cc611cb94e902e764",
+  "renderCount": 12,
+  "checkCount": 119,
+  "selectedBase": "kenney_character_worker",
+  "errors": [],
+  "checks": [
+    {
+      "label": "Blender 5.2.2 LTS",
+      "passed": true
+    },
+    {
+      "label": "Blender build hash",
+      "passed": true
+    },
+    {
+      "label": "three sources",
+      "passed": true
+    },
+    {
+      "label": "12 comparison renders",
+      "passed": true
+    },
+    {
+      "label": "unique output paths",
+      "passed": true
+    },
+    {
+      "label": "unique output hashes",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "bone count: rocketbox",
+      "passed": true
+    },
+    {
+      "label": "triangle count: rocketbox",
+      "passed": true
+    },
+    {
+      "label": "normalized height: rocketbox",
+      "passed": true
+    },
+    {
+      "label": "source hash: rocketbox",
+      "passed": true
+    },
+    {
+      "label": "license hash: rocketbox",
+      "passed": true
+    },
+    {
+      "label": "sample count: rocketbox idle",
+      "passed": true
+    },
+    {
+      "label": "distinct images: rocketbox idle",
+      "passed": true
+    },
+    {
+      "label": "bound action slot: rocketbox idle",
+      "passed": true
+    },
+    {
+      "label": "action curves: rocketbox idle",
+      "passed": true
+    },
+    {
+      "label": "no clipping: rocketbox idle",
+      "passed": true
+    },
+    {
+      "label": "sample count: rocketbox walk",
+      "passed": true
+    },
+    {
+      "label": "distinct images: rocketbox walk",
+      "passed": true
+    },
+    {
+      "label": "bound action slot: rocketbox walk",
+      "passed": true
+    },
+    {
+      "label": "action curves: rocketbox walk",
+      "passed": true
+    },
+    {
+      "label": "no clipping: rocketbox walk",
+      "passed": true
+    },
+    {
+      "label": "bone count: kenney",
+      "passed": true
+    },
+    {
+      "label": "triangle count: kenney",
+      "passed": true
+    },
+    {
+      "label": "normalized height: kenney",
+      "passed": true
+    },
+    {
+      "label": "source hash: kenney",
+      "passed": true
+    },
+    {
+      "label": "license hash: kenney",
+      "passed": true
+    },
+    {
+      "label": "sample count: kenney idle",
+      "passed": true
+    },
+    {
+      "label": "distinct images: kenney idle",
+      "passed": true
+    },
+    {
+      "label": "bound action slot: kenney idle",
+      "passed": true
+    },
+    {
+      "label": "action curves: kenney idle",
+      "passed": true
+    },
+    {
+      "label": "no clipping: kenney idle",
+      "passed": true
+    },
+    {
+      "label": "sample count: kenney walk",
+      "passed": true
+    },
+    {
+      "label": "distinct images: kenney walk",
+      "passed": true
+    },
+    {
+      "label": "bound action slot: kenney walk",
+      "passed": true
+    },
+    {
+      "label": "action curves: kenney walk",
+      "passed": true
+    },
+    {
+      "label": "no clipping: kenney walk",
+      "passed": true
+    },
+    {
+      "label": "bone count: quaternius",
+      "passed": true
+    },
+    {
+      "label": "triangle count: quaternius",
+      "passed": true
+    },
+    {
+      "label": "normalized height: quaternius",
+      "passed": true
+    },
+    {
+      "label": "source hash: quaternius",
+      "passed": true
+    },
+    {
+      "label": "license hash: quaternius",
+      "passed": true
+    },
+    {
+      "label": "sample count: quaternius idle",
+      "passed": true
+    },
+    {
+      "label": "distinct images: quaternius idle",
+      "passed": true
+    },
+    {
+      "label": "bound action slot: quaternius idle",
+      "passed": true
+    },
+    {
+      "label": "action curves: quaternius idle",
+      "passed": true
+    },
+    {
+      "label": "no clipping: quaternius idle",
+      "passed": true
+    },
+    {
+      "label": "sample count: quaternius walk",
+      "passed": true
+    },
+    {
+      "label": "distinct images: quaternius walk",
+      "passed": true
+    },
+    {
+      "label": "bound action slot: quaternius walk",
+      "passed": true
+    },
+    {
+      "label": "action curves: quaternius walk",
+      "passed": true
+    },
+    {
+      "label": "no clipping: quaternius walk",
+      "passed": true
+    },
+    {
+      "label": "Quaternius UAL walk curves",
+      "passed": true
+    },
+    {
+      "label": "Quaternius texture path fixes",
+      "passed": true
+    },
+    {
+      "label": "Kenney integrated atlas material",
+      "passed": true
+    },
+    {
+      "label": "Kenney styled integrated atlas",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: source-comparison-enlarged.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: source-comparison-enlarged.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: source-comparison-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: source-comparison-28px.png",
+      "passed": true
+    }
+  ]
+}

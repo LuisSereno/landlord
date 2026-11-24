@@ -1,0 +1,2380 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "manifest": "docs/art/characters/prototypes/wp-char-02b/evidence-manifest.json",
+  "manifestSha256": "adfeb89955c4df962e97ff832fc03c66529c1fd266f558672112fbd9387528cb",
+  "fileCount": 181,
+  "externalSourceCount": 22,
+  "checkCount": 592,
+  "errors": [],
+  "checks": [
+    {
+      "label": "runtime promotion disabled",
+      "passed": true
+    },
+    {
+      "label": "human approval pending",
+      "passed": true
+    },
+    {
+      "label": "all external hashes match",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "external exists: Kenney license",
+      "passed": true
+    },
+    {
+      "label": "external hash: Kenney license",
+      "passed": true
+    },
+    {
+      "label": "external exists: WP-CHAR-02A approved style reference report",
+      "passed": true
+    },
+    {
+      "label": "external hash: WP-CHAR-02A approved style reference report",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-alien.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-knight.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-a.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-b.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-c.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-d.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-e.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-f.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-g.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-raider.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-robot.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-soldier.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-worker.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-zombie.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-sheets.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/prototype-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/prototype-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/prototype-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-prototype.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/03-worker-vs-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/03-worker-vs-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/03-worker-vs-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/04-worker-vs-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/04-worker-vs-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/04-worker-vs-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/05-worker-vs-police.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/05-worker-vs-police.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/05-worker-vs-police.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/06-worker-vs-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/06-worker-vs-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/06-worker-vs-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/07-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/07-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/07-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/08-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/08-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/08-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/09-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/09-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/09-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/11-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/11-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/11-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/12-silhouettes.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/12-silhouettes.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/12-silhouettes.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/13-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/13-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/13-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/review-manifest.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/review-manifest.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/review-manifest.json",
+      "passed": true
+    },
+    {
+      "label": "evidence exists: docs/art/characters/prototypes/wp-char-02b/review/review-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence bytes: docs/art/characters/prototypes/wp-char-02b/review/review-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence hash: docs/art/characters/prototypes/wp-char-02b/review/review-validation.json",
+      "passed": true
+    },
+    {
+      "label": "evidence file count",
+      "passed": true
+    },
+    {
+      "label": "evidence total bytes",
+      "passed": true
+    }
+  ]
+}

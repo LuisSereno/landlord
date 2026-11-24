@@ -1,0 +1,2218 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "root": "docs/art/characters/prototypes/wp-char-02b/prototypes",
+  "frameCount": 48,
+  "checkCount": 542,
+  "metrics": {
+    "consecutiveWalkMeanAbsoluteDifference": {
+      "supervisor": [
+        15.5275,
+        5.2782,
+        6.4513,
+        8.3141,
+        7.7119,
+        3.756,
+        6.3322
+      ],
+      "enforcer": [
+        13.4439,
+        4.4105,
+        5.043,
+        6.6495,
+        5.9628,
+        2.7566,
+        4.8472
+      ],
+      "police": [
+        11.6905,
+        3.6436,
+        4.1379,
+        5.7545,
+        5.1525,
+        2.6074,
+        4.1464
+      ],
+      "firefighter": [
+        14.6464,
+        4.6363,
+        5.3756,
+        7.3294,
+        7.1559,
+        3.0926,
+        6.142
+      ]
+    }
+  },
+  "errors": [],
+  "checks": [
+    {
+      "label": "report exists: supervisor",
+      "passed": true
+    },
+    {
+      "label": "limited prototype status: supervisor",
+      "passed": true
+    },
+    {
+      "label": "canonical id: supervisor",
+      "passed": true
+    },
+    {
+      "label": "12 frames: supervisor",
+      "passed": true
+    },
+    {
+      "label": "unique paths: supervisor",
+      "passed": true
+    },
+    {
+      "label": "unique hashes: supervisor",
+      "passed": true
+    },
+    {
+      "label": "source hash: supervisor",
+      "passed": true
+    },
+    {
+      "label": "license: supervisor",
+      "passed": true
+    },
+    {
+      "label": "7 bones: supervisor",
+      "passed": true
+    },
+    {
+      "label": "accessory anchor drift: supervisor",
+      "passed": true
+    },
+    {
+      "label": "skinned material regions: supervisor",
+      "passed": true
+    },
+    {
+      "label": "four idle directions: supervisor",
+      "passed": true
+    },
+    {
+      "label": "eight walk frames in direction 0: supervisor",
+      "passed": true
+    },
+    {
+      "label": "equidistant walk frames: supervisor",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: supervisor docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "visible walk changes: supervisor",
+      "passed": true
+    },
+    {
+      "label": "report exists: enforcer",
+      "passed": true
+    },
+    {
+      "label": "limited prototype status: enforcer",
+      "passed": true
+    },
+    {
+      "label": "canonical id: enforcer",
+      "passed": true
+    },
+    {
+      "label": "12 frames: enforcer",
+      "passed": true
+    },
+    {
+      "label": "unique paths: enforcer",
+      "passed": true
+    },
+    {
+      "label": "unique hashes: enforcer",
+      "passed": true
+    },
+    {
+      "label": "source hash: enforcer",
+      "passed": true
+    },
+    {
+      "label": "license: enforcer",
+      "passed": true
+    },
+    {
+      "label": "7 bones: enforcer",
+      "passed": true
+    },
+    {
+      "label": "accessory anchor drift: enforcer",
+      "passed": true
+    },
+    {
+      "label": "skinned material regions: enforcer",
+      "passed": true
+    },
+    {
+      "label": "four idle directions: enforcer",
+      "passed": true
+    },
+    {
+      "label": "eight walk frames in direction 0: enforcer",
+      "passed": true
+    },
+    {
+      "label": "equidistant walk frames: enforcer",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: enforcer docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "visible walk changes: enforcer",
+      "passed": true
+    },
+    {
+      "label": "report exists: police",
+      "passed": true
+    },
+    {
+      "label": "limited prototype status: police",
+      "passed": true
+    },
+    {
+      "label": "canonical id: police",
+      "passed": true
+    },
+    {
+      "label": "12 frames: police",
+      "passed": true
+    },
+    {
+      "label": "unique paths: police",
+      "passed": true
+    },
+    {
+      "label": "unique hashes: police",
+      "passed": true
+    },
+    {
+      "label": "source hash: police",
+      "passed": true
+    },
+    {
+      "label": "license: police",
+      "passed": true
+    },
+    {
+      "label": "7 bones: police",
+      "passed": true
+    },
+    {
+      "label": "accessory anchor drift: police",
+      "passed": true
+    },
+    {
+      "label": "skinned material regions: police",
+      "passed": true
+    },
+    {
+      "label": "four idle directions: police",
+      "passed": true
+    },
+    {
+      "label": "eight walk frames in direction 0: police",
+      "passed": true
+    },
+    {
+      "label": "equidistant walk frames: police",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: police docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "visible walk changes: police",
+      "passed": true
+    },
+    {
+      "label": "report exists: firefighter",
+      "passed": true
+    },
+    {
+      "label": "limited prototype status: firefighter",
+      "passed": true
+    },
+    {
+      "label": "canonical id: firefighter",
+      "passed": true
+    },
+    {
+      "label": "12 frames: firefighter",
+      "passed": true
+    },
+    {
+      "label": "unique paths: firefighter",
+      "passed": true
+    },
+    {
+      "label": "unique hashes: firefighter",
+      "passed": true
+    },
+    {
+      "label": "source hash: firefighter",
+      "passed": true
+    },
+    {
+      "label": "license: firefighter",
+      "passed": true
+    },
+    {
+      "label": "7 bones: firefighter",
+      "passed": true
+    },
+    {
+      "label": "accessory anchor drift: firefighter",
+      "passed": true
+    },
+    {
+      "label": "skinned material regions: firefighter",
+      "passed": true
+    },
+    {
+      "label": "four idle directions: firefighter",
+      "passed": true
+    },
+    {
+      "label": "eight walk frames in direction 0: firefighter",
+      "passed": true
+    },
+    {
+      "label": "equidistant walk frames: firefighter",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "no magenta: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "camera framing: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "ground contact: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "action slot bound: firefighter docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "visible walk changes: firefighter",
+      "passed": true
+    },
+    {
+      "label": "48 total prototype frames",
+      "passed": true
+    },
+    {
+      "label": "48 globally unique frame hashes",
+      "passed": true
+    }
+  ]
+}

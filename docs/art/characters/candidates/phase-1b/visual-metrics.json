@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 1,
+  "status": "measured",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "purpose": "Objective visual orientation metrics only; not an automatic art approval.",
+  "sourceManifestSha256": "5e3ff496663379da2069c2e3085b675cfe467053f0c42ed7b4c9760526bddd1e",
+  "validationSha256": "e1f9dfe1d646acd6c0e9a84085b2eee2efda69c74986fadcdcd940fe01f546e9",
+  "gamma": 1.8,
+  "normalizedHeightPixels": 64,
+  "characters": [
+    {
+      "id": "supervisor",
+      "jobId": "phase1b_supervisor",
+      "directions": [
+        {
+          "direction": 0,
+          "meanLuminance": 165.024,
+          "luminanceStdDev": 62.845,
+          "luminanceRange": [
+            2,
+            201
+          ],
+          "visibleMaskPixels": 836
+        },
+        {
+          "direction": 1,
+          "meanLuminance": 164.429,
+          "luminanceStdDev": 63.596,
+          "luminanceRange": [
+            7,
+            197
+          ],
+          "visibleMaskPixels": 842
+        },
+        {
+          "direction": 2,
+          "meanLuminance": 166.121,
+          "luminanceStdDev": 61.929,
+          "luminanceRange": [
+            2,
+            197
+          ],
+          "visibleMaskPixels": 813
+        },
+        {
+          "direction": 3,
+          "meanLuminance": 167.734,
+          "luminanceStdDev": 58.417,
+          "luminanceRange": [
+            15,
+            197
+          ],
+          "visibleMaskPixels": 811
+        }
+      ],
+      "idleWalkHashesDiffer": true
+    },
+    {
+      "id": "construction_worker_a",
+      "jobId": "phase1b_construction_worker_a",
+      "directions": [
+        {
+          "direction": 0,
+          "meanLuminance": 166.365,
+          "luminanceStdDev": 60.082,
+          "luminanceRange": [
+            1,
+            197
+          ],
+          "visibleMaskPixels": 823
+        },
+        {
+          "direction": 1,
+          "meanLuminance": 165.679,
+          "luminanceStdDev": 61.333,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 825
+        },
+        {
+          "direction": 2,
+          "meanLuminance": 167.219,
+          "luminanceStdDev": 59.985,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 804
+        },
+        {
+          "direction": 3,
+          "meanLuminance": 169.398,
+          "luminanceStdDev": 55.553,
+          "luminanceRange": [
+            4,
+            197
+          ],
+          "visibleMaskPixels": 807
+        }
+      ],
+      "idleWalkHashesDiffer": true
+    },
+    {
+      "id": "construction_worker_b",
+      "jobId": "phase1b_construction_worker_b",
+      "directions": [
+        {
+          "direction": 0,
+          "meanLuminance": 167.316,
+          "luminanceStdDev": 58.832,
+          "luminanceRange": [
+            2,
+            197
+          ],
+          "visibleMaskPixels": 819
+        },
+        {
+          "direction": 1,
+          "meanLuminance": 167.006,
+          "luminanceStdDev": 59.568,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 813
+        },
+        {
+          "direction": 2,
+          "meanLuminance": 168.169,
+          "luminanceStdDev": 59.146,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 785
+        },
+        {
+          "direction": 3,
+          "meanLuminance": 170.021,
+          "luminanceStdDev": 55.095,
+          "luminanceRange": [
+            4,
+            197
+          ],
+          "visibleMaskPixels": 786
+        }
+      ],
+      "idleWalkHashesDiffer": true
+    },
+    {
+      "id": "maintenance_technician",
+      "jobId": "phase1b_maintenance_technician",
+      "directions": [
+        {
+          "direction": 0,
+          "meanLuminance": 170.498,
+          "luminanceStdDev": 57.703,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 681
+        },
+        {
+          "direction": 1,
+          "meanLuminance": 169.937,
+          "luminanceStdDev": 58.627,
+          "luminanceRange": [
+            6,
+            197
+          ],
+          "visibleMaskPixels": 687
+        },
+        {
+          "direction": 2,
+          "meanLuminance": 170.696,
+          "luminanceStdDev": 58.35,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 659
+        },
+        {
+          "direction": 3,
+          "meanLuminance": 172.079,
+          "luminanceStdDev": 55.222,
+          "luminanceRange": [
+            13,
+            197
+          ],
+          "visibleMaskPixels": 655
+        }
+      ],
+      "idleWalkHashesDiffer": true
+    },
+    {
+      "id": "enforcer_male",
+      "jobId": "phase1b_enforcer_male",
+      "directions": [
+        {
+          "direction": 0,
+          "meanLuminance": 164.333,
+          "luminanceStdDev": 64.916,
+          "luminanceRange": [
+            1,
+            197
+          ],
+          "visibleMaskPixels": 799
+        },
+        {
+          "direction": 1,
+          "meanLuminance": 163.795,
+          "luminanceStdDev": 66.001,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 790
+        },
+        {
+          "direction": 2,
+          "meanLuminance": 164.742,
+          "luminanceStdDev": 65.442,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 769
+        },
+        {
+          "direction": 3,
+          "meanLuminance": 166.256,
+          "luminanceStdDev": 62.205,
+          "luminanceRange": [
+            5,
+            197
+          ],
+          "visibleMaskPixels": 761
+        }
+      ],
+      "idleWalkHashesDiffer": true
+    },
+    {
+      "id": "enforcer_female",
+      "jobId": "phase1b_enforcer_female",
+      "directions": [
+        {
+          "direction": 0,
+          "meanLuminance": 170.553,
+          "luminanceStdDev": 57.409,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 686
+        },
+        {
+          "direction": 1,
+          "meanLuminance": 170.281,
+          "luminanceStdDev": 57.937,
+          "luminanceRange": [
+            4,
+            197
+          ],
+          "visibleMaskPixels": 687
+        },
+        {
+          "direction": 2,
+          "meanLuminance": 171.802,
+          "luminanceStdDev": 56.342,
+          "luminanceRange": [
+            0,
+            197
+          ],
+          "visibleMaskPixels": 654
+        },
+        {
+          "direction": 3,
+          "meanLuminance": 173.244,
+          "luminanceStdDev": 53.052,
+          "luminanceRange": [
+            8,
+            197
+          ],
+          "visibleMaskPixels": 650
+        }
+      ],
+      "idleWalkHashesDiffer": true
+    }
+  ],
+  "pairs": [
+    {
+      "label": "Worker A vs Worker B",
+      "leftId": "construction_worker_a",
+      "rightId": "construction_worker_b",
+      "maskIoU": 0.9386,
+      "meanAbsoluteLuminanceDifference": 7.2,
+      "left": {
+        "meanLuminance": 166.365,
+        "luminanceStdDev": 60.082,
+        "luminanceRange": [
+          1,
+          197
+        ],
+        "visibleMaskPixels": 823
+      },
+      "right": {
+        "meanLuminance": 167.316,
+        "luminanceStdDev": 58.832,
+        "luminanceRange": [
+          2,
+          197
+        ],
+        "visibleMaskPixels": 819
+      }
+    },
+    {
+      "label": "Enforcer A vs Enforcer B",
+      "leftId": "enforcer_male",
+      "rightId": "enforcer_female",
+      "maskIoU": 0.7207,
+      "meanAbsoluteLuminanceDifference": 11.4,
+      "left": {
+        "meanLuminance": 164.333,
+        "luminanceStdDev": 64.916,
+        "luminanceRange": [
+          1,
+          197
+        ],
+        "visibleMaskPixels": 799
+      },
+      "right": {
+        "meanLuminance": 170.553,
+        "luminanceStdDev": 57.409,
+        "luminanceRange": [
+          0,
+          197
+        ],
+        "visibleMaskPixels": 686
+      }
+    },
+    {
+      "label": "Supervisor old vs new",
+      "leftId": "supervisor",
+      "rightId": "supervisor",
+      "maskIoU": 0.9053,
+      "meanAbsoluteLuminanceDifference": 4.659,
+      "left": {
+        "meanLuminance": 163.104,
+        "luminanceStdDev": 65.945,
+        "luminanceRange": [
+          0,
+          197
+        ],
+        "visibleMaskPixels": 833
+      },
+      "right": {
+        "meanLuminance": 165.024,
+        "luminanceStdDev": 62.845,
+        "luminanceRange": [
+          2,
+          201
+        ],
+        "visibleMaskPixels": 836
+      }
+    },
+    {
+      "label": "Worker old vs new",
+      "leftId": "construction_worker_a",
+      "rightId": "construction_worker_a",
+      "maskIoU": 0.8077,
+      "meanAbsoluteLuminanceDifference": 11.008,
+      "left": {
+        "meanLuminance": 164.609,
+        "luminanceStdDev": 61.742,
+        "luminanceRange": [
+          0,
+          197
+        ],
+        "visibleMaskPixels": 860
+      },
+      "right": {
+        "meanLuminance": 166.365,
+        "luminanceStdDev": 60.082,
+        "luminanceRange": [
+          1,
+          197
+        ],
+        "visibleMaskPixels": 823
+      }
+    },
+    {
+      "label": "Enforcer old vs new",
+      "leftId": "enforcer_male",
+      "rightId": "enforcer_male",
+      "maskIoU": 0.89,
+      "meanAbsoluteLuminanceDifference": 6.451,
+      "left": {
+        "meanLuminance": 163.432,
+        "luminanceStdDev": 65.712,
+        "luminanceRange": [
+          0,
+          197
+        ],
+        "visibleMaskPixels": 834
+      },
+      "right": {
+        "meanLuminance": 164.333,
+        "luminanceStdDev": 64.916,
+        "luminanceRange": [
+          1,
+          197
+        ],
+        "visibleMaskPixels": 799
+      }
+    }
+  ],
+  "duplicateFrameHashes": []
+}

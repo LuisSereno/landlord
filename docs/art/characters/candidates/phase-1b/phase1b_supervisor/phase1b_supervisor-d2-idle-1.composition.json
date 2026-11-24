@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "jobId": "phase1b_supervisor",
+  "factoryCharacterId": "supervisor",
+  "source": {
+    "kind": "fbx",
+    "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_03/Export/Male_Adult_03.fbx",
+    "sha256": "7064a9f50c95975c6d64ab0c5f5504364bad4ac987750728d0b5f1788fd59dcf"
+  },
+  "materialVariant": {
+    "bodyTint": [
+      0.72,
+      0.62,
+      0.5
+    ],
+    "description": "Muted brown-grey supervisor jacket over the existing woven texture."
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "validationStatus": "pending_independent_check",
+  "bodyMaterial": {
+    "mesh": "m004_hipoly_81_bones_opacity",
+    "slot": 0,
+    "originalMaterial": "m004_body",
+    "variantMaterial": "m004_body_phase1b_supervisor_tint",
+    "tint": [
+      0.72,
+      0.62,
+      0.5
+    ]
+  },
+  "accessories": [
+    {
+      "type": "hard_hat",
+      "bone": "Bip01 Head",
+      "material": "ochre",
+      "objects": [
+        "wp_helmet_dome",
+        "wp_helmet_brim",
+        "wp_helmet_ridge"
+      ]
+    },
+    {
+      "type": "clipboard",
+      "bone": "Bip01 L Hand",
+      "material": "leather_paper",
+      "objects": [
+        "wp_clipboard_board",
+        "wp_clipboard_paper",
+        "wp_clipboard_clip"
+      ]
+    }
+  ],
+  "accessoryObjectCount": 6,
+  "maxAnchorDrift": 1.52587890625e-05,
+  "composedSizeMeters": [
+    1.3665,
+    0.3509,
+    1.9187
+  ]
+}

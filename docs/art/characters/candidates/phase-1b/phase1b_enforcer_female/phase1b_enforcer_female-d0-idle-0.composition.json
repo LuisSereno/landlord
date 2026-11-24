@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "jobId": "phase1b_enforcer_female",
+  "factoryCharacterId": "enforcer_female",
+  "source": {
+    "kind": "fbx",
+    "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09.fbx",
+    "sha256": "a578ec65cabf169d7b13c0bb0a6c472e898857e81f6207b2af7f846d8b0d8523"
+  },
+  "materialVariant": {
+    "bodyTint": [
+      0.24,
+      0.21,
+      0.24
+    ],
+    "description": "Dark plum-charcoal heavy clothing with matte local shading."
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "validationStatus": "pending_independent_check",
+  "bodyMaterial": {
+    "mesh": "f009_hipoly_81_bones_opacity",
+    "slot": 0,
+    "originalMaterial": "f009_body",
+    "variantMaterial": "f009_body_phase1b_enforcer_female_tint",
+    "tint": [
+      0.24,
+      0.21,
+      0.24
+    ]
+  },
+  "accessories": [
+    {
+      "type": "long_coat_panels",
+      "bone": "Bip01 Spine2",
+      "material": "charcoal",
+      "objects": [
+        "wp_long_coat",
+        "wp_coat_belt",
+        "wp_coat_lapel_l",
+        "wp_coat_lapel_r"
+      ]
+    },
+    {
+      "type": "brim_hat",
+      "bone": "Bip01 Head",
+      "material": "charcoal_brown",
+      "objects": [
+        "wp_hat_brim",
+        "wp_hat_crown",
+        "wp_hat_band"
+      ]
+    }
+  ],
+  "accessoryObjectCount": 7,
+  "maxAnchorDrift": 0.0,
+  "composedSizeMeters": [
+    1.2172,
+    0.3265,
+    1.8527
+  ]
+}

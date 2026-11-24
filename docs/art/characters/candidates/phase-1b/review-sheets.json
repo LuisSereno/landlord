@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "status": "visual_review",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "captureType": "offline_pillow_composition_not_phaser",
+  "sourceManifestSha256": "5e3ff496663379da2069c2e3085b675cfe467053f0c42ed7b4c9760526bddd1e",
+  "validationSha256": "e1f9dfe1d646acd6c0e9a84085b2eee2efda69c74986fadcdcd940fe01f546e9",
+  "baseHeightPixels": 28,
+  "reviewScales": [
+    0.5,
+    1,
+    2,
+    2.5
+  ],
+  "controls": [
+    "chr_worker",
+    "chr_citizen",
+    "chr_police",
+    "chr_firefighter",
+    "chr_medical"
+  ],
+  "sheets": [
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-scale-0_5x.png",
+      "sha256": "2603a062fd87fa6a032d618743646c931b96d18dd3bf5b54c6ce2389e5f18066",
+      "spriteHeight": 14,
+      "gamma": 1.8,
+      "width": 665,
+      "height": 394
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-scale-1x.png",
+      "sha256": "1cbe8682411ac55915fbe6816e8ed18de23340d1ca12645667280b872ed993f4",
+      "spriteHeight": 28,
+      "gamma": 1.8,
+      "width": 665,
+      "height": 478
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-scale-2x.png",
+      "sha256": "d0214d3d53bc564647f83713058c2b16310fbb367b62ab0d34df01570d75c1fa",
+      "spriteHeight": 56,
+      "gamma": 1.8,
+      "width": 665,
+      "height": 646
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-scale-2_5x.png",
+      "sha256": "606c35e6d6e01ed79c5db69486fb5edbe88d960d8aafb05d64ef684827fd8940",
+      "spriteHeight": 70,
+      "gamma": 1.8,
+      "width": 705,
+      "height": 730
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-before-after.png",
+      "sha256": "f0644371d1c92ed55d56dbf822fbf2521c56d695128eb1219549de1141b6f88d",
+      "spriteHeight": 140,
+      "gamma": 1.8,
+      "width": 707,
+      "height": 616
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-workers-pair.png",
+      "sha256": "0c68c1a286bb710e907f86d802f3704fb1f933d6417eddd47657c2c3d3ae5290",
+      "spriteHeight": 140,
+      "gamma": 1.8,
+      "width": 533,
+      "height": 438
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-enforcers-pair.png",
+      "sha256": "ca8f37f3ba11cb583fc6bb8fae8aa8436df76bee2501785dc8fc2b44d030ea78",
+      "spriteHeight": 140,
+      "gamma": 1.8,
+      "width": 533,
+      "height": 438
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-technician-vs-workers.png",
+      "sha256": "47b0e9b24c85f1e64581384e658f3a5926798444deba2ca7b9ef11a2944802e3",
+      "spriteHeight": 140,
+      "gamma": 1.8,
+      "width": 533,
+      "height": 616
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-six-operational.png",
+      "sha256": "cd4fbbd9328a81e6d08244dab4f78c2b93fcfbae10174ee4b23136718520de6f",
+      "spriteHeight": 120,
+      "gamma": 1.8,
+      "width": 493,
+      "height": 1030
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-four-directions.png",
+      "sha256": "b900d68cf64c9b73e60e710dc2f99655ae356ffd61dc96a218bd9086c1f8689e",
+      "spriteHeight": 100,
+      "gamma": 1.8,
+      "width": 721,
+      "height": 910
+    },
+    {
+      "path": "docs/art/characters/candidates/phase-1b/phase1b-six-with-runtime-controls.png",
+      "sha256": "c2059a5f79c69afe570215be8090ef50de9e2cb96f781244f84c7f7b654967ca",
+      "spriteHeight": 90,
+      "gamma": 1.8,
+      "width": 433,
+      "height": 1490
+    }
+  ]
+}

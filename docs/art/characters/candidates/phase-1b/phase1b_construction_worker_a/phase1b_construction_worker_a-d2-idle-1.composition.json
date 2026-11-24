@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "jobId": "phase1b_construction_worker_a",
+  "factoryCharacterId": "construction_worker_a",
+  "source": {
+    "kind": "fbx",
+    "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx",
+    "sha256": "b44fa6011b934abd69954fd6c5025c1e2011e05c7892acb6bbc2e9cf70a84014"
+  },
+  "materialVariant": {
+    "bodyTint": [
+      0.62,
+      0.54,
+      0.44
+    ],
+    "description": "Worn brown workwear over the existing denim texture."
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "validationStatus": "pending_independent_check",
+  "bodyMaterial": {
+    "mesh": "m007_hipoly_81_bones",
+    "slot": 0,
+    "originalMaterial": "m007_body",
+    "variantMaterial": "m007_body_phase1b_construction_worker_a_tint",
+    "tint": [
+      0.62,
+      0.54,
+      0.44
+    ]
+  },
+  "accessories": [
+    {
+      "type": "hard_hat",
+      "bone": "Bip01 Head",
+      "material": "ochre",
+      "objects": [
+        "wp_helmet_dome",
+        "wp_helmet_brim",
+        "wp_helmet_ridge"
+      ]
+    },
+    {
+      "type": "tool_belt",
+      "bone": "Bip01 Pelvis",
+      "material": "leather_metal",
+      "objects": [
+        "wp_tool_belt",
+        "wp_tool_pouch_l",
+        "wp_tool_pouch_r"
+      ]
+    }
+  ],
+  "accessoryObjectCount": 6,
+  "maxAnchorDrift": 3.814697265625e-05,
+  "composedSizeMeters": [
+    1.3431,
+    0.3838,
+    1.9191
+  ]
+}

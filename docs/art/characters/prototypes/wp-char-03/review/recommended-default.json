@@ -1,0 +1,122 @@
+{
+  "ready": true,
+  "config": "B",
+  "arrangement": "street",
+  "paused": false,
+  "cameraZoom": 1,
+  "cameraScroll": {
+    "x": 156,
+    "y": 147
+  },
+  "cameraCenterWorld": {
+    "x": 796,
+    "y": 406
+  },
+  "fps": 49,
+  "spriteCount": 9,
+  "textureCount": 90,
+  "estimatedTextureBytes": 96622940,
+  "pickedCell": null,
+  "characters": [
+    {
+      "role": "worker",
+      "cell": {
+        "x": 7.233296,
+        "y": 10
+      },
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "scale": 0.0752212389380531,
+      "originX": 0.5078125,
+      "originY": 0.943359375,
+      "worldHeight": 34,
+      "screenHeight": 34,
+      "x": 611.465472,
+      "y": 345.732736,
+      "depth": 17348.529295999997,
+      "textureKey": "char_worker_walk_d0_00_lift",
+      "inView": true
+    },
+    {
+      "role": "supervisor",
+      "cell": {
+        "x": 9,
+        "y": 7
+      },
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "scale": 0.0774487471526196,
+      "originX": 0.4716796875,
+      "originY": 0.9453125,
+      "worldHeight": 34,
+      "screenHeight": 34,
+      "x": 764,
+      "y": 326,
+      "depth": 16087,
+      "textureKey": "char_supervisor_idle_d0_00_lift",
+      "inView": true
+    },
+    {
+      "role": "enforcer",
+      "cell": {
+        "x": 10.200049669597034,
+        "y": 9.87997019824178
+      },
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "scale": 0.08173076923076923,
+      "originX": 0.4365234375,
+      "originY": 0.962890625,
+      "worldHeight": 33.91826923076923,
+      "screenHeight": 33.91826923076923,
+      "x": 710.2425430833681,
+      "y": 391.280317885421,
+      "depth": 20197.01961949083,
+      "textureKey": "char_enforcer_walk_d0_00_lift",
+      "inView": true
+    },
+    {
+      "role": "police",
+      "cell": {
+        "x": 17,
+        "y": 11
+      },
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "scale": 0.08333333333333333,
+      "originX": 0.5048828125,
+      "originY": 0.91796875,
+      "worldHeight": 34,
+      "screenHeight": 34,
+      "x": 892,
+      "y": 518,
+      "depth": 28135,
+      "textureKey": "char_police_idle_d0_00_lift",
+      "inView": true
+    },
+    {
+      "role": "firefighter",
+      "cell": {
+        "x": 20,
+        "y": 7
+      },
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "scale": 0.07423580786026202,
+      "originX": 0.4658203125,
+      "originY": 0.94921875,
+      "worldHeight": 34,
+      "screenHeight": 34,
+      "x": 1116,
+      "y": 502,
+      "depth": 27098,
+      "textureKey": "char_firefighter_idle_d0_00_lift",
+      "inView": true
+    }
+  ]
+}

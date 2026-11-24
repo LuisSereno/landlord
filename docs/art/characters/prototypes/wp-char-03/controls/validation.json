@@ -1,0 +1,1852 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_03/manifest.json",
+  "manifestSha256": "9002e51bb12a8e4c05ae631550e8817de3668cab64c5b9c20b09e5ffa2d439f0",
+  "checkCount": 460,
+  "errors": [],
+  "checks": [
+    {
+      "label": "final report exists: supervisor",
+      "passed": true
+    },
+    {
+      "label": "12 final frames: supervisor",
+      "passed": true
+    },
+    {
+      "label": "source hash: supervisor",
+      "passed": true
+    },
+    {
+      "label": "Kenney rig/actions: supervisor",
+      "passed": true
+    },
+    {
+      "label": "accessory drift: supervisor",
+      "passed": true
+    },
+    {
+      "label": "documented local geometry correction: supervisor",
+      "passed": true
+    },
+    {
+      "label": "four idle directions: supervisor",
+      "passed": true
+    },
+    {
+      "label": "eight walk D0: supervisor",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: supervisor docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "visible walk changes: supervisor",
+      "passed": true
+    },
+    {
+      "label": "final report exists: enforcer",
+      "passed": true
+    },
+    {
+      "label": "12 final frames: enforcer",
+      "passed": true
+    },
+    {
+      "label": "source hash: enforcer",
+      "passed": true
+    },
+    {
+      "label": "Kenney rig/actions: enforcer",
+      "passed": true
+    },
+    {
+      "label": "accessory drift: enforcer",
+      "passed": true
+    },
+    {
+      "label": "documented local geometry correction: enforcer",
+      "passed": true
+    },
+    {
+      "label": "four idle directions: enforcer",
+      "passed": true
+    },
+    {
+      "label": "eight walk D0: enforcer",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: enforcer docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "visible walk changes: enforcer",
+      "passed": true
+    },
+    {
+      "label": "final report exists: firefighter",
+      "passed": true
+    },
+    {
+      "label": "12 final frames: firefighter",
+      "passed": true
+    },
+    {
+      "label": "source hash: firefighter",
+      "passed": true
+    },
+    {
+      "label": "Kenney rig/actions: firefighter",
+      "passed": true
+    },
+    {
+      "label": "accessory drift: firefighter",
+      "passed": true
+    },
+    {
+      "label": "documented local geometry correction: firefighter",
+      "passed": true
+    },
+    {
+      "label": "four idle directions: firefighter",
+      "passed": true
+    },
+    {
+      "label": "eight walk D0: firefighter",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame hash: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame format: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame alpha: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "frame camera/ground: firefighter docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "visible walk changes: firefighter",
+      "passed": true
+    },
+    {
+      "label": "36 globally unique final frames",
+      "passed": true
+    },
+    {
+      "label": "84 measured lab sprites",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d1-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d2-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite hash: /qa-character-scale/sprites/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "QA sprite calibration: /qa-character-scale/sprites/worker-a-d3-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser capture status",
+      "passed": true
+    },
+    {
+      "label": "no browser errors",
+      "passed": true
+    },
+    {
+      "label": "54 Phaser screenshots",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-zoom.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-zoom.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-picking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-picking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-general.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-door.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-vehicle.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-walking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-buildings.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-zoom.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-zoom.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-picking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-picking.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot hash: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser screenshot below 1 MiB: docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-lineup.png",
+      "passed": true
+    },
+    {
+      "label": "Phaser functional checks: {'width': 1280, 'height': 720}",
+      "passed": true
+    },
+    {
+      "label": "Phaser functional checks: {'width': 1920, 'height': 1080}",
+      "passed": true
+    },
+    {
+      "label": "74 Phaser functional checks",
+      "passed": true
+    },
+    {
+      "label": "two balanced performance samples per config",
+      "passed": true
+    },
+    {
+      "label": "contact sheet hash: docs/art/characters/prototypes/wp-char-03/review/five-by-four-configs.png",
+      "passed": true
+    },
+    {
+      "label": "contact sheet hash: docs/art/characters/prototypes/wp-char-03/scale-comparison/general-four-configs.png",
+      "passed": true
+    },
+    {
+      "label": "contact sheet hash: docs/art/characters/prototypes/wp-char-03/scale-comparison/door-four-configs.png",
+      "passed": true
+    },
+    {
+      "label": "recommended B is lab default",
+      "passed": true
+    }
+  ],
+  "artisticApproval": "pending_human",
+  "runtimePromotion": false
+}

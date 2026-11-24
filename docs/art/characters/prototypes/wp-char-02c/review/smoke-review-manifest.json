@@ -26,6 +26,22 @@
     {
       "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
       "sha256": "7fe213800c11235b3082971d7338dba525e49d9387d199e329c8aef1e81b36e5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke/enforcer-d0-idle-00.png",
+      "sha256": "bd68a1042b81bd69c1c9174c736215e0c3bccba0152a58eae1ef3e32e134d8fc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke/enforcer-d0-walk-04.png",
+      "sha256": "8c6e0732d4f2729936f932904c65274f80447668b019622c3483241d2ae3b00f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "sha256": "93970af35296fa2a8fad3f2237033327535d1a3ac18de39f17d93b1191bb5827"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "sha256": "d41bd8f776d0867f08b51ebfff565e0d39c44502f7372d6f00ab0d736b5b1838"
     }
   ],
   "sheets": [
@@ -33,6 +49,13 @@
       "path": "docs/art/characters/prototypes/wp-char-02c/review/02-smoke-supervisor.png",
       "sha256": "9e6d33b01c3da1a138447e5fa18d9a11d5692d9b126bfd2267b2ca1dea4b452a",
       "bytes": 288706,
+      "width": 1600,
+      "height": 940
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/02-smoke-enforcer.png",
+      "sha256": "d9325e7e57f1476a1b7164cb3849471181bc6eca02a9fb55325f810728fa0f21",
+      "bytes": 298194,
       "width": 1600,
       "height": 940
     }

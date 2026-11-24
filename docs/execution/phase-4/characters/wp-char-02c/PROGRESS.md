@@ -31,3 +31,16 @@
 - Lámina: `docs/art/characters/prototypes/wp-char-02c/review/02-smoke-supervisor.png`.
 - Decisión: smoke aceptado para lote limitado; aprobación artística sigue pendiente del propietario.
 - Próximo paso: enforcer.
+
+## 2026-11-24 · Etapa C — Enforcer
+
+- Inspeccionadas las bases alternativas: `diagnostics-v3/alternative-source-heads.json`.
+- Cambio de base aceptado localmente: `character-male-g.glb` → `character-raider.glb`; elimina la barba geométrica y conserva rig/acciones Kenney.
+- Gorra integrada recoloreada localmente (componentes 0 y 1, 178 polígonos); no se añade una segunda gorra.
+- Primer smoke archivado en `prototypes/enforcer/smoke-v1/` por pérdida de detalle; chaqueta aclarada a pizarra y camisa azul-gris.
+- Generados idle y walk 4/8 en `prototypes/enforcer/smoke/`.
+- Medido: deriva máxima `5.960465e-8 m`, suelo Z=0, 0 clipping, atlas sin cambios.
+- Revisión local: círculo ausente, rostro limpio, chaqueta con contraste y silueta robusta distinta del obrero; comparación formal con policía reservada para el paquete final.
+- Lámina: `docs/art/characters/prototypes/wp-char-02c/review/02-smoke-enforcer.png`.
+- Decisión: smoke aceptado para lote limitado; aprobación artística sigue pendiente.
+- Próximo paso: bombero.

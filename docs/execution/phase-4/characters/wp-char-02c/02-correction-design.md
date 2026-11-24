@@ -27,7 +27,7 @@ Fecha: 2026-11-24. Estado: diseño en ejecución; smoke y revisión humana pendi
 
 Motivo medido: `character-male-g.glb` incluye una barba geométrica dominante y su atlas produce el círculo oscuro. El raider de Kenney ofrece una silueta más ancha, cabeza sin barba y gorra integrada. El cambio se aceptará sólo si el smoke mejora la identidad sin parecer policía.
 
-- Gorra/pelo: tratamiento local por componentes; color carbón.
+- Gorra/pelo: tratamiento local de los componentes 0 y 1; se conserva la gorra integrada del raider y no se añade una segunda gorra.
 - Chaqueta azul-gris/carbón con cuello/camisa de valor distinto, cinturón y botas negras.
 - Sin arma, insignia, placas modernas ni chaqueta de paneles rígidos.
 - Criterio de smoke: círculo ausente, rostro limpio, volumen corporal robusto y paleta/silueta distintas del policía.

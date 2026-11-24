@@ -85,10 +85,10 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
       "sourceSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
       "baseDecision": "candidate_change_to_remove_dominant_beard_and_gain_stockier_clean_shaven_silhouette",
-      "headComponents": [],
+      "headComponents": [0, 1],
       "palette": {
-        "torso": "charcoal",
-        "arms": "slate",
+        "torso": "slate",
+        "arms": "charcoal",
         "legs": "coal",
         "boots": "black",
         "shirt": "muted_blue",
@@ -97,7 +97,7 @@
         "belt": "leather",
         "metal": "metal"
       },
-      "accessories": ["enforcer_cap", "belt"],
+      "accessories": ["belt"],
       "bodyBands": {
         "torsoShirt": [0.84, 0.96],
         "armHands": [0.0, 0.18],
@@ -110,7 +110,7 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
       "sourceSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
       "baseDecision": "candidate_change_to_clean_shaven_male_a_after_male_b_beard_diagnosis",
-      "headComponents": [1],
+      "headComponents": [0],
       "palette": {
         "torso": "protective_charcoal",
         "arms": "protective_charcoal",

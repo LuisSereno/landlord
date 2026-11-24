@@ -138,42 +138,6 @@
       "status": "candidate",
       "source": {
         "kind": "fbx",
-        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09.fbx",
-        "sha256": "ebb89800dbad28b4352369c7149314e010806268a28d7f5bb954a4393bba3d00"
-      },
-      "animationSources": {
-        "idle": {
-          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_02.max.fbx",
-          "sha256": "857e957cdf9eda42799563e5401ca0a57e5b586f71fe485dda7a0bf2843f6c58"
-        },
-        "walk": {
-          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
-          "sha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2"
-        }
-      },
-      "unitScale": 1,
-      "materialVariant": {
-        "bodyTint": [0.5, 0.55, 0.46],
-        "description": "Grey-olive workwear with a different material family from worker A."
-      },
-      "accessories": [
-        { "type": "work_cap", "bone": "Bip01 Head", "material": "olive" },
-        { "type": "tool_bag", "bone": "Bip01 R Hand", "material": "leather" }
-      ],
-      "knownLimitations": [
-        "The base avatar is also used by chr_firefighter; cap, tint and tool bag must establish a separate operational identity.",
-        "The bag is anchored to the hand and must be checked through both walk poses."
-      ]
-    },
-    {
-      "id": "phase1b_maintenance_technician",
-      "factoryCharacterId": "maintenance_technician",
-      "displayName": "Maintenance technician",
-      "role": "maintenance_technician",
-      "domainSpecialty": "maintenance_technician",
-      "status": "candidate",
-      "source": {
-        "kind": "fbx",
         "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx",
         "sha256": "1c65e292e9057a23f7f70969f6971c631c1316fcaaf93e575a4557201c835018"
       },
@@ -189,16 +153,53 @@
       },
       "unitScale": 1,
       "materialVariant": {
+        "bodyTint": [0.5, 0.55, 0.46],
+        "description": "Grey-olive workwear with a different material family from worker A."
+      },
+      "accessories": [
+        { "type": "work_cap", "bone": "Bip01 Head", "material": "olive" },
+        { "type": "tool_bag", "bone": "Bip01 R Hand", "material": "leather" }
+      ],
+      "knownLimitations": [
+        "The base avatar is also used by chr_police; cap, olive tint and tool bag must establish a separate worker identity.",
+        "The bag is anchored to the hand and must be checked through both walk poses."
+      ]
+    },
+    {
+      "id": "phase1b_maintenance_technician",
+      "factoryCharacterId": "maintenance_technician",
+      "displayName": "Maintenance technician",
+      "role": "maintenance_technician",
+      "domainSpecialty": "maintenance_technician",
+      "status": "candidate",
+      "source": {
+        "kind": "fbx",
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09.fbx",
+        "sha256": "a578ec65cabf169d7b13c0bb0a6c472e898857e81f6207b2af7f846d8b0d8523"
+      },
+      "animationSources": {
+        "idle": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/f_idle_breathe_01.max.fbx",
+          "sha256": "e470ba984484149c8269772b7640b754bd996ba83b23ae75535128412997aa45"
+        },
+        "walk": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/f_walk_neutral_01.max.fbx",
+          "sha256": "20238709c689d46f5864aebaa58918cc1233cb9045b24aa4d58cf2752786a73b"
+        }
+      },
+      "unitScale": 1,
+      "materialVariant": {
         "bodyTint": [0.4, 0.54, 0.58],
         "description": "Slate-blue maintenance clothing with matte local shading."
       },
       "accessories": [
         { "type": "work_cap", "bone": "Bip01 Head", "material": "slate" },
+        { "type": "tool_belt", "bone": "Bip01 Pelvis", "material": "leather_metal" },
         { "type": "tool_bag", "bone": "Bip01 L Hand", "material": "leather" },
         { "type": "wrench", "bone": "Bip01 R Hand", "material": "metal" }
       ],
       "knownLimitations": [
-        "The base avatar is also used by chr_police; cap, slate tint, bag and wrench must avoid a police/citizen reading.",
+        "The base avatar is also used by chr_medical; cap, slate tint, bag and wrench must establish a maintenance identity.",
         "The wrench is deliberately small and non-threatening."
       ]
     },
@@ -211,13 +212,13 @@
       "status": "candidate",
       "source": {
         "kind": "fbx",
-        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_10/Export/Male_Adult_10.fbx",
-        "sha256": "6a7a693d9a7ea6c866037f0cc8e45c5243bbcff008665b2ae505f72a6648ae00"
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09.fbx",
+        "sha256": "ebb89800dbad28b4352369c7149314e010806268a28d7f5bb954a4393bba3d00"
       },
       "animationSources": {
         "idle": {
-          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
-          "sha256": "d6d13b12e1f8d677dfaffef342a5ffeacf5ee3b38036de83425ab68316cd4e5e"
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_breathe_02.max.fbx",
+          "sha256": "857e957cdf9eda42799563e5401ca0a57e5b586f71fe485dda7a0bf2843f6c58"
         },
         "walk": {
           "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
@@ -226,15 +227,16 @@
       },
       "unitScale": 1,
       "materialVariant": {
-        "bodyTint": [0.2, 0.18, 0.16],
-        "description": "Dark charcoal-brown heavy jacket; the red sports texture is strongly muted."
+        "bodyTint": [0.12, 0.11, 0.1],
+        "description": "Very dark charcoal-brown clothing over a neutral dark shirt, with the source specular texture removed."
       },
       "accessories": [
-        { "type": "flat_cap", "bone": "Bip01 Head", "material": "charcoal" },
-        { "type": "reinforced_collar", "bone": "Bip01 Neck", "material": "charcoal" }
+        { "type": "flat_cap", "bone": "Bip01 Head", "material": "charcoal_brown" },
+        { "type": "reinforced_collar", "bone": "Bip01 Neck", "material": "charcoal" },
+        { "type": "jacket_lapels", "bone": "Bip01 Spine2", "material": "charcoal" }
       ],
       "knownLimitations": [
-        "The underlying source is still a tracksuit; the dark tint, cap and collar must remove the modern sports reading.",
+        "The base avatar is also used by chr_firefighter; cap, collar and lapels must establish a separate enforcement identity.",
         "No weapon is present by design."
       ]
     },

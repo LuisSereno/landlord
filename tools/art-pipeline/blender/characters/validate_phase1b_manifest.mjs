@@ -34,6 +34,7 @@ const allowedAccessories = new Set([
   "wrench",
   "flat_cap",
   "reinforced_collar",
+  "jacket_lapels",
   "long_coat_panels",
   "brim_hat",
 ]);

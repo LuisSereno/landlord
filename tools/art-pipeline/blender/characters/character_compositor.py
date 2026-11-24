@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import bmesh
 import importlib.util
 import json
 import sys
@@ -170,7 +171,11 @@ def apply_body_tint(scene, job, policy):
         base_color.default_value = (*job["materialVariant"]["bodyTint"], 1)
     principled.inputs["Metallic"].default_value = policy["bodyMetallic"]
     principled.inputs["Roughness"].default_value = policy["bodyRoughness"]
-    principled.inputs["Specular IOR Level"].default_value = policy["bodySpecularLevel"]
+    specular = principled.inputs["Specular IOR Level"]
+    for link in list(variant.node_tree.links):
+        if link.to_socket == specular:
+            variant.node_tree.links.remove(link)
+    specular.default_value = policy["bodySpecularLevel"]
     slot.material = variant
     return {
         "mesh": mesh.name,
@@ -199,13 +204,13 @@ def add_cap(armature, spec, materials, job_id, created, flat=False):
     material = materials[spec["material"]]
     crown = make_sphere(
         "wp_cap_crown",
-        anchor + Vector((0, 0, 0.04 if flat else 0.035)),
+        anchor + Vector((0, 0, 0.235 if flat else 0.23)),
         (0.105, 0.10, 0.035 if flat else 0.045),
         material,
     )
     brim = make_box(
         "wp_cap_brim",
-        anchor + Vector((0, -0.09, 0.025)),
+        anchor + Vector((0, -0.09, 0.225)),
         (0.10, 0.065, 0.012),
         material,
         bevel=0.005,
@@ -314,46 +319,80 @@ def add_wrench(armature, spec, materials, job_id, created):
 
 def add_reinforced_collar(armature, spec, materials, job_id, created):
     anchor = bone_anchor(armature, spec["bone"])
+    material = materials[spec["material"]]
+    neck = make_cylinder(
+        "wp_reinforced_collar_high",
+        anchor + Vector((0, 0, 0.035)),
+        0.105,
+        0.15,
+        material,
+        scale=(1.1, 0.9, 1.0),
+        bevel=0.006,
+    )
     collar = make_torus(
         "wp_reinforced_collar",
-        anchor + Vector((0, 0, 0.005)),
-        0.07,
-        0.025,
-        materials[spec["material"]],
+        anchor + Vector((0, 0, 0.07)),
+        0.08,
+        0.028,
+        material,
         scale=(1.15, 0.9, 0.65),
     )
-    attach_to_bone(collar, armature, spec["bone"], job_id, spec["type"])
-    created.append(collar)
+    for obj in (neck, collar):
+        attach_to_bone(obj, armature, spec["bone"], job_id, spec["type"])
+    created.extend((neck, collar))
+
+
+def add_jacket_lapels(armature, spec, materials, job_id, created):
+    anchor = bone_anchor(armature, spec["bone"])
+    material = materials[spec["material"]]
+    lapels = [
+        make_box(
+            "wp_jacket_lapel_l",
+            anchor + Vector((0.055, -0.115, 0.02)),
+            (0.035, 0.022, 0.18),
+            material,
+            rotation=(0, 0, -0.22),
+            bevel=0.008,
+        ),
+        make_box(
+            "wp_jacket_lapel_r",
+            anchor + Vector((-0.055, -0.115, 0.02)),
+            (0.035, 0.022, 0.18),
+            material,
+            rotation=(0, 0, 0.22),
+            bevel=0.008,
+        ),
+    ]
+    for obj in lapels:
+        attach_to_bone(obj, armature, spec["bone"], job_id, spec["type"])
+    created.extend(lapels)
 
 
 def add_long_coat_panels(armature, spec, materials, job_id, created):
     anchor = bone_anchor(armature, spec["bone"])
     material = materials[spec["material"]]
-    panels = [
-        make_box(
-            "wp_coat_back",
-            anchor + Vector((0, 0.105, -0.18)),
-            (0.18, 0.03, 0.28),
-            material,
-            bevel=0.012,
-        ),
-        make_box(
-            "wp_coat_front_l",
-            anchor + Vector((0.085, -0.105, -0.18)),
-            (0.08, 0.025, 0.28),
-            material,
-            rotation=(0, 0, -0.04),
-            bevel=0.012,
-        ),
-        make_box(
-            "wp_coat_front_r",
-            anchor + Vector((-0.085, -0.105, -0.18)),
-            (0.08, 0.025, 0.28),
-            material,
-            rotation=(0, 0, 0.04),
-            bevel=0.012,
-        ),
+    bpy.ops.mesh.primitive_cone_add(
+        vertices=16,
+        radius1=0.22,
+        radius2=0.16,
+        depth=0.55,
+        location=anchor + Vector((0, 0, -0.25)),
+    )
+    coat = bpy.context.object
+    coat.scale = (1.0, 0.65, 1.0)
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    mesh_data = bmesh.new()
+    mesh_data.from_mesh(coat.data)
+    front_faces = [
+        face
+        for face in mesh_data.faces
+        if face.calc_center_median().y < -0.03
+        and abs(face.calc_center_median().x) < 0.06
     ]
+    bmesh.ops.delete(mesh_data, geom=front_faces, context="FACES")
+    mesh_data.to_mesh(coat.data)
+    mesh_data.free()
+    finish_object(coat, "wp_long_coat", material, smooth=True)
     belt = make_torus(
         "wp_coat_belt",
         anchor + Vector((0, 0, -0.34)),
@@ -362,17 +401,35 @@ def add_long_coat_panels(armature, spec, materials, job_id, created):
         materials["leather"],
         scale=(1.15, 0.75, 0.55),
     )
-    for obj in (*panels, belt):
+    lapels = [
+        make_box(
+            "wp_coat_lapel_l",
+            anchor + Vector((0.055, -0.115, 0.02)),
+            (0.035, 0.022, 0.16),
+            material,
+            rotation=(0, 0, -0.22),
+            bevel=0.008,
+        ),
+        make_box(
+            "wp_coat_lapel_r",
+            anchor + Vector((-0.055, -0.115, 0.02)),
+            (0.035, 0.022, 0.16),
+            material,
+            rotation=(0, 0, 0.22),
+            bevel=0.008,
+        ),
+    ]
+    for obj in (coat, belt, *lapels):
         attach_to_bone(obj, armature, spec["bone"], job_id, spec["type"])
-    created.extend((*panels, belt))
+    created.extend((coat, belt, *lapels))
 
 
 def add_brim_hat(armature, spec, materials, job_id, created):
     anchor = bone_anchor(armature, spec["bone"])
     material = materials[spec["material"]]
-    brim = make_cylinder("wp_hat_brim", anchor + Vector((0, 0, 0.035)), 0.145, 0.015, material)
-    crown = make_cylinder("wp_hat_crown", anchor + Vector((0, 0, 0.085)), 0.09, 0.09, material, bevel=0.008)
-    band = make_torus("wp_hat_band", anchor + Vector((0, 0, 0.055)), 0.091, 0.01, materials["leather"])
+    brim = make_cylinder("wp_hat_brim", anchor + Vector((0, 0, 0.235)), 0.145, 0.015, material)
+    crown = make_cylinder("wp_hat_crown", anchor + Vector((0, 0, 0.285)), 0.09, 0.09, material, bevel=0.008)
+    band = make_torus("wp_hat_band", anchor + Vector((0, 0, 0.255)), 0.091, 0.01, materials["leather"])
     for obj in (brim, crown, band):
         attach_to_bone(obj, armature, spec["bone"], job_id, spec["type"])
     created.extend((brim, crown, band))
@@ -439,6 +496,8 @@ def compose_scene(scene, job, manifest):
             add_wrench(armature, spec, materials, job["id"], created)
         elif spec["type"] == "reinforced_collar":
             add_reinforced_collar(armature, spec, materials, job["id"], created)
+        elif spec["type"] == "jacket_lapels":
+            add_jacket_lapels(armature, spec, materials, job["id"], created)
         elif spec["type"] == "long_coat_panels":
             add_long_coat_panels(armature, spec, materials, job["id"], created)
         elif spec["type"] == "brim_hat":

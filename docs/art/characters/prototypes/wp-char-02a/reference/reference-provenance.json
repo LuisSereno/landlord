@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Minimal WP-CHAR-01B evidence copied read-only into WP-CHAR-02A for comparison.",
+  "sourceWorktree": "/home/luis/RepositorioGitHub/landlord-wp-char-01",
+  "sourceBranch": "wip/wp-char-01-foundation",
+  "sourceHead": "99c1d45786d18d6a84ce1955a13f7fee9a713837",
+  "sourceHadUncommittedReviewPackage": true,
+  "files": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-six-operational.png",
+      "source": "docs/art/characters/review/phase-1b/sheets/00-six-operational.png",
+      "sha256": "cd4fbbd9328a81e6d08244dab4f78c2b93fcfbae10174ee4b23136718520de6f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-walk-poses.png",
+      "source": "docs/art/characters/review/phase-1b/sheets/11-walk-poses.png",
+      "sha256": "e27c4ec591dc3fc088db598e12a5052e39000680bc61e86d078dd8e1cbaa5482"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-idle0.png",
+      "source": "docs/art/characters/candidates/phase-1b/phase1b_construction_worker_a/phase1b_construction_worker_a-d0-idle-0.png",
+      "sha256": "797b77e3969430502b4be2177b9c9d037b51bcfc04e84cdff69fc3864238d26e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-walk1.png",
+      "source": "docs/art/characters/candidates/phase-1b/phase1b_construction_worker_a/phase1b_construction_worker_a-d0-walk-1.png",
+      "sha256": "93bcfe0d9449568f19d1cb1ae8844cab0f88275f91b7ca52c73fa97a58396bde"
+    }
+  ]
+}

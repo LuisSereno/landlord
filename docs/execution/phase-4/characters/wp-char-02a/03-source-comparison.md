@@ -19,10 +19,10 @@ usa `Superhero_Male_FullBody.gltf` con `Idle_Loop` y `Walk_Loop` de UAL1. Kenney
 
 Evidencia:
 
-- [Comparación ampliada](../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-enlarged.png)
-- [Comparación a 28 px](../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-28px.png)
-- [Manifiesto de renders](../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison.json)
-- [Validación independiente](../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-validation.json)
+- [Comparación ampliada](../../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-enlarged.png)
+- [Comparación a 28 px](../../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-28px.png)
+- [Manifiesto de renders](../../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison.json)
+- [Validación independiente](../../../../art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-validation.json)
 
 ## 2. Hallazgos por fuente
 

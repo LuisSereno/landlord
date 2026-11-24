@@ -1,0 +1,1311 @@
+{
+  "schemaVersion": 1,
+  "status": "evidence_manifest",
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02a",
+  "branch": "wip/wp-char-02a-visual-reset",
+  "head": "1e91d22487cf57f187d37ce28bc4e73759e2bd40",
+  "experimentManifest": "blender_artist/manifests/character-experiments-02a.json",
+  "experimentManifestSha256": "3e739b5b10a074d9b5080914290bba98d83a57af6ccc97f2b9b829f8accfd0a6",
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "externalSources": [
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx",
+      "role": "rocketbox comparison source",
+      "expectedSha256": "b44fa6011b934abd69954fd6c5025c1e2011e05c7892acb6bbc2e9cf70a84014",
+      "actualSha256": "b44fa6011b934abd69954fd6c5025c1e2011e05c7892acb6bbc2e9cf70a84014",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+      "role": "rocketbox idleClip",
+      "expectedSha256": "d6d13b12e1f8d677dfaffef342a5ffeacf5ee3b38036de83425ab68316cd4e5e",
+      "actualSha256": "d6d13b12e1f8d677dfaffef342a5ffeacf5ee3b38036de83425ab68316cd4e5e",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
+      "role": "rocketbox walkClip",
+      "expectedSha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2",
+      "actualSha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
+      "role": "rocketbox license",
+      "expectedSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa",
+      "actualSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+      "role": "kenney comparison source",
+      "expectedSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "actualSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+      "role": "kenney license",
+      "expectedSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "actualSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+      "role": "quaternius comparison source",
+      "expectedSha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4",
+      "actualSha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/License_Standard.txt",
+      "role": "quaternius license",
+      "expectedSha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e",
+      "actualSha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb",
+      "role": "quaternius walkClip",
+      "expectedSha256": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997",
+      "actualSha256": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997",
+      "exists": true,
+      "hashMatches": true
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/A-original-rest.png",
+      "role": "diagnostic",
+      "bytes": 301829,
+      "sha256": "b5d0c26f7fd9bd5a46695fb6779cdd428414f835b2d3d818eca44a65bbe22411"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 293461,
+      "sha256": "497c2b700ee5e8df184b7e2a4b1dbf39a4b2f9da54a4701989aa8448551e8085"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 290557,
+      "sha256": "16ee6095e3fcdee39023e38ec14709deba31337689f4949810a9fbde80f4cbfd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 290382,
+      "sha256": "080e26bc027bf203aeba74b94243bb8c973826cfa82f1344ed77fe50bfde54e1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 290927,
+      "sha256": "8ee1b152f302d11433458ce635bc067d27fdd06e1e94e770d3157a601e63bf73"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 289274,
+      "sha256": "4c5ecf5324286d487b5b087ec4853fe7ff9e23e7df2a2f0da9cb7ab8ed8a7bd5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 289504,
+      "sha256": "b3bbd4f6d35c20fe3b6b8b3cfbac3d84affdd3be8ca4ab1f92216efbd04a9f78"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 284779,
+      "sha256": "008b992e1c62ca1aeefaa8e39009324b067f5c27b9f663cceb3f1427be85c75a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 290344,
+      "sha256": "0da7bf2db4abab174f1816bf94619af167fd556bb511e77664e00b5d5e5cc195"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_idle-idle.png",
+      "role": "diagnostic",
+      "bytes": 301799,
+      "sha256": "70fb9196cdda0af9b206b6e1c53bf037a693f07a7fd8a49758e39cc9635edc16"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 303633,
+      "sha256": "7ff2f385148ccebf4dfe682960db12b67deb473e593d09170f4115eeeb8d5308"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 296047,
+      "sha256": "b673a8c6fcc7b29c7b7cf307acb0e5ce6eca8db903edf8694a91ead8d56c9e4f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 294857,
+      "sha256": "501bda4955d6095de6add8174bf78bdf36f6a741ce93ca78f3ae35d92116049a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 289288,
+      "sha256": "1218915640cc4511de600218139e57e9c131c337211dd80b0b190c60701f2045"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 288838,
+      "sha256": "7e4d35c26442e687e8a29662ccb18961840f5462e74936b243a742c66cd2d07c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 281782,
+      "sha256": "34aa2f866760e1c845b530844da78ab5cdde0eb053b31d21f84762e0b51350f6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 269444,
+      "sha256": "86dfcac682cac64ef2043b77dbbbbda77fa793cf000721938cdf95069b0e62c8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 256321,
+      "sha256": "f2ef7b0ed7e86de4437fd41ff8cf1efe7490a845f570f03f97f78eea783d66c8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 290483,
+      "sha256": "4cc11adc3bedb84ce55997432006dd559d8dba38d6a131e8d032f839d511ad0d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 287934,
+      "sha256": "d8cb40690700f4ebd51476eaf4c16ce9d1734497bff5ece58d80bc96e3eb9345"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 287375,
+      "sha256": "9c58ed9df3ea1b52f42623afcd3d05be88c0eca24de640f2eb0594e392433355"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 287897,
+      "sha256": "bb232028fbf4e29be9ad0adadad3d6aab6e2dfd7915ec827d15ee56f71a33e5c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 286233,
+      "sha256": "e4798198c0f9993841fdf7769205ca643216258e8e5d7e0be1e0d3542e801e9b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 285859,
+      "sha256": "5878c66b245fb6ede6d92f997962ed7abb2f3ea052b3d0fa079c4ac2e215bd80"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 281771,
+      "sha256": "328022f6889e2312b3eb7c46e1471f20dd79f9a695e999c79cb69d60e9703151"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 286575,
+      "sha256": "d85c62c608b3b666556b2d604b93eed97df4e1e47642d50351149583cbf3f50e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_idle-idle.png",
+      "role": "diagnostic",
+      "bytes": 294924,
+      "sha256": "da7eb47f92989ad1fd27f85ac981655262c854e8fd3e1e4354973d67cece4530"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 295997,
+      "sha256": "8b45bb1ddeec8012cdd81211798157dbdf10e721869e4a3209a257502794476c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 291054,
+      "sha256": "0ed948fd6e4965e59c1d3c7ee02c46b8c0ea1ac05310f9d447b5669e8c3528a3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 291158,
+      "sha256": "5115d98bef5156cd8a27f5d8e7572baba2906b04c14a3d718d19507cb8103b6b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 284273,
+      "sha256": "ee12666c98f7f5706ca73f9d5cabf62fea5f9f2f1f02786c8093971741733aa0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 284268,
+      "sha256": "4946f59d22407d3438fb814629ba59038b9e2be2d774540c9e22ee09f2ad279e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 278072,
+      "sha256": "87de2fb23a789401bc96bcd033bb7d6ff089b10045a597e3d54072ce81cecb08"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 267092,
+      "sha256": "9704029293f02ae11db4e4b80802ec44fc815621b9b0015e0d4fd2b9c22909f3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 255368,
+      "sha256": "309aec826af857454b0b53bb5f0bfdb2b5e5e4caaec5c7a076dc487e728ad639"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/A-original-rest.png",
+      "role": "diagnostic",
+      "bytes": 301829,
+      "sha256": "75fa70344fa741c69d29272ac464dbd554cc02f60d5d6e94a55c9955f214b145"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_idle-idle.png",
+      "role": "diagnostic",
+      "bytes": 301799,
+      "sha256": "4d89d0a602ca817999a63485527c928ba7635b9d7ac5f0895d151f2e407607ee"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 303633,
+      "sha256": "02944f32b1498d8002ccad10ad5017a7a0a47f31d6ab0c751dbbfe66b5857c13"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 296047,
+      "sha256": "aedceaa72f50423287e0a6ffac5e966a221fc71c165e97cb67b994e68d95ea65"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 294857,
+      "sha256": "9af9db5c1aac24d7a6f3fbe9c367eb3c163b3ca8a4fc5c846d69843751b359e7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 289288,
+      "sha256": "2e59c0a9f1b3a9d5749abb25fca45ca2543e4bedab9fa3ed9976f3bf26db5034"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 288838,
+      "sha256": "2ac9408bf921082aa4d8452e6e48158cadc0c6f09273366c514f365bd056e7ae"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 281782,
+      "sha256": "3286b45d7886c9fd214684e198c0d810203a5f0f8e6a48722a34d4cdbf65a1c9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 269444,
+      "sha256": "b8a2448d6b90ec1530991adc4d57aad43ff79dfff6a4a42d14ec4708720a1d7c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/B_original_animation_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 256321,
+      "sha256": "ab1cd26742d30f7a27616d334b286bfe37bdb0f0fc7b9ed74598122568541be9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_idle-idle.png",
+      "role": "diagnostic",
+      "bytes": 294924,
+      "sha256": "0c2548c95ac27c48943315419b724540840ccd3787dc0e8e655a2a19c58afe7f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 296008,
+      "sha256": "1a15e9ba940d4943a47b26df8972cdde7fd2c7ba8de8cd5c119daf40f15bc735"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 291054,
+      "sha256": "635fb7a5ecad4a0737c62f0818a6d70045a2a2543de8dbfade60455730aaeb7e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 291099,
+      "sha256": "dd0ae64b12b5b2180b06d5d76b5d4e3b2a077a1d763f298c1549a752cee3350e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 284273,
+      "sha256": "997e1eaaa0ce138741829c593ec24c40db0facca9896aa1d138c62bc62a14f4f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 284268,
+      "sha256": "6664c761d04662f30c7fe0b57043447ed4b114afb7227959d5046a5a80f9511d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 278072,
+      "sha256": "6c0e7c020d5c34fe04bf64e550a2e7819f66671b96f799adc525a86719263fd8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 267092,
+      "sha256": "8c4d37803f683bfadd7b7e802c2294386aef680ccb9a7d4f028f43a04584b873"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/C_wp_char_01b_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 255368,
+      "sha256": "a459c7e5547b9c3c039954209335bbc106898ad6e3fe6393f4c6e21a16c932b2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/rocketbox-animation-diagnosis.json",
+      "role": "diagnostic",
+      "bytes": 932772,
+      "sha256": "efd01f84940d594f677a5a6d65a16cdf6b1ae1b8a0aa11622b2d3d1bafa4a697"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/A-original-rest.png",
+      "role": "diagnostic",
+      "bytes": 301829,
+      "sha256": "cbcd75867a558ff6eb9919505372903ceca44c7181c59d241bac169e799c5a2c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 303491,
+      "sha256": "25156812000207726dafbeff2525b5a1b92c4b001aa865c66624bc0f656b3aff"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 299882,
+      "sha256": "837d2208c1d7cb3f497bee119fcb83038d8da340a23e07ada04109a340f5b685"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 301826,
+      "sha256": "0b2dd32ef8e1b60a4b4d73a5522816a0c9bf4a399885b464c1f3e850b3c98f77"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 302590,
+      "sha256": "caa4560d5937ae6d339f5d9dff792a137baea2dc06f1686a090982d77a47f712"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 300255,
+      "sha256": "344139c6703543f1903204f48a2bb1201d91ef67b94ad780af436b813611dfaf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 302405,
+      "sha256": "ce0a75db3c5fd503cab82dfe13587f3a47795e023ddc7d484e857678416e9088"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 297547,
+      "sha256": "c2d31bd9eeaf8f61433909fafeba58914ca3b737208e1e72a1c02c903cf9aa83"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_in_place_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 302328,
+      "sha256": "13435df7d8c2a3f8566476df5e512d571a6e4f838d01c90619e66be77f5a1449"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_idle-idle.png",
+      "role": "diagnostic",
+      "bytes": 301799,
+      "sha256": "afaa40d2634ae42fda097aa34a7c05cc00348417f6a14f843c6b72d8eb30542a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 303633,
+      "sha256": "96380fc2d0456c5f648790743d6ae268084f407b4215e7a803815ccd64592fc9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 296047,
+      "sha256": "10abad3c66c0572d1e30e6185b93b0446e831e77d0b2deaa43ab121097744cbe"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 294857,
+      "sha256": "b482948f084a43d0bb67e7e385eff4f8ed5dce07a879a6d13eab63836edf481b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 289288,
+      "sha256": "e0543c97f0f433abfebc032b234d1467708755567cebe17a66e7289d54639c08"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 288838,
+      "sha256": "ef06de14709260def4374bcf979d929c021ee63fbf41e4a695c88120d26af337"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 281782,
+      "sha256": "3d97165ec7ee0e155a2ed3c98ce27364df0f04f2189ef7d73cfdc84e62aa8787"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 269444,
+      "sha256": "08eb90cc9f0e861e3155fd4a4b1c20aab4e56c8c9dbcf2f50d96b11856c7ba4f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/B_original_animation_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 256321,
+      "sha256": "b817e65679bbc0a120c39976919479229482d18caf09f755f6e1d822786bd451"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 295839,
+      "sha256": "b9d16f2c718741733d00adf494bdeacb2de4cee319566b591087eac901d4e5a8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 294171,
+      "sha256": "b4480c30dcbfd05357fa7afcc36b6762fe4ee8c858cac0a38bf7ee494e0b2875"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 296923,
+      "sha256": "f21092a205d99c5f10f882b4f56d5e1a75a982c39fde7470e3fc05ddb63ca753"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 295825,
+      "sha256": "d02d14752cac52163e3d6ae6d5eaf9525e9a2f4bd6db23538e5191ca9a04a05f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 293922,
+      "sha256": "deaab400cf8c77a40818dafffda0272555998286ad92cc55f2eaf6c89984a502"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 295125,
+      "sha256": "fe3d41c156b10848b6a0f58d9150e4f637ddae9d92fe6dced4beca41dae3e4ff"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 291441,
+      "sha256": "9a1d43bfab6c304c012ac447ba84bbc07fb8d861b8e7472ae825f57c6bb2d4cb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_in_place_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 295329,
+      "sha256": "61c818976ec9b7eb382941c0e4ec27ccbc492c4595baac3a6130abb921039f4b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_idle-idle.png",
+      "role": "diagnostic",
+      "bytes": 294924,
+      "sha256": "befd86ff3ab40c43bd69f84e83d7dcd4c5126e568a5395bdfa5d53d15035b4e5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-00.png",
+      "role": "diagnostic",
+      "bytes": 296008,
+      "sha256": "834e1ddc2fe81ea3335a7be033ee65ff64b2cafb49c1c661ba71dc0abfe238d3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-01.png",
+      "role": "diagnostic",
+      "bytes": 291068,
+      "sha256": "3788099dcbd6132f9ebab9775d1faf59f042ddfdc1e20796548d23d1b62e9dcb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-02.png",
+      "role": "diagnostic",
+      "bytes": 291158,
+      "sha256": "bdd3bb4cb135f8a062f9ca16d8b17a8d2b3079a8c838a76b3a9424afc9d6b8b7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-03.png",
+      "role": "diagnostic",
+      "bytes": 284261,
+      "sha256": "e784787584725b01247977dd3ec223dbb080e4fd36193d7864f64586500ad984"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-04.png",
+      "role": "diagnostic",
+      "bytes": 284268,
+      "sha256": "970a541ed9566f6e00ea6242158296471995fc9065f02dabe1e535b10db4bb80"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-05.png",
+      "role": "diagnostic",
+      "bytes": 278074,
+      "sha256": "b8a76d5696fbd13aed53404af3d9c8b0563608ff333da9d27c5110bf5622fef4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-06.png",
+      "role": "diagnostic",
+      "bytes": 267094,
+      "sha256": "2a2a560289fe4535de630d43d16c76182e9af1a3be15069bc5e44b63c67dfe41"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/C_wp_char_01b_walk-walk-07.png",
+      "role": "diagnostic",
+      "bytes": 255363,
+      "sha256": "60f81b3b57189bc1f3afc835c7350a72784aad4ac19a44ff403a43e5bd26d98c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/rocketbox-animation-diagnosis.json",
+      "role": "diagnostic",
+      "bytes": 1377014,
+      "sha256": "d999af79a3c7f5a79ee28a79d2cffadee70828b8ac300c080a39c48b30b4ea9f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis-sheet.png",
+      "role": "diagnostic",
+      "bytes": 809053,
+      "sha256": "44548c793378254a57f14ba929beab22ae0b0083cedf190dd4b6e16d7deb4bc3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis-validation.json",
+      "role": "diagnostic",
+      "bytes": 29797,
+      "sha256": "1de80b529793b257397e6fa82bfed2c6f080c800733d1cc9b751d320225b37a1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis.json",
+      "role": "diagnostic",
+      "bytes": 1377340,
+      "sha256": "296ddf955c70a1160d59f1a85b12633734cb29c002dfe152f557b291e8b3961f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-six-operational.png",
+      "role": "reference",
+      "bytes": 114571,
+      "sha256": "cd4fbbd9328a81e6d08244dab4f78c2b93fcfbae10174ee4b23136718520de6f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-walk-poses.png",
+      "role": "reference",
+      "bytes": 87448,
+      "sha256": "e27c4ec591dc3fc088db598e12a5052e39000680bc61e86d078dd8e1cbaa5482"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-idle0.png",
+      "role": "reference",
+      "bytes": 35645,
+      "sha256": "797b77e3969430502b4be2177b9c9d037b51bcfc04e84cdff69fc3864238d26e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/phase1b-worker-a-walk1.png",
+      "role": "reference",
+      "bytes": 29709,
+      "sha256": "93bcfe0d9449568f19d1cb1ae8844cab0f88275f91b7ca52c73fa97a58396bde"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/reference/reference-provenance.json",
+      "role": "reference",
+      "bytes": 1561,
+      "sha256": "cba9f22dbc13a9d28cf4aa690fce97e108b8111be0f093e14773860695e71153"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/kenney-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 285596,
+      "sha256": "442920da4aee78dd0ffa4b0f6d6031504b91bb5043f049ff0c970be3185278f7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/kenney-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 285596,
+      "sha256": "157bea77bc20bda00534aa25919d2cf172baf2ac71adb43b7e0ba100447e8f81"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/kenney-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 287953,
+      "sha256": "5f143b5514f5ac739ca21f3c6066ab56bf933c985a852a309d08e43823285429"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/kenney-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 287346,
+      "sha256": "fd7b4dce13c63d9a8e89c3315df1a2c0b26adaa6a26c5df55a6619db3fceb506"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/quaternius-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 282450,
+      "sha256": "745e1e9f5f4f2627dbf07399e5c42b121dd04e1dfdf7ffac129e25598703aa1c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/quaternius-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 290849,
+      "sha256": "fe6da94909fd426f2c6acb8dc36cf5828f7007be52cb172b44c86245d7929c7b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/quaternius-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 286985,
+      "sha256": "8ede80fa202ab33af7df525073b7fbcb7e14b31136a608737826c16024621010"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/quaternius-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 283844,
+      "sha256": "e3d889f5e8d13e993f2c3939f1c00d4417c149066482045c0f0c17554d614185"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/rocketbox-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 290168,
+      "sha256": "4242f28a8ca7812cbc35ad108936d538d35c2e63faec75124a5788499b0a33e8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/rocketbox-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 292823,
+      "sha256": "0b0bdd1dce3c0f434f29b09cd58c85b53cbbbf1bdd7f23dcc966b3272aefd952"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/rocketbox-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 288374,
+      "sha256": "b19d070d845085eb7a889750a2b418fcd5683fa9497cdf4808a6a36da68e87e9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/rocketbox-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 285813,
+      "sha256": "82c262ef3fbd8c2bb58e57ba1b96f61ff0e3060c0e723387e16cfca90a8c25a5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/source-comparison-28px.png",
+      "role": "source_comparison",
+      "bytes": 108665,
+      "sha256": "c6a9aa9f55b5455ef879c8154ee01b404efd77a13b9f97ea507e34eeb2f6d839"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/source-comparison-enlarged.png",
+      "role": "source_comparison",
+      "bytes": 505714,
+      "sha256": "d482f85fd35d8c43d73c92dd7a4961e0e6be8654bf45d4b9a19b20c20f972132"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-bound-pre-metadata-run/source-comparison.json",
+      "role": "source_comparison",
+      "bytes": 203806,
+      "sha256": "c6bf22f50981549206c55037485233c87dbd5ec8be300c3c51299bd3a52f7062"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/kenney-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 285596,
+      "sha256": "34ef8047a370e99bbf74d8baef03e8ff9902cb43830b6d8915077730d8a00949"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/kenney-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 285596,
+      "sha256": "2512a716a5139b89fc3d339c14c1169ea8c64049f2ba6858250df9c48d8a15a3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/kenney-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 287953,
+      "sha256": "335b1863a4e19263e6142ca7ccab1375bbe75f8c85b7401fba6c006a803a7eb0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/kenney-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 287346,
+      "sha256": "7c8e066693e3dec0eb1fbad504acc1783fafffa27bc72de580c8ffc82cfa3c9e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/quaternius-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 290165,
+      "sha256": "b8d31c73a5a068bba8764a9fd2ad4265a2dce57d3f8f9359d7692fe8faf92213"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/quaternius-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 290165,
+      "sha256": "be68e6ffdde3d270cb3309762bd52f83808dfadbfe1cc8924699954adfa5658e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/quaternius-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 290165,
+      "sha256": "ac4fe5b297f20572af541f4cdadf8fa3b7aa6e4450ec4ff85d4c2ca51dfa69d8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/quaternius-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 290165,
+      "sha256": "32a7fa00b0983b3a09c373a26cbf1266ab2afd9ecb47a437501230e4dffd5784"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/rocketbox-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 290168,
+      "sha256": "2fab6386af24eb03d07b085262206b0b079268451ea47c413e661bc2ac721241"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/rocketbox-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 292823,
+      "sha256": "4fef7d14538d85bb6b4ad60f41e9e192384378e3b1f7acd87a7db8ad5ed516a4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/rocketbox-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 288374,
+      "sha256": "c6804a13d060ed17a6d8c136f456b232da062ae359f0de25d2e997cfa79eb79f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/rocketbox-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 285813,
+      "sha256": "49a56083fdd9cc035c8e5b1cf1ebad5eff3b1eb41d2c92d6baba302da1d5760b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/action-slot-missing-run/source-comparison.json",
+      "role": "source_comparison",
+      "bytes": 203785,
+      "sha256": "d5db3516061b16d87581fac14a50b2def93476c5cde1e4b8e631299d5acd1319"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 285596,
+      "sha256": "92b8275214443c066840aa538173bb103bf9a4a3df109ce3ea146f68bcefc6ba"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 285596,
+      "sha256": "7b03f8313ebd2c5898e58f9f00e19dc35fa815b27b87f7029c8b2e110608b4e1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 287953,
+      "sha256": "522385464ccc40390a9d319ebad71f68b887a3d2ff552d32ef32bf4145d4f5b3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/kenney-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 287346,
+      "sha256": "e8ba622a53f1d592e735ac9a91307facc1d707f84072bc0d8a13e29c9a25e35a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 282450,
+      "sha256": "e64e3ef5d5c84b190418b771447e2c2e2d9d7a1c08847dc5b88cf551ff04d69e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 290849,
+      "sha256": "df174dfb4ace4c11a83b229b639a74f012cda53407112dc9bb367c1498b73f2a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 286985,
+      "sha256": "05a7f309d6f333c372b77d43bd5b82ab6f02dc7b7f3ed501d025b08567ecb27c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/quaternius-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 283844,
+      "sha256": "65a314535e9cc8a00a340a418fa2dfba91183219e566b5e4e9f5db1bd7161bbe"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-idle-00.png",
+      "role": "source_comparison",
+      "bytes": 290168,
+      "sha256": "61c0ea06e7afc79887eb4d437e40d1bf5977d747647950eab51237b489192f1e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-00.png",
+      "role": "source_comparison",
+      "bytes": 292823,
+      "sha256": "705cbc3a6ff88f4c61a4981ec2045e5af68e87faaabb41761957aaa0feaf072f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-01.png",
+      "role": "source_comparison",
+      "bytes": 288374,
+      "sha256": "cacc9b47004c66cbaa20ca97c62e5c0ab2d2c0c23db58d6b8e42bdd02f69fdce"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/rocketbox-walk-02.png",
+      "role": "source_comparison",
+      "bytes": 285813,
+      "sha256": "b4cd26a79932f7374ec86024f1343a6d4b2e345f1e4cd41dde1efa2fdae886ac"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-28px.png",
+      "role": "source_comparison",
+      "bytes": 108665,
+      "sha256": "c6a9aa9f55b5455ef879c8154ee01b404efd77a13b9f97ea507e34eeb2f6d839"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-enlarged.png",
+      "role": "source_comparison",
+      "bytes": 505714,
+      "sha256": "d482f85fd35d8c43d73c92dd7a4961e0e6be8654bf45d4b9a19b20c20f972132"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-validation.json",
+      "role": "source_comparison",
+      "bytes": 13672,
+      "sha256": "a0b3a86168fcf3e499e15e11567e15b556696e5b08455dcdce5f7caa5f8cd6bb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/source-comparison/source-comparison.json",
+      "role": "source_comparison",
+      "bytes": 204080,
+      "sha256": "ac999c51c9d87829253482785008f185f719105a4743288cc611cb94e902e764"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "role": "worker_reference",
+      "bytes": 193290,
+      "sha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "role": "worker_reference",
+      "bytes": 193290,
+      "sha256": "6c826ca8fd095b5120a5a56a72217f60831cc2335695716ec209d2bed1cb1a5f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "role": "worker_reference",
+      "bytes": 192510,
+      "sha256": "7f1466bc48c02e9714cab41accb431ca0fb65827f8af21142fd092da19e47ec9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "role": "worker_reference",
+      "bytes": 190952,
+      "sha256": "8997a87215b2fee0c313e5cf28c23367602e28960aad4e5d409c4f0e0d5a506a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "role": "worker_reference",
+      "bytes": 194562,
+      "sha256": "f825e2918b3e6161bd011b2172762ccbdbb5844fa23337ebe9e8c7cf965d60be"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "role": "worker_reference",
+      "bytes": 193582,
+      "sha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "role": "worker_reference",
+      "bytes": 190118,
+      "sha256": "60853e1fcf10b0650a39cabffe29ac43f85bd5b160686bf95a699c12f8203d68"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "role": "worker_reference",
+      "bytes": 188256,
+      "sha256": "1f7fac1d357bf134854dca1f259e1c13f7660dbc8b20d45cc918c8d97658f3e4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "role": "worker_reference",
+      "bytes": 192899,
+      "sha256": "a288dedc7546ab75167744278e945beffb0ad678658c89941bb5eecbf8739791"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "role": "worker_reference",
+      "bytes": 191046,
+      "sha256": "90641bdf318d2a96b084bb2e0afa4ea246be8bacbdb8525de4b569c12703cdaf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "role": "worker_reference",
+      "bytes": 192244,
+      "sha256": "69d20b139d61b2fe921ac4b39e3afdade6749380a3cc18a31f950ea7feeffd81"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "role": "worker_reference",
+      "bytes": 189250,
+      "sha256": "7535ef1b272cbc25cfad9004c4b69c9739900fbeaa8c73f5159d1a8975394b9a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "role": "worker_reference",
+      "bytes": 187939,
+      "sha256": "cd5bfb7bde8c59dd8fa0186bafc9d03c8b6e34aced999a8283c5c178e92556f9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "role": "worker_reference",
+      "bytes": 191334,
+      "sha256": "df08d50a1c7e58e512fe7c95a66f23dcf287f971cb190f578d156c5548bc1d15"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "role": "worker_reference",
+      "bytes": 190992,
+      "sha256": "b814cd7f9f309cd5efd2e99eaf49467f5feb8a0e5ed4d23afd8b00981ac9d554"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "role": "worker_reference",
+      "bytes": 190461,
+      "sha256": "8c24782a8b0b17eee51c251f034ef4ca551e57b9ef1a38b9da08f8e9b43869fe"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "role": "worker_reference",
+      "bytes": 191599,
+      "sha256": "e599772e111fda57b63b070a39545f88d50c59e55b6bef3801e17567a7fe2c8e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "role": "worker_reference",
+      "bytes": 196419,
+      "sha256": "201e8c1ed839f994a8fd5a041da148fa42d8e8352e32af7431fd9960c3901d1c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "role": "worker_reference",
+      "bytes": 195276,
+      "sha256": "b134516937aa8f5972e5185594c902d6ab8a11184bc9836d37828ad1df607516"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "role": "worker_reference",
+      "bytes": 195600,
+      "sha256": "051afd251a78b4c183c44b8bfde43892fe9a53fc9183ce9a3b0569b4e26fdbc1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "role": "worker_reference",
+      "bytes": 199081,
+      "sha256": "dc606769383ceeac8bc5caf3d22740fb162c3c8cbe7963121472ad7baf3a2563"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "role": "worker_reference",
+      "bytes": 198372,
+      "sha256": "073077748b4dbf50db1a4db48984c05cf3b794e44fb6608e11fc5304b370d530"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "role": "worker_reference",
+      "bytes": 200788,
+      "sha256": "cd4e134a9b3f1906cf47678031053c3a9668aed73163ff0b481b24443af5fe36"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "role": "worker_reference",
+      "bytes": 195341,
+      "sha256": "55e255c9640907ccc88aeb1d242124b82e15f44a8c96b0abc618628852282928"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "role": "worker_reference",
+      "bytes": 193711,
+      "sha256": "fe6fa209bde496d6510d9cb9e740d71252d19c21c7be9b65145b91de1c3d740c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "role": "worker_reference",
+      "bytes": 192282,
+      "sha256": "54dfaf0957d7598f8be2ae20ecf8122b6a572798913c3ed4a19ef6ae5757c0a4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "role": "worker_reference",
+      "bytes": 195773,
+      "sha256": "f796571b83f877df5a70561cd7a2209cb3b449d6cb8951a11c2b5176484d2204"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "role": "worker_reference",
+      "bytes": 192837,
+      "sha256": "ae54b986487492ca40477193f2e72096683c12c30b27e81a35d289680f804753"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "role": "worker_reference",
+      "bytes": 193019,
+      "sha256": "f992e6c3a167c01309414469219bee765df342b4e6170404320f78d2138a3022"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "role": "worker_reference",
+      "bytes": 193350,
+      "sha256": "552a912a0194850eb73e2c00ee42f4e10fcfbce9aec286307710919a210d46c6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "role": "worker_reference",
+      "bytes": 191277,
+      "sha256": "e05db957e69bf6b5633f43c54cbb90853bb186611237798743356283afbdf9db"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "role": "worker_reference",
+      "bytes": 194405,
+      "sha256": "afc5b59839c37b9e86327cf5b58116a6a3e1875ef62a1f66fa7c89cfc78e3348"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "role": "worker_reference",
+      "bytes": 193499,
+      "sha256": "ce9334b14758201db00a56b84e1dfd6eb821c2d12045c9b32f1de7a4592bffcd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "role": "worker_reference",
+      "bytes": 195171,
+      "sha256": "1b165a927b8482a301cd99981e7065547dfd259787ccae45fc6b64725dbcf6bf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "role": "worker_reference",
+      "bytes": 194460,
+      "sha256": "65e643c1e6e5e968091d5712aa522acadcb99eead53c5cd035c3b6e4f89115d9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "role": "worker_reference",
+      "bytes": 197825,
+      "sha256": "8e367b2060e0be7244fd5f3ee1b3f8e9272ba21d9419e1b25895e234da915a9a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-cycle-closure.json",
+      "role": "worker_reference",
+      "bytes": 15321,
+      "sha256": "b930199136934de508c9d7f236329bcd7d84ca759f2af553bb27dd3c9514f190"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference-validation.json",
+      "role": "worker_reference",
+      "bytes": 60281,
+      "sha256": "dfc397b1070782de5a3f4246a2d2ad2382d742002d9847c5d0d6fdb42fb01e05"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json",
+      "role": "worker_reference",
+      "bytes": 47014,
+      "sha256": "14b57610692ad1519ae4b5b4d78911dd184d9f427437b5058e4d886c303c7195"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png",
+      "role": "worker_reference",
+      "bytes": 156423,
+      "sha256": "893ac58d94a17aaeee6192ab96d8a5e9524b7b84d3080836a2a744697626ee06"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png",
+      "role": "worker_reference",
+      "bytes": 203119,
+      "sha256": "1d377764fe3be2ad7bb97ad891785f7a012e237c4fc56c5ffd749be34ba6d5f8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png",
+      "role": "worker_reference",
+      "bytes": 80534,
+      "sha256": "f0882658e3580ef13606cabc50ea3f0208064e626d93ad66932a995b6f2a75de"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png",
+      "role": "worker_reference",
+      "bytes": 288275,
+      "sha256": "8594efd50d0565b1ea18dcc3698175a4e9fb6a21e516d28da2975053bb130a1f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png",
+      "role": "worker_reference",
+      "bytes": 320680,
+      "sha256": "91fbdc5a75eb42d97d1a52cd6ba58b472bb6fb73dfb99bd5d586b9b65403a9f9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png",
+      "role": "worker_reference",
+      "bytes": 24535,
+      "sha256": "c2340b605162ba393f654f6a7139b3f9515d17a9a19cb0fb01ca184a86bb65a9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png",
+      "role": "worker_reference",
+      "bytes": 39089,
+      "sha256": "876cd55ce16357c7a7d8552a065e731edb76d6feed7722ea40a21d6e656905de"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png",
+      "role": "worker_reference",
+      "bytes": 82093,
+      "sha256": "fa9e0befeef126d941e3b570b13275445797c0a2ecb96f250022e134be768286"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png",
+      "role": "worker_reference",
+      "bytes": 403702,
+      "sha256": "5247ef53421a0c590a01795e7ec9739e05584914f4ac40079ade796f39af5fa6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/review-manifest.json",
+      "role": "worker_reference",
+      "bytes": 6712,
+      "sha256": "0dd53079042bdbc36cd485ef8a21c1def952870873288b335011fea88a00478e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/review-validation.json",
+      "role": "worker_reference",
+      "bytes": 13548,
+      "sha256": "3603493e90a21d797724fb9cfeb24dc1f56ad74dc6ddd38bc78278e4a1b744f7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-idle-00.png",
+      "role": "worker_reference",
+      "bytes": 193290,
+      "sha256": "aec9f9746c85616f7eb5424ac8b2cefc071d6dcbc1d32d4086ef2bffcb77abc1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-00.png",
+      "role": "worker_reference",
+      "bytes": 193290,
+      "sha256": "cbaf12447fca84765670e5cf0f0c31993529522033ccaf33ce3b2ca45db6cbac"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-01.png",
+      "role": "worker_reference",
+      "bytes": 192510,
+      "sha256": "104e1030bd6883d209d62385b74f36f3c66d9a5295cd58557f0dac8a3908434d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-02.png",
+      "role": "worker_reference",
+      "bytes": 190952,
+      "sha256": "ad5e37cf347b62ee42b899f92d30f6699765995e288c1d95edb8847473955b37"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-03.png",
+      "role": "worker_reference",
+      "bytes": 194562,
+      "sha256": "d7900c375ad27ec6dd81495a69e6e0ad7ed1723aef4a499f829eef0e42206f8f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-04.png",
+      "role": "worker_reference",
+      "bytes": 193582,
+      "sha256": "fc1532dc23e685b2b0c8c17408260c9eee7dc956687e4b65e4673d50bceea88c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-05.png",
+      "role": "worker_reference",
+      "bytes": 190118,
+      "sha256": "95f9e6fad569db67580ee9de2549918645a23e9eac0897b65808122f70ed53b9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-06.png",
+      "role": "worker_reference",
+      "bytes": 188256,
+      "sha256": "0c18b6666782f13b6f94fa235a481aafb878962db537928160441643b8f47084"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-a-d0-walk-07.png",
+      "role": "worker_reference",
+      "bytes": 192899,
+      "sha256": "b0988d9725103b5fac45bb5e7983b858a5c2d8ac5c6a33f0a96c3f78980539d9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/smoke-source/worker-reference.json",
+      "role": "worker_reference",
+      "bytes": 13766,
+      "sha256": "2ba78679d61b99d858aa8b2e6eff5a6e4e794142aad159f2edf2b192613d247f"
+    }
+  ],
+  "summary": {
+    "fileCount": 203,
+    "totalBytes": 53116645,
+    "externalSourceCount": 9,
+    "allExternalHashesMatch": true
+  }
+}

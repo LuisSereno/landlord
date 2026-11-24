@@ -22,12 +22,12 @@ materiales base y cámara 45°/30°.
 | B/C corregido | Mismo clip; `IMPORT_ROOT` compensa XY, alinea el pie inferior a Z=0 y usa cámara local 2,05 | Ciclo completo encuadrado, sin penetración, cierre 1e-6 m |
 
 Evidencia principal:
-[`rocketbox-animation-diagnosis-sheet.png`](../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis-sheet.png).
+[`rocketbox-animation-diagnosis-sheet.png`](../../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis-sheet.png).
 
 La primera corrida sin compensar se conserva en
-[`initial-root-motion-run/`](../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/).
+[`initial-root-motion-run/`](../../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/initial-root-motion-run/).
 La corrida intermedia que aisló sólo XY se conserva en
-[`planar-root-correction-run/`](../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/).
+[`planar-root-correction-run/`](../../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/planar-root-correction-run/).
 
 ## 3. Inspección del rig
 
@@ -143,9 +143,9 @@ y dependencias, 512×512 RGBA, ocho muestras distintas por control, jerarquía p
 B/C idénticas, raíz corregida, pies sin penetración y cierre de ciclo.
 
 Evidencia legible por máquina:
-[`rocketbox-animation-diagnosis.json`](../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis.json)
+[`rocketbox-animation-diagnosis.json`](../../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis.json)
 y
-[`rocketbox-animation-diagnosis-validation.json`](../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis-validation.json).
+[`rocketbox-animation-diagnosis-validation.json`](../../../../art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis-validation.json).
 
 **Decisión de Etapa A:** continuar con la comparación de fuentes. El rig Rocketbox no está roto; la
 causa principal de la marcha anterior es root motion + selección de sólo inicio/medio + cámara fija.

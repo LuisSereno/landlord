@@ -8,19 +8,19 @@ Todas son composiciones offline con Pillow; no son capturas de Phaser.
 
 | Lámina | Contenido |
 | --- | --- |
-| [01 · Antes/después](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png) | Obrero A WP-CHAR-01B frente al nuevo, idle y walk medio |
-| [02 · Original/nuevo](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png) | Kenney original frente al ajuste local |
-| [03 · Idle](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png) | A-pose anterior frente a reposo relajado |
-| [04 · Ocho poses](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png) | Ciclo walk completo, dirección 0 |
-| [05 · Cuatro direcciones](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png) | Idle y walk medio en D0–D3 |
-| [06 · Silueta 28 px](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png) | Color y máscara de silueta a altura 28 px |
-| [07 · Escalas](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png) | 0,5×, 1×, 2× y 2,5× |
-| [08 · Ciudadano](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png) | Nuevo obrero junto al ciudadano runtime existente |
-| [09 · Calle offline](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png) | row_house, workshop, vehículos y ciudadano reales |
+| [01 · Antes/después](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/01-before-after.png) | Obrero A WP-CHAR-01B frente al nuevo, idle y walk medio |
+| [02 · Original/nuevo](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/02-original-vs-new.png) | Kenney original frente al ajuste local |
+| [03 · Idle](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/03-idle-before-after.png) | A-pose anterior frente a reposo relajado |
+| [04 · Ocho poses](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/04-walk-eight-poses.png) | Ciclo walk completo, dirección 0 |
+| [05 · Cuatro direcciones](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/05-four-directions.png) | Idle y walk medio en D0–D3 |
+| [06 · Silueta 28 px](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/06-silhouette-28px.png) | Color y máscara de silueta a altura 28 px |
+| [07 · Escalas](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/07-scales.png) | 0,5×, 1×, 2× y 2,5× |
+| [08 · Ciudadano](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/08-worker-vs-citizen.png) | Nuevo obrero junto al ciudadano runtime existente |
+| [09 · Calle offline](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/09-street-context-offline.png) | row_house, workshop, vehículos y ciudadano reales |
 
 Manifiesto y validación:
-[`review-manifest.json`](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/review-manifest.json),
-[`review-validation.json`](../../../art/characters/prototypes/wp-char-02a/worker-reference/review/review-validation.json).
+[`review-manifest.json`](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/review-manifest.json),
+[`review-validation.json`](../../../../art/characters/prototypes/wp-char-02a/worker-reference/review/review-validation.json).
 
 ## 2. Criterios de aceptación
 

@@ -83,10 +83,10 @@ lectura; no se modifica.
 - Validación del paquete de revisión: **94 comprobaciones, 0 errores**.
 
 Evidencia principal:
-[`worker-reference.json`](../../../art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json),
-[`worker-reference-validation.json`](../../../art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference-validation.json)
+[`worker-reference.json`](../../../../art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json),
+[`worker-reference-validation.json`](../../../../art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference-validation.json)
 y
-[`worker-cycle-closure.json`](../../../art/characters/prototypes/wp-char-02a/worker-reference/final/worker-cycle-closure.json).
+[`worker-cycle-closure.json`](../../../../art/characters/prototypes/wp-char-02a/worker-reference/final/worker-cycle-closure.json).
 
 ## 8. Estado
 

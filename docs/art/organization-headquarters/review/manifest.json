@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate_review_pending_human",
+  "runtimePromotion": false,
+  "sheets": {
+    "complete-day.png": {
+      "path": "docs/art/organization-headquarters/review/complete-day.png",
+      "sha256": "15f822bb992b2eab3f9df65596c4c285b1143aadc9d645a47935032a31acdbc0",
+      "bytes": 419762,
+      "inputs": [
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101.png",
+          "sha256": "19a0d88f0c961f6913a0a12c5c125041911295d9ae7c994b9f733907a85d8678"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_o90.png",
+          "sha256": "ade0f3fdd52af015022d545d817bf1e4fc0ded7c40acf6d123ad622df0df46a4"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_o180.png",
+          "sha256": "b5631172fa5bedc128151509554dfaed4fcf1465117efb7d60385bf1cb20d87a"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_o270.png",
+          "sha256": "eb103095c9b369fb4f4a93af9f15061502cc36aecf49ff9ac7211c62fc9ccc4f"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101.png",
+          "sha256": "1c265d2cb27cab2f47792358cd4ceea55d9ed927f146871c43659c9af12febb6"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_o90.png",
+          "sha256": "6c6c1693711a229f2de06e79acb4ea2b93f91d61956517196e66f6f30f726492"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_o180.png",
+          "sha256": "2147f4ff125e3cd3d798bd688d5b49a95750175e9c416d56a12bcc6f47f63ca5"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_o270.png",
+          "sha256": "7a672bd7e10c00652360bc124ed888a39dbea324d43b43e02734ea2c7583ab53"
+        }
+      ]
+    },
+    "states-day.png": {
+      "path": "docs/art/organization-headquarters/review/states-day.png",
+      "sha256": "fbf0df349e9d94c5e268ac01690446614073d8d5362262666855e30e88d8f0b2",
+      "bytes": 586701,
+      "inputs": [
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101.png",
+          "sha256": "19a0d88f0c961f6913a0a12c5c125041911295d9ae7c994b9f733907a85d8678"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_foundation.png",
+          "sha256": "47efc7d8cdd13ddcc37241d2001d7f474aa1685279b72c563f3be19e0f723725"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_structure.png",
+          "sha256": "f95274c4bd8a9a42f82c7d4426381fea760facb3340e36c025a6d34367193f68"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_finishing.png",
+          "sha256": "10f5720004f08095b22be5a18ccc455ff7ff543e7d9864c437904a75ba46e005"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_damaged.png",
+          "sha256": "11b3ede3fe0f262c001d4997a411cf3d9d0ce6096bcea146d4a8f4f030545464"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_cupola_5101_burning.png",
+          "sha256": "ecbb6c5b1b7e0a050cb5fa2f7725c7d44ba2e39a9830daa861016ce812f27cf5"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101.png",
+          "sha256": "1c265d2cb27cab2f47792358cd4ceea55d9ed927f146871c43659c9af12febb6"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_foundation.png",
+          "sha256": "e85df3f92f436666ce4bdb18ce378e935a03cfea6a8f0761666cba84eb7d888f"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_structure.png",
+          "sha256": "e4ce382848941e4dbd055f20f54bd5d4b9a5f4f97e9691f6d6ada23ce41f6c8f"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_finishing.png",
+          "sha256": "6f6d11c6fffdeec9aa22baf846a2155af393f0008d20a85987679528b32ff2bd"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_damaged.png",
+          "sha256": "6d5eb3f1264a50de2bd915fcebc30d9620321f70002cda1de64e766b9a9cbd93"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-day-v1/hq_headquarters_courtyard_5101_burning.png",
+          "sha256": "ce0a8ca51cf4191013ed644e2b9f6c807136f09f39785b54d45e14e7caf19c58"
+        }
+      ]
+    },
+    "complete-night.png": {
+      "path": "docs/art/organization-headquarters/review/complete-night.png",
+      "sha256": "d167a7f509e600ea0d52b24745191d0569ddeda1190d25ac646bd4b984ccc9e5",
+      "bytes": 406374,
+      "inputs": [
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_cupola_5101.png",
+          "sha256": "932615897a723401e0cd71b64ca24f95a4b60f0b99020e4b2c6766d6f769c2b0"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_cupola_5101_o90.png",
+          "sha256": "03e688e2132cca0ec3e6a1b8ada380bf375be859868d47c20fffa9d23d466877"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_cupola_5101_o180.png",
+          "sha256": "ddb3256fa9bde923df027216ad824221b58b3f5436e90db7f8c622aeb115dc3d"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_cupola_5101_o270.png",
+          "sha256": "6bc677ef4b0ed66c4aee43e3de46bbaaedcfb827aafdc34ed415c989c447aa34"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_courtyard_5101.png",
+          "sha256": "f71d3d6aa9708335bce585b464ce02b4a3787df32f584b79392216b34fea71fc"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_courtyard_5101_o90.png",
+          "sha256": "5990e2df568db0ca5e6e9613b764d5cb7e7f0ddfdf71f7dedbf2f788860fe377"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_courtyard_5101_o180.png",
+          "sha256": "43ccf2539db44bc8ed89bce67e00b1259a59c253bd42f39371389e46d3b4a12f"
+        },
+        {
+          "path": "docs/art/organization-headquarters/candidates-night-v1/hq_headquarters_courtyard_5101_o270.png",
+          "sha256": "52b1081c99c7de5beee1cfaeee985e8ed4686ab3487e410a0385631fe69960a8"
+        }
+      ]
+    },
+    "gameplay-overview.png": {
+      "path": "docs/art/organization-headquarters/review/gameplay-overview.png",
+      "sha256": "cfa3eebc2c484296d7c288d9c5ec4e731308dc8ade2603ae38af83829994efd2",
+      "bytes": 803406,
+      "inputs": [
+        {
+          "path": "docs/art/organization-headquarters/gameplay-capture-v1/hq_headquarters_cupola_complete_o0_day_civic_z1.png",
+          "sha256": "ff66689bad98a6a1a2572cce48802b8f2548ec7b4b2ba6ce11271c08ff0f075e"
+        },
+        {
+          "path": "docs/art/organization-headquarters/gameplay-capture-v1/hq_headquarters_cupola_complete_o180_day_civic_z1.png",
+          "sha256": "c4c8c134b266df88e805c11ebf534042b7bd6df4dd6cfa8a6fae23297b6804b6"
+        },
+        {
+          "path": "docs/art/organization-headquarters/gameplay-capture-v1/hq_headquarters_courtyard_complete_o0_night_civic_z1.png",
+          "sha256": "1dea84c8e58c42a9b354ec502392c370ccb197253cbe32c2eef224d86b5b51d4"
+        },
+        {
+          "path": "docs/art/organization-headquarters/gameplay-capture-v1/hq_headquarters_courtyard_complete_o180_night_civic_z1.png",
+          "sha256": "70ef7ddbeb25a8c2050655f534c82f65a9227fa5a6d7536409cb4c789b8c4e25"
+        },
+        {
+          "path": "docs/art/organization-headquarters/gameplay-capture-v1/hq_headquarters_cupola_foundation_o0_day_civic_z1.png",
+          "sha256": "aa20757fb16607549db4b66d0262fbc4b389a25c9817c372b5409a8b793127d1"
+        },
+        {
+          "path": "docs/art/organization-headquarters/gameplay-capture-v1/hq_headquarters_courtyard_burning_o0_night_civic_z1.png",
+          "sha256": "4c1bb2276e11e4a64abda3a4e70db3aaaeff09e28cda589f79e00efeef93e96a"
+        }
+      ]
+    }
+  }
+}

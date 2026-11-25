@@ -60,8 +60,7 @@ from .compose import compose_candidate  # noqa: E402
 from .grammar import GrammarDocument  # noqa: E402
 from .module_catalog import Catalog, REPO_ROOT  # noqa: E402
 from .style_profile import StyleProfile  # noqa: E402
-from . import anchors  # noqa: E402
-from . import weathering  # noqa: E402
+from . import anchors, architectural_details, weathering  # noqa: E402
 
 COMPOSITION_ROOT = "COMPOSITION_ROOT"  # `nodeSelector.reparentTo`, medido en el catálogo
 STYLED_PREFIX = "styled_"
@@ -1023,7 +1022,7 @@ def support_materials(profile):
             metallic=metallic,
             roughness=roughness,
         )
-        for family in sorted(set(SUPPORT_PALETTE.values()))
+        for family in sorted(set(SUPPORT_PALETTE.values()) | {"plaster"})
     }
 
 
@@ -1067,6 +1066,46 @@ def add_supports(composition, materials, root):
     for obj in created:
         obj.parent = root
         obj.matrix_parent_inverse = root.matrix_world.inverted()
+    return created
+
+
+def add_architectural_details(composition, materials, root):
+    """Construye la geometría original neutral firmada por compose.py.
+
+    No hay color de organización: la placa y su rombo hundido son materiales neutros. La capa web
+    puede pintar el rombo después, sin volver a hornear cuatro juegos de texturas.
+    """
+    created = []
+    for detail in composition.get("architecturalDetails", []):
+        origin = Vector(detail["position"])
+        angle = math.radians(detail["rotationDegrees"])
+        cosine, sine = round(math.cos(angle), 12), round(math.sin(angle), 12)
+
+        def world(point):
+            x, y, z = point
+            return origin + Vector((x * cosine - y * sine, x * sine + y * cosine, z))
+
+        for part in architectural_details.parts_for(detail):
+            label = f"detail:{detail['id']}:{part['name']}"
+            material = materials[part["material"]]
+            if part["shape"] == "box":
+                obj = runtime.cube(
+                    label,
+                    world(part["center"]),
+                    part["size"],
+                    material,
+                    rotation=(0.0, 0.0, angle),
+                )
+            else:
+                mesh = bpy.data.meshes.new(label)
+                mesh.from_pydata([world(vertex) for vertex in part["vertices"]], [], part["faces"])
+                mesh.update()
+                obj = bpy.data.objects.new(label, mesh)
+                bpy.context.collection.objects.link(obj)
+                obj.data.materials.append(material)
+            obj.parent = root
+            obj.matrix_parent_inverse = root.matrix_world.inverted()
+            created.append(obj)
     return created
 
 
@@ -1264,6 +1303,55 @@ def point_in_quad(point, quad):
     return True
 
 
+def organization_badges(composition, scene, camera, trim):
+    """Anclas de imagen de las placas neutrales; el color/emblema pertenece al renderer.
+
+    Se proyectan los cuatro extremos del rombo real, no una caja aproximada del edificio. Así el
+    overlay QA usa exactamente el hueco hornedo y puede elegir la placa visible (frontal o trasera).
+    """
+    visible_sides = {"front", "right"}
+    sides = {value: key for key, value in anchors.SIDE_OUTWARD_DEGREES.items()}
+    badges = []
+    for detail in composition.get("architecturalDetails", []):
+        if detail["kind"] != "organization_badge":
+            continue
+        center = Vector(detail["badgeCenter"])
+        half_w = float(detail["badgeWidthMeters"]) / 2.0
+        half_h = float(detail["badgeHeightMeters"]) / 2.0
+        projected = []
+        for point in ((-half_w, 0.0, 0.0), (0.0, 0.0, half_h), (half_w, 0.0, 0.0), (0.0, 0.0, -half_h)):
+            local = architectural_details.rotate_local(point, detail["rotationDegrees"])
+            world = center + Vector(local)
+            projected.append(to_final_pixels(world_to_camera_view(scene, camera, world), trim))
+        anchor = to_final_pixels(world_to_camera_view(scene, camera, center), trim)
+        side = sides.get(detail["outwardDegrees"], "oblicuo")
+        badges.append(
+            {
+                "detailId": detail["id"],
+                "mount": detail["mount"],
+                "side": side,
+                "doubleSided": bool(detail.get("doubleSided")),
+                "visible": bool(detail.get("doubleSided")) or side in visible_sides,
+                "anchor": {"x": round(anchor[0], 5), "y": round(anchor[1], 5)},
+                "widthPixels": round(
+                    (max(point[0] for point in projected) - min(point[0] for point in projected))
+                    * trim["final"]["width"],
+                    3,
+                ),
+                "heightPixels": round(
+                    (max(point[1] for point in projected) - min(point[1] for point in projected))
+                    * trim["final"]["height"],
+                    3,
+                ),
+                "widthMeters": detail["badgeWidthMeters"],
+                "heightMeters": detail["badgeHeightMeters"],
+                "physicalOrientationDegrees": int(composition.get("orientation", 0)),
+                "bakedOrganizationColor": None,
+            }
+        )
+    return badges
+
+
 def orientation_status(composition, catalog, camera, target):
     """§24: prueba medida de que el edificio mira a la cámara, no de espaldas.
 
@@ -1301,6 +1389,24 @@ def orientation_status(composition, catalog, camera, target):
                 "outwardDegrees": outward,
                 "side": side,
                 "visible": side in visible_sides,
+                "primary": len(record["purpose"].split(":")) == 2,
+            }
+        )
+    for detail in composition.get("architecturalDetails", []):
+        if not detail["purpose"].startswith("access:"):
+            continue
+        side = sides.get(detail["outwardDegrees"], "oblicuo")
+        access.append(
+            {
+                "purpose": detail["purpose"],
+                "moduleId": None,
+                "detailId": detail["id"],
+                "frontAxis": None,
+                "rotationDegrees": detail["rotationDegrees"],
+                "outwardDegrees": detail["outwardDegrees"],
+                "side": side,
+                "visible": side in visible_sides,
+                "primary": bool(detail.get("primaryAccess", False)),
             }
         )
     orientation = int(composition.get("orientation", 0))
@@ -1317,18 +1423,21 @@ def orientation_status(composition, catalog, camera, target):
                 "physicalOrientationDegrees": orientation,
                 "access": [],
                 "allAccessVisible": True,
+                "anyAccessVisible": False,
+                "primaryAccessVisible": False,
+                "visibleAccessCount": 0,
                 "evidence": f"obra en etapa {stage}: aún no hay acceso; cámara canónica validada",
             }
         raise SceneError("§19: la composición no coloca ningún acceso: no hay forma de probar el frente")
     hidden = [item["purpose"] for item in access if not item["visible"]]
-    # V.j: con orientación física 0 la puerta debe mirar a la cámara (baseline aprobado, convención
-    # de una sola vista). Con orientación nonzero el edificio está girado sobre su solar y puede
-    # mostrar legítimamente su trasera o costado ciego a la cámara isométrica: es una vista REAL
-    # pedida por el dominio (Building.orientation), no un fault de rig. Se reporta la visibilidad
-    # medida sin abortar; la cámara sigue validada en su azimut/elevación canónicos arriba.
-    if hidden and orientation == 0:
+    hidden_primary = [item["purpose"] for item in access if item["primary"] and not item["visible"]]
+    # A 0° el acceso PRINCIPAL debe mirar a cámara. Los accesos de servicio pueden estar detrás:
+    # son precisamente los que hacen visible la sede a 180°/270°. Antes esta puerta exigía que
+    # todos los accesos fueran visibles y por ello una segunda puerta real era imposible.
+    if hidden_primary and orientation == 0:
         raise SceneError(
-            "§18: la puerta mira a un lado no visible desde la cámara canónica: " + ", ".join(hidden)
+            "§18: la puerta principal mira a un lado no visible desde la cámara canónica: "
+            + ", ".join(hidden_primary)
         )
     return {
         "cameraAzimuthDegrees": round(azimuth, 2),
@@ -1338,6 +1447,9 @@ def orientation_status(composition, catalog, camera, target):
         "physicalOrientationDegrees": orientation,
         "access": access,
         "allAccessVisible": not hidden,
+        "anyAccessVisible": any(item["visible"] for item in access),
+        "primaryAccessVisible": any(item["primary"] and item["visible"] for item in access),
+        "visibleAccessCount": sum(1 for item in access if item["visible"]),
         "evidence": (
             "frente -Y, azimut 45°: la normal de cada acceso se mide desde frontAxis+giro"
             if orientation == 0
@@ -1438,7 +1550,9 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     ground = check_ground_contact(groups, composition)
 
     objects = list(module_objects)
-    objects += add_supports(composition, support_materials(profile), root)
+    original_materials = support_materials(profile)
+    objects += add_supports(composition, original_materials, root)
+    objects += add_architectural_details(composition, original_materials, root)
     scene_geometry = check_scene_geometry(composition, objects)
 
     # El `ortho_scale` inicial es un asiento: `framing` mide la caja proyectada con la rotación del
@@ -1516,7 +1630,11 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
     # procesos. Se fija el muestreo y se congela el historial; el número de muestras se escribe aquí
     # aunque hoy sea el default de fábrica, para que un cambio de default no cuele aleatoriedad.
     scene.eevee.use_taa_reprojection = False
-    scene.eevee.taa_render_samples = 96 if material_experiment else 64
+    default_samples = 96 if material_experiment else 64
+    taa_samples = int(request.get("taaSamples", default_samples))
+    if not 1 <= taa_samples <= 128:
+        raise SceneError(f"§13: taaSamples fuera de [1,128]: {taa_samples}")
+    scene.eevee.taa_render_samples = taa_samples
     if material_experiment:
         scene.eevee.use_raytracing = True
     scene.render.use_persistent_data = True
@@ -1575,6 +1693,7 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
 
     pivot, pivot_check = pivot_and_validator(scene, camera, trim, composition)
     orientation = orientation_status(composition, catalog, camera, target)
+    badges = organization_badges(composition, scene, camera, trim)
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     final_pixels = pixels_digest(output)
     scene_materials = sorted(
@@ -1627,10 +1746,21 @@ def render_candidate(request, catalog=None, profile=None, document=None, style_l
         **({"damageRegion": composition["damageRegion"]} if composition.get("damageRegion") else {}),
         **({"fireAnchors": composition["fireAnchors"]} if composition.get("fireAnchors") else {}),
         "originalSupport": composition["originalSupport"],
+        "architecturalDetails": composition.get("architecturalDetails", []),
+        "organizationBadges": badges,
         "modules": sorted({record["moduleId"] for record in composition["placements"]}),
-        "sourceIds": sorted({record["sourceId"] for record in composition["placements"]}),
-        "sourcePaths": sorted({record["sourcePath"] for record in composition["placements"]}),
-        "licenses": sorted({record["license"] for record in composition["placements"]}),
+        "sourceIds": sorted(
+            {record["sourceId"] for record in composition["placements"]}
+            | ({architectural_details.SOURCE_ID} if composition.get("architecturalDetails") else set())
+        ),
+        "sourcePaths": sorted(
+            {record["sourcePath"] for record in composition["placements"]}
+            | ({architectural_details.SOURCE_PATH} if composition.get("architecturalDetails") else set())
+        ),
+        "licenses": sorted(
+            {record["license"] for record in composition["placements"]}
+            | ({architectural_details.LICENSE} if composition.get("architecturalDetails") else set())
+        ),
         "materialVariants": variants,
         # WP04: `litWindows`/`emissiveTexels` dicen si el compositor cableó de verdad la ruta de
         # emisión de ventana. Sin este bloque la evidencia nocturna afirmaba «el cristal sucio deja

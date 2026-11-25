@@ -7,6 +7,7 @@ import {
   type BuildingAssetV2,
   type BuildingPhysicalOrientation,
   type ConstructionStage,
+  type OrganizationVisualIdentityId,
   type RuntimeAssetManifestV2,
   type SceneryAssetV1,
   type ViewProjectionV3,
@@ -97,6 +98,12 @@ import {
 } from "./building-signage";
 import { gridEdgeToScreenLine, parcelBoundaryEdges } from "./parcel-geometry";
 import { nearestCandidateToCell } from "../ui/placement";
+import {
+  organizationBadgeWorldSize,
+  organizationIdentityFor,
+  visibleOrganizationBadge,
+  type OrganizationBadgeAnchor,
+} from "./organization-identity";
 import {
   buildGameplayVisualModel,
   contextActorRenderCell,
@@ -363,6 +370,18 @@ type CandidateQaPlacement = {
   cell: GridCell;
   /** Rótulo QA que se dibuja bajo el sprite: qué es y de dónde viene. */
   label: string;
+  /** D-110: identidad estable de la organización; el PNG sigue siendo neutral. */
+  organizationIdentityId?: OrganizationVisualIdentityId;
+  /** Anclas proyectadas por el Composer para el overlay de color/forma. */
+  organizationBadges?: readonly OrganizationBadgeAnchor[];
+};
+
+type CandidateQaBadge = {
+  graphics: Phaser.GameObjects.Graphics;
+  sprite: Phaser.GameObjects.Image;
+  badge: OrganizationBadgeAnchor;
+  identityId: OrganizationVisualIdentityId;
+  baseSize: number;
 };
 
 type CandidateQaProbe = {
@@ -374,6 +393,9 @@ type CandidateQaProbe = {
   scale: number;
   label: string;
   visible: boolean;
+  organizationIdentityId: OrganizationVisualIdentityId;
+  organizationEmblem: "diamond" | "triangle";
+  organizationBadgeCount: number;
 };
 
 type CameraTestApi = {
@@ -457,6 +479,12 @@ type CameraTestApi = {
   listCandidateQa(): CandidateQaProbe[];
   /** FINAL-ASSET-QA 2.3 · variantes pedidas que NO cargaron: sin sustituciones silenciosas. */
   listCandidateQaErrors(): string[];
+  /** Captura D-110: retira sólo las muestras QA, nunca sprites de la partida. */
+  clearCandidateQa(): void;
+  /** Reaplica el piso de legibilidad del emblema tras cambiar el zoom. */
+  refreshCandidateQa(): void;
+  /** Cambia sólo iluminación de presentación para que coincida con el mood horneado. */
+  setVisualMood(mood: "day" | "night"): void;
   listParcelMarks(): Array<{
     id: string;
     parcelId: string;
@@ -583,6 +611,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
    * catálogo: ninguna de estas texturas entra en el cache de variantes ni en el presupuesto D-101.
    */
   private candidateQaSamples = new Map<string, CandidateQaProbe>();
+  private candidateQaObjects = new Map<
+    string,
+    { sprite: Phaser.GameObjects.Image; label: Phaser.GameObjects.Text }
+  >();
+  private candidateQaBadges = new Map<string, CandidateQaBadge>();
   private candidateQaLoadErrors: string[] = [];
   private pendingVariantTextures = new Map<string, { bytes: number; districtId: string }>();
   private pendingCourtyardTextures = new Set<string>();
@@ -2801,6 +2834,42 @@ export class IsometricSpikeScene extends Phaser.Scene {
           })
           .setOrigin(0.5, 0)
           .setDepth(2_000_000);
+        const identity = organizationIdentityFor(item.organizationIdentityId);
+        const badge = visibleOrganizationBadge(item.organizationBadges ?? []);
+        if (badge) {
+          const graphics = this.add.graphics();
+          const color = Phaser.Display.Color.HexStringToColor(identity.color).color;
+          const size = organizationBadgeWorldSize(badge, scale, this.cameras.main.zoom);
+          const halfHeight = (size * badge.heightPixels) / Math.max(1, badge.widthPixels) / 2;
+          graphics.fillStyle(color, 1);
+          graphics.lineStyle(Math.max(1, size * 0.08), 0xf4ead8, 0.95);
+          if (identity.emblem === "triangle") {
+            graphics.fillTriangle(0, halfHeight, -size / 2, -halfHeight, size / 2, -halfHeight);
+            graphics.strokeTriangle(0, halfHeight, -size / 2, -halfHeight, size / 2, -halfHeight);
+          } else {
+            const diamond = [
+              new Phaser.Math.Vector2(0, -size / 2),
+              new Phaser.Math.Vector2(size / 2, 0),
+              new Phaser.Math.Vector2(0, size / 2),
+              new Phaser.Math.Vector2(-size / 2, 0),
+            ];
+            graphics.fillPoints(diamond, true);
+            graphics.strokePoints(diamond, true);
+          }
+          graphics.setPosition(
+            sprite.x + (badge.anchor.x - sprite.originX) * sprite.displayWidth,
+            sprite.y + (badge.anchor.y - sprite.originY) * sprite.displayHeight,
+          );
+          graphics.setDepth(sprite.depth + 2);
+          this.candidateQaBadges.set(item.name, {
+            graphics,
+            sprite,
+            badge,
+            identityId: identity.id,
+            baseSize: size,
+          });
+        }
+        this.candidateQaObjects.set(item.name, { sprite, label });
         this.candidateQaSamples.set(item.name, {
           name: item.name,
           textureKey: key,
@@ -2810,6 +2879,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
           scale,
           label: item.label,
           visible: sprite.visible && label.visible,
+          organizationIdentityId: identity.id,
+          organizationEmblem: identity.emblem,
+          organizationBadgeCount: badge ? 1 : 0,
         });
       }
     };
@@ -2818,6 +2890,30 @@ export class IsometricSpikeScene extends Phaser.Scene {
       if (!this.load.isLoading()) this.load.start();
     } else {
       placeAll();
+    }
+  }
+
+  private clearCandidateQaItems(): void {
+    for (const { sprite, label } of this.candidateQaObjects.values()) {
+      sprite.destroy();
+      label.destroy();
+    }
+    for (const { graphics } of this.candidateQaBadges.values()) graphics.destroy();
+    for (const sample of this.candidateQaSamples.values()) this.textures.remove(sample.textureKey);
+    this.candidateQaObjects.clear();
+    this.candidateQaBadges.clear();
+    this.candidateQaSamples.clear();
+    this.candidateQaLoadErrors = [];
+  }
+
+  private refreshCandidateQaItems(): void {
+    for (const entry of this.candidateQaBadges.values()) {
+      const size = organizationBadgeWorldSize(
+        entry.badge,
+        entry.sprite.scaleX,
+        this.cameras.main.zoom,
+      );
+      entry.graphics.setScale(size / Math.max(0.001, entry.baseSize));
     }
   }
 
@@ -3516,6 +3612,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
       },
       listCandidateQa: () => [...this.candidateQaSamples.values()],
       listCandidateQaErrors: () => [...this.candidateQaLoadErrors],
+      clearCandidateQa: () => this.clearCandidateQaItems(),
+      refreshCandidateQa: () => this.refreshCandidateQaItems(),
+      setVisualMood: (mood) => this.setVisualMood(mood),
       listScenery: () => {
         camera.preRender();
         const view = camera.worldView;

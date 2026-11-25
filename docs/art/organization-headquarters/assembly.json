@@ -1,0 +1,498 @@
+{
+  "schemaVersion": 1,
+  "assembledAt": "2026-11-25T13:32:06.996Z",
+  "moods": {
+    "night_civic": {
+      "count": 48,
+      "output": "docs/art/organization-headquarters/candidates-night-v1",
+      "candidates": [
+        {
+          "id": "hq_headquarters_courtyard_5101",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T12-51-25-239Z-253653/hq_headquarters_courtyard_5101.json",
+          "sha256": "f71d3d6aa9708335bce585b464ce02b4a3787df32f584b79392216b34fea71fc"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_burning.json",
+          "sha256": "0ee325d7ab7e51a40eecf7c997c0ee1ca728633ea140ae4e165d151636b15308"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_burning_o180.json",
+          "sha256": "147cef3d489a611f40ad4cba91889ff5b3b92a02b13144f7f4cc80c63d28da47"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_burning_o270.json",
+          "sha256": "36920b1526add15053565e33553a1250056893a9570b87b69eb6b47a8cf7b8f6"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_burning_o90.json",
+          "sha256": "9cd8ebf0ccc66a11b248d49a234a0509ebf59c498c4f0ad69b1813713490f6b6"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_damaged.json",
+          "sha256": "73cf48a2f0810bc668ce70d7825079ab16703bc65859582456c44e52fccddb65"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_damaged_o180.json",
+          "sha256": "d0c16d8c3d62dc8c252d07fcdd3fb361278d87d115d353c3799b8c3022895b21"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_damaged_o270.json",
+          "sha256": "71785d00c79e470a67fabeb11b0bb8a52ad55e2928aa20d8e6064cc34a14e0f1"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_damaged_o90.json",
+          "sha256": "01928a2d35125b32b5b961e0bd464720ae6d3742fb4b6460748402e8832ea06e"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_finishing.json",
+          "sha256": "7e031cf74770405cf7e24e9c8c29712c6278791c4b4ef2b8bb47895e5e67caea"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_finishing_o180.json",
+          "sha256": "7926273e6f53819c08e09d4061d8eff86bb4c1378c6337e033c18eb828cfb820"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_finishing_o270.json",
+          "sha256": "4470f0f374a4b2e5a22c54067d9041e8cd9db6b34deb1b07fa766bc6c0deeb85"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-b/hq_headquarters_courtyard_5101_finishing_o90.json",
+          "sha256": "693c7954987d3db07049307abc86f5868fdc8ba38c9430b3f3bd687faa4c1dec"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_foundation.json",
+          "sha256": "9fb3cf877dd7b3874c24c46225e9b9e108cc6682c8c1cc286b47b3660f0932e2"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_foundation_o180.json",
+          "sha256": "eacb6c2484b311e1067a999a492998817ff3c314b58253efa7cc937fca4fc183"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_foundation_o270.json",
+          "sha256": "61dd68eeb1b827e050ddcbd8e4a98463b1ec665c7a35329e3dac24afebe6a43f"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_foundation_o90.json",
+          "sha256": "43526de052cc367de9cdb604965eb56c3333f47125a3723fcb72218e95525c5f"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T12-51-25-239Z-253653/hq_headquarters_courtyard_5101_o180.json",
+          "sha256": "43ccf2539db44bc8ed89bce67e00b1259a59c253bd42f39371389e46d3b4a12f"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T12-51-25-239Z-253653/hq_headquarters_courtyard_5101_o270.json",
+          "sha256": "52b1081c99c7de5beee1cfaeee985e8ed4686ab3487e410a0385631fe69960a8"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T12-51-25-239Z-253653/hq_headquarters_courtyard_5101_o90.json",
+          "sha256": "5990e2df568db0ca5e6e9613b764d5cb7e7f0ddfdf71f7dedbf2f788860fe377"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_structure.json",
+          "sha256": "0e75643b15f9ede6d1a2f92809c43c4d48c3c3914c104e248e90edfd70fe60cc"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_structure_o180.json",
+          "sha256": "ab98dc2e9181a9c4afa85f89f91a51516ae1002128c7dbd72c331521e1eb2921"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_structure_o270.json",
+          "sha256": "56c85729790046d0d47073b261afac466069d292569fe4665539cd3da84580d7"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night-courtyard-a/hq_headquarters_courtyard_5101_structure_o90.json",
+          "sha256": "7c9125455e92db8f43416b48887110ddad57ddba84610d199552f8ef4ac6cec7"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101.json",
+          "sha256": "932615897a723401e0cd71b64ca24f95a4b60f0b99020e4b2c6766d6f769c2b0"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_burning.json",
+          "sha256": "10e12d460113bc5fb0e5b2f139740f63697ce75c468191f99837da9942040bba"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_burning_o180.json",
+          "sha256": "af6ca702e14e840219d1e08a08d669e3f4d6dcb34f522a07d5a38c3373a2f273"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_burning_o270.json",
+          "sha256": "ee02afd634fe2b45ff788667652782ed9babf180dcba27893bd565627e1adfee"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_burning_o90.json",
+          "sha256": "b47ba7e2ffb356f5bd501e67f09318334c505cc42bd7468b9c0b642b841a59e9"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_damaged.json",
+          "sha256": "3a464e27f48f9fad53801128267206a75a83f79ae2030840bdece230a18393c9"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_damaged_o180.json",
+          "sha256": "63dd75fe9b80c4e2cec6caa4d3363a1cba697834f49ae0f622cc676fe10beb13"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_damaged_o270.json",
+          "sha256": "af70b1d5790614c8df913cde1ebced1d4e50d54b128b8e8c94926df14c1df7cc"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_damaged_o90.json",
+          "sha256": "86d12faae06652fd1aeb0513fedc4c4436162d4cced20c282d3b02e8fc7deec1"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_finishing.json",
+          "sha256": "0caa67c23fd63bba9fbdd28063a4f06817239cfb4e0f6842877a4098d312426c"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_finishing_o180.json",
+          "sha256": "fef33ebc953b35fed2b1e46d398e91a2157b97f20cc18c63c05d126309f73168"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_finishing_o270.json",
+          "sha256": "0a3446aa127b5d861e90f15c2ce88706729f341e2d1604e076c2d93d5315c9b8"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_finishing_o90.json",
+          "sha256": "95574bdb06d54681ad409e764ebbbe12f0d6618568e13ba89e838e5c2708df28"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_foundation.json",
+          "sha256": "68c9ea672837a3edc20f545805b4ded2571eb2cf27e024f26a4f2ea31dcf7265"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_foundation_o180.json",
+          "sha256": "9fa4460af231852bed0c7596ce6b585d6e612b2480ee11eeb5c2949fb1e299db"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_foundation_o270.json",
+          "sha256": "e334c46b74d74f8ac73029100b5877552d44a4a9f2ec8c35e490848c053f894e"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_foundation_o90.json",
+          "sha256": "f4f3a4a8b2c10964213911007a8fd1787d158270e7c7eafc46bd1bf5ba24cd92"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_o180.json",
+          "sha256": "ddb3256fa9bde923df027216ad824221b58b3f5436e90db7f8c622aeb115dc3d"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_o270.json",
+          "sha256": "6bc677ef4b0ed66c4aee43e3de46bbaaedcfb827aafdc34ed415c989c447aa34"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_o90.json",
+          "sha256": "03e688e2132cca0ec3e6a1b8ada380bf375be859868d47c20fffa9d23d466877"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_structure.json",
+          "sha256": "ccb990981a4ae000f329ca288976f25d548cac806681c8dd2ca68e9741ba1e82"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_structure_o180.json",
+          "sha256": "ad8ea849679635b80244715eba0e07d3a1acc24eaa4690cf586f966fb22f641f"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_structure_o270.json",
+          "sha256": "38d2d545648ae3101a4801b982f3cd6058ef9b4386fcedc9d075714ca706b2a7"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-night_civic/hq_headquarters_cupola_5101_structure_o90.json",
+          "sha256": "9443baf9a0615d726c6ed6100e3b1de8b484264adca60d4673bd6a86d3516af4"
+        }
+      ]
+    },
+    "day_civic": {
+      "count": 48,
+      "output": "docs/art/organization-headquarters/candidates-day-v1",
+      "candidates": [
+        {
+          "id": "hq_headquarters_courtyard_5101",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101.json",
+          "sha256": "1c265d2cb27cab2f47792358cd4ceea55d9ed927f146871c43659c9af12febb6"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_burning.json",
+          "sha256": "ce0a8ca51cf4191013ed644e2b9f6c807136f09f39785b54d45e14e7caf19c58"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_burning_o180.json",
+          "sha256": "bca07c6deef632f8c5e0b8779c990a1fa8966befd8aed4ebd3fe039688389df4"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_burning_o270.json",
+          "sha256": "2e31c0bd3d67ebc7dfb6d40317599dab272dda105b8a2668c7495d7d03d00252"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_burning_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_burning_o90.json",
+          "sha256": "8e7b71911b1c783170def7a63b43cdba709637a940a47bcae515856145ba6c9e"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_damaged.json",
+          "sha256": "6d5eb3f1264a50de2bd915fcebc30d9620321f70002cda1de64e766b9a9cbd93"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_damaged_o180.json",
+          "sha256": "bef2b9be36bf9333018ef367f583fd7dc31ba5214d2e2f2bf005e64f646682f5"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_damaged_o270.json",
+          "sha256": "07ae6dd8b1342fb44ebe5db885232c79bbceba472ab85bfca61ce31a08ba3b0d"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_damaged_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_damaged_o90.json",
+          "sha256": "2d15a4410bcc7ee04b9d361d3b5fcb1935f99fc256d7c8a0299cd6d047394d82"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_finishing.json",
+          "sha256": "6f6d11c6fffdeec9aa22baf846a2155af393f0008d20a85987679528b32ff2bd"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_finishing_o180.json",
+          "sha256": "2b92b7d594d67c8491b35bb5a6c7c8e96b2151bb814adc8fdcc39bb8fc040e99"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_finishing_o270.json",
+          "sha256": "74d79cb08a5a3320d940e18c38bc7aaf8797664bcaa9177cc9f5063c8dc16bff"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_finishing_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_finishing_o90.json",
+          "sha256": "6ca25f16f03eee6175f271351e6b57d35a2a64e0c790aedfc9a69d9382a563cd"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_foundation.json",
+          "sha256": "e85df3f92f436666ce4bdb18ce378e935a03cfea6a8f0761666cba84eb7d888f"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_foundation_o180.json",
+          "sha256": "0d77fbc13546749d754149a843411cd0a6ab22376f52e12bf07789a8fda8db49"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_foundation_o270.json",
+          "sha256": "23c4566e8636c7aa6941649394879b57c483925913c6f7bd206f990f603966a8"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_foundation_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_foundation_o90.json",
+          "sha256": "a6adf41578bc2d3535b28d1fdc7d844151f19e327a309129b02566ce0ddb0112"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_o180.json",
+          "sha256": "2147f4ff125e3cd3d798bd688d5b49a95750175e9c416d56a12bcc6f47f63ca5"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_o270.json",
+          "sha256": "7a672bd7e10c00652360bc124ed888a39dbea324d43b43e02734ea2c7583ab53"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_o90.json",
+          "sha256": "6c6c1693711a229f2de06e79acb4ea2b93f91d61956517196e66f6f30f726492"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_structure.json",
+          "sha256": "e4ce382848941e4dbd055f20f54bd5d4b9a5f4f97e9691f6d6ada23ce41f6c8f"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_structure_o180.json",
+          "sha256": "b5f615884f104902df0b3a7d4882fcb594bbe7a40c42627672d5d3eb67a29392"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_structure_o270.json",
+          "sha256": "8d7224135ddfe7ea2ea01baa393a88a58de16dd11860e865c1c4bf71b664e5af"
+        },
+        {
+          "id": "hq_headquarters_courtyard_5101_structure_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/candidates-day_civic/hq_headquarters_courtyard_5101_structure_o90.json",
+          "sha256": "f5ec32fd692ce5ca5e1fa3342c751877340c07fc9b466bf929f21ab5972f882e"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101.json",
+          "sha256": "19a0d88f0c961f6913a0a12c5c125041911295d9ae7c994b9f733907a85d8678"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_burning.json",
+          "sha256": "ecbb6c5b1b7e0a050cb5fa2f7725c7d44ba2e39a9830daa861016ce812f27cf5"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_burning_o180.json",
+          "sha256": "dc44eb7b597506cf835e2a7516c08fbaf4be6cf76fa7489e72a79d34a153cf5d"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_burning_o270.json",
+          "sha256": "cdbfa61c4ef3ac238f640a61fbf88bd2baf2d7228faa3008b41d979f54b07f03"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_burning_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_burning_o90.json",
+          "sha256": "3ac499c1536c7a54934d3d1f44a7d23806e8260093b5f753084900002e0ca64a"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_damaged.json",
+          "sha256": "11b3ede3fe0f262c001d4997a411cf3d9d0ce6096bcea146d4a8f4f030545464"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_damaged_o180.json",
+          "sha256": "bed4dfed99cba044b1e99bd8a9ec916a69938438f1f518bf4566c3c1717a5108"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_damaged_o270.json",
+          "sha256": "770ebd1c02809c819e04c1b3e3456191bcd832e997d9a6d9d253c3a98bb769d9"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_damaged_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_damaged_o90.json",
+          "sha256": "fb0ae157dc4fa51b6bba92f78240a63d9b0200e3c0e576e4e89ebddbb771538c"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_finishing.json",
+          "sha256": "10f5720004f08095b22be5a18ccc455ff7ff543e7d9864c437904a75ba46e005"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_finishing_o180.json",
+          "sha256": "010f5a905652eccbc0c2f7654602874c9d5c74749d9546b213fd8b599113bc4d"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_finishing_o270.json",
+          "sha256": "8fb82f6d42670f719161d7b882005d401a361009cde0a397ab72522100fc29ae"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_finishing_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_finishing_o90.json",
+          "sha256": "13d6b88f173a2976ac5329ea76761fa0723f52efc854b5464305a6d654f57a8b"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_foundation.json",
+          "sha256": "47efc7d8cdd13ddcc37241d2001d7f474aa1685279b72c563f3be19e0f723725"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_foundation_o180.json",
+          "sha256": "c18f21e3e4b18ce2f9182e66ed23be52cc2098b0310996429814d3bee1a9651c"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_foundation_o270.json",
+          "sha256": "5c83958e621e4c9302bbfd160a0b8ab37869383b5edba338ae607d8cbce98367"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_foundation_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_foundation_o90.json",
+          "sha256": "064b0c5e49e6c10b73710da766326a93de58694f928429ee2a97e7cd996473b2"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_o180.json",
+          "sha256": "b5631172fa5bedc128151509554dfaed4fcf1465117efb7d60385bf1cb20d87a"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_o270.json",
+          "sha256": "eb103095c9b369fb4f4a93af9f15061502cc36aecf49ff9ac7211c62fc9ccc4f"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_o90.json",
+          "sha256": "ade0f3fdd52af015022d545d817bf1e4fc0ded7c40acf6d123ad622df0df46a4"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_structure.json",
+          "sha256": "f95274c4bd8a9a42f82c7d4426381fea760facb3340e36c025a6d34367193f68"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure_o180",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_structure_o180.json",
+          "sha256": "ff489dccc118beb967b3314be8046776361e86fe1693a5b3fec67be767c7474e"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure_o270",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_structure_o270.json",
+          "sha256": "b2ebdd97a6f728e0e422d0717634603cdbc6e8732a92cb3e143c6a9914bef7a1"
+        },
+        {
+          "id": "hq_headquarters_cupola_5101_structure_o90",
+          "sourceMetadata": "docs/art/organization-headquarters/attempts/2026-11-25T1118/hq_headquarters_cupola_5101_structure_o90.json",
+          "sha256": "cb8c25018d44fa78a66fb8d8ba4f9a9f30fec67bfcfcb83fdaef2603a5e4fce2"
+        }
+      ]
+    }
+  }
+}

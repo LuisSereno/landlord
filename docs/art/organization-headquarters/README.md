@@ -1,37 +1,49 @@
 # Sedes operativas de organización
 
-Estado: contrato de gameplay implementado; dos candidatos del Building Composer generados en las cuatro orientaciones; captura en gameplay, cobertura de estados y aprobación visual/procedencia pendientes antes de promoverlos al runtime.
+Estado: 96 candidatas Composer y 288 capturas en la ciudad Phaser validadas técnicamente. La
+aprobación visual humana sigue pendiente; ninguna candidata está promovida al runtime. D-110.
 
-## Referencias
+## Contrato visual
 
-- `concepts/headquarters-mansion-cupola-reference.png`: concepto A, mansión urbana con mirador, ala lateral y cochera. Imagen generada para orientar la silueta; no es geometría ni sprite de runtime.
-- `concepts/headquarters-courtyard-reference.png`: concepto B, residencia en U con patio de servicio y cubierta distinta. Imagen generada para orientar la silueta; no es geometría ni sprite de runtime.
+| Variante | Identidad | Acceso de servicio |
+| --- | --- | --- |
+| `headquarters_cupola` | Mansión urbana simétrica con mirador original y alas laterales | Cochera trasera visible a 180°/270° |
+| `headquarters_courtyard` | Residencia en U con patio de servicio abierto | Umbral frontal y puerta trasera visible a 180°/270° |
 
-Ambos conceptos se usan junto con Graphic Civic. Los modelos finales deben componerse desde módulos del catálogo aprobado en `blender_artist/manifests/building-modules.json`, y conservar manifiesto de composición, fuentes, licencia, hashes y capturas. Antes de añadir sus sprites a los bundles se deben revisar en la ciudad real los cuatro rumbos, estados de obra y zooms publicados, además de colisión, color, carga y presupuesto.
+Ambas comparten huella 4×2, seis estados (`complete`, `foundation`, `structure`, `finishing`,
+`damaged`, `burning`), cuatro orientaciones físicas y dos moods (`day_civic`, `night_civic`). Cada
+variante aporta 48 assets y la matriz completa 96.
 
-## Candidatos Composer
+La placa y el rombo son neutros: el color y la forma de organización se pintan en runtime. El
+jugador usa turquesa `#4DB6AC`/rombo, el rival terracota `#D97757`/triángulo y el azul cívico queda
+reservado al municipio.
 
-Los renders aislados y su metadata están en [`candidates/`](candidates/):
+## Evidencia y procedencia
 
-- `headquarters_cupola`: incluye el módulo original de mirador `mod_original_school_cupola` y módulos licenciados de fachada/cubierta.
-- `headquarters_courtyard`: composición residencial modular en U para formar un patio de servicio abierto.
-- Cada modelo tiene cuatro orientaciones con su manifiesto; las composiciones declaran 100 % de módulos licenciados y alrededor de 12–13 mil triángulos.
+- `candidate-matrix.json`: índices, hashes, firma de composición, huella, pivote, escala, accesos y
+  detalles arquitectónicos de las 96 candidatas.
+- `candidates-day-v1/` y `candidates-night-v1/`: PNG y sidecars locales; los PNG no se versionan
+  hasta aprobación humana.
+- `review/`: láminas de completado, estados, noche y una selección de capturas de gameplay.
+- `gameplay-capture-v1/capture-manifest.json`: 288 capturas, dos identidades, tres zooms y cero
+  errores de página; los PNG quedan locales hasta aprobación.
+- `validation.json`: resultado del gate técnico, separado de la aprobación artística.
+- `promotion-plan.json`: promoción manual condicionada a aprobación humana y protege los manifiestos
+  runtime vigentes.
 
-Son candidatos de escala de laboratorio. Todavía no se han revisado en la ciudad de gameplay y no contienen los acentos de organización horneados. La variante A tampoco tiene cochera en este primer candidato. La variante B debe comprobar que el patio y el acceso se lean a los zooms de juego. No promover estos PNG al runtime como están.
+Comandos reproducibles:
 
-## Identidad
+```bash
+pnpm art:headquarters:assemble
+HQ_REQUIRE_LOCAL_ASSETS=1 pnpm art:headquarters:validate
+pnpm art:headquarters:validate:test
+pnpm art:headquarters:capture
+python3 scripts/compose-headquarters-review-sheets.py
+```
 
-- Compañía del jugador: turquesa `#4DB6AC`, emblema geométrico de rombo.
-- Compañía rival: terracota `#D97757`, emblema geométrico de triángulo.
-- Azul cívico queda reservado al municipio.
-- Una sede muestra un solo color de organización; el color es un acento y no sustituye el emblema.
+## Gate humano
 
-## Contrato funcional
-
-El tipo económico `headquarters` mide 4×2 celdas y usa dos parcelas contiguas con 16 celdas combinadas como mínimo. Cuesta 4 500, consume 4 cemento, 8 ladrillos, 2 acero y 96 unidades de trabajo. No recibe inquilinos ni produce renta; paga los costes normales de mantenimiento e impuestos. `cupola` y `courtyard` son identidades visuales persistidas del mismo tipo y no cambian reglas.
-
-Cada organización inicial conserva un local provisional en su ancla de aparición. Puede tener una sede en obra o terminada. La sede terminada publica accesos principal y de servicio; los agentes operativos usan el acceso de servicio. El renderer debe escoger su asset por `headquartersVariantId` persistido, nunca sortearlo por frame o seed de render.
-
-## Gate de promoción pendiente
-
-La integración funcional usa por ahora un placeholder doméstico compartido hasta que ambos modelos derivados de fuentes aprobadas estén validados y capturados en gameplay. No presentar los conceptos ni los renders aislados como sprites finales ni declarar cubierto el requisito visual hasta cerrar ese gate.
+Revisar las 288 capturas en ciudad (dos identidades, tres zooms), cochera/patio de servicio,
+emblemas, presupuesto y conducta con y sin variante promovida. Sólo después de una aprobación
+explícita se puede editar `runtime-promotions.json` o un manifiesto runtime. El playtest humano V.d
+sigue independiente y permanece `PENDING HUMAN PLAYTEST`.

@@ -18,7 +18,7 @@ import hashlib
 import json
 import math
 
-from . import anchors
+from . import anchors, architectural_details
 from .grammar import GrammarDocument, draw_choices, option_by_id
 from .module_catalog import Catalog
 from .style_profile import StyleProfile
@@ -198,6 +198,7 @@ class Composition:
         )
         self.placements = []
         self.supports = []
+        self.architectural_details = []
         self.volumes = []
         self.axis_fingerprint = {}
         # `variantSeed` entra en el estado y la etiqueta fija el orden de sorteo: dos ejes con el
@@ -344,6 +345,8 @@ class Composition:
                 continue
             self._build_roof(volume, roof)
         self._build_access(access, corner)
+        self._build_secondary_accesses(corner)
+        self._build_architectural_details()
         
         # V.g: garantizar requiredFeatures de la receta ANTES del secondary normal
         # para que tengan prioridad en el espacio disponible
@@ -1032,16 +1035,19 @@ class Composition:
             f"con el modo de esquina {corner['id']}"
         )
 
-    def _build_access(self, access, corner):
-        """Acceso sobre la banda frontal: una masa entera ya trae su propia puerta.
+    def _build_access(self, access, corner, *, side="front", volume=None, purpose_prefix="access", primary=True):
+        """Acceso real sobre una cara cardinal; la crujía se sustituye, no se superpone.
 
-        La crujía del acceso se sustituye (no se superpone) para que el hueco se lea; el marco manda
-        la altura de puerta del perfil y la hoja queda detrás, nunca coplanar con el marco.
+        El acceso principal conserva el comportamiento histórico. Los accesos de servicio declaran
+        su cara y volumen en datos y comparten exactamente el mismo reemplazo de crujía, hoja y
+        marquesina. Una puerta trasera mantiene legible la sede a 180°/270° con la cámara fija.
         """
-        volume = self._access_volume(corner)
-        self.access_volume = volume
+        volume = volume or self._access_volume(corner)
+        if primary:
+            self.access_volume = volume
         rect = volume["rect"]
-        bays = self.band_bays(rect, "front", corner)
+        bays = self.band_bays(rect, side, corner)
+        face_line = {"front": rect[1], "rear": rect[3], "left": rect[0], "right": rect[2]}[side]
         if access["bayRule"] == "repeat":
             spacing = float(access["repeatEveryMeters"])
             width = rect[2] - rect[0]
@@ -1060,17 +1066,18 @@ class Composition:
                 )
         else:
             indices = [len(bays) // 2 if access["bayRule"] == "center" else self.rng.below(len(bays))]
-        self.access_bays = set(indices)
-        # Conserva un eje de acceso canónico para los features simétricos y las firmas históricas.
-        self.access_bay = indices[len(indices) // 2]
+        if primary:
+            self.access_bays = set(indices)
+            # Conserva un eje de acceso canónico para los features simétricos y las firmas históricas.
+            self.access_bay = indices[len(indices) // 2]
         frame = self.catalog.pick(self.family, access["frameRole"])
         for index in indices:
             along = bays[index]
-            has_infill = self._replace_front_bay(volume, along, frame, corner)
+            has_infill = self._replace_face_bay(volume, side, along, frame, corner, purpose_prefix)
             if access["leafRole"] and not has_infill:
                 leaf = self.catalog.pick(self.family, access["leafRole"], access.get("leafModule"))
                 self.add_on_face(
-                    leaf, "front", along, rect[1], volume["base"], "access:leaf", projection=-0.02
+                    leaf, side, along, face_line, volume["base"], f"{purpose_prefix}:leaf", projection=-0.02
                 )
             if access["aboveRole"]:
                 module = self.catalog.pick(self.family, access["aboveRole"])
@@ -1078,15 +1085,15 @@ class Composition:
                 self._check_overhang(projection, f"elementos sobre {access['id']}")
                 self.add_on_face(
                     module,
-                    "front",
+                    side,
                     along,
-                    rect[1],
+                    face_line,
                     float(self.profile.door_scale["heightMeters"]) + volume["base"],
-                    "access:above",
+                    f"{purpose_prefix}:above",
                     projection,
                 )
-        if access["steps"]:
-            if not self.front_strip:
+        if access.get("steps"):
+            if side != "front" or not self.front_strip:
                 raise CompositionError(
                     "§17: la gramática pide escaleras de acceso sin reservar franja frontal; "
                     "apoyarían en el suelo fuera del solar"
@@ -1102,36 +1109,46 @@ class Composition:
                     f"no da los {depth} m de fondo de {module.id}"
                 )
             self.add(
-                module, anchors.rotation_for(module, "front"), (along, y, 0.0), "access:steps"
+                module, anchors.rotation_for(module, "front"), (along, y, 0.0), f"{purpose_prefix}:steps"
+            )
+
+    def _build_secondary_accesses(self, corner):
+        for access in self.record.get("secondaryAccesses", []):
+            self._build_access(
+                access,
+                corner,
+                side=access["side"],
+                volume=self.volumes[access["targetVolume"]],
+                purpose_prefix=f"access:{access['id']}",
+                primary=False,
             )
 
     def _replace_front_bay(self, volume, along, frame, corner):
-        """Sustituye la crujía del acceso por el marco, sin dejar el panel detrás.
+        """Compatibilidad histórica: el acceso principal siempre mira al frente."""
+        return self._replace_face_bay(volume, "front", along, frame, corner)
 
-        Dos paneles coplanares en la misma fachada se ven como un parpadeo a 256 px; quitar el
-        panel y poner el marco deja el hueco legible desde el primer render.
-
-        El filtro de rol acepta cualquier módulo de fachada que pueda ocupar la planta baja:
-        wall_panel y doorframe (caso estándar), pero también wainscot, ground_panel, curtain_wall
-        y window_bay cuando el rhythm declara un groundRole distinto o el token cíclico cae en
-        hueco en vez de muro. La comprobación de posición (front, level1, z=base, x=bay) ya
-        garantiza que sólo se toca el panel exacto bajo el acceso.
-        """
+    def _replace_face_bay(self, volume, side, along, frame, corner, purpose_prefix="access"):
+        """Sustituye la crujía de una cara por el marco, sin dejar el panel detrás."""
         rect = volume["rect"]
         facade_roles = {
             "wall_panel", "doorframe", "wainscot", "ground_panel", "curtain_wall", "window_bay",
         }
+        face_line = {"front": rect[1], "rear": rect[3], "left": rect[0], "right": rect[2]}[side]
+        along_axis = "x" if side in ("front", "rear") else "y"
+        normal_axis = "y" if side in ("front", "rear") else "x"
+        normal_edge = "min" if side in ("front", "left") else "max"
         removed = 0
         has_infill = False
         for record in list(self.placements):
-            if record["purpose"].startswith("band-infill:front:level1:"):
+            if record["purpose"].startswith(f"band-infill:{side}:level1:"):
                 if record["bounds"]["z"]["min"] != _round(volume["base"]):
                     continue
-                center = (record["bounds"]["x"]["min"] + record["bounds"]["x"]["max"]) / 2
+                box = record["bounds"][along_axis]
+                center = (box["min"] + box["max"]) / 2
                 if abs(center - along) < self.bay / 2 + 1e-6:
                     has_infill = True
                 continue
-            if not record["purpose"].startswith("band:front:level1:"):
+            if not record["purpose"].startswith(f"band:{side}:level1:"):
                 continue
             if record["bounds"]["z"]["min"] != _round(volume["base"]):
                 continue
@@ -1141,15 +1158,16 @@ class Composition:
             # otro volumen que comparta la misma línea de fachada (p.ej. base_and_tower: la base
             # tiene front en y=-4 y la torre en y=0; ambas generan paneles "band:front:level1"
             # con las mismas X y Z, pero el Y de los bounds distingue la cara de colocación).
-            if abs(record["bounds"]["y"]["min"] - rect[1]) > 1e-6:
+            if abs(record["bounds"][normal_axis][normal_edge] - face_line) > 1e-6:
                 continue
-            center = (record["bounds"]["x"]["min"] + record["bounds"]["x"]["max"]) / 2
+            box = record["bounds"][along_axis]
+            center = (box["min"] + box["max"]) / 2
             if abs(center - along) < self.bay / 2 - 1e-6:
                 self.placements.remove(record)
                 removed += 1
         if removed != 1:
             raise CompositionError(f"el acceso no encontró su crujía de planta baja ({removed})")
-        self.add_on_face(frame, "front", along, rect[1], volume["base"], "access:frame")
+        self.add_on_face(frame, side, along, face_line, volume["base"], f"{purpose_prefix}:frame")
         return has_infill
 
     def _secondary_centers(self):
@@ -1626,6 +1644,124 @@ class Composition:
             # la fuente, no la gramática.
             self.add(module, 0, position, f"prop:{option['id']}")
 
+    # -- geometría original D-110 ----------------------------------------------------------------
+
+    def _translated_box(self, box, position):
+        return {
+            axis: {"min": box[axis]["min"] + position[index], "max": box[axis]["max"] + position[index]}
+            for index, axis in enumerate(("x", "y", "z"))
+        }
+
+    def _make_architectural_detail(self, spec, position, rotation, mount):
+        detail = {
+            "id": spec["id"],
+            "kind": spec["kind"],
+            "label": spec["label"],
+            "mount": mount,
+            "sourceId": architectural_details.SOURCE_ID,
+            "sourcePath": architectural_details.SOURCE_PATH,
+            "license": architectural_details.LICENSE,
+            "position": [_round(value) for value in position],
+            "rotationDegrees": int(rotation),
+            "outwardDegrees": (270 + int(rotation)) % 360,
+            "widthMeters": _round(spec["widthMeters"]),
+            "heightMeters": _round(spec["heightMeters"]),
+            "depthMeters": _round(spec["depthMeters"]),
+            "doubleSided": bool(spec.get("doubleSided", False)),
+            "purpose": (
+                f"identity:badge:{spec['id']}"
+                if spec["kind"] == "organization_badge"
+                else f"access:{spec['kind']}:{spec['id']}"
+            ),
+            "primaryAccess": False,
+        }
+        if spec["kind"] == "organization_badge":
+            detail["recessRatio"] = _round(spec.get("recessRatio", 0.58))
+            local = architectural_details.diamond_local_center(detail)
+            detail["badgeCenter"] = [
+                _round(position[index] + architectural_details.rotate_local(local, rotation)[index])
+                for index in range(3)
+            ]
+            detail["badgeWidthMeters"] = _round(float(spec["widthMeters"]) * detail["recessRatio"])
+            detail["badgeHeightMeters"] = _round(float(spec["heightMeters"]) * detail["recessRatio"])
+        parts = architectural_details.parts_for(detail)
+        boxes = [
+            self._translated_box(
+                anchors.rotate_box(architectural_details.part_bounds(part), rotation), position
+            )
+            for part in parts
+        ]
+        detail["bounds"] = anchors.union(boxes)
+        detail["triangles"] = sum(part["triangles"] for part in parts)
+        detail["meshObjects"] = len(parts)
+        detail["materials"] = sorted({part["material"] for part in parts})
+        return detail
+
+    def _build_architectural_details(self):
+        """Coloca placas neutrales, cochera y umbral de patio declarados por la gramática."""
+        self.construction_badge_specs = []
+        for spec in self.record.get("architecturalDetails", []):
+            if spec["mount"] == "site":
+                if spec["kind"] == "organization_badge":
+                    self.construction_badge_specs.append(spec)
+                    continue
+                depth = float(spec["depthMeters"])
+                x = self.rect[0] + (float(spec["alongCells"]) + 0.5) * self.cell
+                y = self.rect[1] + depth / 2.0 + float(spec.get("frontOffsetMeters", 0.0))
+                z = float(spec.get("zMeters", 0.0)) + float(spec["heightMeters"]) / 2.0
+                self.architectural_details.append(
+                    self._make_architectural_detail(spec, [x, y, z], 0, "site")
+                )
+                continue
+            volume = self.volumes[spec["targetVolume"]]
+            rect = volume["rect"]
+            side = spec["side"]
+            rotation = {"front": 0, "rear": 180, "right": 90, "left": 270}[side]
+            width = float(spec["widthMeters"])
+            depth = float(spec["depthMeters"])
+            height = float(spec["heightMeters"])
+            projection = float(spec.get("projectionMeters", 0.0))
+            if side in ("front", "rear"):
+                along = (
+                    (rect[0] + rect[2]) / 2.0
+                    if spec["along"] == "center"
+                    else rect[2] - width / 2.0 - 0.15
+                )
+                face_line = rect[1] if side == "front" else rect[3]
+                normal = (
+                    face_line - projection + depth / 2.0
+                    if side == "front"
+                    else face_line + projection - depth / 2.0
+                )
+                position = [along, normal, float(spec.get("zMeters", 0.0)) + height / 2.0]
+            else:
+                along = (
+                    (rect[1] + rect[3]) / 2.0
+                    if spec["along"] == "center"
+                    else rect[3] - width / 2.0 - 0.15
+                )
+                face_line = rect[0] if side == "left" else rect[2]
+                normal = (
+                    face_line - projection + depth / 2.0
+                    if side == "left"
+                    else face_line + projection - depth / 2.0
+                )
+                position = [normal, along, float(spec.get("zMeters", 0.0)) + height / 2.0]
+            self.architectural_details.append(
+                self._make_architectural_detail(spec, position, rotation, "face")
+            )
+
+    def _build_construction_identity(self):
+        """Una señal de obra neutral y doble cara; no depende de que exista fachada."""
+        for spec in getattr(self, "construction_badge_specs", []):
+            x = self.rect[0] + (float(spec["alongCells"]) + 0.5) * self.cell
+            y = self.rect[1] + float(spec.get("frontOffsetMeters", 0.4))
+            self.architectural_details.append(
+                self._make_architectural_detail(
+                    spec, [x, y, float(spec["zMeters"])], 0, "site"
+                )
+            )
+
     # -- salida ------------------------------------------------------------------------------------
 
     def signature(self):
@@ -1675,6 +1811,19 @@ class Composition:
                 }
             ),
         }
+        if self.architectural_details:
+            payload["architecturalDetails"] = [
+                {
+                    "id": record["id"],
+                    "kind": record["kind"],
+                    "mount": record["mount"],
+                    "rotationDegrees": record["rotationDegrees"],
+                    "position": record["position"],
+                    "bounds": record["bounds"],
+                    "purpose": record["purpose"],
+                }
+                for record in self.architectural_details
+            ]
         blob = json.dumps(payload, sort_keys=True, separators=(",", ":"))
         return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
@@ -1721,6 +1870,8 @@ class Composition:
         complete_supports = self.supports
         self.placements = []
         self.supports = []
+        self.architectural_details = []
+        self._build_construction_identity()
         for rect, base, levels in self._volume_rects():
             if stage == "foundation":
                 self._tile_flat(rect, base, "slab", "slab")
@@ -2227,6 +2378,13 @@ class Composition:
                 support["position"] = rotate_point(support["position"])
                 support["rotationZDegrees"] = (support["rotationZDegrees"] + orientation) % 360
             support["bounds"] = anchors.rotate_box(support["bounds"], orientation)
+        for detail in self.architectural_details:
+            detail["position"] = rotate_point(detail["position"])
+            detail["rotationDegrees"] = (detail["rotationDegrees"] + orientation) % 360
+            detail["outwardDegrees"] = (detail["outwardDegrees"] + orientation) % 360
+            detail["bounds"] = anchors.rotate_box(detail["bounds"], orientation)
+            if "badgeCenter" in detail:
+                detail["badgeCenter"] = rotate_point(detail["badgeCenter"])
         if orientation in (90, 270):
             self.footprint_cells = {
                 "width": self.footprint_cells["height"],
@@ -2235,7 +2393,7 @@ class Composition:
             self.width, self.depth = self.depth, self.width
 
     def finalize(self):
-        boxes = [record["bounds"] for record in self.placements + self.supports]
+        boxes = [record["bounds"] for record in self.placements + self.supports + self.architectural_details]
         bounds = anchors.union(boxes)
         # V.j: §17 valida el contacto con el suelo del EDIFICIO permanente. El equipo transitorio de
         # obra/daño (andamio, valla, escombros, fuego) puede sobresalir del solar —andamio sobre la
@@ -2266,13 +2424,24 @@ class Composition:
             )
         licensed = sum(record["triangles"] for record in self.placements)
         support = sum(record["triangles"] for record in self.supports)
-        total = licensed + support
+        architectural = sum(record["triangles"] for record in self.architectural_details)
+        total = licensed + support + architectural
         share = support / total if total else 0.0
+        architectural_share = architectural / total if total else 0.0
+        original_share = (support + architectural) / total if total else 0.0
+        # La señal de obra es un elemento transitorio de pocos triángulos sobre una cimentación casi
+        # vacía; aplicarle la cuota de MSA permanente la rechazaría por denominaror, no por masa.
+        transient_details = self.state == "construction" and all(
+            detail["mount"] == "site" for detail in self.architectural_details
+        )
+        mass_original_share = (
+            (support + (0.0 if transient_details else architectural)) / total if total else 0.0
+        )
         ceiling = float(self.document.support["maxTrianglesShare"])
-        if share > ceiling:
+        if mass_original_share > ceiling:
             raise CompositionError(
-                f"§15: los soportes originales suman el {share:.1%} de los triángulos "
-                f"(techo {ceiling:.0%}): la masa volvería a ser primitivas"
+                f"§15: la geometría original (soportes + detalles) suma el {original_share:.1%} "
+                f"de los triángulos (techo {ceiling:.0%}): la masa volvería a ser primitivas"
             )
         distinct = {record["moduleId"] for record in self.placements}
         sources = {record["sourceId"] for record in self.placements}
@@ -2281,7 +2450,7 @@ class Composition:
         # (una rotación rígida alrededor de Z conserva el contacto con el suelo y la cuota de
         # triángulos). Bounds y firma se recalculan sobre la geometría ya rotada.
         self._apply_orientation()
-        boxes = [record["bounds"] for record in self.placements + self.supports]
+        boxes = [record["bounds"] for record in self.placements + self.supports + self.architectural_details]
         bounds = anchors.union(boxes)
         ground = [
             record["bounds"]
@@ -2317,6 +2486,7 @@ class Composition:
             "axisChoices": self._build_axis_choices(),
             "placements": self.placements,
             "originalSupport": self.supports,
+            "architecturalDetails": self.architectural_details,
             "bounds": bounds,
             "envelopeMeters": anchors.size_of(bounds),
             "groundContactMeters": anchors.size_of(ground_box),
@@ -2332,16 +2502,21 @@ class Composition:
                 "distinctModuleIds": len(distinct),
                 "distinctSources": len(sources),
                 "supportTriangleShare": round(share, 4),
+                "architecturalTriangleShare": round(architectural_share, 4),
+                "originalTriangleShare": round(original_share, 4),
                 "elevationTreatmentLadders": ladders,
             },
             "metrics": {
                 "placements": len(self.placements),
-                "meshObjects": sum(record["meshObjects"] for record in self.placements),
+                "meshObjects": sum(record["meshObjects"] for record in self.placements)
+                + len(self.supports)
+                + sum(record["meshObjects"] for record in self.architectural_details),
                 "distinctModuleIds": len(distinct),
-                "sources": sorted(sources),
+                "sources": sorted(sources | {architectural_details.SOURCE_ID} if self.architectural_details else sources),
                 "triangles": total,
                 "licensedTriangles": licensed,
                 "supportTriangles": support,
+                "architecturalTriangles": architectural,
                 "licensedGeometryRatio": round(licensed / total, 4) if total else 0.0,
                 "materials": sorted(
                     {

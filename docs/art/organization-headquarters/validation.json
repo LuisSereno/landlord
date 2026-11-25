@@ -1,0 +1,15 @@
+{
+ "status": "valid",
+ "errors": [],
+ "capture": {
+  "status": "valid",
+  "captures": 288,
+  "missingLocalFiles": 0
+ },
+ "localEvidence": {
+  "requireLocalAssets": true,
+  "missingAssets": 0,
+  "missingCaptures": 0
+ },
+ "validatedAt": "2026-11-25T13:48:53.041Z"
+}

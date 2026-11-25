@@ -493,6 +493,35 @@ function checkCandidate(candidate, modulesById, sourcesById, grammars, manifestD
   if (!candidate.orientationStatus?.allAccessVisible && physicalOrientation === 0) {
     errors.push(`§25 ${label}: hay accesos mirando a un lado no visible desde la cámara canónica`);
   }
+  if (candidate.buildingType?.startsWith("headquarters_")) {
+    if (!candidate.orientationStatus?.primaryAccessVisible && physicalOrientation === 0) {
+      errors.push(`§25 ${label}: el acceso principal mira a un lado no visible desde la cámara canónica`);
+    }
+    for (const field of ["architecturalDetails", "organizationBadges"]) {
+      if (!Array.isArray(candidate[field]) || candidate[field].length === 0) {
+        errors.push(`D-110 ${label}: falta el contrato de geometría/identidad '${field}'`);
+      }
+    }
+    const noAccessYet =
+      candidate.state === "construction" &&
+      ["foundation", "structure"].includes(candidate.constructionStage);
+    if (!noAccessYet && !candidate.orientationStatus?.anyAccessVisible) {
+      errors.push(`D-110 ${label}: ninguna entrada es visible desde la cámara canónica`);
+    }
+    for (const badge of candidate.organizationBadges ?? []) {
+      if (badge.bakedOrganizationColor !== null) {
+        errors.push(`D-110 ${label}: el color de organización no puede horneearse en la placa`);
+      }
+      if (!(badge.anchor?.x >= 0 && badge.anchor.x <= 1 && badge.anchor?.y >= 0 && badge.anchor.y <= 1)) {
+        errors.push(`D-110 ${label}: ancla de emblema fuera de la imagen`);
+      }
+    }
+    for (const detail of candidate.architecturalDetails ?? []) {
+      if (detail.sourceId !== "src_original_headquarters_composer" || detail.license !== "original") {
+        errors.push(`D-110 ${label}: detalle original sin procedencia canónica (${detail.id})`);
+      }
+    }
+  }
   const path = candidate.image?.path;
   // La evidencia se commits con la ruta absoluta de la máquina que renderizó. Si el repo se clona en
   // otra parte, el PNG sigue viviendo junto al manifiesto: se busca ahí antes de declarar que falta.
@@ -556,7 +585,11 @@ function checkSceneEvidence(candidate, modulesById, errors) {
   // no un candidato con un solo soporte fallaría §32 por la diferencia exacta de ese soporte.
   const declaredMeshObjects =
     transforms.reduce((total, placement) => total + placement.meshObjects, 0) +
-    (candidate.originalSupport?.length ?? 0);
+    (candidate.originalSupport?.length ?? 0) +
+    (candidate.architecturalDetails ?? []).reduce(
+      (total, detail) => total + (detail.meshObjects ?? 0),
+      0,
+    );
   if (scene.scene?.meshObjects !== declaredMeshObjects) {
     errors.push(
       `§32 ${label}: la escena tiene ${scene.scene?.meshObjects} objetos mesh y las transformadas declaran ${declaredMeshObjects}`,

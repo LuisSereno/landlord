@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "organization-headquarters-candidates-v1",
+  "domainType": "headquarters",
+  "status": "candidate_only_pending_human_visual_approval",
+  "variantSeed": 5101,
+  "footprintCells": { "width": 4, "height": 2 },
+  "stateTokens": ["complete", "foundation", "structure", "finishing", "damaged", "burning"],
+  "orientations": [0, 90, 180, 270],
+  "moods": ["day_civic", "night_civic"],
+  "organizationIdentities": {
+    "company_turquoise": { "color": "#4DB6AC", "emblem": "diamond" },
+    "rival_terracotta": { "color": "#D97757", "emblem": "triangle" },
+    "municipal_blue": { "reservedFor": "municipality", "companyFallback": false }
+  },
+  "identityContract": {
+    "bakedGeometry": "neutral plaque and recessed diamond; no organization color",
+    "runtimeOverlay": "organization color plus diamond/triangle from ViewProjectionV3.bases[].visualIdentityId",
+    "construction": "double-sided neutral site board; same runtime overlay",
+    "canonicalNeedForFourBakedTextureSets": false
+  },
+  "variants": [
+    {
+      "variantId": "cupola",
+      "candidateBuildingType": "headquarters_cupola",
+      "family": "civic_landmark",
+      "architecture": "symmetrical urban mansion with central cupola and lateral wings",
+      "requiredFeatures": ["mod_original_school_cupola", "service_garage", "identity_front", "identity_rear", "construction_identity"],
+      "serviceAccess": "rear garage portal; visible at physical orientations 180/270",
+      "expectedAssetCount": 48
+    },
+    {
+      "variantId": "courtyard",
+      "candidateBuildingType": "headquarters_courtyard",
+      "family": "residential_low",
+      "architecture": "U-shaped residence around an open service courtyard",
+      "requiredFeatures": ["courtyard_service_threshold", "rear_service_door", "identity_front", "identity_rear", "construction_identity"],
+      "serviceAccess": "open neutral courtyard threshold plus rear service door; rear door visible at 180/270",
+      "expectedAssetCount": 48
+    }
+  ],
+  "sourceGeometry": {
+    "licensedModules": "blender_artist/manifests/building-modules.json",
+    "originalDetails": "tools/art-pipeline/blender/building_composer/architectural_details.py",
+    "grammar": "blender_artist/manifests/building-composer-grammars.json"
+  },
+  "runtimePromotion": "not performed; runtime-promotions.json and generated runtime manifests remain unchanged"
+}

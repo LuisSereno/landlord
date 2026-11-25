@@ -17,7 +17,7 @@ manifiesto aprobado en el árbol para poder comparar dos autorías.
 import json
 from pathlib import Path
 
-from . import candidates
+from . import architectural_details, candidates
 from .module_catalog import REPO_ROOT, GrammarError
 from .prng import SealedRandom
 
@@ -60,6 +60,9 @@ REQUIRED_GRAMMAR_KEYS = {
 OPTIONAL_GRAMMAR_KEYS = {
     "recipes",  # V.g: recetas arquitectónicas (opcional durante migración)
     "renderScale",  # V.i: densidad de render explícita por tipo (D-100 exige decisión explícita)
+    # D-110 candidate package: accesos de servicio y geometría original neutral de identidad.
+    "secondaryAccesses",
+    "architecturalDetails",
 }
 GRAMMAR_KEYS = REQUIRED_GRAMMAR_KEYS | OPTIONAL_GRAMMAR_KEYS
 # Cada eje debe poder cambiar la geometría por sí solo: sin opción lista, el eje no puede variar.
@@ -103,6 +106,15 @@ REQUIRED_ACCESS_KEYS = {
     "steps",
 }
 ACCESS_KEYS = REQUIRED_ACCESS_KEYS | {"repeatEveryMeters", "leafModule"}
+SECONDARY_ACCESS_KEYS = {
+    "id", "label", "side", "targetVolume", "bayRule", "frameRole", "leafRole",
+    "aboveRole", "projectionMeters", "leafModule",
+}
+ARCHITECTURAL_DETAIL_KEYS = {
+    "id", "kind", "label", "mount", "targetVolume", "side", "along", "alongCells",
+    "frontOffsetMeters", "zMeters", "widthMeters", "heightMeters", "depthMeters",
+    "projectionMeters", "recessRatio", "doubleSided",
+}
 PROP_KEYS = {"id", "label", "role", "module", "at", "offset"}
 SECONDARY_KEYS = {"id", "label", "role", "module", "optional", "atCell", "supports"}
 CORNER_KEYS = {"id", "label", "module", "widthMeters"}
@@ -147,6 +159,7 @@ SEMANTIC_IDENTITY_KEYS = {
     "requireMassingIds",
     "requireSecondaryPlaced",
     "requireAccessCount",
+    "requireVisibleAccessEveryOrientation",
 }
 
 
@@ -362,6 +375,72 @@ class GrammarDocument:
                 catalog.pick(family, access["leafRole"], access["leafModule"])
             if access["steps"]:
                 catalog.pool(family, "access")
+        volume_counts = {option["id"]: len(option["volumes"]) for option in record["massingOptions"]}
+        for access in record.get("secondaryAccesses", []):
+            _require_mandatory_keys(
+                access,
+                SECONDARY_ACCESS_KEYS - {"leafModule"},
+                SECONDARY_ACCESS_KEYS,
+                access["id"],
+                "secondaryAccesses",
+            )
+            if access["side"] not in ("front", "rear", "left", "right"):
+                raise GrammarError(f"{access['id']}: lado de servicio fuera de la rejilla cardinal")
+            if access["bayRule"] not in ("center", "drawn"):
+                raise GrammarError(f"{access['id']}: el acceso de servicio usa center/drawn")
+            target = access["targetVolume"]
+            if not isinstance(target, int) or any(target >= count for count in volume_counts.values()):
+                raise GrammarError(f"{access['id']}: targetVolume fuera de alguna masa permitida")
+            for key in ("frameRole", "leafRole", "aboveRole"):
+                if access[key]:
+                    catalog.pool(family, access[key])
+            if access.get("leafModule"):
+                if not access["leafRole"]:
+                    raise GrammarError(f"{access['id']}: leafModule requiere leafRole")
+                catalog.pick(family, access["leafRole"], access["leafModule"])
+        detail_ids = set()
+        badge_sides = set()
+        for detail in record.get("architecturalDetails", []):
+            _require_mandatory_keys(
+                detail,
+                {"id", "kind", "label", "mount", "widthMeters", "heightMeters", "depthMeters"},
+                ARCHITECTURAL_DETAIL_KEYS,
+                detail["id"],
+                "architecturalDetails",
+            )
+            if detail["id"] in detail_ids:
+                raise GrammarError(f"{detail['id']}: detalle arquitectónico duplicado")
+            detail_ids.add(detail["id"])
+            if detail["kind"] not in architectural_details.KINDS:
+                raise GrammarError(f"{detail['id']}: geometría original no construida {detail['kind']}")
+            for key in ("widthMeters", "heightMeters", "depthMeters"):
+                value = detail.get(key)
+                if not isinstance(value, (int, float)) or isinstance(value, bool) or value <= 0:
+                    raise GrammarError(f"{detail['id']}: {key} debe ser positivo")
+            mount = detail["mount"]
+            if mount == "face":
+                if detail["side"] not in ("front", "rear", "left", "right"):
+                    raise GrammarError(f"{detail['id']}: lado de fachada no cardinal")
+                if detail["along"] not in ("center", "right_inset"):
+                    raise GrammarError(f"{detail['id']}: along debe ser center/right_inset")
+                target = detail["targetVolume"]
+                if not isinstance(target, int) or any(target >= count for count in volume_counts.values()):
+                    raise GrammarError(f"{detail['id']}: targetVolume fuera de alguna masa permitida")
+                if detail["kind"] == "organization_badge":
+                    badge_sides.add(detail["side"])
+            elif mount == "site":
+                if not isinstance(detail.get("alongCells"), int) or detail["alongCells"] < 0:
+                    raise GrammarError(f"{detail['id']}: alongCells debe ser un entero no negativo")
+                if detail["kind"] == "organization_badge" and not detail.get("doubleSided"):
+                    raise GrammarError(f"{detail['id']}: una señal de obra debe ser un badge doble cara")
+                if detail["kind"] not in ("organization_badge", "courtyard_portal"):
+                    raise GrammarError(f"{detail['id']}: mount site sólo admite señal de obra o umbral de patio")
+            else:
+                raise GrammarError(f"{detail['id']}: mount debe ser face/site")
+        if record.get("architecturalDetails") and not badge_sides and not any(
+            detail["mount"] == "site" for detail in record["architecturalDetails"]
+        ):
+            raise GrammarError(f"{record['buildingType']}: falta una placa neutral de identidad")
         for prop in record["propOptions"]:
             _require_keys(prop, PROP_KEYS, prop["id"], "propOptions")
             if prop["at"] not in PROP_AT:

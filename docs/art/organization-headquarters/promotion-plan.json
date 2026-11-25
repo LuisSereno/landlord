@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "planId": "organization-headquarters-promotion-plan-v1",
+  "status": "pending_human_visual_approval",
+  "approvalStatus": "pending_human",
+  "automaticPromotion": false,
+  "protectedRuntime": {
+    "blender_artist/manifests/runtime-promotions.json": "7da16a410763e6466f9a9e38ac9070c7bd46062966ae6a264ff4abec61583a0c",
+    "apps/web/src/generated/runtime-assets.json": "ed1c8f08efbf482498d59d50482db0fc5d0eec1fd0eec10227457bc91259e54c",
+    "apps/web/src/generated/runtime-assets-blender.json": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
+    "apps/web/src/generated/runtime-building-variants.json": "e1596daa6524f409b4143c4bbc6bab4b77da5144368931bc8a778a4ec58152ec",
+    "apps/web/src/generated/runtime-building-variants-night.json": "add87752e0084144d6d8e1384dbd172902de68ad5b1ed1b024cbcfd5982c911a"
+  },
+  "humanGates": [
+    "Review both variants, six state tokens, four physical orientations and both moods in the real-city QA captures.",
+    "Approve cupola garage and courtyard service-access readability, including 180/270 entrance visibility.",
+    "Approve neutral plaque placement and runtime turquoise/diamond versus terracotta/triangle overlay at 0.5x/1x/1.5x.",
+    "Choose canonical promotion scope and decide whether the night catalog is served; D-108 selector behavior remains a separate decision.",
+    "Record explicit human approval before any runtime-promotions.json or generated runtime manifest change."
+  ],
+  "proposedPromotions": [
+    {
+      "promotionKey": "headquarters:cupola",
+      "semanticType": "headquarters",
+      "candidateBuildingType": "headquarters_cupola",
+      "variantId": "cupola",
+      "targetArchetype": "headquarters_cupola",
+      "candidateScope": "all 48 assets in candidate-matrix.json",
+      "reviewBaseline": { "state": "complete", "moodId": "day_civic", "orientation": 0 },
+      "approvalStatus": "pending_human",
+      "runtimeAction": "manual only after explicit human approval"
+    },
+    {
+      "promotionKey": "headquarters:courtyard",
+      "semanticType": "headquarters",
+      "candidateBuildingType": "headquarters_courtyard",
+      "variantId": "courtyard",
+      "targetArchetype": "headquarters_courtyard",
+      "candidateScope": "all 48 assets in candidate-matrix.json",
+      "reviewBaseline": { "state": "complete", "moodId": "day_civic", "orientation": 0 },
+      "approvalStatus": "pending_human",
+      "runtimeAction": "manual only after explicit human approval"
+    }
+  ],
+  "canonicalizationRequirements": [
+    "Preserve candidateBuildingType separately from semanticType headquarters.",
+    "Key variants by headquartersVariantId, state, construction stage, physical orientation and moodId.",
+    "Copy candidate hashes and projected organizationBadge anchors; never infer them from filenames.",
+    "Require human approval reference and validator pass in the same change that edits runtime-promotions.json."
+  ]
+}

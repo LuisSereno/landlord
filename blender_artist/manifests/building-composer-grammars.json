@@ -4976,6 +4976,173 @@
       },
       "renderScale": 2
     },
+    "cleaning_depot": {
+      "buildingType": "cleaning_depot",
+      "family": "industrial_heavy",
+      "label": "Depósito municipal de limpieza (3×1)",
+      "notes": "Nave municipal de una planta con tres bahías de servicio, cubierta plana y señalización de limpieza. No es una fábrica ni un almacén privado.",
+      "yard": {
+        "leftCells": 0,
+        "rightCells": 0,
+        "frontCells": 0
+      },
+      "levelsFromDomain": true,
+      "cornerModes": [
+        {
+          "id": "flush",
+          "label": "esquina de chapa",
+          "module": null,
+          "widthMeters": null
+        }
+      ],
+      "massingOptions": [
+        {
+          "id": "three_bay_service_shed",
+          "label": "nave continua de tres bahías",
+          "volumes": [
+            {
+              "cells": [0, 0, 3, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        },
+        {
+          "id": "split_service_bays",
+          "label": "nave partida en dos cuerpos de servicio",
+          "volumes": [
+            {
+              "cells": [0, 0, 2, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": true,
+              "build": "bands",
+              "role": null,
+              "module": null
+            },
+            {
+              "cells": [2, 0, 1, 1],
+              "levels": "domain",
+              "stackOn": null,
+              "slab": false,
+              "build": "bands",
+              "role": null,
+              "module": null
+            }
+          ]
+        }
+      ],
+      "facadePalettes": [
+        {
+          "id": "municipal_metal",
+          "label": "chapa azul gris con carpintería metálica",
+          "roleModule": {
+            "wall_panel": "mod_gn_metal_siding_bay_4m",
+            "window_bay": "mod_gn_metal_window_bay_4m",
+            "ground_panel": "mod_megakit_metal_firstfloor_wall_2m",
+            "doorframe": "mod_megakit_doorframe_metal_2m"
+          }
+        }
+      ],
+      "rhythms": [
+        {
+          "id": "service_bays",
+          "label": "tres bahías de servicio y paño metálico ciego",
+          "bayMeters": 4,
+          "groundRole": null,
+          "tokens": {
+            "front": ["wall_panel", "wall_panel", "wall_panel"],
+            "rear": ["wall_panel"],
+            "sides": ["wall_panel", "window_bay"]
+          }
+        }
+      ],
+      "silhouetteOptions": [
+        {
+          "id": "plain",
+          "label": "remate directo de chapa",
+          "corniceRole": null,
+          "corniceModule": null,
+          "crownRole": null,
+          "projectionMeters": 0
+        }
+      ],
+      "roofOptions": [
+        {
+          "id": "flat_plates",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "flat",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        },
+        {
+          "id": "flat_slabs",
+          "kind": "flat",
+          "cornice": false,
+          "plateRole": "slab",
+          "dormerBays": 0,
+          "ridgeAlong": null
+        }
+      ],
+      "accessOptions": [
+        {
+          "id": "three_loading_bays",
+          "label": "tres huecos de servicio",
+          "bayRule": "repeat",
+          "repeatEveryMeters": 4,
+          "frameRole": "doorframe",
+          "leafRole": null,
+          "aboveRole": null,
+          "projectionMeters": 0,
+          "steps": false
+        }
+      ],
+      "propOptions": [
+        {
+          "id": "roof_ventilation",
+          "label": "unidad de ventilación de cubierta",
+          "role": "rooftop_unit",
+          "module": "mod_megakit_prop_ac_unit",
+          "at": "roof",
+          "offset": 0
+        }
+      ],
+      "secondaryOptions": [
+        {
+          "id": "none",
+          "label": "sin volumen secundario",
+          "role": null,
+          "module": null,
+          "optional": true,
+          "atCell": null,
+          "supports": []
+        }
+      ],
+      "semanticIdentity": {
+        "description": "Un depósito de limpieza se reconoce por una nave baja de 3×1, tres huecos de servicio repetidos y ausencia de chimeneas, tanques, fachada comercial o accesos monumentales. Debe distinguirse de warehouse por su escala compacta y de fire_station por no tener puertas de aparato ni torre.",
+        "requireAnyRoles": [["wall_panel", "doorframe"]],
+        "prohibitSecondaryModules": [
+          "mod_kenney_ind_chimney_large",
+          "mod_kenney_ind_chimney_medium",
+          "mod_kenney_ind_water_tower",
+          "mod_kenney_ind_tank_large"
+        ],
+        "prohibitAccessIds": [
+          "monumental_stairs",
+          "loggia_entrance",
+          "shopfront_entrance",
+          "multiple_entries",
+          "arcade_entry"
+        ],
+        "requireMassingIds": ["three_bay_service_shed", "split_service_bays"]
+      },
+      "renderScale": 2
+    },
     "headquarters_cupola": {
       "buildingType": "headquarters_cupola",
       "family": "civic_landmark",
@@ -5228,8 +5395,70 @@
           "supports": []
         }
       ],
+      "architecturalDetails": [
+        {
+          "id": "identity_front",
+          "kind": "organization_badge",
+          "label": "placa neutral frontal de organización",
+          "mount": "face",
+          "targetVolume": 1,
+          "side": "front",
+          "along": "center",
+          "zMeters": 2.7,
+          "widthMeters": 1.2,
+          "heightMeters": 1.0,
+          "depthMeters": 0.16,
+          "projectionMeters": 0.06,
+          "recessRatio": 0.58,
+          "doubleSided": false
+        },
+        {
+          "id": "identity_rear",
+          "kind": "organization_badge",
+          "label": "placa neutral trasera de organización",
+          "mount": "face",
+          "targetVolume": 1,
+          "side": "rear",
+          "along": "center",
+          "zMeters": 2.7,
+          "widthMeters": 1.2,
+          "heightMeters": 1.0,
+          "depthMeters": 0.16,
+          "projectionMeters": 0.06,
+          "recessRatio": 0.58,
+          "doubleSided": false
+        },
+        {
+          "id": "service_garage",
+          "kind": "garage_portal",
+          "label": "cochera de servicio con portón y bastidor originales",
+          "mount": "face",
+          "targetVolume": 1,
+          "side": "rear",
+          "along": "right_inset",
+          "zMeters": 0,
+          "widthMeters": 2.4,
+          "heightMeters": 2.5,
+          "depthMeters": 0.28,
+          "projectionMeters": 0,
+          "doubleSided": false
+        },
+        {
+          "id": "construction_identity",
+          "kind": "organization_badge",
+          "label": "señal neutral de obra doble cara",
+          "mount": "site",
+          "alongCells": 2,
+          "frontOffsetMeters": 0.4,
+          "zMeters": 1.35,
+          "widthMeters": 1.5,
+          "heightMeters": 0.9,
+          "depthMeters": 0.12,
+          "doubleSided": true
+        }
+      ],
       "semanticIdentity": {
-        "description": "Sede urbana con mirador central reconocible, ala lateral y accesos legibles; no es un equipamiento municipal.",
+        "description": "Sede urbana con mirador central reconocible, ala lateral, cochera de servicio y placas neutrales; no es un equipamiento municipal.",
         "requireAnyRoles": [["door", "curtain_wall"]],
         "prohibitSecondaryModules": [
           "mod_kenney_ind_chimney_basic",
@@ -5245,7 +5474,8 @@
           "apparatus_door",
           "rollup_door"
         ],
-        "requireRoles": ["civic_tower"]
+        "requireRoles": ["civic_tower"],
+        "requireVisibleAccessEveryOrientation": true
       },
       "renderScale": 2
     },
@@ -5468,8 +5698,81 @@
           "supports": []
         }
       ],
+      "secondaryAccesses": [
+        {
+          "id": "rear_service_door",
+          "label": "puerta de servicio trasera bajo soportal",
+          "side": "rear",
+          "targetVolume": 2,
+          "bayRule": "center",
+          "frameRole": "doorframe",
+          "leafRole": "door",
+          "aboveRole": "overhang",
+          "projectionMeters": 0.4
+        }
+      ],
+      "architecturalDetails": [
+        {
+          "id": "identity_front",
+          "kind": "organization_badge",
+          "label": "placa neutral frontal de organización",
+          "mount": "face",
+          "targetVolume": 0,
+          "side": "front",
+          "along": "center",
+          "zMeters": 2.7,
+          "widthMeters": 1.2,
+          "heightMeters": 1.0,
+          "depthMeters": 0.16,
+          "projectionMeters": 0.06,
+          "recessRatio": 0.58,
+          "doubleSided": false
+        },
+        {
+          "id": "identity_rear",
+          "kind": "organization_badge",
+          "label": "placa neutral trasera de organización",
+          "mount": "face",
+          "targetVolume": 2,
+          "side": "rear",
+          "along": "center",
+          "zMeters": 2.7,
+          "widthMeters": 1.2,
+          "heightMeters": 1.0,
+          "depthMeters": 0.16,
+          "projectionMeters": 0.06,
+          "recessRatio": 0.58,
+          "doubleSided": false
+        },
+        {
+          "id": "courtyard_service_threshold",
+          "kind": "courtyard_portal",
+          "label": "umbral de servicio del patio con dirección neutral",
+          "mount": "site",
+          "alongCells": 2,
+          "frontOffsetMeters": 0,
+          "zMeters": 0,
+          "widthMeters": 3.4,
+          "heightMeters": 3.0,
+          "depthMeters": 0.4,
+          "doubleSided": false
+        },
+        {
+          "id": "construction_identity",
+          "kind": "organization_badge",
+          "label": "señal neutral de obra doble cara",
+          "mount": "site",
+          "alongCells": 2,
+          "frontOffsetMeters": 0.4,
+          "zMeters": 1.35,
+          "widthMeters": 1.5,
+          "heightMeters": 0.9,
+          "depthMeters": 0.12,
+          "doubleSided": true
+        }
+      ],
       "semanticIdentity": {
-        "description": "Residencia de organización en U, con patio central de servicio y silueta distinta del mirador urbano.",
+        "description": "Residencia de organización en U, con patio de servicio, umbral legible, puerta trasera y silueta distinta del mirador urbano.",
         "requireRoles": ["door", "doorframe"],
         "requireRoofKinds": [["gable", "hip", "valley", "dormer", "mansard"]],
         "prohibitSecondaryModules": [
@@ -5480,7 +5783,8 @@
           "mod_kenney_ind_tank_large",
           "mod_kenney_ind_water_tower"
         ],
-        "prohibitAccessIds": ["shopfront_canopy", "glazed_lobby", "canopied_dock"]
+        "prohibitAccessIds": ["shopfront_canopy", "glazed_lobby", "canopied_dock"],
+        "requireVisibleAccessEveryOrientation": true
       },
       "renderScale": 2
     }

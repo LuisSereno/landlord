@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "jobsId": "organization-headquarters-candidate-jobs-v1",
+  "toolchain": {
+    "blender": "/home/luis/.local/blender/blender-5.2.2-linux-x64/blender",
+    "version": "5.2.2",
+    "pythonExitCode": 1,
+    "renderer": "BLENDER_EEVEE",
+    "taaSamples": 16,
+    "renderScale": 2
+  },
+  "jobs": [
+    {
+      "id": "hq_cupola_candidate_v1",
+      "kind": "building_composer_candidate",
+      "target": "evidence",
+      "semanticType": "headquarters",
+      "candidateBuildingType": "headquarters_cupola",
+      "variantId": "cupola",
+      "seed": 5101,
+      "states": ["complete", "foundation", "structure", "finishing", "damaged", "burning"],
+      "orientations": [0, 90, 180, 270],
+      "moods": ["day_civic", "night_civic"],
+      "outDirs": {
+        "day_civic": "docs/art/organization-headquarters/candidates-day-v1",
+        "night_civic": "docs/art/organization-headquarters/candidates-night-v1"
+      },
+      "expectedCount": 48,
+      "command": "BLENDER_BIN=/home/luis/.local/blender/blender-5.2.2-linux-x64/blender node scripts/build-building-composer.mjs --types=headquarters_cupola --seeds=5101 --states=complete,foundation,structure,finishing,damaged,burning --orientations=0,90,180,270 --mood=<mood> --taaSamples=16 --prefix=hq --outDir=<fresh-dir> --metrics=<fresh-dir>/metrics.json --keepAttempts"
+    },
+    {
+      "id": "hq_courtyard_candidate_v1",
+      "kind": "building_composer_candidate",
+      "target": "evidence",
+      "semanticType": "headquarters",
+      "candidateBuildingType": "headquarters_courtyard",
+      "variantId": "courtyard",
+      "seed": 5101,
+      "states": ["complete", "foundation", "structure", "finishing", "damaged", "burning"],
+      "orientations": [0, 90, 180, 270],
+      "moods": ["day_civic", "night_civic"],
+      "outDirs": {
+        "day_civic": "docs/art/organization-headquarters/candidates-day-v1",
+        "night_civic": "docs/art/organization-headquarters/candidates-night-v1"
+      },
+      "expectedCount": 48,
+      "command": "BLENDER_BIN=/home/luis/.local/blender/blender-5.2.2-linux-x64/blender node scripts/build-building-composer.mjs --types=headquarters_courtyard --seeds=5101 --states=complete,foundation,structure,finishing,damaged,burning --orientations=0,90,180,270 --mood=<mood> --taaSamples=16 --prefix=hq --outDir=<fresh-dir> --metrics=<fresh-dir>/metrics.json --keepAttempts"
+    }
+  ]
+}

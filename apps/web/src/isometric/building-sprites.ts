@@ -63,6 +63,12 @@ export function applyQaStateOverride<
         buildingType: b.type,
         orientation: b.orientation,
         footprintCells: b.footprintCells,
+        parcelIds: b.parcelIds,
+        districtId: b.districtId,
+        ownerOrganizationId: b.ownerOrganizationId,
+        headquartersVariantId: b.headquartersVariantId,
+        headquartersAccess: b.headquartersAccess,
+        siteCells: b.siteCells,
         progress: 0.5,
         workRequired: 1,
       })),
@@ -421,10 +427,7 @@ export function resolveBuildingVisual(
     return { key: blenderKey, asset: blenderAsset };
   }
   const proceduralKey = spriteKeyFor(domainType, state);
-  // Sede has a temporary domestic placeholder until both Composer variants pass the visual gate.
-  const proceduralAsset =
-    options.proceduralBundle.buildings[domainType] ??
-    (domainType === "headquarters" ? options.proceduralBundle.buildings.courtyard_home : undefined);
+  const proceduralAsset = options.proceduralBundle.buildings[domainType];
   if (
     proceduralAsset &&
     options.textureExists(proceduralKey) &&

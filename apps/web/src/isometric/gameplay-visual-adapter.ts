@@ -3,6 +3,7 @@ import type {
   BuildingType,
   ConstructionStage,
   GridCell,
+  OrganizationVisualIdentityId,
   RoadCellClass,
   RoadCellRole,
   RoadProfile,
@@ -37,8 +38,8 @@ import {
  */
 
 /**
- * Explicit temporary policy for all sixteen domain types. A missing reviewed Blender asset falls
- * back to the exact procedural type; it is never disguised as an unrelated old house or shop.
+ * Explicit temporary policy for all seventeen domain types. A missing reviewed Blender asset falls
+ * back to the exact procedural type or a declared compatible municipal-service archetype.
  */
 export type BuildingVisualPolicy =
   | { mode: "runtime_exact"; assetId: string }
@@ -62,6 +63,7 @@ export const BUILDING_VISUAL_POLICIES: Record<BuildingType, BuildingVisualPolicy
   fire_station: { mode: "runtime_exact", assetId: "fire_station" },
   market_hall: { mode: "runtime_exact", assetId: "market_hall" },
   headquarters: { mode: "procedural_semantic_fallback", assetId: "headquarters" },
+  cleaning_depot: { mode: "procedural_semantic_fallback", assetId: "cleaning_depot" },
 };
 
 /** Especies de árbol que pueden decorar sin depender de una red vial. */
@@ -86,6 +88,8 @@ export type GameplayBuildingVisual = {
   assetState: "complete" | "construction" | "damaged" | "burning";
   /** V.j.5: etapa de obra si es construction; null en otro caso. */
   stage: ConstructionStage | null;
+  /** D-110: identidad estable del dueño; el render no la infiere del jugador. */
+  organizationIdentityId: OrganizationVisualIdentityId | null;
 };
 
 export type GameplayDecoration = {
@@ -2247,6 +2251,9 @@ export function buildGameplayVisualModel(
     )?.role,
   );
 
+  const organizationIdentityByOrganizationId = new Map(
+    (projection.bases ?? []).map((base) => [base.organizationId, base.visualIdentityId]),
+  );
   const buildingVisuals: GameplayBuildingVisual[] = (economy?.buildings ?? []).map((building) => ({
     id: `building:${building.id}`,
     domainType: building.type,
@@ -2261,6 +2268,8 @@ export function buildGameplayVisualModel(
       building.structuralIntegrity,
     ),
     stage: null,
+    organizationIdentityId:
+      organizationIdentityByOrganizationId.get(building.ownerOrganizationId) ?? null,
   }));
   const siteVisuals: GameplayBuildingVisual[] = (economy?.constructionSites ?? []).map((site) => {
     const visualStage = constructionVisualStage(site.progress, site.workRequired);
@@ -2274,6 +2283,8 @@ export function buildGameplayVisualModel(
       orientation: site.orientation,
       assetState: "construction",
       stage: visualStage === "complete" ? null : visualStage,
+      organizationIdentityId:
+        organizationIdentityByOrganizationId.get(site.ownerOrganizationId) ?? null,
     };
   });
 

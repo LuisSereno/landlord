@@ -287,6 +287,54 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
     expect(headquartersArchetypeForVariant("courtyard")).toBe("headquarters_courtyard");
     expect(headquartersArchetypeForVariant(null)).toBe("headquarters_cupola");
   });
+  it("publica variante e identidad de organización sin convertir player == company", () => {
+    const view = {
+      ...projection([], [], []),
+      bases: [
+        { organizationId: "org_player", visualIdentityId: "company_turquoise" },
+        { organizationId: "org_rival", visualIdentityId: "rival_terracotta" },
+      ],
+      economy: {
+        cash: 0,
+        parcels: [],
+        constructionSites: [],
+        buildings: [
+          {
+            id: "hq_player",
+            type: "headquarters",
+            ownerOrganizationId: "org_player",
+            headquartersVariantId: "cupola",
+            orientation: 180,
+            state: "operational",
+            condition: 100,
+            structuralIntegrity: 100,
+            footprintCells: [{ x: 4, y: 4 }],
+            parcelIds: ["p1", "p2"],
+          },
+          {
+            id: "hq_rival",
+            type: "headquarters",
+            ownerOrganizationId: "org_rival",
+            headquartersVariantId: "courtyard",
+            orientation: 270,
+            state: "operational",
+            condition: 100,
+            structuralIntegrity: 100,
+            footprintCells: [{ x: 8, y: 4 }],
+            parcelIds: ["p3", "p4"],
+          },
+        ],
+      },
+    } as unknown as ViewProjectionV3;
+    const model = buildGameplayVisualModel(view);
+    expect(model.buildings.map(({ archetype, organizationIdentityId }) => ({
+      archetype,
+      organizationIdentityId,
+    }))).toEqual([
+      { archetype: "headquarters_cupola", organizationIdentityId: "company_turquoise" },
+      { archetype: "headquarters_courtyard", organizationIdentityId: "rival_terracotta" },
+    ]);
+  });
   it("es determinista: la misma proyección produce el mismo modelo visual", () => {
     const first = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES));
     const second = buildGameplayVisualModel(projection(PARCELS, BUILDINGS, SITES));
@@ -340,6 +388,13 @@ describe("gameplay visual adapter (WP4.15-V.c.1)", () => {
       mode: "runtime_exact",
       assetId: "steelworks",
     });
+    expect(BUILDING_VISUAL_POLICIES.cleaning_depot).toEqual({
+      mode: "procedural_semantic_fallback",
+      assetId: "cleaning_depot",
+    });
+    expect(visualArchetypeForBuilding("cleaning_depot", "building_depot")).toBe(
+      "cleaning_depot",
+    );
   });
 
   it("no clasifica huecos entre parcelas como carretera: sin asfalto en el plan de gameplay", () => {

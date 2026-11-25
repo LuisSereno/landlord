@@ -76,6 +76,7 @@ function parseArgs(argv) {
     weathering: [null],
     candidate: null,
     qaFlamePeakEmission: null,
+    taaSamples: null,
   };
   for (const argument of argv.slice(2)) {
     const [flag, value] = argument.split("=");
@@ -87,6 +88,7 @@ function parseArgs(argv) {
     else if (flag === "--weathering") options.weathering = value.split(",");
     else if (flag === "--candidate") options.candidate = value;
     else if (flag === "--qaFlamePeakEmission") options.qaFlamePeakEmission = Number(value);
+    else if (flag === "--taaSamples") options.taaSamples = Number(value);
     else if (flag === "--metrics") options.metrics = resolve(value);
     else if (flag === "--regenerate") options.regenerate = true;
     else if (flag === "--keepAttempts") options.keepAttempts = true;
@@ -104,8 +106,20 @@ function parseArgs(argv) {
     throw new Error("--seeds espera enteros separados por comas");
   }
   if (
+    options.taaSamples !== null &&
+    (!Number.isInteger(options.taaSamples) || options.taaSamples < 1 || options.taaSamples > 128)
+  ) {
+    throw new Error("--taaSamples espera un entero en [1,128]");
+  }
+  if (
     options.mood &&
-    !["night_civic", "day_civic", "day_industrial", "material_maquette_day", "material_maquette_night"].includes(options.mood)
+    ![
+      "night_civic",
+      "day_civic",
+      "day_industrial",
+      "material_maquette_day",
+      "material_maquette_night",
+    ].includes(options.mood)
   ) {
     throw new Error("--mood espera night_civic, day_civic, day_industrial o material_maquette_day");
   }
@@ -199,8 +213,9 @@ function domainGeometry(buildingType) {
 }
 
 function profileFor(family) {
-  const matches = read(PROFILES_PATH).profiles.filter((profile) =>
-    profile.id === "graphic_civic_buildings_v1" && profile.appliesToFamilies.includes(family),
+  const matches = read(PROFILES_PATH).profiles.filter(
+    (profile) =>
+      profile.id === "graphic_civic_buildings_v1" && profile.appliesToFamilies.includes(family),
   );
   if (matches.length !== 1) {
     throw new Error(
@@ -220,7 +235,9 @@ function buildRequests(grammars, options) {
     const styleProfileId = options.profileId ?? profileFor(grammar.family);
     const styleProfile = styleProfiles.find((profile) => profile.id === styleProfileId);
     if (!styleProfile || !styleProfile.appliesToFamilies.includes(grammar.family)) {
-      throw new Error(`${buildingType}: el perfil ${styleProfileId} no se aplica a ${grammar.family}`);
+      throw new Error(
+        `${buildingType}: el perfil ${styleProfileId} no se aplica a ${grammar.family}`,
+      );
     }
     const domain = domainGeometry(buildingType);
     for (const variantSeed of options.seeds) {
@@ -235,31 +252,32 @@ function buildRequests(grammars, options) {
           // material mezclaría dos señales visuales distintas en la misma revisión.
           const projections = stateToken === "complete" ? options.weathering : [null];
           for (const weathering of projections) {
-          // V.j: complete@0 conserva el candidateId histórico (baseline intacto); estado y orientación
-          // nonzero añaden sufijos para no colisionar ficheros.
-          const orientSuffix = orientation === 0 ? "" : `_o${orientation}`;
-          const weatherSuffix = weathering ? `_${weathering}` : "";
-          const candidateId = `${options.prefix}_${buildingType}_${variantSeed}${stateSuffix}${orientSuffix}${weatherSuffix}`;
-          requests.push({
-            candidateId,
-            buildingType,
-            family: grammar.family,
-            styleProfileId,
-            variantSeed,
-            orientation,
-            composerVersion: grammars.composerVersion,
-            footprint: domain.footprint,
-            floors: domain.floors,
-            state,
-            constructionStage,
-            ...(weathering ? { weathering } : {}),
-            ...(options.candidate ? { candidateProfile: options.candidate } : {}),
-            ...(state === "burning" && options.qaFlamePeakEmission
-              ? { qaFlamePeakEmission: options.qaFlamePeakEmission }
-              : {}),
-            output: join(options.outDir, `${candidateId}.png`),
-            metadata: join(options.outDir, `${candidateId}.json`),
-          });
+            // V.j: complete@0 conserva el candidateId histórico (baseline intacto); estado y orientación
+            // nonzero añaden sufijos para no colisionar ficheros.
+            const orientSuffix = orientation === 0 ? "" : `_o${orientation}`;
+            const weatherSuffix = weathering ? `_${weathering}` : "";
+            const candidateId = `${options.prefix}_${buildingType}_${variantSeed}${stateSuffix}${orientSuffix}${weatherSuffix}`;
+            requests.push({
+              candidateId,
+              buildingType,
+              family: grammar.family,
+              styleProfileId,
+              variantSeed,
+              orientation,
+              composerVersion: grammars.composerVersion,
+              footprint: domain.footprint,
+              floors: domain.floors,
+              state,
+              constructionStage,
+              ...(weathering ? { weathering } : {}),
+              ...(options.candidate ? { candidateProfile: options.candidate } : {}),
+              ...(state === "burning" && options.qaFlamePeakEmission
+                ? { qaFlamePeakEmission: options.qaFlamePeakEmission }
+                : {}),
+              ...(options.taaSamples !== null ? { taaSamples: options.taaSamples } : {}),
+              output: join(options.outDir, `${candidateId}.png`),
+              metadata: join(options.outDir, `${candidateId}.json`),
+            });
           }
         }
       }
@@ -313,6 +331,8 @@ function runBlender(requestsPath, manifestPath, count, options) {
     [
       "-b",
       "--factory-startup",
+      "--python-exit-code",
+      "1",
       "-P",
       BLENDER_SCRIPT,
       "--",
@@ -374,6 +394,8 @@ function runBlenderSeparate(requests, options, grammars, stagingDir) {
       [
         "-b",
         "--factory-startup",
+        "--python-exit-code",
+        "1",
         "-P",
         BLENDER_SCRIPT,
         "--",
@@ -658,7 +680,7 @@ function main() {
   // R1: la corrida escribe primero en `attempts/<runId>/` y sólo se promociona a `options.outDir`
   // cuando todos los candidatos validan. Así una corrida parcial no deja nunca un `manifest.json`
   // antiguo mezclado con PNGs nuevos, que fue el bug que el responsable detectó en `c1a635b`.
-  const runId = new Date().toISOString().replace(/[:.]/gu, "").slice(0, 15);
+  const runId = `${new Date().toISOString().replace(/[:.]/gu, "-")}-${process.pid}`;
   const stagingDir = join(options.outDir, "..", "attempts", runId);
   rmSync(stagingDir, { recursive: true, force: true });
   mkdirSync(stagingDir, { recursive: true });

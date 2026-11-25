@@ -139,6 +139,20 @@ const BUILDINGS = [
     domain: [4, 1],
     palette: ["#d8b67a", "#b18e58", "#876a40"],
   },
+  {
+    type: "cleaning_depot",
+    name: "Depósito de limpieza",
+    footprint: [2, 1],
+    domain: [3, 1],
+    palette: ["#9fb4c4", "#718a9d", "#4f6575"],
+  },
+  {
+    type: "headquarters",
+    name: "Sede operativa",
+    footprint: [2, 2],
+    domain: [4, 2],
+    palette: ["#c7b99f", "#9b846d", "#6f5d4d"],
+  },
 ];
 
 const CHARACTERS = [
@@ -321,6 +335,28 @@ function buildingSvg(building, state) {
       `<g fill="#f3d98a" opacity="0.85"><rect x="70" y="44" width="6" height="4"/><rect x="80" y="44" width="6" height="4"/>` +
       `<rect x="70" y="62" width="6" height="4"/><rect x="80" y="62" width="6" height="4"/></g></g>`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${warehouse}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "cleaning_depot") {
+    const depot =
+      `<g><rect x="34" y="48" width="16" height="26" fill="#344853"/><rect x="54" y="56" width="16" height="26" fill="#344853"/>` +
+      `<rect x="74" y="48" width="16" height="26" fill="#344853"/>` +
+      `<g stroke="#9fb4c4" stroke-width="1"><line x1="34" y1="55" x2="50" y2="55"/><line x1="54" y1="63" x2="70" y2="63"/><line x1="74" y1="55" x2="90" y2="55"/></g>` +
+      `<rect x="42" y="28" width="44" height="8" fill="#4f78a8"/><circle cx="64" cy="32" r="3" fill="#dce8ee"/>` +
+      `<g fill="#5f6f62"><rect x="24" y="76" width="12" height="10"/><rect x="94" y="70" width="12" height="10"/></g>` +
+      `<g fill="#8a9a91"><rect x="26" y="74" width="8" height="2"/><rect x="96" y="68" width="8" height="2"/></g></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${depot}${scaffolding}${damage}${flames}</svg>`;
+  }
+  if (building.type === "headquarters") {
+    const headquarters =
+      `<g><polygon points="28,54 64,70 100,54 100,30 64,14 28,30" fill="${building.palette[0]}" stroke="${building.palette[2]}" stroke-width="2"/>` +
+      `<polygon points="28,30 64,14 100,30 64,46" fill="${building.palette[1]}" stroke="${building.palette[2]}" stroke-width="2"/>` +
+      `<rect x="56" y="4" width="16" height="18" fill="#d8c9a8" stroke="#6f5d4d" stroke-width="2"/>` +
+      `<polygon points="52,4 64,0 76,4" fill="#718a9d"/>` +
+      `<rect x="34" y="58" width="14" height="20" fill="#344853"/><rect x="80" y="58" width="14" height="20" fill="#344853"/>` +
+      `<rect x="58" y="54" width="12" height="24" fill="#4a382b"/>` +
+      `<polygon points="62,34 64,30 66,34 64,38" fill="#b8b0a2" stroke="#f4ead8" stroke-width="1"/>` +
+      `<g fill="#f3d98a"><rect x="38" y="38" width="6" height="8"/><rect x="52" y="46" width="6" height="8"/><rect x="70" y="46" width="6" height="8"/><rect x="84" y="38" width="6" height="8"/></g></g>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${headquarters}${scaffolding}${damage}${flames}</svg>`;
   }
   const workshopChimney = `<rect x="84" y="20" width="8" height="22" fill="#75634d" stroke="#4d4035" stroke-width="2"/>`;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" width="128" height="112" role="img">${base.ground}${base.body}${workshopChimney}${details}${scaffolding}${damage}${flames}</svg>`;

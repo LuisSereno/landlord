@@ -76,7 +76,13 @@ describe("WP4.15 sprites de edificios", () => {
       );
     const economy = {
       buildings: [
-        { id: "b1", type: "mixed_tenement", state: "operational", condition: 95, structuralIntegrity: 100 },
+        {
+          id: "b1",
+          type: "mixed_tenement",
+          state: "operational",
+          condition: 95,
+          structuralIntegrity: 100,
+        },
       ],
       constructionSites: [] as Array<Record<string, unknown>>,
     };
@@ -532,8 +538,7 @@ describe("H2-02 ausencia de Blender → fallback procedural para los tipos del c
     const proceduralBundle = ASSETS;
     const emptyBlender = { buildings: {} };
     const types = Object.keys(BUILDING_DEFINITIONS) as BuildingType[];
-    /** La sede usa un placeholder doméstico hasta pasar el gate de arte de las dos variantes. */
-    expect(types).toHaveLength(16);
+    expect(types).toHaveLength(17);
     for (const type of types) {
       for (const state of ALL_BUILDING_STATES) {
         const resolved = resolveBuildingVisual(type, type, state, {

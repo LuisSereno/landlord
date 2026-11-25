@@ -61,7 +61,6 @@ describe("WP4.15 manifiesto de assets runtime", () => {
     for (const type of DOMAIN_BUILDING_TYPES) {
       const asset = manifest.buildings[type];
       if (!asset) {
-        if (type === "headquarters") continue;
         missing.push(type);
         continue;
       }
@@ -122,9 +121,7 @@ describe("WP4.15 manifiesto de assets runtime", () => {
      * …]` mantenido a mano: cuatro tipos residenciales/industriales se quedaron fuera sin que
      * el test lo notara, y el renderer los perdía en cuanto el Blender faltaba.
      */
-    /** HQ aún usa el placeholder doméstico: sus candidatos esperan revisión en ciudad antes de promocionarse. */
-    const runtimeBuildingTypes = DOMAIN_BUILDING_TYPES.filter((type) => type !== "headquarters");
-    expect(Object.keys(manifest.buildings).sort()).toEqual(runtimeBuildingTypes);
+    expect(Object.keys(manifest.buildings).sort()).toEqual(DOMAIN_BUILDING_TYPES);
     for (const [type, asset] of Object.entries(manifest.buildings)) {
       expect(asset.type, type).toBe(type);
       expect(asset.footprint.width, type).toBeGreaterThan(0);

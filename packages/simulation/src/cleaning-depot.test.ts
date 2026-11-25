@@ -11,6 +11,7 @@ import {
 } from "@landlord/shared";
 
 import { PLAYER_HOME_DISTRICT_ID } from "./city";
+import { developmentCodeById } from "./development-codes";
 import { facilityCoverageIndex } from "./facility-coverage";
 import {
   BUILDING_DEFINITIONS,
@@ -24,6 +25,7 @@ import {
   MUNICIPAL_FACILITY_SERVICE_PROFILE,
 } from "./municipal-program";
 import { createViewProjection } from "./projection";
+import { isBuildingAllowedByDevelopmentCode } from "./development-codes";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
 import { createInitialState, type GameState } from "./state";
 import { URBAN_SERVICE_POLICY, buildCoverageIndex } from "./urban-services";
@@ -135,6 +137,15 @@ describe("municipal cleaning depot", () => {
     );
     expect(depot.building.siteCells!.every((cell) => parcelKeys.has(`${cell.x}:${cell.y}`))).toBe(
       true,
+    );
+  });
+
+  it("is never allowed by a company development code", () => {
+    const state = createInitialState(7);
+    const parcel = marketableParcelsOf(state, PLAYER_HOME_DISTRICT_ID)[0]!;
+    const code = developmentCodeById(parcel.developmentCodeId);
+    expect(isBuildingAllowedByDevelopmentCode(BUILDING_DEFINITIONS.cleaning_depot, code)).toBe(
+      false,
     );
   });
 

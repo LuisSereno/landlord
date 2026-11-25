@@ -45,8 +45,8 @@ export type DistrictProfile = {
    * vez del eje de 1 celda. Ausente o `false` = geometría de siempre, `derivationVersion: 2`.
    * Se activa por perfil y sólo donde está medido que la receta aguanta el suelo que consume.
    *
-   * V.l.5c · la envolvente de ciudad (`CITY_PARCEL_COUNT_ENVELOPE`, 700–760) fija la cartera visual:
-   * `full` en `ensanche_ferroviario_oeste` y `ave3` en `vega_del_cauce`, `mercado_del_norte` y
+   * V.l.5c · la envolvente histórica de ciudad (700–760) fijó la cartera visual: `full` en
+   * `ensanche_ferroviario_oeste` y `ave3` en `vega_del_cauce`, `mercado_del_norte` y
    * `patios_del_este`. `barrio_del_umbral` permanece en el eje v2 para no cargar el slot del jugador;
    * la sección se selecciona con `roadSectionVariant` y no cambia la identidad de los segmentos.
    */

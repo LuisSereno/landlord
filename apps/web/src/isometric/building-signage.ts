@@ -26,6 +26,7 @@ export type SignageKey =
   | "civic.police"
   | "civic.fire"
   | "civic.market"
+  | "civic.cleaning_depot"
   | "industry.workshop"
   | "industry.warehouse"
   | "industry.cement"
@@ -48,6 +49,7 @@ const SIGNAGE_KEYS: Readonly<Partial<Record<BuildingType, SignageKey>>> = {
   police_station: "civic.police",
   fire_station: "civic.fire",
   market_hall: "civic.market",
+  cleaning_depot: "civic.cleaning_depot",
   workshop: "industry.workshop",
   warehouse: "industry.warehouse",
   cement_plant: "industry.cement",
@@ -64,6 +66,7 @@ const SIGNAGE_TEXT: Readonly<Record<SignageLocale, Readonly<Record<SignageKey, s
     "civic.police": "COMISARÍA",
     "civic.fire": "BOMBEROS",
     "civic.market": "MERCADO",
+    "civic.cleaning_depot": "LIMPIEZA",
     "industry.workshop": "TALLER",
     "industry.warehouse": "NAVE LOGÍSTICA",
     "industry.cement": "CEMENTERA",
@@ -109,6 +112,7 @@ const SIGNAGE_ANCHORS: Readonly<Partial<Record<BuildingType, SignageAnchor>>> = 
   police_station: { x: 0.52, y: 0.45 },
   fire_station: { x: 0.55, y: 0.48 },
   market_hall: { x: 0.38, y: 0.55 },
+  cleaning_depot: { x: 0.5, y: 0.46 },
   // Industriales: el cartel es alargado, así que el anclaje se centra sobre la masa. Con una placa
   // ancha, un anclaje descentrado colgaría fuera de la fachada; por eso los polígonos industriales
   // usan cartel alargado (SIGNAGE_PLATE_STYLES) y además van centrados.
@@ -157,6 +161,7 @@ const SIGNAGE_SALIENCE: Readonly<Record<SignageKey, SignageSalience>> = {
   "civic.police": "public_service",
   "civic.fire": "public_service",
   "civic.market": "public_service",
+  "civic.cleaning_depot": "public_service",
   "industry.workshop": "commercial",
   "industry.warehouse": "commercial",
   "industry.cement": "commercial",

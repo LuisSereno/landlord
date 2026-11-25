@@ -237,7 +237,8 @@ posiciones tiene que pasar por ahí, así que la arquitectura fija cuatro puntos
   y consumo al iniciar obra), `development-codes.ts` (una única regla de compatibilidad de usos y una
   única lectura de la densidad vigente), `facility-coverage.ts` (capacidad efectiva 0 sin edificio
   operacional, dentro de la firma de *capacidad* de la caché y no de la de geometría) y
-  `urban-services.ts` (limpieza radial por distrito, que sigue siendo la excepción declarada de D-092);
+  `urban-services.ts` (limpieza radial por distrito, excepción declarada de D-092; D-112 añade
+  depósitos municipales operativos como bonus local de radio);
 - **presentación que no adivina**: `apps/web/src/building-selection.ts` exige elección explícita cuando
   la parcela tiene varios edificios y el adapter pinta ocupación sobre `geometryCells`. Un id obsoleto
   se ignora en el selector derivado, sin efectos que puedan desincronizar la selección;

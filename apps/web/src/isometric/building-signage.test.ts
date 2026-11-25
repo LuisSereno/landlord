@@ -24,6 +24,7 @@ const SIGNAGE_TYPES: ReadonlyArray<readonly [BuildingType, string, string]> = [
   ["police_station", "civic.police", "COMISARÍA"],
   ["fire_station", "civic.fire", "BOMBEROS"],
   ["market_hall", "civic.market", "MERCADO"],
+  ["cleaning_depot", "civic.cleaning_depot", "LIMPIEZA"],
   ["workshop", "industry.workshop", "TALLER"],
   ["warehouse", "industry.warehouse", "NAVE LOGÍSTICA"],
   ["cement_plant", "industry.cement", "CEMENTERA"],

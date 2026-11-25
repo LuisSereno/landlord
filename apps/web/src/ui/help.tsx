@@ -79,9 +79,9 @@ export const helpCatalog: Record<HelpTopicKey, HelpTopic> = {
   services: {
     title: "Servicios municipales",
     summary:
-      "Seguridad, bomberos, salud, educación, mercado, transporte y limpieza se sirven por red y capacidad.",
+      "Seguridad, bomberos, salud, educación, mercado y transporte se sirven por red y capacidad; la limpieza es radial por distrito.",
     details:
-      "Una parcela desarrollada consume capacidad; un solar vacío sólo muestra el servicio potencial al que llegaría.",
+      "Una parcela desarrollada consume capacidad; un solar vacío sólo muestra el servicio potencial al que llegaría. Un depósito de limpieza operativo amplía el radio de su distrito.",
   },
   regulation: {
     title: "Regulación",

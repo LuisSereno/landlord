@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "assembledAt": "2026-11-25T15:18:10.991Z",
+  "moods": {
+    "day_civic": {
+      "count": 24,
+      "output": "docs/art/cleaning-depot/candidates-day-v1",
+      "candidates": [
+        {
+          "id": "cd_cleaning_depot_5101",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101.json",
+          "sha256": "8ba6ac76ab812fccdaaea3cf03caaf662523f1bba028fc94ec8f3e683ca3d49e",
+          "compositionSignature": "1f125c1cb5616ca064e41d8caa1b3ac4662b75b37ae01304a7635f75b7151d4f"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_burning.json",
+          "sha256": "db9d69c0365fd18353d1e6f57ed286487ff1e2cd395f90cc3330af422fd15929",
+          "compositionSignature": "485e2eec5e917c07ec0b7b5cff5de4d138f7ed91c37e410bf6ff00909e3d5030"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_burning_o180.json",
+          "sha256": "409dd29853c8f0d369f79852edd39c07100e5579674a5f5a2c82a67dd63d67c0",
+          "compositionSignature": "d8f5039d8360cfef013423bc19afeb67d25f29088f0df682c40a8fb2dc1edd97"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_burning_o270.json",
+          "sha256": "2b9aaf1d0449428570bbffbecd162ec045659e2a1575aa4bf4d88701913bfae4",
+          "compositionSignature": "5032881dbd334c9fece202ccf59d514b559bbabaad982d8b36eff122ae7bd33d"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_burning_o90.json",
+          "sha256": "98924fad9374e6fff1c2188c1dc25e9a3c4e0b97e8d27670459eb649c044633a",
+          "compositionSignature": "7a5ba1d5093ecdc0561f23fd8526da4db5c1df962f3ce93af3047f3124a81c92"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_damaged.json",
+          "sha256": "b7532f29e6c30441565d7a01165a4a66d0211eac0f0d6cd489b144986b7e943f",
+          "compositionSignature": "8887d1bf7875482b5030cc3f2a2141c4ae08d7d4ddb9363095d1a602f008e629"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_damaged_o180.json",
+          "sha256": "8401668cdb559372d31b0e52d02f7b8d7875c9df041de3d9cfe927fc22205d59",
+          "compositionSignature": "9daa706c792ade66cc97858b8c5ef184a293677d7d2d7f17e5320939ed08e5c0"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_damaged_o270.json",
+          "sha256": "27de581bee685e7cfe4f1daad3a2a96e4c7cd43f866b935d8fb4400bff577ebb",
+          "compositionSignature": "b505b2538e6abeaf501e37b72abb7e1fa864f63a87eba241a485f22eeef63a8e"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-c/cd_cleaning_depot_5101_damaged_o90.json",
+          "sha256": "472f61bbc91d29471155bae00b516e6025557e6cabda7fb3d54776535adf880e",
+          "compositionSignature": "e09a088fce05990a6f7278df966024da4bc59bde358304f8b44639585a45d5ec"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_finishing.json",
+          "sha256": "28051292bae92de6af6bbebdc88cb2147d052926ca43b7c7032879a6d4193e78",
+          "compositionSignature": "640cbda30422199516296f5180fdfef24aa9590bcf84c803f0f5b6fd966ee2f7"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_finishing_o180.json",
+          "sha256": "d42e952079b3b95a8eb1dc16939b536b5203e6217e76734fc2b6d8fb9e125183",
+          "compositionSignature": "c8a55c47a40b838764266494accf143e0d869ba0f61cd62c25d92fd57279c605"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_finishing_o270.json",
+          "sha256": "57aaad8e71592a04c7dabb8fc1c6bd873496b9902e060a910471e13c0986bb35",
+          "compositionSignature": "46fb359bcf1b2f595799343f3d2daff04f5c1e386d8b09951b8d582a8906d1dc"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_finishing_o90.json",
+          "sha256": "48d88d7b254b54c1af3edc77fad7ca8158a858d85348026f09973afe956f3988",
+          "compositionSignature": "7bbf1b08b7479b9033e2799feb75bd7664153d56637f68425bc5ac8d685c085f"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101_foundation.json",
+          "sha256": "cdce8c1b30ea6ecf850a4609f764c7070f5c1c0896dbdce2cca3bb7ef8b00f42",
+          "compositionSignature": "72aac8b5e39fcad3f89bb36e402eca4dc9ce1aa83b132e3f21155457ea777aae"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101_foundation_o180.json",
+          "sha256": "2a31ebd3e77317177189585e3217c9898a2fa59036b554f395da9c9baf56e982",
+          "compositionSignature": "2ce3ce56f929ab7835ae1e4c8f43dd8a2c83956ca30120acd0174535e79ddf8b"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101_foundation_o270.json",
+          "sha256": "f7d8884d5d20024e49f2e73b8339e1f435175e3f3bf60fb569e1c68956591135",
+          "compositionSignature": "8df025b01ff9f5e618bd38f22078a3232ae06119377c921473eecded42c0ffe4"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101_foundation_o90.json",
+          "sha256": "ce78cd8409e49f0162ba37a1a284d5568c829f29aeb569b3dde41aaa2bfded3b",
+          "compositionSignature": "510ee4388a385b0995cd4ae6e9d73fb92a4e5faac0d0c1bee19fc01de9a506a6"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101_o180.json",
+          "sha256": "3e2eec5ba79f6e72889541b30affb5d842655b55da72dec6f49d9bfd0a8b9a93",
+          "compositionSignature": "8b5c66a1670a14df7fad85239d89b27c05c8c1c5a2e54b32b6055f2a8a637f0d"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101_o270.json",
+          "sha256": "b23dbe97828ee944220201af2eb9a440eb102f6cd14f47f9092d797ae1fb298c",
+          "compositionSignature": "1784b6632e66960ff03ee27073b3d4d99103c247b2620ac96493019ffe41086c"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-a/cd_cleaning_depot_5101_o90.json",
+          "sha256": "3d4471f92e228fb9120b5ca222c8c7c0bbde8793381c484f716644247f655ad9",
+          "compositionSignature": "95e0dc004c22b6e239663492e2205edd10c5c88459c702d1f1a667bf3e4e3514"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_structure.json",
+          "sha256": "5a4b1b19eff73d84fb64fa9b5f9fffc3f6fa000fc9dd5c4a21d297ed7769c550",
+          "compositionSignature": "06fb6c87f914b48616e8b27c12be66c3a709176874b3ac110148a7104f140a5c"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_structure_o180.json",
+          "sha256": "8324c8514e565be68a7fd859c2eaa7949e0c6e17df33721d1ec5e1e225fd59c0",
+          "compositionSignature": "7e4212451930a3acb37470f9052b061801aeda452a44235ebd1f2554844e2170"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_structure_o270.json",
+          "sha256": "aa9240e3af66a9270607ab43890ab67274e22393f68358a8bbe948481d55f70c",
+          "compositionSignature": "70313c43d52424232265b38d305890ca52b5d3421189b33168dad541eb90a38d"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-day-b/cd_cleaning_depot_5101_structure_o90.json",
+          "sha256": "6f73bd7d4c34dd8c54c1fefc1d735b90a5a0261df0d7b4f07dba5a5993520296",
+          "compositionSignature": "48bd065f5c2b09623a7e245a92eafa750a65fb92a7868a549d28df470ac0d741"
+        }
+      ]
+    },
+    "night_civic": {
+      "count": 24,
+      "output": "docs/art/cleaning-depot/candidates-night-v1",
+      "candidates": [
+        {
+          "id": "cd_cleaning_depot_5101",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101.json",
+          "sha256": "38d24241d3cb7b15c79dcc8249ca0f6798143ed62132e083d18fb82dbc503f5f",
+          "compositionSignature": "1f125c1cb5616ca064e41d8caa1b3ac4662b75b37ae01304a7635f75b7151d4f"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_burning.json",
+          "sha256": "e15b4e51e8ce78c450afc0ddec3d170492acf45c9005958e31506b549095c53a",
+          "compositionSignature": "485e2eec5e917c07ec0b7b5cff5de4d138f7ed91c37e410bf6ff00909e3d5030"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_burning_o180.json",
+          "sha256": "135f0671c69afed083061efcb0fabf57cafd44a157317b71040127188db52c43",
+          "compositionSignature": "d8f5039d8360cfef013423bc19afeb67d25f29088f0df682c40a8fb2dc1edd97"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_burning_o270.json",
+          "sha256": "5918809be5ee3fa5f0ac173d0374f0ec9cc2179ec15b1340c044c75b41ec9610",
+          "compositionSignature": "5032881dbd334c9fece202ccf59d514b559bbabaad982d8b36eff122ae7bd33d"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_burning_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_burning_o90.json",
+          "sha256": "18a23ad6dc07b11c81946d323655fa5d0d9d88892ce803ff9135f03118031c4f",
+          "compositionSignature": "7a5ba1d5093ecdc0561f23fd8526da4db5c1df962f3ce93af3047f3124a81c92"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_damaged.json",
+          "sha256": "da10116f1f48575c1164420b45be399f7956afd8e960db7ea2ca4be14b82672a",
+          "compositionSignature": "8887d1bf7875482b5030cc3f2a2141c4ae08d7d4ddb9363095d1a602f008e629"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_damaged_o180.json",
+          "sha256": "8edce46959d58d309f3e4c97096c7ad01503dd0bfdb293c43fe6bdc3d83ad2a1",
+          "compositionSignature": "9daa706c792ade66cc97858b8c5ef184a293677d7d2d7f17e5320939ed08e5c0"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_damaged_o270.json",
+          "sha256": "ddbc1dc88b79fb7fd3f481496049454657b0cee821f6a5f7538cc26ce27c8377",
+          "compositionSignature": "b505b2538e6abeaf501e37b72abb7e1fa864f63a87eba241a485f22eeef63a8e"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_damaged_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-c/cd_cleaning_depot_5101_damaged_o90.json",
+          "sha256": "be5bfea45b1764d94383d638aaa3dab80b710a0e9e76c701e3848f1701f2e408",
+          "compositionSignature": "e09a088fce05990a6f7278df966024da4bc59bde358304f8b44639585a45d5ec"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_finishing.json",
+          "sha256": "a1f54f3ec748eecdd0dfe336767ccba59ed0463a0efe934c4d54c7bd46320ff0",
+          "compositionSignature": "640cbda30422199516296f5180fdfef24aa9590bcf84c803f0f5b6fd966ee2f7"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_finishing_o180.json",
+          "sha256": "f4e30eb2e51e02200126919fbe9bf40f5c60b95c842b53261bee4b7fbfc798cc",
+          "compositionSignature": "c8a55c47a40b838764266494accf143e0d869ba0f61cd62c25d92fd57279c605"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_finishing_o270.json",
+          "sha256": "20f3c54805c83bb25d779de18b9901179a59383396c68b869c863ee0c9092c1e",
+          "compositionSignature": "46fb359bcf1b2f595799343f3d2daff04f5c1e386d8b09951b8d582a8906d1dc"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_finishing_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_finishing_o90.json",
+          "sha256": "9da7e8de23dfdcb62d1dacf258bfba6add245adf6c809eddae5e0f6d34921fad",
+          "compositionSignature": "7bbf1b08b7479b9033e2799feb75bd7664153d56637f68425bc5ac8d685c085f"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101_foundation.json",
+          "sha256": "71990d6d35340cc31d2193bed84a2eec2c30176821234d6c63aceb33f849a427",
+          "compositionSignature": "72aac8b5e39fcad3f89bb36e402eca4dc9ce1aa83b132e3f21155457ea777aae"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101_foundation_o180.json",
+          "sha256": "7c81d9e31ca3ef717c481d9cbc4d919c81885e2b1ba0ef556ac777e0912458ba",
+          "compositionSignature": "2ce3ce56f929ab7835ae1e4c8f43dd8a2c83956ca30120acd0174535e79ddf8b"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101_foundation_o270.json",
+          "sha256": "7ae32d16d4eb7d911bcee63e1c02dc6dcda6830f0fdfd6f97e8ca766b02963f4",
+          "compositionSignature": "8df025b01ff9f5e618bd38f22078a3232ae06119377c921473eecded42c0ffe4"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_foundation_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101_foundation_o90.json",
+          "sha256": "d8d889a9a4b110c179e03e7ea1777aeb3b9d8d27e8268792f1501d46b1513b9c",
+          "compositionSignature": "510ee4388a385b0995cd4ae6e9d73fb92a4e5faac0d0c1bee19fc01de9a506a6"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101_o180.json",
+          "sha256": "d2f9a2964a3c549d844d6b21d99cba626eb0fea2a792de40ef9f187c67a2a5a3",
+          "compositionSignature": "8b5c66a1670a14df7fad85239d89b27c05c8c1c5a2e54b32b6055f2a8a637f0d"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101_o270.json",
+          "sha256": "66cbd1044ac5f78bb277660a942296926c4635bd580b79d33fb21328b8dc646e",
+          "compositionSignature": "1784b6632e66960ff03ee27073b3d4d99103c247b2620ac96493019ffe41086c"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-a/cd_cleaning_depot_5101_o90.json",
+          "sha256": "b69ca5e2bcdc3c501ca2cb27731eaf8dafd965490f7ecc0474f24cb8bd0592fd",
+          "compositionSignature": "95e0dc004c22b6e239663492e2205edd10c5c88459c702d1f1a667bf3e4e3514"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_structure.json",
+          "sha256": "d1c0fa78907bff8b1cd2c4a1d8fdf0d1f050f5ac4af0709bb5efd3bfa3d82d2c",
+          "compositionSignature": "06fb6c87f914b48616e8b27c12be66c3a709176874b3ac110148a7104f140a5c"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure_o180",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_structure_o180.json",
+          "sha256": "d45b2e761025f3891d18fe47e1d3bb8c24be01304863b122de0213ad153a3623",
+          "compositionSignature": "7e4212451930a3acb37470f9052b061801aeda452a44235ebd1f2554844e2170"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure_o270",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_structure_o270.json",
+          "sha256": "9d315e9b84a84cf4303a555a04adec51c93d3b924c018de2004b06c5c920faa2",
+          "compositionSignature": "70313c43d52424232265b38d305890ca52b5d3421189b33168dad541eb90a38d"
+        },
+        {
+          "id": "cd_cleaning_depot_5101_structure_o90",
+          "sourceMetadata": "docs/art/cleaning-depot/candidates-night-b/cd_cleaning_depot_5101_structure_o90.json",
+          "sha256": "1facff2345bd439ff91f7f1bd64f8c045453ac374a8da1d6066f48d94a6e2805",
+          "compositionSignature": "48bd065f5c2b09623a7e245a92eafa750a65fb92a7868a549d28df470ac0d741"
+        }
+      ]
+    }
+  }
+}

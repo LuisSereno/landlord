@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "cleaning-depot-candidates-v1",
+  "domainType": "cleaning_depot",
+  "status": "candidate_only_pending_human_visual_approval",
+  "variantSeed": 5101,
+  "footprintCells": { "width": 3, "height": 1 },
+  "stateTokens": ["complete", "foundation", "structure", "finishing", "damaged", "burning"],
+  "orientations": [0, 90, 180, 270],
+  "moods": ["day_civic", "night_civic"],
+  "expectedAssetCount": 48,
+  "identity": {
+    "owner": "municipality",
+    "color": "#4F86C6",
+    "emblem": "diamond",
+    "bakedOrganizationColor": false
+  },
+  "sourceGeometry": {
+    "grammar": "blender_artist/manifests/building-composer-grammars.json",
+    "modules": "blender_artist/manifests/building-modules.json",
+    "styleProfile": "graphic_civic_buildings_v1"
+  },
+  "evidenceStorage": "local PNG candidates; versioned manifests and review sheets",
+  "runtimePromotion": "not performed"
+}

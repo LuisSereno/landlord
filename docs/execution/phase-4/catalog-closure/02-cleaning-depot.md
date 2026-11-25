@@ -21,11 +21,20 @@ distrito y los diez digestos de conservación se regeneraron con los mismos esce
 | `cleaning-depot.test.ts` | 12/12 |
 | Servicios, programa municipal, snapshots, ciudad, distritos, digestos, labels y assets | 60/60 en conjunto |
 | `pnpm typecheck` | PASS |
+| Captura Composer del depósito | 144/144, 0 errores de página |
 | Revisión visual humana del depósito | PENDIENTE |
 | Promoción Composer del depósito | PENDIENTE |
 
 El fallback procedural `cleaning_depot` es semántico: nave de tres bahías, contenedores y señal
 municipal. No se declara asset final ni sustituye la revisión humana.
+
+## Arte Composer
+
+La gramática final usa chapa perfilada original de 4 m, tres portones de servicio, cubierta plana y
+ventilación de azotea. Las 48 candidatas (seis estados × cuatro orientaciones × dos moods) pasan
+matriz, hashes, 8/8 pruebas de gate y validación PNG independiente con 48 hashes únicos. Las 144
+capturas en ciudad pasan el gate con 0 errores de página y 144 hashes únicos; la aprobación visual
+humana sigue separada de la promoción runtime.
 
 ## Atribución de regresiones
 

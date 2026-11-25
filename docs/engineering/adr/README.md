@@ -8,6 +8,7 @@ Una decisión aceptada sólo se modifica mediante un ADR posterior que la sustit
 
 ## Decisiones
 
+- [D-112 — Depósito municipal de limpieza](D-112-deposito-municipal-limpieza.md)
 - [D-111 — Dirección visual de maqueta urbana material](D-111-direccion-visual-maqueta-material.md)
 - [D-110 — Sedes operativas de organización y contrato v3](D-110-sedes-operativas-y-contrato-v3.md)
 

@@ -1,0 +1,2051 @@
+{
+ "schemaVersion": 1,
+ "matrixId": "cleaning-depot-candidate-matrix-v1",
+ "status": "candidate_only_pending_human_visual_approval",
+ "totalAssets": 48,
+ "expectedAssets": 48,
+ "summary": {
+  "byStateToken": {
+   "burning": 8,
+   "complete": 8,
+   "damaged": 8,
+   "finishing": 8,
+   "foundation": 8,
+   "structure": 8
+  },
+  "byRuntimeState": {
+   "burning": 8,
+   "complete": 8,
+   "construction": 24,
+   "damaged": 8
+  },
+  "byOrientation": {
+   "0": 12,
+   "90": 12,
+   "180": 12,
+   "270": 12
+  },
+  "byMood": {
+   "day_civic": 24,
+   "night_civic": 24
+  }
+ },
+ "assets": [
+  {
+   "key": "complete|0|day_civic",
+   "candidateId": "cd_cleaning_depot_5101",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 0,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101.json",
+   "pngSha256": "8ba6ac76ab812fccdaaea3cf03caaf662523f1bba028fc94ec8f3e683ca3d49e",
+   "metadataSha256": "fb6ab9218b064166364cec68b45339aa4a505c7047e12a8725d82baa0b9b115b",
+   "pixelSha256": "6c00037e9b6153425996cdfe5759a27b4f5743fbc74c28e0972aeec8e4a0082f",
+   "compositionSignature": "1f125c1cb5616ca064e41d8caa1b3ac4662b75b37ae01304a7635f75b7151d4f",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "complete|0|night_civic",
+   "candidateId": "cd_cleaning_depot_5101",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 0,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101.json",
+   "pngSha256": "38d24241d3cb7b15c79dcc8249ca0f6798143ed62132e083d18fb82dbc503f5f",
+   "metadataSha256": "f172efe1b10dd73a926e8072ab37b50a5f070294c841f9b7ad14e17292a88e94",
+   "pixelSha256": "f96520be085531cde59a77b12fc8f24a7620ed9c2e68cab5c1203fcad1ff5724",
+   "compositionSignature": "1f125c1cb5616ca064e41d8caa1b3ac4662b75b37ae01304a7635f75b7151d4f",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "complete|90|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 90,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o90.json",
+   "pngSha256": "3d4471f92e228fb9120b5ca222c8c7c0bbde8793381c484f716644247f655ad9",
+   "metadataSha256": "7aa3077b1639303b268205fdd56c4754d2f9d3b145a6274389b3c202a19a53a2",
+   "pixelSha256": "d48b628e81b9b13759c6c2926a6115eee3bf9f91024abafa159e8e5fa158d8d1",
+   "compositionSignature": "95e0dc004c22b6e239663492e2205edd10c5c88459c702d1f1a667bf3e4e3514",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "complete|90|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 90,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o90.json",
+   "pngSha256": "b69ca5e2bcdc3c501ca2cb27731eaf8dafd965490f7ecc0474f24cb8bd0592fd",
+   "metadataSha256": "c005281e69d1bc132fb23b6d35cb80bc559760f5a28e8fb511fe6116d4c6e63c",
+   "pixelSha256": "d0a516d8c15023a4368ddc183953a3a1f1e34b183620f1cadf12fe88814fb706",
+   "compositionSignature": "95e0dc004c22b6e239663492e2205edd10c5c88459c702d1f1a667bf3e4e3514",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "complete|180|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 180,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o180.json",
+   "pngSha256": "3e2eec5ba79f6e72889541b30affb5d842655b55da72dec6f49d9bfd0a8b9a93",
+   "metadataSha256": "6fe0de28338c329c98c0b70a9d07555dcf057f437a69ea0697d853d0ff050103",
+   "pixelSha256": "43e410046a73fe729d5de571cbb6129605c7b78f4fdbc6111b86951a5deb1e03",
+   "compositionSignature": "8b5c66a1670a14df7fad85239d89b27c05c8c1c5a2e54b32b6055f2a8a637f0d",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "complete|180|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 180,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o180.json",
+   "pngSha256": "d2f9a2964a3c549d844d6b21d99cba626eb0fea2a792de40ef9f187c67a2a5a3",
+   "metadataSha256": "7ef628a2af1fc97d87b9bcee7463dfc3996ac319c0ae4e19ca7995673d510a64",
+   "pixelSha256": "d322bc9bb3e66357ed44829b456bd415a5561b3e8dd9697e8c58e9d8895ac407",
+   "compositionSignature": "8b5c66a1670a14df7fad85239d89b27c05c8c1c5a2e54b32b6055f2a8a637f0d",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "complete|270|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 270,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o270.json",
+   "pngSha256": "b23dbe97828ee944220201af2eb9a440eb102f6cd14f47f9092d797ae1fb298c",
+   "metadataSha256": "e45f1a6245d6b57921313c7b78a038b4954ae774df0f047ea1d6fc7238dfb28a",
+   "pixelSha256": "4d0c8c0f6db242709a0af229cf3028f8daa7b7ea784783a19c009105d6c40433",
+   "compositionSignature": "1784b6632e66960ff03ee27073b3d4d99103c247b2620ac96493019ffe41086c",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "complete|270|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "complete",
+   "runtimeState": "complete",
+   "constructionStage": null,
+   "orientation": 270,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o270.json",
+   "pngSha256": "66cbd1044ac5f78bb277660a942296926c4635bd580b79d33fb21328b8dc646e",
+   "metadataSha256": "6cc9167eaf83109522dd3277f7bd9e47b2fc9cac31cdbd2f5f051add4bc98dc3",
+   "pixelSha256": "dbf5a93a5d36cd0c81c118f6ba0e555ca053d0814b253e5a02e201c5abed77b7",
+   "compositionSignature": "1784b6632e66960ff03ee27073b3d4d99103c247b2620ac96493019ffe41086c",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5837
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 613
+   },
+   "triangleCount": 2005,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|0|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 0,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation.json",
+   "pngSha256": "cdce8c1b30ea6ecf850a4609f764c7070f5c1c0896dbdce2cca3bb7ef8b00f42",
+   "metadataSha256": "939eb2e2181b9414a74d0d8104ae1dfd1e740ed0c70b593a6eaa4be6107ce74f",
+   "pixelSha256": "bb2471e0616341ad524cdcf50900e1ef9ed3fce29da1b298aafadee7648e516a",
+   "compositionSignature": "72aac8b5e39fcad3f89bb36e402eca4dc9ce1aa83b132e3f21155457ea777aae",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|0|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 0,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation.json",
+   "pngSha256": "71990d6d35340cc31d2193bed84a2eec2c30176821234d6c63aceb33f849a427",
+   "metadataSha256": "0c1063a2eeb32409f1f864438a3af391ed4215d86b389d124325f8bfb3ee317f",
+   "pixelSha256": "f53b88770d0b4741acda290e1734a9fb66da3be0da8f5d40edfbb8a12943837f",
+   "compositionSignature": "72aac8b5e39fcad3f89bb36e402eca4dc9ce1aa83b132e3f21155457ea777aae",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|90|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 90,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o90.json",
+   "pngSha256": "ce78cd8409e49f0162ba37a1a284d5568c829f29aeb569b3dde41aaa2bfded3b",
+   "metadataSha256": "1aa6958d100fc933dd0dfa2e9a015daef4cec4c04593cf2294238a81097a976e",
+   "pixelSha256": "b4be9c746c51d0823b6d6da93b35978728773dd84cbab34b4babb43bd7e6295a",
+   "compositionSignature": "510ee4388a385b0995cd4ae6e9d73fb92a4e5faac0d0c1bee19fc01de9a506a6",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|90|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 90,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o90.json",
+   "pngSha256": "d8d889a9a4b110c179e03e7ea1777aeb3b9d8d27e8268792f1501d46b1513b9c",
+   "metadataSha256": "dfbb8180f6039a0841bab92213a0d54637e8f913798626802ae9eb1acb992633",
+   "pixelSha256": "a2a1e7bf1895ea0d46131fda754957e8f1147a2767120498445729c3759de700",
+   "compositionSignature": "510ee4388a385b0995cd4ae6e9d73fb92a4e5faac0d0c1bee19fc01de9a506a6",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|180|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 180,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o180.json",
+   "pngSha256": "2a31ebd3e77317177189585e3217c9898a2fa59036b554f395da9c9baf56e982",
+   "metadataSha256": "5022d5769bcb985c7a50b72948f8feef38f58cb844626178da6dd33ab7a47cdb",
+   "pixelSha256": "e709800c82412803990838532b06c014edc0d6496d747b68b5d0fb15e54aae46",
+   "compositionSignature": "2ce3ce56f929ab7835ae1e4c8f43dd8a2c83956ca30120acd0174535e79ddf8b",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|180|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 180,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o180.json",
+   "pngSha256": "7c81d9e31ca3ef717c481d9cbc4d919c81885e2b1ba0ef556ac777e0912458ba",
+   "metadataSha256": "4587303fa29feb034c05c258dcff5112ff5cbbb07d58c9c9d59f8de8ac4573df",
+   "pixelSha256": "6860f141cde8eef42c622e771eb39cfc70d5590caf2855cd90fc99bf6ce68ebf",
+   "compositionSignature": "2ce3ce56f929ab7835ae1e4c8f43dd8a2c83956ca30120acd0174535e79ddf8b",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|270|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 270,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o270.json",
+   "pngSha256": "f7d8884d5d20024e49f2e73b8339e1f435175e3f3bf60fb569e1c68956591135",
+   "metadataSha256": "eb9a993b8d3eed9641c908d733aca30f7bccc712ab1cfdda7efff2ec8fcca594",
+   "pixelSha256": "aa13dfdb7509504bdcefac47de11e348bc1e1dde68eba53931927f6aa3b7c9e3",
+   "compositionSignature": "8df025b01ff9f5e618bd38f22078a3232ae06119377c921473eecded42c0ffe4",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "foundation|270|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_foundation_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "foundation",
+   "runtimeState": "construction",
+   "constructionStage": "foundation",
+   "orientation": 270,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o270.json",
+   "pngSha256": "7ae32d16d4eb7d911bcee63e1c02dc6dcda6830f0fdfd6f97e8ca766b02963f4",
+   "metadataSha256": "880d9c77d99010b313d982bc546e075ccf314ce69cee7faddf531b704878a673",
+   "pixelSha256": "783c84fa86edaea434c4554a09bb233bc83b692216536a5fb00db11b0d63eb57",
+   "compositionSignature": "8df025b01ff9f5e618bd38f22078a3232ae06119377c921473eecded42c0ffe4",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.569,
+    "y": 0.5165
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 790,
+    "height": 411
+   },
+   "triangleCount": 336,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|0|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 0,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure.json",
+   "pngSha256": "5a4b1b19eff73d84fb64fa9b5f9fffc3f6fa000fc9dd5c4a21d297ed7769c550",
+   "metadataSha256": "58551544d38ce0c7caa19be7bca9e06636132b58bc820571c61328ee9baadbfb",
+   "pixelSha256": "a94c9520d8d73507da23075290bff3b9d69e623c43bb563237a063c7b61e5f76",
+   "compositionSignature": "06fb6c87f914b48616e8b27c12be66c3a709176874b3ac110148a7104f140a5c",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.5605
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 607
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|0|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 0,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure.json",
+   "pngSha256": "d1c0fa78907bff8b1cd2c4a1d8fdf0d1f050f5ac4af0709bb5efd3bfa3d82d2c",
+   "metadataSha256": "81e90feb8cd91ab0478b1a40683d1884ddc27f57dba5eb1549d9899c2433d60b",
+   "pixelSha256": "a263e6e577098a915734e65bc362fd24c6a4550afd942182a936016b2c9c1c42",
+   "compositionSignature": "06fb6c87f914b48616e8b27c12be66c3a709176874b3ac110148a7104f140a5c",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.5605
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 607
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|90|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 90,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o90.json",
+   "pngSha256": "6f73bd7d4c34dd8c54c1fefc1d735b90a5a0261df0d7b4f07dba5a5993520296",
+   "metadataSha256": "aa97f970cca9236afab4ff676b99b6112b3110b038470469e72a5059ffe6821d",
+   "pixelSha256": "732967f54457caf538ea65d7a8ee0b32c5390b1324492bbee2bb31cab2e74a9a",
+   "compositionSignature": "48bd065f5c2b09623a7e245a92eafa750a65fb92a7868a549d28df470ac0d741",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5688,
+    "y": 0.5509
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 850,
+    "height": 594
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|90|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 90,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o90.json",
+   "pngSha256": "1facff2345bd439ff91f7f1bd64f8c045453ac374a8da1d6066f48d94a6e2805",
+   "metadataSha256": "1bb75926772dcc20df597c252578e531c74e14596f03a23340998a1c066d91e6",
+   "pixelSha256": "c673e4a8ab5e9a94f86f7a67ae5d009e66c52c3701aefe4e53e332fd5ec87545",
+   "compositionSignature": "48bd065f5c2b09623a7e245a92eafa750a65fb92a7868a549d28df470ac0d741",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5688,
+    "y": 0.5509
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 850,
+    "height": 594
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|180|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 180,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o180.json",
+   "pngSha256": "8324c8514e565be68a7fd859c2eaa7949e0c6e17df33721d1ec5e1e225fd59c0",
+   "metadataSha256": "f7650d168377314730c1e71af33e65387222f0d10253ed7997225d30ed58f1ab",
+   "pixelSha256": "92c135ab0dd3ce21a686d3714093d7df96baabd1b9e594afa59f711fc8971363",
+   "compositionSignature": "7e4212451930a3acb37470f9052b061801aeda452a44235ebd1f2554844e2170",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.5605
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 607
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|180|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 180,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o180.json",
+   "pngSha256": "d45b2e761025f3891d18fe47e1d3bb8c24be01304863b122de0213ad153a3623",
+   "metadataSha256": "12099880354388c8286a083e29468311204e764704b84998f8faf1aa463110d2",
+   "pixelSha256": "bf0374d8b0ac39e65120c294a2182eec242ce52c758cd5fe8f7abe56f30e2bed",
+   "compositionSignature": "7e4212451930a3acb37470f9052b061801aeda452a44235ebd1f2554844e2170",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.5605
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 607
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|270|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 270,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o270.json",
+   "pngSha256": "aa9240e3af66a9270607ab43890ab67274e22393f68358a8bbe948481d55f70c",
+   "metadataSha256": "c40222f6c6c83b50edf494016afdf96b1a3a0eefa1914aa09051e2a54ed5c098",
+   "pixelSha256": "7feb927b99091dfbce72749f8fdf876eefeeaf6c014c8a2844bc8175aec5a8c3",
+   "compositionSignature": "70313c43d52424232265b38d305890ca52b5d3421189b33168dad541eb90a38d",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5688,
+    "y": 0.5697
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 850,
+    "height": 620
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "structure|270|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_structure_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "structure",
+   "runtimeState": "construction",
+   "constructionStage": "structure",
+   "orientation": 270,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o270.json",
+   "pngSha256": "9d315e9b84a84cf4303a555a04adec51c93d3b924c018de2004b06c5c920faa2",
+   "metadataSha256": "d24f49500fe3bd90bcdbf9066a1907a49b1428984303ea89648f80dc10ec3711",
+   "pixelSha256": "d660134c7b7780381f31950e7e20647e8a9da548380f33bacbdc75ae220553c3",
+   "compositionSignature": "70313c43d52424232265b38d305890ca52b5d3421189b33168dad541eb90a38d",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5688,
+    "y": 0.5697
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 850,
+    "height": 620
+   },
+   "triangleCount": 3088,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|0|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 0,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing.json",
+   "pngSha256": "28051292bae92de6af6bbebdc88cb2147d052926ca43b7c7032879a6d4193e78",
+   "metadataSha256": "555620b632b63958656ee41170cf5bffcf2695c8f1f2cfce6cd845c3689d50ee",
+   "pixelSha256": "0298e7871a6ce222a5a20fb6feb2e98ffdbcc1642f4bfb943c0b6c679b187bcd",
+   "compositionSignature": "640cbda30422199516296f5180fdfef24aa9590bcf84c803f0f5b6fd966ee2f7",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5774,
+    "y": 0.5769
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 808,
+    "height": 622
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|0|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 0,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing.json",
+   "pngSha256": "a1f54f3ec748eecdd0dfe336767ccba59ed0463a0efe934c4d54c7bd46320ff0",
+   "metadataSha256": "4843d1ff5f82b1ceeb9e3a23befcfdbdf245fce42e2e8ed883fdb75cc7e6847b",
+   "pixelSha256": "8ecc630f6f64e128bccbebc42a09ee0e183975bceae0b299f5e8bbf6fda2745e",
+   "compositionSignature": "640cbda30422199516296f5180fdfef24aa9590bcf84c803f0f5b6fd966ee2f7",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5774,
+    "y": 0.5769
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 808,
+    "height": 622
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|90|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 90,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o90.json",
+   "pngSha256": "48d88d7b254b54c1af3edc77fad7ca8158a858d85348026f09973afe956f3988",
+   "metadataSha256": "887c7f5da9623aa7b12f06480c35d5ba131d8c5b1055d07e523bd62af643daa6",
+   "pixelSha256": "243dfe7d33bfcf02ea27a50bb3e9f57e93f2d56928630195e05c1212c709e00c",
+   "compositionSignature": "7bbf1b08b7479b9033e2799feb75bd7664153d56637f68425bc5ac8d685c085f",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.56,
+    "y": 0.5769
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 833,
+    "height": 622
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|90|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 90,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o90.json",
+   "pngSha256": "9da7e8de23dfdcb62d1dacf258bfba6add245adf6c809eddae5e0f6d34921fad",
+   "metadataSha256": "fe85bdc56f1659a944a0d36fe0e0a72233c19fdaf3975cd48c86af2d4549235b",
+   "pixelSha256": "e8dfd9b8f8c9d07997976b6590e8439e8e86e6504f6447efb162f72f882bc693",
+   "compositionSignature": "7bbf1b08b7479b9033e2799feb75bd7664153d56637f68425bc5ac8d685c085f",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.56,
+    "y": 0.5769
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 833,
+    "height": 622
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|180|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 180,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o180.json",
+   "pngSha256": "d42e952079b3b95a8eb1dc16939b536b5203e6217e76734fc2b6d8fb9e125183",
+   "metadataSha256": "c4378a424560777457a9b963b6b7afbc4f851ffc973a1ce0eaf52366df46df58",
+   "pixelSha256": "fc107405816d5a1c7ea84acf8bca21dc35940e7718f611bee52f4285e1591c52",
+   "compositionSignature": "c8a55c47a40b838764266494accf143e0d869ba0f61cd62c25d92fd57279c605",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.56,
+    "y": 0.5849
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 833,
+    "height": 634
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|180|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 180,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o180.json",
+   "pngSha256": "f4e30eb2e51e02200126919fbe9bf40f5c60b95c842b53261bee4b7fbfc798cc",
+   "metadataSha256": "71e51f211b08c000381052fc543c84b193cd351ed3de6a6083f14b24882f02ed",
+   "pixelSha256": "6f321e40b75eaae9aadf5bc3da9a10cf2bb64454cb99e7bebd3efb81026fa04a",
+   "compositionSignature": "c8a55c47a40b838764266494accf143e0d869ba0f61cd62c25d92fd57279c605",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.56,
+    "y": 0.5849
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 833,
+    "height": 634
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|270|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 270,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o270.json",
+   "pngSha256": "57aaad8e71592a04c7dabb8fc1c6bd873496b9902e060a910471e13c0986bb35",
+   "metadataSha256": "16b9b55de5d481d4accc1bbb3ed716494935c2e0195cc6bd71c635fe213cc7f4",
+   "pixelSha256": "88cc10735df6e6f3ff0e36fe3840c679f63990b088ab042bbd89bdf589904206",
+   "compositionSignature": "46fb359bcf1b2f595799343f3d2daff04f5c1e386d8b09951b8d582a8906d1dc",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5774,
+    "y": 0.5849
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 808,
+    "height": 634
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "finishing|270|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_finishing_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "finishing",
+   "runtimeState": "construction",
+   "constructionStage": "finishing",
+   "orientation": 270,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o270.json",
+   "pngSha256": "20f3c54805c83bb25d779de18b9901179a59383396c68b869c863ee0c9092c1e",
+   "metadataSha256": "ae1aed68e36d802f4175add8f2f7f3d534ea1653498050b3f1ec7073d3565a4f",
+   "pixelSha256": "86123ea8bbefd231f238954a2f4ea227335f971b4568cd13393bace0972e757e",
+   "compositionSignature": "46fb359bcf1b2f595799343f3d2daff04f5c1e386d8b09951b8d582a8906d1dc",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5774,
+    "y": 0.5849
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 808,
+    "height": 634
+   },
+   "triangleCount": 2977,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|0|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 0,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged.json",
+   "pngSha256": "b7532f29e6c30441565d7a01165a4a66d0211eac0f0d6cd489b144986b7e943f",
+   "metadataSha256": "4ccb1cb539b61bdbd6bffd19b35fd793a7aee08a21e43d678cabe87e4f201a73",
+   "pixelSha256": "5e257101fbb84c6e8b6730330bf532c128d50739fe20826aaa55744c20a838b8",
+   "compositionSignature": "8887d1bf7875482b5030cc3f2a2141c4ae08d7d4ddb9363095d1a602f008e629",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.5689
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 630
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|0|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 0,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged.json",
+   "pngSha256": "da10116f1f48575c1164420b45be399f7956afd8e960db7ea2ca4be14b82672a",
+   "metadataSha256": "b10c84364e1bca6c1f01ae521c10022321c950233373b8ca4e9a27321e197838",
+   "pixelSha256": "fb45f5d9cc8c10f0abf647713abcf71b90a425164762939fd8ced6d6307a3073",
+   "compositionSignature": "8887d1bf7875482b5030cc3f2a2141c4ae08d7d4ddb9363095d1a602f008e629",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.5689
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 630
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|90|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 90,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o90.json",
+   "pngSha256": "472f61bbc91d29471155bae00b516e6025557e6cabda7fb3d54776535adf880e",
+   "metadataSha256": "fe42f72778e734f47ad1a2042b83bb0c60e4c157b628c571edb4f5cec09719c6",
+   "pixelSha256": "b738234a2c3f5058a22a74c16c8bd999191f418f6ee04454fb269d112d367e48",
+   "compositionSignature": "e09a088fce05990a6f7278df966024da4bc59bde358304f8b44639585a45d5ec",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.5689
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 630
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|90|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 90,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o90.json",
+   "pngSha256": "be5bfea45b1764d94383d638aaa3dab80b710a0e9e76c701e3848f1701f2e408",
+   "metadataSha256": "9fb18a841a35eb3fdfb9ea206a95c40794c5c7886e48855c0ba18058980e1d52",
+   "pixelSha256": "875e8ab8aef888205db706e2211c4040a4af80aa37dd52335322a1532f60db67",
+   "compositionSignature": "e09a088fce05990a6f7278df966024da4bc59bde358304f8b44639585a45d5ec",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.5689
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 630
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|180|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 180,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o180.json",
+   "pngSha256": "8401668cdb559372d31b0e52d02f7b8d7875c9df041de3d9cfe927fc22205d59",
+   "metadataSha256": "8458ace40f77a0dd5ddd870bd6404cfc16f66ed0796f9136d7265b6d76007b0a",
+   "pixelSha256": "a72573f8f1cdf2338acc6f8ce005aabf6006b3978870f56233696a9c28da71b7",
+   "compositionSignature": "9daa706c792ade66cc97858b8c5ef184a293677d7d2d7f17e5320939ed08e5c0",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.586
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 656
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|180|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 180,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o180.json",
+   "pngSha256": "8edce46959d58d309f3e4c97096c7ad01503dd0bfdb293c43fe6bdc3d83ad2a1",
+   "metadataSha256": "585efd0c3f7c68b5ce2f679a46283b8815c509d3b5f47d41fa24b70b98bcf3c0",
+   "pixelSha256": "2a40cc32744c5e93fc3170ae1cf262b993667ccc0dd421c04773907b0cdb4640",
+   "compositionSignature": "9daa706c792ade66cc97858b8c5ef184a293677d7d2d7f17e5320939ed08e5c0",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.586
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 656
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|270|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 270,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o270.json",
+   "pngSha256": "27de581bee685e7cfe4f1daad3a2a96e4c7cd43f866b935d8fb4400bff577ebb",
+   "metadataSha256": "0cb499d04cec2224db0b029d82e0c51b727d41d5e7d43b7b258ef12a951fccc6",
+   "pixelSha256": "5c636f19056f3f12338ac0c6df7a3df8728274b0db0cafd00637574570308cc0",
+   "compositionSignature": "b505b2538e6abeaf501e37b72abb7e1fa864f63a87eba241a485f22eeef63a8e",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.586
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 656
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "damaged|270|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_damaged_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "damaged",
+   "runtimeState": "damaged",
+   "constructionStage": null,
+   "orientation": 270,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o270.json",
+   "pngSha256": "ddbc1dc88b79fb7fd3f481496049454657b0cee821f6a5f7538cc26ce27c8377",
+   "metadataSha256": "bf799af0c1b4687fb97b4d91ee74e78c40a1b1485cdc3c0182d3657cf86c5199",
+   "pixelSha256": "27757679bd1f2144c15249d6a452e4f73f9975a4b8f8d05833f549c2729e8b1e",
+   "compositionSignature": "b505b2538e6abeaf501e37b72abb7e1fa864f63a87eba241a485f22eeef63a8e",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.586
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 656
+   },
+   "triangleCount": 2729,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|0|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 0,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning.json",
+   "pngSha256": "db9d69c0365fd18353d1e6f57ed286487ff1e2cd395f90cc3330af422fd15929",
+   "metadataSha256": "8049e9f9ea6caa1153126ed28d34306287515af714f255a3fe4ad6e7534c4236",
+   "pixelSha256": "a2067755c15699984a3a5397bf4da76a164e5d0b1dd937e740bf5392db393f45",
+   "compositionSignature": "485e2eec5e917c07ec0b7b5cff5de4d138f7ed91c37e410bf6ff00909e3d5030",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.6354
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 815
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|0|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 0,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning.json",
+   "pngSha256": "e15b4e51e8ce78c450afc0ddec3d170492acf45c9005958e31506b549095c53a",
+   "metadataSha256": "baccf56eb7d74a1abf998126725c1f0bd1a99c63126e231e9212327356f0ba5c",
+   "pixelSha256": "a13c9ebb240ffe099624b383e5d50e53081b5fe4e9a2e5f6910a76b17e69082d",
+   "compositionSignature": "485e2eec5e917c07ec0b7b5cff5de4d138f7ed91c37e410bf6ff00909e3d5030",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.6354
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 815
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|90|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 90,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o90.json",
+   "pngSha256": "98924fad9374e6fff1c2188c1dc25e9a3c4e0b97e8d27670459eb649c044633a",
+   "metadataSha256": "aae24c57d16331f68f064bde7bc323ad308169c0bd4d972a3ca205360c78dde1",
+   "pixelSha256": "5ba6dfecb80fafcb323d608cb39aa631b7f28fd8eb832e4a9fd85beccd3ae8e1",
+   "compositionSignature": "7a5ba1d5093ecdc0561f23fd8526da4db5c1df962f3ce93af3047f3124a81c92",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.6354
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 815
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|90|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning_o90",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 90,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o90.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o90.json",
+   "pngSha256": "18a23ad6dc07b11c81946d323655fa5d0d9d88892ce803ff9135f03118031c4f",
+   "metadataSha256": "4fb77ff6f9096129dcbe34f3c8f641fb61567db86be0a4dbe11799221dbf0f97",
+   "pixelSha256": "fa3995e3a52b1bbe73faaa0c6a7b39bce6438dcd2b8b34809e9bc39842658b83",
+   "compositionSignature": "7a5ba1d5093ecdc0561f23fd8526da4db5c1df962f3ce93af3047f3124a81c92",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.6354
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 815
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": true,
+    "visibleAccessCount": 3,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|180|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 180,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o180.json",
+   "pngSha256": "409dd29853c8f0d369f79852edd39c07100e5579674a5f5a2c82a67dd63d67c0",
+   "metadataSha256": "f766e09f7cbbe127e26f65155711c252f1596c6f713aad4be7ca57abb98f7ccd",
+   "pixelSha256": "a471cb15b9611de9097652d01e384d39e2fe4c47bb8dad944ab0bf19c20c7500",
+   "compositionSignature": "d8f5039d8360cfef013423bc19afeb67d25f29088f0df682c40a8fb2dc1edd97",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.6462
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 840
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|180|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning_o180",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 180,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o180.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o180.json",
+   "pngSha256": "135f0671c69afed083061efcb0fabf57cafd44a157317b71040127188db52c43",
+   "metadataSha256": "114968ae6b930e3ee768f07732366e4b76a088f0106792c208bd701e23b6ca9f",
+   "pixelSha256": "719c992eac79958525a1046eacf68820a558ff32137740ccb4c05d4495379009",
+   "compositionSignature": "d8f5039d8360cfef013423bc19afeb67d25f29088f0df682c40a8fb2dc1edd97",
+   "footprint": {
+    "width": 3,
+    "height": 1
+   },
+   "pivot": {
+    "x": 0.5519,
+    "y": 0.6462
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 876,
+    "height": 840
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|270|day_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 270,
+   "moodId": "day_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o270.json",
+   "pngSha256": "2b9aaf1d0449428570bbffbecd162ec045659e2a1575aa4bf4d88701913bfae4",
+   "metadataSha256": "7b484a286679da89618fcf3858ce9f65de1fddf10d554d8da2a61350a12fbf3a",
+   "pixelSha256": "85c2e2caff8198079263c69e28be5d04f050c69f42c9eb48f4b0c917a2ba8fb7",
+   "compositionSignature": "5032881dbd334c9fece202ccf59d514b559bbabaad982d8b36eff122ae7bd33d",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.6462
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 840
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  },
+  {
+   "key": "burning|270|night_civic",
+   "candidateId": "cd_cleaning_depot_5101_burning_o270",
+   "buildingType": "cleaning_depot",
+   "stateToken": "burning",
+   "runtimeState": "burning",
+   "constructionStage": null,
+   "orientation": 270,
+   "moodId": "night_civic",
+   "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o270.png",
+   "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o270.json",
+   "pngSha256": "5918809be5ee3fa5f0ac173d0374f0ec9cc2179ec15b1340c044c75b41ec9610",
+   "metadataSha256": "5857e9f22825f9d17693f56027ba7e9d2ffaa5941f6d7098f54620dd7bf5c297",
+   "pixelSha256": "6d2184a3cd54f6ef30a393f3a004b5b90fe959e21853c85486d9ec9cd934d843",
+   "compositionSignature": "5032881dbd334c9fece202ccf59d514b559bbabaad982d8b36eff122ae7bd33d",
+   "footprint": {
+    "width": 1,
+    "height": 3
+   },
+   "pivot": {
+    "x": 0.5861,
+    "y": 0.6462
+   },
+   "pixelsPerMeter": 60.2,
+   "image": {
+    "width": 825,
+    "height": 840
+   },
+   "triangleCount": 7865,
+   "licensedGeometryRatio": 1,
+   "massingId": "three_bay_service_shed",
+   "roofId": "flat_plates",
+   "accessId": "three_loading_bays@1",
+   "entranceVisibility": {
+    "anyAccessVisible": false,
+    "visibleAccessCount": 0,
+    "visibleSides": [
+     "front",
+     "right"
+    ]
+   }
+  }
+ ]
+}

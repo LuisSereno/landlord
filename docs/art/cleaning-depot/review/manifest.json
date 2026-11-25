@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate_review_pending_human",
+  "runtimePromotion": false,
+  "sheets": {
+    "complete-day.png": {
+      "path": "docs/art/cleaning-depot/review/complete-day.png",
+      "sha256": "e30580f2bb216b71c0ccf89fc4cc45cb7466c29e3c4218094b106edfd0e707e7",
+      "bytes": 160928,
+      "inputs": [
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101.png",
+          "sha256": "8ba6ac76ab812fccdaaea3cf03caaf662523f1bba028fc94ec8f3e683ca3d49e"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o90.png",
+          "sha256": "3d4471f92e228fb9120b5ca222c8c7c0bbde8793381c484f716644247f655ad9"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o180.png",
+          "sha256": "3e2eec5ba79f6e72889541b30affb5d842655b55da72dec6f49d9bfd0a8b9a93"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o270.png",
+          "sha256": "b23dbe97828ee944220201af2eb9a440eb102f6cd14f47f9092d797ae1fb298c"
+        }
+      ]
+    },
+    "states-day.png": {
+      "path": "docs/art/cleaning-depot/review/states-day.png",
+      "sha256": "d66ff0f9e2466463f20ea6f813902e2d50ee3d37a0b4708ec915858837a86a36",
+      "bytes": 260794,
+      "inputs": [
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101.png",
+          "sha256": "8ba6ac76ab812fccdaaea3cf03caaf662523f1bba028fc94ec8f3e683ca3d49e"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation.png",
+          "sha256": "cdce8c1b30ea6ecf850a4609f764c7070f5c1c0896dbdce2cca3bb7ef8b00f42"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure.png",
+          "sha256": "5a4b1b19eff73d84fb64fa9b5f9fffc3f6fa000fc9dd5c4a21d297ed7769c550"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing.png",
+          "sha256": "28051292bae92de6af6bbebdc88cb2147d052926ca43b7c7032879a6d4193e78"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged.png",
+          "sha256": "b7532f29e6c30441565d7a01165a4a66d0211eac0f0d6cd489b144986b7e943f"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning.png",
+          "sha256": "db9d69c0365fd18353d1e6f57ed286487ff1e2cd395f90cc3330af422fd15929"
+        }
+      ]
+    },
+    "complete-night.png": {
+      "path": "docs/art/cleaning-depot/review/complete-night.png",
+      "sha256": "9e92b29c57f0bc17b392e058606bdae70839ad47e6117aae3e450362daecdeaa",
+      "bytes": 170545,
+      "inputs": [
+        {
+          "path": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101.png",
+          "sha256": "38d24241d3cb7b15c79dcc8249ca0f6798143ed62132e083d18fb82dbc503f5f"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o90.png",
+          "sha256": "b69ca5e2bcdc3c501ca2cb27731eaf8dafd965490f7ecc0474f24cb8bd0592fd"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o180.png",
+          "sha256": "d2f9a2964a3c549d844d6b21d99cba626eb0fea2a792de40ef9f187c67a2a5a3"
+        },
+        {
+          "path": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o270.png",
+          "sha256": "66cbd1044ac5f78bb277660a942296926c4635bd580b79d33fb21328b8dc646e"
+        }
+      ]
+    },
+    "fallback-signage.png": {
+      "path": "docs/art/cleaning-depot/review/fallback-signage.png",
+      "sha256": "ec737444ead8bde2a8147a5bf5d52148fc78a9f9dc0cd6b23f4f4c160f6e2a78",
+      "bytes": 148890,
+      "inputs": [],
+      "captureKind": "runtime_semantic_fallback"
+    }
+  }
+}

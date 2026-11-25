@@ -1,7 +1,8 @@
 # D-112 — Depósito municipal de limpieza
 
-Estado: aceptada por el encargo de cierre de catálogo del 2026-11-25. Implementación de dominio y
-fallback semántico completadas; arte Composer promovido pendiente de revisión humana.
+Estado: aceptada por el encargo de cierre de catálogo del 2026-11-25. Implementación de dominio,
+fallback semántico, 48 candidatas Composer y 144 capturas en ciudad completadas; promoción runtime
+pendiente de revisión humana.
 
 ## Problema
 
@@ -47,7 +48,8 @@ doce seeds canónicas.
 - carga de un estado v3 anterior sin depósito.
 
 La suite focalizada de cierre pasó 60/60 pruebas, incluidas city seeds, distritos, digestos, UI y
-assets procedurales.
+assets procedurales. La suite completa posterior dio 17 fallos, todos baseline de los 18 medidos en
+`116b6e0`; el triplete de acería de la seed 2026 ya pasa con v5 y no hay regresiones nuevas.
 
 ## Límite artístico
 

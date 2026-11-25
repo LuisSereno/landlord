@@ -17,8 +17,10 @@ introduce roles nuevos en simulación; los cuatro specialties operativos siguen 
 
 WP-CHAR-04 produjo el smoke técnico de los 14: 28 frames, 1.528 comprobaciones, 0 errores y 0
 advertencias. Los cinco prototipos anteriores se reutilizaron y los nueve restantes ya tienen
-candidato Kenney. La validación técnica no equivale a aprobación artística: el batch completo de
-504 frames y la promoción runtime siguen pendientes de revisión humana.
+candidato Kenney. La comparación B/D en ciudad densa recomienda técnicamente B (`zoom 1×`, 34 px):
+D aumenta un 15 % la altura pero reduce un 24,4 % el área visible. La validación técnica no equivale
+a aprobación artística: el batch completo de 504 frames y la promoción runtime siguen pendientes de
+revisión humana.
 
 ```bash
 pnpm art:character-factory:validate

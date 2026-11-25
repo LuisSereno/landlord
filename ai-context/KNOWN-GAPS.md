@@ -388,6 +388,18 @@ Sigue abierto:
 - **8 fallos de simulación preexistentes** siguen abiertos; la foto exacta está en
   `docs/execution/phase-4/vd-ux-s-baseline-2026-11-16.json` y ninguna cifra de esta fase los toca.
 
+## Cierre de catálogo — lo que queda abierto (2026-11-25)
+
+- La suite completa de simulación da 17 fallos, todos contenidos en los 18 baseline medidos en
+  `116b6e0`; el triplete de acería de la seed 2026 ya pasa con el generador v5. No se atribuyen al
+  depósito ni se ocultan.
+- `pnpm lint` sigue rojo por 51 incidencias preexistentes en 18 archivos sin cambios en este
+  trabajo. El lint de los scripts y pruebas añadidos pasa; no se corrigen deudas ajenas en este
+  cierre.
+- Las 96 candidatas de sedes y las 48 del depósito siguen separadas de la promoción runtime. La
+  revisión visual humana, el batch completo de 504 frames Kenney y el playtest V.d continúan
+  pendientes.
+
 ## V.j · diurno + moodId — lo que queda abierto (2026-11-18)
 
 - **Día/Noche usa variantes horneadas separadas.** `IsometricSpikeScene.setVisualMood` conserva el

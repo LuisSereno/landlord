@@ -15,7 +15,7 @@ Commits locales: `51f3260` (`art(catalog): retire rejected candidates and invali
 | 654 PNG runtime sin referencia | Familias antiguas de variantes y seis fallbacks sustituidos; ningún manifiesto los consume | 654 PNG / 780.948.327 B del directorio runtime local (ignorados) | 1.173 PNG referenciados, con hashes verificados |
 
 La limpieza inicial retiró 642 archivos versionados, con 89 inserciones y 892.800 líneas borradas. La
-retirada adicional de la matriz de sede obsoleta eliminó 18 archivos. La validación de jobs pasó con
+retirada adicional de la matriz de sede obsoleta eliminó 18 archivos en `c563c62`. La validación de jobs pasó con
 80 jobs, el validador del Composer con 18 gramáticas, 15 promociones y 4 candidatos WP06, y la nueva
 guarda `art:runtime-references:check` pasó con 1.173 referencias, 1.173 archivos, 0 huérfanos, 0
 ausentes y 0 hashes divergentes.

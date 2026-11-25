@@ -1036,8 +1036,8 @@ grafo interdistrital y A*. La IA rival puede iniciar la sede con el mismo comand
 La búsqueda de solares comprobó 60 seeds para legalidad y acceso en los dos distritos iniciales.
 Los PNG de `docs/art/organization-headquarters/concepts/` son referencias generadas, no sprites finales.
 La geometría del Building Composer, capturas de gameplay, presupuesto y promoción de ambas variantes
-siguen como gate artístico pendiente; el adapter las selecciona por el ID persistido y usa fallback
-semántico hasta tener assets aprobados. Véase D-110.
+siguen como gate artístico pendiente; el adapter las selecciona por el ID persistido y usa un
+fallback procedural semántico de sede, no una vivienda ajena. Véase D-110.
 
 
 ## Spike visual D-111 (2026-11-19)
@@ -1066,6 +1066,9 @@ la revisión visual humana y no se promueve ningún sprite al runtime. Inventari
 
 ## Cierre de catálogo previo a WP4.16 (2026-11-25)
 
+- Cierre estático local `c563c62`: catálogo visual 17/17, 26/102 estados, allowlist binaria
+  reconciliada y 18 archivos de la matriz de sede obsoleta retirados. Sin push.
+
 - Inventario congelado en `docs/execution/phase-4/catalog-closure/00-inventory-2026-11-25.md`:
   14 personajes definidos, 5 prototipos Kenney y 9 sin producir; 15 edificios runtime y dos sedes
   Composer sin promover.
@@ -1075,11 +1078,24 @@ la revisión visual humana y no se promueve ningún sprite al runtime. Inventari
   divergentes.
 - D-CHAR-01…06 fija Kenney como familia canónica, 34 px/zoom 1× como referencia provisional y la
   aprobación humana antes de runtime. WP-CHAR-04 completa el smoke 14/14 roles y 28/28 frames
-  (1.528 comprobaciones, 0 errores/advertencias); el catálogo generado declara 14/14 y el batch de
-  504 frames sigue pendiente de aprobación humana.
-- D-112 implementa `cleaning_depot`: municipal, 3×1, solar 4×2, +6 celdas de radio local, máximo 36,
+  (1.528 comprobaciones, 0 errores/advertencias); el catálogo generado declara 17/17 edificios y
+  14/14 personajes. La comparación B/D densa recomienda B; el batch de 504 frames sigue pendiente
+  de aprobación humana.
+- Paquete de depósito local `0467a13`. D-112 implementa `cleaning_depot`: municipal, 3×1, solar 4×2,
+  +6 celdas de radio local, máximo 36,
   baseline sin depósito exacto y SnapshotV3 compatible. Commit local `f7f628e`; 60/60 pruebas
-  focalizadas verdes. Generador v5 y fixtures medidas en 12 ciudades/12 distritos/10 digestos.
-- El estado de `headquarters_cupola`, `headquarters_courtyard`, los 14 sprites Kenney y el arte
-  Composer del depósito sigue separado entre validación técnica, revisión visual humana y promoción
-  runtime. El playtest humano V.d permanece `PENDING HUMAN PLAYTEST`.
+  focalizadas verdes. Generador v5 y fixtures medidas en 12 ciudades/12 distritos/10 digestos. Las
+  48 candidatas Composer de chapa 4 m y 144 capturas en ciudad pasan matriz, hashes y validación
+  PNG; la aprobación visual humana sigue pendiente.
+- Paquete de sedes local `4143c42`: `headquarters_cupola` y `headquarters_courtyard` completan
+  96 candidatas Composer (48 por mood) y 288 capturas de gameplay: matriz, hashes, huellas, placas
+  neutrales, accesos de servicio y
+  procedencia pasan el gate técnico con 0 errores de página; la aprobación visual humana sigue
+  pendiente.
+- La suite completa de simulación termina con 17 fallos, todos baseline de los 18 medidos en
+  `116b6e0`; el triplete de acería de la seed 2026 ya pasa con v5. No hay regresiones nuevas.
+- `pnpm lint` conserva 51 incidencias preexistentes en 18 archivos no tocados; el lint de los
+  archivos añadidos y el resto de gates técnicos de este cierre pasan.
+- El estado de los 14 sprites Kenney y del arte Composer del depósito sigue separado entre
+  validación técnica, revisión visual humana y promoción runtime. El playtest humano V.d permanece
+  `PENDING HUMAN PLAYTEST`.

@@ -1,3 +1,4 @@
+/* global window, setTimeout */
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";

@@ -11,6 +11,9 @@
 | Smoke WP-CHAR-04 | 14 roles, 28 frames, 1.528 comprobaciones, 0 errores/advertencias |
 | Comparación B/D densa | 4 capturas, 0 errores; B recomendado técnicamente |
 | Depósito municipal | 12/12 pruebas específicas; baseline sin depósito exacto; save/load v3; smoke Composer 4 m válido |
+| Depósito Composer | 48 candidatas, matriz y hashes válidos; 8/8 pruebas de gate |
+| PNG del depósito | 48/48 RGBA, dimensiones/alfa/pivote/escala válidos; 48 hashes únicos |
+| Gameplay del depósito | 144/144 capturas, tres zooms, 0 errores de página; 144 hashes únicos |
 | Fixtures generador v5 | 12 ciudades, 12 distritos y 10 digestos medidos |
 | Web | 459 passed / 4 skipped |
 | Shared | 81 passed |
@@ -23,7 +26,10 @@
 | Composer candidatos/geometría | firmas históricas restauradas y 4/4 controles + geometría en verde |
 | Sedes Composer | 96 candidatas, matriz y hashes válidos; 8/8 pruebas de gate |
 | PNG de sedes | 96/96 RGBA, dimensiones/alfa/pivote/escala válidos; 96 hashes únicos |
-| Binarios | 1.790 archivos, 168 excepciones nombradas; bundles 22.594.162 B y 853.314 B, PASS |
+| Gameplay de sedes | 288/288 capturas, dos identidades, tres zooms, 0 errores de página; procedencia válida |
+| Catálogo visual browser | 17 edificios, 26 estados, 14 personajes, 16 capturas, 0 errores |
+| Binarios | 1.798 archivos, 168 excepciones nombradas; bundles 22.594.162 B y 853.314 B, PASS |
+| Lint global | FAIL preexistente: 51 incidencias en 18 archivos sin cambios en este trabajo; lint de los archivos del paquete PASS |
 
 ## Simulación
 
@@ -34,6 +40,12 @@ pasa. No hay regresiones nuevas; los 17 restantes siguen siendo deuda previa en
 `building-reference-lifecycle`, `canonical-state`, `h1-footprint-interaction`, `headquarters`,
 `market-actionability`, `movement-tick-counter`, `phase4-integration`, `reputation`,
 `vd7a-multiparcel` y `wp2_15`.
+
+## Commits locales
+
+- `c563c62`: cobertura visual 17/17, allowlist binaria y retirada de renders obsoletos.
+- `4143c42`: 96 candidatas de sedes, 288 capturas y gate de procedencia sin promoción runtime.
+- `0467a13`: 48 candidatas del depósito, 144 capturas y gate de procedencia sin promoción runtime.
 
 ## Gates humanos
 

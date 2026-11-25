@@ -1803,7 +1803,9 @@ bundle bajo el límite y la medición final se registra en el acta. Ver
 ## D-110 — Sedes operativas de organización y contrato v3
 Estado: decidido. HQ construible por organización; variantes estéticas equivalentes; retorno físico
 de agentes; local provisional; colores por organización; guardados y protocolo v3 sin migración v2.
-Véase `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md`.
+Véase `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md`. El 2026-11-25 las dos
+variantes Composer completan 96 candidatas con matriz y hashes válidos; la captura en ciudad y la
+aprobación visual humana siguen pendientes antes de promoción.
 
 ## D-111 — Dirección visual de maqueta urbana material
 Estado: aceptada el 2026-11-19; parámetros de producción pendientes del spike.
@@ -1874,5 +1876,7 @@ limpieza de su distrito, con máximo configurable 36. Sin depósito la fórmula 
 exacta; transporte y seguridad siguen en el grafo. El programa inicial coloca uno en
 `barrio_del_umbral`. SnapshotV3 no cambia y las partidas v3 sin depósito siguen cargando. El
 generador sube a v5 y las fixtures de ciudad/distrito y los diez digestos se regeneraron por
-medición. El arte Composer sigue pendiente de aprobación humana. Véase
+medición. La suite completa posterior conserva 17 fallos baseline de los 18 medidos antes del
+cambio; no aparecen regresiones nuevas. Las 48 candidatas Composer de chapa 4 m están validadas
+técnicamente y sus 144 capturas en ciudad pasan el gate; la aprobación humana sigue pendiente. Véase
 `docs/engineering/adr/D-112-deposito-municipal-limpieza.md`.

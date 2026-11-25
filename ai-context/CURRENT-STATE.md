@@ -1,6 +1,6 @@
 # Estado vigente para agentes
 
-Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
+Actualizado: 2026-11-25. Leer este archivo antes de la historia extensa de `PROJECT-STATE.md`.
 
 ## Sedes operativas (2026-11-19, D-110)
 
@@ -13,15 +13,15 @@ Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJ
   principal/de servicio; los agentes operativos regresan por A* y el grafo de gateways. Se publica
   presencia y regreso para ocultar a quienes están dentro de la base.
 - Identidades: jugador `#4DB6AC` y rival `#D97757`; el azul queda reservado al municipio.
-- Las referencias conceptuales están en `docs/art/organization-headquarters/`. La geometría de las
-  dos variantes aún no está promocionada al runtime; pasar por Building Composer, procedencia y QA
-  visual en gameplay antes de promoción.
+- Las dos variantes Composer tienen 48 candidatas por mood (96 en total) y 288 capturas de gameplay
+  validadas, con placas neutrales y accesos de servicio medidos. No están promocionadas al runtime;
+  la aprobación visual humana sigue siendo requisito previo.
 
 ## Rama y arquitectura jugable
 
-- Rama de trabajo activa: `wip/organization-headquarters` (HEAD `85a0095`, remota
-  `origin/wip/organization-headquarters`; 424 commits por delante de `main` al 2026-11-19). No asumir
-  que `main` refleja el código vigente. No integrar ni empujar a `develop` o `main` sin revisión humana.
+- Rama de trabajo activa: `wip/organization-headquarters`, con commits locales de cierre
+  `c563c62`, `4143c42` y `0467a13` sin push al 2026-11-25. No asumir que `main` refleja el código
+  vigente. No integrar ni empujar a `develop` o `main` sin revisión humana.
 - Simulación TypeScript pura y determinista; Phaser/React sólo consumen `ViewProjectionV3`.
 - El estado autoritativo pertenece al motor. `Math.random()` no entra en dominio.
 - El MVP sigue siendo single-player: comprar terreno → producir → construir → ocupar → caja →
@@ -41,8 +41,9 @@ Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJ
 ## Edificios y solar
 
 - Hay 17 BuildingTypes: 15 con política `runtime_exact`, `headquarters` con dos variantes Composer
-  pendientes de revisión y `cleaning_depot` con fallback semántico. Los assets legacy `bld_*` no son
-  ruta de gameplay.
+  y 288 capturas validadas, y `cleaning_depot` con fallback semántico, 48 candidatas Composer y 144
+  capturas validadas. Ninguno de los dos está promovido; los assets legacy `bld_*` no son ruta de
+  gameplay.
 - Un complejo multi-parcela conserva `parcelIds` canónicos: permisos, ruina, venta, colateral,
   snapshot y proyección usan el conjunto completo.
 - Si `siteRequirements.requiredParcels > 1`, cada candidata legal ocupa físicamente cada parcela
@@ -51,7 +52,8 @@ Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJ
 ## Personajes
 
 - Catálogo canónico: 14 variantes Kenney; WP-CHAR-04 completó smoke 14/14 roles y 28/28 frames con
-  1.528 comprobaciones, 0 errores y 0 advertencias.
+  1.528 comprobaciones, 0 errores y 0 advertencias. El catálogo visual generado cubre 17/17 edificios
+  y 14/14 personajes, sin promover previews Kenney.
 - La comparación B/D en ciudad densa recomienda técnicamente B (34 px/zoom 1×); el batch de 504
   frames y la ratificación visual/promoción runtime siguen pendientes. Rocketbox es runtime legado,
   no la fuente de nueva producción.

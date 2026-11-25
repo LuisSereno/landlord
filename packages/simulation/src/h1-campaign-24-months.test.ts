@@ -207,7 +207,7 @@ function assertInvariants(state: GameState, month: number, previous: Map<ParcelI
   /** Estructura de ciudad y programa municipal. */
   expect(state.world.districts.size, label).toBe(9);
   const facilities = districts.flatMap((district) => [...district.facilities.values()]);
-  expect(facilities.length, label).toBe(14);
+  expect(facilities.length, label).toBe(15);
   expect(districts.flatMap((district) => [...district.publicSpaces.values()]).length, label).toBe(
     7,
   );

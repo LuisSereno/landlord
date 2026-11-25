@@ -437,7 +437,7 @@ describe("V.d-7C · colocación sobre el estado de la partida", () => {
   });
 
   it("tres parcelas: la acería enumera sobre la unión canónica", () => {
-    const state = createInitialState(7);
+    const state = createInitialState(42);
     const ids = acquireSite(state, "steelworks");
     expect(ids).toHaveLength(3);
     const enumerated = enumerateFor(state, ids, "steelworks");

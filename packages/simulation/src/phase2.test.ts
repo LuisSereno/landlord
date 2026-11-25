@@ -24,8 +24,14 @@ import { advanceProductSystems } from "./systems";
 import { controlGrantKey, createInitialState } from "./state";
 import { PLAYER_HOME_DISTRICT_ID } from "./city";
 import { developmentCodeById } from "./development-codes";
+import { enumeratePurchasableDevelopmentSites } from "./development-site";
 import { createViewProjection } from "./projection";
-import { GAME_DAY_TICKS, GAME_MONTH_TICKS, deteriorationRiskPercent } from "./game-data";
+import {
+  BUILDING_DEFINITIONS,
+  GAME_DAY_TICKS,
+  GAME_MONTH_TICKS,
+  deteriorationRiskPercent,
+} from "./game-data";
 
 /**
  * V.d-7 · para probar una cementera hace falta un par de parcelas contiguas del mismo distrito y
@@ -298,23 +304,30 @@ describe("Gate 2 product loop", () => {
 
   it("turns an upgrade into a visible rent increase", () => {
     const state = createInitialState(19);
-    dispatchProductCommand(
+    const parcelId = enumeratePurchasableDevelopmentSites({
       state,
-      command("buy", "BuyParcel", { parcelId: parseParcelId("parcel_00000001") }),
-    );
+      definition: BUILDING_DEFINITIONS.courtyard_home,
+      districtIds: new Set([PLAYER_HOME_DISTRICT_ID]),
+    })[0]![0]!;
+    dispatchProductCommand(state, command("buy", "BuyParcel", { parcelId }));
     dispatchProductCommand(
       state,
       command("build", "StartConstruction", {
-        parcelIds: [parseParcelId("parcel_00000001")],
+        parcelIds: [parcelId],
         buildingType: "courtyard_home",
       }),
     );
     advanceToTick(state, 120 * 50);
-    const buildingId = parseBuildingId("building_00000001");
+    const buildingId = [...state.phase2.buildings.values()].find(
+      (building) =>
+        building.ownerOrganizationId === organization && building.type === "courtyard_home",
+    )!.id;
     expect(
       dispatchProductCommand(state, command("upgrade", "UpgradeBuilding", { buildingId })).accepted,
     ).toBe(true);
     advanceToTick(state, state.clock.tick + 48 * 50);
+    for (let tick = 0; tick < 500 && !state.phase2.buildings.get(buildingId)?.upgraded; tick += 1)
+      advanceProductSystems(state);
     expect(state.phase2.buildings.get(buildingId)?.upgraded).toBe(true);
     expect(
       createViewProjection(state, true).economy?.buildings.find(
@@ -640,6 +653,20 @@ describe("Gate 2 product loop", () => {
     ).toBe(true);
     advanceToTick(state, state.clock.tick + 48 * 50);
     expect(building.condition).toBe(100);
+    for (
+      let tick = 0;
+      tick < 500 &&
+      [...state.phase2.constructionSites.values()].some(
+        (site) => site.repairBuildingId === building.id,
+      );
+      tick += 1
+    )
+      advanceProductSystems(state);
+    expect(
+      [...state.phase2.constructionSites.values()].some(
+        (site) => site.repairBuildingId === building.id,
+      ),
+    ).toBe(false);
 
     expect(
       dispatchProductCommand(
@@ -648,6 +675,20 @@ describe("Gate 2 product loop", () => {
       ).accepted,
     ).toBe(true);
     advanceToTick(state, state.clock.tick + 60 * 2 * 50);
+    for (
+      let tick = 0;
+      tick < 500 &&
+      [...state.phase2.constructionSites.values()].some(
+        (site) => site.upgradeBuildingId === building.id,
+      );
+      tick += 1
+    )
+      advanceProductSystems(state);
+    expect(
+      [...state.phase2.constructionSites.values()].some(
+        (site) => site.upgradeBuildingId === building.id,
+      ),
+    ).toBe(false);
     expect(facility.upgradePercent).toBe(125);
     expect(createViewProjection(state, true).economy?.production[0]?.averageOutputAmount).toBe(3);
     const physicalProjection = createViewProjection(state, true);
@@ -674,6 +715,20 @@ describe("Gate 2 product loop", () => {
       ).accepted,
     ).toBe(true);
     advanceToTick(state, state.clock.tick + 48 * 50);
+    for (
+      let tick = 0;
+      tick < 500 &&
+      [...state.phase2.constructionSites.values()].some(
+        (site) => site.repairBuildingId === building.id || site.upgradeBuildingId === building.id,
+      );
+      tick += 1
+    )
+      advanceProductSystems(state);
+    expect(
+      [...state.phase2.constructionSites.values()].some(
+        (site) => site.repairBuildingId === building.id || site.upgradeBuildingId === building.id,
+      ),
+    ).toBe(false);
     expect(state.phase2.buildings.has(building.id)).toBe(false);
     expect(state.phase2.facilities.has(facility.id)).toBe(false);
     const restoredAfterClear = restoreStateFromSnapshot(serializeSnapshot(state));

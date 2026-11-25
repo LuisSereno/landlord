@@ -738,7 +738,12 @@ describe("V.d-7A · colateral prorrateado", () => {
         }),
       ),
     ).toMatchObject({ accepted: true });
-    const inflated = Math.min(LOAN_POLICY.maximumPrincipal, limit + 100);
+    const secondContribution = buildingCollateralContribution(building, pair[1]!.id, buildingValue);
+    const secondLimit = Math.floor(
+      ((pair[1]!.marketValue + secondContribution) * LOAN_POLICY.collateralLoanToValuePercent) /
+        100,
+    );
+    const inflated = Math.min(LOAN_POLICY.maximumPrincipal, secondLimit + 100);
     expect(
       dispatchProductCommand(
         state,

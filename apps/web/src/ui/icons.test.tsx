@@ -77,9 +77,9 @@ describe("V.d-UX · registro de iconos", () => {
 });
 
 describe("V.d-UX · miniatura de edificio", () => {
-  it("los 16 tipos de edificio resuelven una miniatura válida", () => {
+  it("los 17 tipos de edificio resuelven una miniatura válida", () => {
     const types = buildingTypeSchema.options;
-    expect(types).toHaveLength(16);
+    expect(types).toHaveLength(17);
     for (const type of types) {
       const source = buildingThumbnailSource(type);
       expect(source, type).not.toBeNull();
@@ -94,7 +94,14 @@ describe("V.d-UX · miniatura de edificio", () => {
       if (type === "headquarters") {
         expect(variant, type).toBeUndefined();
         expect(buildingThumbnailSource(type), type).toBe(
-          PROCEDURAL_ASSETS.buildings.courtyard_home?.states.complete?.src,
+          PROCEDURAL_ASSETS.buildings.headquarters?.states.complete?.src,
+        );
+        continue;
+      }
+      if (type === "cleaning_depot") {
+        expect(variant, type).toBeUndefined();
+        expect(buildingThumbnailSource(type), type).toBe(
+          PROCEDURAL_ASSETS.buildings.cleaning_depot?.states.complete?.src,
         );
         continue;
       }

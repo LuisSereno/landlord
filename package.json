@@ -58,6 +58,7 @@
     "art:external:golden": "python3 scripts/external_visual_golden.py --update",
     "art:external:check": "python3 scripts/external_visual_golden.py --compare",
     "art:binaries:check": "node scripts/check-binary-budget.mjs",
+    "art:runtime-references:check": "node scripts/validate-runtime-art-references.mjs",
     "art:licenses:check": "node scripts/check-third-party-license.mjs",
     "lint": "eslint . && pnpm check:architecture",
     "check:architecture": "node scripts/check-architecture.mjs",

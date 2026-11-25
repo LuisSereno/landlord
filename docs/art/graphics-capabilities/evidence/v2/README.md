@@ -968,9 +968,10 @@ configuración y los otros 30 tocan a fases anteriores → WP09, que es la fase 
 
 **Lo que FASE 7 no hace.**
 - No mete las candidatas WP06 en el mundo: el bundle promocionado usa el set `qa_approved` y las
-  candidatas viven en `docs/art/building-composer/candidates/`, que el bundle no sirve. La A/B de
-  candidatas existe a escala de Blender; llevarla al runtime es promoción de assets (decisión del
-  responsable, no de esta hoja).
+  candidatas viven en `docs/art/graphics-capabilities/evidence/v2/candidates/`, que el bundle no
+  sirve. Los candidatos históricos de `docs/art/building-composer/candidates/` se retiraron el
+  2026-11-25. La A/B de candidatas existe a escala de Blender; llevarla al runtime es promoción de
+  assets (decisión del responsable, no de esta hoja).
 - No fotografía noche en el mundo: el bundle promocionado es `day_civic`. La noche existe en el
   laboratorio (`phaser/fx_v2/preset_night_*.png`) y en Blender, no en una calle jugable.
 - No reescribe la procedencia de las 13 PNG anteriores a WP08 que siguen sin JSON hermano (5 hojas de

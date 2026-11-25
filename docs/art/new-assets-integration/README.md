@@ -79,7 +79,7 @@ Kenney geométricos.
 | Fuente | Recurso | Consumidor | Piloto | Evidencia | Estado |
 | --- | --- | --- | --- | --- | --- |
 | Ultimate Buildings CC0 | `mod_quat_ultimate_balcony`, `mod_quat_ultimate_double_door` | `building-modules-selection.json` y receta `quaternius_balcony` | `mixed_tenement`, seed 2 | `pilots/d111q_mixed_tenement_2.png` y manifiesto adjunto | Candidato; **sin aprobación artística** |
-| Mini Characters CC0 | `character-male-a`, `character-female-a`, `character-worker` | jobs `qa_mini_*` de `asset-jobs.json`, target `evidence` | personajes idle | `characters/qa_mini_*.png` | Candidatos renderizados; no seleccionados |
+| Mini Characters CC0 | `character-male-a`, `character-female-a`, `character-worker` | Fuentes conservadas en staging; jobs `qa_mini_*` retirados | personajes idle | Artefactos retirados el 2026-11-25 | `RETIRED`; sustituido por el pipeline Kenney WP-CHAR-04 |
 
 La primera imagen mostró balcones reales, pero una cubierta sobredimensionada. La revisión posterior
 con cubierta plana y puerta doble mejora la silueta y el acceso; la planta baja aún carece de

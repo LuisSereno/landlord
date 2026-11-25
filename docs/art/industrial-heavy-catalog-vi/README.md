@@ -22,12 +22,13 @@ El barrido headless cubre 100 seeds por tipo en el test canónico; durante la au
 
 ## Evidencia
 
-- `candidates/manifest.json`: doce candidatos Blender completos y sus firmas;
+- Los doce renders candidatos se retiraron el 2026-11-25 por estar superseded por la selección
+  promovida en `runtime-promotions.json`; sus metadatos históricos no forman parte del catálogo activo.
 - `metrics.json`: tiempos, bounds, triángulos, provenance y ratios de geometría licenciada;
 - `contact-sheets/`: comparación del fallback procedural con cuatro variantes por tipo.
 
-Los doce renders tienen entre 99,4 % y 99,8 % de geometría licenciada/original medida. La selección
-del responsable se ha marcado como `qa_approved` y publicado sin fabricar estados adicionales.
+Los tres renders seleccionados conservan procedencia en `docs/art/quality-vi/candidates/` y se
+promovieron sin fabricar estados adicionales.
 
 ## Selección aprobada
 

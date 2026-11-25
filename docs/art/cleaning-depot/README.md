@@ -40,13 +40,11 @@ El fallback procedural es una nave de tres bahías con contenedores y señal mun
 como asset final. La captura de la señal runtime queda en `review/fallback-signage.png`. La promoción
 Composer requiere procedencia, matriz, captura en ciudad, presupuesto y aprobación visual humana.
 
-Comandos reproducibles:
+El procedimiento completo para regenerar los PNG locales está en
+[ART-PIPELINE §44](../ART-PIPELINE.md). La verificación de la evidencia existente es:
 
 ```bash
-pnpm art:building-composer:validate
-pnpm art:cleaning-depot:assemble
 DEPOT_REQUIRE_LOCAL_ASSETS=1 pnpm art:cleaning-depot:validate
 pnpm art:cleaning-depot:validate:test
-pnpm art:cleaning-depot:capture
-python3 scripts/compose-cleaning-depot-review-sheets.py
+pnpm art:docs:links:check
 ```

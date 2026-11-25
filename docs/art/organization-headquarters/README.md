@@ -31,14 +31,13 @@ reservado al municipio.
 - `promotion-plan.json`: promoción manual condicionada a aprobación humana y protege los manifiestos
   runtime vigentes.
 
-Comandos reproducibles:
+El procedimiento completo para regenerar los PNG locales está en
+[ART-PIPELINE §44](../ART-PIPELINE.md). La verificación de la evidencia existente es:
 
 ```bash
-pnpm art:headquarters:assemble
 HQ_REQUIRE_LOCAL_ASSETS=1 pnpm art:headquarters:validate
 pnpm art:headquarters:validate:test
-pnpm art:headquarters:capture
-python3 scripts/compose-headquarters-review-sheets.py
+pnpm art:docs:links:check
 ```
 
 ## Gate humano

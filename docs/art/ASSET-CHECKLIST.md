@@ -35,14 +35,16 @@ pnpm art:building-composer:validate
 pnpm art:headquarters:validate:test
 pnpm art:cleaning-depot:validate:test
 pnpm art:runtime-references:check
+pnpm art:docs:links:check
 pnpm art:blender:check
 pnpm art:binaries:check
 ```
 
 `art:runtime-references:check` cruza todos los PNG de `apps/web/public/assets/runtime/` con los
 manifiestos generados: exige igualdad de conjuntos, hashes correctos y rechaza los IDs retirados
-`vf_town_hall_1006*` y `qa_mini_*`. Los gates de sedes y depósito verifican sus matrices locales,
-protegen los manifiestos runtime y mantienen la promoción en `pending_human`.
+`vf_town_hall_1006*` y `qa_mini_*`. `art:docs:links:check` comprueba los enlaces de los Markdown del
+cierre de catálogo. Los gates de sedes y depósito verifican sus matrices locales, protegen los
+manifiestos runtime y mantienen la promoción en `pending_human`.
 
 **Definition of Done para entregar un building**
 

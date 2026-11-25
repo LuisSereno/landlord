@@ -28,6 +28,9 @@
 | PNG de sedes | 96/96 RGBA, dimensiones/alfa/pivote/escala válidos; 96 hashes únicos |
 | Gameplay de sedes | 288/288 capturas, dos identidades, tres zooms, 0 errores de página; procedencia válida |
 | Catálogo visual browser | 17 edificios, 26 estados, 14 personajes, 16 capturas, 0 errores |
+| Enlaces del cierre | 13 Markdown, 0 rotos; 2/2 pruebas del guard |
+| Enlaces globales | 29 rotos preexistentes fuera del cierre; no se modifican en este encargo |
+| Procedimiento PNG local | `docs/art/ART-PIPELINE.md` §44; sin promoción runtime |
 | Binarios | 1.798 archivos, 168 excepciones nombradas; bundles 22.594.162 B y 853.314 B, PASS |
 | Lint global | FAIL preexistente: 51 incidencias en 18 archivos sin cambios en este trabajo; lint de los archivos del paquete PASS |
 

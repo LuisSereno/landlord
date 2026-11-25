@@ -1,6 +1,8 @@
 # Revisión humana de cierre de catálogo — 2026-11-25
 
-Estado: `PENDING HUMAN REVIEW`. Ninguna aprobación automática sustituye esta revisión.
+Estado: `PENDING HUMAN REVIEW`. Ninguna aprobación automática sustituye esta revisión. Para
+regenerar evidencia PNG local usa [ART-PIPELINE §44](../../../art/ART-PIPELINE.md); ese procedimiento
+no cambia este resultado.
 
 ## Personajes Kenney
 

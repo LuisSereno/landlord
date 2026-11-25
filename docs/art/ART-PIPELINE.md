@@ -1456,3 +1456,151 @@ gramáticas y candidatos en `blender_artist/manifests/`, render con
 módulos, composición, materiales y condición, render offline, carga QA en Phaser, captura y
 aprobación— está documentada como procedimiento reutilizable en `docs/art/BUILDING-COMPOSER.md` §39;
 el ledger del cierre, en `docs/art/graphics-capabilities/D1112-CLOSURE-LEDGER.md`.
+
+---
+
+## 44. Evidencia PNG local del cierre de catálogo
+
+Estado: procedimiento vigente para candidatas de sedes, depósito municipal y personajes Kenney.
+Genera evidencia técnica solamente; no promueve runtime, no aprueba arte y no sustituye el playtest
+humano V.d.
+
+### 44.1 Qué se versiona y qué queda local
+
+| Evidencia | Repositorio | Regeneración |
+| --- | --- | --- |
+| Sidecars `*.json`, matrices, `assembly.json`, `validation.json` | Versionados | Los ensambladores y validadores los escriben |
+| Manifiestos de captura y láminas de revisión | Versionados | Los arneses de captura y compositores los escriben |
+| PNG candidatos, `attempts/` y PNG de gameplay | Locales, ignorados por Git | Blender, Phaser/Playwright y compositores |
+| PNG runtime aprobados | Runtime, sólo tras promoción humana explícita | Pipeline de promoción separado |
+
+Nunca uses un enlace Markdown a un PNG local como si el archivo fuese a existir en un clone. Los
+documentos enlazan manifiestos y láminas versionadas; los PNG locales se regeneran con este
+procedimiento. El guard `pnpm art:docs:links:check` comprueba los enlaces del cierre de catálogo.
+
+### 44.2 Preparación segura
+
+1. Usa la rama `wip/organization-headquarters` y Blender 5.2.2 LTS. Si el binario no está en la ruta
+   canónica, define `BLENDER_BIN` antes de renderizar.
+2. Instala dependencias Node y Chromium de Playwright si vas a capturar gameplay.
+3. Los render y capturas exigen salidas frescas. Si ya existen, muévelas a un directorio único bajo
+   `/tmp` antes de continuar; no borres evidencia no aprobada para hacer sitio.
+4. Para verificar evidencia existente no renderices nada: ejecuta directamente los validadores del
+   apartado 44.6.
+
+```bash
+export BLENDER_BIN="${BLENDER_BIN:-/home/luis/.local/blender/blender-5.2.2-linux-x64/blender}"
+pnpm install
+pnpm exec playwright install chromium
+```
+
+### 44.3 Sedes de organización
+
+Los dos tipos se renderizan juntos para producir 48 candidatas por mood. Después se ensamblan, se
+valida la matriz completa y se capturan las dos identidades en la ciudad real.
+
+```bash
+node scripts/build-building-composer.mjs \
+  --types=headquarters_cupola,headquarters_courtyard --seeds=5101 \
+  --states=complete,foundation,structure,finishing,damaged,burning \
+  --orientations=0,90,180,270 --mood=day_civic --taaSamples=16 --prefix=hq \
+  --outDir=docs/art/organization-headquarters/candidates-day_civic \
+  --metrics=docs/art/organization-headquarters/candidates-day_civic/metrics.json \
+  --keepAttempts
+
+node scripts/build-building-composer.mjs \
+  --types=headquarters_cupola,headquarters_courtyard --seeds=5101 \
+  --states=complete,foundation,structure,finishing,damaged,burning \
+  --orientations=0,90,180,270 --mood=night_civic --taaSamples=16 --prefix=hq \
+  --outDir=docs/art/organization-headquarters/candidates-night_civic \
+  --metrics=docs/art/organization-headquarters/candidates-night_civic/metrics.json \
+  --keepAttempts
+
+node scripts/assemble-headquarters-candidates.mjs --mood=day_civic
+node scripts/assemble-headquarters-candidates.mjs --mood=night_civic
+HQ_REQUIRE_LOCAL_ASSETS=1 pnpm art:headquarters:validate
+pnpm --filter @landlord/web build
+pnpm art:headquarters:capture
+python3 scripts/compose-headquarters-review-sheets.py
+HQ_REQUIRE_LOCAL_ASSETS=1 pnpm art:headquarters:validate
+```
+
+### 44.4 Depósito municipal de limpieza
+
+El lote se divide en tres grupos por mood para limitar memoria y tiempo. Los nombres de salida son
+los que consume `assemble-cleaning-depot-candidates.mjs`.
+
+```bash
+for mood in day_civic night_civic; do
+  mood_dir="${mood%_*}"
+  for spec in "a:complete,foundation" "b:structure,finishing" "c:damaged,burning"; do
+    group="${spec%%:*}"
+    states="${spec#*:}"
+    out="docs/art/cleaning-depot/candidates-${mood_dir}-${group}"
+    node scripts/build-building-composer.mjs \
+      --types=cleaning_depot --seeds=5101 --states="$states" \
+      --orientations=0,90,180,270 --mood="$mood" --taaSamples=16 --prefix=cd \
+      --outDir="$out" --metrics="$out/metrics.json" --keepAttempts
+  done
+done
+
+pnpm art:cleaning-depot:assemble
+DEPOT_REQUIRE_LOCAL_ASSETS=1 pnpm art:cleaning-depot:validate
+pnpm --filter @landlord/web build
+pnpm art:cleaning-depot:capture
+python3 scripts/compose-cleaning-depot-review-sheets.py
+DEPOT_REQUIRE_LOCAL_ASSETS=1 pnpm art:cleaning-depot:validate
+```
+
+### 44.5 Personajes Kenney
+
+El runner actual sólo permite smoke D0: 14 roles × 2 frames. No lo uses para inventar una aprobación
+ni para declarar completado el contrato de 504 frames.
+
+```bash
+run_id="$(date -u +%Y-%m-%dT%H-%M-%SZ)"
+run_root="docs/art/characters/candidates/wp-char-04/smoke/$run_id"
+manifest="tools/art-pipeline/blender/characters/wp_char_04/manifest.json"
+
+node tools/art-pipeline/blender/characters/wp_char_04/run_smoke.mjs \
+  --manifest "$manifest" --output-root docs/art/characters/candidates/wp-char-04/smoke \
+  --run-id "$run_id"
+python3 tools/art-pipeline/blender/characters/wp_char_04/compose_contact_sheet.py -- \
+  --manifest "$manifest" --run-root "$run_root"
+python3 tools/art-pipeline/blender/characters/wp_char_04/validate_smoke.py \
+  --manifest "$manifest" --run-root "$run_root"
+node tools/art-pipeline/blender/characters/wp_char_04/capture_dense_comparison.mjs
+```
+
+La comparación B/D escribe en `docs/art/characters/candidates/wp-char-04/dense-comparison/`; mueve
+una corrida anterior antes de repetirla. El batch completo de cuatro direcciones × (1 idle + 8 walk)
+por rol queda bloqueado hasta aprobación visual humana y hasta disponer de un runner de batch que
+respete ese contrato. La integración runtime es un cambio posterior, también aprobado, con validación
+de hashes, presupuesto y escena principal.
+
+### 44.6 Verificación y registro
+
+```bash
+pnpm art:docs:links:check
+pnpm art:docs:links:test
+pnpm art:building-composer:validate
+HQ_REQUIRE_LOCAL_ASSETS=1 pnpm art:headquarters:validate
+DEPOT_REQUIRE_LOCAL_ASSETS=1 pnpm art:cleaning-depot:validate
+pnpm art:runtime-references:check
+pnpm art:binaries:check
+```
+
+Si una regeneración cambia sidecars o manifiestos, añade sólo JSON y láminas revisadas. Los PNG
+locales se excluyen incluso cuando existen en disco; por ejemplo, para sedes:
+
+```bash
+git add docs/art/organization-headquarters/candidate-matrix.json \
+  docs/art/organization-headquarters/validation.json \
+  docs/art/organization-headquarters/review
+git add -f docs/art/organization-headquarters/candidates-day-v1/*.json \
+  docs/art/organization-headquarters/candidates-night-v1/*.json \
+  docs/art/organization-headquarters/gameplay-capture-v1/capture-manifest.json
+```
+
+El resultado humano se registra en `docs/execution/phase-4/catalog-closure/04-human-review.md`.
+Ningún comando de esta sección cambia ese resultado a aprobado.

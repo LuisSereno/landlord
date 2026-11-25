@@ -72,15 +72,10 @@ su propio hash.
 
 Evidencia principal: [PHASE-1B-CANDIDATES.md](../../../art/characters/PHASE-1B-CANDIDATES.md).
 
-Láminas:
-
-- [1×](../../../art/characters/candidates/phase-1b/phase1b-scale-1x.png)
-- [Antes/después](../../../art/characters/candidates/phase-1b/phase1b-before-after.png)
-- [Obreros A/B](../../../art/characters/candidates/phase-1b/phase1b-workers-pair.png)
-- [Enforcers A/B](../../../art/characters/candidates/phase-1b/phase1b-enforcers-pair.png)
-- [Técnico vs obreros](../../../art/characters/candidates/phase-1b/phase1b-technician-vs-workers.png)
-- [Seis operativos](../../../art/characters/candidates/phase-1b/phase1b-six-operational.png)
-- [Con controles runtime](../../../art/characters/candidates/phase-1b/phase1b-six-with-runtime-controls.png)
+Las láminas `phase-1b` se retiraron en la limpieza de catálogo del 2026-11-25 porque esta
+familia Rocketbox quedó sustituida por la producción Kenney. El detalle de archivos, motivo y
+conservación de fuentes está en el [registro de retirada](../catalog-closure/01-retirement-ledger.md).
+No se recrean ni se enlazan como evidencia vigente.
 
 ## C. Resultados de validación
 

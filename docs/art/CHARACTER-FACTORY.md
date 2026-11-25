@@ -30,5 +30,9 @@ pnpm art:catalog:generate
 pnpm art:catalog:check
 ```
 
+La regeneración del smoke y de la evidencia PNG local está descrita en
+[ART-PIPELINE §44](ART-PIPELINE.md). El batch de 504 frames sigue bloqueado por revisión visual humana
+y por un runner de batch autorizado; no se promueve ningún frame desde el smoke.
+
 El catálogo generado declara 14/14 definiciones y no presenta candidatos como sprites runtime
 aprobados.

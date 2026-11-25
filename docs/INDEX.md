@@ -44,7 +44,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - [Dirección visual: maqueta urbana material](art/MATERIAL-MAQUETTE-DIRECTION.md) — criterios y gate para el spike de edificios, mundo y HUD.
 - [Evidencia A/B de maqueta material](art/material-maquette-spike/README.md) — comparación HUD/terreno y candidatos Composer, sin promoción a runtime.
 - [Matriz de capacidades gráficas (D-111)](art/graphics-capabilities/README.md) — 19 tecnologías probadas de verdad con su evidencia visual, estado, licencia y decisión de integración.
-- art/ART-PIPELINE.md — pipeline Blender/prerender/atlases/Phaser, automatización y repositorio.
+- [Art Pipeline](art/ART-PIPELINE.md) — pipeline Blender/prerender/atlases/Phaser y procedimiento reproducible de evidencia PNG local (§44).
 - art/ASSET-NAMING.md — convenciones de IDs, nombres, anchors, footprints y atlases.
 - art/PERFORMANCE-BUDGET.md — budgets y QA visual, accesibilidad y localización.
 - art/ASSET-CHECKLIST.md — Definition of Done de assets.

@@ -1,0 +1,1241 @@
+{
+  "schemaVersion": 1,
+  "status": "technical_complete_pending_human_review",
+  "role": "enforcer",
+  "canonicalId": "enforcer_male",
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-03",
+  "branch": "wip/wp-char-02c-visual-rework",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_03/manifest.json",
+  "manifestSha256": "561cd18a9e19dea11a1fcf42743f9f9fdf0fec5c00b09dfcf4e1309d73f197a9",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+    "sha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "baseDecision": "retain_02c_raider_base",
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.5271,
+      "height": 0.7165,
+      "minZ": 0.0
+    },
+    "importScale": 2.512298930323798,
+    "importOffset": [
+      -0.0,
+      -0.1404,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-raider",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 1.9274,
+      "depth": 1.3241,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.51229893,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "bodyMaterials": {
+    "method": "Solid local materials assigned to existing skinned body polygons by dominant vertex group and height bands.",
+    "groupRanges": {
+      "torso": [
+        0.123243,
+        0.356683
+      ],
+      "arm-left": [
+        0.20725,
+        0.36825
+      ],
+      "arm-right": [
+        0.20725,
+        0.36825
+      ],
+      "leg-left": [
+        0.0,
+        0.20125
+      ],
+      "leg-right": [
+        0.0,
+        0.20125
+      ]
+    },
+    "polygonCounts": {
+      "original": 39,
+      "torso": 116,
+      "arms": 165,
+      "legs": 172,
+      "boots": 68,
+      "shirt": 0
+    },
+    "materials": {
+      "torso": "wp02c_enforcer_male_torso",
+      "arms": "wp02c_enforcer_male_arms",
+      "legs": "wp02c_enforcer_male_legs",
+      "boots": "wp02c_enforcer_male_boots",
+      "shirt": "wp02c_enforcer_male_shirt"
+    }
+  },
+  "headMaterials": {
+    "modifiedComponents": [
+      {
+        "component": 0,
+        "polygons": 102,
+        "localBounds": {
+          "min": [
+            -0.17,
+            -0.207639,
+            0.29325
+          ],
+          "max": [
+            0.17,
+            0.222361,
+            0.671325
+          ]
+        }
+      }
+    ],
+    "polygonCount": 102,
+    "removedComponents": [
+      1,
+      5
+    ],
+    "removedPolygonCount": 84,
+    "material": "wp02c_enforcer_male_hair",
+    "geometryChanges": [
+      {
+        "mesh": "head-mesh",
+        "operation": "delete_local_components",
+        "components": [
+          1,
+          5
+        ],
+        "polygons": 84,
+        "sourceModified": false
+      },
+      {
+        "mesh": "head-mesh",
+        "operation": "replace_smile_with_neutral_mouth_line",
+        "component": 5,
+        "sourceModified": false
+      }
+    ]
+  },
+  "geometryChanges": [
+    {
+      "mesh": "head-mesh",
+      "operation": "delete_local_components",
+      "components": [
+        1,
+        5
+      ],
+      "polygons": 84,
+      "sourceModified": false
+    },
+    {
+      "mesh": "head-mesh",
+      "operation": "replace_smile_with_neutral_mouth_line",
+      "component": 5,
+      "sourceModified": false
+    }
+  ],
+  "accessories": [
+    {
+      "name": "wp02c_enforcer_male_belt",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.728,
+        0.507,
+        0.045466
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.364,
+          -0.321689,
+          0.812271
+        ],
+        "max": [
+          0.364,
+          0.185311,
+          0.857737
+        ]
+      },
+      "widthToHeadRatio": 0.638971
+    },
+    {
+      "name": "wp02c_enforcer_male_belt_buckle",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.075,
+        0.025,
+        0.055
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.0375,
+          -0.315689,
+          0.807504
+        ],
+        "max": [
+          0.0375,
+          -0.290689,
+          0.862504
+        ]
+      },
+      "widthToHeadRatio": 0.065828
+    },
+    {
+      "name": "wp03_enforcer_neutral_mouth",
+      "type": "serious_mouth",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.09,
+        0.012,
+        0.014
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.046148,
+          -0.547394,
+          1.053604
+        ],
+        "max": [
+          0.043852,
+          -0.535394,
+          1.067604
+        ]
+      },
+      "widthToHeadRatio": 0.078994
+    }
+  ],
+  "anchors": [
+    "head",
+    "torso"
+  ],
+  "maxAccessoryDrift": 7.450580596923828e-08,
+  "rig": {
+    "armature": "character-raider",
+    "bones": 7,
+    "boneNames": [
+      "root",
+      "leg-left",
+      "leg-right",
+      "torso",
+      "arm-left",
+      "arm-right",
+      "head"
+    ],
+    "actions": 32
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "frameRange": [
+        0.0,
+        32.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 16,
+      "keyframeCount": 640,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 32.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": []
+    },
+    "walk": {
+      "name": "walk",
+      "frameRange": [
+        0.0,
+        16.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 27,
+      "keyframeCount": 540,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 16.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": [
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 0,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 1,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 2,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    "walkFrames": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  "camera": {
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "headDimensionsMeters": [
+    1.139332,
+    1.080288,
+    0.949837
+  ],
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "defectsPending": [
+    "human_visual_review"
+  ],
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.686569
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.145056,
+        "maxX": 0.728985,
+        "minY": 0.039777,
+        "maxY": 0.845493,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+        "sha256": "1f44c2410cf526ee6e33457436a4ffeac43067f0ed52f1473bfb4a091a12c484",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.686569
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.145056,
+        "maxX": 0.728985,
+        "minY": 0.039777,
+        "maxY": 0.845493,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+        "sha256": "aa5d4ec3c191b37ffb4ab4320bbe8869ad3880e52eea9affc78dcec15f918ea9",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "frame": 2,
+      "phase": 0.125,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.077881
+      ],
+      "groundingOffsetMeters": 0.015738,
+      "worldSizeMeters": [
+        1.797581,
+        1.114032,
+        1.780188
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.11271,
+        "maxX": 0.783494,
+        "minY": 0.09401,
+        "maxY": 0.883021,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+        "sha256": "6cacd871cecfa9d36dcf6785f326c8d8760121f2649b3d1485e2f4a87934425e",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "frame": 4,
+      "phase": 0.25,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.141353
+      ],
+      "groundingOffsetMeters": -0.072794,
+      "worldSizeMeters": [
+        1.755038,
+        1.133107,
+        1.755128
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.101001,
+        "maxX": 0.810742,
+        "minY": 0.090611,
+        "maxY": 0.874964,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+        "sha256": "2f6c00dda9cafef76e6cd4eba8eb9e94c061ba168c21523d48a94023b1d26472",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "frame": 6,
+      "phase": 0.375,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.005751
+      ],
+      "groundingOffsetMeters": 0.080346,
+      "worldSizeMeters": [
+        1.76897,
+        1.114032,
+        1.772667
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.117729,
+        "maxX": 0.777943,
+        "minY": 0.094136,
+        "maxY": 0.880188,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+        "sha256": "4bd283cbbb8b8c657d43c4bd3b705ab97d37ae3ec4f8be1e9f3d048ee30dbfd8",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.02329
+      ],
+      "groundingOffsetMeters": 0.039933,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.749792
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.145056,
+        "maxX": 0.728985,
+        "minY": 0.060553,
+        "maxY": 0.869298,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+        "sha256": "a3eb7c401ab920c8bb0e9d212f62fb96230b8f48b8a4a3ec83c04db9a8731db7",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "frame": 10,
+      "phase": 0.625,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.12603
+      ],
+      "groundingOffsetMeters": -0.041851,
+      "worldSizeMeters": [
+        1.76897,
+        1.114032,
+        1.770749
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.154426,
+        "maxX": 0.731734,
+        "minY": 0.110632,
+        "maxY": 0.876173,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+        "sha256": "4accd7bffed070386a418f7ea5570a60577733f231ec9d21dcea8d79f357b30c",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "frame": 12,
+      "phase": 0.75,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.146987
+      ],
+      "groundingOffsetMeters": -0.072449,
+      "worldSizeMeters": [
+        1.755038,
+        1.133107,
+        1.761108
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.181263,
+        "maxX": 0.733253,
+        "minY": 0.122902,
+        "maxY": 0.87194,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+        "sha256": "e91710a2beac5d35c6f4892996d8c7d20ed6f074764151b0d1277140c28d5675",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "frame": 14,
+      "phase": 0.875,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.026804
+      ],
+      "groundingOffsetMeters": 0.035572,
+      "worldSizeMeters": [
+        1.797581,
+        1.114032,
+        1.748946
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.152245,
+        "maxX": 0.731734,
+        "minY": 0.06018,
+        "maxY": 0.867963,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+        "sha256": "96a29fe7dc77141a9d115ccfca079e5f5841d550349920d0131e0281693e0b1b",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.062376
+      ],
+      "groundingOffsetMeters": 0.0,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.748946
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.271015,
+        "maxX": 0.854944,
+        "minY": 0.075794,
+        "maxY": 0.868979,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+        "sha256": "4be08b6411c35b8963fc8d13f8cffb38d9dd8da7ee7bbc2ea334fd7b36a5329e",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.062376
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.748946
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.271015,
+        "maxX": 0.854944,
+        "minY": 0.111136,
+        "maxY": 0.925774,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+        "sha256": "63b9d889f1e6bd380055b3b42c1c5bff7c15a5b2c6ba2e9011168ae2ed77dbab",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        0.062376
+      ],
+      "groundingOffsetMeters": 0.0,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.748946
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.145056,
+        "maxX": 0.728986,
+        "minY": 0.101872,
+        "maxY": 0.925774,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+        "sha256": "ebd04323911b01b903dd9431466f5d2c58b32c4eda19689c7633c9b3fa123a55",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    }
+  ],
+  "artRevision": "wp_char_03_targeted_corrections"
+}

@@ -1,0 +1,2336 @@
+{
+  "schemaVersion": 1,
+  "status": "measured_lab_sprites",
+  "runtimePromotion": false,
+  "alphaThreshold": 2,
+  "supportRule": "horizontal center of the lowest visible alpha row",
+  "calibrationRule": "one scale per role/animation/direction using the maximum visible height; per-frame support origin",
+  "frames": [
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "sourceSha256": "1f44c2410cf526ee6e33457436a4ffeac43067f0ed52f1473bfb4a091a12c484",
+      "path": "/qa-character-scale/sprites/enforcer-d0-idle-00.png",
+      "sha256": "1f44c2410cf526ee6e33457436a4ffeac43067f0ed52f1473bfb4a091a12c484",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 73,
+        "top": 78,
+        "right": 374,
+        "bottom": 493
+      },
+      "visibleWidth": 301,
+      "visibleHeight": 415,
+      "support": {
+        "x": 223.5,
+        "y": 493
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 1,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "sourceSha256": "4be08b6411c35b8963fc8d13f8cffb38d9dd8da7ee7bbc2ea334fd7b36a5329e",
+      "path": "/qa-character-scale/sprites/enforcer-d1-idle-00.png",
+      "sha256": "4be08b6411c35b8963fc8d13f8cffb38d9dd8da7ee7bbc2ea334fd7b36a5329e",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 138,
+        "top": 66,
+        "right": 439,
+        "bottom": 474
+      },
+      "visibleWidth": 301,
+      "visibleHeight": 408,
+      "support": {
+        "x": 288.5,
+        "y": 474
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 2,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "sourceSha256": "63b9d889f1e6bd380055b3b42c1c5bff7c15a5b2c6ba2e9011168ae2ed77dbab",
+      "path": "/qa-character-scale/sprites/enforcer-d2-idle-00.png",
+      "sha256": "63b9d889f1e6bd380055b3b42c1c5bff7c15a5b2c6ba2e9011168ae2ed77dbab",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 138,
+        "top": 37,
+        "right": 439,
+        "bottom": 456
+      },
+      "visibleWidth": 301,
+      "visibleHeight": 419,
+      "support": {
+        "x": 288.5,
+        "y": 456
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 3,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "sourceSha256": "ebd04323911b01b903dd9431466f5d2c58b32c4eda19689c7633c9b3fa123a55",
+      "path": "/qa-character-scale/sprites/enforcer-d3-idle-00.png",
+      "sha256": "ebd04323911b01b903dd9431466f5d2c58b32c4eda19689c7633c9b3fa123a55",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 73,
+        "top": 37,
+        "right": 374,
+        "bottom": 461
+      },
+      "visibleWidth": 301,
+      "visibleHeight": 424,
+      "support": {
+        "x": 223.5,
+        "y": 461
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "sourceSha256": "aa5d4ec3c191b37ffb4ab4320bbe8869ad3880e52eea9affc78dcec15f918ea9",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-00.png",
+      "sha256": "aa5d4ec3c191b37ffb4ab4320bbe8869ad3880e52eea9affc78dcec15f918ea9",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 73,
+        "top": 78,
+        "right": 374,
+        "bottom": 493
+      },
+      "visibleWidth": 301,
+      "visibleHeight": 415,
+      "support": {
+        "x": 223.5,
+        "y": 493
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "sourceSha256": "6cacd871cecfa9d36dcf6785f326c8d8760121f2649b3d1485e2f4a87934425e",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-01.png",
+      "sha256": "6cacd871cecfa9d36dcf6785f326c8d8760121f2649b3d1485e2f4a87934425e",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 57,
+        "top": 59,
+        "right": 402,
+        "bottom": 465
+      },
+      "visibleWidth": 345,
+      "visibleHeight": 406,
+      "support": {
+        "x": 229.5,
+        "y": 465
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "sourceSha256": "2f6c00dda9cafef76e6cd4eba8eb9e94c061ba168c21523d48a94023b1d26472",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-02.png",
+      "sha256": "2f6c00dda9cafef76e6cd4eba8eb9e94c061ba168c21523d48a94023b1d26472",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 51,
+        "top": 63,
+        "right": 416,
+        "bottom": 467
+      },
+      "visibleWidth": 365,
+      "visibleHeight": 404,
+      "support": {
+        "x": 233.5,
+        "y": 467
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "sourceSha256": "4bd283cbbb8b8c657d43c4bd3b705ab97d37ae3ec4f8be1e9f3d048ee30dbfd8",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-03.png",
+      "sha256": "4bd283cbbb8b8c657d43c4bd3b705ab97d37ae3ec4f8be1e9f3d048ee30dbfd8",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 59,
+        "top": 60,
+        "right": 399,
+        "bottom": 465
+      },
+      "visibleWidth": 340,
+      "visibleHeight": 405,
+      "support": {
+        "x": 229.0,
+        "y": 465
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "sourceSha256": "a3eb7c401ab920c8bb0e9d212f62fb96230b8f48b8a4a3ec83c04db9a8731db7",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-04.png",
+      "sha256": "a3eb7c401ab920c8bb0e9d212f62fb96230b8f48b8a4a3ec83c04db9a8731db7",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 73,
+        "top": 66,
+        "right": 374,
+        "bottom": 482
+      },
+      "visibleWidth": 301,
+      "visibleHeight": 416,
+      "support": {
+        "x": 223.5,
+        "y": 482
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "sourceSha256": "4accd7bffed070386a418f7ea5570a60577733f231ec9d21dcea8d79f357b30c",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-05.png",
+      "sha256": "4accd7bffed070386a418f7ea5570a60577733f231ec9d21dcea8d79f357b30c",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 78,
+        "top": 62,
+        "right": 376,
+        "bottom": 456
+      },
+      "visibleWidth": 298,
+      "visibleHeight": 394,
+      "support": {
+        "x": 227.0,
+        "y": 456
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "sourceSha256": "e91710a2beac5d35c6f4892996d8c7d20ed6f074764151b0d1277140c28d5675",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-06.png",
+      "sha256": "e91710a2beac5d35c6f4892996d8c7d20ed6f074764151b0d1277140c28d5675",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 92,
+        "top": 65,
+        "right": 376,
+        "bottom": 450
+      },
+      "visibleWidth": 284,
+      "visibleHeight": 385,
+      "support": {
+        "x": 234.0,
+        "y": 450
+      }
+    },
+    {
+      "role": "enforcer",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "sourceSha256": "96a29fe7dc77141a9d115ccfca079e5f5841d550349920d0131e0281693e0b1b",
+      "path": "/qa-character-scale/sprites/enforcer-d0-walk-07.png",
+      "sha256": "96a29fe7dc77141a9d115ccfca079e5f5841d550349920d0131e0281693e0b1b",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 77,
+        "top": 67,
+        "right": 376,
+        "bottom": 482
+      },
+      "visibleWidth": 299,
+      "visibleHeight": 415,
+      "support": {
+        "x": 226.5,
+        "y": 482
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "sourceSha256": "9195925904f77d40b7f32b7f90169154951cd575a402a3e2a99020ae164a3cda",
+      "path": "/qa-character-scale/sprites/firefighter-d0-idle-00.png",
+      "sha256": "9195925904f77d40b7f32b7f90169154951cd575a402a3e2a99020ae164a3cda",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 84,
+        "top": 28,
+        "right": 393,
+        "bottom": 486
+      },
+      "visibleWidth": 309,
+      "visibleHeight": 458,
+      "support": {
+        "x": 238.5,
+        "y": 486
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 1,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "sourceSha256": "4f7b66f5fd8ae0e1b0fb56e11c885d6ae5bf367a6016dc325f8a399b93a0616a",
+      "path": "/qa-character-scale/sprites/firefighter-d1-idle-00.png",
+      "sha256": "4f7b66f5fd8ae0e1b0fb56e11c885d6ae5bf367a6016dc325f8a399b93a0616a",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 119,
+        "top": 15,
+        "right": 428,
+        "bottom": 465
+      },
+      "visibleWidth": 309,
+      "visibleHeight": 450,
+      "support": {
+        "x": 273.5,
+        "y": 465
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 2,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "sourceSha256": "fa8d67b28224de71960ecfa120497b10959fa52f4329a97d315e7bd764744d05",
+      "path": "/qa-character-scale/sprites/firefighter-d2-idle-00.png",
+      "sha256": "fa8d67b28224de71960ecfa120497b10959fa52f4329a97d315e7bd764744d05",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 119,
+        "top": 15,
+        "right": 428,
+        "bottom": 470
+      },
+      "visibleWidth": 309,
+      "visibleHeight": 455,
+      "support": {
+        "x": 273.5,
+        "y": 470
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 3,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "sourceSha256": "f05a872005726815381ecd259bf619afa7ceed2d073c7b78c12e5d8b0c8d05c8",
+      "path": "/qa-character-scale/sprites/firefighter-d3-idle-00.png",
+      "sha256": "f05a872005726815381ecd259bf619afa7ceed2d073c7b78c12e5d8b0c8d05c8",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 84,
+        "top": 15,
+        "right": 393,
+        "bottom": 474
+      },
+      "visibleWidth": 309,
+      "visibleHeight": 459,
+      "support": {
+        "x": 238.5,
+        "y": 474
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "sourceSha256": "0142a9121de84debca18511de49640fb4239dfbf6248bcd4f31016aec16d23fc",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-00.png",
+      "sha256": "0142a9121de84debca18511de49640fb4239dfbf6248bcd4f31016aec16d23fc",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 84,
+        "top": 28,
+        "right": 393,
+        "bottom": 486
+      },
+      "visibleWidth": 309,
+      "visibleHeight": 458,
+      "support": {
+        "x": 238.5,
+        "y": 486
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "sourceSha256": "7ad8efc19cb85ab2c734eb92f516d6cf8f05f681c38fa9c7148a2c2c036f0dc5",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-01.png",
+      "sha256": "7ad8efc19cb85ab2c734eb92f516d6cf8f05f681c38fa9c7148a2c2c036f0dc5",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 66,
+        "top": 6,
+        "right": 434,
+        "bottom": 455
+      },
+      "visibleWidth": 368,
+      "visibleHeight": 449,
+      "support": {
+        "x": 250.0,
+        "y": 455
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "sourceSha256": "48cf00596032ff99945047a479d67918d2fe39b9213878d385163f376af36ec2",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-02.png",
+      "sha256": "48cf00596032ff99945047a479d67918d2fe39b9213878d385163f376af36ec2",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 60,
+        "top": 11,
+        "right": 449,
+        "bottom": 457
+      },
+      "visibleWidth": 389,
+      "visibleHeight": 446,
+      "support": {
+        "x": 254.5,
+        "y": 457
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "sourceSha256": "44d1fb486fa4430cdcc635a90082661cd2e5a86884d6ae30ea8ec6a34658fa0f",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-03.png",
+      "sha256": "44d1fb486fa4430cdcc635a90082661cd2e5a86884d6ae30ea8ec6a34658fa0f",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 69,
+        "top": 9,
+        "right": 431,
+        "bottom": 455
+      },
+      "visibleWidth": 362,
+      "visibleHeight": 446,
+      "support": {
+        "x": 250.0,
+        "y": 455
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "sourceSha256": "3ebb1fb60cd6516339fd2f19fd266b15dc60a61b1f0b01aada05f0fe344b61cd",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-04.png",
+      "sha256": "3ebb1fb60cd6516339fd2f19fd266b15dc60a61b1f0b01aada05f0fe344b61cd",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 84,
+        "top": 15,
+        "right": 393,
+        "bottom": 475
+      },
+      "visibleWidth": 309,
+      "visibleHeight": 460,
+      "support": {
+        "x": 238.5,
+        "y": 475
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "sourceSha256": "5d289d80193279d0ce0d42a827cf7aedc0acbc0ab0cf105ad1d1ecfbfafbc7f4",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-05.png",
+      "sha256": "5d289d80193279d0ce0d42a827cf7aedc0acbc0ab0cf105ad1d1ecfbfafbc7f4",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 89,
+        "top": 9,
+        "right": 401,
+        "bottom": 444
+      },
+      "visibleWidth": 312,
+      "visibleHeight": 435,
+      "support": {
+        "x": 245.0,
+        "y": 444
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "sourceSha256": "b8bd5beb68b7ea97391d1f61420411e526d1d0c3c93a7f8ad4eb0e4780291627",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-06.png",
+      "sha256": "b8bd5beb68b7ea97391d1f61420411e526d1d0c3c93a7f8ad4eb0e4780291627",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 103,
+        "top": 12,
+        "right": 403,
+        "bottom": 440
+      },
+      "visibleWidth": 300,
+      "visibleHeight": 428,
+      "support": {
+        "x": 253.0,
+        "y": 440
+      }
+    },
+    {
+      "role": "firefighter",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "sourceSha256": "781682d893bc12df681d9d89b615a86651f3e889190249c1027c707613e6df28",
+      "path": "/qa-character-scale/sprites/firefighter-d0-walk-07.png",
+      "sha256": "781682d893bc12df681d9d89b615a86651f3e889190249c1027c707613e6df28",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 88,
+        "top": 15,
+        "right": 390,
+        "bottom": 475
+      },
+      "visibleWidth": 302,
+      "visibleHeight": 460,
+      "support": {
+        "x": 239.0,
+        "y": 475
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "sourceSha256": "2e0d9ff012a19b2301fe39af9196e0c094852d6cf1d92f784284f31bf868a832",
+      "path": "/qa-character-scale/sprites/police-d0-idle-00.png",
+      "sha256": "2e0d9ff012a19b2301fe39af9196e0c094852d6cf1d92f784284f31bf868a832",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 126,
+        "top": 62,
+        "right": 391,
+        "bottom": 470
+      },
+      "visibleWidth": 265,
+      "visibleHeight": 408,
+      "support": {
+        "x": 258.5,
+        "y": 470
+      }
+    },
+    {
+      "role": "police",
+      "direction": 1,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "sourceSha256": "dd92bd50f1601c7fdfca6f3904122f3eebc6b8d97f4afeec8db0c9441bea8142",
+      "path": "/qa-character-scale/sprites/police-d1-idle-00.png",
+      "sha256": "dd92bd50f1601c7fdfca6f3904122f3eebc6b8d97f4afeec8db0c9441bea8142",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 121,
+        "top": 51,
+        "right": 386,
+        "bottom": 453
+      },
+      "visibleWidth": 265,
+      "visibleHeight": 402,
+      "support": {
+        "x": 253.5,
+        "y": 453
+      }
+    },
+    {
+      "role": "police",
+      "direction": 2,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "sourceSha256": "eb3413ef53f2b18b4520d5c406300b5cf70a8c782851127b299b18cd8b882ca4",
+      "path": "/qa-character-scale/sprites/police-d2-idle-00.png",
+      "sha256": "eb3413ef53f2b18b4520d5c406300b5cf70a8c782851127b299b18cd8b882ca4",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 121,
+        "top": 48,
+        "right": 386,
+        "bottom": 472
+      },
+      "visibleWidth": 265,
+      "visibleHeight": 424,
+      "support": {
+        "x": 253.5,
+        "y": 472
+      }
+    },
+    {
+      "role": "police",
+      "direction": 3,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "sourceSha256": "fbac220fdd3a7b152b3a76432e8e4f2ada3dd56c0ba887e3d06d621200ca9b17",
+      "path": "/qa-character-scale/sprites/police-d3-idle-00.png",
+      "sha256": "fbac220fdd3a7b152b3a76432e8e4f2ada3dd56c0ba887e3d06d621200ca9b17",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 126,
+        "top": 48,
+        "right": 391,
+        "bottom": 476
+      },
+      "visibleWidth": 265,
+      "visibleHeight": 428,
+      "support": {
+        "x": 258.5,
+        "y": 476
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "sourceSha256": "2f8d2085050a2ee12c30ca83762480eef995efc1c265d4af7eddcf31e3076e5b",
+      "path": "/qa-character-scale/sprites/police-d0-walk-00.png",
+      "sha256": "2f8d2085050a2ee12c30ca83762480eef995efc1c265d4af7eddcf31e3076e5b",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 126,
+        "top": 62,
+        "right": 391,
+        "bottom": 470
+      },
+      "visibleWidth": 265,
+      "visibleHeight": 408,
+      "support": {
+        "x": 258.5,
+        "y": 470
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "sourceSha256": "e2aa068ebed2d9e26a4d6015e8531fd880d7a14105c7627bc4a938853044eab3",
+      "path": "/qa-character-scale/sprites/police-d0-walk-01.png",
+      "sha256": "e2aa068ebed2d9e26a4d6015e8531fd880d7a14105c7627bc4a938853044eab3",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 111,
+        "top": 44,
+        "right": 423,
+        "bottom": 445
+      },
+      "visibleWidth": 312,
+      "visibleHeight": 401,
+      "support": {
+        "x": 267.0,
+        "y": 445
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "sourceSha256": "a5dce12668e7ad30abaa48189bd4cdb14f7870be0aca1675cb81a7ea2d4a3992",
+      "path": "/qa-character-scale/sprites/police-d0-walk-02.png",
+      "sha256": "a5dce12668e7ad30abaa48189bd4cdb14f7870be0aca1675cb81a7ea2d4a3992",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 106,
+        "top": 48,
+        "right": 436,
+        "bottom": 446
+      },
+      "visibleWidth": 330,
+      "visibleHeight": 398,
+      "support": {
+        "x": 271.0,
+        "y": 446
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "sourceSha256": "fe427cecac679509d808354833d480deadd70d925f1119c98ec1f2639a8c9b8c",
+      "path": "/qa-character-scale/sprites/police-d0-walk-03.png",
+      "sha256": "fe427cecac679509d808354833d480deadd70d925f1119c98ec1f2639a8c9b8c",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 113,
+        "top": 46,
+        "right": 421,
+        "bottom": 445
+      },
+      "visibleWidth": 308,
+      "visibleHeight": 399,
+      "support": {
+        "x": 267.0,
+        "y": 445
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "sourceSha256": "128cab5a7c1504f421b5174082b52cbbe3a8716776db2faf74ebcac3f2c3c62b",
+      "path": "/qa-character-scale/sprites/police-d0-walk-04.png",
+      "sha256": "128cab5a7c1504f421b5174082b52cbbe3a8716776db2faf74ebcac3f2c3c62b",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 126,
+        "top": 51,
+        "right": 391,
+        "bottom": 460
+      },
+      "visibleWidth": 265,
+      "visibleHeight": 409,
+      "support": {
+        "x": 258.5,
+        "y": 460
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "sourceSha256": "7534ad12d3d8541b85e86634963f557bf235a320f218443ad668516828cdaf31",
+      "path": "/qa-character-scale/sprites/police-d0-walk-05.png",
+      "sha256": "7534ad12d3d8541b85e86634963f557bf235a320f218443ad668516828cdaf31",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 129,
+        "top": 48,
+        "right": 393,
+        "bottom": 437
+      },
+      "visibleWidth": 264,
+      "visibleHeight": 389,
+      "support": {
+        "x": 261.0,
+        "y": 437
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "sourceSha256": "4429506a8308d26de2df0077d4057de2a431a9267f1e714bd3f4aa86e37d8cae",
+      "path": "/qa-character-scale/sprites/police-d0-walk-06.png",
+      "sha256": "4429506a8308d26de2df0077d4057de2a431a9267f1e714bd3f4aa86e37d8cae",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 131,
+        "top": 50,
+        "right": 395,
+        "bottom": 431
+      },
+      "visibleWidth": 264,
+      "visibleHeight": 381,
+      "support": {
+        "x": 263.0,
+        "y": 431
+      }
+    },
+    {
+      "role": "police",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "sourceSha256": "7bc13a6c15a0c2eb527ae24bf63a2e2014ac27ba26b677ce9f05c1bffbb88741",
+      "path": "/qa-character-scale/sprites/police-d0-walk-07.png",
+      "sha256": "7bc13a6c15a0c2eb527ae24bf63a2e2014ac27ba26b677ce9f05c1bffbb88741",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 129,
+        "top": 51,
+        "right": 388,
+        "bottom": 460
+      },
+      "visibleWidth": 259,
+      "visibleHeight": 409,
+      "support": {
+        "x": 258.5,
+        "y": 460
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "sourceSha256": "55701b7735b88a6af0f04325fbbaeb9bd4d38f46c564e64d967bd4a5b8f93ad1",
+      "path": "/qa-character-scale/sprites/supervisor-d0-idle-00.png",
+      "sha256": "55701b7735b88a6af0f04325fbbaeb9bd4d38f46c564e64d967bd4a5b8f93ad1",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 85,
+        "top": 45,
+        "right": 398,
+        "bottom": 484
+      },
+      "visibleWidth": 313,
+      "visibleHeight": 439,
+      "support": {
+        "x": 241.5,
+        "y": 484
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 1,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "sourceSha256": "fa4f5e0b34b4fae11b7a29cea420619efc00f39d3c4449d6afa2a6eef5732e60",
+      "path": "/qa-character-scale/sprites/supervisor-d1-idle-00.png",
+      "sha256": "fa4f5e0b34b4fae11b7a29cea420619efc00f39d3c4449d6afa2a6eef5732e60",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 114,
+        "top": 32,
+        "right": 427,
+        "bottom": 465
+      },
+      "visibleWidth": 313,
+      "visibleHeight": 433,
+      "support": {
+        "x": 270.5,
+        "y": 465
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 2,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "sourceSha256": "d6db51ead7d59187e147fc96c5adbdf9df4612fb6bf1163f6c90e800afa6d8c4",
+      "path": "/qa-character-scale/sprites/supervisor-d2-idle-00.png",
+      "sha256": "d6db51ead7d59187e147fc96c5adbdf9df4612fb6bf1163f6c90e800afa6d8c4",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 114,
+        "top": 10,
+        "right": 427,
+        "bottom": 468
+      },
+      "visibleWidth": 313,
+      "visibleHeight": 458,
+      "support": {
+        "x": 270.5,
+        "y": 468
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 3,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "sourceSha256": "236ca93a2efb208050d852ee5165f087386db727fafc196e6518d0017dd9594b",
+      "path": "/qa-character-scale/sprites/supervisor-d3-idle-00.png",
+      "sha256": "236ca93a2efb208050d852ee5165f087386db727fafc196e6518d0017dd9594b",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 85,
+        "top": 10,
+        "right": 398,
+        "bottom": 473
+      },
+      "visibleWidth": 313,
+      "visibleHeight": 463,
+      "support": {
+        "x": 241.5,
+        "y": 473
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "sourceSha256": "e4b9f672b487356c3b617bc5e9aac0d16b9d25d43d8d7e8e630a64c350d6f843",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-00.png",
+      "sha256": "e4b9f672b487356c3b617bc5e9aac0d16b9d25d43d8d7e8e630a64c350d6f843",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 85,
+        "top": 45,
+        "right": 398,
+        "bottom": 484
+      },
+      "visibleWidth": 313,
+      "visibleHeight": 439,
+      "support": {
+        "x": 241.5,
+        "y": 484
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "sourceSha256": "3f0f7e45de448a792d6f174bb9900b0ee56e24d759874fb05d4221d79190a458",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-01.png",
+      "sha256": "3f0f7e45de448a792d6f174bb9900b0ee56e24d759874fb05d4221d79190a458",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 68,
+        "top": 25,
+        "right": 433,
+        "bottom": 455
+      },
+      "visibleWidth": 365,
+      "visibleHeight": 430,
+      "support": {
+        "x": 250.5,
+        "y": 455
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "sourceSha256": "2d19cc7cbf9f0a8e32eeb1e3746d609d7d079f735adee138cbff5dbee80f97cc",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-02.png",
+      "sha256": "2d19cc7cbf9f0a8e32eeb1e3746d609d7d079f735adee138cbff5dbee80f97cc",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 61,
+        "top": 29,
+        "right": 448,
+        "bottom": 457
+      },
+      "visibleWidth": 387,
+      "visibleHeight": 428,
+      "support": {
+        "x": 254.5,
+        "y": 457
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "sourceSha256": "418be1043f5e786ba2cf856755433944e6a8b527a71d3dec35d4d6a7d62ced81",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-03.png",
+      "sha256": "418be1043f5e786ba2cf856755433944e6a8b527a71d3dec35d4d6a7d62ced81",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 71,
+        "top": 26,
+        "right": 431,
+        "bottom": 455
+      },
+      "visibleWidth": 360,
+      "visibleHeight": 429,
+      "support": {
+        "x": 251.0,
+        "y": 455
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "sourceSha256": "c93783eda98c5e40c80ed0a522ab0450e4a5fa52043c2f8662dc59794d6ea97d",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-04.png",
+      "sha256": "c93783eda98c5e40c80ed0a522ab0450e4a5fa52043c2f8662dc59794d6ea97d",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 85,
+        "top": 32,
+        "right": 398,
+        "bottom": 473
+      },
+      "visibleWidth": 313,
+      "visibleHeight": 441,
+      "support": {
+        "x": 241.5,
+        "y": 473
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "sourceSha256": "7de3cff1f4de2f93690009e7bf60624b5c3daf409e80af3f9a54a5244d5e5e92",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-05.png",
+      "sha256": "7de3cff1f4de2f93690009e7bf60624b5c3daf409e80af3f9a54a5244d5e5e92",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 90,
+        "top": 29,
+        "right": 398,
+        "bottom": 446
+      },
+      "visibleWidth": 308,
+      "visibleHeight": 417,
+      "support": {
+        "x": 244.0,
+        "y": 446
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "sourceSha256": "2d7c3876b4e19e239eb477ab09365615d3c6167cd416fc1e195439d917e3c722",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-06.png",
+      "sha256": "2d7c3876b4e19e239eb477ab09365615d3c6167cd416fc1e195439d917e3c722",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 105,
+        "top": 31,
+        "right": 400,
+        "bottom": 439
+      },
+      "visibleWidth": 295,
+      "visibleHeight": 408,
+      "support": {
+        "x": 252.5,
+        "y": 439
+      }
+    },
+    {
+      "role": "supervisor",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "sourceSha256": "d69bcddb80f9df5b7b4e8f5121fd31301af4661561a20a0bd7409b79d41f8b74",
+      "path": "/qa-character-scale/sprites/supervisor-d0-walk-07.png",
+      "sha256": "d69bcddb80f9df5b7b4e8f5121fd31301af4661561a20a0bd7409b79d41f8b74",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 89,
+        "top": 33,
+        "right": 389,
+        "bottom": 473
+      },
+      "visibleWidth": 300,
+      "visibleHeight": 440,
+      "support": {
+        "x": 239.0,
+        "y": 473
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "sourceSha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854",
+      "path": "/qa-character-scale/sprites/worker-a-d0-idle-00.png",
+      "sha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 108,
+        "top": 31,
+        "right": 412,
+        "bottom": 483
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 452,
+      "support": {
+        "x": 260.0,
+        "y": 483
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+      "sourceSha256": "90641bdf318d2a96b084bb2e0afa4ea246be8bacbdb8525de4b569c12703cdaf",
+      "path": "/qa-character-scale/sprites/worker-a-d1-idle-00.png",
+      "sha256": "90641bdf318d2a96b084bb2e0afa4ea246be8bacbdb8525de4b569c12703cdaf",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 100,
+        "top": 21,
+        "right": 404,
+        "bottom": 467
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 446,
+      "support": {
+        "x": 252.0,
+        "y": 467
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+      "sourceSha256": "b134516937aa8f5972e5185594c902d6ab8a11184bc9836d37828ad1df607516",
+      "path": "/qa-character-scale/sprites/worker-a-d2-idle-00.png",
+      "sha256": "b134516937aa8f5972e5185594c902d6ab8a11184bc9836d37828ad1df607516",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 100,
+        "top": 32,
+        "right": 404,
+        "bottom": 482
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 450,
+      "support": {
+        "x": 252.0,
+        "y": 482
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+      "sourceSha256": "ae54b986487492ca40477193f2e72096683c12c30b27e81a35d289680f804753",
+      "path": "/qa-character-scale/sprites/worker-a-d3-idle-00.png",
+      "sha256": "ae54b986487492ca40477193f2e72096683c12c30b27e81a35d289680f804753",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 108,
+        "top": 32,
+        "right": 412,
+        "bottom": 488
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 456,
+      "support": {
+        "x": 260.0,
+        "y": 488
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+      "sourceSha256": "6c826ca8fd095b5120a5a56a72217f60831cc2335695716ec209d2bed1cb1a5f",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-00.png",
+      "sha256": "6c826ca8fd095b5120a5a56a72217f60831cc2335695716ec209d2bed1cb1a5f",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 108,
+        "top": 31,
+        "right": 412,
+        "bottom": 483
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 452,
+      "support": {
+        "x": 260.0,
+        "y": 483
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+      "sourceSha256": "7f1466bc48c02e9714cab41accb431ca0fb65827f8af21142fd092da19e47ec9",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-01.png",
+      "sha256": "7f1466bc48c02e9714cab41accb431ca0fb65827f8af21142fd092da19e47ec9",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 97,
+        "top": 17,
+        "right": 433,
+        "bottom": 459
+      },
+      "visibleWidth": 336,
+      "visibleHeight": 442,
+      "support": {
+        "x": 265.0,
+        "y": 459
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+      "sourceSha256": "8997a87215b2fee0c313e5cf28c23367602e28960aad4e5d409c4f0e0d5a506a",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-02.png",
+      "sha256": "8997a87215b2fee0c313e5cf28c23367602e28960aad4e5d409c4f0e0d5a506a",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 91,
+        "top": 22,
+        "right": 447,
+        "bottom": 460
+      },
+      "visibleWidth": 356,
+      "visibleHeight": 438,
+      "support": {
+        "x": 269.0,
+        "y": 460
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+      "sourceSha256": "f825e2918b3e6161bd011b2172762ccbdbb5844fa23337ebe9e8c7cf965d60be",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-03.png",
+      "sha256": "f825e2918b3e6161bd011b2172762ccbdbb5844fa23337ebe9e8c7cf965d60be",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 99,
+        "top": 17,
+        "right": 430,
+        "bottom": 459
+      },
+      "visibleWidth": 331,
+      "visibleHeight": 442,
+      "support": {
+        "x": 264.5,
+        "y": 459
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "sourceSha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-04.png",
+      "sha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 108,
+        "top": 21,
+        "right": 412,
+        "bottom": 473
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 452,
+      "support": {
+        "x": 260.0,
+        "y": 473
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+      "sourceSha256": "60853e1fcf10b0650a39cabffe29ac43f85bd5b160686bf95a699c12f8203d68",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-05.png",
+      "sha256": "60853e1fcf10b0650a39cabffe29ac43f85bd5b160686bf95a699c12f8203d68",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 111,
+        "top": 19,
+        "right": 414,
+        "bottom": 454
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 435,
+      "support": {
+        "x": 262.5,
+        "y": 454
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+      "sourceSha256": "1f7fac1d357bf134854dca1f259e1c13f7660dbc8b20d45cc918c8d97658f3e4",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-06.png",
+      "sha256": "1f7fac1d357bf134854dca1f259e1c13f7660dbc8b20d45cc918c8d97658f3e4",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 113,
+        "top": 22,
+        "right": 415,
+        "bottom": 447
+      },
+      "visibleWidth": 302,
+      "visibleHeight": 425,
+      "support": {
+        "x": 264.0,
+        "y": 447
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 0,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+      "sourceSha256": "a288dedc7546ab75167744278e945beffb0ad678658c89941bb5eecbf8739791",
+      "path": "/qa-character-scale/sprites/worker-a-d0-walk-07.png",
+      "sha256": "a288dedc7546ab75167744278e945beffb0ad678658c89941bb5eecbf8739791",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 111,
+        "top": 21,
+        "right": 414,
+        "bottom": 473
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 452,
+      "support": {
+        "x": 262.5,
+        "y": 473
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+      "sourceSha256": "69d20b139d61b2fe921ac4b39e3afdade6749380a3cc18a31f950ea7feeffd81",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-00.png",
+      "sha256": "69d20b139d61b2fe921ac4b39e3afdade6749380a3cc18a31f950ea7feeffd81",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 100,
+        "top": 31,
+        "right": 404,
+        "bottom": 483
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 452,
+      "support": {
+        "x": 252.0,
+        "y": 483
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+      "sourceSha256": "7535ef1b272cbc25cfad9004c4b69c9739900fbeaa8c73f5159d1a8975394b9a",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-01.png",
+      "sha256": "7535ef1b272cbc25cfad9004c4b69c9739900fbeaa8c73f5159d1a8975394b9a",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 98,
+        "top": 17,
+        "right": 401,
+        "bottom": 450
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 433,
+      "support": {
+        "x": 249.5,
+        "y": 450
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+      "sourceSha256": "cd5bfb7bde8c59dd8fa0186bafc9d03c8b6e34aced999a8283c5c178e92556f9",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-02.png",
+      "sha256": "cd5bfb7bde8c59dd8fa0186bafc9d03c8b6e34aced999a8283c5c178e92556f9",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 97,
+        "top": 23,
+        "right": 399,
+        "bottom": 446
+      },
+      "visibleWidth": 302,
+      "visibleHeight": 423,
+      "support": {
+        "x": 248.0,
+        "y": 446
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+      "sourceSha256": "df08d50a1c7e58e512fe7c95a66f23dcf287f971cb190f578d156c5548bc1d15",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-03.png",
+      "sha256": "df08d50a1c7e58e512fe7c95a66f23dcf287f971cb190f578d156c5548bc1d15",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 98,
+        "top": 17,
+        "right": 401,
+        "bottom": 466
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 449,
+      "support": {
+        "x": 249.5,
+        "y": 466
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+      "sourceSha256": "b814cd7f9f309cd5efd2e99eaf49467f5feb8a0e5ed4d23afd8b00981ac9d554",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-04.png",
+      "sha256": "b814cd7f9f309cd5efd2e99eaf49467f5feb8a0e5ed4d23afd8b00981ac9d554",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 100,
+        "top": 21,
+        "right": 404,
+        "bottom": 467
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 446,
+      "support": {
+        "x": 252.0,
+        "y": 467
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+      "sourceSha256": "8c24782a8b0b17eee51c251f034ef4ca551e57b9ef1a38b9da08f8e9b43869fe",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-05.png",
+      "sha256": "8c24782a8b0b17eee51c251f034ef4ca551e57b9ef1a38b9da08f8e9b43869fe",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 82,
+        "top": 19,
+        "right": 413,
+        "bottom": 459
+      },
+      "visibleWidth": 331,
+      "visibleHeight": 440,
+      "support": {
+        "x": 247.5,
+        "y": 459
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+      "sourceSha256": "e599772e111fda57b63b070a39545f88d50c59e55b6bef3801e17567a7fe2c8e",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-06.png",
+      "sha256": "e599772e111fda57b63b070a39545f88d50c59e55b6bef3801e17567a7fe2c8e",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 65,
+        "top": 21,
+        "right": 421,
+        "bottom": 460
+      },
+      "visibleWidth": 356,
+      "visibleHeight": 439,
+      "support": {
+        "x": 243.0,
+        "y": 460
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 1,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+      "sourceSha256": "201e8c1ed839f994a8fd5a041da148fa42d8e8352e32af7431fd9960c3901d1c",
+      "path": "/qa-character-scale/sprites/worker-a-d1-walk-07.png",
+      "sha256": "201e8c1ed839f994a8fd5a041da148fa42d8e8352e32af7431fd9960c3901d1c",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 79,
+        "top": 20,
+        "right": 415,
+        "bottom": 467
+      },
+      "visibleWidth": 336,
+      "visibleHeight": 447,
+      "support": {
+        "x": 247.0,
+        "y": 467
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+      "sourceSha256": "051afd251a78b4c183c44b8bfde43892fe9a53fc9183ce9a3b0569b4e26fdbc1",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-00.png",
+      "sha256": "051afd251a78b4c183c44b8bfde43892fe9a53fc9183ce9a3b0569b4e26fdbc1",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 100,
+        "top": 42,
+        "right": 404,
+        "bottom": 498
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 456,
+      "support": {
+        "x": 252.0,
+        "y": 498
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+      "sourceSha256": "dc606769383ceeac8bc5caf3d22740fb162c3c8cbe7963121472ad7baf3a2563",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-01.png",
+      "sha256": "dc606769383ceeac8bc5caf3d22740fb162c3c8cbe7963121472ad7baf3a2563",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 79,
+        "top": 29,
+        "right": 415,
+        "bottom": 493
+      },
+      "visibleWidth": 336,
+      "visibleHeight": 464,
+      "support": {
+        "x": 247.0,
+        "y": 493
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+      "sourceSha256": "073077748b4dbf50db1a4db48984c05cf3b794e44fb6608e11fc5304b370d530",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-02.png",
+      "sha256": "073077748b4dbf50db1a4db48984c05cf3b794e44fb6608e11fc5304b370d530",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 65,
+        "top": 35,
+        "right": 421,
+        "bottom": 499
+      },
+      "visibleWidth": 356,
+      "visibleHeight": 464,
+      "support": {
+        "x": 243.0,
+        "y": 499
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+      "sourceSha256": "cd4e134a9b3f1906cf47678031053c3a9668aed73163ff0b481b24443af5fe36",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-03.png",
+      "sha256": "cd4e134a9b3f1906cf47678031053c3a9668aed73163ff0b481b24443af5fe36",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 82,
+        "top": 29,
+        "right": 413,
+        "bottom": 483
+      },
+      "visibleWidth": 331,
+      "visibleHeight": 454,
+      "support": {
+        "x": 247.5,
+        "y": 483
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+      "sourceSha256": "55e255c9640907ccc88aeb1d242124b82e15f44a8c96b0abc618628852282928",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-04.png",
+      "sha256": "55e255c9640907ccc88aeb1d242124b82e15f44a8c96b0abc618628852282928",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 100,
+        "top": 31,
+        "right": 404,
+        "bottom": 482
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 451,
+      "support": {
+        "x": 252.0,
+        "y": 482
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+      "sourceSha256": "fe6fa209bde496d6510d9cb9e740d71252d19c21c7be9b65145b91de1c3d740c",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-05.png",
+      "sha256": "fe6fa209bde496d6510d9cb9e740d71252d19c21c7be9b65145b91de1c3d740c",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 98,
+        "top": 29,
+        "right": 401,
+        "bottom": 464
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 435,
+      "support": {
+        "x": 249.5,
+        "y": 464
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+      "sourceSha256": "54dfaf0957d7598f8be2ae20ecf8122b6a572798913c3ed4a19ef6ae5757c0a4",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-06.png",
+      "sha256": "54dfaf0957d7598f8be2ae20ecf8122b6a572798913c3ed4a19ef6ae5757c0a4",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 97,
+        "top": 30,
+        "right": 399,
+        "bottom": 466
+      },
+      "visibleWidth": 302,
+      "visibleHeight": 436,
+      "support": {
+        "x": 248.0,
+        "y": 466
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 2,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+      "sourceSha256": "f796571b83f877df5a70561cd7a2209cb3b449d6cb8951a11c2b5176484d2204",
+      "path": "/qa-character-scale/sprites/worker-a-d2-walk-07.png",
+      "sha256": "f796571b83f877df5a70561cd7a2209cb3b449d6cb8951a11c2b5176484d2204",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 98,
+        "top": 31,
+        "right": 401,
+        "bottom": 482
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 451,
+      "support": {
+        "x": 249.5,
+        "y": 482
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+      "sourceSha256": "f992e6c3a167c01309414469219bee765df342b4e6170404320f78d2138a3022",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-00.png",
+      "sha256": "f992e6c3a167c01309414469219bee765df342b4e6170404320f78d2138a3022",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 108,
+        "top": 42,
+        "right": 412,
+        "bottom": 498
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 456,
+      "support": {
+        "x": 260.0,
+        "y": 498
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+      "sourceSha256": "552a912a0194850eb73e2c00ee42f4e10fcfbce9aec286307710919a210d46c6",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-01.png",
+      "sha256": "552a912a0194850eb73e2c00ee42f4e10fcfbce9aec286307710919a210d46c6",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 111,
+        "top": 27,
+        "right": 414,
+        "bottom": 461
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 434,
+      "support": {
+        "x": 262.5,
+        "y": 461
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+      "sourceSha256": "e05db957e69bf6b5633f43c54cbb90853bb186611237798743356283afbdf9db",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-02.png",
+      "sha256": "e05db957e69bf6b5633f43c54cbb90853bb186611237798743356283afbdf9db",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 113,
+        "top": 32,
+        "right": 415,
+        "bottom": 467
+      },
+      "visibleWidth": 302,
+      "visibleHeight": 435,
+      "support": {
+        "x": 264.0,
+        "y": 467
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+      "sourceSha256": "afc5b59839c37b9e86327cf5b58116a6a3e1875ef62a1f66fa7c89cfc78e3348",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-03.png",
+      "sha256": "afc5b59839c37b9e86327cf5b58116a6a3e1875ef62a1f66fa7c89cfc78e3348",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 111,
+        "top": 27,
+        "right": 414,
+        "bottom": 474
+      },
+      "visibleWidth": 303,
+      "visibleHeight": 447,
+      "support": {
+        "x": 262.5,
+        "y": 474
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+      "sourceSha256": "ce9334b14758201db00a56b84e1dfd6eb821c2d12045c9b32f1de7a4592bffcd",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-04.png",
+      "sha256": "ce9334b14758201db00a56b84e1dfd6eb821c2d12045c9b32f1de7a4592bffcd",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 108,
+        "top": 31,
+        "right": 412,
+        "bottom": 488
+      },
+      "visibleWidth": 304,
+      "visibleHeight": 457,
+      "support": {
+        "x": 260.0,
+        "y": 488
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+      "sourceSha256": "1b165a927b8482a301cd99981e7065547dfd259787ccae45fc6b64725dbcf6bf",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-05.png",
+      "sha256": "1b165a927b8482a301cd99981e7065547dfd259787ccae45fc6b64725dbcf6bf",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 99,
+        "top": 31,
+        "right": 430,
+        "bottom": 496
+      },
+      "visibleWidth": 331,
+      "visibleHeight": 465,
+      "support": {
+        "x": 264.5,
+        "y": 496
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+      "sourceSha256": "65e643c1e6e5e968091d5712aa522acadcb99eead53c5cd035c3b6e4f89115d9",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-06.png",
+      "sha256": "65e643c1e6e5e968091d5712aa522acadcb99eead53c5cd035c3b6e4f89115d9",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 91,
+        "top": 34,
+        "right": 447,
+        "bottom": 498
+      },
+      "visibleWidth": 356,
+      "visibleHeight": 464,
+      "support": {
+        "x": 269.0,
+        "y": 498
+      }
+    },
+    {
+      "role": "worker",
+      "direction": 3,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "sourcePath": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+      "sourceSha256": "8e367b2060e0be7244fd5f3ee1b3f8e9272ba21d9419e1b25895e234da915a9a",
+      "path": "/qa-character-scale/sprites/worker-a-d3-walk-07.png",
+      "sha256": "8e367b2060e0be7244fd5f3ee1b3f8e9272ba21d9419e1b25895e234da915a9a",
+      "width": 512,
+      "height": 512,
+      "visible": {
+        "left": 97,
+        "top": 33,
+        "right": 433,
+        "bottom": 488
+      },
+      "visibleWidth": 336,
+      "visibleHeight": 455,
+      "support": {
+        "x": 265.0,
+        "y": 488
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "role": "enforcer",
+      "animation": "idle",
+      "direction": 0,
+      "frames": 1,
+      "minVisibleHeight": 415,
+      "maxVisibleHeight": 415,
+      "medianVisibleHeight": 415,
+      "stableScale28": 0.06746987951807229,
+      "stableScale34": 0.0819277108433735
+    },
+    {
+      "role": "enforcer",
+      "animation": "idle",
+      "direction": 1,
+      "frames": 1,
+      "minVisibleHeight": 408,
+      "maxVisibleHeight": 408,
+      "medianVisibleHeight": 408,
+      "stableScale28": 0.06862745098039216,
+      "stableScale34": 0.08333333333333333
+    },
+    {
+      "role": "enforcer",
+      "animation": "idle",
+      "direction": 2,
+      "frames": 1,
+      "minVisibleHeight": 419,
+      "maxVisibleHeight": 419,
+      "medianVisibleHeight": 419,
+      "stableScale28": 0.06682577565632458,
+      "stableScale34": 0.081145584725537
+    },
+    {
+      "role": "enforcer",
+      "animation": "idle",
+      "direction": 3,
+      "frames": 1,
+      "minVisibleHeight": 424,
+      "maxVisibleHeight": 424,
+      "medianVisibleHeight": 424,
+      "stableScale28": 0.0660377358490566,
+      "stableScale34": 0.08018867924528301
+    },
+    {
+      "role": "enforcer",
+      "animation": "walk",
+      "direction": 0,
+      "frames": 8,
+      "minVisibleHeight": 385,
+      "maxVisibleHeight": 416,
+      "medianVisibleHeight": 405.5,
+      "stableScale28": 0.0673076923076923,
+      "stableScale34": 0.08173076923076923
+    },
+    {
+      "role": "firefighter",
+      "animation": "idle",
+      "direction": 0,
+      "frames": 1,
+      "minVisibleHeight": 458,
+      "maxVisibleHeight": 458,
+      "medianVisibleHeight": 458,
+      "stableScale28": 0.0611353711790393,
+      "stableScale34": 0.07423580786026202
+    },
+    {
+      "role": "firefighter",
+      "animation": "idle",
+      "direction": 1,
+      "frames": 1,
+      "minVisibleHeight": 450,
+      "maxVisibleHeight": 450,
+      "medianVisibleHeight": 450,
+      "stableScale28": 0.06222222222222222,
+      "stableScale34": 0.07555555555555556
+    },
+    {
+      "role": "firefighter",
+      "animation": "idle",
+      "direction": 2,
+      "frames": 1,
+      "minVisibleHeight": 455,
+      "maxVisibleHeight": 455,
+      "medianVisibleHeight": 455,
+      "stableScale28": 0.06153846153846154,
+      "stableScale34": 0.07472527472527472
+    },
+    {
+      "role": "firefighter",
+      "animation": "idle",
+      "direction": 3,
+      "frames": 1,
+      "minVisibleHeight": 459,
+      "maxVisibleHeight": 459,
+      "medianVisibleHeight": 459,
+      "stableScale28": 0.06100217864923747,
+      "stableScale34": 0.07407407407407407
+    },
+    {
+      "role": "firefighter",
+      "animation": "walk",
+      "direction": 0,
+      "frames": 8,
+      "minVisibleHeight": 428,
+      "maxVisibleHeight": 460,
+      "medianVisibleHeight": 447.5,
+      "stableScale28": 0.06086956521739131,
+      "stableScale34": 0.07391304347826087
+    },
+    {
+      "role": "police",
+      "animation": "idle",
+      "direction": 0,
+      "frames": 1,
+      "minVisibleHeight": 408,
+      "maxVisibleHeight": 408,
+      "medianVisibleHeight": 408,
+      "stableScale28": 0.06862745098039216,
+      "stableScale34": 0.08333333333333333
+    },
+    {
+      "role": "police",
+      "animation": "idle",
+      "direction": 1,
+      "frames": 1,
+      "minVisibleHeight": 402,
+      "maxVisibleHeight": 402,
+      "medianVisibleHeight": 402,
+      "stableScale28": 0.06965174129353234,
+      "stableScale34": 0.0845771144278607
+    },
+    {
+      "role": "police",
+      "animation": "idle",
+      "direction": 2,
+      "frames": 1,
+      "minVisibleHeight": 424,
+      "maxVisibleHeight": 424,
+      "medianVisibleHeight": 424,
+      "stableScale28": 0.0660377358490566,
+      "stableScale34": 0.08018867924528301
+    },
+    {
+      "role": "police",
+      "animation": "idle",
+      "direction": 3,
+      "frames": 1,
+      "minVisibleHeight": 428,
+      "maxVisibleHeight": 428,
+      "medianVisibleHeight": 428,
+      "stableScale28": 0.06542056074766354,
+      "stableScale34": 0.0794392523364486
+    },
+    {
+      "role": "police",
+      "animation": "walk",
+      "direction": 0,
+      "frames": 8,
+      "minVisibleHeight": 381,
+      "maxVisibleHeight": 409,
+      "medianVisibleHeight": 400.0,
+      "stableScale28": 0.06845965770171149,
+      "stableScale34": 0.08312958435207823
+    },
+    {
+      "role": "supervisor",
+      "animation": "idle",
+      "direction": 0,
+      "frames": 1,
+      "minVisibleHeight": 439,
+      "maxVisibleHeight": 439,
+      "medianVisibleHeight": 439,
+      "stableScale28": 0.06378132118451026,
+      "stableScale34": 0.0774487471526196
+    },
+    {
+      "role": "supervisor",
+      "animation": "idle",
+      "direction": 1,
+      "frames": 1,
+      "minVisibleHeight": 433,
+      "maxVisibleHeight": 433,
+      "medianVisibleHeight": 433,
+      "stableScale28": 0.06466512702078522,
+      "stableScale34": 0.07852193995381063
+    },
+    {
+      "role": "supervisor",
+      "animation": "idle",
+      "direction": 2,
+      "frames": 1,
+      "minVisibleHeight": 458,
+      "maxVisibleHeight": 458,
+      "medianVisibleHeight": 458,
+      "stableScale28": 0.0611353711790393,
+      "stableScale34": 0.07423580786026202
+    },
+    {
+      "role": "supervisor",
+      "animation": "idle",
+      "direction": 3,
+      "frames": 1,
+      "minVisibleHeight": 463,
+      "maxVisibleHeight": 463,
+      "medianVisibleHeight": 463,
+      "stableScale28": 0.06047516198704104,
+      "stableScale34": 0.0734341252699784
+    },
+    {
+      "role": "supervisor",
+      "animation": "walk",
+      "direction": 0,
+      "frames": 8,
+      "minVisibleHeight": 408,
+      "maxVisibleHeight": 441,
+      "medianVisibleHeight": 429.5,
+      "stableScale28": 0.06349206349206349,
+      "stableScale34": 0.07709750566893424
+    },
+    {
+      "role": "worker",
+      "animation": "idle",
+      "direction": 0,
+      "frames": 1,
+      "minVisibleHeight": 452,
+      "maxVisibleHeight": 452,
+      "medianVisibleHeight": 452,
+      "stableScale28": 0.061946902654867256,
+      "stableScale34": 0.0752212389380531
+    },
+    {
+      "role": "worker",
+      "animation": "idle",
+      "direction": 1,
+      "frames": 1,
+      "minVisibleHeight": 446,
+      "maxVisibleHeight": 446,
+      "medianVisibleHeight": 446,
+      "stableScale28": 0.06278026905829596,
+      "stableScale34": 0.07623318385650224
+    },
+    {
+      "role": "worker",
+      "animation": "idle",
+      "direction": 2,
+      "frames": 1,
+      "minVisibleHeight": 450,
+      "maxVisibleHeight": 450,
+      "medianVisibleHeight": 450,
+      "stableScale28": 0.06222222222222222,
+      "stableScale34": 0.07555555555555556
+    },
+    {
+      "role": "worker",
+      "animation": "idle",
+      "direction": 3,
+      "frames": 1,
+      "minVisibleHeight": 456,
+      "maxVisibleHeight": 456,
+      "medianVisibleHeight": 456,
+      "stableScale28": 0.06140350877192982,
+      "stableScale34": 0.07456140350877193
+    },
+    {
+      "role": "worker",
+      "animation": "walk",
+      "direction": 0,
+      "frames": 8,
+      "minVisibleHeight": 425,
+      "maxVisibleHeight": 452,
+      "medianVisibleHeight": 442.0,
+      "stableScale28": 0.061946902654867256,
+      "stableScale34": 0.0752212389380531
+    },
+    {
+      "role": "worker",
+      "animation": "walk",
+      "direction": 1,
+      "frames": 8,
+      "minVisibleHeight": 423,
+      "maxVisibleHeight": 452,
+      "medianVisibleHeight": 443.0,
+      "stableScale28": 0.061946902654867256,
+      "stableScale34": 0.0752212389380531
+    },
+    {
+      "role": "worker",
+      "animation": "walk",
+      "direction": 2,
+      "frames": 8,
+      "minVisibleHeight": 435,
+      "maxVisibleHeight": 464,
+      "medianVisibleHeight": 452.5,
+      "stableScale28": 0.0603448275862069,
+      "stableScale34": 0.07327586206896551
+    },
+    {
+      "role": "worker",
+      "animation": "walk",
+      "direction": 3,
+      "frames": 8,
+      "minVisibleHeight": 434,
+      "maxVisibleHeight": 465,
+      "medianVisibleHeight": 455.5,
+      "stableScale28": 0.060215053763440864,
+      "stableScale34": 0.07311827956989247
+    }
+  ]
+}

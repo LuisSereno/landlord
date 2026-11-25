@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "status": "measured",
+  "environment": "headless Chromium software rendering; relative comparison only",
+  "rounds": [
+    {
+      "order": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "entries": [
+        {
+          "config": "A",
+          "frames": 51,
+          "elapsedMs": 2040.80000000596,
+          "fps": 24.99019992152639,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        },
+        {
+          "config": "B",
+          "frames": 49,
+          "elapsedMs": 2030.8999999999996,
+          "fps": 24.127234231129062,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        },
+        {
+          "config": "C",
+          "frames": 51,
+          "elapsedMs": 2025.1000000014901,
+          "fps": 25.183941533732888,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        },
+        {
+          "config": "D",
+          "frames": 52,
+          "elapsedMs": 2004.3000000014908,
+          "fps": 25.944219927137315,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        }
+      ]
+    },
+    {
+      "order": [
+        "D",
+        "C",
+        "B",
+        "A"
+      ],
+      "entries": [
+        {
+          "config": "D",
+          "frames": 50,
+          "elapsedMs": 2046.2000000000007,
+          "fps": 24.43553904799139,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        },
+        {
+          "config": "C",
+          "frames": 47,
+          "elapsedMs": 2021.6000000044696,
+          "fps": 23.248911753015477,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        },
+        {
+          "config": "B",
+          "frames": 47,
+          "elapsedMs": 2032.300000005962,
+          "fps": 23.126506913281563,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        },
+        {
+          "config": "A",
+          "frames": 46,
+          "elapsedMs": 2004.4000000000015,
+          "fps": 22.94951107563359,
+          "spriteCount": 9,
+          "textureCount": 90,
+          "estimatedTextureBytes": 96622940
+        }
+      ]
+    }
+  ],
+  "byConfig": {
+    "A": {
+      "samples": [
+        24.99019992152639,
+        22.94951107563359
+      ],
+      "median": 23.96985549857999,
+      "min": 22.94951107563359,
+      "max": 24.99019992152639
+    },
+    "B": {
+      "samples": [
+        24.127234231129062,
+        23.126506913281563
+      ],
+      "median": 23.626870572205313,
+      "min": 23.126506913281563,
+      "max": 24.127234231129062
+    },
+    "C": {
+      "samples": [
+        25.183941533732888,
+        23.248911753015477
+      ],
+      "median": 24.216426643374184,
+      "min": 23.248911753015477,
+      "max": 25.183941533732888
+    },
+    "D": {
+      "samples": [
+        25.944219927137315,
+        24.43553904799139
+      ],
+      "median": 25.189879487564355,
+      "min": 24.43553904799139,
+      "max": 25.944219927137315
+    }
+  }
+}

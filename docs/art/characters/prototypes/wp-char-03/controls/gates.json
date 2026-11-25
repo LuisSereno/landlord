@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "status": "passed_with_baseline_lint_debt",
+  "unitTests": { "status": "passed", "tests": 15 },
+  "webTests": { "status": "passed", "passed": 452, "skipped": 4 },
+  "typecheck": { "status": "passed", "workspaces": 3 },
+  "architecture": { "status": "passed" },
+  "webBuild": { "status": "passed" },
+  "labBuild": { "status": "passed" },
+  "phaserBrowser": {
+    "status": "passed",
+    "screenshots": 54,
+    "functionalChecks": 74,
+    "failedChecks": 0,
+    "pageErrors": 0,
+    "consoleErrors": 0,
+    "viewports": ["1280x720", "1920x1080"]
+  },
+  "aggregateValidation": { "status": "passed", "checks": 463, "errors": 0 },
+  "webLint": {
+    "status": "failed_baseline",
+    "errors": 2,
+    "newLabErrors": 0,
+    "baselineWorktree": "/home/luis/RepositorioGitHub/landlord-characters-02c",
+    "errorsList": [
+      "apps/web/src/fx-lab/fx-candidate-qa.test.ts:46 _omit unused",
+      "apps/web/src/visual-slice/terrain-paint.ts:239 marking unused"
+    ]
+  },
+  "simulation": {
+    "status": "not_rerun",
+    "reason": "No simulation/shared diff; WP-CHAR-02C baseline remains 20 failures / 12 files."
+  },
+  "runtimePromotion": false,
+  "artisticApproval": "pending_human"
+}

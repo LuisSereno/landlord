@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "status": "passed",
   "manifest": "docs/art/characters/prototypes/wp-char-03/evidence-manifest.json",
-  "manifestSha256": "2b6df33fe78df30c68e0ee1627a890855dea0e496759a4192e9959f5afc1e329",
+  "manifestSha256": "dc1ff0fc4282ae4c1d7e86d58009f11c2573eea036a7714e0d9278a16f17f924",
   "fileCount": 232,
   "externalSourceCount": 10,
   "checkCount": 721,

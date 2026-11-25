@@ -1414,14 +1414,14 @@
     {
       "path": "docs/execution/phase-4/characters/wp-char-03/08-results.md",
       "role": "documentation",
-      "bytes": 4154,
-      "sha256": "c9097e8274a4ddd536ea0152ed8d05a7244b37f411eefa4697b217ce0ce786bf"
+      "bytes": 6115,
+      "sha256": "fc43847958dd8a831926f7a0a4039864ad1ff07fe34b9b8b0439f79c5d554e06"
     },
     {
       "path": "docs/execution/phase-4/characters/wp-char-03/PROGRESS.md",
       "role": "documentation",
-      "bytes": 2667,
-      "sha256": "f46879b79f8587c8508d90c564ef017681e57a476e647cb1874d038a3864e940"
+      "bytes": 3310,
+      "sha256": "a442cb97fa1287f5067a7b318c5adae2bac1e93796c3ef6ac2f42d42434e1c07"
     },
     {
       "path": "tools/art-pipeline/blender/characters/wp_char_03/build_evidence_manifest.py",
@@ -1486,7 +1486,7 @@
   ],
   "summary": {
     "fileCount": 232,
-    "totalBytes": 34275360,
+    "totalBytes": 34277964,
     "externalSourceCount": 10,
     "allExternalHashesMatch": true
   }

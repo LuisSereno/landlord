@@ -43,3 +43,12 @@
 - 02A/02B siguen como entradas prunable y sus commits/evidencias permanecen disponibles.
 - Estado máximo: `TECHNICAL_COMPLETE / VISUAL_REVIEW_PENDING`.
 - Pendiente único: revisión humana y decisión de integración futura.
+
+## 2026-11-25 · Auditoría final de cierre
+
+- HEAD técnico verificado: `45224a38ba133eeeb623a521eea7d90a9dc32024`; worktree limpio.
+- Evidencia releída sin regenerarla: 232 archivos, diez fuentes/dependencias y 721/721 checks de hash.
+- Capturas verificadas: 54, con cobertura A–D en 1280×720 y 1920×1080; 74/74 comprobaciones Phaser.
+- Código del laboratorio sin cambios desde `268805c`; diff de componentes protegidos vacío.
+- Acta 08 consolidada con D-CHAR-01…06 y estado `CLOSED_TECHNICAL / VISUAL_REVIEW_PENDING`.
+- Sin cambios funcionales ni nuevas pruebas: la evidencia existente sigue siendo válida para el HEAD técnico.

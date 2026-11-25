@@ -245,6 +245,10 @@ Estado de licencia de Poly Haven:
 
 ### Microsoft Rocketbox — avatares rigged (MIT, no CC0)
 
+Desde D-CHAR-01 (2026-11-25), Kenney Mini Characters es la familia canónica de nueva producción.
+Rocketbox se conserva como runtime legado y por sus licencias/fuentes hasta una promoción humana
+explícita; la mención de créditos sigue siendo obligatoria para los sprites legados.
+
 https://github.com/microsoft/Microsoft-Rocketbox
 
 Motivo de inclusión: los Universal Base Characters de Quaternius son cuerpos sin ropa

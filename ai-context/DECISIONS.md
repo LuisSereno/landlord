@@ -1831,3 +1831,47 @@ efectos de Phaser 4 se probaron en el laboratorio de QA `/art-lab?artQa=1` y no 
 La dirección visual no cambia: `graphic_civic` sigue siendo el control y la promoción de sprites,
 perfiles y filtros es decisión de revisión humana. Registro:
 `docs/engineering/adr/D-111-direccion-visual-maqueta-material.md`.
+
+## D-CHAR-01 — Familia canónica de personajes
+
+Aceptada por el encargo de cierre de catálogo del 2026-11-25. Los 14 personajes se producen con
+Kenney Mini Characters (CC0); Rocketbox queda como runtime legado hasta una promoción explícita.
+La selección no aprueba automáticamente ningún sprite.
+
+## D-CHAR-02 — Altura de referencia
+
+34 px a zoom 1× es el objetivo provisional; 28 px conserva el baseline de comparación. La escala
+final se valida en ciudad densa y no cambia por una captura de laboratorio aislada.
+
+## D-CHAR-03 — Configuración B recomendada
+
+B (`zoom 1×`, personaje 34 px) sigue siendo la recomendación inicial. Debe compararse con D en una
+ciudad suficientemente densa antes de fijar la configuración de producción.
+
+## D-CHAR-04 — Alternativa D
+
+D (`zoom 1,15×`, personaje 34 px) queda como alternativa, no como default. Su menor superficie de
+ciudad y mayor recorte se miden en la comparación densa.
+
+## D-CHAR-05 — Integración runtime condicionada
+
+Ningún personaje Kenney se promueve a runtime hasta completar cuatro direcciones, `idle`/`walk`,
+escala/pivote, presupuesto y revisión visual humana. La escena principal sólo consume assets
+aprobados y el catálogo generado declara 14/14.
+
+## D-CHAR-06 — Separación de estados
+
+La validación técnica, la aprobación artística humana, la promoción runtime y la disponibilidad de
+producción son estados distintos. Un pase de validador no se declara `ARTISTIC_APPROVED` ni
+`PRODUCTION_READY`.
+
+## D-112 — Depósito municipal de limpieza
+
+Aceptada por el encargo del 2026-11-25. `cleaning_depot` es municipal, con huella 3×1, solar 4×2 y
+una parcela/8 celdas. Cada edificio operativo propiedad del municipio suma 6 celdas al radio de
+limpieza de su distrito, con máximo configurable 36. Sin depósito la fórmula anterior se conserva
+exacta; transporte y seguridad siguen en el grafo. El programa inicial coloca uno en
+`barrio_del_umbral`. SnapshotV3 no cambia y las partidas v3 sin depósito siguen cargando. El
+generador sube a v5 y las fixtures de ciudad/distrito y los diez digestos se regeneraron por
+medición. El arte Composer sigue pendiente de aprobación humana. Véase
+`docs/engineering/adr/D-112-deposito-municipal-limpieza.md`.

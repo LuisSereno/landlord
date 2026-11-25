@@ -1,6 +1,6 @@
 # Building Catalog
 
-Los 16 tipos económicos de dominio y el estado de su geometría de fuente REAL. Sustituye a la Building Factory de
+Los 17 tipos económicos de dominio y el estado de su geometría de fuente REAL. Sustituye a la Building Factory de
 V.e.2, retirada el 2026-11-02 por la remediación de geometría de fuente (D-098): aquella componía
 primitivas propias mientras sus presets declaraban fuentes Kenney/Quaternius/KayKit/Poly Haven que
 nunca entraban al render.
@@ -49,3 +49,11 @@ modelos están en [organization-headquarters](organization-headquarters/README.m
 ambas variantes todavía no forma parte de este catálogo ni del bundle runtime: deben pasar por el
 Building Composer con módulos aprobados, registrar sus fuentes y superar la captura/revisión visual
 en la ciudad antes de promoción.
+
+## Depósito municipal de limpieza
+
+`cleaning_depot` es el decimoséptimo tipo económico. Es municipal, con huella 3×1, solar 4×2, una
+parcela/8 celdas, cero renta y cero capacidad. Cada edificio operativo propiedad del municipio suma
+6 celdas al radio radial de limpieza de su distrito (máximo 36); sin depósito se conserva el baseline
+anterior. SnapshotV3 no cambia. El fallback procedural es semántico y no se presenta como arte final;
+la promoción Composer sigue sujeta a procedencia, captura y aprobación humana (D-112).

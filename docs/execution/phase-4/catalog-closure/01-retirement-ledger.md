@@ -1,6 +1,6 @@
 # Registro de retirada de arte — 2026-11-25
 
-Commit local: `51f3260` (`art(catalog): retire rejected candidates and invalid jobs`). Sin push.
+Commits locales: `51f3260` (`art(catalog): retire rejected candidates and invalid jobs`) y `116b6e0` (`test(art): reject orphan runtime assets`). Sin push.
 
 | IDs / conjunto | Motivo | Retirado | Conservado |
 | --- | --- | --- | --- |

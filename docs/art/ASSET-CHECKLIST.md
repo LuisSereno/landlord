@@ -27,6 +27,20 @@
 ```
 
 
+**Guardas de repositorio**
+
+```bash
+pnpm art:jobs:validate
+pnpm art:building-composer:validate
+pnpm art:runtime-references:check
+pnpm art:blender:check
+pnpm art:binaries:check
+```
+
+`art:runtime-references:check` cruza todos los PNG de `apps/web/public/assets/runtime/` con los
+manifiestos generados: exige igualdad de conjuntos, hashes correctos y rechaza los IDs retirados
+`vf_town_hall_1006*` y `qa_mini_*`.
+
 **Definition of Done para entregar un building**
 
 ```text

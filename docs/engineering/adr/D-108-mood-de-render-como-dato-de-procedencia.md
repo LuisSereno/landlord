@@ -97,8 +97,9 @@ sólo se versiona el marcador y el manifiesto.
    cuatro entradas y sus dos salidas byte-idénticas a HEAD. `art:staging:validate` reclama 7 fuentes
    `src_original_*` con procedencia incompleta y el PNG de spike irrecuperable desde la limpieza del
    2026-11-04.
-3. **24 PNG huérfanos** `vf_town_hall_1006*` (59,0 MB) en `variants/`, sin referencia de manifiesto ni
-   de código, pendientes de la decisión de borrado.
+3. **24 PNG huérfanos `vf_town_hall_1006*` retirados** el 2026-11-25. La guarda
+   `art:runtime-references:check` confirma 0 archivos runtime sin referencia; ver
+   `docs/execution/phase-4/catalog-closure/01-retirement-ledger.md`.
 
 ## Implementación
 

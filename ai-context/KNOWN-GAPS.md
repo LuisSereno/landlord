@@ -136,12 +136,12 @@ Sigue abierto:
 
 ## Servicios públicos
 
-Implementado en WP4.5/WP4.6, V.d.3, V.d.5 y V.d-H1: administración, seguridad, transporte y limpieza;
-equipamientos municipales físicos (14 por ciudad, con su parcela y sus edificios) operados por el
-ayuntamiento; cobertura de seguridad y transporte calculada por grafo de viaje con gateways, demanda
-asignada a la facility alcanzable de menor coste y capacidad efectiva modulada por presupuesto; desde
-H1-05 un equipamiento sin edificio operacional aporta capacidad 0, y desde H1-06 la limpieza —única
-excepción radial declarada— se calcula por distrito.
+Implementado en WP4.5/WP4.6, V.d.3, V.d.5, V.d-H1 y D-112: administración, seguridad, transporte y
+limpieza; equipamientos municipales físicos (15 por ciudad, con su parcela y sus edificios) operados
+por el ayuntamiento; cobertura de seguridad y transporte calculada por grafo de viaje con gateways,
+demanda asignada a la facility alcanzable de menor coste y capacidad efectiva modulada por presupuesto;
+desde H1-05 un equipamiento sin edificio operacional aporta capacidad 0. La limpieza —única excepción
+radial declarada— se calcula por distrito y un depósito operativo suma 6 celdas de radio.
 
 Sigue abierto:
 - **escala del programa municipal:** 14 equipamientos para ~709 parcelas comercializables deja 100
@@ -404,8 +404,9 @@ Sigue abierto:
   byte-idénticas a HEAD: el informe está desfasado respecto al catálogo actual, no lo empeoró esta fase.
 - **`art:staging:validate` rojo** por 7 fuentes `src_original_*` con procedencia incompleta y el PNG de
   spike irrecuperable desde la limpieza del 2026-11-04. Heredado de V.j.2 y V.e.
-- **24 PNG huérfanos** `vf_town_hall_1006*` (59,0 MB) en `variants/`, sin referencia de manifiesto ni de
-  código. Pendientes de la decisión de borrado del responsable; no se elimina nada por iniciativa propia.
+- **24 PNG huérfanos `vf_town_hall_1006*` retirados** el 2026-11-25, junto con otros 630 PNG de
+  variantes runtime sin referencia. La guarda `art:runtime-references:check` queda en 1.173 referencias,
+  1.173 archivos y 0 huérfanos.
 - **Los candidatos de `docs/art/quality-vj/batch-day/` viven fuera de Git** (1,3 GB) por la convención
   de storage del 2026-11-09: sólo se versiona el marcador. Su reproductibilidad exige conservar el lote
   en disco: rehacer el diurno desde cero vuelve a costar ≈560 min de compositor (360 celdas).
@@ -427,9 +428,9 @@ Sigue abierto:
   merged 2) fallaban ya en `2018fbd`. Las fixtures de distrito/ciudad y los diez digestos dorados sí
   se regeneraron por medición en D-109 (generador v4 + mercado manual); arrastraban BASELINE DEBT
   desde V.e (2026-11-03).
-- **Huérfanos de town_hall.** La promoción D-109 sustituye las variantes de town_hall por las de
-  huella 5×3; los `vf_town_hall_1006*` de `variants/` siguen pendientes de la decisión de borrado
-  del responsable, ahora con más razón. No se elimina nada por iniciativa propia.
+- **Huérfanos de town_hall cerrados.** La promoción D-109 sustituyó las variantes por la huella 5×3;
+  los 24 `vf_town_hall_1006*` de `variants/` se retiraron el 2026-11-25 y la guarda de referencias
+  runtime confirma 0 huérfanos.
 
 ## Rendimiento y Alpha
 

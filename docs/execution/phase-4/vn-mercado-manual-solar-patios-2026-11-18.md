@@ -94,5 +94,5 @@ Medidos en worktree limpio en `2018fbd` (base commiteada):
 
 - Playtest humano de V.d (checklist en el repo).
 - Orientación física de dominio sin frames laterales (P2, D-094 §7).
-- Huérfanos `vf_town_hall_1006*` en `variants/` (borrado decide el responsable).
+- Huérfanos `vf_town_hall_1006*` retirados el 2026-11-25; la guarda runtime confirma 0 huérfanos.
 - Siete fuentes `src_original_*` heredadas con procedencia incompleta y PNG de spike irrecuperable.

@@ -27,8 +27,10 @@ obra en proceso visible con cuadrillas y recinto derivados.
 ## Arte
 
 - [Building Catalog](art/BUILDING-CATALOG.md) — catálogo de tipos de dominio y evidencia de geometría.
-- [Organization Headquarters](art/organization-headquarters/README.md) — sedes, identidad visual y gate de procedencia.
 - [Organization Headquarters](art/organization-headquarters/README.md) — contrato operativo, identidades visuales y gate de procedencia para las dos mansiones.
+- [Catalog closure inventory](execution/phase-4/catalog-closure/00-inventory-2026-11-25.md) — inventario verificable de personajes, edificios y descartes antes de producir o promover.
+- [Asset retirement ledger](execution/phase-4/catalog-closure/01-retirement-ledger.md) — IDs, motivos y commit de retirada del arte descartado.
+- [Municipal cleaning depot](execution/phase-4/catalog-closure/02-cleaning-depot.md) — contrato, cobertura, persistencia y medición del depósito municipal.
 - [World Visual Foundation](art/WORLD-VISUAL-FOUNDATION.md) — WP4.15-V.h: Asset Knowledge Base, catálogos semánticos y dressing contextual determinista para la ciudad completa.
 - [World Asset Audit](asset-library/world-asset-audit.md) — auditoría total de fuentes (discovered/indexed/classified/runtime-ready/excluded).
 - [World Asset Dictionary](asset-library/world-asset-dictionary.md) — vocabulario del índice: estados, categorías, taxonomías de vehículo/actor/clip, procedencia.
@@ -178,6 +180,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - `docs/engineering/adr/D-109-mercado-manual-solar-y-patios.md` — mercado de inquilinos manual con vigencia de seis meses, solar reservado (`siteFootprint`/`siteCells`) separado de la huella física en los seis equipamientos (enmienda explícita a D-099 para town_hall V7), patios con vehículo temático y props originales, y fauna urbana/periférica determinista.
 - `docs/engineering/adr/D-110-sedes-operativas-y-contrato-v3.md` — headquarters por organización, regreso de agentes y contrato v3 sin migración de saves v2.
 - `docs/engineering/adr/D-111-direccion-visual-maqueta-material.md` — nueva dirección visual, pilotos del Composer y guardas para promover cambios.
+- `docs/engineering/adr/D-112-deposito-municipal-limpieza.md` — depósito municipal configurable, +6 celdas de radio, baseline sin depósito y compatibilidad SnapshotV3.
 
 ## Benchmark morfológico
 - `tools/urban-benchmark/README.md` — herramienta offline (OSMnx fijado por versión), las 28 ventanas de

@@ -40,8 +40,9 @@ Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJ
 
 ## Edificios y solar
 
-- Los 15 BuildingTypes tienen política `runtime_exact`; los assets legacy `bld_*` no son ruta de
-  gameplay.
+- Hay 17 BuildingTypes: 15 con política `runtime_exact`, `headquarters` con dos variantes Composer
+  pendientes de revisión y `cleaning_depot` con fallback semántico. Los assets legacy `bld_*` no son
+  ruta de gameplay.
 - Un complejo multi-parcela conserva `parcelIds` canónicos: permisos, ruina, venta, colateral,
   snapshot y proyección usan el conjunto completo.
 - Si `siteRequirements.requiredParcels > 1`, cada candidata legal ocupa físicamente cada parcela
@@ -52,6 +53,8 @@ Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJ
 - Producción, alquileres, deuda, impuestos, mantenimiento, seguros, servicios, mercado de vivienda
   y empleo agregado, IA rival, facciones, reputación, política municipal y automatización.
 - Facilities recorren el grafo vial; la cobertura se deriva de edificio operacional y capacidad.
+- La limpieza sigue siendo radial por distrito; un depósito municipal operativo suma 6 celdas de
+  radio y el baseline sin depósito permanece exacto (D-112).
 - Snapshots V3, canonicalización y digests protegen determinismo; v2 no tiene migración.
 
 ## Hardening de integración (2026-11-12, rama wip/vh-world-visual-foundation)

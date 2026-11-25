@@ -128,8 +128,9 @@ revisión visual del responsable (§35).
   PASS para no confundir Integración de modelo con Render de píxeles.
 - Performance (§26): `docs/art/world-visual-foundation/performance.json` (atlas 69→81→161→163→166 imágenes,
   3→9 vehículos, 2726 objetos presentacionales en 8 capas, 551→292 ms generar 9 distritos).
-- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099). Por elección del responsable,
-  `vf_town_hall_1006` es el `town_hall` runtime; `vf_town_hall_1002` se conserva como `school_block`.
+- town_hall V7 + plaza cívica = APPROVED BASELINE (no rediseñar; D-099). En V.h se eligió
+  `vf_town_hall_1006` para `town_hall`; D-109 lo sustituyó por `vf_town_hall_1000` con huella 5×3.
+  `vf_town_hall_1002` se conserva como `school_block`.
   Ambas promociones pasan por `runtime-promotions.json` → `build-blender-assets.mjs --promote-approved`,
   con estado `complete` exacto, fallback procedural para los demás estados, footprint/dominio 8×4,
   orientación 45°, Graphic Civic, provenance y hash verificables.
@@ -155,9 +156,10 @@ revisión visual del responsable (§35).
   9.372.434 B, `attempts/` fuera del índice Git y excepciones nombradas para la evidencia QA >1 MiB
   (`pnpm art:binaries:check` verde). La palanca si aprieta sigue siendo bajar la resolución de RENDER
   en el compositor (origen determinista), no post-procesar.
-- Política semántica 15/15 BuildingTypes: cada tipo declara runtime Blender exacto / archetype
+- Política semántica V.i 15/15 BuildingTypes: cada tipo declaraba runtime Blender exacto / archetype
   compatible / fallback procedural semántico; nunca fallback equivocado (almacén→almacén, no
-  residencial). Estructural `blender-assets`/`building-sprites` lo verifica.
+  residencial). El catálogo actual tiene 17 tipos: se añadieron `headquarters` y `cleaning_depot`.
+  Estructural `blender-assets`/`building-sprites` lo verifica.
 - **V.h.11 (segunda pasada, 2026-11-06):** actores del juego = avatares **Microsoft Rocketbox**
   horneados con retarget de clips idle/walk (chr_citizen/police/medical/firefighter/worker, 5/8
   clases); contextActors profesionales por colocación con `curbEdge`/`lateralOffset` (fuera de la
@@ -220,8 +222,8 @@ el runtime (`apps/web/src/generated/runtime-building-variants.json`).
   de mutación, geometría 300/300, `check_style_layer.py`, `check_rendered_value_ladder.py`, web 381
   passed / 4 skipped, shared 80, typechecks, `check:architecture`, prettier, `git diff --check`.
 - **No cierra**: el selector Día/Noche sigue sin tocar los sprites (decisión de contrato de
-  presentación, D-108 §Lo que no cierra), los tres gates de arte rojos preexistentes y los 24 PNG
-  huérfanos `vf_town_hall_1006*`. Detalle en KNOWN-GAPS.md.
+  presentación, D-108 §Lo que no cierra) y los tres gates de arte rojos preexistentes. Los 24 PNG
+  huérfanos `vf_town_hall_1006*` se retiraron el 2026-11-25. Detalle en KNOWN-GAPS.md.
 
 ## WP4.15-V.k — Cuadrillas como personas (2026-11-09, empujado `9bd4e94..3a32240`)
 
@@ -1061,3 +1063,21 @@ balcón y una puerta doble Quaternius seleccionados para una receta experimental
 la nueva silueta usa cubierta plana. Sigue pendiente
 la revisión visual humana y no se promueve ningún sprite al runtime. Inventario y pruebas en
 `docs/art/new-assets-integration/`.
+
+## Cierre de catálogo previo a WP4.16 (2026-11-25)
+
+- Inventario congelado en `docs/execution/phase-4/catalog-closure/00-inventory-2026-11-25.md`:
+  14 personajes definidos, 5 prototipos Kenney y 9 sin producir; 15 edificios runtime y dos sedes
+  Composer sin promover.
+- Depuración local commits `51f3260` y `116b6e0`: 642 archivos versionados retirados, 24 PNG
+  `vf_town_hall_1006*` y otros 630 PNG runtime huérfanos borrados, jobs `qa_mini_*` retirados. La
+  guarda `art:runtime-references:check` pasa 1.173/1.173 archivos, 0 ausentes, 0 huérfanos y 0 hashes
+  divergentes.
+- D-CHAR-01…06 fija Kenney como familia canónica, 34 px/zoom 1× como referencia provisional y la
+  aprobación humana antes de runtime. El catálogo generado pasa a declarar 14/14.
+- D-112 implementa `cleaning_depot`: municipal, 3×1, solar 4×2, +6 celdas de radio local, máximo 36,
+  baseline sin depósito exacto y SnapshotV3 compatible. Commit local `f7f628e`; 60/60 pruebas
+  focalizadas verdes. Generador v5 y fixtures medidas en 12 ciudades/12 distritos/10 digestos.
+- El estado de `headquarters_cupola`, `headquarters_courtyard`, los 14 sprites Kenney y el arte
+  Composer del depósito sigue separado entre validación técnica, revisión visual humana y promoción
+  runtime. El playtest humano V.d permanece `PENDING HUMAN PLAYTEST`.

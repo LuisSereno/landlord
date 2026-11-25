@@ -1,16 +1,31 @@
 # Character Factory
 
-V.e.4 define una factoría offline para 13 presentaciones canónicas. El manifiesto declara cuerpo,
-pelo, ropa, paleta y prop por rol; no introduce esos roles en simulación.
+La factoría define **14 presentaciones canónicas**: 6 operativas y 8 ambientales/contextuales. No
+introduce roles nuevos en simulación; los cuatro specialties operativos siguen siendo
+`supervisor`, `construction_worker`, `maintenance_technician` y `enforcer`.
 
-`idle` y `walk` siguen siendo las únicas animaciones obligatorias del runtime, a cuatro direcciones.
-`work`, `repair`, `carry`, `inspect`, `sit`, `panic` y `sabotage/action` son candidatos
-`showcase-only` para retarget desde Universal Animation Library 1/2.
+## Familia y contrato
 
-La selección de fuente es por rol: Quaternius es la base primaria por legibilidad y fiabilidad de
-ingesta; Rocketbox queda como fuente secundaria para ropa/referencia hasta cerrar su remapeo de
-texturas. No se declara ganador un pack completo.
+- Familia de producción: **Kenney Mini Characters (CC0)**.
+- Rocketbox queda como runtime legado hasta que una promoción humana apruebe los sprites Kenney.
+- Animaciones runtime: `idle` y `walk`, cuatro direcciones.
+- `work`, `repair`, `carry`, `inspect`, `sit`, `panic` y `sabotage_action` siguen siendo candidatos
+  showcase-only.
+- Escala/pivote, hashes, procedencia y presupuesto se validan antes de cualquier promoción.
+
+## Estado del cierre
+
+Los cinco prototipos Kenney existentes son `construction_worker_a`, `supervisor`, `enforcer_male`,
+`police` y `firefighter`. Los nueve restantes se producen en WP-CHAR-04. La validación técnica no
+equivale a aprobación artística: el estado humano permanece explícito en el manifiesto.
 
 ```bash
 pnpm art:character-factory:validate
+node scripts/validate-character-factory.mjs --self-test
+node tools/art-pipeline/blender/characters/validate_character_catalog_coherence.mjs
+pnpm art:catalog:generate
+pnpm art:catalog:check
 ```
+
+El catálogo generado declara 14/14 definiciones y no presenta candidatos como sprites runtime
+aprobados.

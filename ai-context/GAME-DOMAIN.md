@@ -64,6 +64,14 @@ impuestos y frente. Su `orientation ∈ {0, 90, 180, 270}` es la rotación físi
 del sólido dentro de la parcela —no el azimut de cámara—, y hasta que el arte tenga frames
 laterales no se representa visualmente (D-094 §7, deuda P2 declarada).
 
+### Depósito municipal de limpieza
+
+`cleaning_depot` es un edificio municipal de huella 3×1 y solar 4×2. No genera renta ni capacidad.
+Cada ejemplar operativo propiedad del municipio añade 6 celdas al radio radial de limpieza de su
+distrito, con máximo 36. La limpieza básica sigue funcionando sin depósitos y el bonus no afecta a
+transporte o seguridad. SnapshotV3 no cambia; una partida anterior sin depósito conserva el
+comportamiento básico (D-112).
+
 ### ConstructionSite
 Obra en curso sobre el mismo conjunto exacto de parcelas (`parcelIds`) y el mismo distrito. Desde
 V.d-7C su `footprintCells` y su `orientation` son la colocación que el jugador eligió entre las

@@ -211,8 +211,8 @@ Sigue abierto:
 ## Arte (WP4.15)
 - Los assets de Alpha son placeholders procedurales (SVG en data URI); el arte final Blender usa el
   mismo contrato `RuntimeAssetManifestV1` pero no se ejecuta en CI ni se versionan binarios.
-- Los personajes se animan y comparan 4 vs 8 direcciones en el Art Lab, pero la escena jugable
-  conserva el blitter de agentes hasta que exista un LOD de personaje medido.
+- WP-CHAR-04 completó smoke Kenney 14/14 roles y 28/28 frames; faltan revisión humana, batch 504,
+  comparación B/D densa y promoción. La escena jugable conserva el runtime legado hasta ese gate.
 - Estrategia de atlas: una textura por frame SVG en runtime para Alpha; el atlas raster final exige
   decidir almacenamiento (LFS) y empaquetado.
 - La comparación visual estricta contra el baseline SHA-256 es opt-in; el antialiasing puede variar

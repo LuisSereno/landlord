@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-25-smoke-06",
+  "role": "medical_professional",
+  "canonicalId": "medical_professional",
+  "stage": "smoke",
+  "direction": 0,
+  "animation": "idle",
+  "sampleIndex": 0,
+  "actionFrame": 0,
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-e.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-e.glb",
+    "sha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6",
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "a0585324206ed2fa4ddbd23a59a5c289ae40ca903edeed1b116fc6331b099dd7"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "declaredAccessoryOrder": [
+    "medical_bag"
+  ],
+  "accessoryObjectCount": 3,
+  "accessories": [
+    {
+      "name": "wp04_medical_bag",
+      "type": "medical_bag",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.18,
+        0.1,
+        0.2
+      ],
+      "boundsMeters": {
+        "min": [
+          0.4477,
+          -0.18708,
+          0.779643
+        ],
+        "max": [
+          0.6277,
+          -0.08708,
+          0.979643
+        ]
+      },
+      "widthToHeadRatio": 0.157987
+    },
+    {
+      "name": "wp04_medical_bag_trim",
+      "type": "medical_bag",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.035,
+        0.012,
+        0.16
+      ],
+      "boundsMeters": {
+        "min": [
+          0.5202,
+          -0.19508,
+          0.799643
+        ],
+        "max": [
+          0.5552,
+          -0.18308,
+          0.959643
+        ]
+      },
+      "widthToHeadRatio": 0.03072
+    },
+    {
+      "name": "wp04_medical_bag_handle",
+      "type": "medical_bag",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.118,
+        0.0767,
+        0.015588
+      ],
+      "boundsMeters": {
+        "min": [
+          0.4787,
+          -0.17543,
+          0.976849
+        ],
+        "max": [
+          0.5967,
+          -0.09873,
+          0.992437
+        ]
+      },
+      "widthToHeadRatio": 0.10357
+    }
+  ],
+  "maxAccessoryDrift": 5.960464477539063e-08,
+  "skinnedClothing": null,
+  "geometryChanges": [],
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "cameraBounds": {
+    "minX": 0.145056,
+    "maxX": 0.74359,
+    "minY": 0.039777,
+    "maxY": 0.8743,
+    "clipped": false
+  },
+  "ground": {
+    "minZ": 0.0,
+    "groundingOffsetMeters": -0.0,
+    "toleranceMeters": 1e-06
+  },
+  "output": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/medical_professional/medical_professional-d0-idle-00.png",
+    "sha256": "6fc529134f817b0422eb6cab0bc79002db389a06f94ccba6cec699f5df1f2347",
+    "width": 512,
+    "height": 512
+  },
+  "metadata": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/medical_professional/medical_professional-prototype.json",
+    "sha256": "afc510164c3a765b112e453062f1dbb1ceda06245031647b7eddadaf61d7a569"
+  },
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false
+}

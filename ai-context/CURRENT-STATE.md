@@ -48,6 +48,13 @@ Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJ
 - Si `siteRequirements.requiredParcels > 1`, cada candidata legal ocupa físicamente cada parcela
   requerida. UI, IA y autoplacement consumen el mismo enumerador.
 
+## Personajes
+
+- Catálogo canónico: 14 variantes Kenney; WP-CHAR-04 completó smoke 14/14 roles y 28/28 frames con
+  1.528 comprobaciones, 0 errores y 0 advertencias.
+- El batch de 504 frames, la comparación B/D en ciudad densa y la promoción runtime siguen
+  pendientes de revisión visual humana. Rocketbox es runtime legado, no la fuente de nueva producción.
+
 ## Sistemas implementados
 
 - Producción, alquileres, deuda, impuestos, mantenimiento, seguros, servicios, mercado de vivienda

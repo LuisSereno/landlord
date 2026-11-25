@@ -1,0 +1,587 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_technical_complete_pending_human_review",
+  "stage": "smoke",
+  "pipelineVersion": "1.0.0",
+  "revision": "wp-char-04-smoke-1",
+  "runId": "2026-11-25-smoke-06",
+  "role": "civilian_female_a",
+  "canonicalId": "civilian_female_a",
+  "worktree": "/home/luis/RepositorioGitHub/landlord",
+  "branch": "wip/organization-headquarters",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-b.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-b.glb",
+    "sha256": "3a0e6c3e431ae9d2016c2c9a91ec3abe8bb45243016a5cae80cbde0b61f8f2a9",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "coverage": "DIRECT",
+  "technicalCorrection": "WP-CHAR-02B direct base; preserve source atlas and silhouette.",
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.4185,
+      "height": 0.7234,
+      "minZ": 0.0
+    },
+    "importScale": 2.48841104669843,
+    "importOffset": [
+      -0.0,
+      -0.004,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-female-b",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 1.909,
+      "depth": 1.0415,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.48841105,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "bodyMaterials": {
+    "mode": "source_atlas",
+    "polygonCounts": {
+      "original": 450
+    },
+    "materials": {}
+  },
+  "headMaterials": {
+    "mode": "source_atlas",
+    "modifiedComponents": [],
+    "material": null,
+    "removedComponents": [],
+    "removedPolygonCount": 0,
+    "geometryChanges": []
+  },
+  "geometryChanges": [],
+  "skinnedClothing": null,
+  "accessories": [],
+  "declaredAccessoryOrder": [],
+  "anchors": [],
+  "maxAccessoryDrift": 0.0,
+  "rig": {
+    "armature": "character-female-b",
+    "bones": 7,
+    "boneNames": [
+      "root",
+      "leg-left",
+      "leg-right",
+      "torso",
+      "arm-left",
+      "arm-right",
+      "head"
+    ],
+    "actions": 32
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "frameRange": [
+        0.0,
+        32.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 16,
+      "keyframeCount": 640,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 32.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": []
+    },
+    "walk": {
+      "name": "walk",
+      "frameRange": [
+        0.0,
+        16.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 27,
+      "keyframeCount": 540,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 16.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": [
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 0,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 1,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 2,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    "walkFrames": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "headDimensionsMeters": [
+    1.18196,
+    1.041455,
+    0.945854
+  ],
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "a0585324206ed2fa4ddbd23a59a5c289ae40ca903edeed1b116fc6331b099dd7"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false,
+  "visualRisks": [
+    "Civilian C/D distinction is base-model dependent."
+  ],
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-female-b",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.004037,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.652307,
+        1.041455,
+        1.8
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.189949,
+        "maxX": 0.801202,
+        "minY": 0.058962,
+        "maxY": 0.928637,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/civilian_female_a/civilian_female_a-d0-idle-00.png",
+        "sha256": "07b7e7156415558d6fa6a984d330e31fd789f3a4ff17e84936d93e4e882e9e92",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.004037,
+            -0.0
+          ],
+          "tail": [
+            0.0,
+            -0.004037,
+            0.444379
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.207959,
+            0.067505,
+            0.438582
+          ],
+          "tail": [
+            0.207959,
+            0.067505,
+            0.882961
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.207959,
+            0.067505,
+            0.438582
+          ],
+          "tail": [
+            -0.207959,
+            0.067505,
+            0.882961
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            0.067505,
+            0.438582
+          ],
+          "tail": [
+            -0.0,
+            0.067505,
+            0.812207
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.248584,
+            0.038888,
+            0.71604
+          ],
+          "tail": [
+            0.512777,
+            0.038888,
+            0.980233
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.248584,
+            0.038888,
+            0.71604
+          ],
+          "tail": [
+            -0.512777,
+            0.038888,
+            0.980233
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            0.001839,
+            0.854147
+          ],
+          "tail": [
+            0.0,
+            0.001839,
+            1.227772
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/civilian_female_a/civilian_female_a-d0-idle-00.composition.json",
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-female-b",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.004037,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.06569,
+      "worldSizeMeters": [
+        1.652307,
+        1.041455,
+        1.86569
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.189949,
+        "maxX": 0.801202,
+        "minY": 0.079752,
+        "maxY": 0.953371,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/civilian_female_a/civilian_female_a-d0-walk-04.png",
+        "sha256": "f20501bc4115d51e30378486d8ab838334abe5faae8ace5d3ef99d4b5a090083",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.004037,
+            0.06569
+          ],
+          "tail": [
+            0.0,
+            -0.004037,
+            0.510069
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.207959,
+            0.067505,
+            0.504272
+          ],
+          "tail": [
+            0.207959,
+            -0.039398,
+            0.935601
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.207959,
+            0.067505,
+            0.504272
+          ],
+          "tail": [
+            -0.207959,
+            0.174408,
+            0.935601
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            0.067505,
+            0.504272
+          ],
+          "tail": [
+            -0.0,
+            0.067505,
+            0.877898
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.248584,
+            0.038888,
+            0.78173
+          ],
+          "tail": [
+            0.512777,
+            0.038888,
+            1.045923
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.248584,
+            0.038888,
+            0.78173
+          ],
+          "tail": [
+            -0.512777,
+            0.038888,
+            1.045923
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            0.001839,
+            0.919837
+          ],
+          "tail": [
+            0.0,
+            0.001839,
+            1.293462
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/civilian_female_a/civilian_female_a-d0-walk-04.composition.json",
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

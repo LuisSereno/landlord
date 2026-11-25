@@ -1,0 +1,926 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_technical_complete_pending_human_review",
+  "stage": "smoke",
+  "pipelineVersion": "1.0.0",
+  "revision": "wp-char-04-smoke-1",
+  "runId": "2026-11-25-smoke-06",
+  "role": "firefighter",
+  "canonicalId": "firefighter",
+  "worktree": "/home/luis/RepositorioGitHub/landlord",
+  "branch": "wip/organization-headquarters",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+    "sha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "coverage": "MESH_ADAPTATION",
+  "technicalCorrection": "WP-CHAR-02C/03: clean-shaven male-a base, remove glasses component 2, ten-sided fire helmet, tilted rear flap and wide reflective bands.",
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.34,
+      "height": 0.6713,
+      "minZ": 0.0
+    },
+    "importScale": 2.6812652062293827,
+    "importOffset": [
+      -0.0,
+      -0.0063,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-male-a",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 2.057,
+      "depth": 0.9116,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.68126521,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "bodyMaterials": {
+    "mode": "solid_local_regions",
+    "method": "Assign local solid materials to existing skinned polygons by dominant vertex group and manifest height bands.",
+    "groupRanges": {
+      "torso": [
+        0.17625,
+        0.34325
+      ],
+      "arm-left": [
+        0.20725,
+        0.36825
+      ],
+      "arm-right": [
+        0.20725,
+        0.36825
+      ],
+      "leg-left": [
+        0.0,
+        0.20125
+      ],
+      "leg-right": [
+        0.0,
+        0.20125
+      ]
+    },
+    "polygonCounts": {
+      "original": 0,
+      "torso": 43,
+      "arms": 89,
+      "legs": 186,
+      "boots": 86,
+      "reflective": 61,
+      "gloves": 33
+    },
+    "materials": {
+      "torso": "wp04_firefighter_torso",
+      "arms": "wp04_firefighter_arms",
+      "legs": "wp04_firefighter_legs",
+      "boots": "wp04_firefighter_boots",
+      "reflective": "wp04_firefighter_reflective",
+      "gloves": "wp04_firefighter_gloves"
+    }
+  },
+  "headMaterials": {
+    "mode": "local_material_and_component_correction",
+    "modifiedComponents": [
+      {
+        "component": 0,
+        "polygons": 77,
+        "vertices": 127,
+        "dominantGroups": {
+          "null": 77
+        },
+        "localBounds": {
+          "min": [
+            -0.17,
+            -0.167639,
+            0.39325
+          ],
+          "max": [
+            0.17,
+            0.172361,
+            0.671325
+          ]
+        }
+      }
+    ],
+    "material": "wp04_firefighter_hair",
+    "removedComponents": [
+      2
+    ],
+    "removedPolygonCount": 52,
+    "geometryChanges": [
+      {
+        "mesh": "head-mesh",
+        "operation": "delete_local_components",
+        "components": [
+          2
+        ],
+        "polygons": 52,
+        "componentEvidence": [
+          {
+            "component": 2,
+            "polygons": 52,
+            "vertices": 82,
+            "dominantGroups": {
+              "null": 52
+            },
+            "localBounds": {
+              "min": [
+                -0.166583,
+                -0.164605,
+                0.435273
+              ],
+              "max": [
+                0.163417,
+                0.018986,
+                0.531093
+              ]
+            }
+          }
+        ],
+        "sourceModified": false
+      }
+    ]
+  },
+  "geometryChanges": [
+    {
+      "mesh": "head-mesh",
+      "operation": "delete_local_components",
+      "components": [
+        2
+      ],
+      "polygons": 52,
+      "componentEvidence": [
+        {
+          "component": 2,
+          "polygons": 52,
+          "vertices": 82,
+          "dominantGroups": {
+            "null": 52
+          },
+          "localBounds": {
+            "min": [
+              -0.166583,
+              -0.164605,
+              0.435273
+            ],
+            "max": [
+              0.163417,
+              0.018986,
+              0.531093
+            ]
+          }
+        }
+      ],
+      "sourceModified": false
+    }
+  ],
+  "skinnedClothing": null,
+  "accessories": [
+    {
+      "name": "wp04_firefighter_helmet_crown",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.94039,
+        0.985545,
+        0.25
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.470195,
+          -0.492772,
+          1.655
+        ],
+        "max": [
+          0.470195,
+          0.492772,
+          1.905
+        ]
+      },
+      "widthToHeadRatio": 0.773373
+    },
+    {
+      "name": "wp04_firefighter_helmet_brim",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        1.12,
+        1.12,
+        0.06
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.56,
+          -0.56,
+          1.59
+        ],
+        "max": [
+          0.56,
+          0.56,
+          1.65
+        ]
+      },
+      "widthToHeadRatio": 0.921084
+    },
+    {
+      "name": "wp04_firefighter_helmet_visor",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.58,
+        0.22,
+        0.05
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.29,
+          -0.51,
+          1.605
+        ],
+        "max": [
+          0.29,
+          -0.29,
+          1.655
+        ]
+      },
+      "widthToHeadRatio": 0.47699
+    },
+    {
+      "name": "wp04_firefighter_helmet_rear_flap",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.56,
+        0.120532,
+        0.200787
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.28,
+          0.299734,
+          1.604607
+        ],
+        "max": [
+          0.28,
+          0.420266,
+          1.805393
+        ]
+      },
+      "widthToHeadRatio": 0.460542
+    },
+    {
+      "name": "wp04_firefighter_helmet_front_shield",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.22,
+        0.04,
+        0.16
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.11,
+          -0.425,
+          1.735
+        ],
+        "max": [
+          0.11,
+          -0.385,
+          1.895
+        ]
+      },
+      "widthToHeadRatio": 0.180927
+    },
+    {
+      "name": "wp04_firefighter_helmet_crest",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.06,
+        0.36,
+        0.05
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.03,
+          -0.18,
+          1.9
+        ],
+        "max": [
+          0.03,
+          0.18,
+          1.95
+        ]
+      },
+      "widthToHeadRatio": 0.049344
+    },
+    {
+      "name": "wp04_firefighter_belt",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.728,
+        0.507,
+        0.045466
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.364,
+          -0.182745,
+          0.867421
+        ],
+        "max": [
+          0.364,
+          0.324255,
+          0.912887
+        ]
+      },
+      "widthToHeadRatio": 0.598705
+    },
+    {
+      "name": "wp04_firefighter_belt_buckle",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.075,
+        0.025,
+        0.055
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.0375,
+          -0.176745,
+          0.862654
+        ],
+        "max": [
+          0.0375,
+          -0.151745,
+          0.917654
+        ]
+      },
+      "widthToHeadRatio": 0.06168
+    }
+  ],
+  "declaredAccessoryOrder": [
+    "fire_helmet_v2",
+    "belt"
+  ],
+  "anchors": [
+    "head",
+    "torso"
+  ],
+  "maxAccessoryDrift": 1.4901161193847656e-07,
+  "rig": {
+    "armature": "character-male-a",
+    "bones": 7,
+    "boneNames": [
+      "root",
+      "leg-left",
+      "leg-right",
+      "torso",
+      "arm-left",
+      "arm-right",
+      "head"
+    ],
+    "actions": 32
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "frameRange": [
+        0.0,
+        32.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 16,
+      "keyframeCount": 640,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 32.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": []
+    },
+    "walk": {
+      "name": "walk",
+      "frameRange": [
+        0.0,
+        16.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 27,
+      "keyframeCount": 540,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 16.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": [
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 0,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 1,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 2,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    "walkFrames": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "headDimensionsMeters": [
+    1.215958,
+    0.91163,
+    0.879657
+  ],
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "a0585324206ed2fa4ddbd23a59a5c289ae40ca903edeed1b116fc6331b099dd7"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false,
+  "visualRisks": [
+    "Helmet/reflective identity needs human review at 28/34 px.",
+    "Single idle pose; no full idle cycle."
+  ],
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-male-a",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.006331,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.780363,
+        1.12,
+        1.95
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.16531,
+        "maxX": 0.766575,
+        "minY": 0.052199,
+        "maxY": 0.94301,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/firefighter/firefighter-d0-idle-00.png",
+        "sha256": "f428469dfb4d87a103076e6c9510b9cc63ca603f5a3e96de0303ef316a86b342",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.006331,
+            -0.0
+          ],
+          "tail": [
+            0.0,
+            -0.006331,
+            0.478819
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.224076,
+            0.070755,
+            0.472573
+          ],
+          "tail": [
+            0.224076,
+            0.070755,
+            0.951391
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.224076,
+            0.070755,
+            0.472573
+          ],
+          "tail": [
+            -0.224076,
+            0.070755,
+            0.951391
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            0.070755,
+            0.472573
+          ],
+          "tail": [
+            -0.0,
+            0.070755,
+            0.875154
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.26785,
+            0.039921,
+            0.771534
+          ],
+          "tail": [
+            0.552518,
+            0.039921,
+            1.056202
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.26785,
+            0.039921,
+            0.771534
+          ],
+          "tail": [
+            -0.552518,
+            0.039921,
+            1.056202
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            -0.0,
+            0.920344
+          ],
+          "tail": [
+            0.0,
+            -0.0,
+            1.322926
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/firefighter/firefighter-d0-idle-00.composition.json",
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-male-a",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.006331,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.070781,
+      "worldSizeMeters": [
+        1.780363,
+        1.12,
+        2.020781
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.16531,
+        "maxX": 0.766575,
+        "minY": 0.0746,
+        "maxY": 0.969662,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/firefighter/firefighter-d0-walk-04.png",
+        "sha256": "446f0c662914f5574e21a75988801d4d53d9a24b54b3720c1a2cb1e8f986df46",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.006331,
+            0.070781
+          ],
+          "tail": [
+            0.0,
+            -0.006331,
+            0.5496
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.224076,
+            0.070755,
+            0.543354
+          ],
+          "tail": [
+            0.224076,
+            -0.044433,
+            1.008111
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.224076,
+            0.070755,
+            0.543354
+          ],
+          "tail": [
+            -0.224076,
+            0.185943,
+            1.008111
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            0.070755,
+            0.543354
+          ],
+          "tail": [
+            -0.0,
+            0.070755,
+            0.945935
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.26785,
+            0.039921,
+            0.842315
+          ],
+          "tail": [
+            0.552518,
+            0.039921,
+            1.126983
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.26785,
+            0.039921,
+            0.842315
+          ],
+          "tail": [
+            -0.552518,
+            0.039921,
+            1.126983
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            -0.0,
+            0.991125
+          ],
+          "tail": [
+            0.0,
+            -0.0,
+            1.393707
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/firefighter/firefighter-d0-walk-04.composition.json",
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

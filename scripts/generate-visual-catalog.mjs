@@ -13,6 +13,9 @@ const characters = JSON.parse(
 );
 const world = JSON.parse(readFileSync("blender_artist/manifests/world-asset-catalog.json", "utf8"));
 const evidence = JSON.parse(readFileSync("apps/web/src/generated/building-evidence.json", "utf8"));
+const characterCount = characters.characters.length;
+if (characterCount !== 14)
+  throw new Error(`Expected 14 canonical characters, received ${characterCount}`);
 const outputPath = "apps/web/src/generated/visual-catalog.json";
 const sha = (path) =>
   createHash("sha256")
@@ -51,11 +54,11 @@ const payload = {
   },
   world,
   coverage: {
-    buildings: `${buildings.length}/15`,
-    buildingStates: `${buildings.reduce((total, b) => total + Object.keys(b.states).length, 0)}/60`,
+    buildings: `${buildings.length}/${buildingCatalog.buildings.length}`,
+    buildingStates: `${buildings.reduce((total, b) => total + Object.keys(b.states).length, 0)}/${buildingCatalog.buildings.length * 6}`,
     stateConditioning: "pendiente: la geometría importada sólo renderiza complete",
-    characterDefinitions: `${characters.characters.length}/13`,
-    characterRenderedRoles: "0/13",
+    characterDefinitions: `${characterCount}/${characterCount}`,
+    characterRenderedRoles: `0/${characterCount}`,
     animationDefinitions: `${characters.runtimeAnimations.length + characters.showcaseAnimations.length}`,
     animationRenderedPreviews: "0/9",
     vehicles: `${world.vehicles.length}/6`,

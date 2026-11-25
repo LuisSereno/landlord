@@ -1,0 +1,849 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_technical_complete_pending_human_review",
+  "stage": "smoke",
+  "pipelineVersion": "1.0.0",
+  "revision": "wp-char-04-smoke-1",
+  "runId": "2026-11-25-smoke-06",
+  "role": "enforcer_male",
+  "canonicalId": "enforcer_male",
+  "worktree": "/home/luis/RepositorioGitHub/landlord",
+  "branch": "wip/organization-headquarters",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+    "sha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "coverage": "MINOR_ADAPTATION",
+  "technicalCorrection": "WP-CHAR-02C/03: raider base, remove ponytail component 1 and smile component 5, neutral mouth line, slate/charcoal regions and belt.",
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.5271,
+      "height": 0.7165,
+      "minZ": 0.0
+    },
+    "importScale": 2.512298930323798,
+    "importOffset": [
+      -0.0,
+      -0.1404,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-raider",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 1.9274,
+      "depth": 1.3241,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.51229893,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "bodyMaterials": {
+    "mode": "solid_local_regions",
+    "method": "Assign local solid materials to existing skinned polygons by dominant vertex group and manifest height bands.",
+    "groupRanges": {
+      "torso": [
+        0.123243,
+        0.356683
+      ],
+      "arm-left": [
+        0.20725,
+        0.36825
+      ],
+      "arm-right": [
+        0.20725,
+        0.36825
+      ],
+      "leg-left": [
+        0.0,
+        0.20125
+      ],
+      "leg-right": [
+        0.0,
+        0.20125
+      ]
+    },
+    "polygonCounts": {
+      "original": 39,
+      "torso": 102,
+      "arms": 165,
+      "legs": 172,
+      "boots": 68,
+      "shirt": 14
+    },
+    "materials": {
+      "torso": "wp04_enforcer_male_torso",
+      "arms": "wp04_enforcer_male_arms",
+      "legs": "wp04_enforcer_male_legs",
+      "boots": "wp04_enforcer_male_boots",
+      "shirt": "wp04_enforcer_male_shirt"
+    }
+  },
+  "headMaterials": {
+    "mode": "local_material_and_component_correction",
+    "modifiedComponents": [
+      {
+        "component": 0,
+        "polygons": 102,
+        "vertices": 180,
+        "dominantGroups": {
+          "null": 102
+        },
+        "localBounds": {
+          "min": [
+            -0.17,
+            -0.207639,
+            0.29325
+          ],
+          "max": [
+            0.17,
+            0.222361,
+            0.671325
+          ]
+        }
+      }
+    ],
+    "material": "wp04_enforcer_male_hair",
+    "removedComponents": [
+      1,
+      5
+    ],
+    "removedPolygonCount": 84,
+    "geometryChanges": [
+      {
+        "mesh": "head-mesh",
+        "operation": "delete_local_components",
+        "components": [
+          1,
+          5
+        ],
+        "polygons": 84,
+        "componentEvidence": [
+          {
+            "component": 1,
+            "polygons": 76,
+            "vertices": 140,
+            "dominantGroups": {
+              "null": 76
+            },
+            "localBounds": {
+              "min": [
+                -0.10512,
+                0.082361,
+                0.35428
+              ],
+              "max": [
+                0.10512,
+                0.319423,
+                0.716475
+              ]
+            }
+          },
+          {
+            "component": 5,
+            "polygons": 8,
+            "vertices": 10,
+            "dominantGroups": {
+              "null": 8
+            },
+            "localBounds": {
+              "min": [
+                -0.043302,
+                -0.159605,
+                0.401402
+              ],
+              "max": [
+                0.043162,
+                -0.159605,
+                0.44301
+              ]
+            }
+          }
+        ],
+        "sourceModified": false
+      },
+      {
+        "mesh": "head-mesh",
+        "operation": "replace_smile_with_neutral_mouth_line",
+        "component": 5,
+        "sourceModified": false
+      }
+    ]
+  },
+  "geometryChanges": [
+    {
+      "mesh": "head-mesh",
+      "operation": "delete_local_components",
+      "components": [
+        1,
+        5
+      ],
+      "polygons": 84,
+      "componentEvidence": [
+        {
+          "component": 1,
+          "polygons": 76,
+          "vertices": 140,
+          "dominantGroups": {
+            "null": 76
+          },
+          "localBounds": {
+            "min": [
+              -0.10512,
+              0.082361,
+              0.35428
+            ],
+            "max": [
+              0.10512,
+              0.319423,
+              0.716475
+            ]
+          }
+        },
+        {
+          "component": 5,
+          "polygons": 8,
+          "vertices": 10,
+          "dominantGroups": {
+            "null": 8
+          },
+          "localBounds": {
+            "min": [
+              -0.043302,
+              -0.159605,
+              0.401402
+            ],
+            "max": [
+              0.043162,
+              -0.159605,
+              0.44301
+            ]
+          }
+        }
+      ],
+      "sourceModified": false
+    },
+    {
+      "mesh": "head-mesh",
+      "operation": "replace_smile_with_neutral_mouth_line",
+      "component": 5,
+      "sourceModified": false
+    }
+  ],
+  "skinnedClothing": null,
+  "accessories": [
+    {
+      "name": "wp04_enforcer_male_belt",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.728,
+        0.507,
+        0.045466
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.364,
+          -0.321689,
+          0.812271
+        ],
+        "max": [
+          0.364,
+          0.185311,
+          0.857737
+        ]
+      },
+      "widthToHeadRatio": 0.638971
+    },
+    {
+      "name": "wp04_enforcer_male_belt_buckle",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.075,
+        0.025,
+        0.055
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.0375,
+          -0.315689,
+          0.807504
+        ],
+        "max": [
+          0.0375,
+          -0.290689,
+          0.862504
+        ]
+      },
+      "widthToHeadRatio": 0.065828
+    },
+    {
+      "name": "wp04_enforcer_neutral_mouth",
+      "type": "serious_mouth",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.09,
+        0.012,
+        0.014
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.046148,
+          -0.547394,
+          1.053604
+        ],
+        "max": [
+          0.043852,
+          -0.535394,
+          1.067604
+        ]
+      },
+      "widthToHeadRatio": 0.078994
+    }
+  ],
+  "declaredAccessoryOrder": [
+    "belt",
+    "serious_mouth"
+  ],
+  "anchors": [
+    "head",
+    "torso"
+  ],
+  "maxAccessoryDrift": 7.450580596923828e-08,
+  "rig": {
+    "armature": "character-raider",
+    "bones": 7,
+    "boneNames": [
+      "root",
+      "leg-left",
+      "leg-right",
+      "torso",
+      "arm-left",
+      "arm-right",
+      "head"
+    ],
+    "actions": 32
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "frameRange": [
+        0.0,
+        32.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 16,
+      "keyframeCount": 640,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 32.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": []
+    },
+    "walk": {
+      "name": "walk",
+      "frameRange": [
+        0.0,
+        16.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 27,
+      "keyframeCount": 540,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 16.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": [
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 0,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 1,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 2,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    "walkFrames": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "headDimensionsMeters": [
+    1.139332,
+    1.080288,
+    0.949837
+  ],
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "a0585324206ed2fa4ddbd23a59a5c289ae40ca903edeed1b116fc6331b099dd7"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false,
+  "visualRisks": [
+    "Dark contrast remains a small-scale review item.",
+    "Optional shirt band may still cover zero polygons; no contrast is claimed from it."
+  ],
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.686569
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.145056,
+        "maxX": 0.728985,
+        "minY": 0.039777,
+        "maxY": 0.845493,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/enforcer_male/enforcer_male-d0-idle-00.png",
+        "sha256": "7ee201f859c17019b073e0c9392dd595a2b4634dc11037b6f8978a091cd29ce5",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.140418,
+            -0.0
+          ],
+          "tail": [
+            0.0,
+            -0.140418,
+            0.448645
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.209955,
+            -0.068189,
+            0.442792
+          ],
+          "tail": [
+            0.209955,
+            -0.068189,
+            0.891437
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.209955,
+            -0.068189,
+            0.442792
+          ],
+          "tail": [
+            -0.209955,
+            -0.068189,
+            0.891437
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            -0.068189,
+            0.442792
+          ],
+          "tail": [
+            -0.0,
+            -0.068189,
+            0.820004
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.250971,
+            -0.09708,
+            0.722914
+          ],
+          "tail": [
+            0.5177,
+            -0.09708,
+            0.989643
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.250971,
+            -0.09708,
+            0.722914
+          ],
+          "tail": [
+            -0.5177,
+            -0.09708,
+            0.989643
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            -0.134485,
+            0.862346
+          ],
+          "tail": [
+            0.0,
+            -0.134485,
+            1.239558
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/enforcer_male/enforcer_male-d0-idle-00.composition.json",
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-raider",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.140418,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.063223,
+      "worldSizeMeters": [
+        1.668169,
+        1.080288,
+        1.749792
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.145056,
+        "maxX": 0.728985,
+        "minY": 0.060553,
+        "maxY": 0.869298,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/enforcer_male/enforcer_male-d0-walk-04.png",
+        "sha256": "3b469ec38a61978bf4d79b9885d1818707b4e9d3b75b014510ca0f02fca5a547",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.140418,
+            0.063223
+          ],
+          "tail": [
+            0.0,
+            -0.140418,
+            0.511868
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.209955,
+            -0.068189,
+            0.506016
+          ],
+          "tail": [
+            0.209955,
+            -0.176118,
+            0.941485
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.209955,
+            -0.068189,
+            0.506016
+          ],
+          "tail": [
+            -0.209955,
+            0.03974,
+            0.941485
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            -0.068189,
+            0.506016
+          ],
+          "tail": [
+            -0.0,
+            -0.068189,
+            0.883228
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.250971,
+            -0.09708,
+            0.786137
+          ],
+          "tail": [
+            0.5177,
+            -0.09708,
+            1.052866
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.250971,
+            -0.09708,
+            0.786137
+          ],
+          "tail": [
+            -0.5177,
+            -0.09708,
+            1.052866
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            -0.134485,
+            0.925569
+          ],
+          "tail": [
+            0.0,
+            -0.134485,
+            1.302781
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/enforcer_male/enforcer_male-d0-walk-04.composition.json",
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

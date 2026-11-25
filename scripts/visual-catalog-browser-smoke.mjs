@@ -1,8 +1,16 @@
 /* global setTimeout, document */
 import { spawn } from "node:child_process";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { chromium } from "@playwright/test";
 
+const catalog = JSON.parse(
+  readFileSync(new URL("../apps/web/src/generated/visual-catalog.json", import.meta.url), "utf8"),
+);
+const buildingCount = catalog.buildings.length;
+const buildingStateCount = catalog.buildings.reduce(
+  (total, entry) => total + Object.keys(entry.states).length,
+  0,
+);
 const port = 4182;
 const external = process.env.VISUAL_CATALOG_BASE_URL;
 const baseUrl = external ?? `http://127.0.0.1:${port}`;
@@ -43,13 +51,15 @@ try {
   await ready();
   await page.getByRole("heading", { name: "Landlord visual catalog" }).waitFor();
   const cards = page.locator("[data-building-card]");
-  if ((await cards.count()) !== 15) throw new Error("Expected 15 building cards");
+  if ((await cards.count()) !== buildingCount)
+    throw new Error(`Expected ${buildingCount} building cards`);
   const rows = page.locator("[data-state-row]");
-  if ((await rows.count()) !== 15) throw new Error("Expected 15 state rows");
-  if ((await rows.locator("img").count()) !== 18)
-    throw new Error("Expected 18 state images (complete + legacy courtyard states)");
-  if ((await page.locator("[data-character-card]").count()) !== 13)
-    throw new Error("Expected 13 character cards");
+  if ((await rows.count()) !== buildingCount)
+    throw new Error(`Expected ${buildingCount} state rows`);
+  if ((await rows.locator("img").count()) !== buildingStateCount)
+    throw new Error(`Expected ${buildingStateCount} state images`);
+  if ((await page.locator("[data-character-card]").count()) !== 14)
+    throw new Error("Expected 14 character cards");
   for (const image of await page.locator("#buildings img,#building-states img").all()) {
     await image.scrollIntoViewIfNeeded();
     if ((await image.evaluate((node) => node.naturalWidth)) === 0)
@@ -62,7 +72,16 @@ try {
   await page.waitForTimeout(1000);
   if (errors.length) throw new Error(`Page errors: ${errors.join("; ")}`);
   const text = await page.locator("#coverage").innerText();
-  for (const expected of ["15/15", "18/60", "0/13", "9", "6/6", "purchaseGaps", "0"])
+  for (const expected of [
+    `${buildingCount}/${buildingCount}`,
+    `${buildingStateCount}/${buildingCount * 6}`,
+    "14/14",
+    "0/14",
+    "9",
+    "6/6",
+    "purchaseGaps",
+    "0",
+  ])
     if (!text.includes(expected)) throw new Error(`Missing coverage ${expected}`);
   mkdirSync("docs/art/golden/visual-catalog", { recursive: true });
   await shot("01-overview.png", page.locator(".catalog-hero"));

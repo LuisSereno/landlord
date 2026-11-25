@@ -1,0 +1,15 @@
+$ /home/luis/.local/blender/blender-5.2.2-linux-x64/blender --background --factory-startup --python-exit-code 1 --python /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py -- --manifest /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json --source-root /home/luis/RepositorioGitHub/landlord --output /home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/municipal_professional --runtime-asset /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py --role municipal_professional --run-id 2026-11-25-smoke-06
+runId=2026-11-25-smoke-06
+startedAt=2026-11-25T11:29:04.561Z
+12:29:08 | INFO: Data are loaded, start creating Blender stuff
+12:29:08 | INFO: Blender create Mesh node body-mesh
+12:29:09 | INFO: Blender create Mesh node head-mesh
+12:29:09 | INFO: glTF import finished in 0.33s
+00:08.723  render           | Saved: '/home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/municipal_professional/municipal_professional-d0-idle-00.png'
+00:12.951  render           | Saved: '/home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/municipal_professional/municipal_professional-d0-walk-04.png'
+{"status": "smoke_rendered", "role": "municipal_professional", "canonicalId": "municipal_professional", "frames": 2, "report": "/home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/municipal_professional/municipal_professional-prototype.json"}
+WP_CHAR_04_SMOKE_OK municipal_professional 2026-11-25-smoke-06
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:34:58)
+
+Blender quit
+

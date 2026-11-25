@@ -1,0 +1,568 @@
+{
+  "schemaVersion": 1,
+  "pipelineVersion": "1.0.0",
+  "revision": "wp-char-04-smoke-1",
+  "purpose": "Generic Kenney Mini Characters candidate pipeline for the 14 canonical Landlord presentations; WP-CHAR-04 executes SMOKE only.",
+  "status": "smoke_contract_defined",
+  "stage": "smoke",
+  "approval": "pending_human",
+  "humanApprovalClaimed": false,
+  "runtimePromotion": false,
+  "productionReady": false,
+  "branch": "wip/organization-headquarters",
+  "baseHead": "a15f61ae0f37d26c28419d86e76bbc51dafb4f97",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "blenderVersion": "5.2.2 LTS",
+    "blenderBuildHash": "d13f752e3b9c",
+    "blenderPath": "/home/luis/.local/blender/blender-5.2.2-linux-x64/blender",
+    "pythonExitCodeFlag": 1,
+    "renderEngine": "BLENDER_EEVEE"
+  },
+  "sourcePolicy": {
+    "family": "Kenney Mini Characters",
+    "license": "CC0-1.0",
+    "licenseFile": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "licenseFileSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+    "modelDirectory": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format",
+    "noDownloads": true,
+    "noExternalGeneration": true,
+    "sourceMutationAllowed": false,
+    "packedAtlasesMustRemainUnchanged": true,
+    "roleMappingDocument": "docs/execution/phase-4/characters/wp-char-02b/02-role-coverage.md",
+    "correctionDocuments": [
+      "docs/execution/phase-4/characters/wp-char-02a/04-worker-production.md",
+      "docs/execution/phase-4/characters/wp-char-02c/02-correction-design.md",
+      "docs/execution/phase-4/characters/wp-char-02c/03-production.md",
+      "docs/execution/phase-4/characters/wp-char-03/02-art-corrections.md"
+    ]
+  },
+  "dependencies": {
+    "renderer": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+    "orchestrator": "tools/art-pipeline/blender/characters/wp_char_04/run_smoke.mjs",
+    "validator": "tools/art-pipeline/blender/characters/wp_char_04/validate_smoke.py",
+    "contactComposer": "tools/art-pipeline/blender/characters/wp_char_04/compose_contact_sheet.py",
+    "shared": {
+      "animationCommon": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "workerRenderer": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "prototypeHelpers": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "compositor": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "runtimeAsset": "tools/art-pipeline/blender/runtime_asset.py",
+      "sourceImport": "tools/art-pipeline/blender/source_import.py",
+      "styleLayer": "tools/art-pipeline/blender/style_layer_graphic_civic.json"
+    }
+  },
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "matrix": {
+    "smoke": {
+      "roles": 14,
+      "directions": [0],
+      "idleSamples": [0],
+      "walkDirections": [0],
+      "walkSamples": [4],
+      "walkActionFrames": [8],
+      "roleWalkSampleOverrides": {
+        "enforcer_female": 2
+      },
+      "framesPerRole": 2,
+      "totalFrames": 28,
+      "rendered": true
+    },
+    "batchContract": {
+      "roles": 14,
+      "directions": [0, 1, 2, 3],
+      "idleSamples": [0],
+      "walkDirections": [0, 1, 2, 3],
+      "walkSamples": [0, 1, 2, 3, 4, 5, 6, 7],
+      "walkActionFrames": [0, 2, 4, 6, 8, 10, 12, 14],
+      "framesPerRole": 36,
+      "totalFrames": 504,
+      "rendered": false,
+      "requiresHumanApproval": true,
+      "note": "Eventual contract only: four idle directions plus eight walk samples in each of four directions. WP-CHAR-04 does not render this matrix."
+    }
+  },
+  "palette": {
+    "ochre": "#A9682C",
+    "navy": "#2F465B",
+    "denim": "#38546B",
+    "dark_brown": "#3B2A22",
+    "pale_yellow": "#E6C86A",
+    "charcoal": "#292D31",
+    "coal": "#202428",
+    "black": "#171A1D",
+    "slate": "#465463",
+    "muted_blue": "#5E7180",
+    "protective_charcoal": "#343A3D",
+    "fire_yellow": "#E3B83F",
+    "leather": "#4A3021",
+    "paper": "#D8CFB5",
+    "metal": "#7C858A",
+    "sand": "#C8A56A",
+    "dark_blue": "#243446",
+    "badge_gold": "#D5AD4A",
+    "teal": "#2F6F73",
+    "cream": "#E4DDC8",
+    "plum": "#5E3B63",
+    "jacket_trim": "#69727A"
+  },
+  "candidates": {
+    "construction_worker_a": {
+      "canonicalId": "construction_worker_a",
+      "displayName": "Construction worker A",
+      "category": "operational",
+      "sourceFile": "character-worker.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+      "sourceSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02A worker reference: integrated helmet/overalls, local matte atlas copy, action-slot binding and per-frame ground alignment.",
+      "paletteMode": "source_atlas",
+      "palette": {
+        "source": "kenney_colormap"
+      },
+      "accessories": [],
+      "visualRisks": [
+        "Single idle pose; no full idle cycle.",
+        "Seven-bone rig has no intermediate elbows or knees."
+      ]
+    },
+    "supervisor": {
+      "canonicalId": "supervisor",
+      "displayName": "Site supervisor",
+      "category": "operational",
+      "sourceFile": "character-male-e.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+      "sourceSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "WP-CHAR-02C/03: local hair treatment, remove glasses component 2, conical supervisor helmet and lowered clipboard.",
+      "paletteMode": "regions",
+      "headRemoveComponents": [2],
+      "headComponents": [1, 5],
+      "palette": {
+        "torso": "ochre",
+        "arms": "navy",
+        "legs": "denim",
+        "boots": "dark_brown",
+        "reflective": "pale_yellow",
+        "hair": "dark_brown",
+        "helmet": "sand",
+        "helmet_band": "charcoal",
+        "clipboard": "leather",
+        "paper": "paper",
+        "metal": "metal"
+      },
+      "bodyBands": {
+        "bootRatio": 0.2,
+        "armHands": [0.0, 0.18],
+        "armHandsMaterial": "original",
+        "armBands": [],
+        "torsoBands": [
+          { "range": [0.54, 0.7], "material": "reflective" },
+          { "range": [0.78, 0.9], "material": "reflective" }
+        ]
+      },
+      "accessories": ["supervisor_helmet_v2", "clipboard_lowered"],
+      "visualRisks": [
+        "Helmet and clipboard need small-scale human review.",
+        "Single idle pose; no full idle cycle."
+      ]
+    },
+    "construction_worker_b": {
+      "canonicalId": "construction_worker_b",
+      "displayName": "Construction worker B",
+      "category": "operational",
+      "sourceFile": "character-male-f.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-f.glb",
+      "sourceSha256": "83fa60802557199778ab606e5ee3b2da2140ef35839ac4fb557ef95dbac9c5d4",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "WP-CHAR-02B mapping: distinct male-f base, work palette, simple hard hat and belt.",
+      "paletteMode": "regions",
+      "palette": {
+        "torso": "ochre",
+        "arms": "navy",
+        "legs": "denim",
+        "boots": "dark_brown",
+        "reflective": "pale_yellow",
+        "helmet": "ochre",
+        "belt": "leather",
+        "metal": "metal"
+      },
+      "bodyBands": {
+        "bootRatio": 0.2,
+        "armHands": [0.0, 0.18],
+        "armHandsMaterial": "original",
+        "armBands": [],
+        "torsoBands": [
+          { "range": [0.56, 0.69], "material": "reflective" },
+          { "range": [0.8, 0.9], "material": "reflective" }
+        ]
+      },
+      "accessories": ["work_helmet", "belt"],
+      "visualRisks": ["Worker A/B silhouette separation needs human review at 28/34 px."]
+    },
+    "maintenance_technician": {
+      "canonicalId": "maintenance_technician",
+      "displayName": "Maintenance technician",
+      "category": "operational",
+      "sourceFile": "character-female-f.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-f.glb",
+      "sourceSha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "WP-CHAR-02B mapping: female-f base, teal service palette, cap and rigid wrench.",
+      "paletteMode": "regions",
+      "palette": {
+        "torso": "teal",
+        "arms": "teal",
+        "legs": "denim",
+        "boots": "dark_brown",
+        "shirt": "cream",
+        "cap": "navy",
+        "metal": "metal"
+      },
+      "bodyBands": {
+        "bootRatio": 0.2,
+        "armHands": [0.0, 0.18],
+        "armHandsMaterial": "original",
+        "armBands": [],
+        "torsoBands": [{ "range": [0.76, 0.92], "material": "shirt" }]
+      },
+      "accessories": ["work_cap", "wrench"],
+      "visualRisks": ["Wrench is a rigid role prop; fine grip animation is outside this WP."]
+    },
+    "enforcer_male": {
+      "canonicalId": "enforcer_male",
+      "displayName": "Enforcer A",
+      "category": "operational",
+      "sourceFile": "character-raider.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+      "sourceSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "WP-CHAR-02C/03: raider base, remove ponytail component 1 and smile component 5, neutral mouth line, slate/charcoal regions and belt.",
+      "paletteMode": "regions",
+      "headRemoveComponents": [1, 5],
+      "headComponents": [0],
+      "mouthComponent": 5,
+      "palette": {
+        "torso": "slate",
+        "arms": "charcoal",
+        "legs": "coal",
+        "boots": "black",
+        "shirt": "muted_blue",
+        "hair": "black",
+        "belt": "leather",
+        "metal": "metal",
+        "mouth": "black"
+      },
+      "bodyBands": {
+        "bootRatio": 0.22,
+        "armHands": [0.0, 0.18],
+        "armHandsMaterial": "original",
+        "armBands": [],
+        "torsoBands": [{ "range": [0.72, 0.96], "material": "shirt" }]
+      },
+      "accessories": ["belt", "serious_mouth"],
+      "visualRisks": [
+        "Dark contrast remains a small-scale review item.",
+        "Optional shirt band may still cover zero polygons; no contrast is claimed from it."
+      ]
+    },
+    "enforcer_female": {
+      "canonicalId": "enforcer_female",
+      "displayName": "Enforcer B",
+      "category": "operational",
+      "sourceFile": "character-female-a.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-a.glb",
+      "sourceSha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+      "coverage": "MESH_ADAPTATION",
+      "smokeWalkSample": 2,
+      "technicalCorrection": "Remove all eight blue weapon components measured on female-a; retain hands; replace torso/upper-arm clothing with a padded, high-collar skinned jacket shell. No rigid jacket panels.",
+      "paletteMode": "regions",
+      "headComponents": [0, 2],
+      "palette": {
+        "torso": "jacket",
+        "arms": "jacket",
+        "legs": "slate",
+        "boots": "black",
+        "jacket": "charcoal",
+        "jacket_trim": "slate",
+        "belt": "leather",
+        "metal": "metal",
+        "hair": "black"
+      },
+      "bodyBands": {
+        "bootRatio": 0.22,
+        "armHands": [0.0, 0.18],
+        "armHandsMaterial": "original",
+        "armBands": [],
+        "torsoBands": []
+      },
+      "bodyRemoveComponents": [8, 9, 13, 14, 18, 19, 20, 21],
+      "retainedHandComponents": [4, 5],
+      "meshAdaptation": {
+        "type": "skinned_padded_jacket_v2",
+        "volumeComponents": [11, 12, 15, 16, 17],
+        "volumeSourcePolygons": 122,
+        "collarSourceComponents": [17],
+        "collarSourcePolygons": 2,
+        "removedWeaponPolygons": 176,
+        "shellOffsetMeters": 0.025,
+        "volumeMethod": "Expand the existing skinned torso/upper-arm vertices, assign jacket materials, and add a skinned high collar; no rigid panels and no full-torso occluding shell.",
+        "bevelMeters": 0.012,
+        "torsoWidthScale": 1.1,
+        "torsoDepthScale": 1.08,
+        "armWidthScale": 1.04,
+        "collarHeightMeters": 0.075,
+        "collarTopRatio": 0.92,
+        "material": "jacket",
+        "trimMaterial": "jacket_trim",
+        "justification": "The source pistols are multi-piece blue geometry around both hands. The correction retains and animates the original clothed body, expands its torso and upper arms for padded jacket volume, recolors those skinned regions, and adds a high collar copied from the top torso polygons. This avoids fake rigid coat panels and preserves visible walk deformation."
+      },
+      "accessories": [],
+      "visualRisks": [
+        "Jacket fit, cuff boundaries and collar/head clearance require human review in the full walk cycle.",
+        "Dark charcoal contrast may collapse at 14 px; review at 28/34 px.",
+        "If the skinned shell clips or reads as bulk without identity, mark REWORK_REQUIRED rather than approving it."
+      ]
+    },
+    "civilian_male_a": {
+      "canonicalId": "civilian_male_a",
+      "displayName": "Civilian A",
+      "category": "ambient",
+      "sourceFile": "character-male-a.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+      "sourceSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct base; preserve source atlas and silhouette.",
+      "paletteMode": "source_atlas",
+      "palette": {
+        "source": "kenney_colormap"
+      },
+      "accessories": [],
+      "visualRisks": ["Civilian A/B distinction is base-model dependent."]
+    },
+    "civilian_male_b": {
+      "canonicalId": "civilian_male_b",
+      "displayName": "Civilian B",
+      "category": "ambient",
+      "sourceFile": "character-male-d.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-d.glb",
+      "sourceSha256": "bded80fb516310186bf151b040696295395043b520a77d09533e20445dd4c02a",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct formal base; optional rigid folder.",
+      "paletteMode": "source_atlas",
+      "palette": {
+        "source": "kenney_colormap",
+        "folder": "navy",
+        "paper": "paper"
+      },
+      "accessories": ["folder"],
+      "visualRisks": ["Folder is small and may not read at 28 px."]
+    },
+    "civilian_female_a": {
+      "canonicalId": "civilian_female_a",
+      "displayName": "Civilian C",
+      "category": "ambient",
+      "sourceFile": "character-female-b.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-b.glb",
+      "sourceSha256": "3a0e6c3e431ae9d2016c2c9a91ec3abe8bb45243016a5cae80cbde0b61f8f2a9",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct base; preserve source atlas and silhouette.",
+      "paletteMode": "source_atlas",
+      "palette": {
+        "source": "kenney_colormap"
+      },
+      "accessories": [],
+      "visualRisks": ["Civilian C/D distinction is base-model dependent."]
+    },
+    "civilian_female_b": {
+      "canonicalId": "civilian_female_b",
+      "displayName": "Civilian D",
+      "category": "ambient",
+      "sourceFile": "character-female-c.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-c.glb",
+      "sourceSha256": "163ed5cb5b130177a64724efd9cf4f681fd73d7072f4f9b83ed584307dad870a",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct base; preserve source atlas and silhouette.",
+      "paletteMode": "source_atlas",
+      "palette": {
+        "source": "kenney_colormap"
+      },
+      "accessories": [],
+      "visualRisks": ["Civilian C/D distinction is base-model dependent."]
+    },
+    "police": {
+      "canonicalId": "police",
+      "displayName": "Police officer",
+      "category": "ambient",
+      "sourceFile": "character-male-c.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+      "sourceSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B police control: integrated cap/uniform, navy regions, badge and belt; no 02C/03 geometry change.",
+      "paletteMode": "regions",
+      "palette": {
+        "torso": "navy",
+        "arms": "navy",
+        "legs": "dark_blue",
+        "boots": "black",
+        "badge": "badge_gold",
+        "belt": "leather",
+        "metal": "metal"
+      },
+      "bodyBands": {
+        "bootRatio": 0.18,
+        "armHands": [0.0, 0.16],
+        "armHandsMaterial": "original",
+        "armBands": [],
+        "torsoBands": []
+      },
+      "accessories": ["badge", "belt"],
+      "visualRisks": ["Badge is small; integrated uniform remains the primary identity."]
+    },
+    "firefighter": {
+      "canonicalId": "firefighter",
+      "displayName": "Firefighter",
+      "category": "ambient",
+      "sourceFile": "character-male-a.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+      "sourceSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "coverage": "MESH_ADAPTATION",
+      "technicalCorrection": "WP-CHAR-02C/03: clean-shaven male-a base, remove glasses component 2, ten-sided fire helmet, tilted rear flap and wide reflective bands.",
+      "paletteMode": "regions",
+      "headRemoveComponents": [2],
+      "headComponents": [0],
+      "palette": {
+        "torso": "protective_charcoal",
+        "arms": "protective_charcoal",
+        "legs": "protective_charcoal",
+        "boots": "black",
+        "gloves": "dark_brown",
+        "reflective": "fire_yellow",
+        "hair": "black",
+        "helmet": "fire_yellow",
+        "helmet_shield": "charcoal",
+        "belt": "leather",
+        "metal": "metal"
+      },
+      "bodyBands": {
+        "bootRatio": 0.22,
+        "armHands": [0.0, 0.18],
+        "armHandsMaterial": "gloves",
+        "armBands": [{ "range": [0.56, 0.82], "material": "reflective" }],
+        "torsoBands": [
+          { "range": [0.36, 0.62], "material": "reflective" },
+          { "range": [0.72, 0.95], "material": "reflective" }
+        ]
+      },
+      "accessories": ["fire_helmet_v2", "belt"],
+      "visualRisks": [
+        "Helmet/reflective identity needs human review at 28/34 px.",
+        "Single idle pose; no full idle cycle."
+      ]
+    },
+    "medical_professional": {
+      "canonicalId": "medical_professional",
+      "displayName": "Medical professional",
+      "category": "ambient",
+      "sourceFile": "character-female-e.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-e.glb",
+      "sourceSha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct medical base with integrated light coat; optional medical bag.",
+      "paletteMode": "source_atlas",
+      "palette": {
+        "source": "kenney_colormap",
+        "bag": "cream",
+        "trim": "teal",
+        "leather": "leather"
+      },
+      "accessories": ["medical_bag"],
+      "visualRisks": ["Medical bag is small; integrated coat remains the primary identity."]
+    },
+    "municipal_professional": {
+      "canonicalId": "municipal_professional",
+      "displayName": "Municipal professional",
+      "category": "ambient",
+      "sourceFile": "character-female-d.glb",
+      "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-d.glb",
+      "sourceSha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct formal base; optional rigid folder.",
+      "paletteMode": "source_atlas",
+      "palette": {
+        "source": "kenney_colormap",
+        "folder": "navy",
+        "paper": "paper"
+      },
+      "accessories": ["folder"],
+      "visualRisks": ["Folder is small and may not read at 28 px."]
+    }
+  },
+  "enforcerFemaleDiagnostics": {
+    "sourceFile": "character-female-a.glb",
+    "sourceSha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+    "componentOrdering": "position-welded connected components, descending polygon count then first polygon index",
+    "weaponComponents": [8, 9, 13, 14, 18, 19, 20, 21],
+    "weaponPolygons": 176,
+    "retainedHandComponents": [4, 5],
+    "jacketVolumeComponents": [11, 12, 15, 16, 17],
+    "jacketVolumeSourcePolygons": 122,
+    "jacketCollarSourceComponents": [17],
+    "jacketCollarSourcePolygons": 2,
+    "controlsDirectory": "docs/art/characters/candidates/wp-char-04/diagnostics/enforcer-female",
+    "controls": [
+      "a-original.json",
+      "a-original.png",
+      "p-component-map.json",
+      "p-component-map.png",
+      "c-weapons-removed.json",
+      "c-weapons-removed.png"
+    ],
+    "runtimePromotion": false
+  },
+  "acceptance": {
+    "requiredSentinelPrefix": "WP_CHAR_04_SMOKE_OK",
+    "tracebackForbidden": true,
+    "freshRunDirectoryRequired": true,
+    "requiredFramesPerRole": 2,
+    "requiredRoles": 14,
+    "requiredTotalFrames": 28,
+    "requiredImageMode": "RGBA",
+    "requiredImageSize": [512, 512],
+    "alphaBorderMustBeZero": true,
+    "cameraClippingForbidden": true,
+    "groundToleranceMeters": 0.000001,
+    "accessoryDriftTolerance": 0.0001,
+    "sourceAndAtlasHashesMustMatch": true,
+    "sidecarRequiredForEveryFrame": true,
+    "offlineContactSheetRequired": true,
+    "humanVisualApprovalRequiredBeforeBatch": true,
+    "runtimePromotionForbidden": true
+  },
+  "unresolvedIssues": [
+    "Human artistic approval is pending for all 14 candidates.",
+    "Enforcer female jacket fit, collar clearance and cuff boundaries need full-cycle human review.",
+    "Only D0 idle-00 and D0 walk-04 are rendered; other directions and walk samples are not evidence.",
+    "Seven-bone Kenney rig has no intermediate elbows/knees; work/repair/carry/sabotage clips are not evaluated.",
+    "Legacy Rocketbox runtime mappings remain unchanged until a separately authorized human-approved promotion."
+  ]
+}

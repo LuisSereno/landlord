@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-25-smoke-06",
+  "role": "enforcer_male",
+  "canonicalId": "enforcer_male",
+  "stage": "smoke",
+  "direction": 0,
+  "animation": "idle",
+  "sampleIndex": 0,
+  "actionFrame": 0,
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+    "sha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6",
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "a0585324206ed2fa4ddbd23a59a5c289ae40ca903edeed1b116fc6331b099dd7"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "declaredAccessoryOrder": [
+    "belt",
+    "serious_mouth"
+  ],
+  "accessoryObjectCount": 3,
+  "accessories": [
+    {
+      "name": "wp04_enforcer_male_belt",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.728,
+        0.507,
+        0.045466
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.364,
+          -0.321689,
+          0.812271
+        ],
+        "max": [
+          0.364,
+          0.185311,
+          0.857737
+        ]
+      },
+      "widthToHeadRatio": 0.638971
+    },
+    {
+      "name": "wp04_enforcer_male_belt_buckle",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.075,
+        0.025,
+        0.055
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.0375,
+          -0.315689,
+          0.807504
+        ],
+        "max": [
+          0.0375,
+          -0.290689,
+          0.862504
+        ]
+      },
+      "widthToHeadRatio": 0.065828
+    },
+    {
+      "name": "wp04_enforcer_neutral_mouth",
+      "type": "serious_mouth",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.09,
+        0.012,
+        0.014
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.046148,
+          -0.547394,
+          1.053604
+        ],
+        "max": [
+          0.043852,
+          -0.535394,
+          1.067604
+        ]
+      },
+      "widthToHeadRatio": 0.078994
+    }
+  ],
+  "maxAccessoryDrift": 7.450580596923828e-08,
+  "skinnedClothing": null,
+  "geometryChanges": [
+    {
+      "mesh": "head-mesh",
+      "operation": "delete_local_components",
+      "components": [
+        1,
+        5
+      ],
+      "polygons": 84,
+      "componentEvidence": [
+        {
+          "component": 1,
+          "polygons": 76,
+          "vertices": 140,
+          "dominantGroups": {
+            "null": 76
+          },
+          "localBounds": {
+            "min": [
+              -0.10512,
+              0.082361,
+              0.35428
+            ],
+            "max": [
+              0.10512,
+              0.319423,
+              0.716475
+            ]
+          }
+        },
+        {
+          "component": 5,
+          "polygons": 8,
+          "vertices": 10,
+          "dominantGroups": {
+            "null": 8
+          },
+          "localBounds": {
+            "min": [
+              -0.043302,
+              -0.159605,
+              0.401402
+            ],
+            "max": [
+              0.043162,
+              -0.159605,
+              0.44301
+            ]
+          }
+        }
+      ],
+      "sourceModified": false
+    },
+    {
+      "mesh": "head-mesh",
+      "operation": "replace_smile_with_neutral_mouth_line",
+      "component": 5,
+      "sourceModified": false
+    }
+  ],
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "cameraBounds": {
+    "minX": 0.145056,
+    "maxX": 0.728985,
+    "minY": 0.039777,
+    "maxY": 0.845493,
+    "clipped": false
+  },
+  "ground": {
+    "minZ": 0.0,
+    "groundingOffsetMeters": -0.0,
+    "toleranceMeters": 1e-06
+  },
+  "output": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/enforcer_male/enforcer_male-d0-idle-00.png",
+    "sha256": "7ee201f859c17019b073e0c9392dd595a2b4634dc11037b6f8978a091cd29ce5",
+    "width": 512,
+    "height": 512
+  },
+  "metadata": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/enforcer_male/enforcer_male-prototype.json",
+    "sha256": "688a00dc0cdf5a1dd9d6a57d19660331e1370d1d88468e5279f5b2bdab264015"
+  },
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false
+}

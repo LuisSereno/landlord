@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "directions": 4,
   "runtimeAnimations": ["idle", "walk"],
   "showcaseAnimations": ["work", "repair", "carry", "inspect", "sit", "panic", "sabotage_action"],
@@ -17,14 +17,14 @@
   "domainSpecialties": ["supervisor", "construction_worker", "maintenance_technician", "enforcer"],
   "sourceDecision": {
     "quaternius": "Offline design and silhouette reference only; not an approved in-game actor source.",
-    "rocketbox": "Required source for in-game actors and the current runtime sprites.",
-    "kenney": "Visual comparison only; previous scale and legibility tests did not select it for population.",
-    "winner": "rocketbox_for_runtime; per-role human art review remains pending",
-    "runtimeRule": "Every in-game character must derive from the MIT Rocketbox subset."
+    "rocketbox": "Legacy runtime source only. Existing mappings remain explicitly legacy until a separately authorized human-approved promotion.",
+    "kenney": "Canonical candidate family for all 14 presentations; WP-CHAR-04 SMOKE is technical evidence, not human artistic approval.",
+    "winner": "kenney_candidate_family_pending_human_review; rocketbox_legacy_runtime_only",
+    "runtimeRule": "Runtime remains the existing Rocketbox subset until explicit human approval and a separate promotion WP. Candidate status never implies runtime readiness."
   },
   "productionStateDefinitions": {
     "runtime_existing": "Sprites exist in the runtime manifest and pass file/hash validation; this is not human art approval.",
-    "candidate": "Isolated rendered prototype; not promoted to runtime and not approved.",
+    "candidate": "Isolated Kenney WP-CHAR-04 SMOKE candidate; not promoted to runtime, not human-approved, and not production-ready.",
     "planned": "Canonical visual specification without a validated runtime sprite.",
     "blocked": "Production cannot continue without a named external dependency or decision."
   },
@@ -36,25 +36,41 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P1",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "rocketbox_subset_legacy",
       "body": "masculine_a",
       "hair": "short",
-      "clothing": "coat",
-      "palette": "ochre_navy",
+      "clothing": "casual",
+      "palette": "green_navy_yellow",
       "roleProp": "none",
-      "productionStatus": "runtime_existing",
-      "runtimeReady": true,
+      "productionStatus": "candidate",
+      "runtimeReady": false,
       "runtimeCharacterId": "chr_citizen",
       "artReview": "pending_role_fidelity",
-      "blockers": [],
+      "blockers": [
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
+      ],
       "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+          "license": "CC0-1.0",
+          "sha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+          "usage": "candidate"
+        },
         {
           "sourceId": "src_microsoft_rocketbox",
           "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_05/Export/Male_Adult_05.fbx",
-          "license": "MIT"
+          "license": "MIT",
+          "sha256": "cd0e17505d7b4148cf3b19ccdec9a90f063671f841b60d193d3527a0980052d0",
+          "usage": "legacy_runtime"
         }
-      ]
+      ],
+      "runtimeMappingStatus": "legacy",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke",
+      "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
     },
     {
       "id": "civilian_male_b",
@@ -63,20 +79,32 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P1",
-      "baseSource": "quaternius_universal_base",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
       "body": "masculine_b",
-      "hair": "cap",
-      "clothing": "jacket",
-      "palette": "teal_brown",
-      "roleProp": "bag",
-      "productionStatus": "planned",
+      "hair": "short",
+      "clothing": "formal_suit",
+      "palette": "navy_cream",
+      "roleProp": "folder",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
+      "artReview": "pending_role_fidelity",
       "blockers": [
-        "No unique runtime sprite; chr_citizen is shared and does not represent this canonical variant."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
       ],
-      "sourceReferences": []
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-d.glb",
+          "license": "CC0-1.0",
+          "sha256": "bded80fb516310186bf151b040696295395043b520a77d09533e20445dd4c02a",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "civilian_female_a",
@@ -85,20 +113,32 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P1",
-      "baseSource": "quaternius_universal_base",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
       "body": "feminine_a",
-      "hair": "bob",
-      "clothing": "coat",
-      "palette": "plum_cream",
+      "hair": "tied",
+      "clothing": "casual",
+      "palette": "yellow_violet",
       "roleProp": "none",
-      "productionStatus": "planned",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
+      "artReview": "pending_role_fidelity",
       "blockers": [
-        "No unique runtime sprite; chr_citizen is shared and does not represent this canonical variant."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
       ],
-      "sourceReferences": []
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-b.glb",
+          "license": "CC0-1.0",
+          "sha256": "3a0e6c3e431ae9d2016c2c9a91ec3abe8bb45243016a5cae80cbde0b61f8f2a9",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "civilian_female_b",
@@ -107,20 +147,32 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P1",
-      "baseSource": "quaternius_universal_base",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
       "body": "feminine_b",
-      "hair": "tied",
-      "clothing": "jacket",
-      "palette": "green_ochre",
-      "roleProp": "bag",
-      "productionStatus": "planned",
+      "hair": "bob",
+      "clothing": "casual",
+      "palette": "blue_red_brown",
+      "roleProp": "none",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
+      "artReview": "pending_role_fidelity",
       "blockers": [
-        "No unique runtime sprite; chr_citizen is shared and does not represent this canonical variant."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
       ],
-      "sourceReferences": []
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-c.glb",
+          "license": "CC0-1.0",
+          "sha256": "163ed5cb5b130177a64724efd9cf4f681fd73d7072f4f9b83ed584307dad870a",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "supervisor",
@@ -130,20 +182,32 @@
       "scope": "gameplay",
       "priority": "P0",
       "domainSpecialty": "supervisor",
-      "baseSource": "quaternius_universal_base",
-      "runtimeSource": "rocketbox_subset",
-      "body": "neutral_a",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
+      "body": "masculine_a",
       "hair": "helmet",
       "clothing": "high_visibility",
-      "palette": "orange_navy",
+      "palette": "sand_ochre_navy",
       "roleProp": "clipboard",
-      "productionStatus": "planned",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
+      "artReview": "pending_role_fidelity",
       "blockers": [
-        "No role-specific runtime sprite; the installed Rocketbox subset has no literal construction supervisor."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
       ],
-      "sourceReferences": []
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+          "license": "CC0-1.0",
+          "sha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "construction_worker_a",
@@ -153,27 +217,41 @@
       "scope": "gameplay",
       "priority": "P0",
       "domainSpecialty": "construction_worker",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "rocketbox_subset_legacy",
       "body": "masculine_a",
       "hair": "helmet",
       "clothing": "workwear",
-      "palette": "orange_denim",
+      "palette": "yellow_blue_brown",
       "roleProp": "toolbox",
-      "productionStatus": "runtime_existing",
-      "runtimeReady": true,
+      "productionStatus": "candidate",
+      "runtimeReady": false,
       "runtimeCharacterId": "chr_worker",
       "artReview": "pending_role_fidelity",
       "blockers": [
-        "chr_worker is shared by all crew roles and does not yet provide the canonical helmet/toolbox silhouette."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
       ],
       "sourceReferences": [
         {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+          "license": "CC0-1.0",
+          "sha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+          "usage": "candidate"
+        },
+        {
           "sourceId": "src_microsoft_rocketbox",
           "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx",
-          "license": "MIT"
+          "license": "MIT",
+          "sha256": "b44fa6011b934abd69954fd6c5025c1e2011e05c7892acb6bbc2e9cf70a84014",
+          "usage": "legacy_runtime"
         }
-      ]
+      ],
+      "runtimeMappingStatus": "legacy",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke",
+      "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
     },
     {
       "id": "construction_worker_b",
@@ -183,20 +261,32 @@
       "scope": "gameplay",
       "priority": "P0",
       "domainSpecialty": "construction_worker",
-      "baseSource": "quaternius_universal_base",
-      "runtimeSource": "rocketbox_subset",
-      "body": "feminine_a",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
+      "body": "masculine_b",
       "hair": "helmet",
       "clothing": "workwear",
-      "palette": "yellow_teal",
-      "roleProp": "material",
-      "productionStatus": "planned",
+      "palette": "ochre_denim",
+      "roleProp": "tool_belt",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
+      "artReview": "pending_role_fidelity",
       "blockers": [
-        "No unique runtime sprite; Female_Adult_13 is blocked by the existing R2 normalization guard."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
       ],
-      "sourceReferences": []
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-f.glb",
+          "license": "CC0-1.0",
+          "sha256": "83fa60802557199778ab606e5ee3b2da2140ef35839ac4fb557ef95dbac9c5d4",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "maintenance_technician",
@@ -206,18 +296,32 @@
       "scope": "gameplay",
       "priority": "P0",
       "domainSpecialty": "maintenance_technician",
-      "baseSource": "quaternius_universal_base",
-      "runtimeSource": "rocketbox_subset",
-      "body": "neutral_b",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
+      "body": "feminine_a",
       "hair": "cap",
       "clothing": "coveralls",
-      "palette": "teal_cream",
+      "palette": "teal_denim_cream",
       "roleProp": "wrench",
-      "productionStatus": "planned",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
-      "blockers": ["No role-specific runtime sprite."],
-      "sourceReferences": []
+      "artReview": "pending_role_fidelity",
+      "blockers": [
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
+      ],
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-f.glb",
+          "license": "CC0-1.0",
+          "sha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "enforcer_male",
@@ -227,18 +331,32 @@
       "scope": "gameplay",
       "priority": "P0",
       "domainSpecialty": "enforcer",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
       "body": "masculine_b",
       "hair": "short",
       "clothing": "heavy_jacket",
-      "palette": "charcoal_rust",
+      "palette": "slate_charcoal",
       "roleProp": "none",
-      "productionStatus": "planned",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
-      "blockers": ["No runtime sprite; the operational specialty already exists in simulation."],
-      "sourceReferences": []
+      "artReview": "pending_role_fidelity",
+      "blockers": [
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
+      ],
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+          "license": "CC0-1.0",
+          "sha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "enforcer_female",
@@ -248,20 +366,33 @@
       "scope": "gameplay",
       "priority": "P0",
       "domainSpecialty": "enforcer",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
       "body": "feminine_b",
       "hair": "tied",
-      "clothing": "heavy_jacket",
-      "palette": "charcoal_plum",
+      "clothing": "padded_jacket",
+      "palette": "charcoal_slate",
       "roleProp": "none",
-      "productionStatus": "planned",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
+      "artReview": "pending_role_fidelity",
       "blockers": [
-        "No runtime sprite; Female_Adult_04 is blocked by the existing R2 normalization guard."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate.",
+        "Skinned padded jacket/collar and the near-neutral grounded walk-04 pose require human review; no rigid jacket panels are used."
       ],
-      "sourceReferences": []
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-a.glb",
+          "license": "CC0-1.0",
+          "sha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     },
     {
       "id": "police",
@@ -270,27 +401,41 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P1",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
-      "body": "neutral_a",
-      "hair": "cap",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "rocketbox_subset_legacy",
+      "body": "masculine_c",
+      "hair": "integrated_cap",
       "clothing": "uniform",
       "palette": "navy_blue",
-      "roleProp": "radio",
-      "productionStatus": "runtime_existing",
-      "runtimeReady": true,
+      "roleProp": "badge",
+      "productionStatus": "candidate",
+      "runtimeReady": false,
       "runtimeCharacterId": "chr_police",
       "artReview": "pending_role_fidelity",
       "blockers": [
-        "Existing runtime clothing does not clearly identify the profession; human role-fidelity review required."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
       ],
       "sourceReferences": [
         {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+          "license": "CC0-1.0",
+          "sha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+          "usage": "candidate"
+        },
+        {
           "sourceId": "src_microsoft_rocketbox",
           "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx",
-          "license": "MIT"
+          "license": "MIT",
+          "sha256": "1c65e292e9057a23f7f70969f6971c631c1316fcaaf93e575a4557201c835018",
+          "usage": "legacy_runtime"
         }
-      ]
+      ],
+      "runtimeMappingStatus": "legacy",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke",
+      "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
     },
     {
       "id": "firefighter",
@@ -299,27 +444,41 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P1",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
-      "body": "neutral_b",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "rocketbox_subset_legacy",
+      "body": "masculine_a",
       "hair": "helmet",
       "clothing": "protective",
-      "palette": "ochre_charcoal",
-      "roleProp": "hose",
-      "productionStatus": "runtime_existing",
-      "runtimeReady": true,
+      "palette": "fire_yellow_charcoal",
+      "roleProp": "belt",
+      "productionStatus": "candidate",
+      "runtimeReady": false,
       "runtimeCharacterId": "chr_firefighter",
       "artReview": "pending_role_fidelity",
       "blockers": [
-        "Existing runtime clothing does not clearly identify the profession; human role-fidelity review required."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
       ],
       "sourceReferences": [
         {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+          "license": "CC0-1.0",
+          "sha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+          "usage": "candidate"
+        },
+        {
           "sourceId": "src_microsoft_rocketbox",
           "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_09/Export/Male_Adult_09.fbx",
-          "license": "MIT"
+          "license": "MIT",
+          "sha256": "ebb89800dbad28b4352369c7149314e010806268a28d7f5bb954a4393bba3d00",
+          "usage": "legacy_runtime"
         }
-      ]
+      ],
+      "runtimeMappingStatus": "legacy",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke",
+      "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
     },
     {
       "id": "medical_professional",
@@ -328,27 +487,41 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P1",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "rocketbox_subset_legacy",
       "body": "feminine_a",
       "hair": "short",
-      "clothing": "medical",
+      "clothing": "medical_coat",
       "palette": "cream_teal",
       "roleProp": "medical_bag",
-      "productionStatus": "runtime_existing",
-      "runtimeReady": true,
+      "productionStatus": "candidate",
+      "runtimeReady": false,
       "runtimeCharacterId": "chr_medical",
       "artReview": "pending_role_fidelity",
       "blockers": [
-        "Existing runtime clothing does not clearly identify the profession; human role-fidelity review required."
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
       ],
       "sourceReferences": [
         {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-e.glb",
+          "license": "CC0-1.0",
+          "sha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58",
+          "usage": "candidate"
+        },
+        {
           "sourceId": "src_microsoft_rocketbox",
           "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Female_Adult_09/Export/Female_Adult_09.fbx",
-          "license": "MIT"
+          "license": "MIT",
+          "sha256": "a578ec65cabf169d7b13c0bb0a6c472e898857e81f6207b2af7f846d8b0d8523",
+          "usage": "legacy_runtime"
         }
-      ]
+      ],
+      "runtimeMappingStatus": "legacy",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke",
+      "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
     },
     {
       "id": "municipal_professional",
@@ -357,18 +530,40 @@
       "category": "ambient",
       "scope": "ambient",
       "priority": "P2",
-      "baseSource": "rocketbox_subset",
-      "runtimeSource": "rocketbox_subset",
-      "body": "neutral_a",
+      "baseSource": "kenney_mini_characters",
+      "runtimeSource": "none",
+      "body": "feminine_c",
       "hair": "short",
-      "clothing": "office",
-      "palette": "blue_cream",
+      "clothing": "office_suit",
+      "palette": "navy_cream",
       "roleProp": "folder",
-      "productionStatus": "planned",
+      "productionStatus": "candidate",
       "runtimeReady": false,
-      "artReview": "not_reviewed",
-      "blockers": ["No runtime sprite."],
-      "sourceReferences": []
+      "artReview": "pending_role_fidelity",
+      "blockers": [
+        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
+        "No canonical runtime mapping exists for this Kenney candidate."
+      ],
+      "sourceReferences": [
+        {
+          "sourceId": "src_kenney_mini_characters",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-d.glb",
+          "license": "CC0-1.0",
+          "sha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf",
+          "usage": "candidate"
+        }
+      ],
+      "runtimeMappingStatus": "none",
+      "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "candidateStage": "smoke"
     }
-  ]
+  ],
+  "candidatePipeline": {
+    "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+    "stage": "smoke",
+    "status": "technical_smoke_pending_human_review",
+    "humanApproval": "pending",
+    "runtimePromotion": false,
+    "batchRendered": false
+  }
 }

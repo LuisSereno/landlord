@@ -13,12 +13,19 @@ const errors = [];
 const factoryIds = factory.characters.map((entry) => entry.id).sort();
 const generatedIds = generated.characters.map((entry) => entry.id).sort();
 const operational = factory.characters.filter((entry) => entry.category === "operational");
-const runtimeExisting = factory.characters.filter((entry) => entry.runtimeReady);
+const legacyMappings = factory.characters.filter(
+  (entry) => entry.runtimeMappingStatus === "legacy",
+);
+const candidates = factory.characters.filter((entry) => entry.productionStatus === "candidate");
+const runtimeReady = factory.characters.filter((entry) => entry.runtimeReady);
+const characterCount = factory.characters.length;
 
-if (factory.characters.length !== 14) errors.push("Character Factory must contain 14 variants");
+if (characterCount !== 14) errors.push("Character Factory must contain 14 variants");
 if (operational.length !== 6) errors.push("Character Factory must contain 6 operational variants");
-if (runtimeExisting.length !== 5)
-  errors.push("Character Factory must contain 5 runtime-existing mappings");
+if (legacyMappings.length !== 5)
+  errors.push("Character Factory must contain 5 explicit legacy runtime mappings");
+if (candidates.length !== 14) errors.push("All 14 variants must be Kenney candidates");
+if (runtimeReady.length !== 0) errors.push("Kenney candidates must not be runtime-ready");
 if (generated.characters.length !== 14) {
   errors.push(
     `Generated visual catalog contains ${generated.characters.length} characters, expected 14`,
@@ -30,15 +37,23 @@ for (const id of factoryIds) {
 for (const id of generatedIds) {
   if (!factoryIds.includes(id)) errors.push(`Generated visual catalog has unknown character ${id}`);
 }
-if (generated.coverage?.characterDefinitions !== "14/14") {
+const expectedDefinitions = `${characterCount}/${characterCount}`;
+const expectedRendered = `0/${characterCount}`;
+if (generated.coverage?.characterDefinitions !== expectedDefinitions) {
   errors.push(
-    `characterDefinitions is ${generated.coverage?.characterDefinitions ?? "missing"}, expected 14/14`,
+    `characterDefinitions is ${generated.coverage?.characterDefinitions ?? "missing"}, expected ${expectedDefinitions}`,
   );
 }
-if (generated.coverage?.characterRenderedRoles !== "0/14") {
+if (generated.coverage?.characterRenderedRoles !== expectedRendered) {
   errors.push(
-    `characterRenderedRoles is ${generated.coverage?.characterRenderedRoles ?? "missing"}, expected 0/14 until previews are integrated`,
+    `characterRenderedRoles is ${generated.coverage?.characterRenderedRoles ?? "missing"}, expected ${expectedRendered} until previews are integrated`,
   );
+}
+for (const entry of factory.characters) {
+  const generatedEntry = generated.characters.find((candidate) => candidate.id === entry.id);
+  if (JSON.stringify(generatedEntry) !== JSON.stringify(entry)) {
+    errors.push(`Generated character entry is stale for ${entry.id}`);
+  }
 }
 
 if (errors.length) {
@@ -49,7 +64,9 @@ if (errors.length) {
         factoryVariants: factory.characters.length,
         generatedVariants: generated.characters.length,
         operationalVariants: operational.length,
-        runtimeExistingMappings: runtimeExisting.length,
+        candidateVariants: candidates.length,
+        legacyRuntimeMappings: legacyMappings.length,
+        runtimeReadyVariants: runtimeReady.length,
         errors,
       },
       null,
@@ -59,6 +76,6 @@ if (errors.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    "Character catalog coherence PASS: 14 definitions, 6 operational, 5 runtime-existing mappings, coverage 14/14 and 0/14 previews.",
+    `Character catalog coherence PASS: ${characterCount} Kenney candidate definitions, ${operational.length} operational, ${legacyMappings.length} explicit legacy runtime mappings, ${runtimeReady.length} runtime-ready, coverage ${expectedDefinitions} and ${expectedRendered} previews.`,
   );
 }

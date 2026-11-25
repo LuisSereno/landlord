@@ -1,0 +1,944 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_technical_complete_pending_human_review",
+  "stage": "smoke",
+  "pipelineVersion": "1.0.0",
+  "revision": "wp-char-04-smoke-1",
+  "runId": "2026-11-25-smoke-06",
+  "role": "supervisor",
+  "canonicalId": "supervisor",
+  "worktree": "/home/luis/RepositorioGitHub/landlord",
+  "branch": "wip/organization-headquarters",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+    "sha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "coverage": "MINOR_ADAPTATION",
+  "technicalCorrection": "WP-CHAR-02C/03: local hair treatment, remove glasses component 2, conical supervisor helmet and lowered clipboard.",
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.342,
+      "height": 0.676,
+      "minZ": 0.0
+    },
+    "importScale": 2.662853849575111,
+    "importOffset": [
+      -0.0,
+      -0.0037,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-male-e",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 2.0429,
+      "depth": 0.9106,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.66285385,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "bodyMaterials": {
+    "mode": "solid_local_regions",
+    "method": "Assign local solid materials to existing skinned polygons by dominant vertex group and manifest height bands.",
+    "groupRanges": {
+      "torso": [
+        0.17625,
+        0.356683
+      ],
+      "arm-left": [
+        0.20725,
+        0.36825
+      ],
+      "arm-right": [
+        0.20725,
+        0.36825
+      ],
+      "leg-left": [
+        0.0,
+        0.20125
+      ],
+      "leg-right": [
+        0.0,
+        0.20125
+      ]
+    },
+    "polygonCounts": {
+      "original": 26,
+      "torso": 66,
+      "arms": 134,
+      "legs": 172,
+      "boots": 68,
+      "reflective": 4
+    },
+    "materials": {
+      "torso": "wp04_supervisor_torso",
+      "arms": "wp04_supervisor_arms",
+      "legs": "wp04_supervisor_legs",
+      "boots": "wp04_supervisor_boots",
+      "reflective": "wp04_supervisor_reflective"
+    }
+  },
+  "headMaterials": {
+    "mode": "local_material_and_component_correction",
+    "modifiedComponents": [
+      {
+        "component": 1,
+        "polygons": 72,
+        "vertices": 126,
+        "dominantGroups": {
+          "null": 72
+        },
+        "localBounds": {
+          "min": [
+            -0.17,
+            -0.167639,
+            0.39325
+          ],
+          "max": [
+            0.17,
+            0.172361,
+            0.671325
+          ]
+        }
+      },
+      {
+        "component": 5,
+        "polygons": 20,
+        "vertices": 26,
+        "dominantGroups": {
+          "null": 20
+        },
+        "localBounds": {
+          "min": [
+            -0.069194,
+            -0.167639,
+            0.62445
+          ],
+          "max": [
+            0.069194,
+            -0.167639,
+            0.675967
+          ]
+        }
+      }
+    ],
+    "material": "wp04_supervisor_hair",
+    "removedComponents": [
+      2
+    ],
+    "removedPolygonCount": 52,
+    "geometryChanges": [
+      {
+        "mesh": "head-mesh",
+        "operation": "delete_local_components",
+        "components": [
+          2
+        ],
+        "polygons": 52,
+        "componentEvidence": [
+          {
+            "component": 2,
+            "polygons": 52,
+            "vertices": 82,
+            "dominantGroups": {
+              "null": 52
+            },
+            "localBounds": {
+              "min": [
+                -0.165,
+                -0.169605,
+                0.435273
+              ],
+              "max": [
+                0.165,
+                0.013986,
+                0.531093
+              ]
+            }
+          }
+        ],
+        "sourceModified": false
+      }
+    ]
+  },
+  "geometryChanges": [
+    {
+      "mesh": "head-mesh",
+      "operation": "delete_local_components",
+      "components": [
+        2
+      ],
+      "polygons": 52,
+      "componentEvidence": [
+        {
+          "component": 2,
+          "polygons": 52,
+          "vertices": 82,
+          "dominantGroups": {
+            "null": 52
+          },
+          "localBounds": {
+            "min": [
+              -0.165,
+              -0.169605,
+              0.435273
+            ],
+            "max": [
+              0.165,
+              0.013986,
+              0.531093
+            ]
+          }
+        }
+      ],
+      "sourceModified": false
+    }
+  ],
+  "skinnedClothing": null,
+  "accessories": [
+    {
+      "name": "wp04_supervisor_helmet_crown",
+      "type": "supervisor_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.848393,
+        0.848393,
+        0.24
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.424196,
+          -0.572473,
+          1.655
+        ],
+        "max": [
+          0.424196,
+          0.27592,
+          1.895
+        ]
+      },
+      "widthToHeadRatio": 0.702539
+    },
+    {
+      "name": "wp04_supervisor_helmet_brim",
+      "type": "supervisor_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        1.0,
+        1.0,
+        0.05
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.5,
+          -0.648277,
+          1.625
+        ],
+        "max": [
+          0.5,
+          0.351723,
+          1.675
+        ]
+      },
+      "widthToHeadRatio": 0.828083
+    },
+    {
+      "name": "wp04_supervisor_helmet_visor",
+      "type": "supervisor_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.54,
+        0.24,
+        0.05
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.27,
+          -0.628277,
+          1.635
+        ],
+        "max": [
+          0.27,
+          -0.388277,
+          1.685
+        ]
+      },
+      "widthToHeadRatio": 0.447165
+    },
+    {
+      "name": "wp04_supervisor_helmet_band",
+      "type": "supervisor_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.88816,
+        0.78568,
+        0.028579
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.44408,
+          -0.541117,
+          1.650711
+        ],
+        "max": [
+          0.44408,
+          0.244563,
+          1.679289
+        ]
+      },
+      "widthToHeadRatio": 0.73547
+    },
+    {
+      "name": "wp04_supervisor_helmet_ridge",
+      "type": "supervisor_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.055,
+        0.28,
+        0.035
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.0275,
+          -0.288277,
+          1.8875
+        ],
+        "max": [
+          0.0275,
+          -0.008277,
+          1.9225
+        ]
+      },
+      "widthToHeadRatio": 0.045545
+    },
+    {
+      "name": "wp04_supervisor_clipboard_board",
+      "type": "clipboard_lowered",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.22,
+        0.035,
+        0.3
+      ],
+      "boundsMeters": {
+        "min": [
+          0.473724,
+          -0.075235,
+          0.658949
+        ],
+        "max": [
+          0.693724,
+          -0.040235,
+          0.958949
+        ]
+      },
+      "widthToHeadRatio": 0.182178
+    },
+    {
+      "name": "wp04_supervisor_clipboard_paper",
+      "type": "clipboard_lowered",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.18,
+        0.009,
+        0.245
+      ],
+      "boundsMeters": {
+        "min": [
+          0.493724,
+          -0.085235,
+          0.696449
+        ],
+        "max": [
+          0.673724,
+          -0.076235,
+          0.941449
+        ]
+      },
+      "widthToHeadRatio": 0.149055
+    },
+    {
+      "name": "wp04_supervisor_clipboard_clip",
+      "type": "clipboard_lowered",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.06,
+        0.018,
+        0.026
+      ],
+      "boundsMeters": {
+        "min": [
+          0.553724,
+          -0.096735,
+          0.930949
+        ],
+        "max": [
+          0.613724,
+          -0.078735,
+          0.956949
+        ]
+      },
+      "widthToHeadRatio": 0.049685
+    }
+  ],
+  "declaredAccessoryOrder": [
+    "supervisor_helmet_v2",
+    "clipboard_lowered"
+  ],
+  "anchors": [
+    "arm-left",
+    "head"
+  ],
+  "maxAccessoryDrift": 1.4901161193847656e-07,
+  "rig": {
+    "armature": "character-male-e",
+    "bones": 7,
+    "boneNames": [
+      "root",
+      "leg-left",
+      "leg-right",
+      "torso",
+      "arm-left",
+      "arm-right",
+      "head"
+    ],
+    "actions": 32
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "frameRange": [
+        0.0,
+        32.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 16,
+      "keyframeCount": 640,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 32.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": []
+    },
+    "walk": {
+      "name": "walk",
+      "frameRange": [
+        0.0,
+        16.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 27,
+      "keyframeCount": 540,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 16.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": [
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 0,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 1,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 2,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    "walkFrames": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "headDimensionsMeters": [
+    1.207609,
+    0.90537,
+    0.885976
+  ],
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "e8cb86273197285ba450c1278fa97f4355ae0215c0d6b249c24d7d6e5da9dfa6"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "a0585324206ed2fa4ddbd23a59a5c289ae40ca903edeed1b116fc6331b099dd7"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false,
+  "visualRisks": [
+    "Helmet and clipboard need small-scale human review.",
+    "Single idle pose; no full idle cycle."
+  ],
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-male-e",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.003669,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.768138,
+        1.10358,
+        1.9225
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.168413,
+        "maxX": 0.776103,
+        "minY": 0.055948,
+        "maxY": 0.909947,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/supervisor/supervisor-d0-idle-00.png",
+        "sha256": "c14ee60438ff048e45241a9d6cbea4e0f43226001fd0caafdb7ab6d802f752db",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.003669,
+            -0.0
+          ],
+          "tail": [
+            0.0,
+            -0.003669,
+            0.475531
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.222537,
+            0.072888,
+            0.469328
+          ],
+          "tail": [
+            0.222537,
+            0.072888,
+            0.944859
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.222537,
+            0.072888,
+            0.469328
+          ],
+          "tail": [
+            -0.222537,
+            0.072888,
+            0.944859
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            0.072888,
+            0.469328
+          ],
+          "tail": [
+            -0.0,
+            0.072888,
+            0.869145
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.266011,
+            0.042265,
+            0.766236
+          ],
+          "tail": [
+            0.548724,
+            0.042265,
+            1.048949
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.266011,
+            0.042265,
+            0.766236
+          ],
+          "tail": [
+            -0.548724,
+            0.042265,
+            1.048949
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            0.002618,
+            0.914024
+          ],
+          "tail": [
+            0.0,
+            0.002618,
+            1.313841
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/supervisor/supervisor-d0-idle-00.composition.json",
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-male-e",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.003669,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.067012,
+      "worldSizeMeters": [
+        1.768138,
+        1.10358,
+        1.989512
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.168413,
+        "maxX": 0.776103,
+        "minY": 0.077969,
+        "maxY": 0.93518,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/supervisor/supervisor-d0-walk-04.png",
+        "sha256": "25e96f2d3f9227fbe1e62b2b8d282b2d2357e6b2a2b32d5f29ecf64f49228c90",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-06",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.003669,
+            0.067012
+          ],
+          "tail": [
+            0.0,
+            -0.003669,
+            0.542543
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.222537,
+            0.072888,
+            0.53634
+          ],
+          "tail": [
+            0.222537,
+            -0.041509,
+            0.997906
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.222537,
+            0.072888,
+            0.53634
+          ],
+          "tail": [
+            -0.222537,
+            0.187285,
+            0.997906
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            0.072888,
+            0.53634
+          ],
+          "tail": [
+            -0.0,
+            0.072888,
+            0.936157
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.266011,
+            0.042265,
+            0.833248
+          ],
+          "tail": [
+            0.548724,
+            0.042265,
+            1.115961
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.266011,
+            0.042265,
+            0.833248
+          ],
+          "tail": [
+            -0.548724,
+            0.042265,
+            1.115961
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            0.002618,
+            0.981036
+          ],
+          "tail": [
+            0.0,
+            0.002618,
+            1.380854
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/roles/supervisor/supervisor-d0-walk-04.composition.json",
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

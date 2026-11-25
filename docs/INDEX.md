@@ -147,7 +147,8 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/ve1-visual-coverage-matrix-2026-11-02.md — V.e.1 histórica; la matriz vigente se regenera desde D-098 y declara evidencia candidata 15/15, estados renderizados 18/60, 14/14 `complete` importados y promoción al runtime pendiente de QA.
 - execution/phase-4/ve2-building-production-2026-11-02.md — V.e.2: SUPERSEDED por D-098; historial de la Building Factory que declaraba fuentes que no importaba.
 - execution/phase-4/ve3-building-states-2026-11-02.md — V.e.3: SUPERSEDED por D-098; los 60/60 estados se generaron sobre geometría inventada.
-- execution/phase-4/ve4-character-production-2026-11-02.md — V.e.4: catálogo offline de 13 roles sin ampliar el contrato jugable.
+- execution/phase-4/ve4-character-production-2026-11-02.md — V.e.4: catálogo offline histórico de 13 roles sin ampliar el contrato jugable.
+- execution/phase-4/characters/wp-char-04/01-smoke-results.md — smoke técnico 14/14 personajes Kenney, 28/28 frames y gate humano pendiente.
 - execution/phase-4/ve5-world-assets-2026-11-02.md — V.e.5: cobertura gobernada de vehículos, props y terrenos del showcase.
 - execution/phase-4/ve6-visual-catalog-2026-11-02.md — V.e.6: enciclopedia `/visual-catalog`, cobertura automática y modo estático.
 - execution/phase-4/ve7-showcase-scene-2026-11-02.md — V.e.7: escena Phaser determinista con 15 edificios y vocabulario urbano completo.

@@ -4,17 +4,24 @@ import catalog from "./generated/visual-catalog.json";
 import { VisualCatalog } from "./VisualCatalog";
 
 describe("VisualCatalog", () => {
+  const characterCount = catalog.characters.length;
+  const buildingCount = catalog.buildings.length;
+  const buildingStateCount = catalog.buildings.flatMap((entry) => Object.keys(entry.states)).length;
+
   it("covers every building and state without duplicate hashes", () => {
-    expect(catalog.buildings).toHaveLength(15);
-    expect(catalog.buildings.flatMap((entry) => Object.keys(entry.states))).toHaveLength(18);
+    expect(buildingCount).toBeGreaterThan(0);
+    expect(catalog.coverage.buildings).toBe(`${buildingCount}/${buildingCount}`);
+    expect(catalog.coverage.buildingStates).toBe(`${buildingStateCount}/${buildingCount * 6}`);
     expect(catalog.buildings.flatMap((entry) => entry.duplicateStates)).toEqual([]);
   });
   it("mounts all catalog categories and counters", () => {
     const markup = renderToStaticMarkup(<VisualCatalog />);
-    expect((markup.match(/<article/g) ?? []).length).toBeGreaterThanOrEqual(43);
-    expect(markup).toContain("15/15");
-    expect(markup).toContain("18/60");
-    expect(markup).toContain("0/13");
+    expect(characterCount).toBe(14);
+    expect((markup.match(/<article/g) ?? []).length).toBeGreaterThanOrEqual(44);
+    expect(markup).toContain(`${buildingCount}/${buildingCount}`);
+    expect(markup).toContain(`${buildingStateCount}/${buildingCount * 6}`);
+    expect(markup).toContain(`${characterCount}/${characterCount}`);
+    expect(markup).toContain(`0/${characterCount}`);
     expect(markup).toContain("Role specification — visual production pending");
     expect(markup).toContain('data-testid="showcase-mount"');
   });

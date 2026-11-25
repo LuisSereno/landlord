@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "role": "enforcer_female",
+  "canonicalId": "enforcer_female",
+  "sourceFile": "character-female-a.glb",
+  "sourceSha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+  "finding": "Walk action frame 8 is a near-rest passing pose for this source; frame 4 exposes the intended stride. The skinned jacket is not the cause of the low delta.",
+  "controls": {
+    "unadaptedFrame8VisibleMad": 0.9521952867507935,
+    "weaponsRemovedFrame8VisibleMad": 6.181538105010986,
+    "jacketOnlyFrame8VisibleMad": 0.0000034354057778274873,
+    "adaptedFrame8VisibleMad": 0.000003900688625435578
+  },
+  "resolution": "Use role-specific smoke walk sample 2 (action frame 4) while retaining the full eight-sample batch contract.",
+  "finalSmokeRun": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06",
+  "finalValidation": {
+    "checks": 1528,
+    "errors": 0,
+    "warnings": 0,
+    "frames": 28,
+    "uniqueFrameHashes": 28
+  },
+  "runtimePromotion": false,
+  "humanApprovalClaimed": false
+}

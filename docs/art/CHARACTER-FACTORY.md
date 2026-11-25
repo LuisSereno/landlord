@@ -15,9 +15,10 @@ introduce roles nuevos en simulación; los cuatro specialties operativos siguen 
 
 ## Estado del cierre
 
-Los cinco prototipos Kenney existentes son `construction_worker_a`, `supervisor`, `enforcer_male`,
-`police` y `firefighter`. Los nueve restantes se producen en WP-CHAR-04. La validación técnica no
-equivale a aprobación artística: el estado humano permanece explícito en el manifiesto.
+WP-CHAR-04 produjo el smoke técnico de los 14: 28 frames, 1.528 comprobaciones, 0 errores y 0
+advertencias. Los cinco prototipos anteriores se reutilizaron y los nueve restantes ya tienen
+candidato Kenney. La validación técnica no equivale a aprobación artística: el batch completo de
+504 frames y la promoción runtime siguen pendientes de revisión humana.
 
 ```bash
 pnpm art:character-factory:validate

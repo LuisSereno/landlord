@@ -1074,7 +1074,9 @@ la revisión visual humana y no se promueve ningún sprite al runtime. Inventari
   guarda `art:runtime-references:check` pasa 1.173/1.173 archivos, 0 ausentes, 0 huérfanos y 0 hashes
   divergentes.
 - D-CHAR-01…06 fija Kenney como familia canónica, 34 px/zoom 1× como referencia provisional y la
-  aprobación humana antes de runtime. El catálogo generado pasa a declarar 14/14.
+  aprobación humana antes de runtime. WP-CHAR-04 completa el smoke 14/14 roles y 28/28 frames
+  (1.528 comprobaciones, 0 errores/advertencias); el catálogo generado declara 14/14 y el batch de
+  504 frames sigue pendiente de aprobación humana.
 - D-112 implementa `cleaning_depot`: municipal, 3×1, solar 4×2, +6 celdas de radio local, máximo 36,
   baseline sin depósito exacto y SnapshotV3 compatible. Commit local `f7f628e`; 60/60 pruebas
   focalizadas verdes. Generador v5 y fixtures medidas en 12 ciudades/12 distritos/10 digestos.

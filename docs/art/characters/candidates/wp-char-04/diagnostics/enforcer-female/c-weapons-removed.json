@@ -1,0 +1,1256 @@
+{
+  "schemaVersion": 1,
+  "purpose": "WP-CHAR-04 source component inspection; no rendering or source mutation",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-a.glb",
+    "sha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320"
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "runtimePromotion": false,
+  "meshes": [
+    {
+      "mesh": "body-mesh",
+      "vertices": 1148,
+      "polygons": 626,
+      "componentCount": 22,
+      "components": [
+        {
+          "component": 0,
+          "polygons": 54,
+          "vertices": 92,
+          "materialSlots": {
+            "0": 54
+          },
+          "averageAtlasSrgb255": [
+            238.83,
+            222.52,
+            214.95
+          ],
+          "localBounds": {
+            "min": [
+              0.016981,
+              -0.1025,
+              0.0
+            ],
+            "max": [
+              0.148886,
+              0.1025,
+              0.09
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.34375,
+              0.075
+            ],
+            "max": [
+              0.96875,
+              0.412963
+            ]
+          },
+          "dominantGroups": {
+            "leg-left": 54
+          }
+        },
+        {
+          "component": 1,
+          "polygons": 54,
+          "vertices": 92,
+          "materialSlots": {
+            "0": 54
+          },
+          "averageAtlasSrgb255": [
+            238.01,
+            221.18,
+            213.43
+          ],
+          "localBounds": {
+            "min": [
+              -0.148886,
+              -0.1025,
+              0.0
+            ],
+            "max": [
+              -0.016981,
+              0.1025,
+              0.09
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.34375,
+              0.075
+            ],
+            "max": [
+              0.96875,
+              0.407313
+            ]
+          },
+          "dominantGroups": {
+            "leg-right": 54
+          }
+        },
+        {
+          "component": 2,
+          "polygons": 38,
+          "vertices": 72,
+          "materialSlots": {
+            "0": 38
+          },
+          "averageAtlasSrgb255": [
+            161.39,
+            170.25,
+            227.22
+          ],
+          "localBounds": {
+            "min": [
+              0.029746,
+              -0.045,
+              0.0825
+            ],
+            "max": [
+              0.136121,
+              0.1025,
+              0.20125
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.525
+            ],
+            "max": [
+              0.09375,
+              0.646739
+            ]
+          },
+          "dominantGroups": {
+            "leg-left": 38
+          }
+        },
+        {
+          "component": 3,
+          "polygons": 38,
+          "vertices": 72,
+          "materialSlots": {
+            "0": 38
+          },
+          "averageAtlasSrgb255": [
+            165.12,
+            183.31,
+            231.33
+          ],
+          "localBounds": {
+            "min": [
+              -0.136121,
+              -0.045,
+              0.0825
+            ],
+            "max": [
+              -0.029746,
+              0.1025,
+              0.20125
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.601316
+            ],
+            "max": [
+              0.09375,
+              0.675
+            ]
+          },
+          "dominantGroups": {
+            "leg-right": 38
+          }
+        },
+        {
+          "component": 4,
+          "polygons": 30,
+          "vertices": 64,
+          "materialSlots": {
+            "0": 30
+          },
+          "averageAtlasSrgb255": [
+            203.28,
+            160.05,
+            138.25
+          ],
+          "localBounds": {
+            "min": [
+              -0.383584,
+              -0.106992,
+              0.23225
+            ],
+            "max": [
+              -0.242217,
+              0.034764,
+              0.34325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.21875,
+              0.275
+            ],
+            "max": [
+              0.21875,
+              0.475
+            ]
+          },
+          "dominantGroups": {
+            "arm-right": 30
+          }
+        },
+        {
+          "component": 5,
+          "polygons": 30,
+          "vertices": 64,
+          "materialSlots": {
+            "0": 30
+          },
+          "averageAtlasSrgb255": [
+            203.28,
+            160.05,
+            138.25
+          ],
+          "localBounds": {
+            "min": [
+              0.242217,
+              -0.106992,
+              0.23225
+            ],
+            "max": [
+              0.383584,
+              0.034764,
+              0.34325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.21875,
+              0.275
+            ],
+            "max": [
+              0.21875,
+              0.475
+            ]
+          },
+          "dominantGroups": {
+            "arm-left": 30
+          }
+        },
+        {
+          "component": 6,
+          "polygons": 28,
+          "vertices": 48,
+          "materialSlots": {
+            "0": 28
+          },
+          "averageAtlasSrgb255": [
+            164.26,
+            179.73,
+            230.11
+          ],
+          "localBounds": {
+            "min": [
+              0.010386,
+              -0.075664,
+              0.032418
+            ],
+            "max": [
+              0.155481,
+              0.130576,
+              0.128923
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.575
+            ],
+            "max": [
+              0.09375,
+              0.675
+            ]
+          },
+          "dominantGroups": {
+            "leg-left": 28
+          }
+        },
+        {
+          "component": 7,
+          "polygons": 28,
+          "vertices": 48,
+          "materialSlots": {
+            "0": 28
+          },
+          "averageAtlasSrgb255": [
+            164.26,
+            179.73,
+            230.16
+          ],
+          "localBounds": {
+            "min": [
+              -0.155481,
+              -0.075664,
+              0.032418
+            ],
+            "max": [
+              -0.010386,
+              0.130576,
+              0.128923
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.590347
+            ],
+            "max": [
+              0.09375,
+              0.659653
+            ]
+          },
+          "dominantGroups": {
+            "leg-right": 28
+          }
+        },
+        {
+          "component": 8,
+          "polygons": 28,
+          "vertices": 56,
+          "materialSlots": {
+            "0": 28
+          },
+          "averageAtlasSrgb255": [
+            188.5,
+            192.65,
+            227.5
+          ],
+          "localBounds": {
+            "min": [
+              -0.549394,
+              -0.053529,
+              0.256531
+            ],
+            "max": [
+              -0.244442,
+              0.129491,
+              0.318969
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.036111
+            ],
+            "max": [
+              0.34375,
+              0.713889
+            ]
+          },
+          "dominantGroups": {
+            "arm-right": 28
+          }
+        },
+        {
+          "component": 9,
+          "polygons": 28,
+          "vertices": 56,
+          "materialSlots": {
+            "0": 28
+          },
+          "averageAtlasSrgb255": [
+            188.5,
+            192.65,
+            227.5
+          ],
+          "localBounds": {
+            "min": [
+              0.244442,
+              -0.053529,
+              0.256531
+            ],
+            "max": [
+              0.549394,
+              0.129491,
+              0.318969
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.036111
+            ],
+            "max": [
+              0.34375,
+              0.713889
+            ]
+          },
+          "dominantGroups": {
+            "arm-left": 28
+          }
+        },
+        {
+          "component": 10,
+          "polygons": 28,
+          "vertices": 48,
+          "materialSlots": {
+            "0": 28
+          },
+          "averageAtlasSrgb255": [
+            233.11,
+            184.71,
+            157.43
+          ],
+          "localBounds": {
+            "min": [
+              -0.151121,
+              -0.105361,
+              0.17625
+            ],
+            "max": [
+              0.151121,
+              0.162861,
+              0.214683
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.275001
+            ],
+            "max": [
+              0.09375,
+              0.475
+            ]
+          },
+          "dominantGroups": {
+            "torso": 28
+          }
+        },
+        {
+          "component": 11,
+          "polygons": 28,
+          "vertices": 48,
+          "materialSlots": {
+            "0": 28
+          },
+          "averageAtlasSrgb255": [
+            188.41,
+            158.67,
+            232.82
+          ],
+          "localBounds": {
+            "min": [
+              -0.300981,
+              -0.087885,
+              0.20725
+            ],
+            "max": [
+              -0.174876,
+              0.084399,
+              0.36825
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.34375,
+              0.525
+            ],
+            "max": [
+              0.34375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-right": 28
+          }
+        },
+        {
+          "component": 12,
+          "polygons": 28,
+          "vertices": 48,
+          "materialSlots": {
+            "0": 28
+          },
+          "averageAtlasSrgb255": [
+            188.41,
+            158.67,
+            232.82
+          ],
+          "localBounds": {
+            "min": [
+              0.174876,
+              -0.087885,
+              0.20725
+            ],
+            "max": [
+              0.300981,
+              0.084399,
+              0.36825
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.34375,
+              0.525
+            ],
+            "max": [
+              0.34375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-left": 28
+          }
+        },
+        {
+          "component": 13,
+          "polygons": 22,
+          "vertices": 40,
+          "materialSlots": {
+            "0": 22
+          },
+          "averageAtlasSrgb255": [
+            164.16,
+            179.73,
+            230.13
+          ],
+          "localBounds": {
+            "min": [
+              -0.292269,
+              -0.137409,
+              0.253063
+            ],
+            "max": [
+              -0.214356,
+              -0.065339,
+              0.322437
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.531667
+            ],
+            "max": [
+              0.09375,
+              0.718333
+            ]
+          },
+          "dominantGroups": {
+            "arm-right": 22
+          }
+        },
+        {
+          "component": 14,
+          "polygons": 22,
+          "vertices": 40,
+          "materialSlots": {
+            "0": 22
+          },
+          "averageAtlasSrgb255": [
+            164.16,
+            179.67,
+            230.13
+          ],
+          "localBounds": {
+            "min": [
+              0.214357,
+              -0.137409,
+              0.253063
+            ],
+            "max": [
+              0.292269,
+              -0.065339,
+              0.322437
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.531667
+            ],
+            "max": [
+              0.09375,
+              0.718333
+            ]
+          },
+          "dominantGroups": {
+            "arm-left": 22
+          }
+        },
+        {
+          "component": 15,
+          "polygons": 22,
+          "vertices": 42,
+          "materialSlots": {
+            "0": 22
+          },
+          "averageAtlasSrgb255": [
+            188.77,
+            158.96,
+            232.93
+          ],
+          "localBounds": {
+            "min": [
+              -0.23364,
+              -0.03825,
+              0.23225
+            ],
+            "max": [
+              -0.049897,
+              0.07275,
+              0.34325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.34375,
+              0.525
+            ],
+            "max": [
+              0.34375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-right": 22
+          }
+        },
+        {
+          "component": 16,
+          "polygons": 22,
+          "vertices": 42,
+          "materialSlots": {
+            "0": 22
+          },
+          "averageAtlasSrgb255": [
+            188.47,
+            158.67,
+            232.79
+          ],
+          "localBounds": {
+            "min": [
+              0.049897,
+              -0.03825,
+              0.23225
+            ],
+            "max": [
+              0.23364,
+              0.07275,
+              0.34325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.34375,
+              0.525
+            ],
+            "max": [
+              0.34375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-left": 22
+          }
+        },
+        {
+          "component": 17,
+          "polygons": 22,
+          "vertices": 40,
+          "materialSlots": {
+            "0": 22
+          },
+          "averageAtlasSrgb255": [
+            192.2,
+            161.28,
+            230.73
+          ],
+          "localBounds": {
+            "min": [
+              -0.126121,
+              -0.080361,
+              0.17625
+            ],
+            "max": [
+              0.126121,
+              0.137861,
+              0.34325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.15625,
+              0.375
+            ],
+            "max": [
+              0.34375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "torso": 22
+          }
+        },
+        {
+          "component": 18,
+          "polygons": 20,
+          "vertices": 36,
+          "materialSlots": {
+            "0": 20
+          },
+          "averageAtlasSrgb255": [
+            164.07,
+            179.52,
+            230.11
+          ],
+          "localBounds": {
+            "min": [
+              -0.370169,
+              -0.061463,
+              0.185515
+            ],
+            "max": [
+              -0.258805,
+              0.067781,
+              0.389985
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.525
+            ],
+            "max": [
+              0.09375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-right": 20
+          }
+        },
+        {
+          "component": 19,
+          "polygons": 20,
+          "vertices": 36,
+          "materialSlots": {
+            "0": 20
+          },
+          "averageAtlasSrgb255": [
+            164.07,
+            179.52,
+            230.11
+          ],
+          "localBounds": {
+            "min": [
+              0.258805,
+              -0.061463,
+              0.185515
+            ],
+            "max": [
+              0.370169,
+              0.067781,
+              0.389985
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.525
+            ],
+            "max": [
+              0.09375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-left": 20
+          }
+        },
+        {
+          "component": 20,
+          "polygons": 18,
+          "vertices": 32,
+          "materialSlots": {
+            "0": 18
+          },
+          "averageAtlasSrgb255": [
+            164.13,
+            179.73,
+            230.11
+          ],
+          "localBounds": {
+            "min": [
+              -0.381516,
+              0.034251,
+              0.23775
+            ],
+            "max": [
+              -0.317024,
+              0.117261,
+              0.34325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.525
+            ],
+            "max": [
+              0.09375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-right": 18
+          }
+        },
+        {
+          "component": 21,
+          "polygons": 18,
+          "vertices": 32,
+          "materialSlots": {
+            "0": 18
+          },
+          "averageAtlasSrgb255": [
+            164.13,
+            179.73,
+            230.11
+          ],
+          "localBounds": {
+            "min": [
+              0.317024,
+              0.034251,
+              0.23775
+            ],
+            "max": [
+              0.381516,
+              0.117261,
+              0.34325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.09375,
+              0.525
+            ],
+            "max": [
+              0.09375,
+              0.725
+            ]
+          },
+          "dominantGroups": {
+            "arm-left": 18
+          }
+        }
+      ],
+      "materials": [
+        {
+          "slot": 0,
+          "name": "colormap",
+          "polygons": 626,
+          "atlas": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/Textures/colormap.png",
+          "atlasSize": [
+            512,
+            512
+          ],
+          "packed": true,
+          "averageAtlasSrgb255": [
+            193.42,
+            183.7,
+            217.99
+          ]
+        }
+      ],
+      "inwardFacingPolygons": 196,
+      "inwardFacingRatio": 0.313099,
+      "vertexGroups": [
+        "root",
+        "leg-left",
+        "leg-right",
+        "torso",
+        "arm-left",
+        "arm-right",
+        "head"
+      ],
+      "armatureModifiers": [
+        "Armature"
+      ]
+    },
+    {
+      "mesh": "head-mesh",
+      "vertices": 524,
+      "polygons": 298,
+      "componentCount": 8,
+      "components": [
+        {
+          "component": 0,
+          "polygons": 94,
+          "vertices": 166,
+          "materialSlots": {
+            "0": 94
+          },
+          "averageAtlasSrgb255": [
+            135.47,
+            135.47,
+            142.48
+          ],
+          "localBounds": {
+            "min": [
+              -0.17,
+              -0.207639,
+              0.357031
+            ],
+            "max": [
+              0.17,
+              0.172361,
+              0.671325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.46875,
+              0.025
+            ],
+            "max": [
+              0.46875,
+              0.225
+            ]
+          },
+          "dominantGroups": {
+            "head": 94
+          }
+        },
+        {
+          "component": 1,
+          "polygons": 76,
+          "vertices": 136,
+          "materialSlots": {
+            "0": 76
+          },
+          "averageAtlasSrgb255": [
+            205.3,
+            160.88,
+            138.26
+          ],
+          "localBounds": {
+            "min": [
+              -0.16,
+              -0.157639,
+              0.34325
+            ],
+            "max": [
+              0.16,
+              0.162361,
+              0.661325
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.21875,
+              0.275
+            ],
+            "max": [
+              0.21875,
+              0.475
+            ]
+          },
+          "dominantGroups": {
+            "head": 76
+          }
+        },
+        {
+          "component": 2,
+          "polygons": 60,
+          "vertices": 112,
+          "materialSlots": {
+            "0": 60
+          },
+          "averageAtlasSrgb255": [
+            136.28,
+            136.28,
+            143.52
+          ],
+          "localBounds": {
+            "min": [
+              -0.128214,
+              0.037558,
+              0.523282
+            ],
+            "max": [
+              0.128214,
+              0.291892,
+              0.775528
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.46875,
+              0.025679
+            ],
+            "max": [
+              0.46875,
+              0.224551
+            ]
+          },
+          "dominantGroups": {
+            "head": 60
+          }
+        },
+        {
+          "component": 3,
+          "polygons": 24,
+          "vertices": 42,
+          "materialSlots": {
+            "0": 24
+          },
+          "averageAtlasSrgb255": [
+            203.28,
+            160.16,
+            138.31
+          ],
+          "localBounds": {
+            "min": [
+              0.16,
+              -0.006014,
+              0.413411
+            ],
+            "max": [
+              0.226751,
+              0.094112,
+              0.507811
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.21875,
+              0.275
+            ],
+            "max": [
+              0.21875,
+              0.475
+            ]
+          },
+          "dominantGroups": {
+            "head": 24
+          }
+        },
+        {
+          "component": 4,
+          "polygons": 24,
+          "vertices": 42,
+          "materialSlots": {
+            "0": 24
+          },
+          "averageAtlasSrgb255": [
+            203.45,
+            160.19,
+            138.31
+          ],
+          "localBounds": {
+            "min": [
+              -0.226751,
+              -0.006014,
+              0.413411
+            ],
+            "max": [
+              -0.16,
+              0.094112,
+              0.507811
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.21875,
+              0.275
+            ],
+            "max": [
+              0.21875,
+              0.475
+            ]
+          },
+          "dominantGroups": {
+            "head": 24
+          }
+        },
+        {
+          "component": 5,
+          "polygons": 8,
+          "vertices": 10,
+          "materialSlots": {
+            "0": 8
+          },
+          "averageAtlasSrgb255": [
+            134.21,
+            134.21,
+            140.84
+          ],
+          "localBounds": {
+            "min": [
+              -0.044856,
+              -0.159605,
+              0.401585
+            ],
+            "max": [
+              0.044856,
+              -0.159605,
+              0.434879
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.46875,
+              0.099442
+            ],
+            "max": [
+              0.46875,
+              0.127608
+            ]
+          },
+          "dominantGroups": {
+            "head": 8
+          }
+        },
+        {
+          "component": 6,
+          "polygons": 6,
+          "vertices": 8,
+          "materialSlots": {
+            "0": 6
+          },
+          "averageAtlasSrgb255": [
+            140.28,
+            140.28,
+            148.58
+          ],
+          "localBounds": {
+            "min": [
+              0.04393,
+              -0.159605,
+              0.462062
+            ],
+            "max": [
+              0.118034,
+              -0.159605,
+              0.511343
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.46875,
+              0.177534
+            ],
+            "max": [
+              0.46875,
+              0.222208
+            ]
+          },
+          "dominantGroups": {
+            "head": 6
+          }
+        },
+        {
+          "component": 7,
+          "polygons": 6,
+          "vertices": 8,
+          "materialSlots": {
+            "0": 6
+          },
+          "averageAtlasSrgb255": [
+            140.12,
+            140.12,
+            148.43
+          ],
+          "localBounds": {
+            "min": [
+              -0.118034,
+              -0.159605,
+              0.462062
+            ],
+            "max": [
+              -0.04393,
+              -0.159605,
+              0.511343
+            ]
+          },
+          "uvBounds": {
+            "min": [
+              0.46875,
+              0.177534
+            ],
+            "max": [
+              0.46875,
+              0.222208
+            ]
+          },
+          "dominantGroups": {
+            "head": 6
+          }
+        }
+      ],
+      "materials": [
+        {
+          "slot": 0,
+          "name": "colormap",
+          "polygons": 298,
+          "atlas": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/Textures/colormap.png",
+          "atlasSize": [
+            512,
+            512
+          ],
+          "packed": true,
+          "averageAtlasSrgb255": [
+            168.97,
+            146.9,
+            141.17
+          ]
+        }
+      ],
+      "inwardFacingPolygons": 26,
+      "inwardFacingRatio": 0.087248,
+      "vertexGroups": [
+        "root",
+        "leg-left",
+        "leg-right",
+        "torso",
+        "arm-left",
+        "arm-right",
+        "head"
+      ],
+      "armatureModifiers": [
+        "Armature"
+      ]
+    }
+  ],
+  "removalControl": {
+    "removedComponents": [
+      8,
+      9,
+      13,
+      14,
+      18,
+      19,
+      20,
+      21
+    ],
+    "removedPolygons": 176,
+    "path": "/home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/diagnostics/enforcer-female/c-weapons-removed.png",
+    "sha256": "bc9bd79bda0dfa1f05ff2c5842610b761de0d53fc943f7bdf6e047251b9cab8a",
+    "cameraBounds": {
+      "minX": 0.181906,
+      "maxX": 0.71158,
+      "minY": 0.050117,
+      "maxY": 0.877342,
+      "clipped": false
+    },
+    "note": "Offline diagnostic only; local imported mesh copy, source GLB unchanged."
+  }
+}

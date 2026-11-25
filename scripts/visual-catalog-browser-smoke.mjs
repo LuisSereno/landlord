@@ -106,9 +106,9 @@ try {
   console.log(
     JSON.stringify({
       status: "passed",
-      buildings: 15,
-      states: 18,
-      characterDefinitions: 13,
+      buildings: buildingCount,
+      states: buildingStateCount,
+      characterDefinitions: catalog.characters.length,
       characterRenderedRoles: 0,
       screenshots: 16,
       pageErrors: 0,

@@ -20,3 +20,11 @@ __pycache__/
 # Spike renders are local STOP-gate evidence, not runtime assets: 16-bit PNGs of 2-5 MB
 # each would blow the binary budget for artifacts nobody loads at runtime.
 blender_artist/spike/
+
+# Candidate art remains local until human approval; manifests and review sheets are versioned.
+docs/art/organization-headquarters/attempts/
+docs/art/organization-headquarters/candidates-*/
+docs/art/organization-headquarters/gameplay-capture-v1/
+docs/art/cleaning-depot/attempts/
+docs/art/cleaning-depot/candidates-*/
+docs/art/cleaning-depot/gameplay-capture-v1/

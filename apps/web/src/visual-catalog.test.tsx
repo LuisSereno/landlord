@@ -9,7 +9,7 @@ describe("VisualCatalog", () => {
   const buildingStateCount = catalog.buildings.flatMap((entry) => Object.keys(entry.states)).length;
 
   it("covers every building and state without duplicate hashes", () => {
-    expect(buildingCount).toBeGreaterThan(0);
+    expect(buildingCount).toBe(17);
     expect(catalog.coverage.buildings).toBe(`${buildingCount}/${buildingCount}`);
     expect(catalog.coverage.buildingStates).toBe(`${buildingStateCount}/${buildingCount * 6}`);
     expect(catalog.buildings.flatMap((entry) => entry.duplicateStates)).toEqual([]);

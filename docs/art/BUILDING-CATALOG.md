@@ -45,15 +45,15 @@ Nada de esta evidencia se promueve al bundle runtime sin QA visual del responsab
 ## Sede operativa
 
 `headquarters` es el nuevo tipo económico. Sus dos referencias de silueta y el contrato para producir
-modelos están en [organization-headquarters](organization-headquarters/README.md). La geometría de
-ambas variantes todavía no forma parte de este catálogo ni del bundle runtime: deben pasar por el
-Building Composer con módulos aprobados, registrar sus fuentes y superar la captura/revisión visual
-en la ciudad antes de promoción.
+modelos están en [organization-headquarters](organization-headquarters/README.md). Las dos variantes
+ya tienen 96 candidatas Composer con procedencia y matriz validadas, pero no forman parte del bundle
+runtime: siguen pendientes la captura/revisión visual en ciudad y la aprobación humana.
 
 ## Depósito municipal de limpieza
 
 `cleaning_depot` es el decimoséptimo tipo económico. Es municipal, con huella 3×1, solar 4×2, una
 parcela/8 celdas, cero renta y cero capacidad. Cada edificio operativo propiedad del municipio suma
 6 celdas al radio radial de limpieza de su distrito (máximo 36); sin depósito se conserva el baseline
-anterior. SnapshotV3 no cambia. El fallback procedural es semántico y no se presenta como arte final;
-la promoción Composer sigue sujeta a procedencia, captura y aprobación humana (D-112).
+anterior. SnapshotV3 no cambia. El fallback procedural es semántico y no se presenta como arte final.
+La gramática Composer usa chapa perfilada original de 4 m y tres portones de servicio; el lote y su
+promoción siguen sujetos a captura y aprobación humana (D-112).

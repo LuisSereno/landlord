@@ -6,8 +6,76 @@
     "apps/web/public/assets/runtime/blender",
     "apps/web/public/assets/evidence/buildings"
   ],
-  "policy": "D-081, corregida por D-100 (2026-11-06) y D-101 (2026-11-07): ningún binario nuevo por encima de maxBinaryBytes sin LFS (requisito de Beta) o excepción registrada aquí. maxBundleBytes limita además el acumulado de un directorio servido en runtime. D-100 elevó el bundle a 10 MiB; D-101 lo sube a 23 MiB (24.117.248 B) con datos medidos: 22.753.635 B tras el quality pass V.i (15 edificios a renderScale 2, densidad x2 para zoom x4 nítido; copia runtime verbatim del candidato, sha idéntico). Cambiar la resolución de render sigue obligando a decidirlo explícitamente. Las excepciones nombradas cubren el spike WP2.14, la evidencia QA permanente (láminas de selección, golden de contexto, pixel-qa y showcase de dressing) y los 15 candidatos quality-vi >1 MiB.",
+  "policy": "D-081, corregida por D-100/D-101 y el cierre de catálogo 2026-11-25: ningún binario nuevo por encima de maxBinaryBytes sin LFS o excepción nombrada. maxBundleBytes limita el runtime servido. Las excepciones cubren spike, evidencia QA permanente, candidatos seleccionados, conceptos y matrices de sede pendientes de revisión humana; no implican aprobación artística ni promoción runtime.",
   "exceptions": [
+    {
+      "path": "apps/web/public/assets/art-spike/visual_direction_spike_blue_hour_2026-10-23.png",
+      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
+    },
+    {
+      "path": "apps/web/public/assets/art-spike/visual_direction_spike_graphic_civic_2026-10-23.png",
+      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
+    },
+    {
+      "path": "apps/web/public/assets/art-spike/visual_direction_spike_warm_editorial_2026-10-23.png",
+      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/apartment_block-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/brickworks-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/cement_plant-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/market_hall-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/mixed_tenement-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/school_block-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/steelworks-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/town_hall-complete.png",
+      "reason": "D-108 approved runtime day render above the per-file evidence threshold."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/apartment_block-complete.png",
+      "reason": "D-101: runtime PNG del apartamento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/market_hall-complete.png",
+      "reason": "D-101: runtime PNG del mercado quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/mixed_tenement-complete.png",
+      "reason": "D-101: runtime PNG del bloque mixto quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/school_block-complete.png",
+      "reason": "D-101: runtime PNG del colegio quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/steelworks-complete.png",
+      "reason": "D-101: runtime PNG de la acería quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender/town_hall-complete.png",
+      "reason": "D-101: runtime PNG del ayuntamiento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
+    },
     {
       "path": "blender_artist/generated/concepts/visual_direction_spike_direction_a_warm_editorial_2026-10-23.png",
       "reason": "Render 16-bit del Visual Direction Spike (WP2.14), anterior a D-081."
@@ -33,18 +101,6 @@
       "reason": "Master 16-bit del spike (WP2.14), anterior a D-081."
     },
     {
-      "path": "apps/web/public/assets/art-spike/visual_direction_spike_blue_hour_2026-10-23.png",
-      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
-    },
-    {
-      "path": "apps/web/public/assets/art-spike/visual_direction_spike_graphic_civic_2026-10-23.png",
-      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
-    },
-    {
-      "path": "apps/web/public/assets/art-spike/visual_direction_spike_warm_editorial_2026-10-23.png",
-      "reason": "Copia servida del master del spike para /art-lab; duplicación a resolver con LFS en Beta."
-    },
-    {
       "path": "blender_artist/showcase/vg-public-space-dressing/dress_park_publicspace_00000101.png",
       "reason": "D-100: showcase QA de dressing V.g (escena compuesta parque); evidencia permanente >1 MiB."
     },
@@ -61,22 +117,6 @@
       "reason": "D-100: showcase QA de dressing V.g (escena compuesta plaza); evidencia permanente >1 MiB."
     },
     {
-      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-apartment_block.png",
-      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
-    },
-    {
-      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-mixed_tenement.png",
-      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
-    },
-    {
-      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-row_house.png",
-      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
-    },
-    {
-      "path": "docs/art/industrial-light-catalog-vi/contact-sheets/industrial-light-workshop.png",
-      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
-    },
-    {
       "path": "docs/art/civic-catalog-vi/contact-sheets/civic-clinic.png",
       "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
     },
@@ -89,12 +129,52 @@
       "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
     },
     {
-      "path": "docs/art/golden/vf-building-composer/1920x1080.png",
-      "reason": "D-100: golden de evidencia del Building Composer; fijado para comparación, no optimizable."
+      "path": "docs/art/day-candidates/apartment_block/vg_apartment_block_1002.png",
+      "reason": "D-108 selected day candidate evidence."
     },
     {
-      "path": "docs/art/golden/vf-building-composer/row-house-city-context.png",
-      "reason": "D-100: golden de contexto urbano del Composer; evidencia permanente >1 MiB."
+      "path": "docs/art/day-candidates/brickworks/vg_brickworks_1000.png",
+      "reason": "D-108 selected day candidate evidence."
+    },
+    {
+      "path": "docs/art/day-candidates/cement_plant/vg_cement_plant_1001.png",
+      "reason": "D-108 selected day candidate evidence."
+    },
+    {
+      "path": "docs/art/day-candidates/market_hall/vg_market_hall_1000.png",
+      "reason": "D-108 selected day candidate evidence."
+    },
+    {
+      "path": "docs/art/day-candidates/mixed_tenement/vg_mixed_tenement_1001.png",
+      "reason": "D-108 selected day candidate evidence."
+    },
+    {
+      "path": "docs/art/day-candidates/school_block/vg_school_block_2000.png",
+      "reason": "D-108 selected day candidate evidence."
+    },
+    {
+      "path": "docs/art/day-candidates/steelworks/vg_steelworks_1003.png",
+      "reason": "D-108 selected day candidate evidence."
+    },
+    {
+      "path": "docs/art/day-candidates/town_hall/vf_town_hall_1006.png",
+      "reason": "D-108 selected day candidate evidence."
+    },
+    {
+      "path": "docs/art/facilities-v4/candidates/market_hall/vf_market_hall_1000.png",
+      "reason": "D-109 selected facility candidate evidence."
+    },
+    {
+      "path": "docs/art/facilities-v4/candidates/school_block/vf_school_block_1000.png",
+      "reason": "D-109 selected facility candidate evidence."
+    },
+    {
+      "path": "docs/art/facilities-v4/candidates/town_hall/vf_town_hall_1000.png",
+      "reason": "D-109 selected facility candidate evidence."
+    },
+    {
+      "path": "docs/art/golden/vf-building-composer/1920x1080.png",
+      "reason": "D-100: golden de evidencia del Building Composer; fijado para comparación, no optimizable."
     },
     {
       "path": "docs/art/golden/vf-building-composer/context/row_house-city-context-1x.png",
@@ -107,6 +187,482 @@
     {
       "path": "docs/art/golden/vf-building-composer/context/town_hall-city-context-2x.png",
       "reason": "D-100: golden de contexto urbano del Composer (2x); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/golden/vf-building-composer/row-house-city-context.png",
+      "reason": "D-100: golden de contexto urbano del Composer; evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/damaged_interior_mixed_tenement_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/facades/facade_fix_mixed_tenement_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/facades/w06cnd_mixed_tenement_2.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_burning.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_mixed_tenement_2_damaged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/interiors/w06cnd_warehouse_2_burning.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1112/wp06_mixed_tenement-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1112/wp06_row_house-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/aged_v3_d1113.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_mixed_tenement_2_burning.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_mixed_tenement_2_damaged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_town_hall_5.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/controls_d1113/w06cnd_warehouse_2_burning.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_black_green_artifacts_final_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_lab/M_primer_plano.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_states/mixed_o90_after.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/technical/facade_states/mixed_o90_before.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/townhall/town_hall_neoclassical_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/townhall/w06cnd_town_hall_5.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/aged_v2.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/conserved.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering/w06cnd_mixed_tenement_2_aged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/d1113/weathering_v3_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/mixed_tenement-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/mixed_tenement-control.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/row_house-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/town_hall-control.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/pilots/warehouse-control.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/sheets/gn_facade_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/sheets/pilots_sheet.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/candidata/mixed_tenement-city-context-1x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/candidata/row_house-city-context-1x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/control/mixed_tenement-city-context-1x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/urban/control/row_house-city-context-1x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-aged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_mixed_tenement-damaged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_row_house-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_town_hall-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/candidates/wp06_warehouse-burning-day.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/civic/town_hall-control.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/fire/hybrid_sprite_day.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/fire/hybrid_sprite_night.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/four_candidates_in_phaser.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/mixed_tenement_pair_10x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/warehouse_pair_05x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/closure/urban/warehouse_pair_10x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/commercial/mixed_tenement-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/commercial/mixed_tenement-control.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/final-assets/modern_candidates_in_phaser.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_day.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_mixed_tenement_night.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_day.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/candidata_warehouse_night.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_day.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/control_mixed_tenement_night.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/control_warehouse_day.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/fire_blender_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/fire/fire_blender_ab_half.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-candidata.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/residential/row_house-control.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/ag_civic_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/ext_window_columns.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/gn_v2_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/industrial_warehouse_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/weathering_states.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/weathering_states_half.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/wp06_candidates_ab.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/wp06_candidates_ab_half.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/sheets/wp08_arquitectura_avanzada.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_05x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_civic_10x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_05x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_commercial_10x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_05x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_industrial_10x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_05x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/urban/urban_residential_10x.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_aged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_burning.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_conserved.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/day/vw_mixed_tenement_1001_damaged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_aged.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/night/vwn_mixed_tenement_1001_conserved.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/optout/vw_mixed_tenement_1001.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/green_after_interior_fix.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/green_before_interior_fix.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/night_aged_emission_scale_0.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/graphics-capabilities/evidence/v2/weathering/probe/night_aged_emission_scale_1.png",
+      "reason": "D-111 technical/visual evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/industrial-light-catalog-vi/contact-sheets/industrial-light-workshop.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/candidates/mm_mixed_tenement_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/candidates/mm_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control-final/d111_mixed_tenement_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control-final/d111_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control-warehouse-v2/d111_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control/d111_mixed_tenement_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-control/d111_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-final/d111_mixed_tenement_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-final/d111_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-verified/d111_mixed_tenement_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-verified/d111_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material-warehouse-v2/d111_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material/d111_mixed_tenement_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/material-maquette-spike/experiments/day-material/d111_warehouse_1010.png",
+      "reason": "D-111 material spike evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/new-assets-integration/pilots-graphic/d111g2_mixed_tenement_2.png",
+      "reason": "D-111 source pilot evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/new-assets-integration/pilots/d111q_mixed_tenement_2.png",
+      "reason": "D-111 source pilot evidence; named QA exception."
+    },
+    {
+      "path": "docs/art/organization-headquarters/concepts/headquarters-courtyard-reference.png",
+      "reason": "D-110 concept reference; not a runtime sprite."
+    },
+    {
+      "path": "docs/art/organization-headquarters/concepts/headquarters-mansion-cupola-reference.png",
+      "reason": "D-110 concept reference; not a runtime sprite."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/apartment_block/vg_apartment_block_1002.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/market_hall/vg_market_hall_1000.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/mixed_tenement/vg_mixed_tenement_1001.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/school_block/vg_school_block_2000.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/steelworks/vg_steelworks_1003.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/quality-vi/candidates/town_hall/vf_town_hall_1006.png",
+      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
+    },
+    {
+      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-apartment_block.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-mixed_tenement.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
+    },
+    {
+      "path": "docs/art/residential-catalog-vi/contact-sheets/residential-row_house.png",
+      "reason": "D-100: lámina de selección V.i (4 candidatos) revisada por el responsable; evidencia permanente."
     },
     {
       "path": "docs/art/world-visual-foundation/pixel-qa/district-contact-sheet-05x.png",
@@ -123,54 +679,6 @@
     {
       "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-10x.png",
       "reason": "Gate D (2026-11-12): captura pixel-qa de distrito regenerada >1 MiB; evidencia de revisión de píxeles."
-    },
-    {
-      "path": "docs/art/quality-vi/candidates/apartment_block/vg_apartment_block_1002.png",
-      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
-    },
-    {
-      "path": "docs/art/quality-vi/candidates/mixed_tenement/vg_mixed_tenement_1001.png",
-      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
-    },
-    {
-      "path": "docs/art/quality-vi/candidates/steelworks/vg_steelworks_1003.png",
-      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
-    },
-    {
-      "path": "docs/art/quality-vi/candidates/town_hall/vf_town_hall_1006.png",
-      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
-    },
-    {
-      "path": "docs/art/quality-vi/candidates/school_block/vg_school_block_2000.png",
-      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
-    },
-    {
-      "path": "docs/art/quality-vi/candidates/market_hall/vg_market_hall_1000.png",
-      "reason": "D-101: candidato quality pass V.i a renderScale 2 (densidad x2 para zoom x4); evidencia permanente >1 MiB."
-    },
-    {
-      "path": "apps/web/public/assets/runtime/blender/apartment_block-complete.png",
-      "reason": "D-101: runtime PNG del apartamento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
-    },
-    {
-      "path": "apps/web/public/assets/runtime/blender/market_hall-complete.png",
-      "reason": "D-101: runtime PNG del mercado quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
-    },
-    {
-      "path": "apps/web/public/assets/runtime/blender/mixed_tenement-complete.png",
-      "reason": "D-101: runtime PNG del bloque mixto quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
-    },
-    {
-      "path": "apps/web/public/assets/runtime/blender/school_block-complete.png",
-      "reason": "D-101: runtime PNG del colegio quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
-    },
-    {
-      "path": "apps/web/public/assets/runtime/blender/steelworks-complete.png",
-      "reason": "D-101: runtime PNG de la acería quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
-    },
-    {
-      "path": "apps/web/public/assets/runtime/blender/town_hall-complete.png",
-      "reason": "D-101: runtime PNG del ayuntamiento quality pass V.i a renderScale 2; evidencia permanente >1 MiB."
     }
   ]
 }

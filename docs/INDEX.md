@@ -28,10 +28,12 @@ obra en proceso visible con cuadrillas y recinto derivados.
 
 - [Building Catalog](art/BUILDING-CATALOG.md) — catálogo de tipos de dominio y evidencia de geometría.
 - [Organization Headquarters](art/organization-headquarters/README.md) — contrato operativo, identidades visuales y gate de procedencia para las dos mansiones.
+- [Cleaning depot](art/cleaning-depot/README.md) — contrato municipal, cobertura radial, persistencia y gate de arte del depósito de limpieza.
 - [Catalog closure inventory](execution/phase-4/catalog-closure/00-inventory-2026-11-25.md) — inventario verificable de personajes, edificios y descartes antes de producir o promover.
 - [Asset retirement ledger](execution/phase-4/catalog-closure/01-retirement-ledger.md) — IDs, motivos y commit de retirada del arte descartado.
 - [Municipal cleaning depot](execution/phase-4/catalog-closure/02-cleaning-depot.md) — contrato, cobertura, persistencia y medición del depósito municipal.
 - [Human catalog review](execution/phase-4/catalog-closure/04-human-review.md) — checklist de aprobación visual humana; V.d playtest sigue independiente.
+- [Catalog verification](execution/phase-4/catalog-closure/05-verification.md) — gates técnicos, atribución de fallos y límites humanos del cierre.
 - [World Visual Foundation](art/WORLD-VISUAL-FOUNDATION.md) — WP4.15-V.h: Asset Knowledge Base, catálogos semánticos y dressing contextual determinista para la ciudad completa.
 - [World Asset Audit](asset-library/world-asset-audit.md) — auditoría total de fuentes (discovered/indexed/classified/runtime-ready/excluded).
 - [World Asset Dictionary](asset-library/world-asset-dictionary.md) — vocabulario del índice: estados, categorías, taxonomías de vehículo/actor/clip, procedencia.

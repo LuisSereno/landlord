@@ -11,8 +11,13 @@ Commits locales: `51f3260` (`art(catalog): retire rejected candidates and invali
 | `render_phase1_candidates`, `validate_phase1*`, `compose_phase1*`, `measure_phase1b*` | Herramientas que sólo producían/validaban los candidatos retirados | 7 herramientas y 2 manifiestos de jobs | Pipeline Kenney WP-CHAR-02A/02B/02C/03 y runtime Blender vigente |
 | `docs/art/building-composer/candidates`, `building-catalog-vg/candidates`, catálogos `residential/industrial-light/civic/industrial-heavy/remediation-vi/candidates` | Candidatos no seleccionados, superseded por promociones canónicas | Directorios completos de candidatos históricos | `quality-vi`, `day-candidates`, `facilities-v4`, lotes de promoción y `runtime-promotions.json` |
 | `vg-town-hall-spike-v3..v6` | Iteraciones anteriores a V7 | Directorios completos | V7, gramáticas, fuentes, licencias y metadata de promoción |
+| `docs/art/organization-headquarters/candidates/` | Ocho PNG completos de sede sin estados/moods ni identidad, sustituidos por la matriz D-110 de 96 candidatas | 8 PNG + 8 sidecars + manifiesto + métricas | Matriz `candidates-day-v1`/`candidates-night-v1`, sidecars, review sheets y gate de promoción pendiente |
 | 654 PNG runtime sin referencia | Familias antiguas de variantes y seis fallbacks sustituidos; ningún manifiesto los consume | 654 PNG / 780.948.327 B del directorio runtime local (ignorados) | 1.173 PNG referenciados, con hashes verificados |
 
-Total versionado: 642 archivos, 89 inserciones y 892.800 líneas borradas. La validación de jobs pasó con 80 jobs, el validador del Composer con 17 gramáticas, 15 promociones y 4 candidatos WP06, y la nueva guarda `art:runtime-references:check` pasó con 1.173 referencias, 1.173 archivos, 0 huérfanos, 0 ausentes y 0 hashes divergentes.
+La limpieza inicial retiró 642 archivos versionados, con 89 inserciones y 892.800 líneas borradas. La
+retirada adicional de la matriz de sede obsoleta eliminó 18 archivos. La validación de jobs pasó con
+80 jobs, el validador del Composer con 18 gramáticas, 15 promociones y 4 candidatos WP06, y la nueva
+guarda `art:runtime-references:check` pasó con 1.173 referencias, 1.173 archivos, 0 huérfanos, 0
+ausentes y 0 hashes divergentes.
 
 Las actas de ejecución antiguas se conservan como historia; los documentos canónicos de arte quedaron marcados `RETIRED` y ya no presentan los artefactos borrados como catálogo activo.

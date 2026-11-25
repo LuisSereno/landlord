@@ -44,6 +44,40 @@ const buildings = buildingCatalog.buildings.map((entry) => {
     ),
   };
 });
+const supplementalBuildings = [
+  {
+    id: "headquarters",
+    category: "civic",
+    floors: 2,
+    source: "Fallback procedural semántico; 96 candidatas Composer pendientes de aprobación humana",
+  },
+  {
+    id: "cleaning_depot",
+    category: "civic",
+    floors: 1,
+    source:
+      "Fallback procedural semántico; candidatas Composer de chapa 4 m pendientes de aprobación humana",
+  },
+].map((entry) => {
+  const asset = runtime.buildings[entry.id];
+  if (!asset) throw new Error(`${entry.id}: missing runtime fallback`);
+  const hashes = Object.fromEntries(
+    Object.entries(asset.states).map(([state, image]) => [state, image.sha256]),
+  );
+  return {
+    ...entry,
+    displayName: asset.name,
+    footprint: asset.domainFootprint,
+    status: "runtime-fallback",
+    states: asset.states,
+    duplicateStates: Object.keys(hashes).filter(
+      (state, index, all) => all.findIndex((other) => hashes[other] === hashes[state]) !== index,
+    ),
+  };
+});
+buildings.push(...supplementalBuildings);
+if (buildings.length !== 17)
+  throw new Error(`Expected 17 domain buildings, received ${buildings.length}`);
 const payload = {
   schemaVersion: 1,
   buildings,
@@ -54,9 +88,10 @@ const payload = {
   },
   world,
   coverage: {
-    buildings: `${buildings.length}/${buildingCatalog.buildings.length}`,
-    buildingStates: `${buildings.reduce((total, b) => total + Object.keys(b.states).length, 0)}/${buildingCatalog.buildings.length * 6}`,
-    stateConditioning: "pendiente: la geometría importada sólo renderiza complete",
+    buildings: `${buildings.length}/${buildings.length}`,
+    buildingStates: `${buildings.reduce((total, b) => total + Object.keys(b.states).length, 0)}/${buildings.length * 6}`,
+    stateConditioning:
+      "pendiente: 15 geometrías importadas sólo renderizan complete; sede y depósito usan fallback semántico de cuatro estados",
     characterDefinitions: `${characterCount}/${characterCount}`,
     characterRenderedRoles: `0/${characterCount}`,
     animationDefinitions: `${characters.runtimeAnimations.length + characters.showcaseAnimations.length}`,

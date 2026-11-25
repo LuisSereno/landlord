@@ -31,6 +31,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - [Catalog closure inventory](execution/phase-4/catalog-closure/00-inventory-2026-11-25.md) — inventario verificable de personajes, edificios y descartes antes de producir o promover.
 - [Asset retirement ledger](execution/phase-4/catalog-closure/01-retirement-ledger.md) — IDs, motivos y commit de retirada del arte descartado.
 - [Municipal cleaning depot](execution/phase-4/catalog-closure/02-cleaning-depot.md) — contrato, cobertura, persistencia y medición del depósito municipal.
+- [Human catalog review](execution/phase-4/catalog-closure/04-human-review.md) — checklist de aprobación visual humana; V.d playtest sigue independiente.
 - [World Visual Foundation](art/WORLD-VISUAL-FOUNDATION.md) — WP4.15-V.h: Asset Knowledge Base, catálogos semánticos y dressing contextual determinista para la ciudad completa.
 - [World Asset Audit](asset-library/world-asset-audit.md) — auditoría total de fuentes (discovered/indexed/classified/runtime-ready/excluded).
 - [World Asset Dictionary](asset-library/world-asset-dictionary.md) — vocabulario del índice: estados, categorías, taxonomías de vehículo/actor/clip, procedencia.
@@ -149,6 +150,7 @@ obra en proceso visible con cuadrillas y recinto derivados.
 - execution/phase-4/ve3-building-states-2026-11-02.md — V.e.3: SUPERSEDED por D-098; los 60/60 estados se generaron sobre geometría inventada.
 - execution/phase-4/ve4-character-production-2026-11-02.md — V.e.4: catálogo offline histórico de 13 roles sin ampliar el contrato jugable.
 - execution/phase-4/characters/wp-char-04/01-smoke-results.md — smoke técnico 14/14 personajes Kenney, 28/28 frames y gate humano pendiente.
+- execution/phase-4/characters/wp-char-04/02-dense-comparison.md — comparación B/D con diez edificios; B recomendado técnicamente, ratificación humana pendiente.
 - execution/phase-4/ve5-world-assets-2026-11-02.md — V.e.5: cobertura gobernada de vehículos, props y terrenos del showcase.
 - execution/phase-4/ve6-visual-catalog-2026-11-02.md — V.e.6: enciclopedia `/visual-catalog`, cobertura automática y modo estático.
 - execution/phase-4/ve7-showcase-scene-2026-11-02.md — V.e.7: escena Phaser determinista con 15 edificios y vocabulario urbano completo.

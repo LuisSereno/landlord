@@ -51,8 +51,10 @@ export type LabState = {
   cameraZoom: number;
   cameraScroll: { x: number; y: number };
   cameraCenterWorld: { x: number; y: number };
+  visibleWorldArea: number;
   fps: number;
   spriteCount: number;
+  visibleBuildingCount: number;
   textureCount: number;
   estimatedTextureBytes: number;
   pickedCell: GridCell | null;

@@ -52,8 +52,9 @@ Actualizado: 2026-11-19. Leer este archivo antes de la historia extensa de `PROJ
 
 - Catálogo canónico: 14 variantes Kenney; WP-CHAR-04 completó smoke 14/14 roles y 28/28 frames con
   1.528 comprobaciones, 0 errores y 0 advertencias.
-- El batch de 504 frames, la comparación B/D en ciudad densa y la promoción runtime siguen
-  pendientes de revisión visual humana. Rocketbox es runtime legado, no la fuente de nueva producción.
+- La comparación B/D en ciudad densa recomienda técnicamente B (34 px/zoom 1×); el batch de 504
+  frames y la ratificación visual/promoción runtime siguen pendientes. Rocketbox es runtime legado,
+  no la fuente de nueva producción.
 
 ## Sistemas implementados
 

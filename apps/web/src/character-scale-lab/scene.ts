@@ -23,7 +23,12 @@ import {
   type ScaleConfigId,
 } from "./config";
 import { calibrateAnimation, type SpriteCalibration } from "./scale-calibration";
-import type { CharacterSnapshot, CharacterVisual, LabSpriteFrame, LabSpriteManifest } from "./types";
+import type {
+  CharacterSnapshot,
+  CharacterVisual,
+  LabSpriteFrame,
+  LabSpriteManifest,
+} from "./types";
 
 const LAYOUT: IsometricLayout = {
   origin: { x: 700, y: 70 },
@@ -37,8 +42,24 @@ const ROLES = ["worker", "supervisor", "enforcer", "police", "firefighter"] as c
 const MOVE_CELLS_PER_SECOND = 1.4;
 
 type RuntimeManifest = {
-  buildings: Record<string, { pivot: { x: number; y: number }; footprint: { width: number; height: number }; pixelsPerMeter: number; states: { complete: { src: string } } }>;
-  vehicles: Record<string, { pivot: { x: number; y: number }; footprint: { width: number; height: number }; pixelsPerMeter: number; image: { src: string } }>;
+  buildings: Record<
+    string,
+    {
+      pivot: { x: number; y: number };
+      footprint: { width: number; height: number };
+      pixelsPerMeter: number;
+      states: { complete: { src: string } };
+    }
+  >;
+  vehicles: Record<
+    string,
+    {
+      pivot: { x: number; y: number };
+      footprint: { width: number; height: number };
+      pixelsPerMeter: number;
+      image: { src: string };
+    }
+  >;
 };
 
 type LabState = {
@@ -49,8 +70,10 @@ type LabState = {
   cameraZoom: number;
   cameraScroll: { x: number; y: number };
   cameraCenterWorld: { x: number; y: number };
+  visibleWorldArea: number;
   fps: number;
   spriteCount: number;
+  visibleBuildingCount: number;
   textureCount: number;
   estimatedTextureBytes: number;
   pickedCell: GridCell | null;
@@ -73,6 +96,10 @@ export class CharacterScaleLabScene extends Phaser.Scene {
   private readonly groups = new Map<string, LabSpriteFrame[]>();
   private readonly calibrations = new Map<string, SpriteCalibration[]>();
   private readonly characters = new Map<string, CharacterVisual>();
+  private readonly labBuildings: Array<{
+    image: Phaser.GameObjects.Image;
+    denseOnly: boolean;
+  }> = [];
   private ground!: Phaser.GameObjects.Graphics;
   private grid!: Phaser.GameObjects.Graphics;
   private pivots!: Phaser.GameObjects.Graphics;
@@ -116,6 +143,15 @@ export class CharacterScaleLabScene extends Phaser.Scene {
     this.load.image("lab_workshop", this.runtime.buildings.workshop!.states.complete.src);
     this.load.image("lab_truck", this.runtime.vehicles.veh_truck!.image.src);
     this.load.image("lab_delivery", this.runtime.vehicles.veh_delivery!.image.src);
+    for (const type of [
+      "courtyard_home",
+      "clinic",
+      "police_station",
+      "fire_station",
+      "market_hall",
+    ]) {
+      this.load.image(`lab_${type}`, this.runtime.buildings[type]!.states.complete.src);
+    }
   }
 
   create(): void {
@@ -167,7 +203,13 @@ export class CharacterScaleLabScene extends Phaser.Scene {
         ];
         const street = y >= 8 && y <= 10;
         const sidewalk = y === 7 || y === 11;
-        const color = street ? 0x555d61 : sidewalk ? 0xb9b5a8 : ((x + y) % 2 === 0 ? 0xaeb7a4 : 0xb5bdab);
+        const color = street
+          ? 0x555d61
+          : sidewalk
+            ? 0xb9b5a8
+            : (x + y) % 2 === 0
+              ? 0xaeb7a4
+              : 0xb5bdab;
         this.ground.fillStyle(color, 1);
         this.ground.fillPoints(points, true);
         this.grid.lineStyle(1, 0x7d887d, 0.28);
@@ -210,8 +252,16 @@ export class CharacterScaleLabScene extends Phaser.Scene {
 
   private createBuildings(): void {
     const definitions = [
-      { key: "row_house", cell: { x: 2, y: 3 } as GridCell },
-      { key: "workshop", cell: { x: 14, y: 3 } as GridCell },
+      { key: "row_house", cell: { x: 2, y: 3 } as GridCell, denseOnly: false },
+      { key: "workshop", cell: { x: 14, y: 3 } as GridCell, denseOnly: false },
+      { key: "courtyard_home", cell: { x: 7, y: 2 } as GridCell, denseOnly: true },
+      { key: "row_house", cell: { x: 10, y: 2 } as GridCell, denseOnly: true },
+      { key: "courtyard_home", cell: { x: 19, y: 2 } as GridCell, denseOnly: true },
+      { key: "row_house", cell: { x: 2, y: 13 } as GridCell, denseOnly: true },
+      { key: "workshop", cell: { x: 7, y: 13 } as GridCell, denseOnly: true },
+      { key: "clinic", cell: { x: 12, y: 13 } as GridCell, denseOnly: true },
+      { key: "police_station", cell: { x: 15, y: 13 } as GridCell, denseOnly: true },
+      { key: "fire_station", cell: { x: 18, y: 13 } as GridCell, denseOnly: true },
     ];
     for (const definition of definitions) {
       const asset = this.runtime.buildings[definition.key]!;
@@ -224,11 +274,13 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       const center = footprintCenter(definition.cell, asset.footprint);
       const position = gridToScreen(center, LAYOUT);
       const scale = spriteScaleFor(asset, LAYOUT.tileWidth);
-      this.add
+      const image = this.add
         .image(position.x, position.y, `lab_${definition.key}`)
         .setOrigin(asset.pivot.x, asset.pivot.y)
         .setScale(scale)
-        .setDepth(depthForAsset(definition.cell, asset.footprint));
+        .setDepth(depthForAsset(definition.cell, asset.footprint))
+        .setVisible(!definition.denseOnly);
+      this.labBuildings.push({ image, denseOnly: definition.denseOnly });
     }
   }
 
@@ -241,7 +293,11 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       const asset = this.runtime.vehicles[definition.key]!;
       const position = gridToScreen(definition.cell, LAYOUT);
       this.add
-        .image(position.x, position.y, `lab_${definition.key === "veh_truck" ? "truck" : "delivery"}`)
+        .image(
+          position.x,
+          position.y,
+          `lab_${definition.key === "veh_truck" ? "truck" : "delivery"}`,
+        )
         .setOrigin(asset.pivot.x, asset.pivot.y)
         .setScale(spriteScaleFor(asset, LAYOUT.tileWidth))
         .setDepth(depthForCell(definition.cell) + 5);
@@ -249,7 +305,10 @@ export class CharacterScaleLabScene extends Phaser.Scene {
   }
 
   private createFurniture(): void {
-    for (const cell of [{ x: 4, y: 7 }, { x: 20, y: 11 }] as GridCell[]) {
+    for (const cell of [
+      { x: 4, y: 7 },
+      { x: 20, y: 11 },
+    ] as GridCell[]) {
       const position = gridToScreen(cell, LAYOUT);
       const depth = depthForCell(cell);
       const pole = this.add.rectangle(position.x, position.y - 32, 4, 64, 0x3e4947).setDepth(depth);
@@ -291,13 +350,24 @@ export class CharacterScaleLabScene extends Phaser.Scene {
     });
     this.input.on(
       "wheel",
-      (_pointer: Phaser.Input.Pointer, _objects: Phaser.GameObjects.GameObject[], _dx: number, dy: number) => {
+      (
+        _pointer: Phaser.Input.Pointer,
+        _objects: Phaser.GameObjects.GameObject[],
+        _dx: number,
+        dy: number,
+      ) => {
         const camera = this.cameras.main;
-        const worldBefore = camera.getWorldPoint(this.input.activePointer.x, this.input.activePointer.y);
+        const worldBefore = camera.getWorldPoint(
+          this.input.activePointer.x,
+          this.input.activePointer.y,
+        );
         const nextZoom = Phaser.Math.Clamp(camera.zoom * (dy > 0 ? 0.9 : 1.1), 0.5, 2.5);
         camera.setZoom(nextZoom);
         camera.preRender();
-        const worldAfter = camera.getWorldPoint(this.input.activePointer.x, this.input.activePointer.y);
+        const worldAfter = camera.getWorldPoint(
+          this.input.activePointer.x,
+          this.input.activePointer.y,
+        );
         camera.scrollX += worldBefore.x - worldAfter.x;
         camera.scrollY += worldBefore.y - worldAfter.y;
         camera.preRender();
@@ -333,6 +403,9 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       visual.sampleIndex = 0;
       this.applyVisual(visual, "idle", 0, 0);
       this.positionVisual(visual);
+    }
+    for (const building of this.labBuildings) {
+      building.image.setVisible(!building.denseOnly || id === "dense");
     }
     this.centerCamera();
     this.drawPivots();
@@ -451,8 +524,11 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       cameraZoom: camera.zoom,
       cameraScroll: { x: camera.scrollX, y: camera.scrollY },
       cameraCenterWorld: { x: center.x, y: center.y },
+      visibleWorldArea: camera.worldView.width * camera.worldView.height,
       fps: this.game.loop.actualFps,
-      spriteCount: this.children.list.filter((child) => child instanceof Phaser.GameObjects.Image).length,
+      spriteCount: this.children.list.filter((child) => child instanceof Phaser.GameObjects.Image)
+        .length,
+      visibleBuildingCount: this.labBuildings.filter((building) => building.image.visible).length,
       textureCount: textureKeys.length,
       estimatedTextureBytes,
       pickedCell: this.pickedCell,
@@ -486,7 +562,12 @@ export class CharacterScaleLabScene extends Phaser.Scene {
 
   override update(time: number, delta: number): void {
     void time;
-    if (!this.paused && this.motionEnabled && this.forcedPhase === null && this.arrangement === "street") {
+    if (
+      !this.paused &&
+      this.motionEnabled &&
+      this.forcedPhase === null &&
+      this.arrangement === "street"
+    ) {
       this.motionElapsed += delta / 1000;
       this.updateMotion();
     }
@@ -494,14 +575,21 @@ export class CharacterScaleLabScene extends Phaser.Scene {
 
   private updateMotion(): void {
     const paths: Record<string, [GridCell, GridCell]> = {
-      worker: [{ x: 7, y: 10 }, { x: 14, y: 10 }],
-      enforcer: [{ x: 10, y: 10 }, { x: 15, y: 7 }],
+      worker: [
+        { x: 7, y: 10 },
+        { x: 14, y: 10 },
+      ],
+      enforcer: [
+        { x: 10, y: 10 },
+        { x: 15, y: 7 },
+      ],
     };
     for (const [role, path] of Object.entries(paths)) {
       const visual = this.characters.get(role);
       if (!visual?.sprite.visible) continue;
       const [start, end] = path;
-      const duration = Phaser.Math.Distance.Between(start.x, start.y, end.x, end.y) / MOVE_CELLS_PER_SECOND;
+      const duration =
+        Phaser.Math.Distance.Between(start.x, start.y, end.x, end.y) / MOVE_CELLS_PER_SECOND;
       const phase = this.forcedPhase ?? (this.motionElapsed % duration) / duration;
       const cell = {
         x: Phaser.Math.Linear(start.x, end.x, phase),
@@ -509,17 +597,30 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       };
       const startScreen = gridToScreen(start, LAYOUT);
       const endScreen = gridToScreen(end, LAYOUT);
-      const direction = directionIndexFor(endScreen.x - startScreen.x, endScreen.y - startScreen.y, 4);
+      const direction = directionIndexFor(
+        endScreen.x - startScreen.x,
+        endScreen.y - startScreen.y,
+        4,
+      );
       const sampleIndex = Math.floor(phase * 8) % 8;
       visual.cell = cell;
-      if (visual.animation !== "walk" || visual.direction !== direction || visual.sampleIndex !== sampleIndex) {
+      if (
+        visual.animation !== "walk" ||
+        visual.direction !== direction ||
+        visual.sampleIndex !== sampleIndex
+      ) {
         this.applyVisual(visual, "walk", direction, sampleIndex);
       }
       this.positionVisual(visual);
     }
   }
 
-  private applyVisual(visual: CharacterVisual, animation: "idle" | "walk", direction: number, sampleIndex: number): void {
+  private applyVisual(
+    visual: CharacterVisual,
+    animation: "idle" | "walk",
+    direction: number,
+    sampleIndex: number,
+  ): void {
     const key = `${visual.role}/${animation}/d${direction}`;
     const frames = this.groups.get(key);
     if (!frames || frames.length === 0) {
@@ -528,7 +629,11 @@ export class CharacterScaleLabScene extends Phaser.Scene {
     }
     let calibration = this.calibrations.get(key);
     if (!calibration) {
-      calibration = calibrateAnimation(frames, SCALE_CONFIGS[this.configId].characterWorldHeight, this.cameras.main.zoom);
+      calibration = calibrateAnimation(
+        frames,
+        SCALE_CONFIGS[this.configId].characterWorldHeight,
+        this.cameras.main.zoom,
+      );
       this.calibrations.set(key, calibration);
     }
     const frame = frames[sampleIndex % frames.length]!;
@@ -541,7 +646,10 @@ export class CharacterScaleLabScene extends Phaser.Scene {
     visual.originY = calibrated.originY;
     visual.worldHeight = calibrated.worldHeight;
     visual.screenHeight = calibrated.screenHeight;
-    visual.sprite.setTexture(`${textureKey(frame)}_lift`).setScale(calibrated.scale).setOrigin(calibrated.originX, calibrated.originY);
+    visual.sprite
+      .setTexture(`${textureKey(frame)}_lift`)
+      .setScale(calibrated.scale)
+      .setOrigin(calibrated.originX, calibrated.originY);
   }
 
   private positionVisual(visual: CharacterVisual): void {
@@ -566,8 +674,18 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       if (!visual.sprite.visible) continue;
       this.pivots.lineStyle(2, 0xe34b4b, 1);
       this.pivots.strokeCircle(visual.sprite.x, visual.sprite.y, 5);
-      this.pivots.lineBetween(visual.sprite.x - 9, visual.sprite.y, visual.sprite.x + 9, visual.sprite.y);
-      this.pivots.lineBetween(visual.sprite.x, visual.sprite.y - 9, visual.sprite.x, visual.sprite.y + 9);
+      this.pivots.lineBetween(
+        visual.sprite.x - 9,
+        visual.sprite.y,
+        visual.sprite.x + 9,
+        visual.sprite.y,
+      );
+      this.pivots.lineBetween(
+        visual.sprite.x,
+        visual.sprite.y - 9,
+        visual.sprite.x,
+        visual.sprite.y + 9,
+      );
     }
   }
 
@@ -584,7 +702,11 @@ export class CharacterScaleLabScene extends Phaser.Scene {
     this.references.lineBetween(door.x + 32, door.y - doorHeight, door.x + 44, door.y - doorHeight);
     this.referenceTexts.push(
       this.add
-        .text(door.x + 48, door.y - doorHeight - 8, "Puerta 2 m", { fontSize: "14px", color: "#f3d26a", backgroundColor: "#343a3dcc" })
+        .text(door.x + 48, door.y - doorHeight - 8, "Puerta 2 m", {
+          fontSize: "14px",
+          color: "#f3d26a",
+          backgroundColor: "#343a3dcc",
+        })
         .setDepth(21),
     );
     const truck = gridToScreen({ x: 11, y: 9 }, LAYOUT);
@@ -592,7 +714,11 @@ export class CharacterScaleLabScene extends Phaser.Scene {
     this.references.strokeRect(truck.x - 28, truck.y - 30, 56, 38);
     this.referenceTexts.push(
       this.add
-        .text(truck.x - 30, truck.y - 52, "Vehículo real", { fontSize: "13px", color: "#8fd3e8", backgroundColor: "#343a3dcc" })
+        .text(truck.x - 30, truck.y - 52, "Vehículo real", {
+          fontSize: "13px",
+          color: "#8fd3e8",
+          backgroundColor: "#343a3dcc",
+        })
         .setDepth(21),
     );
   }

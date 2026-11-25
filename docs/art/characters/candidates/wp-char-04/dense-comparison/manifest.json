@@ -1,0 +1,472 @@
+{
+  "schemaVersion": 1,
+  "purpose": "B/D comparison in a dense real-building Phaser lab; no production runtime promotion.",
+  "baseUrl": "http://127.0.0.1:5174/char-scale-lab.html",
+  "captures": [
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "config": "B",
+      "arrangement": "dense",
+      "cameraZoom": 1,
+      "visibleWorldArea": 663040,
+      "visibleBuildingCount": 10,
+      "characters": [
+        {
+          "role": "worker",
+          "cell": {
+            "x": 10.5,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.0752212389380531,
+          "originX": 0.5078125,
+          "originY": 0.923828125,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 716,
+          "y": 398,
+          "depth": 20618.5,
+          "textureKey": "char_worker_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "supervisor",
+          "cell": {
+            "x": 9,
+            "y": 7
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.0774487471526196,
+          "originX": 0.4716796875,
+          "originY": 0.9453125,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 764,
+          "y": 326,
+          "depth": 16087,
+          "textureKey": "char_supervisor_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "enforcer",
+          "cell": {
+            "x": 12.5,
+            "y": 8.5
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.08173076923076923,
+          "originX": 0.4365234375,
+          "originY": 0.94140625,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 828,
+          "y": 406,
+          "depth": 21105.5,
+          "textureKey": "char_enforcer_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "police",
+          "cell": {
+            "x": 17,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.08333333333333333,
+          "originX": 0.5048828125,
+          "originY": 0.91796875,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 924,
+          "y": 502,
+          "depth": 27125,
+          "textureKey": "char_police_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "firefighter",
+          "cell": {
+            "x": 20,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.07423580786026202,
+          "originX": 0.4658203125,
+          "originY": 0.94921875,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 1020,
+          "y": 550,
+          "depth": 30128,
+          "textureKey": "char_firefighter_idle_d0_00_lift",
+          "inView": true
+        }
+      ],
+      "file": "docs/art/characters/candidates/wp-char-04/dense-comparison/1280x720/B-dense.png",
+      "bytes": 325503,
+      "sha256": "9a192c123f6d974ac0290a465a7de87a9d26a6c30fd1f11190f6e193fdc6250f"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "config": "D",
+      "arrangement": "dense",
+      "cameraZoom": 1.15,
+      "visibleWorldArea": 501353.49716446135,
+      "visibleBuildingCount": 10,
+      "characters": [
+        {
+          "role": "worker",
+          "cell": {
+            "x": 10.5,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.0752212389380531,
+          "originX": 0.5078125,
+          "originY": 0.923828125,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 716,
+          "y": 398,
+          "depth": 20618.5,
+          "textureKey": "char_worker_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "supervisor",
+          "cell": {
+            "x": 9,
+            "y": 7
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.0774487471526196,
+          "originX": 0.4716796875,
+          "originY": 0.9453125,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 764,
+          "y": 326,
+          "depth": 16087,
+          "textureKey": "char_supervisor_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "enforcer",
+          "cell": {
+            "x": 12.5,
+            "y": 8.5
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.08173076923076923,
+          "originX": 0.4365234375,
+          "originY": 0.94140625,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 828,
+          "y": 406,
+          "depth": 21105.5,
+          "textureKey": "char_enforcer_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "police",
+          "cell": {
+            "x": 17,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.08333333333333333,
+          "originX": 0.5048828125,
+          "originY": 0.91796875,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 924,
+          "y": 502,
+          "depth": 27125,
+          "textureKey": "char_police_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "firefighter",
+          "cell": {
+            "x": 20,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.07423580786026202,
+          "originX": 0.4658203125,
+          "originY": 0.94921875,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 1020,
+          "y": 550,
+          "depth": 30128,
+          "textureKey": "char_firefighter_idle_d0_00_lift",
+          "inView": true
+        }
+      ],
+      "file": "docs/art/characters/candidates/wp-char-04/dense-comparison/1280x720/D-dense.png",
+      "bytes": 386172,
+      "sha256": "171264af8225d32d4446874d60dd3dcec0385c85c05995b03dce0bb8ab7a90c0"
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "config": "B",
+      "arrangement": "dense",
+      "cameraZoom": 1,
+      "visibleWorldArea": 1766400,
+      "visibleBuildingCount": 10,
+      "characters": [
+        {
+          "role": "worker",
+          "cell": {
+            "x": 10.5,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.0752212389380531,
+          "originX": 0.5078125,
+          "originY": 0.923828125,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 716,
+          "y": 398,
+          "depth": 20618.5,
+          "textureKey": "char_worker_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "supervisor",
+          "cell": {
+            "x": 9,
+            "y": 7
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.0774487471526196,
+          "originX": 0.4716796875,
+          "originY": 0.9453125,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 764,
+          "y": 326,
+          "depth": 16087,
+          "textureKey": "char_supervisor_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "enforcer",
+          "cell": {
+            "x": 12.5,
+            "y": 8.5
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.08173076923076923,
+          "originX": 0.4365234375,
+          "originY": 0.94140625,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 828,
+          "y": 406,
+          "depth": 21105.5,
+          "textureKey": "char_enforcer_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "police",
+          "cell": {
+            "x": 17,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.08333333333333333,
+          "originX": 0.5048828125,
+          "originY": 0.91796875,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 924,
+          "y": 502,
+          "depth": 27125,
+          "textureKey": "char_police_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "firefighter",
+          "cell": {
+            "x": 20,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.07423580786026202,
+          "originX": 0.4658203125,
+          "originY": 0.94921875,
+          "worldHeight": 34,
+          "screenHeight": 34,
+          "x": 1020,
+          "y": 550,
+          "depth": 30128,
+          "textureKey": "char_firefighter_idle_d0_00_lift",
+          "inView": true
+        }
+      ],
+      "file": "docs/art/characters/candidates/wp-char-04/dense-comparison/1920x1080/B-dense.png",
+      "bytes": 360550,
+      "sha256": "d5a0f799f39f74a43b02b9c36b69c9519642d7cccfe36402577a796ac0ba595c"
+    },
+    {
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "config": "D",
+      "arrangement": "dense",
+      "cameraZoom": 1.15,
+      "visibleWorldArea": 1335652.1739130437,
+      "visibleBuildingCount": 10,
+      "characters": [
+        {
+          "role": "worker",
+          "cell": {
+            "x": 10.5,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.0752212389380531,
+          "originX": 0.5078125,
+          "originY": 0.923828125,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 716,
+          "y": 398,
+          "depth": 20618.5,
+          "textureKey": "char_worker_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "supervisor",
+          "cell": {
+            "x": 9,
+            "y": 7
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.0774487471526196,
+          "originX": 0.4716796875,
+          "originY": 0.9453125,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 764,
+          "y": 326,
+          "depth": 16087,
+          "textureKey": "char_supervisor_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "enforcer",
+          "cell": {
+            "x": 12.5,
+            "y": 8.5
+          },
+          "direction": 0,
+          "animation": "walk",
+          "sampleIndex": 4,
+          "scale": 0.08173076923076923,
+          "originX": 0.4365234375,
+          "originY": 0.94140625,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 828,
+          "y": 406,
+          "depth": 21105.5,
+          "textureKey": "char_enforcer_walk_d0_04_lift",
+          "inView": true
+        },
+        {
+          "role": "police",
+          "cell": {
+            "x": 17,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.08333333333333333,
+          "originX": 0.5048828125,
+          "originY": 0.91796875,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 924,
+          "y": 502,
+          "depth": 27125,
+          "textureKey": "char_police_idle_d0_00_lift",
+          "inView": true
+        },
+        {
+          "role": "firefighter",
+          "cell": {
+            "x": 20,
+            "y": 10
+          },
+          "direction": 0,
+          "animation": "idle",
+          "sampleIndex": 0,
+          "scale": 0.07423580786026202,
+          "originX": 0.4658203125,
+          "originY": 0.94921875,
+          "worldHeight": 34,
+          "screenHeight": 39.099999999999994,
+          "x": 1020,
+          "y": 550,
+          "depth": 30128,
+          "textureKey": "char_firefighter_idle_d0_00_lift",
+          "inView": true
+        }
+      ],
+      "file": "docs/art/characters/candidates/wp-char-04/dense-comparison/1920x1080/D-dense.png",
+      "bytes": 452608,
+      "sha256": "ff893b0d91b4d02eb55e2a06decb9ec10dd92cc7eac434b7c1233135fb145644"
+    }
+  ],
+  "pageErrors": []
+}

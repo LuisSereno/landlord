@@ -12,13 +12,37 @@ export type ScaleConfig = {
 };
 
 export const SCALE_CONFIGS: Record<ScaleConfigId, ScaleConfig> = {
-  A: { id: "A", label: "Referencia", cameraZoom: 1, characterWorldHeight: 28, expectedScreenHeight: 28 },
-  B: { id: "B", label: "Personajes mayores", cameraZoom: 1, characterWorldHeight: 34, expectedScreenHeight: 34 },
-  C: { id: "C", label: "Ciudad más cercana", cameraZoom: 1.25, characterWorldHeight: 28, expectedScreenHeight: 35 },
-  D: { id: "D", label: "Combinación moderada", cameraZoom: 1.15, characterWorldHeight: 34, expectedScreenHeight: 39.1 },
+  A: {
+    id: "A",
+    label: "Referencia",
+    cameraZoom: 1,
+    characterWorldHeight: 28,
+    expectedScreenHeight: 28,
+  },
+  B: {
+    id: "B",
+    label: "Personajes mayores",
+    cameraZoom: 1,
+    characterWorldHeight: 34,
+    expectedScreenHeight: 34,
+  },
+  C: {
+    id: "C",
+    label: "Ciudad más cercana",
+    cameraZoom: 1.25,
+    characterWorldHeight: 28,
+    expectedScreenHeight: 35,
+  },
+  D: {
+    id: "D",
+    label: "Combinación moderada",
+    cameraZoom: 1.15,
+    characterWorldHeight: 34,
+    expectedScreenHeight: 39.1,
+  },
 };
 
-export type ArrangementId = "street" | "lineup" | "door" | "vehicle";
+export type ArrangementId = "street" | "lineup" | "door" | "vehicle" | "dense";
 
 export const ARRANGEMENTS: Record<ArrangementId, Record<string, GridCell>> = {
   street: {
@@ -45,6 +69,13 @@ export const ARRANGEMENTS: Record<ArrangementId, Record<string, GridCell>> = {
     police: { x: 17, y: 10 },
     firefighter: { x: 19, y: 10 },
   },
+  dense: {
+    worker: { x: 6, y: 7 },
+    supervisor: { x: 9, y: 7 },
+    enforcer: { x: 13, y: 10 },
+    police: { x: 17, y: 10 },
+    firefighter: { x: 20, y: 10 },
+  },
 };
 
 export const CAMERA_TARGETS: Record<ArrangementId, GridCell> = {
@@ -52,4 +83,5 @@ export const CAMERA_TARGETS: Record<ArrangementId, GridCell> = {
   lineup: { x: 12, y: 12 },
   door: { x: 5, y: 5 },
   vehicle: { x: 15, y: 9 },
+  dense: { x: 12, y: 9 },
 };

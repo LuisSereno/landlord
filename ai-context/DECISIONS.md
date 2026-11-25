@@ -1845,13 +1845,14 @@ final se valida en ciudad densa y no cambia por una captura de laboratorio aisla
 
 ## D-CHAR-03 — Configuración B recomendada
 
-B (`zoom 1×`, personaje 34 px) sigue siendo la recomendación inicial. Debe compararse con D en una
-ciudad suficientemente densa antes de fijar la configuración de producción.
+B (`zoom 1×`, personaje 34 px) es la recomendación técnica tras la comparación densa WP-CHAR-04:
+conserva un 24,4 % más de área mundial visible que D con personajes de 34 px. La ratificación
+visual del responsable sigue pendiente antes de fijar producción.
 
 ## D-CHAR-04 — Alternativa D
 
-D (`zoom 1,15×`, personaje 34 px) queda como alternativa, no como default. Su menor superficie de
-ciudad y mayor recorte se miden en la comparación densa.
+D (`zoom 1,15×`, personaje 34 px) queda como alternativa de inspección cercana, no como default.
+En la comparación densa mide 39,1 px de personaje y reduce un 24,4 % el área mundial visible.
 
 ## D-CHAR-05 — Integración runtime condicionada
 

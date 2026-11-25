@@ -23,6 +23,7 @@ export const SECTOR_BY_BUILDING_TYPE: Record<BuildingType, EmploymentSector | nu
   fire_station: null,
   market_hall: "commerce",
   headquarters: null,
+  cleaning_depot: null,
 };
 
 /**
@@ -47,6 +48,7 @@ export const JOBS_BY_BUILDING_TYPE: Record<BuildingType, number> = {
   fire_station: 0,
   market_hall: 0,
   headquarters: 0,
+  cleaning_depot: 0,
 };
 
 export const EMPLOYMENT_POLICY = {

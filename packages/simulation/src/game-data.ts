@@ -33,6 +33,7 @@ export const PRIMARY_USE_BY_BUILDING_TYPE: Record<BuildingType, LandUse> = {
   fire_station: "civic",
   market_hall: "retail",
   headquarters: "office",
+  cleaning_depot: "civic",
 };
 
 export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDefinition> = {
@@ -330,6 +331,26 @@ export const BUILDING_DEFINITIONS: Record<BuildingDefinition["type"], BuildingDe
     siteFootprint: { width: 5, height: 2 },
     siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 10, requireEdgeContiguous: true },
     municipal: true,
+  },
+  cleaning_depot: {
+    type: "cleaning_depot",
+    name: "Depósito de limpieza",
+    allowedUses: ["civic", "utility"],
+    cost: parseMoney(0),
+    workRequired: 1,
+    capacity: 0,
+    baseRent: parseMoney(0),
+    upgradeCost: parseMoney(0),
+    upgradeWorkRequired: 1,
+    resources: { cement: 0, brick: 0, steel: 0 },
+    form: "shed",
+    defaultFloors: 1,
+    targetFootprintCells: 3,
+    preferredFootprint: { width: 3, height: 1 },
+    siteFootprint: { width: 4, height: 2 },
+    siteRequirements: { requiredParcels: 1, minCombinedAreaCells: 8, requireEdgeContiguous: true },
+    municipal: true,
+    cleaningRadiusBonusCells: 6,
   },
   headquarters: {
     type: "headquarters",
@@ -688,6 +709,7 @@ export const MAINTENANCE_POLICY = {
     fire_station: parseMoney(55),
     market_hall: parseMoney(60),
     headquarters: parseMoney(35),
+    cleaning_depot: parseMoney(50),
   } as const,
 } as const;
 

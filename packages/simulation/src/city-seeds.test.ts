@@ -138,7 +138,7 @@ describe("§2.1 · doce seeds canónicas de ciudad", () => {
   it(
     "el programa municipal es idéntico en las doce ciudades",
     () => {
-      /** §9: 14 facilities, 7 espacios públicos, 14 parcelas públicas y 14 edificios municipales. */
+      /** D-112: 15 facilities, 7 espacios públicos y 15 edificios municipales. */
       for (const seed of CANONICAL_CITY_SEEDS) {
         const state = createInitialState(seed);
         const facilities = [...state.world.districts.values()].flatMap((district) => [
@@ -150,7 +150,8 @@ describe("§2.1 · doce seeds canónicas de ciudad", () => {
         expect(facilities.filter((entry) => entry.kind === "police_station")).toHaveLength(2);
         expect(facilities.filter((entry) => entry.kind === "fire_station")).toHaveLength(2);
         expect(facilities.filter((entry) => entry.kind === "market")).toHaveLength(3);
-        expect(facilities).toHaveLength(14);
+        expect(facilities.filter((entry) => entry.kind === "cleaning_depot")).toHaveLength(1);
+        expect(facilities).toHaveLength(15);
         for (const facility of facilities) {
           expect(facility.operatorOrganizationId).toBe(MUNICIPALITY_ORGANIZATION_ID);
           expect(facility.buildingIds.length).toBeGreaterThan(0);

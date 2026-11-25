@@ -127,57 +127,66 @@ function cityDigest(input: {
  * `2018fbd` ya arrastraba en estas fixtures. La conservación tick a tick se sigue verificando con
  * los mismos escenarios; sólo cambia la superficie canónica esperada.
  */
+
+/**
+ * Regeneración D-112 (2026-11-25): el generador v5 reserva un depósito de limpieza municipal en
+ * `barrio_del_umbral` y deriva una semilla de distrito nueva. Cambian los diez digestos por geometría
+ * inicial y por el radio de limpieza +6 del distrito del jugador; los valores se midieron con los
+ * mismos escenarios y no se ajustaron para hacer pasar el test. La prueba de
+ * `cleaning-depot.test.ts` aísla el comportamiento con y sin depósito y la compatibilidad de
+ * snapshots v3.
+ */
 const GOLDEN_CASES: ReadonlyArray<{ id: string; expected: string; run: () => string }> = [
   {
     id: "scenario:seed-1:1200",
-    expected: "1e04c29741972353",
+    expected: "d36b41b78635b0cf",
     run: () => digest(canonicalizeState(runScenario(1, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-7:1200",
-    expected: "8162d8698f0621b2",
+    expected: "8f008b6f49e1c36a",
     run: () => digest(canonicalizeState(runScenario(7, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-42:1200",
-    expected: "7fabe94aacaa5ee3",
+    expected: "ead95b5f7e996b66",
     run: () => digest(canonicalizeState(runScenario(42, [], 1_200, { checkpointEvery: 0 }).state)),
   },
   {
     id: "scenario:seed-1:36000",
-    expected: "19d912d78fe0af85",
+    expected: "1c2a97dc74e021b2",
     run: () => digest(canonicalizeState(runScenario(1, [], 36_000, { checkpointEvery: 0 }).state)),
   },
   {
     id: "city:50-parcels:1300-ticks",
-    expected: "628a69bfed78a1a2",
+    expected: "982f1fd288642161",
     run: () => cityDigest({ parcelCount: 50, ticks: 1_300 }),
   },
   {
     id: "city:50-parcels:month-boundary",
-    expected: "07d49675bf8f446a",
+    expected: "bfaf344eaeafbf60",
     run: () => cityDigest({ parcelCount: 50, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   {
     id: "city:200-parcels:month-boundary",
-    expected: "18dff141ccb13bf5",
+    expected: "a61bc555f8cb26db",
     run: () => cityDigest({ parcelCount: 200, ticks: 8, incidentCount: 12, startTick: 35_997 }),
   },
   // Las tres carreras siguientes llegan a colapso y explosión: cubren el recuento de bajas, el
   // desplazamiento de tenants y el daño en cadena, que sólo se ejecutan con incidentes vivos.
   {
     id: "city:50-parcels:fire-cascade",
-    expected: "44eff0fe53e60186",
+    expected: "9921bd1ae8a93e5e",
     run: () => cityDigest({ parcelCount: 50, ticks: 3_000, incidentCount: 12 }),
   },
   {
     id: "city:200-parcels:fire-cascade",
-    expected: "1288167c41cb7791",
+    expected: "c572ca0de8b80ff1",
     run: () => cityDigest({ parcelCount: 200, ticks: 3_000, incidentCount: 40 }),
   },
   {
     id: "city:800-parcels:fire-cascade",
-    expected: "4a3f2fe07807ff07",
+    expected: "7ce9c1743ce980c0",
     run: () => cityDigest({ parcelCount: 800, ticks: 1_500, incidentCount: 50 }),
   },
 ];

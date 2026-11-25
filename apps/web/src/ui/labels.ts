@@ -98,6 +98,7 @@ const BUILDING_TYPE_LABELS: Record<BuildingType, string> = {
   fire_station: "Parque de bomberos",
   market_hall: "Mercado",
   headquarters: "Sede operativa",
+  cleaning_depot: "Depósito de limpieza",
 };
 
 export function buildingTypeLabel(type: string): string {
@@ -189,6 +190,7 @@ export function facilityKindLabel(kind: string): string {
       police_station: "Comisaría",
       fire_station: "Parque de bomberos",
       market: "Mercado",
+      cleaning_depot: "Depósito de limpieza",
     }[kind] ?? "Equipamiento"
   );
 }
@@ -204,6 +206,7 @@ export function facilityServiceLabel(serviceProfileId: string): string {
       market: "Mercado",
       parks: "Parques",
       transport: "Transporte",
+      cleaning: "Limpieza urbana",
     }[key] ?? "Servicio municipal"
   );
 }

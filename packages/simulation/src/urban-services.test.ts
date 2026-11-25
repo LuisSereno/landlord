@@ -19,6 +19,9 @@ import {
 
 function newState(seed = 7): GameState {
   const state = createInitialState(seed);
+  for (const [id, building] of state.phase2.buildings) {
+    if (building.type === "cleaning_depot") state.phase2.buildings.delete(id);
+  }
   state.phase2.balances.set(PLAYER_ORGANIZATION_ID, parseMoney(5_000_000));
   state.phase2.rivalAi.cooldownUntilTick = parseTick(9_000_000);
   return state;

@@ -205,7 +205,7 @@ describe("V.d.3 programa municipal", () => {
         checked += 1;
       }
     }
-    expect(checked).toBe(14);
+    expect(checked).toBe(15);
   });
 
   it("V.g civic-core: enlaza el town_hall con la plaza y conserva la relación en save/load y projection", () => {
@@ -289,13 +289,13 @@ describe("V.d.3 programa municipal", () => {
     const state = createInitialState(7);
     const restored = restoreStateFromSnapshot(serializeSnapshot(state));
     expect(serializeSnapshot(restored)).toEqual(serializeSnapshot(state));
-    expect(allFacilities(restored)).toHaveLength(14);
+    expect(allFacilities(restored)).toHaveLength(15);
     expect(allPublicSpaces(restored)).toHaveLength(7);
     expect(
       parseSnapshotV3(JSON.parse(JSON.stringify(serializeSnapshot(state))))
         .world.districts.map((entry) => entry.facilities.length)
         .reduce((sum, count) => sum + count, 0),
-    ).toBe(14);
+    ).toBe(15);
   });
 
   it("rejects a facility whose parcel stops being public or municipally owned", () => {
@@ -323,7 +323,7 @@ describe("V.d.3 programa municipal", () => {
     expect(projection.facilities.every((facility) => facility.accessCells.length > 0)).toBe(true);
     expect(projection.publicSpaces.length).toBeGreaterThan(0);
     expect(projection.city.districts.reduce((sum, district) => sum + district.facilities, 0)).toBe(
-      14,
+      15,
     );
     expect(
       projection.city.districts.reduce((sum, district) => sum + district.publicSpaces, 0),

@@ -124,7 +124,7 @@ describe("H2-05 · demanda = parcela desarrollada, no parcela marketable", () =>
     /**
      * El ayuntamiento ya vive en su parcela generada, y el edificio civic es propiedad municipal.
      * H2-05 define "demanda" como parcela con al menos un edificio NO municipal; si no, las
-     * 14 facilities municipales serían demanda de sí mismas y saturarían el modelo.
+     * 15 facilities municipales serían demanda de sí mismas y saturarían el modelo.
      */
     const municipalParcels = new Set<string>();
     for (const building of state.phase2.buildings.values())

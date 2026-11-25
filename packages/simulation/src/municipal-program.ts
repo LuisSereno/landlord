@@ -43,6 +43,12 @@ export const MUNICIPAL_PROGRAM_BY_PROFILE: Record<string, readonly MunicipalProg
   barrio_del_umbral: [
     { id: "barrio_school", kind: "facility", facilityKind: "school", buildingType: "school_block" },
     { id: "barrio_clinic", kind: "facility", facilityKind: "clinic", buildingType: "clinic" },
+    {
+      id: "barrio_cleaning_depot",
+      kind: "facility",
+      facilityKind: "cleaning_depot",
+      buildingType: "cleaning_depot",
+    },
     { id: "barrio_park", kind: "public_space", publicSpaceKind: "park" },
   ],
   vega_del_cauce: [
@@ -99,6 +105,7 @@ export const MUNICIPAL_FACILITY_SERVICE_PROFILE: Record<UrbanFacilityKind, strin
   police_station: "police_service_v1",
   fire_station: "fire_service_v1",
   market: "market_service_v1",
+  cleaning_depot: "cleaning_service_v1",
 };
 
 export const MUNICIPAL_FACILITY_CAPACITY: Record<UrbanFacilityKind, number> = {
@@ -108,6 +115,7 @@ export const MUNICIPAL_FACILITY_CAPACITY: Record<UrbanFacilityKind, number> = {
   police_station: 2,
   fire_station: 2,
   market: 4,
+  cleaning_depot: 1,
 };
 
 /** Expected programme of the nine authored recipes, checked by tests and the gate. */
@@ -120,4 +128,5 @@ export const CITY_MUNICIPAL_PROGRAM_COUNTS = {
   fire_stations: 2,
   clinics: 3,
   markets: 3,
+  cleaning_depots: 1,
 } as const;

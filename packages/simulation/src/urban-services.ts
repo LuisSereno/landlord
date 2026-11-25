@@ -1,5 +1,5 @@
 import type { BuildingId, DistrictId, GridCell, ParcelId } from "@landlord/shared";
-import { MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
+import { BUILDING_DEFINITIONS, MUNICIPALITY_ORGANIZATION_ID } from "./game-data";
 import { facilityCoverageIndex, type FacilityCoverageIndex } from "./facility-coverage";
 import type { GameState } from "./state";
 
@@ -8,7 +8,7 @@ export type UrbanServiceId = "transport" | "security" | "cleaning";
 /**
  * Tres servicios con una consecuencia distinta y medible. El coste es municipal y por edificio; la
  * cobertura es radial desde el centro del distrito, así que crecer diluye la capacidad y las
- * parcelas de borde quedan peor servidas. No hay edificios de servicio: el modelo es de red.
+ * parcelas de borde quedan peor servidas. Los depósitos municipales amplían sólo la limpieza.
  */
 export const URBAN_SERVICE_POLICY: Record<
   UrbanServiceId,
@@ -17,6 +17,7 @@ export const URBAN_SERVICE_POLICY: Record<
     baseRadiusCells: number;
     minimumRadiusCells: number;
     referenceBuildings: number;
+    maxRadiusCells?: number;
   }
 > = {
   transport: {
@@ -36,6 +37,7 @@ export const URBAN_SERVICE_POLICY: Record<
     baseRadiusCells: 20,
     minimumRadiusCells: 6,
     referenceBuildings: 40,
+    maxRadiusCells: 36,
   },
 };
 
@@ -99,13 +101,39 @@ function qualityOf(state: GameState, service: UrbanServiceId): number {
   return state.phase2.municipal.serviceLevelPercentByCategory[service] ?? 100;
 }
 
-function radiusOf(state: GameState, service: UrbanServiceId, buildings: number): number {
+/** Un depósito sólo cuenta si el municipio lo posee y su edificio físico está operativo. */
+function cleaningDepotBonusByDistrictId(state: GameState): ReadonlyMap<string, number> {
+  const bonuses = new Map<string, number>();
+  for (const building of state.phase2.buildings.values()) {
+    if (
+      building.type !== "cleaning_depot" ||
+      building.ownerOrganizationId !== state.world.city.municipalityOrganizationId ||
+      building.state !== "operational"
+    )
+      continue;
+    const bonus = BUILDING_DEFINITIONS[building.type].cleaningRadiusBonusCells ?? 0;
+    bonuses.set(building.districtId, (bonuses.get(building.districtId) ?? 0) + bonus);
+  }
+  return bonuses;
+}
+
+function radiusOf(
+  state: GameState,
+  service: UrbanServiceId,
+  buildings: number,
+  cleaningDepotBonusCells = 0,
+): number {
   const policy = URBAN_SERVICE_POLICY[service];
   // Más edificios con el mismo presupuesto es menos radio por edificio: la capacidad se satura.
   const density = Math.sqrt(
     policy.referenceBuildings / Math.max(policy.referenceBuildings, buildings),
   );
-  return Math.max(policy.minimumRadiusCells, Math.round(policy.baseRadiusCells * density));
+  const baseRadius = Math.max(
+    policy.minimumRadiusCells,
+    Math.round(policy.baseRadiusCells * density),
+  );
+  const bonus = service === "cleaning" ? cleaningDepotBonusCells : 0;
+  return Math.min(policy.maxRadiusCells ?? Number.POSITIVE_INFINITY, baseRadius + bonus);
 }
 
 function coverageOf(
@@ -113,9 +141,8 @@ function coverageOf(
   service: UrbanServiceId,
   cell: GridCell,
   center: GridCell,
-  buildings: number,
+  radius: number,
 ): number {
-  const radius = radiusOf(state, service, buildings);
   const proximity = clamp(Math.round(100 - (100 * manhattan(cell, center)) / radius), 0, 100);
   return Math.round((qualityOf(state, service) * proximity) / 100);
 }
@@ -137,6 +164,7 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
       (buildingCountByDistrictId.get(building.districtId) ?? 0) + 1,
     );
   }
+  const cleaningDepotBonusByDistrict = cleaningDepotBonusByDistrictId(state);
   const cleaningByDistrictId = new Map<string, DistrictCleaningGeometry>();
   for (const districtId of state.world.city.districtIds) {
     const local = parcels.filter((parcel) => parcel.districtId === districtId);
@@ -144,7 +172,12 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
     cleaningByDistrictId.set(districtId, {
       districtId,
       buildingCount,
-      radiusCells: radiusOf(state, "cleaning", buildingCount),
+      radiusCells: radiusOf(
+        state,
+        "cleaning",
+        buildingCount,
+        cleaningDepotBonusByDistrict.get(districtId) ?? 0,
+      ),
       center:
         local.length === 0
           ? { x: 0, y: 0 }
@@ -170,13 +203,7 @@ export function buildCoverageIndex(state: GameState): CoverageIndex {
       cleaning:
         geometry === undefined
           ? 0
-          : coverageOf(
-              state,
-              "cleaning",
-              parcel.anchorCell,
-              geometry.center,
-              geometry.buildingCount,
-            ),
+          : coverageOf(state, "cleaning", parcel.anchorCell, geometry.center, geometry.radiusCells),
     });
   }
   const byBuildingId = new Map<BuildingId, Record<UrbanServiceId, number>>();

@@ -134,6 +134,7 @@ export const urbanFacilityKindSchema = z.enum([
   "police_station",
   "fire_station",
   "market",
+  "cleaning_depot",
 ]);
 export type UrbanFacilityKind = z.infer<typeof urbanFacilityKindSchema>;
 

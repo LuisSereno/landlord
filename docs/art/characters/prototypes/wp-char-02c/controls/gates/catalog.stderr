@@ -1,0 +1,8 @@
+file:///home/luis/RepositorioGitHub/landlord-characters-02c/scripts/generate-visual-catalog.mjs:70
+    throw new Error("visual-catalog.json is stale");
+          ^
+
+Error: visual-catalog.json is stale
+    at file:///home/luis/RepositorioGitHub/landlord-characters-02c/scripts/generate-visual-catalog.mjs:70:11
+
+Node.js v24.19.0

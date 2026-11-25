@@ -1,0 +1,1432 @@
+{
+  "schemaVersion": 1,
+  "status": "failed",
+  "report": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.json",
+  "reportSha256": "57d0a9ecb808bf4f9bea7e040aade3b6097ed15aa526a5c139adece1681af0fe",
+  "modelCount": 20,
+  "classificationCounts": {
+    "ADAPTABLE": 6,
+    "SUITABLE": 8,
+    "UNSUITABLE": 6,
+    "UNVERIFIED": 0
+  },
+  "checkCount": 353,
+  "errors": [
+    "alpha edge clear: character-female-a.glb",
+    "camera framing: character-female-a.glb"
+  ],
+  "checks": [
+    {
+      "label": "Blender 5.2.2 LTS",
+      "passed": true
+    },
+    {
+      "label": "Blender build hash",
+      "passed": true
+    },
+    {
+      "label": "20 character models",
+      "passed": true
+    },
+    {
+      "label": "unique model filenames",
+      "passed": true
+    },
+    {
+      "label": "20 idle renders",
+      "passed": true
+    },
+    {
+      "label": "unique render hashes",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-male-a.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-male-b.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-male-c.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-male-d.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-male-e.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-male-f.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-male-g.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-female-a.glb",
+      "passed": false
+    },
+    {
+      "label": "no magenta: character-female-a.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-female-a.glb",
+      "passed": false
+    },
+    {
+      "label": "source exists: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-female-b.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-female-c.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-female-d.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-female-e.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-female-f.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-worker.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-soldier.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-raider.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-knight.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-alien.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-robot.glb",
+      "passed": true
+    },
+    {
+      "label": "source exists: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "classification: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "visual description: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "potential use: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "source hash: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "7 bones: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "32 actions: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "idle action: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "walk action: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "normalized height: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "render hash: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "512x512: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "RGBA: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "nonempty alpha: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "alpha edge clear: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "no magenta: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "camera framing: character-zombie.glb",
+      "passed": true
+    },
+    {
+      "label": "Kenney license hash",
+      "passed": true
+    },
+    {
+      "label": "catalog sheet manifest exists",
+      "passed": true
+    },
+    {
+      "label": "two catalog sheets",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-28px.png",
+      "passed": true
+    }
+  ]
+}

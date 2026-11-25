@@ -1,0 +1,955 @@
+{
+  "schemaVersion": 1,
+  "status": "evidence_manifest",
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02c",
+  "branch": "wip/wp-char-02c-visual-rework",
+  "head": "c79f663aed6ee314af744a1c9fb6b8a10e33a63e",
+  "experimentManifest": "blender_artist/manifests/character-experiments-02c.json",
+  "experimentManifestSha256": "6d66941502e80422f1b96c141206de5739b03f0ef9a6d07f08ab572a82d85bac",
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "externalSources": [
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+      "role": "Kenney supervisor",
+      "expectedSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "actualSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+      "role": "Kenney enforcer",
+      "expectedSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "actualSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+      "role": "Kenney firefighter",
+      "expectedSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "actualSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+      "role": "Kenney police control",
+      "expectedSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "actualSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+      "role": "Kenney worker control",
+      "expectedSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "actualSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+      "role": "Kenney license",
+      "expectedSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "actualSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord-characters-02c/docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json",
+      "role": "WP-CHAR-02A worker reference report",
+      "expectedSha256": "14b57610692ad1519ae4b5b4d78911dd184d9f427437b5058e4d886c303c7195",
+      "actualSha256": "14b57610692ad1519ae4b5b4d78911dd184d9f427437b5058e4d886c303c7195",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord-characters-02c/docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-prototype.json",
+      "role": "WP-CHAR-02B police control report",
+      "expectedSha256": "4cc9a76446b3c4e4b64c92dcb4ce8bc8fcb22f6e8dff833041364d3a735a32a4",
+      "actualSha256": "4cc9a76446b3c4e4b64c92dcb4ce8bc8fcb22f6e8dff833041364d3a735a32a4",
+      "exists": true,
+      "hashMatches": true
+    }
+  ],
+  "files": [
+    {
+      "path": "blender_artist/manifests/character-experiments-02c.json",
+      "role": "experiment_manifest",
+      "bytes": 5014,
+      "sha256": "6d66941502e80422f1b96c141206de5739b03f0ef9a6d07f08ab572a82d85bac"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/asset-jobs.json",
+      "role": "prototype",
+      "bytes": 294,
+      "sha256": "4dfede10617e46519a37e70550ba4245624a887ab75eb9b01f85f738787b13e1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/asset-jobs.stderr",
+      "role": "prototype",
+      "bytes": 294,
+      "sha256": "4dfede10617e46519a37e70550ba4245624a887ab75eb9b01f85f738787b13e1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/binaries-postcommit.stderr",
+      "role": "prototype",
+      "bytes": 18191,
+      "sha256": "96537e3fedc90a8eda09ec906b7aef7692e69c10dcc0cc24c7274ac2ef7271d1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/binaries.json",
+      "role": "prototype",
+      "bytes": 18191,
+      "sha256": "96537e3fedc90a8eda09ec906b7aef7692e69c10dcc0cc24c7274ac2ef7271d1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/binaries.stderr",
+      "role": "prototype",
+      "bytes": 18191,
+      "sha256": "96537e3fedc90a8eda09ec906b7aef7692e69c10dcc0cc24c7274ac2ef7271d1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/catalog.stderr",
+      "role": "prototype",
+      "bytes": 328,
+      "sha256": "61db72ab7c7ef3e19db77d7c9959cebd1b2bb4144d786acb863e22415be7277a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/gate-summary.json",
+      "role": "prototype",
+      "bytes": 1069,
+      "sha256": "2d3dc37f671b9001760547f7f2eddf40f2fc2137b30ffd10d6233b759974b0ab"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/passing-gates.json",
+      "role": "prototype",
+      "bytes": 1053,
+      "sha256": "863d10232a95f3a3cf74cfcc7e1ae033a7090d9822d4430e535add698c0adcc8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/gates/simulation.json",
+      "role": "prototype",
+      "bytes": 1484,
+      "sha256": "7cf735404cce87d57f81375e278e624e293cdabdd90a0b0ec977254bb2054003"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/review-validation.json",
+      "role": "prototype",
+      "bytes": 23292,
+      "sha256": "b9119f6b5626efcac389e01e39bb0c52722f6191eb4f816ed6b2075364558232"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/rework-validation.json",
+      "role": "prototype",
+      "bytes": 78848,
+      "sha256": "7d3fd34d3a9c0099210dae8789260c2e1d21fa17e804940c0f5a18f296ab57f7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/controls/wp-char-02b-prototype-validation.json",
+      "role": "prototype",
+      "bytes": 86952,
+      "sha256": "84de7259a920e9a8d4495d532fbdfdd2443bf23f06e31a03abfcb6a4a53fc44b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/enforcer-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 193491,
+      "sha256": "fff3160cd04315e0b272d4f2bef92c4f79ebfd3a31c95c0fd07fa275fe0f01ad"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/enforcer-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182894,
+      "sha256": "b1da3561ab946bce2c144aae1cdf9d48b5e9c2cba0413363da19dc3705b74fe5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/enforcer-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 137141,
+      "sha256": "1ffb63afac7552c9e90367ce6c001a13ad84066477973fb93584755f412284be"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/enforcer-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182893,
+      "sha256": "ee9cdba5bf60296dcde1da05ff3e96fa65cdfa5dca3314d88f6dadee1aa7e41a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/firefighter-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 186904,
+      "sha256": "e7cb9f2cfb1a78c6f499939bb11cc86a81cbe7836ff01c085b186ec2c6cde880"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/firefighter-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184319,
+      "sha256": "a8680d96c96bdcc64d2075f1241c181beb059f6a697aabfc5d2a71a1f96e94f4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/firefighter-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 133431,
+      "sha256": "b7e59803780fa34ba2a903af14e23222dcb4e005f59582e4db510b8c5a846075"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/firefighter-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184318,
+      "sha256": "db08ec6dc39ca5545f139f5151b38dc69019a40ab4d2a966c4312e42b417883f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/head-defects-diagnosis.json",
+      "role": "prototype",
+      "bytes": 171716,
+      "sha256": "8205a11dfd1c963c3eb542b29edd42655aca2b3de26ca0bccb0311e22363e5e3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/supervisor-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189384,
+      "sha256": "5bb1eb540519a07956ff842e2c44a1e0357947da4e30231c06d03623153ce86a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/supervisor-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189492,
+      "sha256": "e3095b1722d920322f0b1652e86a42dda4e8bf608fd64469799333ff5c76e7fc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/supervisor-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 120161,
+      "sha256": "b77ded004440bac5b419063f6539a539c7069a0fa3d949ddc99d6a50f85b7d03"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v2/supervisor-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189503,
+      "sha256": "f946301526ea4ced97c6e5ead58df525d97c3c941cfc6ff9e2a3134700229f70"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/alternative-source-heads.json",
+      "role": "prototype",
+      "bytes": 15373,
+      "sha256": "7a7d9ef494ffec1a7b28eb49cb6c9489075cf66b0351c34df9da14f7537cd62a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 193491,
+      "sha256": "ea428d3e2bc8e4e73278d1172aca68a84cc20b6eb63ef1fa98289d72e545ef06"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182894,
+      "sha256": "9d0616e1638b1ea2142d8fa66dae765486061fd99949260d8aeb94ae85f2bda9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-C_component_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 142441,
+      "sha256": "8976ba979a5ddfe02de9c0d7c86da67f1af4b06b89556b03eab9472f6776b96b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 137120,
+      "sha256": "ff68dce5c7df1974bc32522ae8d8f3a86246400d8b39aa1ba750cde6179cfb38"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/enforcer-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182893,
+      "sha256": "b6ec1b3ebc0d8007f5581ebfe1bdb9d962f15432d5100b088371435d03532130"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 186904,
+      "sha256": "276005249a0d25318ce2319df5dccf2cfbf6992afc0d7c7ff7d014271961226f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184323,
+      "sha256": "1c07e85cc7924a8fd4d574958ac88f03a9eb53c6d4ac893ea0c091dd1adbc82c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-C_component_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 136250,
+      "sha256": "774e99458eb407c5dd1ba24d8d15eb129169cd70c75dc53ecda7e0490bca3a41"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 133431,
+      "sha256": "f267e25f984ea85625514f2af79f793b6c05831cf5d7252d4bcee8cd196ae58f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/firefighter-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184305,
+      "sha256": "119bc1dde08d1b7ab5c6c00e7a72d98438488cbfbd6f62f4dcd850d578d1a68b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/head-defects-diagnosis.json",
+      "role": "prototype",
+      "bytes": 230306,
+      "sha256": "0743eb4250c3884f5d1610cb2c336d5c99a0d167fad54167f3dac80835a73ccf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189384,
+      "sha256": "c49c8f20e59ddd647edeb2c2dc32312a7086abffc1c993115a2db1d31f55191b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189493,
+      "sha256": "c4d4f192ae0578ec3ade9bae994a7a03d8ca7d8c520902d205fad86bfff584fc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-C_component_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 127005,
+      "sha256": "a567fdabc0b6a1208dbc1da92ee959ef5c33c449c44cb76386c801de4ccea1d1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 120161,
+      "sha256": "eaf1ac95ae00b9f9f2eb26f44a14d5439b95637f33add59c917bfbe6a3b5e8e8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics-v3/supervisor-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189483,
+      "sha256": "ff0c5dded58df65f03608bf753a587dadbe4e516f351ffe712fe5f5112c78540"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/01-head-enforcer.png",
+      "role": "prototype",
+      "bytes": 218677,
+      "sha256": "19e58ffee22cdac95d5e951d1e6b8b7cbce7faac9f7b7bb28352fdd6cea6ee7f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/01-head-firefighter.png",
+      "role": "prototype",
+      "bytes": 224524,
+      "sha256": "b9440b1f6ee3b039335550f9ddf125530a163efed9b7752d2348cb1b1136939a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/01-head-supervisor.png",
+      "role": "prototype",
+      "bytes": 236271,
+      "sha256": "7fca55bb6f530f9beba7f38aecae907a96cf1c02bfba2b3d8f88f700a23cdf5b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/enforcer-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 193491,
+      "sha256": "ebde13ee53ab393bf212373a1bdbcdaec62cf3c3b0a39b6def14848237a14f8a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/enforcer-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182894,
+      "sha256": "9222f6c0acaa1adfac19c03d9431b80ff804073eaeae671684be785410e16096"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/enforcer-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 137141,
+      "sha256": "7269b820cb705242f2875de47a6ab0e2314af02e26d7f55f4c120ad678edd55a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/enforcer-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182893,
+      "sha256": "254b313bbac7687e1e292353d6a7993bde55b333aa71732e0a3bfed31528fc95"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/firefighter-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 186904,
+      "sha256": "590c08d4e1b39bcdd7876894f43adf92ed684e3809c5699751243c87f81828a6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/firefighter-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184276,
+      "sha256": "0b5d0b27f223f17f95dd519d43c83da015fd44f3fc55e5de586e049d04cf5d2e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/firefighter-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 133431,
+      "sha256": "4795559ad1a4ec36896d5586897a2abdc3625d605495c9fb145d82c40751ffea"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/firefighter-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184275,
+      "sha256": "15fbbdc638667c8fddb1e8d8637310cc00c32f5b88e831ecca8d2a30f8bb9085"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/head-defects-diagnosis.json",
+      "role": "prototype",
+      "bytes": 2443172,
+      "sha256": "1e45b8a0913a44ada27d3037cb90c4cb27af74b1bb712ea21a9864a0ef7a2f44"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/head-diagnostics-manifest.json",
+      "role": "prototype",
+      "bytes": 4695,
+      "sha256": "1a00e0a706d77be1ff5b1550f05d2a1966ebc735d38948f0307e9ab4f7c8be74"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/supervisor-A_original-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189384,
+      "sha256": "155634d31bfa12baee9cf88f79983c2a37c4fcfc7850061e5c2073861d60dacb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/supervisor-B_wp02b_candidate-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189493,
+      "sha256": "a3659cba38ba65b50e78f27e30d301ba5fc6f227cafba42ed35bffbad7f6a2dc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/supervisor-C_material_map-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 120161,
+      "sha256": "3fc9c31b3dcb4656b0534c8b2d4c0a3d275aa7a9ced3fb9311a0ae823dfada78"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/diagnostics/supervisor-C_no_accessories-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189492,
+      "sha256": "7192fd30a82733cc79c22b23269e09f4c57e74d3dda79e0f6332e66a93f3992c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 170773,
+      "sha256": "91df3baa76f3e2b6461baa6f5901d66f724736dd0ed52220db7a5baf3b391383"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 170773,
+      "sha256": "1a5801d0f79c4616d163d4a9fb4078d5515e36f491eaa1875d6c4946d46804cd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 170038,
+      "sha256": "617bd51595109a31228653fd9fbeba804ab6c055826c5079b9895dfc33950350"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 170879,
+      "sha256": "b3fd2b2f6b6063ff6792d31e39da4b706dbe96b7cc1df918ce8d8e8b013c8705"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 171579,
+      "sha256": "8aceb3dd8ee3f2f5d1806a1e195a75b868ea1bb5e23338f053772bd69c2013f0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 170571,
+      "sha256": "ff41388338ed4d041c03c6fc0911ced3015c46d99eb6b7ccf285ec0ead238916"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 166040,
+      "sha256": "58235e642b89584d54849e1f7cc058cc29259ef84c052e614fcfb666b668919e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 164725,
+      "sha256": "81bb99208ada23c87b5a1f8e929e6707af60b5accaec1e0e6907a7257bc37655"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 169615,
+      "sha256": "59d1e1f217f29ef76a46d04ea3ad31fd16556cc7dcbd8d88d909f32c44d32306"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 168639,
+      "sha256": "56673c3d7d1a2940988b27f01ca02655707d7742b143b7adacf4a0a89c0f44b4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 159440,
+      "sha256": "f6e47b331a4a4b32621ba1e0a69e33d95d44808b94138f4d385f4e98de7ae610"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 159251,
+      "sha256": "1dfe6baf05dc7914df1c1baccfe7e1d84b1d263488119d6ebc9a82981cc4d70a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 27935,
+      "sha256": "706bf1d15887f318f3a2f09852f0259ba0ec9d69c25cd83d8d6a77e518e4f2ba"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke-v1/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 172258,
+      "sha256": "688c27bf1bced918cdc9b14d749f86586d1ac098596795e567d3e2362afe2eff"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke-v1/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 171996,
+      "sha256": "15a1a8153ac7f933b0a8daef6e70c4658ea1118eb0aac683c70fd7914f58d6f0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke-v1/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 10547,
+      "sha256": "506c3e18be93af8defd943c5d356f324a9cb227fcc9d667ba10855315281a773"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 170773,
+      "sha256": "bd68a1042b81bd69c1c9174c736215e0c3bccba0152a58eae1ef3e32e134d8fc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 170571,
+      "sha256": "8c6e0732d4f2729936f932904c65274f80447668b019622c3483241d2ae3b00f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/smoke/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 10547,
+      "sha256": "d3a4975e33c6c9ad3ca86c4e044be2390c9b579f328c6610a3c330372bd35a5e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 194595,
+      "sha256": "e59612857c9cd5a40dc2e39b622b56e4a861a0825eebda3c3fc363d52b87de3d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 194595,
+      "sha256": "8ec5e0831a403f71b510c785490bc682d9fbb82f48413ac6eefe4b75a7c2913f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 193940,
+      "sha256": "07946c9d3d332f5d04acedbcc45bf370ff31bac1f5f90c5c6bc615741f3599f0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 194499,
+      "sha256": "3e4e80907a608a8c996338e16410c2590fd02f699f937cdd66d830b017ca7468"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 196078,
+      "sha256": "0cfd40ff106494961f071755241858b39fa65b29fc29ee7a673e2ce74f55fa68"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 193825,
+      "sha256": "38b1402e54ee7178886d3395a1911e5f83fc9805dc8e3c40c9bb49d326b99fc4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 191173,
+      "sha256": "e6057f4a4ed2fbaee763a0347fbef5b37d442299540d5dcd6f1df812e209e6a5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 189322,
+      "sha256": "98c31b4d7e7a690b559eb724f6fd145953ad2b4ff5d09dc4b79ea65f3bea063f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 194746,
+      "sha256": "bf5818456a43fa1c60322cde90e4b5e757a9187fbd522bc0f70ff7106e561a23"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 191179,
+      "sha256": "6bb7d5e0945db6443d7e1b6cdc4f8a534967d0dc0de146278ce8b65b10904f2d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 187160,
+      "sha256": "44910e128d41b4ec1457b8bb74bec31fbc7ded9ae507563885a104f8d3d26745"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 192807,
+      "sha256": "f8613f9437b3b0cf79780f0a41bbbc2ba0ee4c25370ff1d0c8ee628284c4815d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 30544,
+      "sha256": "937397a6faa38b1810e9aebc9c57d26ca6d5df534011fa0a59826ec1e3421479"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 194614,
+      "sha256": "1cde09ab71f6a247fce8578579d83601cd72e02ee7ae819548f1e37b26a5bd1c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 193856,
+      "sha256": "4dc1717b43613111b170a1379184e89bd3094dbf6d14320f99856f0988d05a34"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/smoke/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 13104,
+      "sha256": "91c47995e2e835ed586d09ad494c0d37793d97a5ad6ac9bd7ab48d014e463f0f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 194263,
+      "sha256": "b8b9145fffecf8b97fb2a771b7f4f181dead644c2b8299091455c3a39e44e8bd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 194263,
+      "sha256": "12d329ac761020fdc4403403910ae1e0bf359f2d2a25f0d14385df64c226e442"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 193215,
+      "sha256": "779d3c32eb0770498803754e71f482c56553e04ff3d4bb6423b2da9f4eeb0ac6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 192800,
+      "sha256": "5d7798686e8a63fcaaf43a8db41d53eee214185ed380ac00ef115f4b67753576"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 194422,
+      "sha256": "672f8deb5605ec89a1062cfd179ffc694f33835c27856cb67e4902e91a1e5038"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 193759,
+      "sha256": "c9e3e834241909d7d4215890a219177f079a0db37c610880cbc31cc32b490016"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 189455,
+      "sha256": "6c92d7da817bf98b5d9ff6f4802f83ce87cf9c8bc6568c4075c4918b309c6f2b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 187103,
+      "sha256": "5ab2a818e50671daf957c419738b52b37e606f6e2264ccab538afd8470da8f8c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 192888,
+      "sha256": "958b998b87a962c44c3bad52caf6ba233ad5899dcfab15aefbb8cc49a18d8972"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 190049,
+      "sha256": "a69ef8be43d08dc69455b5c9c65e74d94496647be924c72332743fada92b4e46"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 189722,
+      "sha256": "7118a50b5991ef247f18ac7d67445639d0d7ed9267ede93185517153dfd932bd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 191907,
+      "sha256": "aa96bae20e73a0620925d853196bb8cdab70ae9afebc707514fd8b56dd9370a4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-prototype.json",
+      "role": "prototype",
+      "bytes": 30437,
+      "sha256": "6ea40b3ab7cc978feda985baad60f87f700c6c0183778877572f9a2230c7aac4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/smoke/supervisor-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 194258,
+      "sha256": "be631a1298870478cbd7f1d42c14aa20944317ee1450c66b0057fc1d41f5c759"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/smoke/supervisor-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 193759,
+      "sha256": "923789d79c174bab9e677830ed5c7ec74196d0997071fa8f6f55e357e844e373"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/smoke/supervisor-prototype.json",
+      "role": "prototype",
+      "bytes": 13003,
+      "sha256": "c28eae2da2af36352da566deb04121d4e328409abd8f94e83d2fea49b4973bcc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "role": "prototype",
+      "bytes": 382315,
+      "sha256": "cc6884b0318383e3f14d338ffc46be802914011df0ee638ed5c95a1c9bb34f13"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "role": "prototype",
+      "bytes": 404428,
+      "sha256": "b1d5c3de27f0ead75aaf7f2340a416b14b8ffbbf266e1f9a43e00c8c03e2a9fb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/02-smoke-enforcer.png",
+      "role": "prototype",
+      "bytes": 298194,
+      "sha256": "d9325e7e57f1476a1b7164cb3849471181bc6eca02a9fb55325f810728fa0f21"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/02-smoke-firefighter.png",
+      "role": "prototype",
+      "bytes": 294990,
+      "sha256": "f135b90901b1a65b54ab289a0f439f74264e7a136ffa6a2692e9268434613eaa"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/02-smoke-supervisor.png",
+      "role": "prototype",
+      "bytes": 288706,
+      "sha256": "9e6d33b01c3da1a138447e5fa18d9a11d5692d9b126bfd2267b2ca1dea4b452a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "role": "prototype",
+      "bytes": 405552,
+      "sha256": "dde94bd67824aa6810ed911c740be4abe2b5598c1d16b53ea66bb157265a8713"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "role": "prototype",
+      "bytes": 276253,
+      "sha256": "408daea03ff002a1ee403af69cf5c7cc95484fd88b125b99cae71e8c1932bb97"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "role": "prototype",
+      "bytes": 442090,
+      "sha256": "ba0c5dc83e25796afd170069c439df2a36a57c0894e40176f326d8187c99462f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "role": "prototype",
+      "bytes": 34809,
+      "sha256": "e75dba5959e4ab011a021997e4f5957b1353bfa48a81b552445c9b098fd1b4a3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "role": "prototype",
+      "bytes": 618279,
+      "sha256": "f77e22368212d7ade86e48f7ff6c6027d708afb9dc92cc7b02d7f20a7d35435b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "role": "prototype",
+      "bytes": 896715,
+      "sha256": "cdf5c6e57c68e4e5bd7b3b91d9e5ae48a01e88a26427fd8661e85655a12225a6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "role": "prototype",
+      "bytes": 51092,
+      "sha256": "f28582e749a7ae89f31cd4fe60eda808fdf84c4bebb17830a0b6aee620f1a6ce"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "role": "prototype",
+      "bytes": 84919,
+      "sha256": "674d00987abe5877fec014b584feab3354ec0a3832adba97df26c5b700485727"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "role": "prototype",
+      "bytes": 439362,
+      "sha256": "59d24464cef90d82c8c4b265938add8890098e6c0daf3fff8d58ac9a157a4ed4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "role": "prototype",
+      "bytes": 450696,
+      "sha256": "f1dce9d9d3b3eca2d02b037790f9ca2fec944bce75a420150c72dc32119406ef"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/review-manifest.json",
+      "role": "prototype",
+      "bytes": 15531,
+      "sha256": "45fef1d097117cf4cb78c50e848506f6da0cfd84b1c9b172f4675f0c70794f38"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/smoke-review-manifest.json",
+      "role": "prototype",
+      "bytes": 3806,
+      "sha256": "0611b608eb7bf9410b9246e562a36523c34c07bf58e04ff58f3b1fd65faac3e2"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-02c/01-head-defects.md",
+      "role": "documentation",
+      "bytes": 7534,
+      "sha256": "3332f2e5a9e0f685efd56fb337b5fed0c0617cb53d26de821ae2ac90c87f6897"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-02c/02-correction-design.md",
+      "role": "documentation",
+      "bytes": 3712,
+      "sha256": "dc77f9fbc54d09832ccb549bd1c15c90ef86d5c0effb23a61ea181c0a04f9369"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-02c/03-production.md",
+      "role": "documentation",
+      "bytes": 5453,
+      "sha256": "770cb4b7240b786971b214256882ef94ae638d1a0e16f1d80714c1923a7dffa9"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-02c/04-visual-review.md",
+      "role": "documentation",
+      "bytes": 5696,
+      "sha256": "157f1ec94beeab77b8683d6e09c78e7ae46481885a5b53cfbc6bbbd43c089873"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-02c/05-results.md",
+      "role": "documentation",
+      "bytes": 5969,
+      "sha256": "2f49102584058fcd17c15529385877e9f959e1e164528c436da8c2e2b5777717"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-02c/PROGRESS.md",
+      "role": "documentation",
+      "bytes": 5783,
+      "sha256": "263e71a87ea9db0c3082bcf5d8f07613f8fd749becb88db5378b6f5bc70296d7"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/build_evidence_manifest.py",
+      "role": "tool",
+      "bytes": 4535,
+      "sha256": "6b212720670a1307cc073327e354913fb9a3e1957672235ef5d44efa7650d9c4"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/compose_final_review.py",
+      "role": "tool",
+      "bytes": 14725,
+      "sha256": "22e5a51ad809966a8c67c07a3c6199cbf01d249269826aa8a9f94b91bec806e6"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/compose_head_diagnostics.py",
+      "role": "tool",
+      "bytes": 6393,
+      "sha256": "b6a3dde34ba4e5b5ae24047cf6f013612027f169189af628b7b26a332367ddd2"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/compose_smoke_comparisons.py",
+      "role": "tool",
+      "bytes": 5779,
+      "sha256": "ff400da7aa3127b50f8eb7e73daee47a626bc39db7f89127d8b664d12cd3f78f"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/diagnose_head_defects.py",
+      "role": "tool",
+      "bytes": 17782,
+      "sha256": "6779ec550d2f2e7c1e0153b52e5511af8bbceaa4db28d96b4108f6160325f1e8"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/finalize_rework_metadata.py",
+      "role": "tool",
+      "bytes": 1674,
+      "sha256": "f39ffcf6a91da48e917380f3062cb890fa76230dc6b03dc7c885450bb9c1319a"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/inspect_source_heads.py",
+      "role": "tool",
+      "bytes": 3197,
+      "sha256": "c4d15cf684073ff608b8c8c825cff649456cd7da239b8ea2b68353b51f4cd849"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/render_profession_rework.py",
+      "role": "tool",
+      "bytes": 24838,
+      "sha256": "46791144d52a9e7d747f0f5468eb5de32014a08cd75297bfaf4075e08e26589f"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/validate_evidence_manifest.py",
+      "role": "tool",
+      "bytes": 2742,
+      "sha256": "d101541c4bf03ca63a4f23f7abcff49f365a084d220a4dfbf63a1b68f2979303"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/validate_final_review.py",
+      "role": "tool",
+      "bytes": 5274,
+      "sha256": "9d04f723cf42d143ada92e14ed68891457a9ecb41d3f89347c606f9a8c2830ff"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_02c/validate_profession_rework.py",
+      "role": "tool",
+      "bytes": 8275,
+      "sha256": "91908c8a4d0da94f9a0aac6fc27401e4d000793a641618ff4856fee9143ae4e8"
+    }
+  ],
+  "summary": {
+    "fileCount": 145,
+    "totalBytes": 24170667,
+    "externalSourceCount": 8,
+    "allExternalHashesMatch": true
+  }
+}

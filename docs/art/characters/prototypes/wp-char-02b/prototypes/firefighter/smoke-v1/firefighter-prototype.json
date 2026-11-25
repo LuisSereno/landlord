@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_rendered",
+  "role": "firefighter",
+  "canonicalId": "firefighter",
+  "manifest": "blender_artist/manifests/character-experiments-02b.json",
+  "manifestSha256": "98df5b69d04a087094e900f312f25c056a748ddcb009ff9771abf13ece1ae026",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-b.glb",
+    "sha256": "81464391ab3291bc78d23c33d5a5313cfab43469285a8e1f02b974aecbd4f943",
+    "license": "CC0-1.0"
+  },
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.3895,
+      "height": 0.6613,
+      "minZ": 0.0
+    },
+    "importScale": 2.721809010891003,
+    "importOffset": [
+      -0.0,
+      0.0868,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-male-b",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 2.0881,
+      "depth": 1.0601,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.72180901,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "regionMaterials": {
+    "method": "Assign solid materials to polygons of the existing skinned body mesh by dominant vertex group and local height bands.",
+    "bodyMinZ": 0.0,
+    "bodyMaxZ": 0.36825,
+    "bodySpan": 0.36825,
+    "groupRanges": {
+      "torso": [
+        0.17625,
+        0.34325
+      ],
+      "arm-left": [
+        0.20725,
+        0.36825
+      ],
+      "arm-right": [
+        0.20725,
+        0.36825
+      ],
+      "leg-left": [
+        0.0,
+        0.20125
+      ],
+      "leg-right": [
+        0.0,
+        0.20125
+      ]
+    },
+    "polygonCounts": {
+      "original": 0,
+      "torso": 43,
+      "arms": 125,
+      "legs": 190,
+      "boots": 50,
+      "reflective": 16,
+      "gloves": 26
+    },
+    "materials": {
+      "torso": "wp02b_firefighter_torso",
+      "arms": "wp02b_firefighter_arms",
+      "legs": "wp02b_firefighter_legs",
+      "boots": "wp02b_firefighter_boots",
+      "reflective": "wp02b_firefighter_reflective",
+      "gloves": "wp02b_firefighter_gloves"
+    }
+  },
+  "accessories": [
+    {
+      "name": "wp02b_firefighter_helmet_dome",
+      "type": "fire_helmet",
+      "bone": "head",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    },
+    {
+      "name": "wp02b_firefighter_helmet_brim",
+      "type": "fire_helmet",
+      "bone": "head",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    },
+    {
+      "name": "wp02b_firefighter_helmet_rear_shield",
+      "type": "fire_helmet",
+      "bone": "head",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    },
+    {
+      "name": "wp02b_firefighter_helmet_front_shield",
+      "type": "fire_helmet",
+      "bone": "head",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    },
+    {
+      "name": "wp02b_firefighter_helmet_crest",
+      "type": "fire_helmet",
+      "bone": "head",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    }
+  ],
+  "maxAnchorDrift": 5.960464477539063e-08,
+  "rig": {
+    "armature": "character-male-b",
+    "bones": 7
+  },
+  "camera": {
+    "orthoScale": 2.05,
+    "targetZ": 0.9,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-male-b",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.086757,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.807284,
+        1.060069,
+        1.9825
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.150958,
+        "maxX": 0.847851,
+        "minY": 0.033254,
+        "maxY": 1.004842,
+        "clipped": true
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+        "sha256": "e8b8ae140ce8770e787369d8db4fdc8436a1c14c57b0df056fcdff6f23203a14",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-male-b",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.086757,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.071851,
+      "worldSizeMeters": [
+        1.807284,
+        1.060069,
+        2.054351
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.150958,
+        "maxX": 0.847851,
+        "minY": 0.058768,
+        "maxY": 1.035195,
+        "clipped": true
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+        "sha256": "8f94ec8933aa115d00664a29c0fd865abceaf2c8556e029b7fc8d6ef79afd24a",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

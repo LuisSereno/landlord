@@ -1,0 +1,887 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "report": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis.json",
+  "reportSha256": "296ddf955c70a1160d59f1a85b12633734cb29c002dfe152f557b291e8b3961f",
+  "renderCount": 35,
+  "checkCount": 219,
+  "errors": [],
+  "checks": [
+    {
+      "label": "Blender 5.2.2 LTS",
+      "passed": true
+    },
+    {
+      "label": "Blender build hash",
+      "passed": true
+    },
+    {
+      "label": "35 diagnostic renders",
+      "passed": true
+    },
+    {
+      "label": "unique output paths",
+      "passed": true
+    },
+    {
+      "label": "unique output hashes",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/A-original-rest.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/A-original-rest.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/A-original-rest.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/A-original-rest.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_original_animation_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/B_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_idle-idle.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_wp_char_01b_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "exists: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "sha256: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "512x512: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "RGBA: docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/C_in_place_grounded_walk-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "source exists: avatar",
+      "passed": true
+    },
+    {
+      "label": "source sha256: avatar",
+      "passed": true
+    },
+    {
+      "label": "source exists: idleClip",
+      "passed": true
+    },
+    {
+      "label": "source sha256: idleClip",
+      "passed": true
+    },
+    {
+      "label": "source exists: walkClip",
+      "passed": true
+    },
+    {
+      "label": "source sha256: walkClip",
+      "passed": true
+    },
+    {
+      "label": "source exists: licenseFile",
+      "passed": true
+    },
+    {
+      "label": "source sha256: licenseFile",
+      "passed": true
+    },
+    {
+      "label": "dependency exists: runtimeAsset",
+      "passed": true
+    },
+    {
+      "label": "dependency sha256: runtimeAsset",
+      "passed": true
+    },
+    {
+      "label": "dependency exists: sourceImport",
+      "passed": true
+    },
+    {
+      "label": "dependency sha256: sourceImport",
+      "passed": true
+    },
+    {
+      "label": "dependency exists: compositor",
+      "passed": true
+    },
+    {
+      "label": "dependency sha256: compositor",
+      "passed": true
+    },
+    {
+      "label": "dependency exists: styleLayer",
+      "passed": true
+    },
+    {
+      "label": "dependency sha256: styleLayer",
+      "passed": true
+    },
+    {
+      "label": "8 samples: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct frames: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct images: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "equidistant useful frames: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "80 bones: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "809 F-curves: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "hierarchy preserved: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 0 identified: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 1 identified: B_original_animation_walk",
+      "passed": true
+    },
+    {
+      "label": "8 samples: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct frames: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct images: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "equidistant useful frames: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "80 bones: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "809 F-curves: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "hierarchy preserved: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 0 identified: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 1 identified: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "8 samples: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct frames: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct images: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "equidistant useful frames: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "80 bones: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "809 F-curves: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "hierarchy preserved: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 0 identified: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 1 identified: C_wp_char_01b_walk",
+      "passed": true
+    },
+    {
+      "label": "8 samples: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct frames: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "8 distinct images: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "equidistant useful frames: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "80 bones: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "809 F-curves: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "hierarchy preserved: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 0 identified: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "legacy frame 1 identified: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "compositor preserves all sampled bone transforms",
+      "passed": true
+    },
+    {
+      "label": "compositor preserves walk metrics",
+      "passed": true
+    },
+    {
+      "label": "root motion measured above 1.2 m",
+      "passed": true
+    },
+    {
+      "label": "uncorrected clipping measured in 8/8",
+      "passed": true
+    },
+    {
+      "label": "uncorrected loop does not close in place",
+      "passed": true
+    },
+    {
+      "label": "root motion removed: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "no camera clipping: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "loop closes: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "left foot grounded: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "right foot grounded: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "support foot each sample: B_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "root motion removed: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "no camera clipping: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "loop closes: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "left foot grounded: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "right foot grounded: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "support foot each sample: C_in_place_grounded_walk",
+      "passed": true
+    },
+    {
+      "label": "corrected compositor preserves walk metrics",
+      "passed": true
+    },
+    {
+      "label": "WP-CHAR-01B accessory count",
+      "passed": true
+    },
+    {
+      "label": "WP-CHAR-01B anchor drift tolerance",
+      "passed": true
+    },
+    {
+      "label": "diagnostic sheet exists",
+      "passed": true
+    },
+    {
+      "label": "diagnostic sheet dimensions",
+      "passed": true
+    }
+  ]
+}

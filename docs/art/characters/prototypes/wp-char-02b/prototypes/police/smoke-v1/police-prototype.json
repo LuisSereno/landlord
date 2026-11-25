@@ -1,0 +1,287 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_rendered",
+  "role": "police",
+  "canonicalId": "police",
+  "manifest": "blender_artist/manifests/character-experiments-02b.json",
+  "manifestSha256": "98df5b69d04a087094e900f312f25c056a748ddcb009ff9771abf13ece1ae026",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+    "sha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+    "license": "CC0-1.0"
+  },
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.4607,
+      "height": 0.7928,
+      "minZ": 0.0
+    },
+    "importScale": 2.270459270083425,
+    "importOffset": [
+      -0.0,
+      0.0961,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-male-c",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 1.7418,
+      "depth": 1.0459,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.27045927,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "regionMaterials": {
+    "method": "Assign solid materials to polygons of the existing skinned body mesh by dominant vertex group and local height bands.",
+    "bodyMinZ": 0.0,
+    "bodyMaxZ": 0.3763,
+    "bodySpan": 0.3763,
+    "groupRanges": {
+      "torso": [
+        0.123243,
+        0.34325
+      ],
+      "arm-left": [
+        0.201883,
+        0.373617
+      ],
+      "arm-right": [
+        0.201883,
+        0.373617
+      ],
+      "leg-left": [
+        0.0,
+        0.20125
+      ],
+      "leg-right": [
+        0.0,
+        0.20125
+      ]
+    },
+    "polygonCounts": {
+      "original": 16,
+      "torso": 122,
+      "arms": 164,
+      "legs": 190,
+      "boots": 50
+    },
+    "materials": {
+      "torso": "wp02b_police_torso",
+      "arms": "wp02b_police_arms",
+      "legs": "wp02b_police_legs",
+      "boots": "wp02b_police_boots"
+    }
+  },
+  "accessories": [
+    {
+      "name": "wp02b_police_badge",
+      "type": "badge",
+      "bone": "torso",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    },
+    {
+      "name": "wp02b_police_belt",
+      "type": "belt",
+      "bone": "torso",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    },
+    {
+      "name": "wp02b_police_belt_buckle",
+      "type": "belt",
+      "bone": "torso",
+      "constraint": [
+        "CHILD_OF"
+      ]
+    }
+  ],
+  "maxAnchorDrift": 2.9802322387695312e-08,
+  "rig": {
+    "armature": "character-male-c",
+    "bones": 7
+  },
+  "camera": {
+    "orthoScale": 2.05,
+    "targetZ": 0.9,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-male-c",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.096063,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.507587,
+        1.045904,
+        1.8
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.216752,
+        "maxX": 0.794043,
+        "minY": 0.0543,
+        "maxY": 0.945145,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-idle-00.png",
+        "sha256": "79adb276f16838014afe0768657d6c4dd9928072d6e22334fc95bff464b0acc2",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-male-c",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.096063,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.057137,
+      "worldSizeMeters": [
+        1.507587,
+        1.045904,
+        1.857137
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.216752,
+        "maxX": 0.794043,
+        "minY": 0.075366,
+        "maxY": 0.969283,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-walk-04.png",
+        "sha256": "caeb34fb7da48be28e2eaa6af985024f6c481eb43b8d4b76099e6b8ab81485bb",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

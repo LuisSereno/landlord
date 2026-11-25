@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "status": "offline_review_package",
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "inputs": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "sha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854",
+      "role": "approved style reference idle"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "sha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df",
+      "role": "approved style reference walk"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "sha256": "950188470b18ab1346399d0c755d95c40124cba8057537f59667695b2d9e3e54",
+      "role": "supervisor idle"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "sha256": "7fe213800c11235b3082971d7338dba525e49d9387d199e329c8aef1e81b36e5",
+      "role": "supervisor walk midpoint"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "sha256": "93970af35296fa2a8fad3f2237033327535d1a3ac18de39f17d93b1191bb5827",
+      "role": "enforcer idle"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "sha256": "d41bd8f776d0867f08b51ebfff565e0d39c44502f7372d6f00ab0d736b5b1838",
+      "role": "enforcer walk midpoint"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "sha256": "2e0d9ff012a19b2301fe39af9196e0c094852d6cf1d92f784284f31bf868a832",
+      "role": "police idle"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "sha256": "128cab5a7c1504f421b5174082b52cbbe3a8716776db2faf74ebcac3f2c3c62b",
+      "role": "police walk midpoint"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "sha256": "7ac983b26f51e423df05498e129605f89d6e0944d85d28ee96a86abbb2d7ebd2",
+      "role": "firefighter idle"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "sha256": "03399f4b8c32a9f43a0d3362aa70f1db572e114b18637403bdea6180c409a233",
+      "role": "firefighter walk midpoint"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/row_house-complete.png",
+      "sha256": "36d58f26f0083a0e555e6aac67a2586c8627d45f1787f2e25a500e7a59dcae7a",
+      "role": "existing row house"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/workshop-complete.png",
+      "sha256": "a51cc46c7a477102909e3ade5b9ddd51454bef523054888bd757b8b017aba6be",
+      "role": "existing workshop"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/veh_delivery.png",
+      "sha256": "e1b9b489a064fc8b745bb3ebf9e3b6489f4a4372cd0ad82c152705c3706b023d",
+      "role": "existing delivery vehicle"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/veh_truck.png",
+      "sha256": "11b0be39d832a4773fc6256ce582a9561efd02510397b890bdad2052fe50f1b2",
+      "role": "existing truck"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/03-worker-vs-supervisor.png",
+      "sha256": "f1d3a178352bc55fa3f2413ffe5ba1e35ad25774699c7bde9c1c0b4a27acbddb",
+      "bytes": 184985,
+      "width": 1120,
+      "height": 780
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/04-worker-vs-enforcer.png",
+      "sha256": "34def15d2939ddf2fea0fee35bbf1b36d6b4333220fe7f9f4005b64c271e8ccf",
+      "bytes": 180803,
+      "width": 1120,
+      "height": 780
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/05-worker-vs-police.png",
+      "sha256": "66f8c18f1b73aea930414a1f7672438f9e7923359c7a3acdf81ba2344c56a09d",
+      "bytes": 182276,
+      "width": 1120,
+      "height": 780
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/06-worker-vs-firefighter.png",
+      "sha256": "be4665d4d1070e05530d8e4791b33ab8c737b933a48c77ec1959103c6c69a359",
+      "bytes": 176192,
+      "width": 1120,
+      "height": 780
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/07-five-family.png",
+      "sha256": "0c2000e2441949b5ba755a37d82268e0af210f68e63b5e53d91028c90fd146f0",
+      "bytes": 412767,
+      "width": 1500,
+      "height": 720
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/08-four-directions.png",
+      "sha256": "6f7b16f8a376ec03c876d0d734a2aac75729937c7354e266c302236e0103fdb6",
+      "bytes": 584805,
+      "width": 1040,
+      "height": 1460
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/09-walk-samples.png",
+      "sha256": "949cd77dea5db870a2696428ba4fedf778d95a963265a79df618609f6229df53",
+      "bytes": 987118,
+      "width": 1752,
+      "height": 1350
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/10-scales.png",
+      "sha256": "51f38d90e04d604b8621212d0ade1c5f31cb345ff2fe053553710833d19ebc39",
+      "bytes": 84955,
+      "width": 1500,
+      "height": 1480
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/11-street-context-offline.png",
+      "sha256": "d19c69a9ef40f23cb1d9ab22de3497edfc573781f10ee0531788cba74397b35a",
+      "bytes": 450155,
+      "width": 1500,
+      "height": 950
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/12-silhouettes.png",
+      "sha256": "5b2a6b12ac2902af4b370ac3fbdd49dcbb58c47b9487755fc93d853438ff45e6",
+      "bytes": 29934,
+      "width": 1500,
+      "height": 760
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/13-unlabeled-professions.png",
+      "sha256": "47a58f849f3f228437d3df5dff2c0d7ae1420b3b19cb3fe05e40c2aa7f8fda45",
+      "bytes": 411506,
+      "width": 1500,
+      "height": 720
+    }
+  ]
+}

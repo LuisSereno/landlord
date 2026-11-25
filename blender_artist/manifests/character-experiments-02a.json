@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "purpose": "WP-CHAR-02A: diagnostic animation and clothing first, compare installed sources, then produce one construction-worker reference without runtime promotion.",
+  "status": "technical_complete_pending_human_review",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02a",
+  "branch": "wip/wp-char-02a-visual-reset",
+  "initialHead": "99c1d45786d18d6a84ce1955a13f7fee9a713837",
+  "sourcePolicy": {
+    "noDownloads": true,
+    "noExternalGeneration": true,
+    "sourceRepositoryRoot": "/home/luis/RepositorioGitHub/landlord",
+    "blender": "5.2.2 LTS",
+    "blenderBuildHash": "d13f752e3b9c"
+  },
+  "animationDiagnosis": {
+    "status": "cause_confirmed_isolated_correction_demonstrated",
+    "document": "docs/execution/phase-4/characters/wp-char-02a/01-animation-diagnosis.md",
+    "validation": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox/rocketbox-animation-diagnosis-validation.json",
+    "avatar": {
+      "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx",
+      "sha256": "b44fa6011b934abd69954fd6c5025c1e2011e05c7892acb6bbc2e9cf70a84014",
+      "license": "MIT",
+      "attribution": "Characters based on Microsoft Rocketbox, Copyright (c) 2020 Microsoft"
+    },
+    "idleClip": {
+      "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+      "sha256": "d6d13b12e1f8d677dfaffef342a5ffeacf5ee3b38036de83425ab68316cd4e5e"
+    },
+    "walkClip": {
+      "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
+      "sha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2"
+    },
+    "licenseFile": {
+      "path": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
+      "sha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa"
+    },
+    "controls": ["original_model", "original_animation", "wp_char_01b_compositor"],
+    "walkSamples": 8,
+    "camera": {
+      "orthoScale": 1.7,
+      "targetZ": 0.9,
+      "azimuthBaseDegrees": 45,
+      "elevationDegrees": 30
+    },
+    "render": {
+      "width": 256,
+      "height": 256,
+      "supersample": 2,
+      "effectiveWidth": 512,
+      "effectiveHeight": 512,
+      "background": "diagnostic ground grid",
+      "runtimePromotion": false
+    },
+    "outputDirectory": "docs/art/characters/prototypes/wp-char-02a/diagnostics/rocketbox"
+  },
+  "clothingDiagnosis": {
+    "status": "cause_confirmed_replacement_pending",
+    "document": "docs/execution/phase-4/characters/wp-char-02a/02-clothing-diagnosis.md"
+  },
+  "sourceComparison": {
+    "status": "selected_kenney_with_rendered_evidence",
+    "document": "docs/execution/phase-4/characters/wp-char-02a/03-source-comparison.md",
+    "validation": "docs/art/characters/prototypes/wp-char-02a/source-comparison/source-comparison-validation.json",
+    "selectedBase": "kenney_character_worker",
+    "candidates": {
+      "rocketbox": {
+        "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_12/Export/Male_Adult_12.fbx",
+        "sha256": "b44fa6011b934abd69954fd6c5025c1e2011e05c7892acb6bbc2e9cf70a84014",
+        "license": "MIT",
+        "licenseFile": "blender_artist/staging/third_party/mit/rocketbox/LICENSE-MIT.txt",
+        "licenseFileSha256": "9843cc26e0471f1dbf9fcfa540a44ac8f10eb13acd47f5ccaa6fda0f918acffa",
+        "unitScale": 1,
+        "actions": { "idle": "source_idle", "walk": "source_walk" },
+        "idleClip": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/idle/m_idle_neutral_02.max.fbx",
+          "sha256": "d6d13b12e1f8d677dfaffef342a5ffeacf5ee3b38036de83425ab68316cd4e5e"
+        },
+        "walkClip": {
+          "path": "blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_02.max.fbx",
+          "sha256": "6a4e6f2c8e78214cc3e3b7d85a1ad12c3580b61fb7b429451387ea40db7421d2"
+        }
+      },
+      "kenney": {
+        "path": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+        "sha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+        "license": "CC0-1.0",
+        "licenseFile": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+        "licenseFileSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+        "unitScale": 2.18,
+        "actions": { "idle": "idle", "walk": "walk" }
+      },
+      "quaternius": {
+        "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf",
+        "sha256": "e7fcea214ecf8855afbf910b50de6f9c7d1decfb71ca28bad8a4481452dafeb4",
+        "license": "CC0-1.0",
+        "licenseFile": "blender_artist/staging/third_party/cc0/extracted/quaternius/base-characters/Universal Base Characters[Standard]/License_Standard.txt",
+        "licenseFileSha256": "0f4beaf0fe360a7732e58bbe3dbf60a2422367fbea60cb9ea4add968f383268e",
+        "unitScale": 1,
+        "actions": { "idle": "Idle_Loop", "walk": "Walk_Loop" },
+        "idleClip": {
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb",
+          "sha256": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997"
+        },
+        "walkClip": {
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/animation-library/Universal Animation Library[Standard]/Unreal-Godot/UAL1_Standard.glb",
+          "sha256": "69591853d817488edaa8fd9bf8fc1d821eaeaf789f8627b3cd23b41c4ed67997"
+        }
+      }
+    }
+  },
+  "workerReference": {
+    "status": "produced_pending_human_review",
+    "outputDirectory": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final",
+    "reviewDirectory": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review",
+    "validation": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference-validation.json",
+    "reviewValidation": "docs/art/characters/prototypes/wp-char-02a/worker-reference/review/review-validation.json",
+    "cycleClosure": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-cycle-closure.json",
+    "source": "kenney_character_worker",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+    "sourceSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+    "unitScale": 2.18,
+    "idleAction": "idle",
+    "walkAction": "walk",
+    "materialMode": "source",
+    "materialPolicy": {
+      "scope": "Local duplicate of the imported colormap material only.",
+      "metallic": 0,
+      "roughness": 0.9,
+      "specular": 0.22,
+      "texture": "preserve integrated source atlas"
+    },
+    "variant": "construction_worker_a",
+    "directions": 4,
+    "animations": ["idle", "walk"],
+    "walkSamples": 8,
+    "camera": {
+      "orthoScale": 2.05,
+      "targetZ": 0.9,
+      "azimuthBaseDegrees": 45,
+      "azimuthStepDegrees": 90,
+      "elevationDegrees": 30
+    },
+    "render": {
+      "width": 512,
+      "height": 512,
+      "background": "transparent",
+      "runtimePromotion": false
+    },
+    "runtimePromotion": false
+  }
+}

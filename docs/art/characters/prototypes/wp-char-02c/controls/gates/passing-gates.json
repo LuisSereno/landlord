@@ -1,0 +1,61 @@
+{
+  "typecheck": {
+    "status": "passed",
+    "workspaces": 3
+  },
+  "architecture": {
+    "status": "passed"
+  },
+  "characterFactory": {
+    "status": "passed",
+    "variants": "14/14"
+  },
+  "webTests": {
+    "status": "passed",
+    "passed": 437,
+    "skipped": 4,
+    "files": "50 passed | 1 skipped"
+  },
+  "sharedTests": {
+    "status": "passed",
+    "passed": 81,
+    "files": 14
+  },
+  "blenderIntegrity": {
+    "status": "passed",
+    "images": 263,
+    "jobs": 263,
+    "totalBytes": 22594162
+  },
+  "licenses": {
+    "status": "passed",
+    "bundles": 3
+  },
+  "runtimeAssets": {
+    "status": "passed",
+    "images": 108,
+    "manifestBytes": 153880
+  },
+  "renderedValueLadder": {
+    "status": "passed",
+    "assets": 3
+  },
+  "reworkFrames": {
+    "status": "passed",
+    "checks": 488,
+    "errors": 0,
+    "newFrames": 36
+  },
+  "reviewPackage": {
+    "status": "passed",
+    "checks": 161,
+    "errors": 0,
+    "sheets": 12
+  },
+  "policeControl": {
+    "status": "passed",
+    "checks": 542,
+    "errors": 0,
+    "frames": 12
+  }
+}

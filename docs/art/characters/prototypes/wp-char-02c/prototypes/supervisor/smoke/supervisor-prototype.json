@@ -1,0 +1,595 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_rendered_pending_visual_review",
+  "role": "supervisor",
+  "canonicalId": "supervisor",
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02c",
+  "branch": "wip/wp-char-02c-visual-rework",
+  "manifest": "blender_artist/manifests/character-experiments-02c.json",
+  "manifestSha256": "6d66941502e80422f1b96c141206de5739b03f0ef9a6d07f08ab572a82d85bac",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+    "sha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "baseDecision": "retain_02b_base_while_testing_local_hair_and_larger_foreman_hat",
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.342,
+      "height": 0.676,
+      "minZ": 0.0
+    },
+    "importScale": 2.662853849575111,
+    "importOffset": [
+      -0.0,
+      -0.0037,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-male-e",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 2.0429,
+      "depth": 0.9106,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.66285385,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "bodyMaterials": {
+    "method": "Solid local materials assigned to existing skinned body polygons by dominant vertex group and height bands.",
+    "groupRanges": {
+      "torso": [
+        0.17625,
+        0.356683
+      ],
+      "arm-left": [
+        0.20725,
+        0.36825
+      ],
+      "arm-right": [
+        0.20725,
+        0.36825
+      ],
+      "leg-left": [
+        0.0,
+        0.20125
+      ],
+      "leg-right": [
+        0.0,
+        0.20125
+      ]
+    },
+    "polygonCounts": {
+      "original": 26,
+      "torso": 66,
+      "arms": 134,
+      "legs": 172,
+      "boots": 68,
+      "reflective": 4
+    },
+    "materials": {
+      "torso": "wp02c_supervisor_torso",
+      "arms": "wp02c_supervisor_arms",
+      "legs": "wp02c_supervisor_legs",
+      "boots": "wp02c_supervisor_boots",
+      "reflective": "wp02c_supervisor_reflective"
+    }
+  },
+  "headMaterials": {
+    "modifiedComponents": [
+      {
+        "component": 1,
+        "polygons": 72,
+        "localBounds": {
+          "min": [
+            -0.17,
+            -0.167639,
+            0.39325
+          ],
+          "max": [
+            0.17,
+            0.172361,
+            0.671325
+          ]
+        }
+      },
+      {
+        "component": 5,
+        "polygons": 20,
+        "localBounds": {
+          "min": [
+            -0.069194,
+            -0.167639,
+            0.62445
+          ],
+          "max": [
+            0.069194,
+            -0.167639,
+            0.675967
+          ]
+        }
+      }
+    ],
+    "polygonCount": 92,
+    "material": "wp02c_supervisor_hair"
+  },
+  "geometryChanges": [],
+  "accessories": [
+    {
+      "name": "wp02c_supervisor_helmet_dome",
+      "type": "supervisor_helmet",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.92,
+        0.84,
+        0.46
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.46,
+          -0.568277,
+          1.515
+        ],
+        "max": [
+          0.46,
+          0.271723,
+          1.975
+        ]
+      },
+      "widthToHeadRatio": 0.761836
+    },
+    {
+      "name": "wp02c_supervisor_helmet_brim",
+      "type": "supervisor_helmet",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        1.06,
+        1.06,
+        0.055
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.53,
+          -0.678277,
+          1.6025
+        ],
+        "max": [
+          0.53,
+          0.381723,
+          1.6575
+        ]
+      },
+      "widthToHeadRatio": 0.877768
+    },
+    {
+      "name": "wp02c_supervisor_helmet_visor",
+      "type": "supervisor_helmet",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.62,
+        0.28,
+        0.055
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.31,
+          -0.678277,
+          1.6125
+        ],
+        "max": [
+          0.31,
+          -0.398277,
+          1.6675
+        ]
+      },
+      "widthToHeadRatio": 0.513411
+    },
+    {
+      "name": "wp02c_supervisor_helmet_band",
+      "type": "supervisor_helmet",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.924,
+        0.8096,
+        0.032476
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.462,
+          -0.553077,
+          1.638762
+        ],
+        "max": [
+          0.462,
+          0.256523,
+          1.671238
+        ]
+      },
+      "widthToHeadRatio": 0.765148
+    },
+    {
+      "name": "wp02c_supervisor_clipboard_board",
+      "type": "clipboard_large",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.25,
+        0.035,
+        0.35
+      ],
+      "boundsMeters": {
+        "min": [
+          0.463724,
+          -0.085235,
+          0.898949
+        ],
+        "max": [
+          0.713724,
+          -0.050235,
+          1.248949
+        ]
+      },
+      "widthToHeadRatio": 0.207021
+    },
+    {
+      "name": "wp02c_supervisor_clipboard_paper",
+      "type": "clipboard_large",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.205,
+        0.009,
+        0.285
+      ],
+      "boundsMeters": {
+        "min": [
+          0.486224,
+          -0.095235,
+          0.943449
+        ],
+        "max": [
+          0.691224,
+          -0.086235,
+          1.228449
+        ]
+      },
+      "widthToHeadRatio": 0.169757
+    },
+    {
+      "name": "wp02c_supervisor_clipboard_clip",
+      "type": "clipboard_large",
+      "bone": "arm-left",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.07,
+        0.018,
+        0.028
+      ],
+      "boundsMeters": {
+        "min": [
+          0.553724,
+          -0.106735,
+          1.217949
+        ],
+        "max": [
+          0.623724,
+          -0.088735,
+          1.245949
+        ]
+      },
+      "widthToHeadRatio": 0.057966
+    }
+  ],
+  "anchors": [
+    "arm-left",
+    "head"
+  ],
+  "maxAccessoryDrift": 1.4901161193847656e-07,
+  "rig": {
+    "armature": "character-male-e",
+    "bones": 7,
+    "boneNames": [
+      "root",
+      "leg-left",
+      "leg-right",
+      "torso",
+      "arm-left",
+      "arm-right",
+      "head"
+    ],
+    "actions": 32
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "frameRange": [
+        0.0,
+        32.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 16,
+      "keyframeCount": 640,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 32.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": []
+    },
+    "walk": {
+      "name": "walk",
+      "frameRange": [
+        0.0,
+        16.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 27,
+      "keyframeCount": 540,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 16.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": [
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 0,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 1,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 2,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    "walkFrames": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  "camera": {
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "headDimensionsMeters": [
+    1.207609,
+    0.910607,
+    0.885976
+  ],
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "defectsPending": [
+    "human_visual_review"
+  ],
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-male-e",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.003669,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.768138,
+        1.13358,
+        1.975
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.168413,
+        "maxX": 0.776103,
+        "minY": 0.055948,
+        "maxY": 0.909947,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/smoke/supervisor-d0-idle-00.png",
+        "sha256": "be631a1298870478cbd7f1d42c14aa20944317ee1450c66b0057fc1d41f5c759",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-male-e",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.003669,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.067012,
+      "worldSizeMeters": [
+        1.768138,
+        1.13358,
+        2.042012
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.168413,
+        "maxX": 0.776103,
+        "minY": 0.077969,
+        "maxY": 0.93518,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/smoke/supervisor-d0-walk-04.png",
+        "sha256": "923789d79c174bab9e677830ed5c7ec74196d0997071fa8f6f55e357e844e373",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

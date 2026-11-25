@@ -1,0 +1,1944 @@
+{
+  "schemaVersion": 1,
+  "status": "rendered_pending_validation",
+  "manifest": "blender_artist/manifests/character-experiments-02a.json",
+  "manifestSha256": "284c4d688d9e539490d12ae220e6a3e72f9576173eb76dfe993e6e1a7dbe9cff",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+    "sha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+    "licenseFile": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "licenseFileSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+    "license": "CC0-1.0"
+  },
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.464,
+      "height": 0.8241,
+      "minZ": 0.0
+    },
+    "importScale": 2.18,
+    "importOffset": [
+      -0.0,
+      0.0749,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-worker",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 1.6724,
+      "depth": 1.0116,
+      "height": 1.7966
+    }
+  },
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "camera": {
+    "orthoScale": 2.05,
+    "targetZ": 0.9,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "materialMode": "source",
+  "rig": {
+    "armature": "character-worker",
+    "bones": 7,
+    "meshes": [
+      {
+        "name": "body-mesh",
+        "vertices": 992,
+        "polygons": 562,
+        "materials": [
+          "colormap"
+        ],
+        "armatureModifiers": [
+          "Armature"
+        ]
+      },
+      {
+        "name": "head-mesh",
+        "vertices": 559,
+        "polygons": 331,
+        "materials": [
+          "colormap"
+        ],
+        "armatureModifiers": [
+          "Armature"
+        ]
+      }
+    ]
+  },
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.79659
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.05893,
+        "maxY": 0.937203,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+        "sha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.79659
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.05893,
+        "maxY": 0.937203,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-00.png",
+        "sha256": "6c826ca8fd095b5120a5a56a72217f60831cc2335695716ec209d2bed1cb1a5f",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "frame": 2,
+      "phase": 0.125,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.06758
+      ],
+      "groundingOffsetMeters": -0.002273,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.861897
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.190812,
+        "maxX": 0.843855,
+        "minY": 0.105511,
+        "maxY": 0.965329,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-01.png",
+        "sha256": "7f1466bc48c02e9714cab41accb431ca0fb65827f8af21142fd092da19e47ec9",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "frame": 4,
+      "phase": 0.25,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.106727
+      ],
+      "groundingOffsetMeters": -0.065692,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.837626
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.179412,
+        "maxX": 0.870383,
+        "minY": 0.102548,
+        "maxY": 0.955432,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-02.png",
+        "sha256": "8997a87215b2fee0c313e5cf28c23367602e28960aad4e5d409c4f0e0d5a506a",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "frame": 6,
+      "phase": 0.375,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.013465
+      ],
+      "groundingOffsetMeters": 0.079861,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.862987
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.195698,
+        "maxX": 0.838451,
+        "minY": 0.10584,
+        "maxY": 0.965789,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-03.png",
+        "sha256": "f825e2918b3e6161bd011b2172762ccbdbb5844fa23337ebe9e8c7cf965d60be",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.011897
+      ],
+      "groundingOffsetMeters": 0.037589,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.846075
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.078738,
+        "maxY": 0.958108,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+        "sha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "frame": 10,
+      "phase": 0.625,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.103985
+      ],
+      "groundingOffsetMeters": -0.048097,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.852479
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.218053,
+        "maxX": 0.806109,
+        "minY": 0.115651,
+        "maxY": 0.960366,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-05.png",
+        "sha256": "60853e1fcf10b0650a39cabffe29ac43f85bd5b160686bf95a699c12f8203d68",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "frame": 12,
+      "phase": 0.75,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.110388
+      ],
+      "groundingOffsetMeters": -0.063731,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.843247
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.222351,
+        "maxX": 0.807925,
+        "minY": 0.129066,
+        "maxY": 0.956253,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-06.png",
+        "sha256": "1f7fac1d357bf134854dca1f259e1c13f7660dbc8b20d45cc918c8d97658f3e4",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "frame": 14,
+      "phase": 0.875,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.005237
+      ],
+      "groundingOffsetMeters": 0.043605,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.218053,
+        "maxX": 0.806109,
+        "minY": 0.078383,
+        "maxY": 0.957389,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-07.png",
+        "sha256": "a288dedc7546ab75167744278e945beffb0ad678658c89941bb5eecbf8739791",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.048841
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.197145,
+        "maxX": 0.787861,
+        "minY": 0.090004,
+        "maxY": 0.957836,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-idle-00.png",
+        "sha256": "90641bdf318d2a96b084bb2e0afa4ea246be8bacbdb8525de4b569c12703cdaf",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.018739
+      ],
+      "groundingOffsetMeters": 0.018738,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.79659
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.197145,
+        "maxX": 0.787861,
+        "minY": 0.05893,
+        "maxY": 0.937203,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-00.png",
+        "sha256": "69d20b139d61b2fe921ac4b39e3afdade6749380a3cc18a31f950ea7feeffd81",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "frame": 2,
+      "phase": 0.125,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.06758
+      ],
+      "groundingOffsetMeters": -0.002273,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.861897
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.193891,
+        "maxX": 0.781947,
+        "minY": 0.12203,
+        "maxY": 0.964345,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-01.png",
+        "sha256": "7535ef1b272cbc25cfad9004c4b69c9739900fbeaa8c73f5159d1a8975394b9a",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "frame": 4,
+      "phase": 0.25,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.106727
+      ],
+      "groundingOffsetMeters": -0.065692,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.837626
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.192075,
+        "maxX": 0.777649,
+        "minY": 0.1306,
+        "maxY": 0.953878,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-02.png",
+        "sha256": "cd5bfb7bde8c59dd8fa0186bafc9d03c8b6e34aced999a8283c5c178e92556f9",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "frame": 6,
+      "phase": 0.375,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.013465
+      ],
+      "groundingOffsetMeters": 0.079861,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.862987
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.193891,
+        "maxX": 0.781947,
+        "minY": 0.090588,
+        "maxY": 0.964805,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-03.png",
+        "sha256": "df08d50a1c7e58e512fe7c95a66f23dcf287f971cb190f578d156c5548bc1d15",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.011897
+      ],
+      "groundingOffsetMeters": 0.037589,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.846075
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.197145,
+        "maxX": 0.787861,
+        "minY": 0.090471,
+        "maxY": 0.958108,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-04.png",
+        "sha256": "b814cd7f9f309cd5efd2e99eaf49467f5feb8a0e5ed4d23afd8b00981ac9d554",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "frame": 10,
+      "phase": 0.625,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.103985
+      ],
+      "groundingOffsetMeters": -0.048097,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.852479
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.161549,
+        "maxX": 0.804302,
+        "minY": 0.105007,
+        "maxY": 0.96135,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-05.png",
+        "sha256": "8c24782a8b0b17eee51c251f034ef4ca551e57b9ef1a38b9da08f8e9b43869fe",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "frame": 12,
+      "phase": 0.75,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.110388
+      ],
+      "groundingOffsetMeters": -0.063731,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.843247
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.129617,
+        "maxX": 0.820588,
+        "minY": 0.103406,
+        "maxY": 0.957806,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-06.png",
+        "sha256": "e599772e111fda57b63b070a39545f88d50c59e55b6bef3801e17567a7fe2c8e",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 1,
+      "azimuthDegrees": 135,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "frame": 14,
+      "phase": 0.875,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.005237
+      ],
+      "groundingOffsetMeters": 0.043605,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.156145,
+        "maxX": 0.809188,
+        "minY": 0.090004,
+        "maxY": 0.958373,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d1-walk-07.png",
+        "sha256": "201e8c1ed839f994a8fd5a041da148fa42d8e8352e32af7431fd9960c3901d1c",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.048841
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.197145,
+        "maxX": 0.787861,
+        "minY": 0.06059,
+        "maxY": 0.936744,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-idle-00.png",
+        "sha256": "b134516937aa8f5972e5185594c902d6ab8a11184bc9836d37828ad1df607516",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.018739
+      ],
+      "groundingOffsetMeters": 0.018738,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.79659
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.197145,
+        "maxX": 0.787861,
+        "minY": 0.029854,
+        "maxY": 0.916111,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-00.png",
+        "sha256": "051afd251a78b4c183c44b8bfde43892fe9a53fc9183ce9a3b0569b4e26fdbc1",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "frame": 2,
+      "phase": 0.125,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.06758
+      ],
+      "groundingOffsetMeters": -0.002273,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.861897
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.156144,
+        "maxX": 0.809188,
+        "minY": 0.038569,
+        "maxY": 0.941158,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-01.png",
+        "sha256": "dc606769383ceeac8bc5caf3d22740fb162c3c8cbe7963121472ad7baf3a2563",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "frame": 4,
+      "phase": 0.25,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.106727
+      ],
+      "groundingOffsetMeters": -0.065692,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.837626
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.129617,
+        "maxX": 0.820587,
+        "minY": 0.027004,
+        "maxY": 0.929165,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-02.png",
+        "sha256": "073077748b4dbf50db1a4db48984c05cf3b794e44fb6608e11fc5304b370d530",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "frame": 6,
+      "phase": 0.375,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.013465
+      ],
+      "groundingOffsetMeters": 0.079861,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.862987
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.161549,
+        "maxX": 0.804301,
+        "minY": 0.058623,
+        "maxY": 0.941619,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-03.png",
+        "sha256": "cd4e134a9b3f1906cf47678031053c3a9668aed73163ff0b481b24443af5fe36",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.011897
+      ],
+      "groundingOffsetMeters": 0.037589,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.846075
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.197145,
+        "maxX": 0.787861,
+        "minY": 0.061097,
+        "maxY": 0.937016,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-04.png",
+        "sha256": "55e255c9640907ccc88aeb1d242124b82e15f44a8c96b0abc618628852282928",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "frame": 10,
+      "phase": 0.625,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.103985
+      ],
+      "groundingOffsetMeters": -0.048097,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.852479
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.193891,
+        "maxX": 0.781946,
+        "minY": 0.095548,
+        "maxY": 0.941852,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-05.png",
+        "sha256": "fe6fa209bde496d6510d9cb9e740d71252d19c21c7be9b65145b91de1c3d740c",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "frame": 12,
+      "phase": 0.75,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.110388
+      ],
+      "groundingOffsetMeters": -0.063731,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.843247
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.192075,
+        "maxX": 0.777649,
+        "minY": 0.091495,
+        "maxY": 0.939037,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-06.png",
+        "sha256": "54dfaf0957d7598f8be2ae20ecf8122b6a572798913c3ed4a19ef6ae5757c0a4",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 2,
+      "azimuthDegrees": 225,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "frame": 14,
+      "phase": 0.875,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.005237
+      ],
+      "groundingOffsetMeters": 0.043605,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.19389,
+        "maxX": 0.781946,
+        "minY": 0.06059,
+        "maxY": 0.938875,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d2-walk-07.png",
+        "sha256": "f796571b83f877df5a70561cd7a2209cb3b449d6cb8951a11c2b5176484d2204",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.048841
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.047902,
+        "maxY": 0.936744,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-idle-00.png",
+        "sha256": "ae54b986487492ca40477193f2e72096683c12c30b27e81a35d289680f804753",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.018739
+      ],
+      "groundingOffsetMeters": 0.018738,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.79659
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.029854,
+        "maxY": 0.916111,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-00.png",
+        "sha256": "f992e6c3a167c01309414469219bee765df342b4e6170404320f78d2138a3022",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 1,
+      "frame": 2,
+      "phase": 0.125,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.06758
+      ],
+      "groundingOffsetMeters": -0.002273,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.861897
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.218054,
+        "maxX": 0.806109,
+        "minY": 0.100931,
+        "maxY": 0.945831,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-01.png",
+        "sha256": "552a912a0194850eb73e2c00ee42f4e10fcfbce9aec286307710919a210d46c6",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 2,
+      "frame": 4,
+      "phase": 0.25,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.106727
+      ],
+      "groundingOffsetMeters": -0.065692,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.837626
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.222351,
+        "maxX": 0.807925,
+        "minY": 0.089366,
+        "maxY": 0.936662,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-02.png",
+        "sha256": "e05db957e69bf6b5633f43c54cbb90853bb186611237798743356283afbdf9db",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 3,
+      "frame": 6,
+      "phase": 0.375,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        -0.013465
+      ],
+      "groundingOffsetMeters": 0.079861,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.862987
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.218054,
+        "maxX": 0.806109,
+        "minY": 0.075775,
+        "maxY": 0.946291,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-03.png",
+        "sha256": "afc5b59839c37b9e86327cf5b58116a6a3e1875ef62a1f66fa7c89cfc78e3348",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.011897
+      ],
+      "groundingOffsetMeters": 0.037589,
+      "worldSizeMeters": [
+        1.447522,
+        1.011552,
+        1.846075
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.212139,
+        "maxX": 0.802855,
+        "minY": 0.04822,
+        "maxY": 0.937016,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-04.png",
+        "sha256": "ce9334b14758201db00a56b84e1dfd6eb821c2d12045c9b32f1de7a4592bffcd",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 5,
+      "frame": 10,
+      "phase": 0.625,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.103985
+      ],
+      "groundingOffsetMeters": -0.048097,
+      "worldSizeMeters": [
+        1.534991,
+        1.027755,
+        1.852479
+      ],
+      "minZ": -0.0,
+      "cameraBounds": {
+        "minX": 0.195699,
+        "maxX": 0.838451,
+        "minY": 0.033187,
+        "maxY": 0.93718,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-05.png",
+        "sha256": "1b165a927b8482a301cd99981e7065547dfd259787ccae45fc6b64725dbcf6bf",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 6,
+      "frame": 12,
+      "phase": 0.75,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.110388
+      ],
+      "groundingOffsetMeters": -0.063731,
+      "worldSizeMeters": [
+        1.522901,
+        1.036202,
+        1.843247
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.179413,
+        "maxX": 0.870383,
+        "minY": 0.029133,
+        "maxY": 0.93154,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-06.png",
+        "sha256": "65e643c1e6e5e968091d5712aa522acadcb99eead53c5cd035c3b6e4f89115d9",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    },
+    {
+      "direction": 3,
+      "azimuthDegrees": 315,
+      "animation": "walk",
+      "sampleIndex": 7,
+      "frame": 14,
+      "phase": 0.875,
+      "action": "walk",
+      "actionSlot": "OBcharacter-worker",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        0.074887,
+        0.005237
+      ],
+      "groundingOffsetMeters": 0.043605,
+      "worldSizeMeters": [
+        1.559817,
+        1.027755,
+        1.845432
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.190812,
+        "maxX": 0.843856,
+        "minY": 0.047902,
+        "maxY": 0.934202,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d3-walk-07.png",
+        "sha256": "8e367b2060e0be7244fd5f3ee1b3f8e9272ba21d9419e1b25895e234da915a9a",
+        "width": 512,
+        "height": 512
+      },
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "interpolation": [
+          "LINEAR"
+        ]
+      }
+    }
+  ]
+}

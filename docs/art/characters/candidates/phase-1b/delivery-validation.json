@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "jobs": 6,
+  "frames": 96,
+  "reviewSheets": 11,
+  "visualPairs": 5,
+  "errors": []
+}

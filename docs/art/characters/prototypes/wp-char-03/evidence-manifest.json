@@ -1,0 +1,1493 @@
+{
+  "schemaVersion": 1,
+  "status": "evidence_manifest",
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-03",
+  "branch": "wip/wp-char-03-scale-calibration",
+  "head": "268805cc9783527fd8390ab55b402167fe9730e7",
+  "experimentManifest": "tools/art-pipeline/blender/characters/wp_char_03/manifest.json",
+  "experimentManifestSha256": "561cd18a9e19dea11a1fcf42743f9f9fdf0fec5c00b09dfcf4e1309d73f197a9",
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "externalSources": [
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+      "role": "Kenney supervisor",
+      "expectedSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "actualSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+      "role": "Kenney enforcer",
+      "expectedSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "actualSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+      "role": "Kenney firefighter",
+      "expectedSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "actualSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+      "role": "Kenney worker control",
+      "expectedSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "actualSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+      "role": "Kenney police control",
+      "expectedSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "actualSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+      "role": "Kenney license",
+      "expectedSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "actualSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord-characters-03/apps/web/public/assets/runtime/blender-day/row_house-complete.png",
+      "role": "Read-only runtime reference row_house-complete.png",
+      "expectedSha256": "36d58f26f0083a0e555e6aac67a2586c8627d45f1787f2e25a500e7a59dcae7a",
+      "actualSha256": "36d58f26f0083a0e555e6aac67a2586c8627d45f1787f2e25a500e7a59dcae7a",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord-characters-03/apps/web/public/assets/runtime/blender-day/workshop-complete.png",
+      "role": "Read-only runtime reference workshop-complete.png",
+      "expectedSha256": "a51cc46c7a477102909e3ade5b9ddd51454bef523054888bd757b8b017aba6be",
+      "actualSha256": "a51cc46c7a477102909e3ade5b9ddd51454bef523054888bd757b8b017aba6be",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord-characters-03/apps/web/public/assets/runtime/blender-day/veh_truck.png",
+      "role": "Read-only runtime reference veh_truck.png",
+      "expectedSha256": "11b0be39d832a4773fc6256ce582a9561efd02510397b890bdad2052fe50f1b2",
+      "actualSha256": "11b0be39d832a4773fc6256ce582a9561efd02510397b890bdad2052fe50f1b2",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord-characters-03/apps/web/public/assets/runtime/blender-day/veh_delivery.png",
+      "role": "Read-only runtime reference veh_delivery.png",
+      "expectedSha256": "e1b9b489a064fc8b745bb3ebf9e3b6489f4a4372cd0ad82c152705c3706b023d",
+      "actualSha256": "e1b9b489a064fc8b745bb3ebf9e3b6489f4a4372cd0ad82c152705c3706b023d",
+      "exists": true,
+      "hashMatches": true
+    }
+  ],
+  "files": [
+    {
+      "path": "apps/web/char-scale-lab.html",
+      "role": "lab_html",
+      "bytes": 341,
+      "sha256": "74b0810419df52438c7eb6245bf95005f953df127b4d243ae19a7673f725526a"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/manifest.json",
+      "role": "qa_sprite",
+      "bytes": 70758,
+      "sha256": "bd10697d3c34350f3df7db285084ecb918f20cabcb5f76975f60fdf7f0b01395"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 164999,
+      "sha256": "1f44c2410cf526ee6e33457436a4ffeac43067f0ed52f1473bfb4a091a12c484"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 164999,
+      "sha256": "aa5d4ec3c191b37ffb4ab4320bbe8869ad3880e52eea9affc78dcec15f918ea9"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 164974,
+      "sha256": "6cacd871cecfa9d36dcf6785f326c8d8760121f2649b3d1485e2f4a87934425e"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 165069,
+      "sha256": "2f6c00dda9cafef76e6cd4eba8eb9e94c061ba168c21523d48a94023b1d26472"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 166150,
+      "sha256": "4bd283cbbb8b8c657d43c4bd3b705ab97d37ae3ec4f8be1e9f3d048ee30dbfd8"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 165170,
+      "sha256": "a3eb7c401ab920c8bb0e9d212f62fb96230b8f48b8a4a3ec83c04db9a8731db7"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 161233,
+      "sha256": "4accd7bffed070386a418f7ea5570a60577733f231ec9d21dcea8d79f357b30c"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 159761,
+      "sha256": "e91710a2beac5d35c6f4892996d8c7d20ed6f074764151b0d1277140c28d5675"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d0-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 164429,
+      "sha256": "96a29fe7dc77141a9d115ccfca079e5f5841d550349920d0131e0281693e0b1b"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d1-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 163192,
+      "sha256": "4be08b6411c35b8963fc8d13f8cffb38d9dd8da7ee7bbc2ea334fd7b36a5329e"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d2-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 157421,
+      "sha256": "63b9d889f1e6bd380055b3b42c1c5bff7c15a5b2c6ba2e9011168ae2ed77dbab"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/enforcer-d3-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 158069,
+      "sha256": "ebd04323911b01b903dd9431466f5d2c58b32c4eda19689c7633c9b3fa123a55"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 195599,
+      "sha256": "9195925904f77d40b7f32b7f90169154951cd575a402a3e2a99020ae164a3cda"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 195599,
+      "sha256": "0142a9121de84debca18511de49640fb4239dfbf6248bcd4f31016aec16d23fc"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 196419,
+      "sha256": "7ad8efc19cb85ab2c734eb92f516d6cf8f05f681c38fa9c7148a2c2c036f0dc5"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 196051,
+      "sha256": "48cf00596032ff99945047a479d67918d2fe39b9213878d385163f376af36ec2"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 198658,
+      "sha256": "44d1fb486fa4430cdcc635a90082661cd2e5a86884d6ae30ea8ec6a34658fa0f"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 195711,
+      "sha256": "3ebb1fb60cd6516339fd2f19fd266b15dc60a61b1f0b01aada05f0fe344b61cd"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 193304,
+      "sha256": "5d289d80193279d0ce0d42a827cf7aedc0acbc0ab0cf105ad1d1ecfbfafbc7f4"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 190764,
+      "sha256": "b8bd5beb68b7ea97391d1f61420411e526d1d0c3c93a7f8ad4eb0e4780291627"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d0-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 195942,
+      "sha256": "781682d893bc12df681d9d89b615a86651f3e889190249c1027c707613e6df28"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d1-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 190491,
+      "sha256": "4f7b66f5fd8ae0e1b0fb56e11c885d6ae5bf367a6016dc325f8a399b93a0616a"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d2-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 186379,
+      "sha256": "fa8d67b28224de71960ecfa120497b10959fa52f4329a97d315e7bd764744d05"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/firefighter-d3-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 193354,
+      "sha256": "f05a872005726815381ecd259bf619afa7ceed2d073c7b78c12e5d8b0c8d05c8"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 168336,
+      "sha256": "2e0d9ff012a19b2301fe39af9196e0c094852d6cf1d92f784284f31bf868a832"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 168336,
+      "sha256": "2f8d2085050a2ee12c30ca83762480eef995efc1c265d4af7eddcf31e3076e5b"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 168277,
+      "sha256": "e2aa068ebed2d9e26a4d6015e8531fd880d7a14105c7627bc4a938853044eab3"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 169501,
+      "sha256": "a5dce12668e7ad30abaa48189bd4cdb14f7870be0aca1675cb81a7ea2d4a3992"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 169665,
+      "sha256": "fe427cecac679509d808354833d480deadd70d925f1119c98ec1f2639a8c9b8c"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 168477,
+      "sha256": "128cab5a7c1504f421b5174082b52cbbe3a8716776db2faf74ebcac3f2c3c62b"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 165437,
+      "sha256": "7534ad12d3d8541b85e86634963f557bf235a320f218443ad668516828cdaf31"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 163909,
+      "sha256": "4429506a8308d26de2df0077d4057de2a431a9267f1e714bd3f4aa86e37d8cae"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d0-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 167757,
+      "sha256": "7bc13a6c15a0c2eb527ae24bf63a2e2014ac27ba26b677ce9f05c1bffbb88741"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d1-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 168147,
+      "sha256": "dd92bd50f1601c7fdfca6f3904122f3eebc6b8d97f4afeec8db0c9441bea8142"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d2-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 164278,
+      "sha256": "eb3413ef53f2b18b4520d5c406300b5cf70a8c782851127b299b18cd8b882ca4"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/police-d3-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 165728,
+      "sha256": "fbac220fdd3a7b152b3a76432e8e4f2ada3dd56c0ba887e3d06d621200ca9b17"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 191512,
+      "sha256": "55701b7735b88a6af0f04325fbbaeb9bd4d38f46c564e64d967bd4a5b8f93ad1"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 191512,
+      "sha256": "e4b9f672b487356c3b617bc5e9aac0d16b9d25d43d8d7e8e630a64c350d6f843"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 191000,
+      "sha256": "3f0f7e45de448a792d6f174bb9900b0ee56e24d759874fb05d4221d79190a458"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 188958,
+      "sha256": "2d19cc7cbf9f0a8e32eeb1e3746d609d7d079f735adee138cbff5dbee80f97cc"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 192811,
+      "sha256": "418be1043f5e786ba2cf856755433944e6a8b527a71d3dec35d4d6a7d62ced81"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 191072,
+      "sha256": "c93783eda98c5e40c80ed0a522ab0450e4a5fa52043c2f8662dc59794d6ea97d"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 185909,
+      "sha256": "7de3cff1f4de2f93690009e7bf60624b5c3daf409e80af3f9a54a5244d5e5e92"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 184673,
+      "sha256": "2d7c3876b4e19e239eb477ab09365615d3c6167cd416fc1e195439d917e3c722"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d0-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 190388,
+      "sha256": "d69bcddb80f9df5b7b4e8f5121fd31301af4661561a20a0bd7409b79d41f8b74"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d1-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 187163,
+      "sha256": "fa4f5e0b34b4fae11b7a29cea420619efc00f39d3c4449d6afa2a6eef5732e60"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d2-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 188996,
+      "sha256": "d6db51ead7d59187e147fc96c5adbdf9df4612fb6bf1163f6c90e800afa6d8c4"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/supervisor-d3-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 188794,
+      "sha256": "236ca93a2efb208050d852ee5165f087386db727fafc196e6518d0017dd9594b"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 193290,
+      "sha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 193290,
+      "sha256": "6c826ca8fd095b5120a5a56a72217f60831cc2335695716ec209d2bed1cb1a5f"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 192510,
+      "sha256": "7f1466bc48c02e9714cab41accb431ca0fb65827f8af21142fd092da19e47ec9"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 190952,
+      "sha256": "8997a87215b2fee0c313e5cf28c23367602e28960aad4e5d409c4f0e0d5a506a"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 194562,
+      "sha256": "f825e2918b3e6161bd011b2172762ccbdbb5844fa23337ebe9e8c7cf965d60be"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 193582,
+      "sha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 190118,
+      "sha256": "60853e1fcf10b0650a39cabffe29ac43f85bd5b160686bf95a699c12f8203d68"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 188256,
+      "sha256": "1f7fac1d357bf134854dca1f259e1c13f7660dbc8b20d45cc918c8d97658f3e4"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d0-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 192899,
+      "sha256": "a288dedc7546ab75167744278e945beffb0ad678658c89941bb5eecbf8739791"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 191046,
+      "sha256": "90641bdf318d2a96b084bb2e0afa4ea246be8bacbdb8525de4b569c12703cdaf"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 192244,
+      "sha256": "69d20b139d61b2fe921ac4b39e3afdade6749380a3cc18a31f950ea7feeffd81"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 189250,
+      "sha256": "7535ef1b272cbc25cfad9004c4b69c9739900fbeaa8c73f5159d1a8975394b9a"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 187939,
+      "sha256": "cd5bfb7bde8c59dd8fa0186bafc9d03c8b6e34aced999a8283c5c178e92556f9"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 191334,
+      "sha256": "df08d50a1c7e58e512fe7c95a66f23dcf287f971cb190f578d156c5548bc1d15"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 190992,
+      "sha256": "b814cd7f9f309cd5efd2e99eaf49467f5feb8a0e5ed4d23afd8b00981ac9d554"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 190461,
+      "sha256": "8c24782a8b0b17eee51c251f034ef4ca551e57b9ef1a38b9da08f8e9b43869fe"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 191599,
+      "sha256": "e599772e111fda57b63b070a39545f88d50c59e55b6bef3801e17567a7fe2c8e"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d1-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 196419,
+      "sha256": "201e8c1ed839f994a8fd5a041da148fa42d8e8352e32af7431fd9960c3901d1c"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 195276,
+      "sha256": "b134516937aa8f5972e5185594c902d6ab8a11184bc9836d37828ad1df607516"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 195600,
+      "sha256": "051afd251a78b4c183c44b8bfde43892fe9a53fc9183ce9a3b0569b4e26fdbc1"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 199081,
+      "sha256": "dc606769383ceeac8bc5caf3d22740fb162c3c8cbe7963121472ad7baf3a2563"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 198372,
+      "sha256": "073077748b4dbf50db1a4db48984c05cf3b794e44fb6608e11fc5304b370d530"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 200788,
+      "sha256": "cd4e134a9b3f1906cf47678031053c3a9668aed73163ff0b481b24443af5fe36"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 195341,
+      "sha256": "55e255c9640907ccc88aeb1d242124b82e15f44a8c96b0abc618628852282928"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 193711,
+      "sha256": "fe6fa209bde496d6510d9cb9e740d71252d19c21c7be9b65145b91de1c3d740c"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 192282,
+      "sha256": "54dfaf0957d7598f8be2ae20ecf8122b6a572798913c3ed4a19ef6ae5757c0a4"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d2-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 195773,
+      "sha256": "f796571b83f877df5a70561cd7a2209cb3b449d6cb8951a11c2b5176484d2204"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-idle-00.png",
+      "role": "qa_sprite",
+      "bytes": 192837,
+      "sha256": "ae54b986487492ca40477193f2e72096683c12c30b27e81a35d289680f804753"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-00.png",
+      "role": "qa_sprite",
+      "bytes": 193019,
+      "sha256": "f992e6c3a167c01309414469219bee765df342b4e6170404320f78d2138a3022"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-01.png",
+      "role": "qa_sprite",
+      "bytes": 193350,
+      "sha256": "552a912a0194850eb73e2c00ee42f4e10fcfbce9aec286307710919a210d46c6"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-02.png",
+      "role": "qa_sprite",
+      "bytes": 191277,
+      "sha256": "e05db957e69bf6b5633f43c54cbb90853bb186611237798743356283afbdf9db"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-03.png",
+      "role": "qa_sprite",
+      "bytes": 194405,
+      "sha256": "afc5b59839c37b9e86327cf5b58116a6a3e1875ef62a1f66fa7c89cfc78e3348"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-04.png",
+      "role": "qa_sprite",
+      "bytes": 193499,
+      "sha256": "ce9334b14758201db00a56b84e1dfd6eb821c2d12045c9b32f1de7a4592bffcd"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-05.png",
+      "role": "qa_sprite",
+      "bytes": 195171,
+      "sha256": "1b165a927b8482a301cd99981e7065547dfd259787ccae45fc6b64725dbcf6bf"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-06.png",
+      "role": "qa_sprite",
+      "bytes": 194460,
+      "sha256": "65e643c1e6e5e968091d5712aa522acadcb99eead53c5cd035c3b6e4f89115d9"
+    },
+    {
+      "path": "apps/web/public/qa-character-scale/sprites/worker-a-d3-walk-07.png",
+      "role": "qa_sprite",
+      "bytes": 197825,
+      "sha256": "8e367b2060e0be7244fd5f3ee1b3f8e9272ba21d9419e1b25895e234da915a9a"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/config.test.ts",
+      "role": "lab_code",
+      "bytes": 1240,
+      "sha256": "3f09243c191099990cc1d35c3571af4299e9263c3e7cff0c0551f871b9115baa"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/config.ts",
+      "role": "lab_code",
+      "bytes": 1752,
+      "sha256": "df3023f81d68a47a3f6954f73e9ca94dd902efccb9a7923065e59d59d1ffd0d1"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/main.ts",
+      "role": "lab_code",
+      "bytes": 7808,
+      "sha256": "0b7df031276f672d0c530896f7100e17954a62a29d6912980142a30f3983222b"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/scale-calibration.test.ts",
+      "role": "lab_code",
+      "bytes": 3663,
+      "sha256": "8f44e331ab7ad3f2200d627b2caf28729aecbf424b7a438e26dad0c8dc089be8"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/scale-calibration.ts",
+      "role": "lab_code",
+      "bytes": 4607,
+      "sha256": "d460a4ca28a28ee6e3a18486801a50ddad34e6f73200f976c8ba081dda7877c9"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/scene.ts",
+      "role": "lab_code",
+      "bytes": 23312,
+      "sha256": "8ceb61a158b8d9d94d9fd9606777650599ba1bd7d064cb9fd15a0c78c8022723"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/style.css",
+      "role": "lab_code",
+      "bytes": 1811,
+      "sha256": "90e85d5ac2c731aa494aed237ef5f9dd807394ab3dcad94df83554aa355a7185"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/types.ts",
+      "role": "lab_code",
+      "bytes": 1390,
+      "sha256": "9dbadb1c4675601a4936a8d71cd40eaa9abc04b52860e17c8791fba3148e68b7"
+    },
+    {
+      "path": "apps/web/src/character-scale-lab/vite.config.ts",
+      "role": "lab_code",
+      "bytes": 467,
+      "sha256": "58157cead72abe4c69a277831100535de8a8d18433964f58a27ef67a6aebc4c5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/art-before-after/enforcer-before-after.png",
+      "role": "prototype",
+      "bytes": 322743,
+      "sha256": "1f3349d774b1d4ee025b315dbb578854fc44bfa22dfa2e5740710fef69ae2547"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/art-before-after/firefighter-before-after.png",
+      "role": "prototype",
+      "bytes": 340340,
+      "sha256": "5e495bf785c6ae2eab7bffb535cac17918e7d3b2422c0f2fbed52a76d992d162"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/art-before-after/manifest.json",
+      "role": "prototype",
+      "bytes": 3312,
+      "sha256": "ae769c0d4846095b3a076646b66a9e0d0ae949a0e9060d72ef620fa4304cbd59"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/art-before-after/supervisor-before-after.png",
+      "role": "prototype",
+      "bytes": 265210,
+      "sha256": "785957bce9d026fa248bf2a64b67a6958038193a64c399fae94b85834fb077d7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/controls/gates.json",
+      "role": "prototype",
+      "bytes": 1205,
+      "sha256": "b9e4112b85ab1f39884fba923f8959db2277486580924aa5053e787bddea0367"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/controls/validation.json",
+      "role": "prototype",
+      "bytes": 67307,
+      "sha256": "2ddb8971c0942f5019fef11e997c7320f93b3ea71f795d4e2b94ad70dc2fb91c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 134268,
+      "sha256": "c25ce55abeb753e69c20e55b1bb83b19ec93620801f38fb70893acf38a2423f5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-door.png",
+      "role": "phaser_capture",
+      "bytes": 136074,
+      "sha256": "115cc824bd7d7dca7b9aa6a6d3b4560a0643b8a30a314af1f14173d93703eb70"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-general.png",
+      "role": "phaser_capture",
+      "bytes": 134452,
+      "sha256": "6d900962833e5e929a0074bf05dbec58ed50624f310d9d0444a366f6b657fbc8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 121851,
+      "sha256": "47e9a543b8f3e418d98365180c63565e89dcd668a4aa1e1b7162308858c9c877"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 121488,
+      "sha256": "cd07c026ad8c964a6d7ac8d679a4a57e510462b56ab84087b6df76b900f36fae"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/A-walking.png",
+      "role": "phaser_capture",
+      "bytes": 134168,
+      "sha256": "5ad19322ab5c8616cdc44b3d42b94b5c58595ab6dba6b15adc73a572c85d3791"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 135848,
+      "sha256": "9f6720850dc71d096d0b6065b479a810bb57a28a55a771fb23c39baac76c425a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-door.png",
+      "role": "phaser_capture",
+      "bytes": 136334,
+      "sha256": "ec60ba1d6ecd549423d61abe3e54d25c44f3bddaf0831e7afbc86134853005c5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-general.png",
+      "role": "phaser_capture",
+      "bytes": 136111,
+      "sha256": "f79d18c5832954b47c771ed3ec97f19613d63dc26f086cca537c64bc9b27e3d9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 123752,
+      "sha256": "194f380dab2fbaf0bf48764d833cbdc9e7392d0dcc7da2f68bdbbe3999bcf814"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 123393,
+      "sha256": "c1daa84983e981c93d1722c685aa995cebd438ab731dc758cb4f28e97141f96e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/B-walking.png",
+      "role": "phaser_capture",
+      "bytes": 135915,
+      "sha256": "2f1eedf3978dfb6b92364b27aa709e81dc325898b85af7102414c9e245e2677b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 140515,
+      "sha256": "37df1bbb31f85b82dfb4f7f52213353cccbd7ceac558b8488ba01d4102427543"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-door.png",
+      "role": "phaser_capture",
+      "bytes": 160290,
+      "sha256": "d245eb6b9ebc1246c743a1aca19ab760a3832ee1bb2005602f993b790444aeba"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-general.png",
+      "role": "phaser_capture",
+      "bytes": 140804,
+      "sha256": "912fcf4fadb161769673bc6c617c7f2b7610e133df8025e3cd3fdfd5821d4f32"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 133456,
+      "sha256": "9ff4604414488162fe486435a88f0f7a16524f1bb54504110f161cce9b262e5f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 134253,
+      "sha256": "90d0a45ddcd99a015cc5f37bcd06e963b79c37a4a1fb731e13961f9e1f2be048"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/C-walking.png",
+      "role": "phaser_capture",
+      "bytes": 140599,
+      "sha256": "a37bf7bf1e2ea5c3a46051c7315dd3e237bfa32cc5e86cb8a8f8d4332b9d1a93"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 157137,
+      "sha256": "6a6547fb1db635b29d021d1e8f47c338b8ab1d1fc825c81e99d38289c2b87fd4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-door.png",
+      "role": "phaser_capture",
+      "bytes": 162243,
+      "sha256": "762ef3333903a30476d68d209de0b514ec068052ce470041fef13ef0259e2f6d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-general.png",
+      "role": "phaser_capture",
+      "bytes": 156971,
+      "sha256": "e24d2b265f8f3a4662f8c32534d3b1b8bc824fb988e7fb33c7975ca93034d5a2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 147900,
+      "sha256": "2183de2e387e18f031e2c0c9a715abee0cb9421cf641ab1a2d03159f25b3350a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 146501,
+      "sha256": "6173fd2deab407f973217f0ebb37b0af2a2fc4835b86036fc8e45e6a8c694eb4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/D-walking.png",
+      "role": "phaser_capture",
+      "bytes": 157010,
+      "sha256": "000a8942b95caf4cb12bfdd42e809f0c3bb22f60fa925bf365bd7f842516c67a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 88661,
+      "sha256": "10a80ce9d8152ee878f58bcf4bf9f1d77c6da5638537828e911121b1900aaddc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-picking.png",
+      "role": "phaser_capture",
+      "bytes": 135878,
+      "sha256": "3801a6636fa8c64cf78c1d6f54466fb2480283b490b578d205109627148e6567"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1280x720/functional-zoom.png",
+      "role": "phaser_capture",
+      "bytes": 136383,
+      "sha256": "de6111315057b8da36e511a948a4da68f7cbc5ce8245571d0648e52e639ad871"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 163138,
+      "sha256": "6cfd90ccae48824b585c1b3f4ff15f257a5d79a3e9533678cd65a02a5190f480"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-door.png",
+      "role": "phaser_capture",
+      "bytes": 154800,
+      "sha256": "3f6316fdf69c756a16f4aca63fce414d71b85c4ffe9e98021bc63239ede8152a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-general.png",
+      "role": "phaser_capture",
+      "bytes": 163414,
+      "sha256": "acde350b619f5acd8dcc33d36c79646d69712a78ad89c915a158a9a1e0e4a70a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 162784,
+      "sha256": "a560f3600fe63973e0317b9fcaaefcbd7c5ff8e5d527eea3d5825a033c562940"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 162110,
+      "sha256": "c74a84915141cade1458132b245fc262911bdfc05a70ba004d4b28e326260c6a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/A-walking.png",
+      "role": "phaser_capture",
+      "bytes": 162955,
+      "sha256": "284aa4114ca1ebb1d319c61779474f0d82c792a78dc2478e117eb144ef1ff47d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 164858,
+      "sha256": "4e188c10dcd9352982c2d1de199422375521db228ea421c8124967e4d5667186"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-door.png",
+      "role": "phaser_capture",
+      "bytes": 155278,
+      "sha256": "6e0bd729bef2d5a1fa205426278410d482fd2690c98852d039d592f06989374e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-general.png",
+      "role": "phaser_capture",
+      "bytes": 165207,
+      "sha256": "1b0caadeb5b4734dd760b528ad1bbb39b91e5702d7e5f380ab4a4b8d6767169d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 165024,
+      "sha256": "e9bb56ef71df9e40ce75245672f1c0e8c93e7523d988fda134a8eec76cf36be5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 164407,
+      "sha256": "51f318a358311ac0f500bedd937aa7579acdfbaafc52684478e2aebc1143b0c0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/B-walking.png",
+      "role": "phaser_capture",
+      "bytes": 164935,
+      "sha256": "0b2f57c00e8220c8b737a166800388c4dcd0b49bd7ba6c235c82cbdcfef96adf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 201117,
+      "sha256": "20fc276016cdd71375429766a4145019eb111e1ad7f6854a80a2936e6641e6e5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-door.png",
+      "role": "phaser_capture",
+      "bytes": 187421,
+      "sha256": "d05d05b7243203e31b69f4697ab3bf6793df9cf30a980c7ce66bd8c50b247096"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-general.png",
+      "role": "phaser_capture",
+      "bytes": 201425,
+      "sha256": "a90b89c721a0f251fb763e5e40bbfe1f8386c70143504bc6697b5b05fc38a02c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 195529,
+      "sha256": "5acabf47e1b9437a1fefe713e49c1ea7ebc59776d5175297dfcf23a8de1f5a52"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 195550,
+      "sha256": "23db6ed4c7fea0f0d0072d37659bdc8bc6e3790aae6e18b57690ce15d3ad3ad9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/C-walking.png",
+      "role": "phaser_capture",
+      "bytes": 201721,
+      "sha256": "b87c43469e75c15522a8a6085643e847d9da6b7db864eaae61d055572c9f6e8a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-buildings.png",
+      "role": "phaser_capture",
+      "bytes": 207992,
+      "sha256": "7a4e5823a67d828be62faae1f6ed688a43c5040b4d81aad4d0a5b97a5bbbd619"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-door.png",
+      "role": "phaser_capture",
+      "bytes": 194211,
+      "sha256": "f4601b23a0a929d1bd24343f76095f245ab4ae727df6d5ee0f68f66f2d7ef779"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-general.png",
+      "role": "phaser_capture",
+      "bytes": 207747,
+      "sha256": "b578889e697bedf70c2af817a56e4c0f670ddcc06020c031cd99ecabe3d7bc6f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 208847,
+      "sha256": "c1c14abb31b83821361afaf8a1a29c3aea8417c8c3bcd07237e9e3b11829cee4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-vehicle.png",
+      "role": "phaser_capture",
+      "bytes": 206290,
+      "sha256": "3f63e74db0c6cf742f0723fbd3cdd38b62be7677a2ad69da638afbac037a8c20"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/D-walking.png",
+      "role": "phaser_capture",
+      "bytes": 208119,
+      "sha256": "3e4af868dd0150f14a386ba3d64a377206395e81ba13eeaebf4b23f165d79016"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-lineup.png",
+      "role": "phaser_capture",
+      "bytes": 97346,
+      "sha256": "19ae25ae41683bce40e72a145415183b9a07d87e0433809ac2bc64e76a6c9947"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-picking.png",
+      "role": "phaser_capture",
+      "bytes": 165156,
+      "sha256": "b9d23221670962e5b2999df2bc218c47673c5410e78a10c7a6e900a37cf79674"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/1920x1080/functional-zoom.png",
+      "role": "phaser_capture",
+      "bytes": 164198,
+      "sha256": "c7fc66112b31c646d7d28f9742bdf886cfe8a3f5d2b09ac9ae62f10a61c2d917"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/capture-manifest.json",
+      "role": "phaser_capture",
+      "bytes": 204697,
+      "sha256": "03e37a948d90c78c1bd0b11a27f944d37804ce1f935cdf27a61d662cbdc94bb2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/lab-smoke.png",
+      "role": "phaser_capture",
+      "bytes": 133729,
+      "sha256": "e8adf4559701de8a70c6163c5f96d3066f4dd456f06dea0bd89b669950b9600e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/phaser-captures/performance-balanced.json",
+      "role": "phaser_capture",
+      "bytes": 3213,
+      "sha256": "ff5d9b4bff3f32c56aa9fa23d045e4742a87e7be646f196d246e4ff2fb9399b1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 164999,
+      "sha256": "1f44c2410cf526ee6e33457436a4ffeac43067f0ed52f1473bfb4a091a12c484"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 164999,
+      "sha256": "aa5d4ec3c191b37ffb4ab4320bbe8869ad3880e52eea9affc78dcec15f918ea9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 164974,
+      "sha256": "6cacd871cecfa9d36dcf6785f326c8d8760121f2649b3d1485e2f4a87934425e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 165069,
+      "sha256": "2f6c00dda9cafef76e6cd4eba8eb9e94c061ba168c21523d48a94023b1d26472"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 166150,
+      "sha256": "4bd283cbbb8b8c657d43c4bd3b705ab97d37ae3ec4f8be1e9f3d048ee30dbfd8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 165170,
+      "sha256": "a3eb7c401ab920c8bb0e9d212f62fb96230b8f48b8a4a3ec83c04db9a8731db7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 161233,
+      "sha256": "4accd7bffed070386a418f7ea5570a60577733f231ec9d21dcea8d79f357b30c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 159761,
+      "sha256": "e91710a2beac5d35c6f4892996d8c7d20ed6f074764151b0d1277140c28d5675"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 164429,
+      "sha256": "96a29fe7dc77141a9d115ccfca079e5f5841d550349920d0131e0281693e0b1b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 163192,
+      "sha256": "4be08b6411c35b8963fc8d13f8cffb38d9dd8da7ee7bbc2ea334fd7b36a5329e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 157421,
+      "sha256": "63b9d889f1e6bd380055b3b42c1c5bff7c15a5b2c6ba2e9011168ae2ed77dbab"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 158069,
+      "sha256": "ebd04323911b01b903dd9431466f5d2c58b32c4eda19689c7633c9b3fa123a55"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/final/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 28978,
+      "sha256": "0f6d29bc709d5dd649481f35a55d21ce0a6292227553a5e83aefa81afb01b422"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/smoke/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 164999,
+      "sha256": "b8a1f5439427c2cadcf166b9abed64194e566ec29538998ef4d65986c3f0e299"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/smoke/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 165170,
+      "sha256": "2328f267489b58f7efd66b565a866ab1c3047a31b8c5fdbd3a5add4b5a1403bc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/enforcer/smoke/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 11589,
+      "sha256": "9c4506da1f5f32f5e39eba98f0a01f1d4b686b1f81d3f20b8ff77d5bcd9fbdc3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 195599,
+      "sha256": "9195925904f77d40b7f32b7f90169154951cd575a402a3e2a99020ae164a3cda"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 195599,
+      "sha256": "0142a9121de84debca18511de49640fb4239dfbf6248bcd4f31016aec16d23fc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 196419,
+      "sha256": "7ad8efc19cb85ab2c734eb92f516d6cf8f05f681c38fa9c7148a2c2c036f0dc5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 196051,
+      "sha256": "48cf00596032ff99945047a479d67918d2fe39b9213878d385163f376af36ec2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 198658,
+      "sha256": "44d1fb486fa4430cdcc635a90082661cd2e5a86884d6ae30ea8ec6a34658fa0f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 195711,
+      "sha256": "3ebb1fb60cd6516339fd2f19fd266b15dc60a61b1f0b01aada05f0fe344b61cd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 193304,
+      "sha256": "5d289d80193279d0ce0d42a827cf7aedc0acbc0ab0cf105ad1d1ecfbfafbc7f4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 190764,
+      "sha256": "b8bd5beb68b7ea97391d1f61420411e526d1d0c3c93a7f8ad4eb0e4780291627"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 195942,
+      "sha256": "781682d893bc12df681d9d89b615a86651f3e889190249c1027c707613e6df28"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 190491,
+      "sha256": "4f7b66f5fd8ae0e1b0fb56e11c885d6ae5bf367a6016dc325f8a399b93a0616a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 186379,
+      "sha256": "fa8d67b28224de71960ecfa120497b10959fa52f4329a97d315e7bd764744d05"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 193354,
+      "sha256": "f05a872005726815381ecd259bf619afa7ceed2d073c7b78c12e5d8b0c8d05c8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/final/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 31071,
+      "sha256": "2555f42e24dfddd3f040f9c7d2055002c7c513ddaf161d9de0cd7025f4ba9c8a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 195599,
+      "sha256": "d6db0cb13020eaf9a4dfaa432027cef13a4bb3c1a89ee8d97a4bd439134d7b3b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 195711,
+      "sha256": "dfc39e4d514a8e6d0f7eb1899fb7250ca8cd51f5bb51b8f9eec3db1845d1d0b1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/firefighter/smoke/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 13646,
+      "sha256": "a8ecb515e1295004e02f342d8919380554885f5f3c4525a8bc930633a0c9d284"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 191512,
+      "sha256": "55701b7735b88a6af0f04325fbbaeb9bd4d38f46c564e64d967bd4a5b8f93ad1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 191512,
+      "sha256": "e4b9f672b487356c3b617bc5e9aac0d16b9d25d43d8d7e8e630a64c350d6f843"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 191000,
+      "sha256": "3f0f7e45de448a792d6f174bb9900b0ee56e24d759874fb05d4221d79190a458"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 188958,
+      "sha256": "2d19cc7cbf9f0a8e32eeb1e3746d609d7d079f735adee138cbff5dbee80f97cc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 192811,
+      "sha256": "418be1043f5e786ba2cf856755433944e6a8b527a71d3dec35d4d6a7d62ced81"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 191072,
+      "sha256": "c93783eda98c5e40c80ed0a522ab0450e4a5fa52043c2f8662dc59794d6ea97d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 185909,
+      "sha256": "7de3cff1f4de2f93690009e7bf60624b5c3daf409e80af3f9a54a5244d5e5e92"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 184673,
+      "sha256": "2d7c3876b4e19e239eb477ab09365615d3c6167cd416fc1e195439d917e3c722"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 190388,
+      "sha256": "d69bcddb80f9df5b7b4e8f5121fd31301af4661561a20a0bd7409b79d41f8b74"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 187163,
+      "sha256": "fa4f5e0b34b4fae11b7a29cea420619efc00f39d3c4449d6afa2a6eef5732e60"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 188996,
+      "sha256": "d6db51ead7d59187e147fc96c5adbdf9df4612fb6bf1163f6c90e800afa6d8c4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 188794,
+      "sha256": "236ca93a2efb208050d852ee5165f087386db727fafc196e6518d0017dd9594b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/final/supervisor-prototype.json",
+      "role": "prototype",
+      "bytes": 31424,
+      "sha256": "be40bcd7afb3ef48c32a29f957ee14088f533932689113ba287727c7b489c85a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/smoke/supervisor-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 191512,
+      "sha256": "2802c936f2d9534e992b1c4899345fd1eb13dbf07e0a22da818f993d7e40fefc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/smoke/supervisor-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 191072,
+      "sha256": "af3b4275ee6b5ffb2f0b0d2fb2a44257caa39d26927084a17d459becd731167e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/prototypes/supervisor/smoke/supervisor-prototype.json",
+      "role": "prototype",
+      "bytes": 14000,
+      "sha256": "409d0bdf906d59319062676dff33c21d1545067ee79a2d3d174a53eb579448d1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/review/five-by-four-configs.png",
+      "role": "review",
+      "bytes": 232605,
+      "sha256": "88b3ed7ff93f4e80ed41e0a77eb0c5ba33d90f8985564953d762276d6fea9543"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/review/recommended-default.json",
+      "role": "review",
+      "bytes": 2700,
+      "sha256": "3d00e07582a218667b561efcccb454fbea499c1d80358ffc81ef1addc5af902d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/review/recommended-default.png",
+      "role": "review",
+      "bytes": 136164,
+      "sha256": "1ffd751074fcddc2469cd881de1ab801c9a43943b6582ef8566f24f3c637ba4b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/scale-comparison/door-four-configs.png",
+      "role": "scale_comparison",
+      "bytes": 227902,
+      "sha256": "854218fad363bdf2c30156cb0d84a96ee133af4edae59dad7872c6d392f21d92"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/scale-comparison/general-four-configs.png",
+      "role": "scale_comparison",
+      "bytes": 243472,
+      "sha256": "58f5448ea8acdcc661e19648cbee7a00defbdde0e03c07df9eeb93350ce90001"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/scale-comparison/manifest.json",
+      "role": "scale_comparison",
+      "bytes": 735,
+      "sha256": "7f86ffd7b407f45d7f1b3db8eeed62df48664b461790c248551ec7f71462b5bc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/sprite-measurements.json",
+      "role": "prototype",
+      "bytes": 70758,
+      "sha256": "bd10697d3c34350f3df7db285084ecb918f20cabcb5f76975f60fdf7f0b01395"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/01-baseline.md",
+      "role": "documentation",
+      "bytes": 3696,
+      "sha256": "912a7af28b6481981bf941d43ca9e67fb7314259844e57e0440e18260a9c67ff"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/02-art-corrections.md",
+      "role": "documentation",
+      "bytes": 2367,
+      "sha256": "6767941882a40de84f395aeb0025bb18ca71ab661c07c8271d1493ed08624a83"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/03-scale-calibration.md",
+      "role": "documentation",
+      "bytes": 2485,
+      "sha256": "2f783acf6ddaf1f83d5979de250fbcf54285ca44251e0b8b11aa406dac685a7c"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/04-phaser-lab.md",
+      "role": "documentation",
+      "bytes": 2556,
+      "sha256": "bb1536d93a7fc0fc1de3d0e9a22c7ad742c87a67f0df6c83ac747e994dc46351"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/05-visual-comparison.md",
+      "role": "documentation",
+      "bytes": 2333,
+      "sha256": "5114a1d63fe2cc2a2892b21a5549b1196967f5327d7057689bee454558caa19c"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/06-tests.md",
+      "role": "documentation",
+      "bytes": 2415,
+      "sha256": "b4ff33078964b00156bf5ae65687105eb055691f9bdc06e87ad5063fb4dd9618"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/07-recommendation.md",
+      "role": "documentation",
+      "bytes": 2620,
+      "sha256": "e8ce20f122fed96c75be69b66881fdb1bb10f7ffb84d627c05ece26e208c991d"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/08-results.md",
+      "role": "documentation",
+      "bytes": 6115,
+      "sha256": "fc43847958dd8a831926f7a0a4039864ad1ff07fe34b9b8b0439f79c5d554e06"
+    },
+    {
+      "path": "docs/execution/phase-4/characters/wp-char-03/PROGRESS.md",
+      "role": "documentation",
+      "bytes": 3310,
+      "sha256": "a442cb97fa1287f5067a7b318c5adae2bac1e93796c3ef6ac2f42d42434e1c07"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/build_evidence_manifest.py",
+      "role": "tool",
+      "bytes": 4814,
+      "sha256": "91d084bb091d53262a2ae9d8ad2b612a2f9b849992e0b58ef1c259d3002315d3"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/capture_phaser_lab.mjs",
+      "role": "tool",
+      "bytes": 10860,
+      "sha256": "c09dfcb9759519be908db1db87d2fd56b396a2334a7ed0a2758017aa355a6a1a"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/compose_art_smoke.py",
+      "role": "tool",
+      "bytes": 4826,
+      "sha256": "f7c26b965d0380132f4617ed389e8add88c4632e53c3871c278eaf3809cc5f0b"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/compose_phaser_contact_sheets.py",
+      "role": "tool",
+      "bytes": 2449,
+      "sha256": "e91065edc0bba222bba5cf768c733a749de0e9406fe17027d6b1965701b1240a"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/manifest.json",
+      "role": "tool",
+      "bytes": 4195,
+      "sha256": "561cd18a9e19dea11a1fcf42743f9f9fdf0fec5c00b09dfcf4e1309d73f197a9"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/measure_lab_sprites.py",
+      "role": "tool",
+      "bytes": 4721,
+      "sha256": "8a1301babde2b53ef6f328c4d15fea18234d3fe9bfbaaee37f986f0e37b2416c"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/measure_phaser_performance.mjs",
+      "role": "tool",
+      "bytes": 2527,
+      "sha256": "532b1f48ee9c878b5699c6e1ad00da4411655449d01f4ff21cc47bf278e6a7af"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/render_profession_final.py",
+      "role": "tool",
+      "bytes": 10411,
+      "sha256": "66534a684da58fabbc61e4d11a4f90a4c33762a1c883617e94508b9e1617c14e"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/validate_evidence_manifest.py",
+      "role": "tool",
+      "bytes": 2741,
+      "sha256": "ee1a2f81f510a70f82fea9f183672395227a33b1279c0e3417ee5ae5c36aecc0"
+    },
+    {
+      "path": "tools/art-pipeline/blender/characters/wp_char_03/validate_wp_char_03.py",
+      "role": "tool",
+      "bytes": 6969,
+      "sha256": "6237855ef16516048ea8b3f56085307c042795967c8178b86569f662f6b87125"
+    }
+  ],
+  "summary": {
+    "fileCount": 232,
+    "totalBytes": 34277964,
+    "externalSourceCount": 10,
+    "allExternalHashesMatch": true
+  }
+}

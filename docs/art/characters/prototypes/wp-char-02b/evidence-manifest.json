@@ -1,0 +1,1283 @@
+{
+  "schemaVersion": 1,
+  "status": "evidence_manifest",
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02b",
+  "branch": "wip/wp-char-02b-kenney-coverage",
+  "head": "e96918f70b46032f7534c7c41afcdc6fcf6938aa",
+  "experimentManifest": "blender_artist/manifests/character-experiments-02b.json",
+  "experimentManifestSha256": "3053af49fcaa4f8e63560a534d7276d42614b825fbcac6510b5b35d0469e5e05",
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "externalSources": [
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+      "role": "Kenney character-male-a.glb",
+      "expectedSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "actualSha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-b.glb",
+      "role": "Kenney character-male-b.glb",
+      "expectedSha256": "81464391ab3291bc78d23c33d5a5313cfab43469285a8e1f02b974aecbd4f943",
+      "actualSha256": "81464391ab3291bc78d23c33d5a5313cfab43469285a8e1f02b974aecbd4f943",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+      "role": "Kenney character-male-c.glb",
+      "expectedSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "actualSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-d.glb",
+      "role": "Kenney character-male-d.glb",
+      "expectedSha256": "bded80fb516310186bf151b040696295395043b520a77d09533e20445dd4c02a",
+      "actualSha256": "bded80fb516310186bf151b040696295395043b520a77d09533e20445dd4c02a",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+      "role": "Kenney character-male-e.glb",
+      "expectedSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "actualSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-f.glb",
+      "role": "Kenney character-male-f.glb",
+      "expectedSha256": "83fa60802557199778ab606e5ee3b2da2140ef35839ac4fb557ef95dbac9c5d4",
+      "actualSha256": "83fa60802557199778ab606e5ee3b2da2140ef35839ac4fb557ef95dbac9c5d4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-g.glb",
+      "role": "Kenney character-male-g.glb",
+      "expectedSha256": "14e4b60c26a330b8dcd52f1e5a36ba124869600f9fa94075fbc6a4665f6f6525",
+      "actualSha256": "14e4b60c26a330b8dcd52f1e5a36ba124869600f9fa94075fbc6a4665f6f6525",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-a.glb",
+      "role": "Kenney character-female-a.glb",
+      "expectedSha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+      "actualSha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-b.glb",
+      "role": "Kenney character-female-b.glb",
+      "expectedSha256": "3a0e6c3e431ae9d2016c2c9a91ec3abe8bb45243016a5cae80cbde0b61f8f2a9",
+      "actualSha256": "3a0e6c3e431ae9d2016c2c9a91ec3abe8bb45243016a5cae80cbde0b61f8f2a9",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-c.glb",
+      "role": "Kenney character-female-c.glb",
+      "expectedSha256": "163ed5cb5b130177a64724efd9cf4f681fd73d7072f4f9b83ed584307dad870a",
+      "actualSha256": "163ed5cb5b130177a64724efd9cf4f681fd73d7072f4f9b83ed584307dad870a",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-d.glb",
+      "role": "Kenney character-female-d.glb",
+      "expectedSha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf",
+      "actualSha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-e.glb",
+      "role": "Kenney character-female-e.glb",
+      "expectedSha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58",
+      "actualSha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-f.glb",
+      "role": "Kenney character-female-f.glb",
+      "expectedSha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106",
+      "actualSha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+      "role": "Kenney character-worker.glb",
+      "expectedSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "actualSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-soldier.glb",
+      "role": "Kenney character-soldier.glb",
+      "expectedSha256": "5efff735e893f2fb03ef2863140a74cd40e3305ead1a609924738aee51e9b1ad",
+      "actualSha256": "5efff735e893f2fb03ef2863140a74cd40e3305ead1a609924738aee51e9b1ad",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-raider.glb",
+      "role": "Kenney character-raider.glb",
+      "expectedSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "actualSha256": "00db0d50e4da865d95c7fd9caad9a49277f8809423f5d318387caa1dce7861d4",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-knight.glb",
+      "role": "Kenney character-knight.glb",
+      "expectedSha256": "c596aef8085dc839f244e9500a2ec15f5f40d258bf74cdeabf2f6b2119f8035b",
+      "actualSha256": "c596aef8085dc839f244e9500a2ec15f5f40d258bf74cdeabf2f6b2119f8035b",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-alien.glb",
+      "role": "Kenney character-alien.glb",
+      "expectedSha256": "c95efdc214cb6f43ae0a80ec9b2c39f1e92e8775314f3211be778c6f252cb08b",
+      "actualSha256": "c95efdc214cb6f43ae0a80ec9b2c39f1e92e8775314f3211be778c6f252cb08b",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-robot.glb",
+      "role": "Kenney character-robot.glb",
+      "expectedSha256": "ce2e1622c975d6e1901702b3bed070bc184c37a02eb9c819c976fd8ced359936",
+      "actualSha256": "ce2e1622c975d6e1901702b3bed070bc184c37a02eb9c819c976fd8ced359936",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-zombie.glb",
+      "role": "Kenney character-zombie.glb",
+      "expectedSha256": "f13105173ed2e10abbb83e9935f015cfae8ca0caa125e6444992e9d866ee6b68",
+      "actualSha256": "f13105173ed2e10abbb83e9935f015cfae8ca0caa125e6444992e9d866ee6b68",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+      "role": "Kenney license",
+      "expectedSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "actualSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661",
+      "exists": true,
+      "hashMatches": true
+    },
+    {
+      "path": "/home/luis/RepositorioGitHub/landlord-characters-02b/docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json",
+      "role": "WP-CHAR-02A approved style reference report",
+      "expectedSha256": "14b57610692ad1519ae4b5b4d78911dd184d9f427437b5058e4d886c303c7195",
+      "actualSha256": "14b57610692ad1519ae4b5b4d78911dd184d9f427437b5058e4d886c303c7195",
+      "exists": true,
+      "hashMatches": true
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-alien.png",
+      "role": "catalog",
+      "bytes": 168829,
+      "sha256": "12392ac53a75922d5a963c64387a311740e7c034fdbf9067c1bd50b7554c9c5d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-a.png",
+      "role": "catalog",
+      "bytes": 169975,
+      "sha256": "c2ef9b4060e3cce065f952e53be5c52bf17cf4d8e2b649bb70f7f0d4d9fa37bc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-b.png",
+      "role": "catalog",
+      "bytes": 171085,
+      "sha256": "c3371a2da9e74d59cb43073093edb07445da95c339e9bcbe0a3dc7cbe6d863c4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-c.png",
+      "role": "catalog",
+      "bytes": 158825,
+      "sha256": "49ce8f3c6f7a71745943153aba656eb8bd5d2bc32690ac0383b2ce92563150d7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-d.png",
+      "role": "catalog",
+      "bytes": 157482,
+      "sha256": "5182723cb4e60018f57062b13717ec341fd401e1c8b19cd04625cc23d1759555"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-e.png",
+      "role": "catalog",
+      "bytes": 163510,
+      "sha256": "9b09b07c5a4762fd4c5e61de17af6f76e8801fc6421b6013bd71d7865da5636b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-female-f.png",
+      "role": "catalog",
+      "bytes": 178834,
+      "sha256": "55ba7221bc75ab80b925cdae2982b25c9f555333f37c979ebe148d47cb9876d4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-knight.png",
+      "role": "catalog",
+      "bytes": 150809,
+      "sha256": "fd9a8897d596c0c08797538367ecd5095fbfb487f45818224bbbdd0ff2419b57"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-a.png",
+      "role": "catalog",
+      "bytes": 163944,
+      "sha256": "ac3f73f9585d5ba618bf8219bf58f4c1449f6022388fdbc0db95d73be178a510"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-b.png",
+      "role": "catalog",
+      "bytes": 166085,
+      "sha256": "84b8fd019b9136040acd432b4e2a68f071bf888ab912007a507018999138ec74"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-c.png",
+      "role": "catalog",
+      "bytes": 157500,
+      "sha256": "9efd3da59431729265aedb58b170847000a6e3f454aa5a36196eba72f985dccc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-d.png",
+      "role": "catalog",
+      "bytes": 153318,
+      "sha256": "7471861105c2e99b4520ac17c97de8dff056be63dfd2dabc197e68b8ff72dec5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-e.png",
+      "role": "catalog",
+      "bytes": 167448,
+      "sha256": "6e9b8d03efa53989e70088789bc9d681bb8dd0a832e98bc648df6dbf55932a68"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-f.png",
+      "role": "catalog",
+      "bytes": 167513,
+      "sha256": "d23670a31905a0e3e624ccdada87388c68023ffada16743c04faa8bf2ed6d83c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-male-g.png",
+      "role": "catalog",
+      "bytes": 170937,
+      "sha256": "ffde843650cea53ff88bc2b14a0fe11a6004abb960f7ad6da0f2417514cc9743"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-raider.png",
+      "role": "catalog",
+      "bytes": 164059,
+      "sha256": "2d7803454caeec572de647711275cc60b025ad6fa28fa0e7e611795d3d292a46"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-robot.png",
+      "role": "catalog",
+      "bytes": 142888,
+      "sha256": "28829d523fc2d8900231efa83c3b7b41774f28792b067fd612905e6a371979cb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-soldier.png",
+      "role": "catalog",
+      "bytes": 164605,
+      "sha256": "9f8b9959c17f8993a37913953d7b2a0c5fd710e1710c6aadf3f039a7e7dcaa12"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-worker.png",
+      "role": "catalog",
+      "bytes": 154972,
+      "sha256": "782b6edc3f340a89ddb21c256c768a96f35cb19d97424e34ad7433babab0257d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/character-zombie.png",
+      "role": "catalog",
+      "bytes": 163520,
+      "sha256": "1ac1b3ff65e7d3926619f6f028b96926e81dca97b8b39c1f6cdb387646f780d3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-28px.png",
+      "role": "catalog",
+      "bytes": 95557,
+      "sha256": "f09ac5d0e4452660631a8c3552efe00dd5ae52a9dcf6b5587733e1a5fa1c3dfa"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-sheets.json",
+      "role": "catalog",
+      "bytes": 825,
+      "sha256": "8265ebb32cf7208b2b478244fe29e36ba30b55d8613d09ab2f9be2e2bb3398f1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-validation.json",
+      "role": "catalog",
+      "bytes": 31378,
+      "sha256": "bbab95d17c7dd8b6b885290ffc3680c8f0cfaefe15a67035763fcb820b50b72a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.json",
+      "role": "catalog",
+      "bytes": 189386,
+      "sha256": "3e9b94bd6cd409176f222e4ec6d62d7467e11bc8abc0c012461451d40cfa9686"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.png",
+      "role": "catalog",
+      "bytes": 703517,
+      "sha256": "4596392e718ceabf1ca8deefe8d2794bfd8ab05687ad618cf75b24fa069bbf29"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-alien.png",
+      "role": "prototype",
+      "bytes": 214151,
+      "sha256": "3189a020d0066f6df62d4ef022310d2f00da3811a532a8a8a4763273a38804c4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-a.png",
+      "role": "prototype",
+      "bytes": 210525,
+      "sha256": "b727cecb199ae8b6c6c6d897e4eebd2361f9f9cfea7751f5b1250d2966fe2e82"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-b.png",
+      "role": "prototype",
+      "bytes": 217478,
+      "sha256": "e10ee3af5cb2be4e9df7ccdf707af2dfcc1195d425e150705419d2fc5748443f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-c.png",
+      "role": "prototype",
+      "bytes": 199853,
+      "sha256": "37244d0d08572b0ee675e0e7e507f97775d41d1057c5a7783e294053120b4a2d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-d.png",
+      "role": "prototype",
+      "bytes": 198416,
+      "sha256": "6816ee15ca8b772959b5ff9579640e3050ec49d8cba589f642479d6ab5a23f3b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-e.png",
+      "role": "prototype",
+      "bytes": 208431,
+      "sha256": "8fe130f7998c7f7e4313462bd02368c023e8b521a0d3b15475898501f55df2ad"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-female-f.png",
+      "role": "prototype",
+      "bytes": 228677,
+      "sha256": "a1b3ee897272b1254a37c8fa45b17b1e4da7646dae497a22df7ec38296e2248f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-knight.png",
+      "role": "prototype",
+      "bytes": 187310,
+      "sha256": "ba0dcb6c45f720fc009931dcb8a0324661e5643d2ffb912d21c530b9ba087f68"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-a.png",
+      "role": "prototype",
+      "bytes": 208724,
+      "sha256": "bcec6c52bbea2045a3cac664547d8497c66bab79fe9f1ea1c3cf4cb25e31838d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-b.png",
+      "role": "prototype",
+      "bytes": 211032,
+      "sha256": "6c674a14ad7e2d6a71625cd9377adf6509b539110897da5b6e62f96486d17cd9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-c.png",
+      "role": "prototype",
+      "bytes": 199005,
+      "sha256": "0a98258dbeccf4d28821ad5b901479b549f44570b0b76356beeb3c4f00202e3f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-d.png",
+      "role": "prototype",
+      "bytes": 192583,
+      "sha256": "143ce9f9bc9c4276aea9856be9fa01a99c1b863aa18edde1f9e5a9285b889cf9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-e.png",
+      "role": "prototype",
+      "bytes": 213098,
+      "sha256": "5ff7dbe0bc90a983dee15df1f104355237a0be92ee99e29476cee5d8eb04f1d5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-f.png",
+      "role": "prototype",
+      "bytes": 214439,
+      "sha256": "61ebed45ebc1c1968e20d25f8385db1e043af9e91d1ca07445e11064b4dc8e6a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-male-g.png",
+      "role": "prototype",
+      "bytes": 217698,
+      "sha256": "2ca860d20e438798dec2fd9c4bb4cba9755412cded05fdb814892f3578720570"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-raider.png",
+      "role": "prototype",
+      "bytes": 208099,
+      "sha256": "7ea81491ad198e75e4eb7ff59b8a42cae59a9e12e3b9ec90a94f90195fd1de6f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-robot.png",
+      "role": "prototype",
+      "bytes": 176462,
+      "sha256": "5e4c2da748b99d4096d9260e5db4a4f406ed317cf6f053efc733385cfb1fc1df"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-soldier.png",
+      "role": "prototype",
+      "bytes": 208326,
+      "sha256": "4ed6ffe04b27371f3cd409a59b0f82064bf79c709a16def2e9668536f2aef58e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-worker.png",
+      "role": "prototype",
+      "bytes": 193884,
+      "sha256": "881330b7e29d597eafb8f69fbb5973e2a1c1dfb05447abd75aaac55a8f36e34c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/character-zombie.png",
+      "role": "prototype",
+      "bytes": 208316,
+      "sha256": "f27b77b927bc70915858499b79f8fd5c6a11fae206243b9d9d27dd4db884c377"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-28px.png",
+      "role": "prototype",
+      "bytes": 96318,
+      "sha256": "4e5cf38e88a20f9845dec019da71c081dabecefee9d5e03a2076949220ced01a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-sheets.json",
+      "role": "prototype",
+      "bytes": 825,
+      "sha256": "12e3e5515dd3f96cd88781b0576a3f8440e14c8065e0a2c9845ca94d31ec4b32"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog-validation.json",
+      "role": "prototype",
+      "bytes": 31664,
+      "sha256": "18858769306230074cec7080ff8dbd225d6ba4f84ed6653f537697d0402ca022"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.json",
+      "role": "prototype",
+      "bytes": 189028,
+      "sha256": "f40fe1a88cf86c0f67025bc58f15b20732ab7a8d80f34f8773c7b9716107e6a6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v1/kenney-character-catalog.png",
+      "role": "prototype",
+      "bytes": 697038,
+      "sha256": "29cf832b4e371fa4e3122bace59d9f6e2727217e92ff03ee8b4f9aeaa9355125"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-alien.png",
+      "role": "prototype",
+      "bytes": 189943,
+      "sha256": "f8edc6d5f4aebca47ac493ebad3f284f2b6b0f6e9d02fb9a3ca8b9ac38c81964"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-a.png",
+      "role": "prototype",
+      "bytes": 189775,
+      "sha256": "e6369c8394b7b2cfe11a07e676596aede8944b0efff0410565df524b2d9140d4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-b.png",
+      "role": "prototype",
+      "bytes": 193099,
+      "sha256": "d6356d991e932785d9b6542b842b2f0fd8f20a6be469ee6b45ad1aa1bd432333"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-c.png",
+      "role": "prototype",
+      "bytes": 177458,
+      "sha256": "88b089b0e2c7fdb4c9f83e744475b92035af1bfd151a0d4be742676188858bf3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-d.png",
+      "role": "prototype",
+      "bytes": 176439,
+      "sha256": "92b37b615f976fbe9b4528f514e1a535741c670138ab3620e29523dc1888381f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-e.png",
+      "role": "prototype",
+      "bytes": 183894,
+      "sha256": "95c80150ef00f0f54db10c503b421fa9c19f66e5dbe0560d40d241a5300dc120"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-female-f.png",
+      "role": "prototype",
+      "bytes": 202256,
+      "sha256": "76d47ff8cdd9de6f6b1f7cd004ba948c5872fa477707ff19233d7838253d51cf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-knight.png",
+      "role": "prototype",
+      "bytes": 167772,
+      "sha256": "791b1e07c668ae2ee5fedd6805bbc330b87ea4f1c130ad6cd2d0d3ac3071ba8f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-a.png",
+      "role": "prototype",
+      "bytes": 185238,
+      "sha256": "ac1b95e11af2b0587797be43c2c1b2328a55cda69a63393a525099863b11d0ee"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-b.png",
+      "role": "prototype",
+      "bytes": 186893,
+      "sha256": "8a17d868dc3caec0bff999fc35db44a138e0611bd2b772812c3e08994e57b8f5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-c.png",
+      "role": "prototype",
+      "bytes": 177118,
+      "sha256": "2772ed28e5f2ed3bae645e7a1831628c13e06f324fd067c8edb51c08fe17ecfd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-d.png",
+      "role": "prototype",
+      "bytes": 171939,
+      "sha256": "6a97c689d04de5bb799228fd8a365e8cb9fc5a9c0b1fbbaadda4890703ac3700"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-e.png",
+      "role": "prototype",
+      "bytes": 189374,
+      "sha256": "a48622edd499aec1cdcfbb903a17470c4f9efd763f82ca5b1ab8fd2656d45497"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-f.png",
+      "role": "prototype",
+      "bytes": 189559,
+      "sha256": "aab99db82ae2d8c9c8c5d3281c562bcc1c9b75cc66c7f8c0cf5799b0fff7cc9d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-male-g.png",
+      "role": "prototype",
+      "bytes": 193483,
+      "sha256": "2fa08009ae27850cd8bffa94c4afacf04042ead2454b46b9ff18be3c0f945035"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-raider.png",
+      "role": "prototype",
+      "bytes": 184665,
+      "sha256": "9c65816ea4a8566a036ad130a82244ee8ccd34b3c6c991b6a1331890f531be05"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-robot.png",
+      "role": "prototype",
+      "bytes": 159170,
+      "sha256": "d43d0c268db2676b497488a4cddb719bbae81d7eeedec24e562522a3aba19718"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-soldier.png",
+      "role": "prototype",
+      "bytes": 184866,
+      "sha256": "e2a05aa944cab002919a0bf707972b613d558aab037748aee9ca397938ad66a2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-worker.png",
+      "role": "prototype",
+      "bytes": 173710,
+      "sha256": "671b057313841d182fec7f8a942f33e3680de3f942ffd4b70dd5d9cd36ea8d59"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/character-zombie.png",
+      "role": "prototype",
+      "bytes": 184547,
+      "sha256": "85e9a68d157cb3c6f72e1e39d173ecf1144faf77bdd07fbff29f6d7a98840290"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-28px.png",
+      "role": "prototype",
+      "bytes": 96019,
+      "sha256": "c7e9ac2c48fde863e4d97b2532a4c758d677f3b1a16f91cc8f43ca1a849dfbc3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-sheets.json",
+      "role": "prototype",
+      "bytes": 825,
+      "sha256": "3b3aa3567b3a22b35eb598084f7ad61082c5399d6fe1ea8d605106db4d9264ef"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog-validation.json",
+      "role": "prototype",
+      "bytes": 31476,
+      "sha256": "81ad76e3041ec2abee44ce4b950895aae3b9c0b943266b7f47b0af3aa649dda8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.json",
+      "role": "prototype",
+      "bytes": 189023,
+      "sha256": "57d0a9ecb808bf4f9bea7e040aade3b6097ed15aa526a5c139adece1681af0fe"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog-v2/kenney-character-catalog.png",
+      "role": "prototype",
+      "bytes": 698477,
+      "sha256": "ecc1df7913d112c02201678d4d9aeaf1d3d074f4bc8aa3a91a61749ea122cd20"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182883,
+      "sha256": "93970af35296fa2a8fad3f2237033327535d1a3ac18de39f17d93b1191bb5827"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 182883,
+      "sha256": "bfc7cd0b502e6f173df12c1c61edd1b76d99a43f536cc0ce67b3abf219040845"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 181989,
+      "sha256": "9d422c6e716cc238fdba05ee701deb5da2c12d0b41ad341140a395c86fc2050a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 182385,
+      "sha256": "d4363f581c4c26bbd6f8fb2eb89c85d6f1cf2188cb14ca8b7c565f4fb43cf340"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 184412,
+      "sha256": "caf21e442bb5093734dd1e0f4c0365e52c13780f437f314715ec703b47141fa1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 182637,
+      "sha256": "d41bd8f776d0867f08b51ebfff565e0d39c44502f7372d6f00ab0d736b5b1838"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 176329,
+      "sha256": "dd1b7a39db3c28f45f9ff5e302dbaabbd38a8b5a00867919e068fa54a5662f6c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 175628,
+      "sha256": "7978ced66251d3682a68a1f55de154182f6892bb88800bd413292a3eadbb7ee1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 180993,
+      "sha256": "800a1233fea87aad1e86b9e3598dc9e8ca2424ae30d6ac76b2aeed9ae28159ed"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 178916,
+      "sha256": "53c11ef5c154c4fe56d26e50684281337b5ca91b98ec9077a39e6d643e5dcdcc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 175735,
+      "sha256": "f211760c9070d574e77c4af2df4d276352b191d27236b4c1a9f1e31c985b0ae9"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 177402,
+      "sha256": "73c89b171a22a5ee26bbad2903a9d8a117e845463ad02aeb1d7f193b62a4daca"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 24209,
+      "sha256": "b2ad4ff0fa246e7e768f52bf6e1196d21c565426db24067fb892d07ea870c13e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 182883,
+      "sha256": "f1d86b21ae3862dc9b7d55b6e1a89bfe359290e8ff39c535b7ab31f46dc6aa54"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 182637,
+      "sha256": "fe03606180bb9eacefea150051fb68b548b4b3624e70780fa9c238ad54ccd793"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 6815,
+      "sha256": "5f0e95aaab3572bee80c5c4feecbb53373b1f7175cc0445ad86ff489473752c3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 205841,
+      "sha256": "59d061dd10dfac37bb5b901185adb563ae174e7c61b8d835dde8055f7739f410"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 204224,
+      "sha256": "10598485e1b6757e3bb6e40a88480b519955fe58572cb7ed44eb371b6351df86"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/smoke-v1/enforcer-prototype.json",
+      "role": "prototype",
+      "bytes": 6814,
+      "sha256": "5dd5d44b8cf9648cfd1c74e151a68cc4d6dc827d63f26ea110442db521b8a16a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184265,
+      "sha256": "7ac983b26f51e423df05498e129605f89d6e0944d85d28ee96a86abbb2d7ebd2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 184265,
+      "sha256": "c6820480757500c1070e44952579c013be05a377c0a0b66af78685e786536a09"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 181037,
+      "sha256": "63896e00aab7568429323fc30e98801b8e4570d2a3862fbcbb80b692af4653dd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 183472,
+      "sha256": "790fa70de12f81cc48a929c4d2ea48efed75e2d70d8ca6c38e0138c3666a4746"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 183943,
+      "sha256": "4f334a5ca3f860e33b812f1b1d4cc8e982fcd8686038c9f6c8798df29231e3d5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 184160,
+      "sha256": "03399f4b8c32a9f43a0d3362aa70f1db572e114b18637403bdea6180c409a233"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 178509,
+      "sha256": "413d8a6581d509287b97db48cce4c320dbd99a2349d536be83e76b049b4a8f58"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 177537,
+      "sha256": "64683a7abf983d66bc67b8c46749ca8ea82120a3f518eb482d72e99cb034ec8e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 183210,
+      "sha256": "ba60c8550e5a62a31006f5f7af9d1f151de8642e33219ced800e2e7ac000382a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 180368,
+      "sha256": "0939a0e990a0030dc897a6d5112690b1489031c870cd06645701316dc9b4d8bc"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 181857,
+      "sha256": "ecab7b35f5f756507a852e02bb20161139447fc7622b8bc93786677aa24dc76a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 183975,
+      "sha256": "7a30b247b71d252b809634c9185aad9b62df49d9734534fb9399f9c508b8545e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 24618,
+      "sha256": "e2304ef5aa84492482078ded1746faefba3e8bbd7cc02aa5ea95576bab6f1822"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 177274,
+      "sha256": "23b278ab938c9f2fd4b34e64960f857ebfd0349802692d485c698f61679c9eaf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 177274,
+      "sha256": "54f5ce39cb22406dab5a06d7e10be5cdfe35844ffbffcb1a6e3f589dda0dee53"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 175920,
+      "sha256": "49247765fcd2f1771edf6aca09b3635b14e47f4bef0aa1600e62a68a1c51dc4f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 178201,
+      "sha256": "76e7d2d5d715763d90e977dc6fe84882af0c40e9f288ced170aa522ef96c842f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 178713,
+      "sha256": "46a2abdc0b7155de3b3b3efdb456ab36b79edcea74d62759658a5c03f88d7ef4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 177100,
+      "sha256": "5589eb0ef728165c59a6f428f638a2aea2786c72c00add145a395f0fe615aa50"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 172005,
+      "sha256": "47668641e253e20852701bbd43388502575195e2c578227227241a1f026e5e5c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 169446,
+      "sha256": "a0e3f1e5a623b79eeaf1f06762e7d66d03db2b91a8bd075249c97d3997d63037"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 176343,
+      "sha256": "dfd66536285b54896f14bba0728d09778f7ca789bbe5e25019de2a08ee7b821c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 175979,
+      "sha256": "fae74391c8fff610a154c5b02dbad975037f05b786022189bd9018902646ffd8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 183105,
+      "sha256": "6a95dd35b711374fd57ab7f934ec67a24d5ea6ba05f14b68be1e1be6f06454db"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 185541,
+      "sha256": "e2e5a314f233fa413e3b5a53713b1d9223c0aaa7e1686a0a80110a47cc902e6f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final-male-d/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 24610,
+      "sha256": "421b7f62e054c6fa738cfd7c633654b2efa7796d88cdc17bbddc6e72b0f1bc7a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 184312,
+      "sha256": "92447c9157c4ce1d801764439bc986927f36142e9c8bdaaa1e4c18a8be2bcb21"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 184119,
+      "sha256": "87c5c39b49a30c75d699db35eb6f53c479ddd233abf2bd4875f59cfd3e46d0b8"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 7161,
+      "sha256": "e6586f9a4e899900401780899134e293d2a9e75b49e501b63e51442160bfb495"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 177266,
+      "sha256": "0787b86d7136047251efde947ad662b18a5164594de8c044190b0a28543e1766"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 177106,
+      "sha256": "e9fc81ed74da71426e1baffa79eb08d54dc4dc362dbec99a7c31133b97fa36a3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-male-d/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 7158,
+      "sha256": "3b1c2efdb9045d19aed6c828bdfc2e2b24d7afb0b2ec34aac998d47681e5a24d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 207740,
+      "sha256": "e8b8ae140ce8770e787369d8db4fdc8436a1c14c57b0df056fcdff6f23203a14"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 204469,
+      "sha256": "8f94ec8933aa115d00664a29c0fd865abceaf2c8556e029b7fc8d6ef79afd24a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/smoke-v1/firefighter-prototype.json",
+      "role": "prototype",
+      "bytes": 7159,
+      "sha256": "13a3fb49578158fe3ae971c31dd295765a09d8350c4f905db4fb05f2ad6e9b9e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 168336,
+      "sha256": "2e0d9ff012a19b2301fe39af9196e0c094852d6cf1d92f784284f31bf868a832"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 168336,
+      "sha256": "2f8d2085050a2ee12c30ca83762480eef995efc1c265d4af7eddcf31e3076e5b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 168277,
+      "sha256": "e2aa068ebed2d9e26a4d6015e8531fd880d7a14105c7627bc4a938853044eab3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 169501,
+      "sha256": "a5dce12668e7ad30abaa48189bd4cdb14f7870be0aca1675cb81a7ea2d4a3992"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 169665,
+      "sha256": "fe427cecac679509d808354833d480deadd70d925f1119c98ec1f2639a8c9b8c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 168477,
+      "sha256": "128cab5a7c1504f421b5174082b52cbbe3a8716776db2faf74ebcac3f2c3c62b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 165437,
+      "sha256": "7534ad12d3d8541b85e86634963f557bf235a320f218443ad668516828cdaf31"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 163909,
+      "sha256": "4429506a8308d26de2df0077d4057de2a431a9267f1e714bd3f4aa86e37d8cae"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 167757,
+      "sha256": "7bc13a6c15a0c2eb527ae24bf63a2e2014ac27ba26b677ce9f05c1bffbb88741"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 168147,
+      "sha256": "dd92bd50f1601c7fdfca6f3904122f3eebc6b8d97f4afeec8db0c9441bea8142"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 164278,
+      "sha256": "eb3413ef53f2b18b4520d5c406300b5cf70a8c782851127b299b18cd8b882ca4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 165728,
+      "sha256": "fbac220fdd3a7b152b3a76432e8e4f2ada3dd56c0ba887e3d06d621200ca9b17"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-prototype.json",
+      "role": "prototype",
+      "bytes": 23946,
+      "sha256": "4cc9a76446b3c4e4b64c92dcb4ce8bc8fcb22f6e8dff833041364d3a735a32a4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 168336,
+      "sha256": "a1118a159be67871dd6264f12b2e7042c363f6a5ce8dbb4fca825ef7dded6fc2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 168477,
+      "sha256": "76aac15ca0c759a8752f91339ca5989bd77859718279989850c22674fe786e1f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke/police-prototype.json",
+      "role": "prototype",
+      "bytes": 6593,
+      "sha256": "b70cb0c9981aaee67126c103e12acbbe506c5de4a9a01e0df8c10286a835228b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189292,
+      "sha256": "79adb276f16838014afe0768657d6c4dd9928072d6e22334fc95bff464b0acc2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 188683,
+      "sha256": "caeb34fb7da48be28e2eaa6af985024f6c481eb43b8d4b76099e6b8ab81485bb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/smoke-v1/police-prototype.json",
+      "role": "prototype",
+      "bytes": 6591,
+      "sha256": "a6da6f00cd6fc4be35af4723912d80aa0a4d8836f33fa187a5905a3f79a37c25"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/prototype-validation.json",
+      "role": "prototype",
+      "bytes": 86952,
+      "sha256": "84de7259a920e9a8d4495d532fbdfdd2443bf23f06e31a03abfcb6a4a53fc44b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189482,
+      "sha256": "950188470b18ab1346399d0c755d95c40124cba8057537f59667695b2d9e3e54"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "role": "prototype",
+      "bytes": 189482,
+      "sha256": "ae4bfee0eed5be6c54e1f1269dd520a031e5e07223f1a3cc7d2ffaee5c483687"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "role": "prototype",
+      "bytes": 188879,
+      "sha256": "7c5b1b8cd193cff27dddcb8e4f4764d3237bf693ef755e6e336a96fc59ae00f7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "role": "prototype",
+      "bytes": 187846,
+      "sha256": "ae082f247cba8c0af857f81557b53b30c56f8d9dedb3b4b8f7d84aca51e7ffa1"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "role": "prototype",
+      "bytes": 190738,
+      "sha256": "a444bd809e1be8428028092e8e40216e983533b82ef39b92498f14cb6144ea4e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 189952,
+      "sha256": "7fe213800c11235b3082971d7338dba525e49d9387d199e329c8aef1e81b36e5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "role": "prototype",
+      "bytes": 185241,
+      "sha256": "c747c430f5e2ca8a3e6fe651ebd1606fdf2c154f85ba827cd9285233566d0bb5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "role": "prototype",
+      "bytes": 181827,
+      "sha256": "f41b9901a79d5975e6708b5356166a6c03775faaceb611d39fb02cd613396697"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "role": "prototype",
+      "bytes": 189297,
+      "sha256": "1c12a47d8f405f25c5d549ad055d0397384b1e1fd5c994c510d6bad6aed4e2d7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "role": "prototype",
+      "bytes": 185050,
+      "sha256": "eb8dbc6d8fd8d620c3a2e2763d7cc5d638a6835e3ae8e8f2978e78e2c1525e3e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "role": "prototype",
+      "bytes": 184553,
+      "sha256": "d9e2d479eda3a1d7ae88d35e1b4323ae90cd470d654433e06fd95170134051fa"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "role": "prototype",
+      "bytes": 187376,
+      "sha256": "eafd85287ad44ee6fcd2027e4abb8cd5014895215be0e6ecd4777bfb650b5bf7"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-prototype.json",
+      "role": "prototype",
+      "bytes": 24676,
+      "sha256": "235230414267edafcaf1c36183089e4285a1aee5173d0567306e5768b112f512"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 189473,
+      "sha256": "bd34f3f42f121e2a0de4c63ed33ffa1eb795c9f51f24adb8ee9688e9afdd9004"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 189984,
+      "sha256": "44158417ee0aa8eb45be026d84d86ed3920322dc314425b90f553d3403966513"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke/supervisor-prototype.json",
+      "role": "prototype",
+      "bytes": 7232,
+      "sha256": "6b2d0e61fcc950ba449ef7d33d318bd107ec3d3876815605e1c5ac70fff7af1e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-idle-00.png",
+      "role": "prototype",
+      "bytes": 213282,
+      "sha256": "f04cd245fd644e8f85f302df7738977b010abd4130d53a07196b26d2a2023ea0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-d0-walk-04.png",
+      "role": "prototype",
+      "bytes": 213380,
+      "sha256": "0214e3d2bae51025b510b50b6ebb668c9d2261c8dd4d1fe84cbb161e941d9035"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/smoke-v1/supervisor-prototype.json",
+      "role": "prototype",
+      "bytes": 7232,
+      "sha256": "207f7148d49fb63cc09c8b9a1ee28f7e9d171d70cbf1455e113dc65179c02d30"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/03-worker-vs-supervisor.png",
+      "role": "prototype",
+      "bytes": 184985,
+      "sha256": "f1d3a178352bc55fa3f2413ffe5ba1e35ad25774699c7bde9c1c0b4a27acbddb"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/04-worker-vs-enforcer.png",
+      "role": "prototype",
+      "bytes": 180803,
+      "sha256": "34def15d2939ddf2fea0fee35bbf1b36d6b4333220fe7f9f4005b64c271e8ccf"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/05-worker-vs-police.png",
+      "role": "prototype",
+      "bytes": 182276,
+      "sha256": "66f8c18f1b73aea930414a1f7672438f9e7923359c7a3acdf81ba2344c56a09d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/06-worker-vs-firefighter.png",
+      "role": "prototype",
+      "bytes": 176192,
+      "sha256": "be4665d4d1070e05530d8e4791b33ab8c737b933a48c77ec1959103c6c69a359"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/07-five-family.png",
+      "role": "prototype",
+      "bytes": 412767,
+      "sha256": "0c2000e2441949b5ba755a37d82268e0af210f68e63b5e53d91028c90fd146f0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/08-four-directions.png",
+      "role": "prototype",
+      "bytes": 584805,
+      "sha256": "6f7b16f8a376ec03c876d0d734a2aac75729937c7354e266c302236e0103fdb6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/09-walk-samples.png",
+      "role": "prototype",
+      "bytes": 987118,
+      "sha256": "949cd77dea5db870a2696428ba4fedf778d95a963265a79df618609f6229df53"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/10-scales.png",
+      "role": "prototype",
+      "bytes": 84955,
+      "sha256": "51f38d90e04d604b8621212d0ade1c5f31cb345ff2fe053553710833d19ebc39"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/11-street-context-offline.png",
+      "role": "prototype",
+      "bytes": 450155,
+      "sha256": "d19c69a9ef40f23cb1d9ab22de3497edfc573781f10ee0531788cba74397b35a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/12-silhouettes.png",
+      "role": "prototype",
+      "bytes": 29934,
+      "sha256": "5b2a6b12ac2902af4b370ac3fbdd49dcbb58c47b9487755fc93d853438ff45e6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/13-unlabeled-professions.png",
+      "role": "prototype",
+      "bytes": 411506,
+      "sha256": "47a58f849f3f228437d3df5dff2c0d7ae1420b3b19cb3fe05e40c2aa7f8fda45"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/review-manifest.json",
+      "role": "prototype",
+      "bytes": 6225,
+      "sha256": "b592ffdae367d7d2085062c09101e4ff873fc0a9495c5fe6ca7e6f227d821728"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/review/review-validation.json",
+      "role": "prototype",
+      "bytes": 13739,
+      "sha256": "03a02d5c5b5a710ddcc28e8cdb9bd43e20cb665e9380c224178d8276d5e0f1d6"
+    }
+  ],
+  "summary": {
+    "fileCount": 181,
+    "totalBytes": 32227191,
+    "externalSourceCount": 22,
+    "allExternalHashesMatch": true
+  }
+}

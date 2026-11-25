@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "status": "offline_review_package_pending_human",
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "inputs": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "sha256": "1534280d9b4f5fe0c70aa68d333a56de78b10e58ea867db7a62867f9d3e8d854"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "sha256": "b8b9145fffecf8b97fb2a771b7f4f181dead644c2b8299091455c3a39e44e8bd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "sha256": "91df3baa76f3e2b6461baa6f5901d66f724736dd0ed52220db7a5baf3b391383"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "sha256": "2e0d9ff012a19b2301fe39af9196e0c094852d6cf1d92f784284f31bf868a832"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "sha256": "e59612857c9cd5a40dc2e39b622b56e4a861a0825eebda3c3fc363d52b87de3d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "sha256": "2acf76ae21ac116e4ba5c753625d25eb9c5ab85573ee49b05d700eb47d8fd5df"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "sha256": "c9e3e834241909d7d4215890a219177f079a0db37c610880cbc31cc32b490016"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "sha256": "ff41388338ed4d041c03c6fc0911ced3015c46d99eb6b7ccf285ec0ead238916"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "sha256": "128cab5a7c1504f421b5174082b52cbbe3a8716776db2faf74ebcac3f2c3c62b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "sha256": "38b1402e54ee7178886d3395a1911e5f83fc9805dc8e3c40c9bb49d326b99fc4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "sha256": "950188470b18ab1346399d0c755d95c40124cba8057537f59667695b2d9e3e54"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "sha256": "93970af35296fa2a8fad3f2237033327535d1a3ac18de39f17d93b1191bb5827"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "sha256": "7ac983b26f51e423df05498e129605f89d6e0944d85d28ee96a86abbb2d7ebd2"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "sha256": "7fe213800c11235b3082971d7338dba525e49d9387d199e329c8aef1e81b36e5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "sha256": "d41bd8f776d0867f08b51ebfff565e0d39c44502f7372d6f00ab0d736b5b1838"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "sha256": "03399f4b8c32a9f43a0d3362aa70f1db572e114b18637403bdea6180c409a233"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "sha256": "a69ef8be43d08dc69455b5c9c65e74d94496647be924c72332743fada92b4e46"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "sha256": "7118a50b5991ef247f18ac7d67445639d0d7ed9267ede93185517153dfd932bd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "sha256": "aa96bae20e73a0620925d853196bb8cdab70ae9afebc707514fd8b56dd9370a4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "sha256": "56673c3d7d1a2940988b27f01ca02655707d7742b143b7adacf4a0a89c0f44b4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "sha256": "f6e47b331a4a4b32621ba1e0a69e33d95d44808b94138f4d385f4e98de7ae610"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "sha256": "1dfe6baf05dc7914df1c1baccfe7e1d84b1d263488119d6ebc9a82981cc4d70a"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "sha256": "dd92bd50f1601c7fdfca6f3904122f3eebc6b8d97f4afeec8db0c9441bea8142"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "sha256": "eb3413ef53f2b18b4520d5c406300b5cf70a8c782851127b299b18cd8b882ca4"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "sha256": "fbac220fdd3a7b152b3a76432e8e4f2ada3dd56c0ba887e3d06d621200ca9b17"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "sha256": "6bb7d5e0945db6443d7e1b6cdc4f8a534967d0dc0de146278ce8b65b10904f2d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "sha256": "44910e128d41b4ec1457b8bb74bec31fbc7ded9ae507563885a104f8d3d26745"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "sha256": "f8613f9437b3b0cf79780f0a41bbbc2ba0ee4c25370ff1d0c8ee628284c4815d"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "sha256": "12d329ac761020fdc4403403910ae1e0bf359f2d2a25f0d14385df64c226e442"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "sha256": "779d3c32eb0770498803754e71f482c56553e04ff3d4bb6423b2da9f4eeb0ac6"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "sha256": "5d7798686e8a63fcaaf43a8db41d53eee214185ed380ac00ef115f4b67753576"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "sha256": "672f8deb5605ec89a1062cfd179ffc694f33835c27856cb67e4902e91a1e5038"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "sha256": "6c92d7da817bf98b5d9ff6f4802f83ce87cf9c8bc6568c4075c4918b309c6f2b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "sha256": "5ab2a818e50671daf957c419738b52b37e606f6e2264ccab538afd8470da8f8c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "sha256": "958b998b87a962c44c3bad52caf6ba233ad5899dcfab15aefbb8cc49a18d8972"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "sha256": "1a5801d0f79c4616d163d4a9fb4078d5515e36f491eaa1875d6c4946d46804cd"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "sha256": "617bd51595109a31228653fd9fbeba804ab6c055826c5079b9895dfc33950350"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "sha256": "b3fd2b2f6b6063ff6792d31e39da4b706dbe96b7cc1df918ce8d8e8b013c8705"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "sha256": "8aceb3dd8ee3f2f5d1806a1e195a75b868ea1bb5e23338f053772bd69c2013f0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "sha256": "58235e642b89584d54849e1f7cc058cc29259ef84c052e614fcfb666b668919e"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "sha256": "81bb99208ada23c87b5a1f8e929e6707af60b5accaec1e0e6907a7257bc37655"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "sha256": "59d1e1f217f29ef76a46d04ea3ad31fd16556cc7dcbd8d88d909f32c44d32306"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "sha256": "2f8d2085050a2ee12c30ca83762480eef995efc1c265d4af7eddcf31e3076e5b"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "sha256": "e2aa068ebed2d9e26a4d6015e8531fd880d7a14105c7627bc4a938853044eab3"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "sha256": "a5dce12668e7ad30abaa48189bd4cdb14f7870be0aca1675cb81a7ea2d4a3992"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "sha256": "fe427cecac679509d808354833d480deadd70d925f1119c98ec1f2639a8c9b8c"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "sha256": "7534ad12d3d8541b85e86634963f557bf235a320f218443ad668516828cdaf31"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "sha256": "4429506a8308d26de2df0077d4057de2a431a9267f1e714bd3f4aa86e37d8cae"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "sha256": "7bc13a6c15a0c2eb527ae24bf63a2e2014ac27ba26b677ce9f05c1bffbb88741"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "sha256": "8ec5e0831a403f71b510c785490bc682d9fbb82f48413ac6eefe4b75a7c2913f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "sha256": "07946c9d3d332f5d04acedbcc45bf370ff31bac1f5f90c5c6bc615741f3599f0"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "sha256": "3e4e80907a608a8c996338e16410c2590fd02f699f937cdd66d830b017ca7468"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "sha256": "0cfd40ff106494961f071755241858b39fa65b29fc29ee7a673e2ce74f55fa68"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "sha256": "e6057f4a4ed2fbaee763a0347fbef5b37d442299540d5dcd6f1df812e209e6a5"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "sha256": "98c31b4d7e7a690b559eb724f6fd145953ad2b4ff5d09dc4b79ea65f3bea063f"
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "sha256": "bf5818456a43fa1c60322cde90e4b5e757a9187fbd522bc0f70ff7106e561a23"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/row_house-complete.png",
+      "sha256": "36d58f26f0083a0e555e6aac67a2586c8627d45f1787f2e25a500e7a59dcae7a"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/workshop-complete.png",
+      "sha256": "a51cc46c7a477102909e3ade5b9ddd51454bef523054888bd757b8b017aba6be"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/veh_delivery.png",
+      "sha256": "e1b9b489a064fc8b745bb3ebf9e3b6489f4a4372cd0ad82c152705c3706b023d"
+    },
+    {
+      "path": "apps/web/public/assets/runtime/blender-day/veh_truck.png",
+      "sha256": "11b0be39d832a4773fc6256ce582a9561efd02510397b890bdad2052fe50f1b2"
+    }
+  ],
+  "sheets": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "sha256": "cc6884b0318383e3f14d338ffc46be802914011df0ee638ed5c95a1c9bb34f13",
+      "bytes": 382315,
+      "width": 1500,
+      "height": 900
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "sha256": "b1d5c3de27f0ead75aaf7f2340a416b14b8ffbbf266e1f9a43e00c8c03e2a9fb",
+      "bytes": 404428,
+      "width": 1500,
+      "height": 900
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "sha256": "dde94bd67824aa6810ed911c740be4abe2b5598c1d16b53ea66bb157265a8713",
+      "bytes": 405552,
+      "width": 1500,
+      "height": 900
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "sha256": "408daea03ff002a1ee403af69cf5c7cc95484fd88b125b99cae71e8c1932bb97",
+      "bytes": 276253,
+      "width": 1500,
+      "height": 760
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "sha256": "ba0c5dc83e25796afd170069c439df2a36a57c0894e40176f326d8187c99462f",
+      "bytes": 442090,
+      "width": 1500,
+      "height": 720
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "sha256": "e75dba5959e4ab011a021997e4f5957b1353bfa48a81b552445c9b098fd1b4a3",
+      "bytes": 34809,
+      "width": 1500,
+      "height": 520
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "sha256": "f77e22368212d7ade86e48f7ff6c6027d708afb9dc92cc7b02d7f20a7d35435b",
+      "bytes": 618279,
+      "width": 1040,
+      "height": 1460
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "sha256": "cdf5c6e57c68e4e5bd7b3b91d9e5ae48a01e88a26427fd8661e85655a12225a6",
+      "bytes": 896715,
+      "width": 1672,
+      "height": 1270
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "sha256": "f28582e749a7ae89f31cd4fe60eda808fdf84c4bebb17830a0b6aee620f1a6ce",
+      "bytes": 51092,
+      "width": 1500,
+      "height": 1120
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "sha256": "674d00987abe5877fec014b584feab3354ec0a3832adba97df26c5b700485727",
+      "bytes": 84919,
+      "width": 1500,
+      "height": 1480
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "sha256": "59d24464cef90d82c8c4b265938add8890098e6c0daf3fff8d58ac9a157a4ed4",
+      "bytes": 439362,
+      "width": 1500,
+      "height": 720
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "sha256": "f1dce9d9d3b3eca2d02b037790f9ca2fec944bce75a420150c72dc32119406ef",
+      "bytes": 450696,
+      "width": 1500,
+      "height": 950
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "binaries": {
+    "exitCode": 1,
+    "status": "failed",
+    "violations": 135,
+    "new02c": [],
+    "measuredAfterCommit": "c79f663"
+  },
+  "assetJobs": {
+    "exitCode": 1,
+    "status": "failed",
+    "jobs": 83,
+    "errors": [
+      "id de job inválido: qa_mini_male",
+      "id de job inválido: qa_mini_female",
+      "id de job inválido: qa_mini_worker"
+    ]
+  },
+  "catalog": {
+    "exitCode": 1,
+    "error": "visual-catalog.json is stale"
+  },
+  "lint": {
+    "exitCode": 1,
+    "errors": 37,
+    "baselineWorktree": "/home/luis/RepositorioGitHub/landlord-characters-02b",
+    "baselineErrors": 37,
+    "new02cErrors": 0
+  },
+  "styleLayer": {
+    "exitCode": 1,
+    "status": "failed",
+    "emptyBands": 13,
+    "baselineWorktree": "/home/luis/RepositorioGitHub/landlord-characters-02b",
+    "baselineExitCode": 1,
+    "new02cErrors": 0
+  },
+  "renderedValueLadder": {
+    "exitCode": 0,
+    "status": "passed",
+    "assets": 3
+  },
+  "runtimeAssets": {
+    "exitCode": 0,
+    "status": "passed",
+    "images": 108,
+    "manifestBytes": 153880
+  }
+}

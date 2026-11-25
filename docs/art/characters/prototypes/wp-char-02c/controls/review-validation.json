@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "reviewManifest": "docs/art/characters/prototypes/wp-char-02c/review/review-manifest.json",
+  "reviewManifestSha256": "45fef1d097117cf4cb78c50e848506f6da0cfd84b1c9b172f4675f0c70794f38",
+  "reworkValidation": "docs/art/characters/prototypes/wp-char-02c/controls/rework-validation.json",
+  "reworkValidationSha256": "7d3fd34d3a9c0099210dae8789260c2e1d21fa17e804940c0f5a18f296ab57f7",
+  "sheetCount": 12,
+  "inputCount": 60,
+  "checkCount": 161,
+  "errors": [],
+  "checks": [
+    {
+      "label": "review manifest exists",
+      "passed": true
+    },
+    {
+      "label": "rework validation exists",
+      "passed": true
+    },
+    {
+      "label": "review manifest has no runtime promotion",
+      "passed": true
+    },
+    {
+      "label": "review manifest pending human approval",
+      "passed": true
+    },
+    {
+      "label": "36-frame validation passed",
+      "passed": true
+    },
+    {
+      "label": "36 new frames declared",
+      "passed": true
+    },
+    {
+      "label": "12 police control frames declared",
+      "passed": true
+    },
+    {
+      "label": "12 final review sheets",
+      "passed": true
+    },
+    {
+      "label": "required review sheet set",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/01-before-after-supervisor.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/02-before-after-enforcer.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/03-before-after-firefighter.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/04-controls.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/05-five-family.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/06-five-family-28px.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/07-four-directions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/08-walk-samples.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/09-silhouettes-before-after.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/10-scales.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/11-unlabeled-professions.png",
+      "passed": true
+    },
+    {
+      "label": "sheet exists: docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet hash: docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet bytes: docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet below 1 MiB: docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet RGB: docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet dimensions: docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "sheet review resolution: docs/art/characters/prototypes/wp-char-02c/review/12-street-context-offline.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-a-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/supervisor/final/supervisor-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/enforcer/final/enforcer-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/firefighter/final/firefighter-d0-walk-04.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d1-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d2-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d3-idle-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/supervisor/final/supervisor-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/enforcer/final/enforcer-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02b/prototypes/police/final/police-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-00.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-01.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-02.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-03.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-05.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-06.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: docs/art/characters/prototypes/wp-char-02c/prototypes/firefighter/final/firefighter-d0-walk-07.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: apps/web/public/assets/runtime/blender-day/row_house-complete.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: apps/web/public/assets/runtime/blender-day/workshop-complete.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: apps/web/public/assets/runtime/blender-day/veh_delivery.png",
+      "passed": true
+    },
+    {
+      "label": "input hash: apps/web/public/assets/runtime/blender-day/veh_truck.png",
+      "passed": true
+    },
+    {
+      "label": "worker control input",
+      "passed": true
+    },
+    {
+      "label": "police control input",
+      "passed": true
+    },
+    {
+      "label": "new supervisor input",
+      "passed": true
+    },
+    {
+      "label": "old supervisor input",
+      "passed": true
+    },
+    {
+      "label": "new enforcer input",
+      "passed": true
+    },
+    {
+      "label": "old enforcer input",
+      "passed": true
+    },
+    {
+      "label": "new firefighter input",
+      "passed": true
+    },
+    {
+      "label": "old firefighter input",
+      "passed": true
+    }
+  ],
+  "artisticApproval": "pending_human",
+  "runtimePromotion": false
+}

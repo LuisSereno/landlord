@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "assetId": "phase1b_construction_worker_b",
+  "kind": "character",
+  "label": "phase1b_construction_worker_b",
+  "state": null,
+  "direction": 3,
+  "animation": "walk",
+  "frame": 0,
+  "footprint": null,
+  "pivot": {
+    "x": 0.5621,
+    "y": 0.9636
+  },
+  "image": {
+    "path": "/home/luis/RepositorioGitHub/landlord-wp-char-01/docs/art/characters/candidates/phase-1b/phase1b_construction_worker_b/phase1b_construction_worker_b-d3-walk-0.png",
+    "width": 145,
+    "height": 251,
+    "sha256": "78f30eca2a7faf96a3ddfc82a2358d4cec72b6ebcf6bf00adb45ab0bf858907d"
+  },
+  "trim": {
+    "rendered": {
+      "width": 512,
+      "height": 512
+    },
+    "cropped": {
+      "width": 290,
+      "height": 502,
+      "offsetX": 93,
+      "offsetY": 7
+    },
+    "final": {
+      "width": 145,
+      "height": 251
+    },
+    "supersample": 2
+  },
+  "origin": "licensed",
+  "license": "MIT",
+  "author": "src_microsoft_rocketbox via Male_Adult_02.fbx",
+  "toolchain": {
+    "blender": "5.2.2 LTS",
+    "buildHash": "d13f752e3b9c",
+    "renderer": "BLENDER_EEVEE"
+  },
+  "camera": {
+    "projection": "ORTHO",
+    "azimuthDegrees": 45,
+    "elevationDegrees": 30,
+    "orthoScale": 1.7000000476837158
+  },
+  "palette": "graphic_civic",
+  "styleLayer": {
+    "version": 7,
+    "atlases": [
+      "Map #1",
+      "Map #11",
+      "Map #5"
+    ],
+    "flatMaterials": 0,
+    "emissiveTexels": 0,
+    "litWindows": 0,
+    "exposure": -0.25
+  },
+  "shadow": null,
+  "render": {
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "transparentFilm": true,
+    "renderMs": 22774.35,
+    "totalMs": 22933.44
+  },
+  "reproducibility": {
+    "script": "tools/art-pipeline/blender/runtime_asset.py",
+    "argv": [
+      "--runtime-asset",
+      "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "--character-config",
+      "/home/luis/RepositorioGitHub/landlord-wp-char-01/blender_artist/manifests/character-jobs-phase-1b.json",
+      "--character-job-id",
+      "phase1b_construction_worker_b",
+      "--asset",
+      "phase1b_construction_worker_b",
+      "--kind",
+      "character",
+      "--source",
+      "fbx:/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx",
+      "--animation-source",
+      "fbx:/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/mit/rocketbox/animations/walk/m_walk_neutral_01.max.fbx",
+      "--source-id",
+      "src_microsoft_rocketbox",
+      "--license",
+      "MIT",
+      "--unit-scale",
+      "1",
+      "--ortho-scale",
+      "1.7",
+      "--target-z",
+      "0.9",
+      "--render-width",
+      "256",
+      "--render-height",
+      "256",
+      "--direction",
+      "3",
+      "--animation",
+      "walk",
+      "--frame",
+      "0",
+      "--output",
+      "/home/luis/RepositorioGitHub/landlord-wp-char-01/docs/art/characters/candidates/phase-1b/phase1b_construction_worker_b/phase1b_construction_worker_b-d3-walk-0.png",
+      "--metadata",
+      "/home/luis/RepositorioGitHub/landlord-wp-char-01/docs/art/characters/candidates/phase-1b/phase1b_construction_worker_b/phase1b_construction_worker_b-d3-walk-0.json"
+    ]
+  },
+  "source": {
+    "id": "src_microsoft_rocketbox",
+    "path": "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx",
+    "kind": "fbx",
+    "sourceBounds": {
+      "width": 1.3482,
+      "depth": 0.3395,
+      "height": 1.8227,
+      "minZ": -0.0009
+    },
+    "importScale": 1.0,
+    "importOffset": [
+      0.0,
+      0.0327,
+      0.0009
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "Bip01",
+          "bones": 80
+        }
+      ],
+      "skinnedMeshes": 1
+    },
+    "normalizedSize": {
+      "width": 1.3482,
+      "depth": 0.3395,
+      "height": 1.8227
+    },
+    "worldSizeMeters": {
+      "x": 1.3766,
+      "y": 0.598,
+      "z": 1.8525
+    }
+  }
+}

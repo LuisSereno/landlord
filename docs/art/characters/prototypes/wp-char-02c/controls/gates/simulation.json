@@ -1,0 +1,40 @@
+{
+  "command": "pnpm --filter @landlord/simulation test",
+  "fullRun": {
+    "exitCode": 1,
+    "failedTests": 21,
+    "failedFiles": 13,
+    "passedTests": 609,
+    "skippedTests": 20,
+    "durationSeconds": 779.92,
+    "failedFileList": [
+      "packages/simulation/src/building-reference-lifecycle.test.ts",
+      "packages/simulation/src/canonical-state.test.ts",
+      "packages/simulation/src/city-seeds.test.ts",
+      "packages/simulation/src/district-generation.test.ts",
+      "packages/simulation/src/h1-footprint-interaction.test.ts",
+      "packages/simulation/src/headquarters.test.ts",
+      "packages/simulation/src/market-actionability.test.ts",
+      "packages/simulation/src/movement-tick-counter.test.ts",
+      "packages/simulation/src/phase4-integration.test.ts",
+      "packages/simulation/src/reputation.test.ts",
+      "packages/simulation/src/tick-conservation.test.ts",
+      "packages/simulation/src/vd7a-multiparcel.test.ts",
+      "packages/simulation/src/wp2_15.test.ts"
+    ]
+  },
+  "isolatedHeadquartersRerun": {
+    "exitCode": 0,
+    "failedTests": 0,
+    "passedTests": 4,
+    "durationSeconds": 85.2,
+    "reason": "full-run timeout occurred under parallel gate contention"
+  },
+  "attributedBaseline": {
+    "failedTests": 20,
+    "failedFiles": 12,
+    "new02cFailures": 0,
+    "protectedSimulationDiff": 0
+  },
+  "note": "The isolated headquarters file passes; the extra full-run failure was a 120000 ms timeout under concurrent lint/gates."
+}

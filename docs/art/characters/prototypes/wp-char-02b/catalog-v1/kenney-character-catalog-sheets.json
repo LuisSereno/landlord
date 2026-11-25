@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "status": "offline_catalog_sheets",
+  "runtimePromotion": false,
+  "sourceReport": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.json",
+  "sourceReportSha256": "f40fe1a88cf86c0f67025bc58f15b20732ab7a8d80f34f8773c7b9716107e6a6",
+  "sheets": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog.png",
+      "sha256": "29cf832b4e371fa4e3122bace59d9f6e2727217e92ff03ee8b4f9aeaa9355125",
+      "bytes": 697038,
+      "width": 1298,
+      "height": 1274
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-28px.png",
+      "sha256": "4e5cf38e88a20f9845dec019da71c081dabecefee9d5e03a2076949220ced01a",
+      "bytes": 96318,
+      "width": 1148,
+      "height": 674
+    }
+  ]
+}

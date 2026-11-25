@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "status": "phaser_capture_contact_sheets",
+  "sheets": [
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/review/five-by-four-configs.png",
+      "sha256": "88b3ed7ff93f4e80ed41e0a77eb0c5ba33d90f8985564953d762276d6fea9543",
+      "bytes": 232605
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/scale-comparison/general-four-configs.png",
+      "sha256": "58f5448ea8acdcc661e19648cbee7a00defbdde0e03c07df9eeb93350ce90001",
+      "bytes": 243472
+    },
+    {
+      "path": "docs/art/characters/prototypes/wp-char-03/scale-comparison/door-four-configs.png",
+      "sha256": "854218fad363bdf2c30156cb0d84a96ee133af4edae59dad7872c6d392f21d92",
+      "bytes": 227902
+    }
+  ]
+}

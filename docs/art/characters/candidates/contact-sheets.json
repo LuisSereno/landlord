@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "sourceManifestSha256": "577e767a6e9ca5682eb413f0805e5f67bfbcbfbefa2209152f408ee8e74d60d0",
+  "validationSha256": "0c1612a7996e682411cc175fee8c0906990a29563425e9a45ba973d47093726d",
+  "controls": [
+    "chr_worker",
+    "chr_citizen"
+  ],
+  "sheets": [
+    {
+      "path": "docs/art/characters/candidates/phase1-candidates-raw.png",
+      "sha256": "28e23a1b69d873e01d7eb2aded0742860d5b0df987b5465becc577a010f06e83",
+      "width": 2450,
+      "height": 1086,
+      "spriteHeight": 140,
+      "gamma": null
+    },
+    {
+      "path": "docs/art/characters/candidates/phase1-candidates-gameplay.png",
+      "sha256": "9e24a6f5a2b73198391088d7b97c60db10d1b75290ac925ba8291b11f3ec9c2b",
+      "width": 2450,
+      "height": 1086,
+      "spriteHeight": 140,
+      "gamma": 1.8
+    },
+    {
+      "path": "docs/art/characters/candidates/phase1-candidates-1x.png",
+      "sha256": "e08c31de38b27092e769354108053150769416e39698b2ebec415d88ebede271",
+      "width": 1270,
+      "height": 636,
+      "spriteHeight": 28,
+      "gamma": 1.8
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "purpose": "WP-CHAR-02B: audit installed Kenney Mini Characters, map coverage to Landlord's 14 canonical visual variants, and prototype four difficult professions without runtime promotion.",
+  "status": "technical_complete_pending_human_review",
+  "approval": "pending_human",
+  "runtimePromotion": false,
+  "worktree": "/home/luis/RepositorioGitHub/landlord-characters-02b",
+  "branch": "wip/wp-char-02b-kenney-coverage",
+  "initialHead": "c4bc0411949754b3e71c66e6e95c838481b866fb",
+  "sourcePolicy": {
+    "noDownloads": true,
+    "noExternalGeneration": true,
+    "sourceRepositoryRoot": "/home/luis/RepositorioGitHub/landlord",
+    "blender": "5.2.2 LTS",
+    "blenderBuildHash": "d13f752e3b9c",
+    "license": "CC0-1.0",
+    "licenseFile": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "licenseFileSha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "referenceWorker": {
+    "source": "docs/art/characters/prototypes/wp-char-02a/worker-reference/final/worker-reference.json",
+    "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-worker.glb",
+    "sourceSha256": "c8e0cd7a98737f33f0a6a6c9f2575054baff3b443925b57f0451ba3268128319",
+    "artisticStatus": "owner_approved_as_style_reference",
+    "runtimePromotion": false
+  },
+  "inventory": {
+    "status": "verified_20_of_20",
+    "document": "docs/execution/phase-4/characters/wp-char-02b/01-kenney-inventory.md",
+    "validation": "docs/art/characters/prototypes/wp-char-02b/catalog/kenney-character-catalog-validation.json",
+    "modelDirectory": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format",
+    "models": [
+      "character-male-a.glb",
+      "character-male-b.glb",
+      "character-male-c.glb",
+      "character-male-d.glb",
+      "character-male-e.glb",
+      "character-male-f.glb",
+      "character-male-g.glb",
+      "character-female-a.glb",
+      "character-female-b.glb",
+      "character-female-c.glb",
+      "character-female-d.glb",
+      "character-female-e.glb",
+      "character-female-f.glb",
+      "character-worker.glb",
+      "character-soldier.glb",
+      "character-raider.glb",
+      "character-knight.glb",
+      "character-alien.glb",
+      "character-robot.glb",
+      "character-zombie.glb"
+    ],
+    "outputDirectory": "docs/art/characters/prototypes/wp-char-02b/catalog"
+  },
+  "camera": {
+    "orthoScale": 2.6,
+    "targetZ": 1.0,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "background": "transparent",
+    "runtimePromotion": false
+  },
+  "roleCoverage": {
+    "status": "mapped_14_of_14",
+    "document": "docs/execution/phase-4/characters/wp-char-02b/02-role-coverage.md",
+    "canonicalIds": [
+      "supervisor",
+      "construction_worker_a",
+      "construction_worker_b",
+      "maintenance_technician",
+      "enforcer_male",
+      "enforcer_female",
+      "civilian_male_a",
+      "civilian_male_b",
+      "civilian_female_a",
+      "civilian_female_b",
+      "police",
+      "firefighter",
+      "medical_professional",
+      "municipal_professional"
+    ]
+  },
+  "professionPrototypes": {
+    "status": "technical_complete_visual_review_pending",
+    "document": "docs/execution/phase-4/characters/wp-char-02b/04-visual-review.md",
+    "validation": "docs/art/characters/prototypes/wp-char-02b/prototypes/prototype-validation.json",
+    "reviewValidation": "docs/art/characters/prototypes/wp-char-02b/review/review-validation.json",
+    "roles": ["supervisor", "enforcer", "police", "firefighter"],
+    "directions": 4,
+    "idleSamples": 1,
+    "walkSamples": 8,
+    "walkDirections": 1,
+    "maxFrames": 48,
+    "camera": {
+      "orthoScale": 2.3,
+      "targetZ": 0.95,
+      "azimuthBaseDegrees": 45,
+      "azimuthStepDegrees": 90,
+      "elevationDegrees": 30
+    },
+    "runtimePromotion": false,
+    "candidates": {
+      "supervisor": {
+        "canonicalId": "supervisor",
+        "sourceFile": "character-male-e.glb",
+        "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
+        "sourceSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
+        "palette": { "torso": "ochre", "arms": "navy", "legs": "denim", "boots": "dark_brown", "reflective": "pale_yellow" },
+        "accessories": ["distinct_hard_hat", "clipboard"],
+        "adaptation": "Material regions on the existing skinned body mesh plus rigid helmet and clipboard."
+      },
+      "enforcer": {
+        "canonicalId": "enforcer_male",
+        "sourceFile": "character-male-g.glb",
+        "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-g.glb",
+        "sourceSha256": "14e4b60c26a330b8dcd52f1e5a36ba124869600f9fa94075fbc6a4665f6f6525",
+        "palette": { "torso": "charcoal", "arms": "charcoal", "legs": "coal", "boots": "black", "reflective": null },
+        "accessories": ["flat_cap", "belt"],
+        "adaptation": "Dark material regions on the existing skinned body mesh plus rigid cap and belt."
+      },
+      "police": {
+        "canonicalId": "police",
+        "sourceFile": "character-male-c.glb",
+        "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-c.glb",
+        "sourceSha256": "6bb3b1ac8b196fd005dd5cb73621cd88d8a44d1f0f92fcf0c03f3b47ac9b9a74",
+        "palette": { "torso": "navy", "arms": "navy", "legs": "dark_blue", "boots": "black", "reflective": null },
+        "accessories": ["badge", "belt"],
+        "adaptation": "Preserve integrated police cap and uniform silhouette; add small rigid badge and belt."
+      },
+      "firefighter": {
+        "canonicalId": "firefighter",
+        "sourceFile": "character-male-b.glb",
+        "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-b.glb",
+        "sourceSha256": "81464391ab3291bc78d23c33d5a5313cfab43469285a8e1f02b974aecbd4f943",
+        "palette": { "torso": "protective_charcoal", "arms": "protective_charcoal", "legs": "protective_charcoal", "boots": "black", "gloves": "dark_brown", "reflective": "fire_yellow" },
+        "accessories": ["fire_helmet"],
+        "adaptation": "Protective material regions and reflective bands on the existing skinned mesh plus a distinct fire helmet."
+      }
+    }
+  }
+}

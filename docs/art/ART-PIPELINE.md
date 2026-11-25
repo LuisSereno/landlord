@@ -1480,18 +1480,47 @@ procedimiento. El guard `pnpm art:docs:links:check` comprueba los enlaces del ci
 
 ### 44.2 Preparación segura
 
+**Prerrequisito bloqueante: staging local preparado.** Un clone limpio no contiene
+`blender_artist/staging/third_party/`; la carpeta está ignorada por D-054 y los renders dependen de
+sus GLB, texturas y licencias. Por ello, esta sección está limitada a una máquina del artista con
+staging ya preparado; no afirma ser un bootstrap desde un checkout vacío.
+
 1. Usa la rama `wip/organization-headquarters` y Blender 5.2.2 LTS. Si el binario no está en la ruta
    canónica, define `BLENDER_BIN` antes de renderizar.
-2. Instala dependencias Node y Chromium de Playwright si vas a capturar gameplay.
-3. Los render y capturas exigen salidas frescas. Si ya existen, muévelas a un directorio único bajo
+2. Prepara las fuentes siguiendo [BOOTSTRAP-ASSET-LIBRARY](BOOTSTRAP-ASSET-LIBRARY.md). El contrato
+   de rutas, URLs, licencias, hashes y extracciones está en
+   [staging-sources.json](../../blender_artist/manifests/staging-sources.json); el allowlist está en
+   [license-allowlist.json](../../blender_artist/manifests/license-allowlist.json). Descarga o clona cada pack desde su
+   `sourceUrl`, colócalo en la ruta registrada y conserva el aviso de licencia. No hay un downloader
+   universal: `scripts/extract-cc0-packs.mjs` sólo verifica/extrae ZIP ya presentes y
+   `scripts/provision-polyhaven-materials.mjs` sólo adquiere cinco materiales concretos de Poly Haven.
+3. Verifica las fuentes físicas y sus licencias antes de renderizar. `art:jobs:validate` comprueba que
+   los jobs encuentran sus entradas y `art:licenses:check` cruza la procedencia runtime. Los runners
+   de Composer y personajes vuelven a comprobar los hashes de las fuentes que consumen.
+4. `art:staging:validate` y `art:sources:audit:check` son diagnósticos globales del staging. Hoy están
+   rojos por deuda previa de procedencia de fuentes originales, un PNG generado ausente e inventario
+   visual desactualizado; no se oculta ni se usa ese rojo para declarar portable este procedimiento.
+5. Instala dependencias Node y Chromium de Playwright si vas a capturar gameplay.
+6. Los render y capturas exigen salidas frescas. Si ya existen, muévelas a un directorio único bajo
    `/tmp` antes de continuar; no borres evidencia no aprobada para hacer sitio.
-4. Para verificar evidencia existente no renderices nada: ejecuta directamente los validadores del
+7. Para verificar evidencia existente no renderices nada: ejecuta directamente los validadores del
    apartado 44.6.
 
 ```bash
 export BLENDER_BIN="${BLENDER_BIN:-/home/luis/.local/blender/blender-5.2.2-linux-x64/blender}"
 pnpm install
 pnpm exec playwright install chromium
+pnpm art:jobs:validate
+pnpm art:licenses:check
+```
+
+En una máquina con staging recién preparado, ejecuta también los diagnósticos globales y conserva
+su resultado junto a la evidencia; si fallan, detén la reproducción y revisa las entradas afectadas
+en lugar de sustituir fuentes o relajar licencias:
+
+```bash
+pnpm art:staging:validate
+pnpm art:sources:audit:check
 ```
 
 ### 44.3 Sedes de organización

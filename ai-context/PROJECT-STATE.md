@@ -1069,8 +1069,8 @@ la revisión visual humana y no se promueve ningún sprite al runtime. Inventari
 - Cierre estático local `c563c62`: catálogo visual 17/17, 26/102 estados, allowlist binaria
   reconciliada y 18 archivos de la matriz de sede obsoleta retirados. Sin push.
 - Los enlaces `phase-1b` retirados apuntan al ledger; `pnpm art:docs:links:check` protege los
-  Markdown del cierre. El procedimiento reproducible de PNG locales vive en
-  `docs/art/ART-PIPELINE.md` §44 y no promueve runtime.
+  Markdown del cierre. El procedimiento de PNG locales vive en `docs/art/ART-PIPELINE.md` §44,
+  está limitado a una máquina con staging preparado y no promueve runtime.
 
 - Inventario congelado en `docs/execution/phase-4/catalog-closure/00-inventory-2026-11-25.md`:
   14 personajes definidos, 5 prototipos Kenney y 9 sin producir; 15 edificios runtime y dos sedes

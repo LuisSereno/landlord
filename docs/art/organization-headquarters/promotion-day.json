@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "status": "promoted_approved_human",
+  "matrix": "docs/art/organization-headquarters/candidate-matrix.json",
+  "matrixSha256": "bf4e1ff4ded9d2ef19b2bc4af2e927f8acbfcdf4ed0b7b20f86db3109826531d",
+  "plan": "docs/art/organization-headquarters/promotion-plan.json",
+  "planSha256": "5fd120b06d3db06ad7ee1cfead79c48367ed13f9edebae7c46b2e3d408a7a126",
+  "approvalStatus": "approved_human",
+  "approvedBy": "luis",
+  "approvedAt": "2026-11-26",
+  "mood": "day_civic",
+  "types": [
+    "headquarters_courtyard",
+    "headquarters_cupola"
+  ],
+  "promoted": 48,
+  "totalVariants": 432,
+  "output": "apps/web/src/generated/runtime-building-variants.json",
+  "outputSha256": "bbfc5ca743118d1846a6d7be51f96e4c8e90d41b7d3972b44f93691bb8cd5e1d"
+}

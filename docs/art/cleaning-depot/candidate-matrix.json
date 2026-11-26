@@ -1,7 +1,7 @@
 {
  "schemaVersion": 1,
  "matrixId": "cleaning-depot-candidate-matrix-v1",
- "status": "candidate_only_pending_human_visual_approval",
+ "status": "approved_promoted_runtime",
  "totalAssets": 48,
  "expectedAssets": 48,
  "summary": {

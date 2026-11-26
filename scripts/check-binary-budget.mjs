@@ -13,7 +13,7 @@
  * Uso: node scripts/check-binary-budget.mjs
  */
 import { execFileSync } from "node:child_process";
-import { readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
 const BINARY_EXTENSIONS = [
@@ -59,7 +59,10 @@ for (const file of files) {
   }
   violations.push({ path: file, bytes: size });
 }
-for (const path of stale) violations.push({ path, bytes: 0, error: "excepción obsoleta" });
+// New evidence can have a named exception before Git tracks the file.
+for (const path of stale) {
+  if (!existsSync(path)) violations.push({ path, bytes: 0, error: "excepción obsoleta" });
+}
 if (maxBundleBytes) {
   for (const [target, bytes] of bundleBytes) {
     if (bytes > maxBundleBytes) {

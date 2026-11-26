@@ -1,0 +1,517 @@
+{
+  "schemaVersion": 1,
+  "stage": "smoke",
+  "status": "offline_contact_sheet_pending_human_review",
+  "runRoot": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710",
+  "offlineComposition": true,
+  "engineCapture": false,
+  "gamma": 1.8,
+  "roleCount": 14,
+  "frameCount": 28,
+  "humanApprovalClaimed": false,
+  "runtimePromotion": false,
+  "batchRendered": false,
+  "inputs": [
+    {
+      "role": "construction_worker_a",
+      "canonicalId": "construction_worker_a",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_a/construction_worker_a-d0-idle-00.png",
+      "sha256": "77dd38074cbf15c31cfe92ea31ec5ca715c4fb2f89d3846e68822ea8cf94fe7f"
+    },
+    {
+      "role": "construction_worker_a",
+      "canonicalId": "construction_worker_a",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_a/construction_worker_a-d0-walk-04.png",
+      "sha256": "48962b548ededda8574c7f7118450b5e08952572f9ff4a903bbe56298919af48"
+    },
+    {
+      "role": "supervisor",
+      "canonicalId": "supervisor",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/supervisor/supervisor-d0-idle-00.png",
+      "sha256": "2ddb6674c45cfb05112f476fca4dc624155a318981991831f5a15612b2c7913c"
+    },
+    {
+      "role": "supervisor",
+      "canonicalId": "supervisor",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/supervisor/supervisor-d0-walk-04.png",
+      "sha256": "cb5d123b9af07adbd449ca01aef27aa4ee94a6a40a5af27ac6880b4d8ef6aad2"
+    },
+    {
+      "role": "construction_worker_b",
+      "canonicalId": "construction_worker_b",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_b/construction_worker_b-d0-idle-00.png",
+      "sha256": "cce82b33bcb2c635128bb9bdf4b25f6076ee8df469dd388704b8441d0b3bc8da"
+    },
+    {
+      "role": "construction_worker_b",
+      "canonicalId": "construction_worker_b",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_b/construction_worker_b-d0-walk-04.png",
+      "sha256": "001748affdc74b70512f18d5a90ab179053d0257b607b298e7f8402afaab555c"
+    },
+    {
+      "role": "maintenance_technician",
+      "canonicalId": "maintenance_technician",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/maintenance_technician/maintenance_technician-d0-idle-00.png",
+      "sha256": "1feb45e3b64e71a5f0ff0cdaf9e76413723ba55e53a28128b4c63982aed9725e"
+    },
+    {
+      "role": "maintenance_technician",
+      "canonicalId": "maintenance_technician",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/maintenance_technician/maintenance_technician-d0-walk-04.png",
+      "sha256": "172bef3b86b707a224d822201660adc0707db230aeacf4c783069ac427f53f0f"
+    },
+    {
+      "role": "enforcer_male",
+      "canonicalId": "enforcer_male",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_male/enforcer_male-d0-idle-00.png",
+      "sha256": "48f545b7a06c2588fbfd36d948529c9deafda76417da60ae30035c514affac58"
+    },
+    {
+      "role": "enforcer_male",
+      "canonicalId": "enforcer_male",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_male/enforcer_male-d0-walk-04.png",
+      "sha256": "7780f45953590d0867e92632ebc34927b22c6862ee2845f149dd0125f659bba9"
+    },
+    {
+      "role": "enforcer_female",
+      "canonicalId": "enforcer_female",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_female/enforcer_female-d0-idle-00.png",
+      "sha256": "a2d7a288e62272ed6bde15c8430929140137f4385986d32a9cdb64d537533f84"
+    },
+    {
+      "role": "enforcer_female",
+      "canonicalId": "enforcer_female",
+      "animation": "walk",
+      "sampleIndex": 2,
+      "actionFrame": 4,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_female/enforcer_female-d0-walk-02.png",
+      "sha256": "14a38176534ee689d31c2f02d57ec3ac684c97e1908411997ede9b133fe2de24"
+    },
+    {
+      "role": "civilian_male_a",
+      "canonicalId": "civilian_male_a",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_a/civilian_male_a-d0-idle-00.png",
+      "sha256": "88e87982dab70f9d34df39975ea6a1d5506f7ff9e7dad25077c564d8fc65edfb"
+    },
+    {
+      "role": "civilian_male_a",
+      "canonicalId": "civilian_male_a",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_a/civilian_male_a-d0-walk-04.png",
+      "sha256": "6ad7f71c5f1ab24f64211c650397d6c1471b1b7dbe402826cca098bced16d259"
+    },
+    {
+      "role": "civilian_male_b",
+      "canonicalId": "civilian_male_b",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_b/civilian_male_b-d0-idle-00.png",
+      "sha256": "93b4a098efcb941048bf83659eee0cfca51be5ea9c91a98ce0daffe10a77ef4f"
+    },
+    {
+      "role": "civilian_male_b",
+      "canonicalId": "civilian_male_b",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_b/civilian_male_b-d0-walk-04.png",
+      "sha256": "542d5295e900d85da84670b4ba38ac70c0e49f76d94bdfa33e3bb293c0dfbb0b"
+    },
+    {
+      "role": "civilian_female_a",
+      "canonicalId": "civilian_female_a",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_a/civilian_female_a-d0-idle-00.png",
+      "sha256": "598cdec25939b4da8b776f7006e4d9d12ae93f5b3d03bb8fc33752e34ffa4c9a"
+    },
+    {
+      "role": "civilian_female_a",
+      "canonicalId": "civilian_female_a",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_a/civilian_female_a-d0-walk-04.png",
+      "sha256": "a291507a092ce68dd4097624368fc26453e15421b9b12073cabbe174b011d7e0"
+    },
+    {
+      "role": "civilian_female_b",
+      "canonicalId": "civilian_female_b",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_b/civilian_female_b-d0-idle-00.png",
+      "sha256": "66cf3b1a94d9bae4426a5a54e07620814fdbc757367da78ef9dac5f71dd18300"
+    },
+    {
+      "role": "civilian_female_b",
+      "canonicalId": "civilian_female_b",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_b/civilian_female_b-d0-walk-04.png",
+      "sha256": "9630c8fbb2cbf64d7eaf1291d58d6a9c368e1f04e15797a91612c699eba21d2b"
+    },
+    {
+      "role": "police",
+      "canonicalId": "police",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/police/police-d0-idle-00.png",
+      "sha256": "12f9a7f4c73e847751e21a744866a5cd83d6d3a538916d56db4f87f4ad7a0254"
+    },
+    {
+      "role": "police",
+      "canonicalId": "police",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/police/police-d0-walk-04.png",
+      "sha256": "d819527207c2a531b0349b67f76d138623784bf1e052d30a32b7bf321edf8250"
+    },
+    {
+      "role": "firefighter",
+      "canonicalId": "firefighter",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-d0-idle-00.png",
+      "sha256": "f4610b4fa64d1c4a8925ce11c9b4455462373da26c4fa3a4d75e2b568b129816"
+    },
+    {
+      "role": "firefighter",
+      "canonicalId": "firefighter",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-d0-walk-04.png",
+      "sha256": "a849a2fbb2d01600e5d90613fa0fc5e62330a8375912f014d389e4ecd7d0e64e"
+    },
+    {
+      "role": "medical_professional",
+      "canonicalId": "medical_professional",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/medical_professional/medical_professional-d0-idle-00.png",
+      "sha256": "2b5c2dea7bb7b73399856d4ab52fdeae7fc935b78a5382d7055b9626563d0adb"
+    },
+    {
+      "role": "medical_professional",
+      "canonicalId": "medical_professional",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/medical_professional/medical_professional-d0-walk-04.png",
+      "sha256": "2d2fc1bbc8808a68993668d5f8612f56c035c9bf43f54b3a3028f81407847c1a"
+    },
+    {
+      "role": "municipal_professional",
+      "canonicalId": "municipal_professional",
+      "animation": "idle",
+      "sampleIndex": 0,
+      "actionFrame": 0,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-idle-00.png",
+      "sha256": "f5e0840e4c3faadfaeb4b4b5cf3f06ede0c5a23adcab2d41adef0ad923d4a005"
+    },
+    {
+      "role": "municipal_professional",
+      "canonicalId": "municipal_professional",
+      "animation": "walk",
+      "sampleIndex": 4,
+      "actionFrame": 8,
+      "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-walk-04.png",
+      "sha256": "9e66201bed92580e5f923b0f112ef6ffd3b317472ad732016156705761609840"
+    }
+  ],
+  "roles": [
+    {
+      "role": "construction_worker_a",
+      "canonicalId": "construction_worker_a",
+      "displayName": "Construction worker A",
+      "sourceFile": "character-worker.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02A worker reference: integrated helmet/overalls, local matte atlas copy, action-slot binding and per-frame ground alignment.",
+      "visualRisks": [
+        "Single idle pose; no full idle cycle.",
+        "Seven-bone rig has no intermediate elbows or knees."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_a/construction_worker_a-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_a/construction_worker_a-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "supervisor",
+      "canonicalId": "supervisor",
+      "displayName": "Site supervisor",
+      "sourceFile": "character-male-e.glb",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "Local hair treatment, remove glasses component 2 and fitted conical supervisor helmet; embedded clipboard candidate removed.",
+      "visualRisks": [
+        "Helmet needs small-scale human review.",
+        "Single idle pose; no full idle cycle."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/supervisor/supervisor-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/supervisor/supervisor-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "construction_worker_b",
+      "canonicalId": "construction_worker_b",
+      "displayName": "Construction worker B",
+      "sourceFile": "character-male-f.glb",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "Distinct male-f base, orange work jacket, reflective bands, simple hard hat and belt; separated from the ochre site supervisor.",
+      "visualRisks": [
+        "Worker A/B silhouette separation needs human review at 28/34 px."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_b/construction_worker_b-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/construction_worker_b/construction_worker_b-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "maintenance_technician",
+      "canonicalId": "maintenance_technician",
+      "displayName": "Maintenance technician",
+      "sourceFile": "character-female-f.glb",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "Female-f base with teal service palette and fitted work cap; wrist-mounted tool candidate removed after visual review.",
+      "visualRisks": [
+        "Work cap needs small-scale human review."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/maintenance_technician/maintenance_technician-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/maintenance_technician/maintenance_technician-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "enforcer_male",
+      "canonicalId": "enforcer_male",
+      "displayName": "Enforcer A",
+      "sourceFile": "character-raider.glb",
+      "coverage": "MINOR_ADAPTATION",
+      "technicalCorrection": "WP-CHAR-02C/03: raider base, remove ponytail component 1 and smile component 5, neutral mouth line, slate/charcoal regions and belt.",
+      "visualRisks": [
+        "Dark contrast remains a small-scale review item.",
+        "Optional shirt band may still cover zero polygons; no contrast is claimed from it."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_male/enforcer_male-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_male/enforcer_male-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "enforcer_female",
+      "canonicalId": "enforcer_female",
+      "displayName": "Enforcer B",
+      "sourceFile": "character-female-a.glb",
+      "coverage": "MESH_ADAPTATION",
+      "technicalCorrection": "Remove all eight blue weapon components measured on female-a; retain hands; replace torso/upper-arm clothing with a padded, high-collar skinned jacket shell. No rigid jacket panels.",
+      "visualRisks": [
+        "Jacket fit, cuff boundaries and collar/head clearance require human review in the full walk cycle.",
+        "Dark charcoal contrast may collapse at 14 px; review at 28/34 px.",
+        "If the skinned shell clips or reads as bulk without identity, mark REWORK_REQUIRED rather than approving it."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_female/enforcer_female-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_female/enforcer_female-d0-walk-02.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "civilian_male_a",
+      "canonicalId": "civilian_male_a",
+      "displayName": "Civilian A",
+      "sourceFile": "character-male-a.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct base; preserve source atlas and silhouette.",
+      "visualRisks": [
+        "Civilian A/B distinction is base-model dependent."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_a/civilian_male_a-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_a/civilian_male_a-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "civilian_male_b",
+      "canonicalId": "civilian_male_b",
+      "displayName": "Civilian B",
+      "sourceFile": "character-male-d.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "Direct formal base; floating folder candidate removed after visual review.",
+      "visualRisks": [],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_b/civilian_male_b-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_male_b/civilian_male_b-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "civilian_female_a",
+      "canonicalId": "civilian_female_a",
+      "displayName": "Civilian C",
+      "sourceFile": "character-female-b.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct base; preserve source atlas and silhouette.",
+      "visualRisks": [
+        "Civilian C/D distinction is base-model dependent."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_a/civilian_female_a-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_a/civilian_female_a-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "civilian_female_b",
+      "canonicalId": "civilian_female_b",
+      "displayName": "Civilian D",
+      "sourceFile": "character-female-c.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B direct base; preserve source atlas and silhouette.",
+      "visualRisks": [
+        "Civilian C/D distinction is base-model dependent."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_b/civilian_female_b-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/civilian_female_b/civilian_female_b-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "police",
+      "canonicalId": "police",
+      "displayName": "Police officer",
+      "sourceFile": "character-male-c.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "WP-CHAR-02B police control: integrated cap/uniform, navy regions, badge and belt; no 02C/03 geometry change.",
+      "visualRisks": [
+        "Badge is small; integrated uniform remains the primary identity."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/police/police-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/police/police-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "firefighter",
+      "canonicalId": "firefighter",
+      "displayName": "Firefighter",
+      "sourceFile": "character-male-a.glb",
+      "coverage": "MESH_ADAPTATION",
+      "technicalCorrection": "WP-CHAR-02C/03: clean-shaven male-a base, remove glasses component 2, ten-sided fire helmet, tilted rear flap and wide reflective bands.",
+      "visualRisks": [
+        "Helmet/reflective identity needs human review at 28/34 px.",
+        "Single idle pose; no full idle cycle."
+      ],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "medical_professional",
+      "canonicalId": "medical_professional",
+      "displayName": "Medical professional",
+      "sourceFile": "character-female-e.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "Direct medical base with integrated light coat; floating bag candidate removed after visual review.",
+      "visualRisks": [],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/medical_professional/medical_professional-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/medical_professional/medical_professional-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    },
+    {
+      "role": "municipal_professional",
+      "canonicalId": "municipal_professional",
+      "displayName": "Municipal professional",
+      "sourceFile": "character-female-d.glb",
+      "coverage": "DIRECT",
+      "technicalCorrection": "Direct formal base; floating folder candidate removed after visual review.",
+      "visualRisks": [],
+      "inputs": [
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-idle-00.png",
+        "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-walk-04.png"
+      ],
+      "approval": "pending_human",
+      "runtimePromotion": false
+    }
+  ],
+  "sheet": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/contact-sheet.png",
+    "sha256": "e42b0e889493bff772d8d6a07d563bb841895c0c3bab844a39f0cc7632c3bedf",
+    "bytes": 839296,
+    "width": 1150,
+    "height": 2360
+  }
+}

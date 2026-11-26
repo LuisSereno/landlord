@@ -191,11 +191,15 @@ export function validateHeadquartersArt({
     errors.push("catálogo: faltan dos variantes");
   if (jobs.schemaVersion !== 1 || jobs.jobs.length !== 2) errors.push("jobs: faltan dos trabajos");
   if (
-    promotionPlan.approvalStatus !== "pending_human" ||
-    promotionPlan.automaticPromotion !== false
+    promotionPlan.approvalStatus !== "approved_human" ||
+    promotionPlan.automaticPromotion !== false ||
+    !promotionPlan.approvalReference ||
+    !existsSync(join(root, promotionPlan.approvalReference)) ||
+    !promotionPlan.approvedBy ||
+    !promotionPlan.approvedAt
   ) {
     errors.push(
-      "promoción: el plan debe seguir pendiente de aprobación humana y sin automatización",
+      "promoción: el plan debe registrar aprobación humana, referencia, autor y fecha, sin automatización",
     );
   }
   for (const [path, expected] of Object.entries(promotionPlan.protectedRuntime)) {
@@ -220,8 +224,8 @@ export function validateHeadquartersArt({
     const proposed = promotionPlan.proposedPromotions.find(
       (entry) => entry.candidateBuildingType === variant.candidateBuildingType,
     );
-    if (!proposed || proposed.approvalStatus !== "pending_human") {
-      errors.push(`promoción: falta candidatura pendiente ${variant.variantId}`);
+    if (!proposed || proposed.approvalStatus !== "approved_human") {
+      errors.push(`promoción: falta aprobación humana de ${variant.variantId}`);
     }
   }
   if (matrix.totalAssets !== 96 || matrix.assets.length !== 96)

@@ -1497,9 +1497,11 @@ staging ya preparado; no afirma ser un bootstrap desde un checkout vacío.
 3. Verifica las fuentes físicas y sus licencias antes de renderizar. `art:jobs:validate` comprueba que
    los jobs encuentran sus entradas y `art:licenses:check` cruza la procedencia runtime. Los runners
    de Composer y personajes vuelven a comprobar los hashes de las fuentes que consumen.
-4. `art:staging:validate` y `art:sources:audit:check` son diagnósticos globales del staging. Hoy están
-   rojos por deuda previa de procedencia de fuentes originales, un PNG generado ausente e inventario
-   visual desactualizado; no se oculta ni se usa ese rojo para declarar portable este procedimiento.
+4. Ejecuta `art:staging:validate` y `art:sources:audit:check` como diagnósticos globales. Compara
+   sus fallos con el baseline fechado en [KNOWN-GAPS](../../ai-context/KNOWN-GAPS.md): el resultado
+   rojo conocido no bloquea por sí solo esta reproducción local. Detente si aparece un ID, archivo,
+   licencia o hash nuevo, si falta una fuente que vaya a consumir el render, o si no puedes atribuir
+   una diferencia al baseline. No sustituyas fuentes ni relajes validadores para hacerlo pasar.
 5. Instala dependencias Node y Chromium de Playwright si vas a capturar gameplay.
 6. Los render y capturas exigen salidas frescas. Si ya existen, muévelas a un directorio único bajo
    `/tmp` antes de continuar; no borres evidencia no aprobada para hacer sitio.
@@ -1515,8 +1517,9 @@ pnpm art:licenses:check
 ```
 
 En una máquina con staging recién preparado, ejecuta también los diagnósticos globales y conserva
-su resultado junto a la evidencia; si fallan, detén la reproducción y revisa las entradas afectadas
-en lugar de sustituir fuentes o relajar licencias:
+su salida junto a la evidencia. Verifica los IDs y causas frente a `KNOWN-GAPS.md`; continúa sólo
+si los fallos coinciden con esa deuda y los checks de jobs/licencias y los hashes de las fuentes
+efectivamente consumidas pasan. Un fallo nuevo o no atribuible bloquea el render:
 
 ```bash
 pnpm art:staging:validate
@@ -1583,29 +1586,101 @@ DEPOT_REQUIRE_LOCAL_ASSETS=1 pnpm art:cleaning-depot:validate
 
 ### 44.5 Personajes Kenney
 
-El runner actual sólo permite smoke D0: 14 roles × 2 frames. No lo uses para inventar una aprobación
-ni para declarar completado el contrato de 504 frames.
+El smoke D0 sigue siendo 14 roles × 2 frames. No lo uses como validación del batch completo. La
+versión visual de referencia es `smoke/2026-11-25-smoke-15`; conserva el trabajador B corregido y la
+técnica con el aspecto restaurado.
 
 ```bash
 run_id="$(date -u +%Y-%m-%dT%H-%M-%SZ)"
-run_root="docs/art/characters/candidates/wp-char-04/smoke/$run_id"
+smoke_root="docs/art/characters/candidates/wp-char-04/smoke/$run_id"
 manifest="tools/art-pipeline/blender/characters/wp_char_04/manifest.json"
 
 node tools/art-pipeline/blender/characters/wp_char_04/run_smoke.mjs \
   --manifest "$manifest" --output-root docs/art/characters/candidates/wp-char-04/smoke \
   --run-id "$run_id"
 python3 tools/art-pipeline/blender/characters/wp_char_04/compose_contact_sheet.py -- \
-  --manifest "$manifest" --run-root "$run_root"
+  --manifest "$manifest" --run-root "$smoke_root"
 python3 tools/art-pipeline/blender/characters/wp_char_04/validate_smoke.py \
-  --manifest "$manifest" --run-root "$run_root"
+  --manifest "$manifest" --run-root "$smoke_root"
 node tools/art-pipeline/blender/characters/wp_char_04/capture_dense_comparison.mjs
 ```
 
+El batch completo se produce como evidencia técnica separada: cuatro direcciones × (1 idle + 8 walk)
+por rol, 504 frames. Reutiliza el renderizador y las correcciones de `smoke-15` sin modificar sus
+hashes históricos. Los PNG por rol y las láminas por rol quedan locales; `final-sheet.png`,
+`final-sheet.json`, `execution.json` y `batch-validation.json` son la evidencia revisable.
+
+```bash
+batch_id="$(date -u +%Y-%m-%dT%H-%M-%SZ)"
+batch_root="docs/art/characters/candidates/wp-char-04/batch/$batch_id"
+
+node tools/art-pipeline/blender/characters/wp_char_04/run_batch.mjs \
+  --manifest "$manifest" --output-root docs/art/characters/candidates/wp-char-04/batch \
+  --run-id "$batch_id"
+python3 tools/art-pipeline/blender/characters/wp_char_04/validate_batch.py \
+  --manifest "$manifest" --run-root "$batch_root" --skip-sheet \
+  --output "$batch_root/batch-frame-validation.json"
+python3 tools/art-pipeline/blender/characters/wp_char_04/compose_final_sheet.py \
+  --manifest "$manifest" --run-root "$batch_root"
+python3 tools/art-pipeline/blender/characters/wp_char_04/validate_batch.py \
+  --manifest "$manifest" --run-root "$batch_root"
+pnpm art:character-batch:test
+```
+
+Para revisar escala y oclusión de los 14 en el laboratorio Phaser aislado, se mide un subconjunto
+de 112 frames (cuatro idle y walk sample 4 en cada dirección). No sustituye la validación de los
+504 frames ni es gameplay de producción.
+
+```bash
+python3 tools/art-pipeline/blender/characters/wp_char_04/measure_batch_lab_sprites.py \
+  --run-root "$batch_root" --lab-id character-batch-01 \
+  --output "$batch_root/scale-lab-manifest.json"
+node tools/art-pipeline/blender/characters/wp_char_04/capture_batch_scale.mjs \
+  --run-root "$batch_root" --lab-id character-batch-01 \
+  --lab-manifest "$batch_root/scale-lab-manifest.json"
+```
+
+Con aprobación humana registrada, la promoción de personajes es manual y reproduce los 504 hashes:
+
+```bash
+node scripts/promote-character-batch.mjs \
+  --plan=docs/art/characters/candidates/wp-char-04/promotion-plan.json --mood=day --check
+node scripts/promote-character-batch.mjs \
+  --plan=docs/art/characters/candidates/wp-char-04/promotion-plan.json --mood=day
+node scripts/promote-character-batch.mjs \
+  --plan=docs/art/characters/candidates/wp-char-04/promotion-plan.json --mood=night
+```
+
+Las variantes de sedes y depósito se promueven desde sus matrices, preservando el catálogo previo:
+
+```bash
+node scripts/promote-building-variants.mjs \
+  --matrix=docs/art/organization-headquarters/candidate-matrix.json \
+  --plan=docs/art/organization-headquarters/promotion-plan.json --mood=day_civic \
+  --output=apps/web/src/generated/runtime-building-variants.json \
+  --variantDir=apps/web/public/assets/runtime/variants \
+  --report=docs/art/organization-headquarters/promotion-day.json
+node scripts/promote-building-variants.mjs \
+  --matrix=docs/art/cleaning-depot/candidate-matrix.json \
+  --plan=docs/art/cleaning-depot/promotion-plan.json --mood=day_civic \
+  --output=apps/web/src/generated/runtime-building-variants.json \
+  --variantDir=apps/web/public/assets/runtime/variants \
+  --report=docs/art/cleaning-depot/promotion-day.json
+```
+
+Repetir con `--mood=night_civic`, salida `runtime-building-variants-night.json`, directorio
+`variants-night` y informe `promotion-night.json`. La captura de activación resuelve los manifiestos
+runtime promovidos dentro de la ciudad Phaser real:
+
+```bash
+pnpm --filter @landlord/web build
+node scripts/approved-world-gameplay-capture.mjs
+```
+
 La comparación B/D escribe en `docs/art/characters/candidates/wp-char-04/dense-comparison/`; mueve
-una corrida anterior antes de repetirla. El batch completo de cuatro direcciones × (1 idle + 8 walk)
-por rol queda bloqueado hasta aprobación visual humana y hasta disponer de un runner de batch que
-respete ese contrato. La integración runtime es un cambio posterior, también aprobado, con validación
-de hashes, presupuesto y escena principal.
+una corrida anterior antes de repetirla. Un pase del batch no aprueba arte ni promociona runtime. La
+integración runtime es un cambio posterior, también aprobado, con validación de hashes, presupuesto,
+escala, oclusión, rendimiento, determinismo, compatibilidad de partidas y escena principal.
 
 ### 44.6 Verificación y registro
 

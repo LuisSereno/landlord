@@ -1,61 +1,81 @@
 # Verificación de cierre de catálogo — 2026-11-25
 
-## Gates técnicos completados
+Actualización de activación: 2026-11-26. Estado: `APPROVED_PROMOTED_VERIFIED_IN_GAME`.
+Luis aprobó globalmente los 14 personajes Kenney, la configuración B, ambas sedes, el depósito y el
+montón del patio. La aprobación está registrada en `04-human-review.md`; ningún test la sustituye.
+
+## Personajes Kenney
 
 | Gate | Resultado |
 | --- | --- |
-| `art:jobs:validate` | 80 jobs, 0 inválidos |
-| `art:runtime-references:check` | 1.173 referencias / 1.173 archivos, 0 ausentes, 0 huérfanos, 0 hashes divergentes |
-| `art:character-factory:validate` + self-test | 14/14 candidatos Kenney; 13/13 mutaciones inválidas rechazadas |
-| Coherencia del catálogo generado | 17/17 edificios; 26/102 estados; 14/14 personajes; 0/14 previews runtime |
-| Smoke WP-CHAR-04 | 14 roles, 28 frames, 1.528 comprobaciones, 0 errores/advertencias |
-| Comparación B/D densa | 4 capturas, 0 errores; B recomendado técnicamente |
-| Depósito municipal | 12/12 pruebas específicas; baseline sin depósito exacto; save/load v3; smoke Composer 4 m válido |
-| Depósito Composer | 48 candidatas, matriz y hashes válidos; 8/8 pruebas de gate |
-| PNG del depósito | 48/48 RGBA, dimensiones/alfa/pivote/escala válidos; 48 hashes únicos |
-| Gameplay del depósito | 144/144 capturas, tres zooms, 0 errores de página; 144 hashes únicos |
-| Fixtures generador v5 | 12 ciudades, 12 distritos y 10 digestos medidos |
-| Web | 459 passed / 4 skipped |
-| Shared | 81 passed |
-| Typecheck | PASS |
-| Arquitectura | PASS |
-| Build web y laboratorio | PASS |
-| Licencias | PASS |
-| Blender runtime integrity | 263 imágenes/jobs, 22.594.162 B |
-| Composer | 18 gramáticas, 15 promociones, 4 candidatos WP06; válido |
-| Composer candidatos/geometría | firmas históricas restauradas y 4/4 controles + geometría en verde |
-| Sedes Composer | 96 candidatas, matriz y hashes válidos; 8/8 pruebas de gate |
-| PNG de sedes | 96/96 RGBA, dimensiones/alfa/pivote/escala válidos; 96 hashes únicos |
-| Gameplay de sedes | 288/288 capturas, dos identidades, tres zooms, 0 errores de página; procedencia válida |
-| Catálogo visual browser | 17 edificios, 26 estados, 14 personajes, 16 capturas, 0 errores |
-| Enlaces del cierre | 13 Markdown, 0 rotos; 2/2 pruebas del guard |
-| Enlaces globales | 29 rotos preexistentes fuera del cierre; no se modifican en este encargo |
-| Procedimiento PNG local | `docs/art/ART-PIPELINE.md` §44; limitado a máquina con staging preparado; sin promoción runtime |
-| Staging local | `art:jobs:validate` y `art:licenses:check` PASS; `art:staging:validate` y `art:sources:audit:check` rojos por deuda previa documentada |
-| Binarios | 1.798 archivos, 168 excepciones nombradas; bundles 22.594.162 B y 853.314 B, PASS |
-| Lint global | FAIL preexistente: 51 incidencias en 18 archivos sin cambios en este trabajo; lint de los archivos del paquete PASS |
+| `art:character-factory:validate` | PASS: 14/14 Kenney runtime-ready y human-approved |
+| Self-test Character Factory | PASS: 14/14 mutaciones inválidas rechazadas |
+| Coherencia catálogo generado | PASS: 14/14 definiciones y 14/14 runtime-ready |
+| Smoke canónico `2026-11-25-smoke-15` | PASS: 28/28 frames, 1.528 comprobaciones, 0 errores/advertencias |
+| Contrato del batch | PASS: 6/6 pruebas; 14×4×(1 idle+8 walk)=504 |
+| `batch-03` frames | PASS: 504/504, 504 hashes únicos, 13.353 comprobaciones, 0 errores |
+| `batch-03` lámina y validación final | PASS: 13.894 comprobaciones, 0 errores; 14 avisos walk-0=idle |
+| Promoción runtime | PASS: 504 PNG en `characters-kenney/`, 14 contratos en ambos bundles |
+| Captura Phaser a 34 px | PASS: 16 capturas, 14 roles, 0 errores de página |
 
-## Simulación
+`batch-01-failed-framing` y `batch-02-failed-accessory-drift` se conservan locales como evidencia
+histórica. `batch-03` corrige clipping, drift por acción, soporte corporal y hashes de atlas sin
+cambiar la apariencia de `smoke-15`.
 
-La suite completa inicial dio 22 fallos. El worktree baseline `116b6e0` reprodujo 18. Los cinco
-nuevos se corrigieron en `2d79e72` y la fixture Alpha se regeneró en `c2204d5`. La repetición final
-sobre v5 dio 17 fallos: todos están en la lista baseline y el triplete de acería de la seed 2026 ya
-pasa. No hay regresiones nuevas; los 17 restantes siguen siendo deuda previa en
-`building-reference-lifecycle`, `canonical-state`, `h1-footprint-interaction`, `headquarters`,
-`market-actionability`, `movement-tick-counter`, `phase4-integration`, `reputation`,
-`vd7a-multiparcel` y `wp2_15`.
+## Edificios
 
-## Commits locales
+| Gate | Resultado |
+| --- | --- |
+| Auditoría reproducible de sedes | PASS: 96/96 PNG, 96 hashes únicos, 288/288 capturas, 0 errores |
+| Auditoría reproducible del depósito | PASS: 48/48 PNG, 48 hashes únicos, 144/144 capturas, 0 errores |
+| Building Composer | PASS: 18 gramáticas, 15 promociones, 4 perfiles; 52/52 mutaciones; geometría 300/300 |
+| Promoción de matrices | PASS: 432 variantes diurnas + 432 nocturnas |
+| Validadores canónicos HQ/depósito | PASS con aprobación humana registrada y runtime protegido |
+| Suites HQ/depósito | PASS: 8/8 + 8/8 |
 
-- `c563c62`: cobertura visual 17/17, allowlist binaria y retirada de renders obsoletos.
-- `4143c42`: 96 candidatas de sedes, 288 capturas y gate de procedencia sin promoción runtime.
-- `0467a13`: 48 candidatas del depósito, 144 capturas y gate de procedencia sin promoción runtime.
+Las 23 advertencias de borde de sedes y 30 del depósito quedan registradas para revisión visual;
+no son fallos de RGBA, hash, fuente o licencia.
 
-## Gates humanos
+## Verificación dentro del juego
 
-- Aprobación visual de los 14 personajes Kenney: PENDIENTE.
-- Ratificación de B frente a D: PENDIENTE.
-- Revisión de sedes y depósito en ciudad: PENDIENTE.
-- Playtest humano V.d: `PENDING HUMAN PLAYTEST`.
+Evidencia: `docs/art/world-activation-2026-11-26/manifest.json` y 13 PNG en la misma carpeta.
+El arnés inyecta una fixture QA en la ciudad Phaser real, pero resuelve los sprites por los
+manifiestos runtime de producción.
 
-Ningún gate automático sustituye estas aprobaciones.
+- Día/noche: `complete`, `foundation`, `structure`, `finishing`, `damaged` y `burning`.
+- Edificios: `headquarters_cupola`, `headquarters_courtyard` y `cleaning_depot` con orientaciones
+  0/180/90 y texturas runtime visibles.
+- Personajes: cuadrilla de supervisor + dos trabajadores en idle/walk, día y noche.
+- Carga: 0 errores de página; referencias runtime 1.902/1.902, sin ausentes/huérfanos/hashes
+  divergentes.
+- Caché de variantes: máximo **71.597.816 B** (<96 MiB); purga el mood opuesto al conmutar.
+- Caché de personajes: máximo **39.845.888 B** (<96 MiB); carga perezosa por grupo y calibración
+  por frame a 34 px.
+- Frame time en rasterizador software: día p50 83,3 ms / p95 83,4 ms; noche p50 100,1 ms /
+  p95 133,2 ms. No se declara gate de 60 FPS sin GPU.
+- Save/load IndexedDB: SnapshotV3, caja conservada y SHA-256 del snapshot idéntico antes/después
+  de cargar. El Worker reanuda el reloj por diseño; el delta de tick del navegador es informativo.
+- Determinismo de modelo denso: 3/3 pruebas de integración (1 skip opt-in), incluido mismo estado →
+  mismo mundo.
+
+## Gates técnicos globales
+
+| Gate | Resultado |
+| --- | --- |
+| `art:jobs:validate` | PASS: 81 jobs |
+| `art:licenses:check` | PASS en los tres bundles |
+| Blender noche | PASS: 771 imágenes/jobs |
+| Blender día | PASS: 771 imágenes/jobs; 72 frames de entorno regenerados |
+| Typecheck web / arquitectura / lint focalizado | PASS |
+| Build web | PASS |
+| Suite web | PASS: 464 passed / 4 skipped |
+| Suite shared | PASS: 81/81 |
+| Dominio `headquarters` | PASS: 4/4, incluido barrido de 60 seeds aislado |
+| Enlaces de documentación | PASS: 13 Markdown, 0 rotos |
+| Presupuesto binario | PASS: 1.798 binarios, 169 excepciones |
+| Formato / `git diff --check` | PASS |
+
+## Pendientes ajenos a la activación
+
+- El playtest humano V.d sigue `PENDING HUMAN PLAYTEST`.
+- La validación FPS en GPU sigue pendiente; la máquina actual usa rasterizador software.

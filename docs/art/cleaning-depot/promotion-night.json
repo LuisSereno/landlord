@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "promoted_approved_human",
+  "matrix": "docs/art/cleaning-depot/candidate-matrix.json",
+  "matrixSha256": "1fb45a3b1182d1eacf3bcefe9af94366dc32472751e3bce9334b9e910d1b9f17",
+  "plan": "docs/art/cleaning-depot/promotion-plan.json",
+  "planSha256": "a1aa9c19e5357742664c679ceccbb94ef4ea22420d5b0e037643f5e9cb595727",
+  "approvalStatus": "approved_human",
+  "approvedBy": "luis",
+  "approvedAt": "2026-11-26",
+  "mood": "night_civic",
+  "types": [
+    "cleaning_depot"
+  ],
+  "promoted": 24,
+  "totalVariants": 432,
+  "output": "apps/web/src/generated/runtime-building-variants-night.json",
+  "outputSha256": "fc38c8512d54adf3afc8f5fc9f4aee05e3afc8eba7e980e9a9c65ba4adc94d72"
+}

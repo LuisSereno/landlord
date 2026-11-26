@@ -21,7 +21,7 @@ function validate(overrides = {}) {
   });
 }
 
-test("cleaning depot candidate package passes without runtime promotion", () => {
+test("cleaning depot candidate package passes with registered human approval", () => {
   const result = validate();
   assert.equal(result.status, "valid", result.errors.join("\n"));
   assert.equal(result.matrix.totalAssets, 48);
@@ -61,9 +61,9 @@ test("metadata hash divergence is rejected", () => {
   assert.ok(result.errors.some((error) => error.includes("sha metadata")));
 });
 
-test("human approval cannot be predeclared by the candidate package", () => {
+test("missing human approval is rejected", () => {
   const promotionPlan = clone(read("promotion-plan.json"));
-  promotionPlan.approvalStatus = "human_approved";
+  promotionPlan.approvalStatus = "pending_human";
   const result = validate({ promotionPlan });
   assert.equal(result.status, "failed");
   assert.ok(result.errors.some((error) => error.includes("aprobación humana")));

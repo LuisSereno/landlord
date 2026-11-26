@@ -31,12 +31,15 @@ const TYPES = [
   "police_station",
   "fire_station",
   "market_hall",
+  "headquarters_cupola",
+  "headquarters_courtyard",
+  "cleaning_depot",
 ];
 
 describe("V.j.5 manifiesto de variantes", () => {
-  it("cumple el contrato y cubre 15 tipos × estados × orientaciones", () => {
+  it("cumple el contrato y cubre 18 tipos visuales × estados × orientaciones", () => {
     expect(validateBuildingVariantManifest(BUILDING_VARIANTS)).toEqual([]);
-    expect(Object.keys(BUILDING_VARIANTS.variants)).toHaveLength(360);
+    expect(Object.keys(BUILDING_VARIANTS.variants)).toHaveLength(432);
     for (const type of TYPES) {
       expect(hasRealVariants(type)).toBe(true);
       for (const orientation of BUILDING_PHYSICAL_ORIENTATIONS) {
@@ -131,7 +134,7 @@ describe("V.j.5 resolución prioriza variante real sobre procedural", () => {
 
   it("mantiene un catálogo completo y separado para el grado nocturno", () => {
     expect(validateBuildingVariantManifest(NIGHT_BUILDING_VARIANTS)).toEqual([]);
-    expect(Object.keys(NIGHT_BUILDING_VARIANTS.variants)).toHaveLength(360);
+    expect(Object.keys(NIGHT_BUILDING_VARIANTS.variants)).toHaveLength(432);
     const day = resolveBuildingVariant("row_house", "complete", 90, null, "day");
     const night = resolveBuildingVariant("row_house", "complete", 90, null, "night");
     expect(night?.moodId).toBe("night_civic");

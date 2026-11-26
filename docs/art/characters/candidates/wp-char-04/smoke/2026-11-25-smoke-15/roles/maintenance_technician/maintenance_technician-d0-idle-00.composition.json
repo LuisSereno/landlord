@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-25-smoke-15",
+  "role": "maintenance_technician",
+  "canonicalId": "maintenance_technician",
+  "stage": "smoke",
+  "direction": 0,
+  "animation": "idle",
+  "sampleIndex": 0,
+  "actionFrame": 0,
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-f.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-f.glb",
+    "sha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710",
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "0ab6949ee62182ab8ed333bc39c15b7fda3d57130fca9eab82095e6a609dcf36"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "declaredAccessoryOrder": [
+    "work_cap"
+  ],
+  "accessoryObjectCount": 2,
+  "accessories": [
+    {
+      "name": "wp04_technician_cap_crown",
+      "type": "work_cap",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        1.28,
+        1.2032,
+        0.21
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.64,
+          -0.630779,
+          1.62
+        ],
+        "max": [
+          0.64,
+          0.572421,
+          1.83
+        ]
+      },
+      "widthToHeadRatio": 0.80913
+    },
+    {
+      "name": "wp04_technician_cap_brim",
+      "type": "work_cap",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.76,
+        0.31,
+        0.045
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.38,
+          -0.76418,
+          1.6075
+        ],
+        "max": [
+          0.38,
+          -0.454179,
+          1.6525
+        ]
+      },
+      "widthToHeadRatio": 0.480421
+    }
+  ],
+  "maxAccessoryDrift": 8.940696716308594e-08,
+  "skinnedClothing": null,
+  "geometryChanges": [],
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "cameraBounds": {
+    "minX": 0.151477,
+    "maxX": 0.862243,
+    "minY": 0.056089,
+    "maxY": 0.955689,
+    "clipped": false
+  },
+  "ground": {
+    "minZ": 0.0,
+    "groundingOffsetMeters": -0.0,
+    "toleranceMeters": 1e-06
+  },
+  "output": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/maintenance_technician/maintenance_technician-d0-idle-00.png",
+    "sha256": "1feb45e3b64e71a5f0ff0cdaf9e76413723ba55e53a28128b4c63982aed9725e",
+    "width": 512,
+    "height": 512
+  },
+  "metadata": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/maintenance_technician/maintenance_technician-prototype.json",
+    "sha256": "6aaa22a02c282e7226935aba630da336fa86a30d0950883c0f9bf180731d5ff4"
+  },
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false
+}

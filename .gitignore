@@ -28,3 +28,12 @@ docs/art/organization-headquarters/gameplay-capture-v1/
 docs/art/cleaning-depot/attempts/
 docs/art/cleaning-depot/candidates-*/
 docs/art/cleaning-depot/gameplay-capture-v1/
+
+# Full character candidate frames stay local; final review sheets and JSON evidence are versioned.
+docs/art/characters/candidates/wp-char-04/batch/*/roles/
+docs/art/characters/candidates/wp-char-04/batch/*/logs/
+docs/art/characters/candidates/wp-char-04/batch/*/role-sheets/
+docs/art/characters/candidates/wp-char-04/batch/*/scale-captures/
+docs/art/characters/candidates/wp-char-04/batch/*-failed-*/
+apps/web/qa-character-batch-*/
+docs/art/world-activation-2026-11-26/*.png

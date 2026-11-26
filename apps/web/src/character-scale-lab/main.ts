@@ -1,5 +1,11 @@
 import Phaser from "phaser";
-import { ARRANGEMENTS, DEFAULT_CONFIG_ID, SCALE_CONFIGS, type ArrangementId, type ScaleConfigId } from "./config";
+import {
+  ARRANGEMENTS,
+  DEFAULT_CONFIG_ID,
+  SCALE_CONFIGS,
+  type ArrangementId,
+  type ScaleConfigId,
+} from "./config";
 import { CharacterScaleLabScene } from "./scene";
 import type { LabSpriteManifest } from "./types";
 import "./style.css";
@@ -17,6 +23,12 @@ declare global {
       setMotionEnabled: (enabled: boolean) => void;
       setMotionPhase: (phase: number) => void;
       setCharacterDirection: (role: string, direction: number) => void;
+      setCharacterPose: (
+        role: string,
+        animation: "idle" | "walk",
+        direction: number,
+        sampleIndex: number,
+      ) => void;
       gridCellToScreen: (cell: { x: number; y: number }) => { x: number; y: number };
       screenToWorld: (x: number, y: number) => { x: number; y: number };
       worldToScreen: (x: number, y: number) => { x: number; y: number };
@@ -29,8 +41,11 @@ declare global {
 }
 
 async function bootstrap(): Promise<void> {
-  const response = await fetch("/qa-character-scale/manifest.json");
-  if (!response.ok) throw new Error(`No se pudo cargar el manifiesto del laboratorio: ${response.status}`);
+  const labId = new URLSearchParams(window.location.search).get("manifest") ?? "character-scale";
+  if (!/^[a-z0-9-]+$/u.test(labId)) throw new Error("Identificador de laboratorio no válido");
+  const response = await fetch(`/qa-${labId}/manifest.json`);
+  if (!response.ok)
+    throw new Error(`No se pudo cargar el manifiesto del laboratorio: ${response.status}`);
   const manifest = (await response.json()) as LabSpriteManifest;
   const root = document.querySelector<HTMLDivElement>("#lab-root");
   if (!root) throw new Error("Falta #lab-root");
@@ -56,7 +71,10 @@ async function bootstrap(): Promise<void> {
         <div class="control-group">
           <span>Posición</span>
           ${(Object.keys(ARRANGEMENTS) as ArrangementId[])
-            .map((id) => `<button data-arrangement="${id}" class="${id === "street" ? "active" : ""}">${id}</button>`)
+            .map(
+              (id) =>
+                `<button data-arrangement="${id}" class="${id === "street" ? "active" : ""}">${id}</button>`,
+            )
             .join("")}
         </div>
         <label><input id="pause" type="checkbox" /> Pausar</label>
@@ -80,7 +98,9 @@ async function bootstrap(): Promise<void> {
     render: { antialias: true, pixelArt: false, roundPixels: false },
     scene: new CharacterScaleLabScene(manifest, (state) => {
       if (!status) return;
-      const heights = state.characters.map((character) => `${character.role}:${character.screenHeight.toFixed(1)}`).join(" · ");
+      const heights = state.characters
+        .map((character) => `${character.role}:${character.screenHeight.toFixed(1)}`)
+        .join(" · ");
       status.value = `${state.config} · zoom ${state.cameraZoom.toFixed(2)}× · ${state.fps.toFixed(0)} FPS · ${state.spriteCount} sprites · ${heights}`;
       if (state.ready) installApi();
     }),
@@ -100,6 +120,8 @@ async function bootstrap(): Promise<void> {
       setMotionEnabled: (enabled) => active.setMotionEnabled(enabled),
       setMotionPhase: (phase) => active.setMotionPhase(phase),
       setCharacterDirection: (role, direction) => active.setCharacterDirection(role, direction),
+      setCharacterPose: (role, animation, direction, sampleIndex) =>
+        active.setCharacterPose(role, animation, direction, sampleIndex),
       gridCellToScreen: (cell) => active.gridCellToScreen(cell),
       screenToWorld: (x, y) => active.screenToWorld(x, y),
       worldToScreen: (x, y) => active.worldToScreen(x, y),
@@ -112,25 +134,57 @@ async function bootstrap(): Promise<void> {
   root.querySelectorAll<HTMLButtonElement>("[data-config]").forEach((button) => {
     button.addEventListener("click", () => {
       scene?.setConfig(button.dataset.config as ScaleConfigId);
-      root.querySelectorAll("[data-config]").forEach((item) => item.classList.toggle("active", item === button));
+      root
+        .querySelectorAll("[data-config]")
+        .forEach((item) => item.classList.toggle("active", item === button));
     });
   });
   root.querySelectorAll<HTMLButtonElement>("[data-arrangement]").forEach((button) => {
     button.addEventListener("click", () => {
       scene?.setArrangement(button.dataset.arrangement as ArrangementId);
-      root.querySelectorAll("[data-arrangement]").forEach((item) => item.classList.toggle("active", item === button));
+      root
+        .querySelectorAll("[data-arrangement]")
+        .forEach((item) => item.classList.toggle("active", item === button));
     });
   });
-  root.querySelector<HTMLInputElement>("#pause")?.addEventListener("change", (event) => scene?.setPaused((event.target as HTMLInputElement).checked));
-  root.querySelector<HTMLInputElement>("#grid")?.addEventListener("change", (event) => scene?.setShowGrid((event.target as HTMLInputElement).checked));
-  root.querySelector<HTMLInputElement>("#pivots")?.addEventListener("change", (event) => scene?.setShowPivots((event.target as HTMLInputElement).checked));
-  root.querySelector<HTMLInputElement>("#references")?.addEventListener("change", (event) => scene?.setShowReferences((event.target as HTMLInputElement).checked));
-  root.querySelector<HTMLInputElement>("#motion")?.addEventListener("change", (event) => scene?.setMotionEnabled((event.target as HTMLInputElement).checked));
+  root
+    .querySelector<HTMLInputElement>("#pause")
+    ?.addEventListener("change", (event) =>
+      scene?.setPaused((event.target as HTMLInputElement).checked),
+    );
+  root
+    .querySelector<HTMLInputElement>("#grid")
+    ?.addEventListener("change", (event) =>
+      scene?.setShowGrid((event.target as HTMLInputElement).checked),
+    );
+  root
+    .querySelector<HTMLInputElement>("#pivots")
+    ?.addEventListener("change", (event) =>
+      scene?.setShowPivots((event.target as HTMLInputElement).checked),
+    );
+  root
+    .querySelector<HTMLInputElement>("#references")
+    ?.addEventListener("change", (event) =>
+      scene?.setShowReferences((event.target as HTMLInputElement).checked),
+    );
+  root
+    .querySelector<HTMLInputElement>("#motion")
+    ?.addEventListener("change", (event) =>
+      scene?.setMotionEnabled((event.target as HTMLInputElement).checked),
+    );
   root.querySelector<HTMLButtonElement>("#reset")?.addEventListener("click", () => {
     scene?.reset();
     const current = scene?.getState();
-    root.querySelectorAll<HTMLButtonElement>("[data-config]").forEach((button) => button.classList.toggle("active", button.dataset.config === current?.config));
-    root.querySelectorAll<HTMLButtonElement>("[data-arrangement]").forEach((button) => button.classList.toggle("active", button.dataset.arrangement === current?.arrangement));
+    root
+      .querySelectorAll<HTMLButtonElement>("[data-config]")
+      .forEach((button) =>
+        button.classList.toggle("active", button.dataset.config === current?.config),
+      );
+    root
+      .querySelectorAll<HTMLButtonElement>("[data-arrangement]")
+      .forEach((button) =>
+        button.classList.toggle("active", button.dataset.arrangement === current?.arrangement),
+      );
     for (const id of ["pause", "pivots"]) {
       const input = root.querySelector<HTMLInputElement>(`#${id}`);
       if (input) input.checked = false;

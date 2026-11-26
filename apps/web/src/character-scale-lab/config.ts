@@ -42,7 +42,7 @@ export const SCALE_CONFIGS: Record<ScaleConfigId, ScaleConfig> = {
   },
 };
 
-export type ArrangementId = "street" | "lineup" | "door" | "vehicle" | "dense";
+export type ArrangementId = "street" | "lineup" | "door" | "vehicle" | "dense" | "catalog";
 
 export const ARRANGEMENTS: Record<ArrangementId, Record<string, GridCell>> = {
   street: {
@@ -76,6 +76,22 @@ export const ARRANGEMENTS: Record<ArrangementId, Record<string, GridCell>> = {
     police: { x: 17, y: 10 },
     firefighter: { x: 20, y: 10 },
   },
+  catalog: {
+    civilian_male_a: { x: 3, y: 7 },
+    civilian_male_b: { x: 5, y: 7 },
+    civilian_female_a: { x: 7, y: 7 },
+    civilian_female_b: { x: 9, y: 7 },
+    supervisor: { x: 11, y: 7 },
+    construction_worker_a: { x: 13, y: 7 },
+    construction_worker_b: { x: 15, y: 7 },
+    maintenance_technician: { x: 17, y: 7 },
+    enforcer_male: { x: 3, y: 11 },
+    enforcer_female: { x: 5, y: 11 },
+    police: { x: 7, y: 11 },
+    firefighter: { x: 9, y: 11 },
+    medical_professional: { x: 11, y: 11 },
+    municipal_professional: { x: 13, y: 11 },
+  },
 };
 
 export const CAMERA_TARGETS: Record<ArrangementId, GridCell> = {
@@ -84,4 +100,5 @@ export const CAMERA_TARGETS: Record<ArrangementId, GridCell> = {
   door: { x: 5, y: 5 },
   vehicle: { x: 15, y: 9 },
   dense: { x: 12, y: 9 },
+  catalog: { x: 10, y: 9 },
 };

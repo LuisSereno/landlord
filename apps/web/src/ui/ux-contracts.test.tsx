@@ -540,6 +540,8 @@ describe("V.k.4 · la ficha de obra habla por el helper de cuadrillas", () => {
       onBeginSite: () => {},
       onUpdateSite: () => {},
       onCancelSite: () => {},
+      availabilityKey: "test",
+      checkAvailability: () => Promise.resolve(null),
       pendingPlacement: null,
       placementHandlers: null,
       placementBlockers: [],

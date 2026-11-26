@@ -1,0 +1,1118 @@
+{
+  "schemaVersion": 1,
+  "status": "captured",
+  "purpose": "Approved assets resolved through production runtime manifests in the real Phaser city; QA projection fixture only.",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "pageErrors": [],
+  "captures": [
+    {
+      "name": "day-complete-idle",
+      "state": "complete",
+      "mood": "day",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/day-complete-idle.png",
+      "bytes": 1031418,
+      "sha256": "fe27776bd0ff9b6ecb4ef2ad4ce849dd00df860fd0e6b96dd449edcf9fbe9274",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:complete:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:complete:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:complete:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 497,
+        "crewSprites": 0,
+        "signage": 4,
+        "signageVisible": 1,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 138,
+        "groundRebakes": 2,
+        "groundBakeLastMs": 297.2999999988824,
+        "groundBakeMaxMs": 350.30000000074506
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 24681156,
+        "loadedCount": 7,
+        "cacheBytes": 24681156,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "byDistrict": {
+          "district_00000004": 24681156
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      },
+      "frameTime": {
+        "samples": 60,
+        "p50Ms": 83.30000000000291,
+        "p95Ms": 100,
+        "maxMs": 100.09999999999854
+      }
+    },
+    {
+      "name": "day-foundation-idle",
+      "state": "foundation",
+      "mood": "day",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/day-foundation-idle.png",
+      "bytes": 1004266,
+      "sha256": "4abe049dbadcf3a3b1da61380605c717c2457b523cdf0d76a3c953b6f2302df2",
+      "rendered": [
+        {
+          "id": "site:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:construction:foundation:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:construction:foundation:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:construction:foundation:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 500,
+        "crewSprites": 3,
+        "signage": 3,
+        "signageVisible": 0,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 3,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 3,
+        "groundBakeLastMs": 279,
+        "groundBakeMaxMs": 350.30000000074506
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 33840724,
+        "loadedCount": 10,
+        "cacheBytes": 33840724,
+        "cacheCount": 10,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "byDistrict": {
+          "district_00000004": 33840724
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "day-structure-idle",
+      "state": "structure",
+      "mood": "day",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/day-structure-idle.png",
+      "bytes": 1051566,
+      "sha256": "b670e83f0ef690a0e9b02a2cd96e91d8b240191259357269a1502a8bdbfce3b0",
+      "rendered": [
+        {
+          "id": "site:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:construction:structure:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:construction:structure:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:construction:structure:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 500,
+        "crewSprites": 3,
+        "signage": 3,
+        "signageVisible": 0,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 3,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 3,
+        "groundBakeLastMs": 281.2999999988824,
+        "groundBakeMaxMs": 350.30000000074506
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 47353788,
+        "loadedCount": 13,
+        "cacheBytes": 47353788,
+        "cacheCount": 13,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "byDistrict": {
+          "district_00000004": 47353788
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "day-finishing-idle",
+      "state": "finishing",
+      "mood": "day",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/day-finishing-idle.png",
+      "bytes": 1030410,
+      "sha256": "ed19378edcfd27c791d98d6ce113a3e8dded254bee2918da24f0ea97d5d11bec",
+      "rendered": [
+        {
+          "id": "site:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:construction:finishing:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:construction:finishing:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:construction:finishing:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 500,
+        "crewSprites": 3,
+        "signage": 3,
+        "signageVisible": 0,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 3,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 3,
+        "groundBakeLastMs": 352.7999999988824,
+        "groundBakeMaxMs": 352.7999999988824
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 59147588,
+        "loadedCount": 16,
+        "cacheBytes": 59147588,
+        "cacheCount": 16,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "byDistrict": {
+          "district_00000004": 59147588
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "day-damaged-idle",
+      "state": "damaged",
+      "mood": "day",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/day-damaged-idle.png",
+      "bytes": 1023531,
+      "sha256": "f0f5d2b6106e9aebe0fad7df3f092ee25f567fdebd3738bc78a0ea5eafd9bea7",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:damaged:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:damaged:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:damaged:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 500,
+        "crewSprites": 3,
+        "signage": 3,
+        "signageVisible": 0,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 4,
+        "groundBakeLastMs": 290.30000000074506,
+        "groundBakeMaxMs": 352.7999999988824
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 71597816,
+        "loadedCount": 19,
+        "cacheBytes": 71597816,
+        "cacheCount": 19,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "byDistrict": {
+          "district_00000004": 71597816
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "night-complete-idle",
+      "state": "complete",
+      "mood": "night",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/night-complete-idle.png",
+      "bytes": 1013812,
+      "sha256": "45b1977e51b053c226d82f0cc96401888268564c7da83e4d67e7a5ec2688fc95",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-night-headquarters_cupola:complete:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-night-headquarters_courtyard:complete:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-night-cleaning_depot:complete:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 501,
+        "crewSprites": 3,
+        "signage": 4,
+        "signageVisible": 1,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 4,
+        "groundBakeLastMs": 379.19999999925494,
+        "groundBakeMaxMs": 379.19999999925494
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 108729200,
+        "loadedCount": 29,
+        "cacheBytes": 37131384,
+        "cacheCount": 10,
+        "evictedCount": 19,
+        "evictedBytes": 71597816,
+        "byDistrict": {
+          "district_00000004": 37131384
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      },
+      "frameTime": {
+        "samples": 60,
+        "p50Ms": 116.59999999999854,
+        "p95Ms": 150,
+        "maxMs": 150
+      }
+    },
+    {
+      "name": "night-finishing-idle",
+      "state": "finishing",
+      "mood": "night",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/night-finishing-idle.png",
+      "bytes": 1011800,
+      "sha256": "776808c8235be4a4579459d1132a0778dbf306c8d9247cfe426ace6f34f4a464",
+      "rendered": [
+        {
+          "id": "site:qa_approved_hq_cupola",
+          "texture": "blender-variant-night-headquarters_cupola:construction:finishing:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_hq_courtyard",
+          "texture": "blender-variant-night-headquarters_courtyard:construction:finishing:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "site:qa_approved_depot",
+          "texture": "blender-variant-night-cleaning_depot:construction:finishing:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 500,
+        "crewSprites": 3,
+        "signage": 3,
+        "signageVisible": 0,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 3,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 5,
+        "groundBakeLastMs": 321,
+        "groundBakeMaxMs": 379.19999999925494
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 120523000,
+        "loadedCount": 32,
+        "cacheBytes": 48925184,
+        "cacheCount": 13,
+        "evictedCount": 19,
+        "evictedBytes": 71597816,
+        "byDistrict": {
+          "district_00000004": 48925184
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "night-burning-idle",
+      "state": "burning",
+      "mood": "night",
+      "animation": "idle",
+      "file": "docs/art/world-activation-2026-11-26/night-burning-idle.png",
+      "bytes": 1016839,
+      "sha256": "dd6dcee55fe9b6364d1f26855ea935740dafb74babb5845dae716035c9ab4ed8",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-night-headquarters_cupola:burning:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-night-headquarters_courtyard:burning:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-night-cleaning_depot:burning:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 500,
+        "crewSprites": 3,
+        "signage": 3,
+        "signageVisible": 0,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 6,
+        "groundBakeLastMs": 300.09999999962747,
+        "groundBakeMaxMs": 379.19999999925494
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 134442276,
+        "loadedCount": 35,
+        "cacheBytes": 62844460,
+        "cacheCount": 16,
+        "evictedCount": 19,
+        "evictedBytes": 71597816,
+        "byDistrict": {
+          "district_00000004": 62844460
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 14680064,
+        "loadedCount": 7,
+        "cacheBytes": 14680064,
+        "cacheCount": 7,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "day-crew-walk-0",
+      "state": "complete",
+      "mood": "day",
+      "animation": "walk",
+      "phase": 0,
+      "file": "docs/art/world-activation-2026-11-26/day-crew-walk-0.png",
+      "bytes": 1032753,
+      "sha256": "af4449fe9b7c64ad896e66c34bd8d353cc6492aa485b0515fb28aabcbf9b755d",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:complete:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:complete:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:complete:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 501,
+        "crewSprites": 3,
+        "signage": 4,
+        "signageVisible": 1,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 6,
+        "groundBakeLastMs": 351.09999999962747,
+        "groundBakeMaxMs": 379.19999999925494
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 173042708,
+        "loadedCount": 45,
+        "cacheBytes": 38600432,
+        "cacheCount": 10,
+        "evictedCount": 35,
+        "evictedBytes": 134442276,
+        "byDistrict": {
+          "district_00000004": 38600432
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 31457280,
+        "loadedCount": 9,
+        "cacheBytes": 31457280,
+        "cacheCount": 9,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "day-crew-walk-1",
+      "state": "complete",
+      "mood": "day",
+      "animation": "walk",
+      "phase": 1,
+      "file": "docs/art/world-activation-2026-11-26/day-crew-walk-1.png",
+      "bytes": 1032516,
+      "sha256": "e0f24834699094803a46932458c91d66d54665775ef211dc2b4e8342d7870e9d",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:complete:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:complete:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:complete:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 501,
+        "crewSprites": 3,
+        "signage": 4,
+        "signageVisible": 1,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 6,
+        "groundBakeLastMs": 393,
+        "groundBakeMaxMs": 393
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 173042708,
+        "loadedCount": 45,
+        "cacheBytes": 38600432,
+        "cacheCount": 10,
+        "evictedCount": 35,
+        "evictedBytes": 134442276,
+        "byDistrict": {
+          "district_00000004": 38600432
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 39845888,
+        "loadedCount": 10,
+        "cacheBytes": 39845888,
+        "cacheCount": 10,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "day-crew-walk-2",
+      "state": "complete",
+      "mood": "day",
+      "animation": "walk",
+      "phase": 2,
+      "file": "docs/art/world-activation-2026-11-26/day-crew-walk-2.png",
+      "bytes": 1033032,
+      "sha256": "67dc704276e2c4b6d921f6672e7ba3371a92a56dfea567d1fc5dda84639d688f",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:complete:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:complete:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:complete:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 501,
+        "crewSprites": 3,
+        "signage": 4,
+        "signageVisible": 1,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 6,
+        "groundBakeLastMs": 343.7999999988824,
+        "groundBakeMaxMs": 393
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 173042708,
+        "loadedCount": 45,
+        "cacheBytes": 38600432,
+        "cacheCount": 10,
+        "evictedCount": 35,
+        "evictedBytes": 134442276,
+        "byDistrict": {
+          "district_00000004": 38600432
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 39845888,
+        "loadedCount": 10,
+        "cacheBytes": 39845888,
+        "cacheCount": 10,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "day-crew-walk-3",
+      "state": "complete",
+      "mood": "day",
+      "animation": "walk",
+      "phase": 3,
+      "file": "docs/art/world-activation-2026-11-26/day-crew-walk-3.png",
+      "bytes": 1033085,
+      "sha256": "34702e5891a307120e73457ceb99b1955225c825ce3266cd74d87b1eff554240",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-day-headquarters_cupola:complete:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-day-headquarters_courtyard:complete:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-day-cleaning_depot:complete:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 501,
+        "crewSprites": 3,
+        "signage": 4,
+        "signageVisible": 1,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 6,
+        "groundBakeLastMs": 417.5,
+        "groundBakeMaxMs": 417.5
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 173042708,
+        "loadedCount": 45,
+        "cacheBytes": 38600432,
+        "cacheCount": 10,
+        "evictedCount": 35,
+        "evictedBytes": 134442276,
+        "byDistrict": {
+          "district_00000004": 38600432
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 39845888,
+        "loadedCount": 10,
+        "cacheBytes": 39845888,
+        "cacheCount": 10,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    },
+    {
+      "name": "night-crew-walk-2",
+      "state": "complete",
+      "mood": "night",
+      "animation": "walk",
+      "phase": 2,
+      "file": "docs/art/world-activation-2026-11-26/night-crew-walk-2.png",
+      "bytes": 1014576,
+      "sha256": "71c71b7c5097f693c17d24052d63e1843d7617898f35a0f1716cff3bca1e8d81",
+      "rendered": [
+        {
+          "id": "building:qa_approved_hq_cupola",
+          "texture": "blender-variant-night-headquarters_cupola:complete:-:0",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_hq_courtyard",
+          "texture": "blender-variant-night-headquarters_courtyard:complete:-:180",
+          "scale": 0.18793535712599269,
+          "visible": true
+        },
+        {
+          "id": "building:qa_approved_depot",
+          "texture": "blender-variant-night-cleaning_depot:complete:-:90",
+          "scale": 0.18793535712599269,
+          "visible": true
+        }
+      ],
+      "gameplay": {
+        "buildings": 7,
+        "decorations": 60,
+        "roadCells": 384,
+        "junctions": 7,
+        "crossings": 7,
+        "streetLights": 7,
+        "trafficLights": 0,
+        "benches": 3,
+        "trashCans": 1,
+        "parkedVehicles": 46,
+        "trees": 60,
+        "placementObjects": 0,
+        "placementLabelPool": 0,
+        "placementDraws": 1,
+        "sceneChildren": 501,
+        "crewSprites": 3,
+        "signage": 4,
+        "signageVisible": 1,
+        "indicators": 0,
+        "assetsReady": true,
+        "spritePlanBuildings": 6,
+        "parcelMarks": 0,
+        "facadeMarks": 0,
+        "glyphTextures": 0,
+        "statusTweens": 0,
+        "statusGameObjects": 0,
+        "totalSprites": 141,
+        "groundRebakes": 6,
+        "groundBakeLastMs": 345.40000000037253,
+        "groundBakeMaxMs": 417.5
+      },
+      "districtAssets": {
+        "loadedBytesTotal": 197723864,
+        "loadedCount": 52,
+        "cacheBytes": 24681156,
+        "cacheCount": 7,
+        "evictedCount": 45,
+        "evictedBytes": 173042708,
+        "byDistrict": {
+          "district_00000004": 24681156
+        },
+        "budgetBytes": 100663296
+      },
+      "characterAssets": {
+        "loadedBytesTotal": 39845888,
+        "loadedCount": 10,
+        "cacheBytes": 39845888,
+        "cacheCount": 10,
+        "evictedCount": 0,
+        "evictedBytes": 0,
+        "budgetBytes": 100663296
+      }
+    }
+  ],
+  "saveLoad": {
+    "status": "passed",
+    "beforeSave": {
+      "tick": 32,
+      "cash": 12000
+    },
+    "afterLoad": {
+      "tick": 52,
+      "cash": 12000
+    },
+    "storedBeforeLoad": {
+      "schemaVersion": 3,
+      "tick": 33,
+      "sha256": "97ff3791bc5de6016f9ae3d02157a29593fe36b6677bf7afa50bd8c382f7b7c0"
+    },
+    "storedAfterLoad": {
+      "schemaVersion": 3,
+      "tick": 33,
+      "sha256": "97ff3791bc5de6016f9ae3d02157a29593fe36b6677bf7afa50bd8c382f7b7c0"
+    },
+    "workerTickDelta": 20,
+    "exactBrowserTickComparison": false
+  }
+}

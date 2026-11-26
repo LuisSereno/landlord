@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "catalogId": "organization-headquarters-candidates-v1",
   "domainType": "headquarters",
-  "status": "candidate_only_pending_human_visual_approval",
+  "status": "approved_promoted_runtime",
   "variantSeed": 5101,
   "footprintCells": { "width": 4, "height": 2 },
   "stateTokens": ["complete", "foundation", "structure", "finishing", "damaged", "burning"],

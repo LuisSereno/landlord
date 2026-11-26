@@ -55,6 +55,7 @@ describe("patios de equipamientos (WP-D)", () => {
       { type: "police_station", site: [3, 2], building: [2, 1], asset: "veh_police" },
       { type: "fire_station", site: [4, 2], building: [3, 1], asset: "veh_firetruck" },
       { type: "market_hall", site: [5, 2], building: [4, 1], asset: "veh_delivery" },
+      { type: "cleaning_depot", site: [4, 2], building: [3, 1], asset: "veh_garbage" },
     ];
     for (const c of cases) {
       const siteCells = rect(0, 0, c.site[0], c.site[1]);
@@ -79,6 +80,26 @@ describe("patios de equipamientos (WP-D)", () => {
       expect(footprint.has(key(vehicles[0]!.cell))).toBe(false);
       expect(access.has(key(vehicles[0]!.cell))).toBe(false);
       expect(plan.keepFree.map(key)).toContain(key(vehicles[0]!.cell));
+    }
+  });
+
+  it("el depósito sitúa camión y residuos en su patio de 4×2 sin invadir huella ni acceso", () => {
+    const siteCells = rect(0, 0, 4, 2);
+    const footprintCells = rect(0, 1, 3, 1);
+    const plan = planFacilityCourtyard(
+      { id: "depot-1", type: "cleaning_depot", siteCells, footprintCells },
+      rect(0, 0, 4, 1),
+    )!;
+    expect(plan).not.toBeNull();
+    const vehicle = plan.elements.find((entry) => entry.asset === "veh_garbage");
+    expect(vehicle?.cells).toHaveLength(2);
+    expect(plan.elements.map((entry) => entry.asset)).toContain("prp_waste_heap");
+    const blocked = new Set([...footprintCells, ...plan.accessCells].map(key));
+    for (const entry of plan.elements) {
+      for (const cell of entry.cells ?? [entry.cell]) {
+        expect(siteCells.map(key)).toContain(key(cell));
+        expect(blocked.has(key(cell))).toBe(false);
+      }
     }
   });
 

@@ -133,13 +133,12 @@ describe("V.h visual remediation", () => {
     expect(vehicleAzimuthForLane("straight_ns", backwardSouth, false)).toBe(45);
   });
 
-  it("keeps a 256px Rocketbox frame in a 22-32px urban-height envelope", () => {
-    expect(CHARACTER_RENDER_SCALE).toBeCloseTo(0.109375);
+  it("keeps a 512px Kenney frame at the approved 34px urban height", () => {
+    expect(CHARACTER_RENDER_SCALE).toBeCloseTo(34 / 512);
     expect(CHARACTER_SOURCE_FRAME_PIXELS * CHARACTER_RENDER_SCALE).toBe(
       CHARACTER_TARGET_HEIGHT_PIXELS,
     );
-    expect(CHARACTER_TARGET_HEIGHT_PIXELS).toBeGreaterThanOrEqual(22);
-    expect(CHARACTER_TARGET_HEIGHT_PIXELS).toBeLessThanOrEqual(32);
+    expect(CHARACTER_TARGET_HEIGHT_PIXELS).toBe(34);
   });
 
   it("lifts baked characters above the ground they walk on without clipping the bake", () => {

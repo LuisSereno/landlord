@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "stage": "smoke",
+  "status": "passed",
+  "runId": "2026-11-25-smoke-15",
+  "runRoot": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710",
+  "checkCount": 1528,
+  "errorCount": 0,
+  "warningCount": 0,
+  "errors": [],
+  "warnings": [],
+  "roles": [
+    {
+      "role": "construction_worker_a",
+      "canonicalId": "construction_worker_a",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 21.771087646484375,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "supervisor",
+      "canonicalId": "supervisor",
+      "frames": 2,
+      "maxAccessoryDrift": 1.4901161193847656e-07,
+      "walkIdlePixelMad": 16.547502517700195,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "construction_worker_b",
+      "canonicalId": "construction_worker_b",
+      "frames": 2,
+      "maxAccessoryDrift": 1.4901161193847656e-07,
+      "walkIdlePixelMad": 13.22183609008789,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "maintenance_technician",
+      "canonicalId": "maintenance_technician",
+      "frames": 2,
+      "maxAccessoryDrift": 8.940696716308594e-08,
+      "walkIdlePixelMad": 11.062023162841797,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "enforcer_male",
+      "canonicalId": "enforcer_male",
+      "frames": 2,
+      "maxAccessoryDrift": 7.450580596923828e-08,
+      "walkIdlePixelMad": 10.46042537689209,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "enforcer_female",
+      "canonicalId": "enforcer_female",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 12.004510879516602,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_male_a",
+      "canonicalId": "civilian_male_a",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 21.225053787231445,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_male_b",
+      "canonicalId": "civilian_male_b",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 18.106143951416016,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_female_a",
+      "canonicalId": "civilian_female_a",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 25.98843765258789,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_female_b",
+      "canonicalId": "civilian_female_b",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 23.02989387512207,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "police",
+      "canonicalId": "police",
+      "frames": 2,
+      "maxAccessoryDrift": 5.960464477539063e-08,
+      "walkIdlePixelMad": 15.697952270507812,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "firefighter",
+      "canonicalId": "firefighter",
+      "frames": 2,
+      "maxAccessoryDrift": 1.4901161193847656e-07,
+      "walkIdlePixelMad": 16.707040786743164,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "medical_professional",
+      "canonicalId": "medical_professional",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 21.790416717529297,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "municipal_professional",
+      "canonicalId": "municipal_professional",
+      "frames": 2,
+      "maxAccessoryDrift": 0.0,
+      "walkIdlePixelMad": 19.789052963256836,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "technicalStatus": "passed_pending_human_visual_review"
+    }
+  ],
+  "counts": {
+    "roles": 14,
+    "frames": 28,
+    "uniqueFrameHashes": 28,
+    "contactSheetInputs": 28
+  },
+  "walkDeltaReviewThreshold": 0.01,
+  "technicalValidation": "passed",
+  "artisticApproval": "pending_human",
+  "humanApprovalClaimed": false,
+  "runtimePromotion": false,
+  "productionReady": false,
+  "batchRendered": false,
+  "unresolvedVisualIssues": [
+    "Human artistic approval is pending for all 14 candidates.",
+    "Enforcer female jacket fit, collar clearance and cuff boundaries need full-cycle human review.",
+    "Only D0 idle-00 and D0 walk-04 are rendered; other directions and walk samples are not evidence.",
+    "Seven-bone Kenney rig has no intermediate elbows/knees; work/repair/carry/sabotage clips are not evaluated.",
+    "Legacy Rocketbox runtime mappings remain unchanged until a separately authorized human-approved promotion."
+  ]
+}

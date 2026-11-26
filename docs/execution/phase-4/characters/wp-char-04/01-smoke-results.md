@@ -12,14 +12,25 @@ Fecha: 2026-11-25. Rama: `wip/organization-headquarters`. Estado:
 
 ## Evidencia
 
-- [Lámina de revisión offline](../../../../art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/contact-sheet.png)
-- [Validación independiente](../../../../art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/smoke-validation.json)
-- [Ejecución y hashes](../../../../art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/execution.json)
+- [Lámina de revisión offline revisada](../../../../art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/contact-sheet.png)
+- [Validación independiente revisada](../../../../art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/smoke-validation.json)
+- [Ejecución y hashes revisados](../../../../art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/execution.json)
+- [Lámina anterior conservada para comparar](../../../../art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-06/contact-sheet.png)
 - [Diagnóstico de animación de enforcer B](../../../../art/characters/candidates/wp-char-04/diagnostics/enforcer-female/animation-diagnosis.json)
 
 Resultado: **1.528 comprobaciones, 0 errores, 0 advertencias, 28 hashes únicos**. Se verifican
 proceso Blender, sentinel, salida fresca, fuente/licencia, atlas, cámara, suelo, alfa, bordes,
 magenta, deriva de accesorios y sidecars por frame.
+
+Revisión `smoke-15`: el trabajador B mantiene la chaqueta naranja y los dos agentes de seguridad
+usan tonos gris pizarra más legibles. Los cascos y la gorra cubren la parte superior del pelo; la
+gorra del técnico tiene copa y visera. El casco del supervisor y la gorra del técnico se desplazaron
+0,12 unidades hacia atrás sobre la cabeza. Se retiraron libreta, carpetas, bolso y caja de herramientas
+que aparecían incrustados en los brazos; el rig Kenney de siete huesos no tiene manos independientes
+para sujetarlos con fiabilidad. El pelo original del trabajador B se elimina localmente bajo el casco.
+La técnica recupera el pelo y la gorra de `smoke-13`, según la revisión visual del usuario; se descartó
+la sustitución de pelo de `smoke-14`. Estas son propuestas visuales,
+aún sin aprobación humana ni promoción runtime.
 
 ## Corrección medida
 

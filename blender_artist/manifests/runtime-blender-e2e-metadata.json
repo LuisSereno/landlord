@@ -34568,5 +34568,561 @@
       "author": "Landlord project; CC0 modules by Quaternius/Kenney",
       "notes": "D-109 (2026-11-18): rehorneado con huella física 4×1 y solar reservado separado; mood day_civic registrado como procedencia (D-108). QA de capturas diurna/nocturna en el acta de cierre. Candidato promovido: vf_market_hall_1000."
     }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_waste_heap",
+    "kind": "prop",
+    "label": "prp_waste_heap",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4348,
+      "y": 0.5806
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-unX06t/prp_waste_heap.png",
+      "width": 46,
+      "height": 31,
+      "sha256": "55ae097ca807448fa35a6224a82c1396fd57c10fc4dd32f07269d3c95f493931"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 92,
+        "height": 62,
+        "offsetX": 216,
+        "offsetY": 220
+      },
+      "final": {
+        "width": 46,
+        "height": 31
+      },
+      "supersample": 2
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kaykit_city_builder_bits via trash_A.gltf",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 45,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "styleLayer": {
+      "version": 7,
+      "atlases": [
+        "citybits_texture"
+      ],
+      "flatMaterials": 0,
+      "emissiveTexels": 0,
+      "litWindows": 0,
+      "exposure": -0.25
+    },
+    "shadow": {
+      "pass": true,
+      "keySunAngleDegrees": 3,
+      "strength": 1.5,
+      "frameScale": 3
+    },
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 2654.1,
+      "totalMs": 32460.42
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_waste_heap",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kaykit_city_builder_bits",
+        "--license",
+        "CC0-1.0",
+        "--shadow",
+        "--azimuth",
+        "45",
+        "--output",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap.json"
+      ]
+    },
+    "source": {
+      "id": "src_kaykit_city_builder_bits",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+      "kind": "gltf",
+      "sourceBounds": {
+        "width": 0.1268,
+        "depth": 0.1333,
+        "height": 0.0524,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        -0.0132,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.5071,
+        "depth": 0.5332,
+        "height": 0.2095
+      },
+      "worldSizeMeters": {
+        "x": 0.5071,
+        "y": 0.5332,
+        "z": 0.2095
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_waste_heap",
+    "kind": "prop",
+    "label": "prp_waste_heap",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.4348,
+      "y": 0.6111
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az135.png",
+      "width": 46,
+      "height": 27,
+      "sha256": "0eca425f691242e7446defde80b4e3e849f29d1845cd1d8198768f62b47ee10b"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 92,
+        "height": 54,
+        "offsetX": 216,
+        "offsetY": 223
+      },
+      "final": {
+        "width": 46,
+        "height": 27
+      },
+      "supersample": 2
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kaykit_city_builder_bits via trash_A.gltf",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 135,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "styleLayer": {
+      "version": 7,
+      "atlases": [
+        "citybits_texture"
+      ],
+      "flatMaterials": 0,
+      "emissiveTexels": 0,
+      "litWindows": 0,
+      "exposure": -0.25
+    },
+    "shadow": {
+      "pass": true,
+      "keySunAngleDegrees": 3,
+      "strength": 1.5,
+      "frameScale": 3
+    },
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5302.44,
+      "totalMs": 40167.05
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_waste_heap",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kaykit_city_builder_bits",
+        "--license",
+        "CC0-1.0",
+        "--shadow",
+        "--azimuth",
+        "135",
+        "--output",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az135.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az135.json"
+      ]
+    },
+    "source": {
+      "id": "src_kaykit_city_builder_bits",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+      "kind": "gltf",
+      "sourceBounds": {
+        "width": 0.1268,
+        "depth": 0.1333,
+        "height": 0.0524,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        -0.0132,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.5071,
+        "depth": 0.5332,
+        "height": 0.2095
+      },
+      "worldSizeMeters": {
+        "x": 0.5071,
+        "y": 0.5332,
+        "z": 0.2095
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_waste_heap",
+    "kind": "prop",
+    "label": "prp_waste_heap",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5543,
+      "y": 0.6111
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az225.png",
+      "width": 46,
+      "height": 27,
+      "sha256": "81ba22670ab2174fed8d4688e9db7c365e4213d5aa95018e380705598eb4c0c5"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 92,
+        "height": 54,
+        "offsetX": 205,
+        "offsetY": 223
+      },
+      "final": {
+        "width": 46,
+        "height": 27
+      },
+      "supersample": 2
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kaykit_city_builder_bits via trash_A.gltf",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 225,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "styleLayer": {
+      "version": 7,
+      "atlases": [
+        "citybits_texture"
+      ],
+      "flatMaterials": 0,
+      "emissiveTexels": 0,
+      "litWindows": 0,
+      "exposure": -0.25
+    },
+    "shadow": {
+      "pass": true,
+      "keySunAngleDegrees": 3,
+      "strength": 1.5,
+      "frameScale": 3
+    },
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 5414,
+      "totalMs": 37665.19
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_waste_heap",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kaykit_city_builder_bits",
+        "--license",
+        "CC0-1.0",
+        "--shadow",
+        "--azimuth",
+        "225",
+        "--output",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az225.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az225.json"
+      ]
+    },
+    "source": {
+      "id": "src_kaykit_city_builder_bits",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+      "kind": "gltf",
+      "sourceBounds": {
+        "width": 0.1268,
+        "depth": 0.1333,
+        "height": 0.0524,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        -0.0132,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.5071,
+        "depth": 0.5332,
+        "height": 0.2095
+      },
+      "worldSizeMeters": {
+        "x": 0.5071,
+        "y": 0.5332,
+        "z": 0.2095
+      }
+    }
+  },
+  {
+    "schemaVersion": 1,
+    "assetId": "prp_waste_heap",
+    "kind": "prop",
+    "label": "prp_waste_heap",
+    "state": null,
+    "direction": 0,
+    "animation": "idle",
+    "frame": 0,
+    "footprint": null,
+    "pivot": {
+      "x": 0.5543,
+      "y": 0.5806
+    },
+    "image": {
+      "path": "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az315.png",
+      "width": 46,
+      "height": 31,
+      "sha256": "775e2696b2d3688edc5f47945ef1d28b12a6835798f0ff6363d7ba38b870201b"
+    },
+    "trim": {
+      "rendered": {
+        "width": 512,
+        "height": 512
+      },
+      "cropped": {
+        "width": 92,
+        "height": 62,
+        "offsetX": 205,
+        "offsetY": 220
+      },
+      "final": {
+        "width": 46,
+        "height": 31
+      },
+      "supersample": 2
+    },
+    "origin": "licensed",
+    "license": "CC0-1.0",
+    "author": "src_kaykit_city_builder_bits via trash_A.gltf",
+    "toolchain": {
+      "blender": "5.2.2 LTS",
+      "buildHash": "d13f752e3b9c",
+      "renderer": "BLENDER_EEVEE"
+    },
+    "camera": {
+      "projection": "ORTHO",
+      "azimuthDegrees": 315,
+      "elevationDegrees": 30,
+      "orthoScale": 3
+    },
+    "palette": "graphic_civic",
+    "styleLayer": {
+      "version": 7,
+      "atlases": [
+        "citybits_texture"
+      ],
+      "flatMaterials": 0,
+      "emissiveTexels": 0,
+      "litWindows": 0,
+      "exposure": -0.25
+    },
+    "shadow": {
+      "pass": true,
+      "keySunAngleDegrees": 3,
+      "strength": 1.5,
+      "frameScale": 3
+    },
+    "render": {
+      "colorMode": "RGBA",
+      "colorDepth": 8,
+      "transparentFilm": true,
+      "renderMs": 4819.36,
+      "totalMs": 35063.2
+    },
+    "reproducibility": {
+      "script": "tools/art-pipeline/blender/runtime_asset.py",
+      "argv": [
+        "--asset",
+        "prp_waste_heap",
+        "--kind",
+        "prop",
+        "--source",
+        "gltf:blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+        "--unit-scale",
+        "4",
+        "--ortho-scale",
+        "3",
+        "--target-z",
+        "0",
+        "--render-width",
+        "256",
+        "--render-height",
+        "256",
+        "--source-id",
+        "src_kaykit_city_builder_bits",
+        "--license",
+        "CC0-1.0",
+        "--shadow",
+        "--azimuth",
+        "315",
+        "--output",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az315.png",
+        "--metadata",
+        "/tmp/landlord-blender-assets-unX06t/prp_waste_heap-az315.json"
+      ]
+    },
+    "source": {
+      "id": "src_kaykit_city_builder_bits",
+      "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf",
+      "kind": "gltf",
+      "sourceBounds": {
+        "width": 0.1268,
+        "depth": 0.1333,
+        "height": 0.0524,
+        "minZ": 0
+      },
+      "importScale": 4,
+      "importOffset": [
+        -0.0132,
+        0,
+        0
+      ],
+      "hierarchy": {
+        "armatures": [],
+        "skinnedMeshes": 0
+      },
+      "normalizedSize": {
+        "width": 0.5071,
+        "depth": 0.5332,
+        "height": 0.2095
+      },
+      "worldSizeMeters": {
+        "x": 0.5071,
+        "y": 0.5332,
+        "z": 0.2095
+      }
+    }
   }
 ]

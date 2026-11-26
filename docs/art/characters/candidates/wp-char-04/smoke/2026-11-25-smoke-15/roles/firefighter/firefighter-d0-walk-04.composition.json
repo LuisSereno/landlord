@@ -1,0 +1,377 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-25-smoke-15",
+  "role": "firefighter",
+  "canonicalId": "firefighter",
+  "stage": "smoke",
+  "direction": 0,
+  "animation": "walk",
+  "sampleIndex": 4,
+  "actionFrame": 8,
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-a.glb",
+    "sha256": "c1cba637e1d946822df07385fabf9d1bc55255ce19e0e8f7124d767e03987126",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710",
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "0ab6949ee62182ab8ed333bc39c15b7fda3d57130fca9eab82095e6a609dcf36"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "declaredAccessoryOrder": [
+    "fire_helmet_v2",
+    "belt"
+  ],
+  "accessoryObjectCount": 8,
+  "accessories": [
+    {
+      "name": "wp04_firefighter_helmet_crown",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        1.339302,
+        1.40529,
+        0.26
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.669651,
+          -0.702645,
+          1.565
+        ],
+        "max": [
+          0.669651,
+          0.702645,
+          1.825
+        ]
+      },
+      "widthToHeadRatio": 1.101437
+    },
+    {
+      "name": "wp04_firefighter_helmet_brim",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        1.54,
+        1.54,
+        0.06
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.77,
+          -0.77,
+          1.55
+        ],
+        "max": [
+          0.77,
+          0.77,
+          1.61
+        ]
+      },
+      "widthToHeadRatio": 1.266491
+    },
+    {
+      "name": "wp04_firefighter_helmet_visor",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.72,
+        0.26,
+        0.05
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.36,
+          -0.65,
+          1.565
+        ],
+        "max": [
+          0.36,
+          -0.39,
+          1.615
+        ]
+      },
+      "widthToHeadRatio": 0.592126
+    },
+    {
+      "name": "wp04_firefighter_helmet_rear_flap",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.72,
+        0.129802,
+        0.229319
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.36,
+          0.415099,
+          1.555341
+        ],
+        "max": [
+          0.36,
+          0.544901,
+          1.784659
+        ]
+      },
+      "widthToHeadRatio": 0.592126
+    },
+    {
+      "name": "wp04_firefighter_helmet_front_shield",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.22,
+        0.04,
+        0.16
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.11,
+          -0.56,
+          1.735
+        ],
+        "max": [
+          0.11,
+          -0.52,
+          1.895
+        ]
+      },
+      "widthToHeadRatio": 0.180927
+    },
+    {
+      "name": "wp04_firefighter_helmet_crest",
+      "type": "fire_helmet_v2",
+      "bone": "head",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.06,
+        0.43,
+        0.05
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.03,
+          -0.215,
+          1.905
+        ],
+        "max": [
+          0.03,
+          0.215,
+          1.955
+        ]
+      },
+      "widthToHeadRatio": 0.049344
+    },
+    {
+      "name": "wp04_firefighter_belt",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.728,
+        0.507,
+        0.045466
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.364,
+          -0.182745,
+          0.867421
+        ],
+        "max": [
+          0.364,
+          0.324255,
+          0.912887
+        ]
+      },
+      "widthToHeadRatio": 0.598705
+    },
+    {
+      "name": "wp04_firefighter_belt_buckle",
+      "type": "belt",
+      "bone": "torso",
+      "constraints": [
+        "CHILD_OF"
+      ],
+      "dimensionsMeters": [
+        0.075,
+        0.025,
+        0.055
+      ],
+      "boundsMeters": {
+        "min": [
+          -0.0375,
+          -0.176745,
+          0.862654
+        ],
+        "max": [
+          0.0375,
+          -0.151745,
+          0.917654
+        ]
+      },
+      "widthToHeadRatio": 0.06168
+    }
+  ],
+  "maxAccessoryDrift": 1.4901161193847656e-07,
+  "skinnedClothing": null,
+  "geometryChanges": [
+    {
+      "mesh": "head-mesh",
+      "operation": "delete_local_components",
+      "components": [
+        2
+      ],
+      "polygons": 52,
+      "componentEvidence": [
+        {
+          "component": 2,
+          "polygons": 52,
+          "vertices": 82,
+          "dominantGroups": {
+            "null": 52
+          },
+          "localBounds": {
+            "min": [
+              -0.166583,
+              -0.164605,
+              0.435273
+            ],
+            "max": [
+              0.163417,
+              0.018986,
+              0.531093
+            ]
+          }
+        }
+      ],
+      "sourceModified": false
+    }
+  ],
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "cameraBounds": {
+    "minX": 0.165217,
+    "maxX": 0.834782,
+    "minY": 0.0746,
+    "maxY": 0.982512,
+    "clipped": false
+  },
+  "ground": {
+    "minZ": 0.0,
+    "groundingOffsetMeters": 0.070781,
+    "toleranceMeters": 1e-06
+  },
+  "output": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-d0-walk-04.png",
+    "sha256": "a849a2fbb2d01600e5d90613fa0fc5e62330a8375912f014d389e4ecd7d0e64e",
+    "width": 512,
+    "height": 512
+  },
+  "metadata": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-prototype.json",
+    "sha256": "ecc46c185254d81df676e3a7db365d9de668ff0f5ed45ca234b18a0215159690"
+  },
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false
+}

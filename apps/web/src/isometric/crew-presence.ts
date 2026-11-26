@@ -9,6 +9,7 @@ import type {
 } from "@landlord/shared";
 
 import { crewVisualState, type CrewVisualState } from "./construction-stages";
+import { crewCharacterFor } from "./character-selection";
 
 /**
  * V.k.2 · lectura pura de cuadrillas. No mueve ni un agente: cruza lo que la proyección ya publica
@@ -276,6 +277,7 @@ export type CrewSpriteObservation = {
 export function crewSpriteObservations(
   projection: ViewProjectionV3,
   previous: ReadonlyMap<AgentId, CrewSpriteObservation>,
+  manifest?: RuntimeAssetManifestV2,
 ): Map<AgentId, CrewSpriteObservation> {
   const observations = new Map<AgentId, CrewSpriteObservation>();
   const economy = projection.economy;
@@ -301,7 +303,9 @@ export function crewSpriteObservations(
       observations.set(agentId, {
         agentId,
         siteId: row.site.id,
-        character: CREW_CHARACTER,
+        character: manifest
+          ? crewCharacterFor(manifest, agent.specialty ?? "construction_worker", agentId)
+          : CREW_CHARACTER,
         animation: plan.animation,
         direction: plan.direction,
         visualState: plan.visualState,

@@ -1084,12 +1084,23 @@ la revisión visual humana y no se promueve ningún sprite al runtime. Inventari
   (1.528 comprobaciones, 0 errores/advertencias); el catálogo generado declara 17/17 edificios y
   14/14 personajes. La comparación B/D densa recomienda B; el batch de 504 frames sigue pendiente
   de aprobación humana.
+- Revisión visual local `smoke-15`: trabajador B naranja y agentes de seguridad con mayor contraste;
+  cascos y gorra reajustados al ancho de la cabeza, con casco de supervisor y gorra de técnico
+  desplazados 0,12 unidades hacia atrás. Se eliminaron libreta, carpetas, bolso y caja
+  sujetos al brazo porque se incrustaban en la malla del rig sin manos independientes. Se quitó el
+  pelo bajo el casco del trabajador B; la técnica recuperó el pelo y la gorra de `smoke-13` tras
+  la revisión del usuario, descartando la sustitución de `smoke-14`. Lámina y
+  28 PNG en `docs/art/characters/candidates/wp-char-04/`; siguen sin promoción ni aprobación humana.
 - Paquete de depósito local `0467a13`. D-112 implementa `cleaning_depot`: municipal, 3×1, solar 4×2,
   +6 celdas de radio local, máximo 36,
   baseline sin depósito exacto y SnapshotV3 compatible. Commit local `f7f628e`; 60/60 pruebas
   focalizadas verdes. Generador v5 y fixtures medidas en 12 ciudades/12 distritos/10 digestos. Las
   48 candidatas Composer de chapa 4 m y 144 capturas en ciudad pasan matriz, hashes y validación
   PNG; la aprobación visual humana sigue pendiente.
+- El patio de `cleaning_depot` incorpora camión `veh_garbage`, contenedor y montón CC0 KayKit
+  `prp_waste_heap`; el planificador de patio tiene 7/7 pruebas y los catálogos Blender diurno y
+  nocturno pasan referencia y presupuesto binario. La composición en ciudad requiere revisión
+  visual a escala de juego.
 - Paquete de sedes local `4143c42`: `headquarters_cupola` y `headquarters_courtyard` completan
   96 candidatas Composer (48 por mood) y 288 capturas de gameplay: matriz, hashes, huellas, placas
   neutrales, accesos de servicio y
@@ -1102,3 +1113,27 @@ la revisión visual humana y no se promueve ningún sprite al runtime. Inventari
 - El estado de los 14 sprites Kenney y del arte Composer del depósito sigue separado entre
   validación técnica, revisión visual humana y promoción runtime. El playtest humano V.d permanece
   `PENDING HUMAN PLAYTEST`.
+
+## Preparación del nuevo mundo con Kenney y edificios nuevos (2026-11-25)
+
+- `smoke-15` es la versión visual de referencia de los 14 personajes: conserva el trabajador B
+  corregido y la técnica con el aspecto restaurado. El enlace de revisión de `04-human-review.md`
+  ya no apunta a `smoke-06`.
+- El runner de batch completo 14×4×(1 idle+8 walk)=504 está implementado. `batch-01` se conserva
+  local por clipping de supervisor/firefighter; `batch-02` se detuvo por medición de drift con la
+  acción idle; `batch-03` aplica cámara con 5 % de margen, drift por acción, soporte corporal y
+  validación por payload de atlas. Resultado: 504/504 frames, 504 hashes únicos, 13.894
+  comprobaciones, 0 errores y 14 advertencias walk-0=idle. Luis aprobó el conjunto el 2026-11-26 y
+  los 504 frames están promovidos en los bundles diurno y nocturno.
+- Las 96 variantes de sedes y 48 del depósito tienen auditoría reproducible por asset: PNG,
+  fuentes/licencias, hashes y procedencia de 432 capturas, 0 errores. Tras la aprobación humana se
+  promovieron a `runtime-building-variants*.json`: 432 variantes por mood. Los validadores canónicos
+  y sus 16 pruebas de mutación pasan.
+- El laboratorio Phaser está aislado para revisar los 14 a 34 px sin publicar candidatos en el
+  build de producción; 16 capturas pasan sin errores de página. La evidencia final y las decisiones
+  humanas se registran en
+  `docs/execution/phase-4/catalog-closure/04-human-review.md`.
+- Activación: `APPROVED_PROMOTED_VERIFIED_IN_GAME`. La escena usa una caché LRU de 96 MiB y
+  calibración por frame a 34 px; no precarga los 504 PNG. Las 13 capturas en la ciudad real pasan
+  día/noche, seis estados, cuadrillas idle/walk y save/load SnapshotV3; máximos medidos de caché
+  71,6 MiB de variantes y 39,8 MiB de personajes. El playtest V.d sigue `PENDING HUMAN PLAYTEST`.

@@ -92,17 +92,9 @@ describe("V.d-UX · miniatura de edificio", () => {
     for (const type of buildingTypeSchema.options) {
       const variant = BUILDING_VARIANTS.variants[`${type}:complete:-:0`];
       if (type === "headquarters") {
-        expect(variant, type).toBeUndefined();
-        expect(buildingThumbnailSource(type), type).toBe(
-          PROCEDURAL_ASSETS.buildings.headquarters?.states.complete?.src,
-        );
-        continue;
-      }
-      if (type === "cleaning_depot") {
-        expect(variant, type).toBeUndefined();
-        expect(buildingThumbnailSource(type), type).toBe(
-          PROCEDURAL_ASSETS.buildings.cleaning_depot?.states.complete?.src,
-        );
+        const cupola = BUILDING_VARIANTS.variants["headquarters_cupola:complete:-:0"];
+        expect(cupola, type).toBeDefined();
+        expect(buildingThumbnailSource(type), type).toBe(cupola?.image.src);
         continue;
       }
       expect(variant, type).toBeDefined();

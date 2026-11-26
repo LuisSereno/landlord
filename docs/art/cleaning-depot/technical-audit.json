@@ -1,0 +1,3632 @@
+{
+  "schemaVersion": 1,
+  "tool": "scripts/audit-building-candidate-evidence.py",
+  "family": "cleaning-depot",
+  "status": "passed",
+  "scope": "candidate PNG mode/size/nonempty alpha/hash, metadata hash, source paths/licenses/hashes and gameplay canvas hashes; border alpha is a visual-review warning; protected-runtime guard is reported separately by the canonical validator",
+  "assetCount": 48,
+  "uniquePngHashes": 48,
+  "captureCount": 144,
+  "captureErrors": [],
+  "errors": [],
+  "warnings": [
+    "cd_cleaning_depot_5101|day_civic: 159 border pixels have alpha >2 (max 212); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101|night_civic: 159 border pixels have alpha >2 (max 211); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_o90|day_civic: 159 border pixels have alpha >2 (max 212); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_o90|night_civic: 159 border pixels have alpha >2 (max 211); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_o180|day_civic: 159 border pixels have alpha >2 (max 212); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_o180|night_civic: 159 border pixels have alpha >2 (max 211); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_o270|day_civic: 159 border pixels have alpha >2 (max 212); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_o270|night_civic: 159 border pixels have alpha >2 (max 211); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation|day_civic: 5 border pixels have alpha >2 (max 98); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation|night_civic: 5 border pixels have alpha >2 (max 97); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation_o90|day_civic: 4 border pixels have alpha >2 (max 87); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation_o90|night_civic: 5 border pixels have alpha >2 (max 86); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation_o180|day_civic: 5 border pixels have alpha >2 (max 98); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation_o180|night_civic: 5 border pixels have alpha >2 (max 97); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation_o270|day_civic: 4 border pixels have alpha >2 (max 87); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_foundation_o270|night_civic: 5 border pixels have alpha >2 (max 86); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_structure|day_civic: 3 border pixels have alpha >2 (max 10); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_structure|night_civic: 3 border pixels have alpha >2 (max 10); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_finishing|day_civic: 158 border pixels have alpha >2 (max 34); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_finishing|night_civic: 158 border pixels have alpha >2 (max 34); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_finishing_o270|day_civic: 158 border pixels have alpha >2 (max 34); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_finishing_o270|night_civic: 158 border pixels have alpha >2 (max 34); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_damaged|day_civic: 158 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_damaged|night_civic: 158 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_damaged_o270|day_civic: 158 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_damaged_o270|night_civic: 158 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_burning|day_civic: 158 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_burning|night_civic: 158 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_burning_o270|day_civic: 159 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay",
+    "cd_cleaning_depot_5101_burning_o270|night_civic: 159 border pixels have alpha >2 (max 64); inspect shadow/effects clipping in gameplay"
+  ],
+  "sourceFiles": [
+    {
+      "path": "blender_artist/sources/original/construction_barrier.glb",
+      "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce"
+    },
+    {
+      "path": "blender_artist/sources/original/construction_scaffold.glb",
+      "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28"
+    },
+    {
+      "path": "blender_artist/sources/original/damage_debris.glb",
+      "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15"
+    },
+    {
+      "path": "blender_artist/sources/original/fire_flame.glb",
+      "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651"
+    },
+    {
+      "path": "blender_artist/sources/original/fire_smoke.glb",
+      "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963"
+    },
+    {
+      "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+      "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e"
+    },
+    {
+      "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+      "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f"
+    },
+    {
+      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+      "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e"
+    },
+    {
+      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+      "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6"
+    },
+    {
+      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+      "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1"
+    },
+    {
+      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+      "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d"
+    },
+    {
+      "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+      "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd"
+    }
+  ],
+  "assets": [
+    {
+      "candidateId": "cd_cleaning_depot_5101",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101.png",
+      "pngSha256": "8ba6ac76ab812fccdaaea3cf03caaf662523f1bba028fc94ec8f3e683ca3d49e",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101.json",
+      "metadataSha256": "fb6ab9218b064166364cec68b45339aa4a505c7047e12a8725d82baa0b9b115b",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 194756,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 212
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101.png",
+      "pngSha256": "38d24241d3cb7b15c79dcc8249ca0f6798143ed62132e083d18fb82dbc503f5f",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101.json",
+      "metadataSha256": "f172efe1b10dd73a926e8072ab37b50a5f070294c841f9b7ad14e17292a88e94",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 194937,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 211
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_o90",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o90.png",
+      "pngSha256": "3d4471f92e228fb9120b5ca222c8c7c0bbde8793381c484f716644247f655ad9",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o90.json",
+      "metadataSha256": "7aa3077b1639303b268205fdd56c4754d2f9d3b145a6274389b3c202a19a53a2",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 194882,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 212
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_o90",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o90.png",
+      "pngSha256": "b69ca5e2bcdc3c501ca2cb27731eaf8dafd965490f7ecc0474f24cb8bd0592fd",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o90.json",
+      "metadataSha256": "c005281e69d1bc132fb23b6d35cb80bc559760f5a28e8fb511fe6116d4c6e63c",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 195074,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 211
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_o180",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o180.png",
+      "pngSha256": "3e2eec5ba79f6e72889541b30affb5d842655b55da72dec6f49d9bfd0a8b9a93",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o180.json",
+      "metadataSha256": "6fe0de28338c329c98c0b70a9d07555dcf057f437a69ea0697d853d0ff050103",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 194881,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 212
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_o180",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o180.png",
+      "pngSha256": "d2f9a2964a3c549d844d6b21d99cba626eb0fea2a792de40ef9f187c67a2a5a3",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o180.json",
+      "metadataSha256": "7ef628a2af1fc97d87b9bcee7463dfc3996ac319c0ae4e19ca7995673d510a64",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 195062,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 211
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_o270",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o270.png",
+      "pngSha256": "b23dbe97828ee944220201af2eb9a440eb102f6cd14f47f9092d797ae1fb298c",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_o270.json",
+      "metadataSha256": "e45f1a6245d6b57921313c7b78a038b4954ae774df0f047ea1d6fc7238dfb28a",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 194882,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 212
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_o270",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "complete",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o270.png",
+      "pngSha256": "66cbd1044ac5f78bb277660a942296926c4635bd580b79d33fb21328b8dc646e",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_o270.json",
+      "metadataSha256": "6cc9167eaf83109522dd3277f7bd9e47b2fc9cac31cdbd2f5f051add4bc98dc3",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5837
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 613,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 195074,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 211
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation.png",
+      "pngSha256": "cdce8c1b30ea6ecf850a4609f764c7070f5c1c0896dbdce2cca3bb7ef8b00f42",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation.json",
+      "metadataSha256": "939eb2e2181b9414a74d0d8104ae1dfd1e740ed0c70b593a6eaa4be6107ce74f",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 92189,
+        "borderAlphaPixels": 5,
+        "borderAlphaMax": 98
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation.png",
+      "pngSha256": "71990d6d35340cc31d2193bed84a2eec2c30176821234d6c63aceb33f849a427",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation.json",
+      "metadataSha256": "0c1063a2eeb32409f1f864438a3af391ed4215d86b389d124325f8bfb3ee317f",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 92352,
+        "borderAlphaPixels": 5,
+        "borderAlphaMax": 97
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation_o90",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o90.png",
+      "pngSha256": "ce78cd8409e49f0162ba37a1a284d5568c829f29aeb569b3dde41aaa2bfded3b",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o90.json",
+      "metadataSha256": "1aa6958d100fc933dd0dfa2e9a015daef4cec4c04593cf2294238a81097a976e",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 92181,
+        "borderAlphaPixels": 4,
+        "borderAlphaMax": 87
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation_o90",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o90.png",
+      "pngSha256": "d8d889a9a4b110c179e03e7ea1777aeb3b9d8d27e8268792f1501d46b1513b9c",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o90.json",
+      "metadataSha256": "dfbb8180f6039a0841bab92213a0d54637e8f913798626802ae9eb1acb992633",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 92348,
+        "borderAlphaPixels": 5,
+        "borderAlphaMax": 86
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation_o180",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o180.png",
+      "pngSha256": "2a31ebd3e77317177189585e3217c9898a2fa59036b554f395da9c9baf56e982",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o180.json",
+      "metadataSha256": "5022d5769bcb985c7a50b72948f8feef38f58cb844626178da6dd33ab7a47cdb",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 95338,
+        "borderAlphaPixels": 5,
+        "borderAlphaMax": 98
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation_o180",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o180.png",
+      "pngSha256": "7c81d9e31ca3ef717c481d9cbc4d919c81885e2b1ba0ef556ac777e0912458ba",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o180.json",
+      "metadataSha256": "4587303fa29feb034c05c258dcff5112ff5cbbb07d58c9c9d59f8de8ac4573df",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 95504,
+        "borderAlphaPixels": 5,
+        "borderAlphaMax": 97
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation_o270",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o270.png",
+      "pngSha256": "f7d8884d5d20024e49f2e73b8339e1f435175e3f3bf60fb569e1c68956591135",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_foundation_o270.json",
+      "metadataSha256": "eb9a993b8d3eed9641c908d733aca30f7bccc712ab1cfdda7efff2ec8fcca594",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 95345,
+        "borderAlphaPixels": 4,
+        "borderAlphaMax": 87
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_foundation_o270",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "foundation",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o270.png",
+      "pngSha256": "7ae32d16d4eb7d911bcee63e1c02dc6dcda6830f0fdfd6f97e8ca766b02963f4",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_foundation_o270.json",
+      "metadataSha256": "880d9c77d99010b313d982bc546e075ccf314ce69cee7faddf531b704878a673",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.569,
+        "y": 0.5165
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_barrier",
+          "path": "blender_artist/sources/original/construction_barrier.glb",
+          "license": "original",
+          "sha256": "b601058e541c11ea116ce5bdfaa9d1ffb77cb0c05e149b90e616b07a535005ce",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 790,
+        "height": 411,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 95508,
+        "borderAlphaPixels": 5,
+        "borderAlphaMax": 86
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure.png",
+      "pngSha256": "5a4b1b19eff73d84fb64fa9b5f9fffc3f6fa000fc9dd5c4a21d297ed7769c550",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure.json",
+      "metadataSha256": "58551544d38ce0c7caa19be7bca9e06636132b58bc820571c61328ee9baadbfb",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.5605
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 607,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 127807,
+        "borderAlphaPixels": 3,
+        "borderAlphaMax": 10
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure.png",
+      "pngSha256": "d1c0fa78907bff8b1cd2c4a1d8fdf0d1f050f5ac4af0709bb5efd3bfa3d82d2c",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure.json",
+      "metadataSha256": "81e90feb8cd91ab0478b1a40683d1884ddc27f57dba5eb1549d9899c2433d60b",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.5605
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 607,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 128365,
+        "borderAlphaPixels": 3,
+        "borderAlphaMax": 10
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure_o90",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o90.png",
+      "pngSha256": "6f73bd7d4c34dd8c54c1fefc1d735b90a5a0261df0d7b4f07dba5a5993520296",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o90.json",
+      "metadataSha256": "aa97f970cca9236afab4ff676b99b6112b3110b038470469e72a5059ffe6821d",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5688,
+        "y": 0.5509
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 850,
+        "height": 594,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 127986,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure_o90",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o90.png",
+      "pngSha256": "1facff2345bd439ff91f7f1bd64f8c045453ac374a8da1d6066f48d94a6e2805",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o90.json",
+      "metadataSha256": "1bb75926772dcc20df597c252578e531c74e14596f03a23340998a1c066d91e6",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5688,
+        "y": 0.5509
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 850,
+        "height": 594,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 128965,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure_o180",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o180.png",
+      "pngSha256": "8324c8514e565be68a7fd859c2eaa7949e0c6e17df33721d1ec5e1e225fd59c0",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o180.json",
+      "metadataSha256": "f7650d168377314730c1e71af33e65387222f0d10253ed7997225d30ed58f1ab",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.5605
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 607,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 130321,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure_o180",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o180.png",
+      "pngSha256": "d45b2e761025f3891d18fe47e1d3bb8c24be01304863b122de0213ad153a3623",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o180.json",
+      "metadataSha256": "12099880354388c8286a083e29468311204e764704b84998f8faf1aa463110d2",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.5605
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 607,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 131038,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure_o270",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o270.png",
+      "pngSha256": "aa9240e3af66a9270607ab43890ab67274e22393f68358a8bbe948481d55f70c",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_structure_o270.json",
+      "metadataSha256": "c40222f6c6c83b50edf494016afdf96b1a3a0eefa1914aa09051e2a54ed5c098",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5688,
+        "y": 0.5697
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 850,
+        "height": 620,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 132712,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_structure_o270",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "structure",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o270.png",
+      "pngSha256": "9d315e9b84a84cf4303a555a04adec51c93d3b924c018de2004b06c5c920faa2",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_structure_o270.json",
+      "metadataSha256": "d24f49500fe3bd90bcdbf9066a1907a49b1428984303ea89648f80dc10ec3711",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5688,
+        "y": 0.5697
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 850,
+        "height": 620,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 134361,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing.png",
+      "pngSha256": "28051292bae92de6af6bbebdc88cb2147d052926ca43b7c7032879a6d4193e78",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing.json",
+      "metadataSha256": "555620b632b63958656ee41170cf5bffcf2695c8f1f2cfce6cd845c3689d50ee",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5774,
+        "y": 0.5769
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 808,
+        "height": 622,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 195618,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 34
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing.png",
+      "pngSha256": "a1f54f3ec748eecdd0dfe336767ccba59ed0463a0efe934c4d54c7bd46320ff0",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing.json",
+      "metadataSha256": "4843d1ff5f82b1ceeb9e3a23befcfdbdf245fce42e2e8ed883fdb75cc7e6847b",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5774,
+        "y": 0.5769
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 808,
+        "height": 622,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 195628,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 34
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing_o90",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o90.png",
+      "pngSha256": "48d88d7b254b54c1af3edc77fad7ca8158a858d85348026f09973afe956f3988",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o90.json",
+      "metadataSha256": "887c7f5da9623aa7b12f06480c35d5ba131d8c5b1055d07e523bd62af643daa6",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.56,
+        "y": 0.5769
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 833,
+        "height": 622,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 195738,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing_o90",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o90.png",
+      "pngSha256": "9da7e8de23dfdcb62d1dacf258bfba6add245adf6c809eddae5e0f6d34921fad",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o90.json",
+      "metadataSha256": "fe85bdc56f1659a944a0d36fe0e0a72233c19fdaf3975cd48c86af2d4549235b",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.56,
+        "y": 0.5769
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 833,
+        "height": 622,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 195746,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing_o180",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o180.png",
+      "pngSha256": "d42e952079b3b95a8eb1dc16939b536b5203e6217e76734fc2b6d8fb9e125183",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o180.json",
+      "metadataSha256": "c4378a424560777457a9b963b6b7afbc4f851ffc973a1ce0eaf52366df46df58",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.56,
+        "y": 0.5849
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 833,
+        "height": 634,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198086,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing_o180",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o180.png",
+      "pngSha256": "f4e30eb2e51e02200126919fbe9bf40f5c60b95c842b53261bee4b7fbfc798cc",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o180.json",
+      "metadataSha256": "71e51f211b08c000381052fc543c84b193cd351ed3de6a6083f14b24882f02ed",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.56,
+        "y": 0.5849
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 833,
+        "height": 634,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198104,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing_o270",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o270.png",
+      "pngSha256": "57aaad8e71592a04c7dabb8fc1c6bd873496b9902e060a910471e13c0986bb35",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_finishing_o270.json",
+      "metadataSha256": "16b9b55de5d481d4accc1bbb3ed716494935c2e0195cc6bd71c635fe213cc7f4",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5774,
+        "y": 0.5849
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 808,
+        "height": 634,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198203,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 34
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_finishing_o270",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "finishing",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o270.png",
+      "pngSha256": "20f3c54805c83bb25d779de18b9901179a59383396c68b869c863ee0c9092c1e",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_finishing_o270.json",
+      "metadataSha256": "ae1aed68e36d802f4175add8f2f7f3d534ea1653498050b3f1ec7073d3565a4f",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5774,
+        "y": 0.5849
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_construction_scaffold",
+          "path": "blender_artist/sources/original/construction_scaffold.glb",
+          "license": "original",
+          "sha256": "e9b410758c031895ec807295dfc8d0458e48b54e8f56723e245561cc7903fa28",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 808,
+        "height": 634,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198231,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 34
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged.png",
+      "pngSha256": "b7532f29e6c30441565d7a01165a4a66d0211eac0f0d6cd489b144986b7e943f",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged.json",
+      "metadataSha256": "4ccb1cb539b61bdbd6bffd19b35fd793a7aee08a21e43d678cabe87e4f201a73",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.5689
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 630,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198514,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged.png",
+      "pngSha256": "da10116f1f48575c1164420b45be399f7956afd8e960db7ea2ca4be14b82672a",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged.json",
+      "metadataSha256": "b10c84364e1bca6c1f01ae521c10022321c950233373b8ca4e9a27321e197838",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.5689
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 630,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198581,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged_o90",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o90.png",
+      "pngSha256": "472f61bbc91d29471155bae00b516e6025557e6cabda7fb3d54776535adf880e",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o90.json",
+      "metadataSha256": "fe42f72778e734f47ad1a2042b83bb0c60e4c157b628c571edb4f5cec09719c6",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.5689
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 630,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198643,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged_o90",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o90.png",
+      "pngSha256": "be5bfea45b1764d94383d638aaa3dab80b710a0e9e76c701e3848f1701f2e408",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o90.json",
+      "metadataSha256": "9fb18a841a35eb3fdfb9ea206a95c40794c5c7886e48855c0ba18058980e1d52",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.5689
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 630,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 198720,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged_o180",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o180.png",
+      "pngSha256": "8401668cdb559372d31b0e52d02f7b8d7875c9df041de3d9cfe927fc22205d59",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o180.json",
+      "metadataSha256": "8458ace40f77a0dd5ddd870bd6404cfc16f66ed0796f9136d7265b6d76007b0a",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.586
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 656,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 188262,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged_o180",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o180.png",
+      "pngSha256": "8edce46959d58d309f3e4c97096c7ad01503dd0bfdb293c43fe6bdc3d83ad2a1",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o180.json",
+      "metadataSha256": "585efd0c3f7c68b5ce2f679a46283b8815c509d3b5f47d41fa24b70b98bcf3c0",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.586
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 656,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 188344,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged_o270",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o270.png",
+      "pngSha256": "27de581bee685e7cfe4f1daad3a2a96e4c7cd43f866b935d8fb4400bff577ebb",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_damaged_o270.json",
+      "metadataSha256": "0cb499d04cec2224db0b029d82e0c51b727d41d5e7d43b7b258ef12a951fccc6",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.586
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 656,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 186105,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_damaged_o270",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "damaged",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o270.png",
+      "pngSha256": "ddbc1dc88b79fb7fd3f481496049454657b0cee821f6a5f7538cc26ce27c8377",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_damaged_o270.json",
+      "metadataSha256": "bf799af0c1b4687fb97b4d91ee74e78c40a1b1485cdc3c0182d3657cf86c5199",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.586
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 656,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 186248,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning.png",
+      "pngSha256": "db9d69c0365fd18353d1e6f57ed286487ff1e2cd395f90cc3330af422fd15929",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning.json",
+      "metadataSha256": "8049e9f9ea6caa1153126ed28d34306287515af714f255a3fe4ad6e7534c4236",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.6354
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 815,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 207954,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 0,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning.png",
+      "pngSha256": "e15b4e51e8ce78c450afc0ddec3d170492acf45c9005958e31506b549095c53a",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning.json",
+      "metadataSha256": "baccf56eb7d74a1abf998126725c1f0bd1a99c63126e231e9212327356f0ba5c",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.6354
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 815,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 208131,
+        "borderAlphaPixels": 158,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning_o90",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o90.png",
+      "pngSha256": "98924fad9374e6fff1c2188c1dc25e9a3c4e0b97e8d27670459eb649c044633a",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o90.json",
+      "metadataSha256": "aae24c57d16331f68f064bde7bc323ad308169c0bd4d972a3ca205360c78dde1",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.6354
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 815,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 209141,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning_o90",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 90,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o90.png",
+      "pngSha256": "18a23ad6dc07b11c81946d323655fa5d0d9d88892ce803ff9135f03118031c4f",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o90.json",
+      "metadataSha256": "4fb77ff6f9096129dcbe34f3c8f641fb61567db86be0a4dbe11799221dbf0f97",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.6354
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 815,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 209312,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning_o180",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o180.png",
+      "pngSha256": "409dd29853c8f0d369f79852edd39c07100e5579674a5f5a2c82a67dd63d67c0",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o180.json",
+      "metadataSha256": "f766e09f7cbbe127e26f65155711c252f1596c6f713aad4be7ca57abb98f7ccd",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.6462
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 840,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 203738,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 0
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning_o180",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 180,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o180.png",
+      "pngSha256": "135f0671c69afed083061efcb0fabf57cafd44a157317b71040127188db52c43",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o180.json",
+      "metadataSha256": "114968ae6b930e3ee768f07732366e4b76a088f0106792c208bd701e23b6ca9f",
+      "footprint": {
+        "width": 3,
+        "height": 1
+      },
+      "pivot": {
+        "x": 0.5519,
+        "y": 0.6462
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 876,
+        "height": 840,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 203862,
+        "borderAlphaPixels": 0,
+        "borderAlphaMax": 1
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning_o270",
+      "moodId": "day_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o270.png",
+      "pngSha256": "2b9aaf1d0449428570bbffbecd162ec045659e2a1575aa4bf4d88701913bfae4",
+      "metadataPath": "docs/art/cleaning-depot/candidates-day-v1/cd_cleaning_depot_5101_burning_o270.json",
+      "metadataSha256": "7b484a286679da89618fcf3858ce9f65de1fddf10d554d8da2a61350a12fbf3a",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.6462
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 840,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 204229,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    },
+    {
+      "candidateId": "cd_cleaning_depot_5101_burning_o270",
+      "moodId": "night_civic",
+      "buildingType": "cleaning_depot",
+      "stateToken": "burning",
+      "orientation": 270,
+      "pngPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o270.png",
+      "pngSha256": "5918809be5ee3fa5f0ac173d0374f0ec9cc2179ec15b1340c044c75b41ec9610",
+      "metadataPath": "docs/art/cleaning-depot/candidates-night-v1/cd_cleaning_depot_5101_burning_o270.json",
+      "metadataSha256": "5857e9f22825f9d17693f56027ba7e9d2ffaa5941f6d7098f54620dd7bf5c297",
+      "footprint": {
+        "width": 1,
+        "height": 3
+      },
+      "pivot": {
+        "x": 0.5861,
+        "y": 0.6462
+      },
+      "pixelsPerMeter": 60.2,
+      "sources": [
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Floor_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "a4a6514e043eee868b48fa592ec50cdeca18008e63ddf961aad95bf4b21032b6",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_gn_metal_siding_bay",
+          "path": "blender_artist/sources/original/gn_metal_siding_bay_4m.glb",
+          "license": "original",
+          "sha256": "486f3e3b63a3562a087766f6a9ee3b091fc55913d356dca7846efe376cfd923e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Roof_4x4.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2e07d03f08bf1331b5938f0f22e189071bf369caeca0d61131c74b6d3b8d81fd",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/DoorFrame_Metal_Single.gltf",
+          "license": "CC0-1.0",
+          "sha256": "c30cbb493a15191ea6432f246b601d741694015b9e6826ee80759bc66587a39e",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Prop_ACUnit.gltf",
+          "license": "CC0-1.0",
+          "sha256": "f81fae2b49804312d23cc5c56fdf36f6bec89f342df9d135c1565ed31a7e968d",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_damage_debris",
+          "path": "blender_artist/sources/original/damage_debris.glb",
+          "license": "original",
+          "sha256": "9a0fca1ef139cd6cd0fdffa5f57a428dc7660f6c996104b9c3c1bce4e7f2fc15",
+          "exists": true
+        },
+        {
+          "sourceId": "src_kenney_retro_urban_kit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/kenney/retro-urban-kit/Models/GLB format/detail-beam.glb",
+          "license": "CC0-1.0",
+          "sha256": "b3ff8f0ffb2b6136219f52a0c62cc73f8edf8a1ebb73e63fb0ed4c513d23ca5f",
+          "exists": true
+        },
+        {
+          "sourceId": "src_quaternius_downtown_city_megakit",
+          "path": "blender_artist/staging/third_party/cc0/extracted/quaternius/downtown-city-megakit/Exports/glTF (Godot)/Metal_Column_Bottom.gltf",
+          "license": "CC0-1.0",
+          "sha256": "2afa819c9a10b5f488340536833ef25ff610fbc29e18c76fd6052f249de5bbb1",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_flame",
+          "path": "blender_artist/sources/original/fire_flame.glb",
+          "license": "original",
+          "sha256": "32e049f94df448f4e32fa19f29bbb25793f529fb5a103b172f5a074b5e452651",
+          "exists": true
+        },
+        {
+          "sourceId": "src_original_fire_smoke",
+          "path": "blender_artist/sources/original/fire_smoke.glb",
+          "license": "original",
+          "sha256": "fefea13558001c5d6faee75ada4663bcbdbca5bf12f8acb50ab06423056d5963",
+          "exists": true
+        }
+      ],
+      "image": {
+        "width": 825,
+        "height": 840,
+        "mode": "RGBA",
+        "format": "PNG",
+        "alphaPixels": 204393,
+        "borderAlphaPixels": 159,
+        "borderAlphaMax": 64
+      },
+      "magentaPixels": 0,
+      "technicalStatus": "passed",
+      "visualReviewStatus": "pending_human"
+    }
+  ]
+}

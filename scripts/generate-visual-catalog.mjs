@@ -49,14 +49,13 @@ const supplementalBuildings = [
     id: "headquarters",
     category: "civic",
     floors: 2,
-    source: "Fallback procedural semántico; 96 candidatas Composer pendientes de aprobación humana",
+    source: "96 variantes Composer aprobadas por luis el 2026-11-26 y promovidas a runtime",
   },
   {
     id: "cleaning_depot",
     category: "civic",
     floors: 1,
-    source:
-      "Fallback procedural semántico; candidatas Composer de chapa 4 m pendientes de aprobación humana",
+    source: "48 variantes Composer aprobadas por luis el 2026-11-26 y promovidas a runtime",
   },
 ].map((entry) => {
   const asset = runtime.buildings[entry.id];
@@ -68,7 +67,7 @@ const supplementalBuildings = [
     ...entry,
     displayName: asset.name,
     footprint: asset.domainFootprint,
-    status: "runtime-fallback",
+    status: "runtime-variants",
     states: asset.states,
     duplicateStates: Object.keys(hashes).filter(
       (state, index, all) => all.findIndex((other) => hashes[other] === hashes[state]) !== index,
@@ -91,11 +90,11 @@ const payload = {
     buildings: `${buildings.length}/${buildings.length}`,
     buildingStates: `${buildings.reduce((total, b) => total + Object.keys(b.states).length, 0)}/${buildings.length * 6}`,
     stateConditioning:
-      "pendiente: 15 geometrías importadas sólo renderizan complete; sede y depósito usan fallback semántico de cuatro estados",
+      "15 edificios baseline con variantes reales; sede y depósito promovidos con seis estados, cuatro orientaciones y dos moods",
     characterDefinitions: `${characterCount}/${characterCount}`,
-    characterRenderedRoles: `0/${characterCount}`,
+    characterRenderedRoles: `${characters.characters.filter((entry) => entry.runtimeReady).length}/${characterCount}`,
     animationDefinitions: `${characters.runtimeAnimations.length + characters.showcaseAnimations.length}`,
-    animationRenderedPreviews: "0/9",
+    animationRenderedPreviews: `${characters.runtimeAnimations.length}/${characters.runtimeAnimations.length + characters.showcaseAnimations.length}`,
     vehicles: `${world.vehicles.length}/6`,
     props: world.props.length,
     terrain: world.terrain.length,

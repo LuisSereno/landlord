@@ -1,15 +1,18 @@
 {
   "schemaVersion": 1,
   "planId": "cleaning-depot-promotion-plan-v1",
-  "status": "pending_human_visual_approval",
-  "approvalStatus": "pending_human",
+  "status": "promoted_approved_human",
+  "approvalStatus": "approved_human",
+  "approvalReference": "docs/execution/phase-4/catalog-closure/04-human-review.md",
+  "approvedBy": "luis",
+  "approvedAt": "2026-11-26",
   "automaticPromotion": false,
   "protectedRuntime": {
     "blender_artist/manifests/runtime-promotions.json": "7da16a410763e6466f9a9e38ac9070c7bd46062966ae6a264ff4abec61583a0c",
     "apps/web/src/generated/runtime-assets.json": "ed1c8f08efbf482498d59d50482db0fc5d0eec1fd0eec10227457bc91259e54c",
-    "apps/web/src/generated/runtime-assets-blender.json": "0c7f8c3e0a81cf2144c971fce298784575d8ada49ab4ee8ea08d8995a69a7cba",
-    "apps/web/src/generated/runtime-building-variants.json": "e1596daa6524f409b4143c4bbc6bab4b77da5144368931bc8a778a4ec58152ec",
-    "apps/web/src/generated/runtime-building-variants-night.json": "add87752e0084144d6d8e1384dbd172902de68ad5b1ed1b024cbcfd5982c911a"
+    "apps/web/src/generated/runtime-assets-blender.json": "eecba121d94aac895b590ac37e86be8aa9b24d6a252f861f25279ea95812f85f",
+    "apps/web/src/generated/runtime-building-variants.json": "bbfc5ca743118d1846a6d7be51f96e4c8e90d41b7d3972b44f93691bb8cd5e1d",
+    "apps/web/src/generated/runtime-building-variants-night.json": "fc38c8512d54adf3afc8f5fc9f4aee05e3afc8eba7e980e9a9c65ba4adc94d72"
   },
   "humanGates": [
     "Review six states, four physical orientations and both moods in real-city captures.",
@@ -22,8 +25,8 @@
     "candidateBuildingType": "cleaning_depot",
     "targetArchetype": "cleaning_depot",
     "candidateScope": "all 48 assets in candidate-matrix.json",
-    "approvalStatus": "pending_human",
+    "approvalStatus": "approved_human",
     "runtimeAction": "manual only after explicit human approval"
   },
-  "runtimePromotion": "not performed"
+  "runtimePromotion": "promoted_approved_human"
 }

@@ -109,6 +109,18 @@ export class DistrictTextureCache {
     return total;
   }
 
+  evictWhere(predicate: (entry: DistrictTextureEntry) => boolean): string[] {
+    const evicted: string[] = [];
+    for (const entry of [...this.entries.values()]) {
+      if (!predicate(entry)) continue;
+      this.entries.delete(entry.key);
+      this.evictedCount += 1;
+      this.evictedBytes += entry.bytes;
+      evicted.push(entry.key);
+    }
+    return evicted;
+  }
+
   metrics(): DistrictAssetMetrics {
     const byDistrict: Record<string, number> = {};
     for (const e of this.entries.values()) {

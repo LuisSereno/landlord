@@ -45,6 +45,12 @@ const BLENDER_SCRIPT = join(REPO_ROOT, "tools", "art-pipeline", "blender", "runt
 const JOBS_PATH = join(REPO_ROOT, "blender_artist", "manifests", "asset-jobs.json");
 const SOURCES_PATH = join(REPO_ROOT, "blender_artist", "manifests", "staging-sources.json");
 const PROMOTIONS_PATH = join(REPO_ROOT, "blender_artist", "manifests", "runtime-promotions.json");
+const CHARACTER_PROMOTIONS_PATH = join(
+  REPO_ROOT,
+  "blender_artist",
+  "manifests",
+  "runtime-character-promotions.json",
+);
 const VISUAL_OVERRIDES_PATH = join(
   REPO_ROOT,
   "apps",
@@ -289,6 +295,11 @@ function expectedFiles(manifest, promotions) {
   const jobs = manifest.jobs
     .filter((job) => job.target === "bundle" && !promotedAssetIds.has(job.assetId))
     .flatMap((job) => tasksFor(job, manifest.defaults).map((task) => task.file));
+  const characterFiles = existsSync(CHARACTER_PROMOTIONS_PATH)
+    ? JSON.parse(readFileSync(CHARACTER_PROMOTIONS_PATH, "utf8")).files.map((file) =>
+        file.replace(/\.png$/u, ""),
+      )
+    : [];
   const overrideFiles = existsSync(VISUAL_OVERRIDES_PATH)
     ? Object.values(
         JSON.parse(readFileSync(VISUAL_OVERRIDES_PATH, "utf8")).buildings ?? {},
@@ -301,6 +312,7 @@ function expectedFiles(manifest, promotions) {
   return [
     ...jobs,
     ...promotions.map((entry) => `${entry.assetId}-${entry.state}`),
+    ...characterFiles,
     ...overrideFiles,
   ];
 }

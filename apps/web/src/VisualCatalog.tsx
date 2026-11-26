@@ -130,8 +130,7 @@ export function VisualCatalog() {
       <section id="characters">
         <h2>Characters</h2>
         <p>
-          Role specification — visual production pending. No role-specific character render is
-          published yet.
+          Approved Kenney runtime sprites — idle/walk, four directions and 34 px configuration B.
         </p>
         <div className="catalog-role-grid">
           {catalog.characters.map((character) => (
@@ -150,7 +149,7 @@ export function VisualCatalog() {
               <small>
                 {character.baseSource} · {character.clothing} · {character.roleProp}
               </small>
-              <small>Role specification — visual production pending</small>
+              <small>{character.productionStatus} · runtime-ready</small>
             </article>
           ))}
         </div>

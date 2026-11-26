@@ -185,11 +185,15 @@ export function validateCleaningDepotArt({
   if (jobs.schemaVersion !== 1 || jobs.jobs.length !== 1)
     errors.push("jobs: falta el trabajo del depósito");
   if (
-    promotionPlan.approvalStatus !== "pending_human" ||
-    promotionPlan.automaticPromotion !== false
+    promotionPlan.approvalStatus !== "approved_human" ||
+    promotionPlan.automaticPromotion !== false ||
+    !promotionPlan.approvalReference ||
+    !existsSync(join(root, promotionPlan.approvalReference)) ||
+    !promotionPlan.approvedBy ||
+    !promotionPlan.approvedAt
   ) {
     errors.push(
-      "promoción: el plan debe seguir pendiente de aprobación humana y sin automatización",
+      "promoción: el plan debe registrar aprobación humana, referencia, autor y fecha, sin automatización",
     );
   }
   for (const [path, expected] of Object.entries(promotionPlan.protectedRuntime ?? {})) {
@@ -211,7 +215,7 @@ export function validateCleaningDepotArt({
   const proposed = promotionPlan.proposedPromotion;
   if (
     proposed?.candidateBuildingType !== "cleaning_depot" ||
-    proposed.approvalStatus !== "pending_human" ||
+    proposed.approvalStatus !== "approved_human" ||
     proposed.runtimeAction !== "manual only after explicit human approval"
   ) {
     errors.push("promoción: falta candidatura pendiente cleaning_depot");

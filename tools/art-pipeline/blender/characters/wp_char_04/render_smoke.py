@@ -647,46 +647,27 @@ def attach(compositor, objects, armature, role, accessory_type, bone):
 
 
 def add_supervisor_helmet(armature, head, candidate, compositor, palette, created):
-    top = PROTOTYPE.head_top(armature, head)
+    top = PROTOTYPE.head_top(armature, head) + Vector((0, 0.12, 0))
     helmet = make_material(compositor, candidate["canonicalId"], "helmet", "sand", palette)
     band = make_material(compositor, candidate["canonicalId"], "helmet_band", "charcoal", palette)
     bpy.ops.mesh.primitive_cone_add(
-        vertices=8, radius1=0.43, radius2=0.36, depth=0.24, location=top + Vector((0, 0, -0.025))
+        vertices=8, radius1=0.64, radius2=0.54, depth=0.3, location=top + Vector((0, 0, -0.055))
     )
     crown = bpy.context.object
     crown.name = "wp04_supervisor_helmet_crown"
     compositor.finish_object(crown, crown.name, helmet, bevel=0.012)
-    brim = compositor.make_cylinder("wp04_supervisor_helmet_brim", top + Vector((0, 0, -0.15)), 0.5, 0.05, helmet)
+    brim = compositor.make_cylinder("wp04_supervisor_helmet_brim", top + Vector((0, 0, -0.21)), 0.7, 0.05, helmet)
     visor = compositor.make_box(
-        "wp04_supervisor_helmet_visor", top + Vector((0, -0.36, -0.14)), (0.54, 0.24, 0.05), helmet, bevel=0.014
+        "wp04_supervisor_helmet_visor", top + Vector((0, -0.49, -0.2)), (0.7, 0.27, 0.05), helmet, bevel=0.014
     )
     band_ring = compositor.make_torus(
-        "wp04_supervisor_helmet_band", top + Vector((0, 0, -0.135)), 0.405, 0.022, band, scale=(1.04, 0.92, 0.75)
+        "wp04_supervisor_helmet_band", top + Vector((0, 0, -0.19)), 0.6, 0.022, band, scale=(1.04, 0.92, 0.75)
     )
     ridge = compositor.make_box(
-        "wp04_supervisor_helmet_ridge", top + Vector((0, 0, 0.105)), (0.055, 0.28, 0.035), helmet, bevel=0.008
+        "wp04_supervisor_helmet_ridge", top + Vector((0, 0, 0.105)), (0.065, 0.38, 0.035), helmet, bevel=0.008
     )
     objects = [crown, brim, visor, band_ring, ridge]
     attach(compositor, objects, armature, candidate["canonicalId"], "supervisor_helmet_v2", "head")
-    created.extend(objects)
-
-
-def add_lowered_clipboard(armature, candidate, compositor, palette, created):
-    anchor = PROTOTYPE.bone_point(armature, "arm-left", "tail") + Vector((0.035, -0.1, -0.24))
-    leather = make_material(compositor, candidate["canonicalId"], "clipboard", "leather", palette)
-    paper = make_material(compositor, candidate["canonicalId"], "paper", "paper", palette)
-    metal = make_material(compositor, candidate["canonicalId"], "clip", "metal", palette)
-    board = compositor.make_box(
-        "wp04_supervisor_clipboard_board", anchor, (0.22, 0.035, 0.3), leather, bevel=0.01
-    )
-    sheet = compositor.make_box(
-        "wp04_supervisor_clipboard_paper", anchor + Vector((0, -0.023, 0.01)), (0.18, 0.009, 0.245), paper, bevel=0.004
-    )
-    clip = compositor.make_box(
-        "wp04_supervisor_clipboard_clip", anchor + Vector((0, -0.03, 0.135)), (0.06, 0.018, 0.026), metal, bevel=0.004
-    )
-    objects = [board, sheet, clip]
-    attach(compositor, objects, armature, candidate["canonicalId"], "clipboard_lowered", "arm-left")
     created.extend(objects)
 
 
@@ -695,34 +676,34 @@ def add_fire_helmet_v2(armature, head, candidate, compositor, palette, created):
     helmet = make_material(compositor, candidate["canonicalId"], "helmet", "fire_yellow", palette)
     shield = make_material(compositor, candidate["canonicalId"], "helmet_shield", "charcoal", palette)
     bpy.ops.mesh.primitive_cone_add(
-        vertices=10, radius1=0.5, radius2=0.4, depth=0.25, location=top + Vector((0, 0, -0.02))
+        vertices=10, radius1=0.71, radius2=0.6, depth=0.26, location=top + Vector((0, 0, -0.105))
     )
     crown = bpy.context.object
     crown.name = "wp04_firefighter_helmet_crown"
     compositor.finish_object(crown, crown.name, helmet, bevel=0.015)
     brim = compositor.make_cylinder(
-        "wp04_firefighter_helmet_brim", top + Vector((0, 0, -0.18)), 0.56, 0.06, helmet
+        "wp04_firefighter_helmet_brim", top + Vector((0, 0, -0.22)), 0.77, 0.06, helmet
     )
     visor = compositor.make_box(
-        "wp04_firefighter_helmet_visor", top + Vector((0, -0.4, -0.17)), (0.58, 0.22, 0.05), helmet, bevel=0.016
+        "wp04_firefighter_helmet_visor", top + Vector((0, -0.52, -0.21)), (0.72, 0.26, 0.05), helmet, bevel=0.016
     )
     rear = compositor.make_box(
         "wp04_firefighter_helmet_rear_flap",
-        top + Vector((0, 0.36, -0.095)),
-        (0.56, 0.065, 0.19),
+        top + Vector((0, 0.48, -0.13)),
+        (0.72, 0.065, 0.22),
         shield,
         rotation=(math.radians(-18), 0, 0),
         bevel=0.02,
     )
     front = compositor.make_box(
         "wp04_firefighter_helmet_front_shield",
-        top + Vector((0, -0.405, 0.015)),
+        top + Vector((0, -0.54, 0.015)),
         (0.22, 0.04, 0.16),
         shield,
         bevel=0.016,
     )
     crest = compositor.make_box(
-        "wp04_firefighter_helmet_crest", top + Vector((0, 0, 0.125)), (0.06, 0.36, 0.05), helmet, bevel=0.01
+        "wp04_firefighter_helmet_crest", top + Vector((0, 0, 0.13)), (0.06, 0.43, 0.05), helmet, bevel=0.01
     )
     objects = [crown, brim, visor, rear, front, crest]
     attach(compositor, objects, armature, candidate["canonicalId"], "fire_helmet_v2", "head")
@@ -733,13 +714,13 @@ def add_work_helmet(armature, head, candidate, compositor, palette, created):
     top = PROTOTYPE.head_top(armature, head)
     helmet = make_material(compositor, candidate["canonicalId"], "helmet", "ochre", palette)
     dome = compositor.make_sphere(
-        "wp04_worker_b_helmet_dome", top + Vector((0, 0, -0.055)), (0.4, 0.37, 0.2), helmet
+        "wp04_worker_b_helmet_dome", top + Vector((0, 0, -0.075)), (0.64, 0.57, 0.24), helmet
     )
     brim = compositor.make_cylinder(
-        "wp04_worker_b_helmet_brim", top + Vector((0, 0, -0.16)), 0.46, 0.05, helmet
+        "wp04_worker_b_helmet_brim", top + Vector((0, 0, -0.21)), 0.69, 0.05, helmet
     )
     ridge = compositor.make_box(
-        "wp04_worker_b_helmet_ridge", top + Vector((0, 0, 0.135)), (0.05, 0.3, 0.035), helmet, bevel=0.008
+        "wp04_worker_b_helmet_ridge", top + Vector((0, 0, 0.155)), (0.06, 0.4, 0.035), helmet, bevel=0.008
     )
     objects = [dome, brim, ridge]
     attach(compositor, objects, armature, candidate["canonicalId"], "work_helmet", "head")
@@ -747,13 +728,14 @@ def add_work_helmet(armature, head, candidate, compositor, palette, created):
 
 
 def add_work_cap(armature, head, candidate, compositor, palette, created):
-    top = PROTOTYPE.head_top(armature, head)
+    top = PROTOTYPE.head_top(armature, head) + Vector((0, 0.12, 0))
     cap = make_material(compositor, candidate["canonicalId"], "cap", "navy", palette)
-    crown = compositor.make_sphere(
-        "wp04_technician_cap_crown", top + Vector((0, 0, -0.025)), (0.36, 0.33, 0.12), cap
+    crown = compositor.make_cylinder(
+        "wp04_technician_cap_crown", top + Vector((0, 0.04, -0.075)), 0.64, 0.21, cap,
+        bevel=0.035, scale=(1.0, 0.94, 1.0),
     )
     brim = compositor.make_box(
-        "wp04_technician_cap_brim", top + Vector((0, -0.29, -0.08)), (0.42, 0.22, 0.04), cap, bevel=0.012
+        "wp04_technician_cap_brim", top + Vector((0, -0.54, -0.17)), (0.76, 0.31, 0.045), cap, bevel=0.018
     )
     objects = [crown, brim]
     attach(compositor, objects, armature, candidate["canonicalId"], "work_cap", "head")
@@ -801,65 +783,11 @@ def add_serious_mouth(armature, head, candidate, compositor, palette, created):
     created.append(line)
 
 
-def add_wrench(armature, candidate, compositor, palette, created):
-    anchor = PROTOTYPE.bone_point(armature, "arm-right", "tail") + Vector((0.025, -0.035, -0.015))
-    metal = make_material(compositor, candidate["canonicalId"], "wrench", "metal", palette)
-    handle = compositor.make_cylinder(
-        "wp04_technician_wrench_handle", anchor + Vector((0, 0, 0.055)), 0.012, 0.18, metal, bevel=0.003
-    )
-    jaw = compositor.make_torus(
-        "wp04_technician_wrench_jaw", anchor + Vector((0, 0, 0.15)), 0.026, 0.007, metal, scale=(1, 1, 0.7)
-    )
-    objects = [handle, jaw]
-    attach(compositor, objects, armature, candidate["canonicalId"], "wrench", "arm-right")
-    created.extend(objects)
-
-
-def add_folder(armature, candidate, compositor, palette, created):
-    anchor = PROTOTYPE.bone_point(armature, "arm-left", "tail") + Vector((0.025, -0.09, -0.015))
-    folder = make_material(compositor, candidate["canonicalId"], "folder", "navy", palette)
-    paper = make_material(compositor, candidate["canonicalId"], "paper", "paper", palette)
-    board = compositor.make_box(
-        f"wp04_{candidate['canonicalId']}_folder", anchor, (0.2, 0.028, 0.26), folder, bevel=0.008
-    )
-    sheet = compositor.make_box(
-        f"wp04_{candidate['canonicalId']}_folder_paper",
-        anchor + Vector((0, -0.021, 0.015)),
-        (0.17, 0.008, 0.22),
-        paper,
-        bevel=0.003,
-    )
-    objects = [board, sheet]
-    attach(compositor, objects, armature, candidate["canonicalId"], "folder", "arm-left")
-    created.extend(objects)
-
-
-def add_medical_bag(armature, candidate, compositor, palette, created):
-    anchor = PROTOTYPE.bone_point(armature, "arm-left", "tail") + Vector((0.02, -0.04, -0.11))
-    bag = make_material(compositor, candidate["canonicalId"], "bag", "cream", palette)
-    trim = make_material(compositor, candidate["canonicalId"], "trim", "teal", palette)
-    leather = make_material(compositor, candidate["canonicalId"], "handle", "leather", palette)
-    box = compositor.make_box(
-        "wp04_medical_bag", anchor, (0.18, 0.1, 0.2), bag, bevel=0.015
-    )
-    cross = compositor.make_box(
-        "wp04_medical_bag_trim", anchor + Vector((0, -0.052, 0)), (0.035, 0.012, 0.16), trim, bevel=0.003
-    )
-    handle = compositor.make_torus(
-        "wp04_medical_bag_handle", anchor + Vector((0, 0, 0.105)), 0.05, 0.009, leather, scale=(1, 0.65, 1)
-    )
-    objects = [box, cross, handle]
-    attach(compositor, objects, armature, candidate["canonicalId"], "medical_bag", "arm-left")
-    created.extend(objects)
-
-
 def build_accessories(armature, head, candidate, compositor, palette):
     created = []
     for accessory in candidate["accessories"]:
         if accessory == "supervisor_helmet_v2":
             add_supervisor_helmet(armature, head, candidate, compositor, palette, created)
-        elif accessory == "clipboard_lowered":
-            add_lowered_clipboard(armature, candidate, compositor, palette, created)
         elif accessory == "fire_helmet_v2":
             add_fire_helmet_v2(armature, head, candidate, compositor, palette, created)
         elif accessory == "work_helmet":
@@ -872,12 +800,6 @@ def build_accessories(armature, head, candidate, compositor, palette):
             add_badge(armature, candidate, compositor, palette, created)
         elif accessory == "serious_mouth":
             add_serious_mouth(armature, head, candidate, compositor, palette, created)
-        elif accessory == "wrench":
-            add_wrench(armature, candidate, compositor, palette, created)
-        elif accessory == "folder":
-            add_folder(armature, candidate, compositor, palette, created)
-        elif accessory == "medical_bag":
-            add_medical_bag(armature, candidate, compositor, palette, created)
         else:
             raise RuntimeError(f"Unsupported accessory: {accessory}")
     return created

@@ -579,6 +579,30 @@
       }
     },
     {
+      "id": "prp_waste_heap",
+      "kind": "prop",
+      "assetId": "prp_waste_heap",
+      "target": "bundle",
+      "source": {
+        "kind": "gltf",
+        "sourceId": "src_kaykit_city_builder_bits",
+        "path": "blender_artist/staging/third_party/cc0/extracted/kaykit/city-builder-bits/KayKit-City-Builder-Bits-1.0-main/addons/kaykit_city_builder_bits/Assets/gltf/trash_A.gltf"
+      },
+      "footprint": {
+        "width": 1,
+        "height": 1
+      },
+      "camera": {
+        "orthoScale": 3.0,
+        "targetZ": 0.0
+      },
+      "render": {
+        "width": 256,
+        "height": 256
+      },
+      "orientations": [45, 135, 225, 315]
+    },
+    {
       "id": "veh_taxi",
       "kind": "vehicle",
       "assetId": "veh_taxi",

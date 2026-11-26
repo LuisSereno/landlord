@@ -81,3 +81,8 @@ La arquitectura debe dejar abierta la futura evolución de una misma Person entr
 ## Directrices de Contexto
 - **Conocimiento del Proyecto:** Utiliza la wiki ubicada en la carpeta `./ai-context/` para cualquier regla de desarrollo, estilos y decisiones de arquitectura.
 - **Habilidades de Seguridad:** Tienes acceso global a las metodologías de `reverse-skill`. Utilízalas cuando se te ordene analizar binarios, APKs o realizar auditorías de código.
+
+## Continuidad entre sesiones
+- Usa `ai-context/INDEX.md` y `ai-context/CURRENT-STATE.md` para localizar el contexto vigente; respeta además la lectura obligatoria anterior antes de modificar código o diseño.
+- Antes de cambiar arquitectura, busca la decisión vigente en `ai-context/DECISIONS.md` y el documento canónico pertinente en `docs/`.
+- Tras resolver una causa raíz o cambiar el estado del proyecto, actualiza la entrada existente con evidencia y próximos pasos; evita duplicados y secretos.

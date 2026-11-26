@@ -85,6 +85,13 @@ export const FACILITY_COURTYARD_SPECS: Record<string, CourtyardSpec> = {
       { asset: "prp_bench", count: 1, scale: 0.8 },
     ],
   },
+  cleaning_depot: {
+    vehicle: { asset: "veh_garbage", vehicleClass: "garbage", scale: 0.92 },
+    props: [
+      { asset: "prp_waste_heap", count: 1, scale: 2.5 },
+      { asset: "prp_trash_can", count: 1, scale: 0.9 },
+    ],
+  },
 };
 
 const SIDES = [

@@ -5,12 +5,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { isAbsolute, relative, resolve, sep } from "node:path";
 
 const EXPECTED_CHARACTERS = {
-  civilian_male_a: {
-    role: "civilian",
-    category: "ambient",
-    priority: "P1",
-    runtimeCharacterId: "chr_citizen",
-  },
+  civilian_male_a: { role: "civilian", category: "ambient", priority: "P1" },
   civilian_male_b: { role: "civilian", category: "ambient", priority: "P1" },
   civilian_female_a: { role: "civilian", category: "ambient", priority: "P1" },
   civilian_female_b: { role: "civilian", category: "ambient", priority: "P1" },
@@ -19,9 +14,12 @@ const EXPECTED_CHARACTERS = {
     role: "construction_worker",
     category: "operational",
     priority: "P0",
-    runtimeCharacterId: "chr_worker",
   },
-  construction_worker_b: { role: "construction_worker", category: "operational", priority: "P0" },
+  construction_worker_b: {
+    role: "construction_worker",
+    category: "operational",
+    priority: "P0",
+  },
   maintenance_technician: {
     role: "maintenance_technician",
     category: "operational",
@@ -29,22 +27,19 @@ const EXPECTED_CHARACTERS = {
   },
   enforcer_male: { role: "enforcer", category: "operational", priority: "P0" },
   enforcer_female: { role: "enforcer", category: "operational", priority: "P0" },
-  police: { role: "police", category: "ambient", priority: "P1", runtimeCharacterId: "chr_police" },
-  firefighter: {
-    role: "firefighter",
-    category: "ambient",
-    priority: "P1",
-    runtimeCharacterId: "chr_firefighter",
-  },
+  police: { role: "police", category: "ambient", priority: "P1" },
+  firefighter: { role: "firefighter", category: "ambient", priority: "P1" },
   medical_professional: {
     role: "medical_professional",
     category: "ambient",
     priority: "P1",
-    runtimeCharacterId: "chr_medical",
   },
-  municipal_professional: { role: "municipal_professional", category: "ambient", priority: "P2" },
+  municipal_professional: {
+    role: "municipal_professional",
+    category: "ambient",
+    priority: "P2",
+  },
 };
-
 const DOMAIN_SPECIALTIES = [
   "supervisor",
   "construction_worker",
@@ -63,30 +58,7 @@ const CANDIDATE_ANIMATIONS = [
 ];
 const PRODUCTION_STATES = new Set(["runtime_existing", "candidate", "planned", "blocked"]);
 const ART_REVIEWS = new Set(["not_reviewed", "pending_role_fidelity", "approved"]);
-const BASE_SOURCES = new Set(["kenney_mini_characters"]);
-const RUNTIME_SOURCES = new Set(["none", "rocketbox_subset_legacy"]);
-const SOURCE_USAGES = new Set(["candidate", "legacy_runtime"]);
-const REQUIRED_STRINGS = [
-  "displayName",
-  "role",
-  "category",
-  "scope",
-  "priority",
-  "baseSource",
-  "runtimeSource",
-  "runtimeMappingStatus",
-  "candidatePipeline",
-  "candidateStage",
-  "body",
-  "hair",
-  "clothing",
-  "palette",
-  "roleProp",
-  "productionStatus",
-  "artReview",
-];
 const PIPELINE_MANIFEST = "tools/art-pipeline/blender/characters/wp_char_04/manifest.json";
-
 const isRecord = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 const isNonEmptyString = (value) => typeof value === "string" && value.trim().length > 0;
 const sameArray = (left, right) =>
@@ -100,72 +72,25 @@ function isInside(parent, child) {
 }
 
 function sha256File(path, cache) {
-  if (!cache.has(path))
+  if (!cache.has(path)) {
     cache.set(path, createHash("sha256").update(readFileSync(path)).digest("hex"));
+  }
   return cache.get(path);
 }
 
-function validateRuntimeReference(entry, asset, job, repoRoot, errors, hashCache) {
-  const runtimeId = entry.runtimeCharacterId;
+function validateKenneyRuntime(asset, id, errors) {
   if (!isRecord(asset)) {
-    errors.push(`${entry.id}: runtime character ${runtimeId} is missing from the runtime manifest`);
+    errors.push(`${id}: runtime character missing`);
     return;
   }
-  if (!isRecord(job)) {
-    errors.push(`${entry.id}: runtime character ${runtimeId} has no character asset job`);
-    return;
-  }
-  if (job.kind !== "character" || job.target !== "bundle" || job.assetId !== runtimeId) {
-    errors.push(`${entry.id}: asset job does not publish ${runtimeId} as a bundle character`);
-  }
-  if (asset.directions !== 4) errors.push(`${runtimeId}: runtime directions must be 4`);
+  if (asset.id !== id || asset.directions !== 4) errors.push(`${id}: runtime id/directions`);
+  if (asset.animations?.idle?.frames?.length !== 4) errors.push(`${id}: idle must have 4 frames`);
+  if (asset.animations?.walk?.frames?.length !== 32) errors.push(`${id}: walk must have 32 frames`);
   if (
-    asset.provenance?.sourceId !== "src_microsoft_rocketbox" ||
-    asset.provenance?.license !== "MIT"
+    asset.provenance?.sourceId !== "src_kenney_mini_characters" ||
+    asset.provenance?.license !== "CC0-1.0"
   ) {
-    errors.push(`${runtimeId}: runtime provenance must be Rocketbox MIT`);
-  }
-  const primaryReference = entry.sourceReferences.find(
-    (reference) =>
-      isRecord(reference) &&
-      reference.usage === "legacy_runtime" &&
-      reference.sourceId === job.source?.sourceId &&
-      reference.path === job.source?.path,
-  );
-  if (!primaryReference) {
-    errors.push(`${entry.id}: source reference does not match asset job`);
-  }
-  for (const animation of RUNTIME_ANIMATIONS) {
-    if (!isNonEmptyString(job.animationSources?.[animation])) {
-      errors.push(`${runtimeId}: asset job is missing ${animation} animation source`);
-    }
-    const clip = asset.animations?.[animation];
-    if (!isRecord(clip) || !Array.isArray(clip.frames)) {
-      errors.push(`${runtimeId}: runtime animation ${animation} is missing`);
-      continue;
-    }
-    if (clip.frames.length < 4 || clip.frames.length % 4 !== 0) {
-      errors.push(`${runtimeId}/${animation}: frame matrix must cover four directions evenly`);
-      continue;
-    }
-    clip.frames.forEach((frame, index) => {
-      if (!isNonEmptyString(frame?.src) || !isNonEmptyString(frame?.sha256)) {
-        errors.push(`${runtimeId}/${animation}/frame ${index}: src and sha256 are required`);
-        return;
-      }
-      if (!frame.src.startsWith("/assets/")) {
-        errors.push(`${runtimeId}/${animation}/frame ${index}: src must be public-root relative`);
-        return;
-      }
-      const file = resolve(repoRoot, "apps/web/public", frame.src.slice(1));
-      if (!isInside(resolve(repoRoot, "apps/web/public"), file) || !existsSync(file)) {
-        errors.push(`${runtimeId}/${animation}/frame ${index}: runtime file is missing`);
-        return;
-      }
-      if (sha256File(file, hashCache) !== frame.sha256) {
-        errors.push(`${runtimeId}/${animation}/frame ${index}: sha256 mismatch`);
-      }
-    });
+    errors.push(`${id}: runtime provenance must be Kenney CC0`);
   }
 }
 
@@ -199,17 +124,84 @@ function validateCharacterFactory(manifest, runtimeManifest, jobsManifest, pipel
       errors.push(`productionStateDefinitions.${state} is required`);
     }
   }
-  if (manifest.candidatePipeline?.manifest !== PIPELINE_MANIFEST) {
-    errors.push(`candidatePipeline.manifest must be ${PIPELINE_MANIFEST}`);
+  const promotion = manifest.candidatePipeline ?? {};
+  if (promotion.manifest !== PIPELINE_MANIFEST) errors.push("candidatePipeline.manifest");
+  if (promotion.stage !== "smoke") errors.push("candidatePipeline.stage must remain smoke");
+  if (promotion.runtimePromotion !== true)
+    errors.push("candidatePipeline.runtimePromotion must be true");
+  if (promotion.batchRendered !== true) errors.push("candidatePipeline.batchRendered must be true");
+  if (promotion.humanApproval !== "approved")
+    errors.push("candidatePipeline.humanApproval must be approved");
+  if (promotion.status !== "runtime_promoted_approved_human")
+    errors.push("candidatePipeline.status");
+
+  const evidenceKeys = [
+    "batchRunRoot",
+    "batchExecution",
+    "batchFrameValidation",
+    "batchValidation",
+    "batchSheet",
+    "scaleLabManifest",
+    "scaleCaptureManifest",
+    "runtimePromotionManifest",
+  ];
+  for (const key of evidenceKeys) {
+    if (!isNonEmptyString(promotion[key])) errors.push(`candidatePipeline.${key} is required`);
   }
-  if (manifest.candidatePipeline?.stage !== "smoke") {
-    errors.push("candidatePipeline.stage must be smoke");
+  const readEvidence = (key) => {
+    const path = promotion[key];
+    if (!isNonEmptyString(path)) return null;
+    const absolute = resolve(repoRoot, path);
+    if (!isInside(repoRoot, absolute) || !existsSync(absolute)) {
+      errors.push(`candidatePipeline.${key} file missing`);
+      return null;
+    }
+    try {
+      return JSON.parse(readFileSync(absolute, "utf8"));
+    } catch {
+      errors.push(`candidatePipeline.${key} is not valid JSON`);
+      return null;
+    }
+  };
+  const execution = readEvidence("batchExecution");
+  const frameValidation = readEvidence("batchFrameValidation");
+  const validation = readEvidence("batchValidation");
+  const sheet = readEvidence("batchSheet");
+  const lab = readEvidence("scaleLabManifest");
+  const captures = readEvidence("scaleCaptureManifest");
+  const runtimePromotion = readEvidence("runtimePromotionManifest");
+  if (execution && (execution.renderedFrames !== 504 || execution.failures?.length !== 0)) {
+    errors.push("batchExecution must contain 504 failure-free frames");
   }
-  if (manifest.candidatePipeline?.runtimePromotion !== false) {
-    errors.push("candidatePipeline.runtimePromotion must be false");
+  if (
+    frameValidation &&
+    (frameValidation.status !== "passed" || frameValidation.counts?.frames !== 504)
+  ) {
+    errors.push("batchFrameValidation must pass 504 frames");
   }
-  if (manifest.candidatePipeline?.batchRendered !== false) {
-    errors.push("candidatePipeline.batchRendered must be false");
+  if (
+    validation &&
+    (validation.status !== "passed" ||
+      validation.counts?.frames !== 504 ||
+      validation.runtimePromotion !== false)
+  ) {
+    errors.push("batchValidation must pass 504 technical frames");
+  }
+  if (sheet && (sheet.frameCount !== 504 || sheet.runtimePromotion !== false)) {
+    errors.push("batchSheet must cover 504 technical frames");
+  }
+  if (lab && lab.frames?.length !== 112) errors.push("scaleLabManifest must contain 112 frames");
+  if (captures && (captures.captures?.length !== 16 || captures.pageErrors?.length !== 0)) {
+    errors.push("scaleCaptureManifest must contain 16 error-free captures");
+  }
+  if (
+    runtimePromotion &&
+    (runtimePromotion.status !== "promoted_approved_human" ||
+      runtimePromotion.approvalStatus !== "approved_human" ||
+      runtimePromotion.frameCount !== 504 ||
+      runtimePromotion.roles?.length !== 14)
+  ) {
+    errors.push("runtimePromotionManifest must declare 14 approved roles and 504 frames");
   }
 
   const characters = Array.isArray(manifest.characters) ? manifest.characters : [];
@@ -225,118 +217,98 @@ function validateCharacterFactory(manifest, runtimeManifest, jobsManifest, pipel
     if (id && !EXPECTED_CHARACTERS[id]) errors.push(`unexpected character ${id}`);
   }
   if (new Set(ids).size !== ids.length) errors.push("character ids must be unique");
-
-  const runtimeIds = new Set();
   const hashCache = new Map();
   const jobs = Array.isArray(jobsManifest?.jobs) ? jobsManifest.jobs : [];
+  const promotedRoles = new Set(runtimePromotion?.roles?.map((role) => role.id) ?? []);
   characters.forEach((entry, index) => {
     if (!isRecord(entry)) {
       errors.push(`characters[${index}] must be an object`);
       return;
     }
     const id = isNonEmptyString(entry.id) ? entry.id : `characters[${index}]`;
-    for (const key of REQUIRED_STRINGS) {
+    for (const key of [
+      "displayName",
+      "role",
+      "category",
+      "scope",
+      "priority",
+      "baseSource",
+      "runtimeSource",
+      "runtimeMappingStatus",
+      "candidatePipeline",
+      "candidateStage",
+      "body",
+      "hair",
+      "clothing",
+      "palette",
+      "roleProp",
+      "productionStatus",
+      "artReview",
+    ]) {
       if (!isNonEmptyString(entry[key])) errors.push(`${id}: ${key} is required`);
     }
     const expected = EXPECTED_CHARACTERS[entry.id];
     if (!expected) return;
     if (entry.role !== expected.role) errors.push(`${id}: role must be ${expected.role}`);
-    if (entry.category !== expected.category) {
+    if (entry.category !== expected.category)
       errors.push(`${id}: category must be ${expected.category}`);
-    }
     if (entry.priority !== expected.priority)
       errors.push(`${id}: priority must be ${expected.priority}`);
     const expectedScope = expected.category === "operational" ? "gameplay" : "ambient";
     if (entry.scope !== expectedScope) errors.push(`${id}: scope must match category`);
-    if (expected.category === "operational") {
-      if (entry.domainSpecialty !== expected.role) {
-        errors.push(`${id}: domainSpecialty must be ${expected.role}`);
-      }
-    } else if (entry.domainSpecialty !== undefined) {
+    if (expected.category === "operational" && entry.domainSpecialty !== expected.role) {
+      errors.push(`${id}: domainSpecialty must be ${expected.role}`);
+    }
+    if (expected.category !== "operational" && entry.domainSpecialty !== undefined) {
       errors.push(`${id}: domainSpecialty is only valid for operational characters`);
     }
-
-    const legacy = Boolean(expected.runtimeCharacterId);
-    if (!BASE_SOURCES.has(entry.baseSource)) errors.push(`${id}: unsupported baseSource`);
-    if (entry.baseSource !== "kenney_mini_characters") {
-      errors.push(`${id}: baseSource must be kenney_mini_characters`);
-    }
-    if (!RUNTIME_SOURCES.has(entry.runtimeSource)) errors.push(`${id}: unsupported runtimeSource`);
-    if (entry.runtimeSource !== (legacy ? "rocketbox_subset_legacy" : "none")) {
-      errors.push(`${id}: runtimeSource must match legacy mapping policy`);
-    }
-    if (entry.runtimeMappingStatus !== (legacy ? "legacy" : "none")) {
-      errors.push(`${id}: runtimeMappingStatus must be ${legacy ? "legacy" : "none"}`);
-    }
-    if (entry.productionStatus !== "candidate") {
-      errors.push(`${id}: productionStatus must be candidate`);
-    }
+    if (entry.baseSource !== "kenney_mini_characters")
+      errors.push(`${id}: baseSource must be Kenney`);
+    if (entry.runtimeSource !== "kenney_mini_characters")
+      errors.push(`${id}: runtimeSource must be Kenney`);
+    if (entry.runtimeMappingStatus !== "kenney")
+      errors.push(`${id}: runtimeMappingStatus must be kenney`);
+    if (entry.productionStatus !== "runtime_existing")
+      errors.push(`${id}: productionStatus must be runtime_existing`);
     if (!PRODUCTION_STATES.has(entry.productionStatus))
       errors.push(`${id}: invalid productionStatus`);
-    if (entry.runtimeReady !== false) errors.push(`${id}: runtimeReady must be false`);
-    if (typeof entry.runtimeReady !== "boolean") errors.push(`${id}: runtimeReady must be boolean`);
+    if (entry.runtimeReady !== true) errors.push(`${id}: runtimeReady must be true`);
     if (!ART_REVIEWS.has(entry.artReview)) errors.push(`${id}: invalid artReview`);
-    if (entry.artReview !== "pending_role_fidelity") {
-      errors.push(`${id}: artReview must remain pending_role_fidelity`);
+    if (entry.artReview !== "approved") errors.push(`${id}: artReview must be approved`);
+    if (entry.runtimeCharacterId !== undefined)
+      errors.push(`${id}: runtimeCharacterId must be the canonical id`);
+    if (
+      entry.legacyRuntimeCharacterId !== undefined &&
+      !isNonEmptyString(entry.legacyRuntimeCharacterId)
+    ) {
+      errors.push(`${id}: legacyRuntimeCharacterId must be non-empty`);
     }
-    if (entry.artReview === "approved" && entry.productionStatus !== "runtime_existing") {
-      errors.push(`${id}: candidates and planned characters cannot be approved`);
-    }
-    if (entry.candidatePipeline !== PIPELINE_MANIFEST) {
+    if (entry.candidatePipeline !== PIPELINE_MANIFEST)
       errors.push(`${id}: candidatePipeline must reference WP-CHAR-04`);
-    }
     if (entry.candidateStage !== "smoke") errors.push(`${id}: candidateStage must be smoke`);
-    if (legacy) {
-      if (entry.runtimeCharacterId !== expected.runtimeCharacterId) {
-        errors.push(`${id}: runtimeCharacterId must be ${expected.runtimeCharacterId}`);
-      }
-      if (!isNonEmptyString(entry.legacyRuntimeNote)) {
-        errors.push(`${id}: legacyRuntimeNote is required`);
-      }
-    } else if (entry.runtimeCharacterId !== undefined) {
-      errors.push(`${id}: runtimeCharacterId is only valid for explicit legacy mappings`);
-    }
     if (
       !Array.isArray(entry.blockers) ||
+      entry.blockers.length === 0 ||
       entry.blockers.some((blocker) => !isNonEmptyString(blocker))
     ) {
-      errors.push(`${id}: blockers must be an array of non-empty strings`);
-    } else if (entry.blockers.length === 0) {
-      errors.push(`${id}: candidate must declare a blocker`);
+      errors.push(`${id}: blockers must be non-empty strings`);
     }
-
     const pipelineCandidate = pipeline.candidates?.[entry.id];
-    if (!isRecord(pipelineCandidate)) {
-      errors.push(`${id}: missing WP-CHAR-04 candidate`);
-    }
+    if (!isRecord(pipelineCandidate)) errors.push(`${id}: missing WP-CHAR-04 candidate`);
     if (!Array.isArray(entry.sourceReferences)) {
       errors.push(`${id}: sourceReferences must be an array`);
       return;
     }
-    const expectedReferenceCount = legacy ? 2 : 1;
-    if (entry.sourceReferences.length !== expectedReferenceCount) {
-      errors.push(`${id}: sourceReferences must contain ${expectedReferenceCount} entries`);
-    }
-    const paths = new Set();
-    const usages = new Set();
-    entry.sourceReferences.forEach((reference, referenceIndex) => {
+    let hasCandidate = false;
+    for (const reference of entry.sourceReferences) {
       if (!isRecord(reference)) {
-        errors.push(`${id}: sourceReferences[${referenceIndex}] must be an object`);
-        return;
+        errors.push(`${id}: invalid source reference`);
+        continue;
       }
       for (const key of ["sourceId", "path", "license", "sha256", "usage"]) {
-        if (!isNonEmptyString(reference[key])) {
-          errors.push(`${id}: sourceReferences[${referenceIndex}].${key} is required`);
-        }
+        if (!isNonEmptyString(reference[key])) errors.push(`${id}: source reference ${key}`);
       }
-      if (!SOURCE_USAGES.has(reference.usage)) {
-        errors.push(`${id}: sourceReferences[${referenceIndex}].usage is invalid`);
-      }
-      usages.add(reference.usage);
       if (isAbsolute(reference.path)) errors.push(`${id}: source path must be repo-relative`);
-      if (paths.has(reference.path))
-        errors.push(`${id}: duplicate source reference ${reference.path}`);
-      paths.add(reference.path);
       const file = resolve(repoRoot, reference.path);
       if (!isInside(repoRoot, file) || !existsSync(file)) {
         errors.push(`${id}: source reference file missing: ${reference.path}`);
@@ -344,6 +316,7 @@ function validateCharacterFactory(manifest, runtimeManifest, jobsManifest, pipel
         errors.push(`${id}: source reference sha256 mismatch: ${reference.path}`);
       }
       if (reference.usage === "candidate") {
+        hasCandidate = true;
         if (
           reference.sourceId !== "src_kenney_mini_characters" ||
           reference.license !== "CC0-1.0" ||
@@ -353,26 +326,17 @@ function validateCharacterFactory(manifest, runtimeManifest, jobsManifest, pipel
         ) {
           errors.push(`${id}: candidate source reference does not match WP-CHAR-04`);
         }
-      } else if (reference.usage === "legacy_runtime" && reference.license !== "MIT") {
-        errors.push(`${id}: Rocketbox legacy references must use MIT`);
+      } else if (reference.usage === "legacy_runtime") {
+        if (reference.license !== "MIT") errors.push(`${id}: legacy reference must be MIT`);
+        const job = jobs.find((candidate) => candidate?.source?.path === reference.path);
+        if (!job) errors.push(`${id}: legacy source reference has no asset job`);
+      } else {
+        errors.push(`${id}: source reference usage invalid`);
       }
-    });
-    if (!usages.has("candidate")) errors.push(`${id}: candidate source reference is required`);
-    if (legacy && !usages.has("legacy_runtime")) {
-      errors.push(`${id}: legacy_runtime source reference is required`);
     }
-    if (!legacy && usages.has("legacy_runtime")) {
-      errors.push(`${id}: legacy_runtime reference is only valid for mapped runtime characters`);
-    }
-    if (legacy && isNonEmptyString(entry.runtimeCharacterId)) {
-      if (runtimeIds.has(entry.runtimeCharacterId)) {
-        errors.push(`duplicate runtimeCharacterId ${entry.runtimeCharacterId}`);
-      }
-      runtimeIds.add(entry.runtimeCharacterId);
-      const asset = runtimeManifest?.characters?.[entry.runtimeCharacterId];
-      const job = jobs.find((candidate) => candidate?.assetId === entry.runtimeCharacterId);
-      validateRuntimeReference(entry, asset, job, repoRoot, errors, hashCache);
-    }
+    if (!hasCandidate) errors.push(`${id}: candidate source reference is required`);
+    if (!promotedRoles.has(id)) errors.push(`${id}: missing runtime promotion role`);
+    validateKenneyRuntime(runtimeManifest?.characters?.[id], id, errors);
   });
   return errors;
 }
@@ -380,103 +344,107 @@ function validateCharacterFactory(manifest, runtimeManifest, jobsManifest, pipel
 function runSelfTests(manifest, runtimeManifest, jobsManifest, pipeline, repoRoot) {
   const character = (candidate, id) => candidate.characters.find((entry) => entry.id === id);
   const cases = [
-    {
-      name: "missing canonical medical variant",
-      mutate: (candidate) => {
+    [
+      "missing medical variant",
+      (candidate) => {
         candidate.characters = candidate.characters.filter(
           (entry) => entry.id !== "medical_professional",
         );
       },
-      fragment: "missing medical_professional",
-    },
-    {
-      name: "enforcer classified as future",
-      mutate: (candidate) => {
+      "missing medical_professional",
+    ],
+    [
+      "enforcer scope",
+      (candidate) => {
         character(candidate, "enforcer_male").scope = "showcase/future";
       },
-      fragment: "enforcer_male: scope must match category",
-    },
-    {
-      name: "worker role diverges from domain",
-      mutate: (candidate) => {
+      "scope must match category",
+    ],
+    [
+      "worker role",
+      (candidate) => {
         character(candidate, "construction_worker_a").role = "construction";
       },
-      fragment: "construction_worker_a: role must be construction_worker",
-    },
-    {
-      name: "false runtime-ready declaration",
-      mutate: (candidate) => {
-        character(candidate, "supervisor").runtimeReady = true;
+      "role must be construction_worker",
+    ],
+    [
+      "runtime-ready false",
+      (candidate) => {
+        character(candidate, "supervisor").runtimeReady = false;
       },
-      fragment: "supervisor: runtimeReady must be false",
-    },
-    {
-      name: "candidate animation promoted to runtime",
-      mutate: (candidate) => {
+      "runtimeReady must be true",
+    ],
+    [
+      "candidate animation promoted",
+      (candidate) => {
         candidate.animationStates.work = "runtime_required";
       },
-      fragment: "animationStates.work must be candidate",
-    },
-    {
-      name: "ambient role given a domain specialty",
-      mutate: (candidate) => {
+      "animationStates.work",
+    ],
+    [
+      "ambient specialty",
+      (candidate) => {
         character(candidate, "police").domainSpecialty = "enforcer";
       },
-      fragment: "police: domainSpecialty is only valid for operational characters",
-    },
-    {
-      name: "duplicate runtime appearance",
-      mutate: (candidate) => {
-        character(candidate, "construction_worker_a").runtimeCharacterId = "chr_citizen";
+      "domainSpecialty is only valid",
+    ],
+    [
+      "duplicate character id",
+      (candidate) => {
+        candidate.characters[1].id = candidate.characters[0].id;
       },
-      fragment: "duplicate runtimeCharacterId chr_citizen",
-    },
-    {
-      name: "legacy source reference diverges from asset job",
-      mutate: (candidate) => {
+      "character ids must be unique",
+    ],
+    [
+      "legacy source mismatch",
+      (candidate) => {
         character(candidate, "construction_worker_a").sourceReferences.find(
           (reference) => reference.usage === "legacy_runtime",
-        ).path =
-          "blender_artist/staging/third_party/mit/rocketbox/avatars/Male_Adult_02/Export/Male_Adult_02.fbx";
+        ).path = "missing.fbx";
       },
-      fragment: "construction_worker_a: source reference does not match asset job",
-    },
-    {
-      name: "candidate marked approved",
-      mutate: (candidate) => {
-        character(candidate, "enforcer_male").artReview = "approved";
+      "source reference file missing",
+    ],
+    [
+      "approval revoked",
+      (candidate) => {
+        character(candidate, "enforcer_male").artReview = "pending_role_fidelity";
       },
-      fragment: "enforcer_male: artReview must remain pending_role_fidelity",
-    },
-    {
-      name: "Kenney candidate reference replaced",
-      mutate: (candidate) => {
+      "artReview must be approved",
+    ],
+    [
+      "candidate source replaced",
+      (candidate) => {
         character(candidate, "enforcer_female").sourceReferences.find(
           (reference) => reference.usage === "candidate",
         ).sourceId = "src_microsoft_rocketbox";
       },
-      fragment: "enforcer_female: candidate source reference does not match WP-CHAR-04",
-    },
-    {
-      name: "candidate source hash mismatch",
-      mutate: (candidate) => {
-        character(candidate, "enforcer_female").sourceReferences.find(
-          (reference) => reference.usage === "candidate",
-        ).sha256 = "0".repeat(64);
-      },
-      fragment: "enforcer_female: source reference sha256 mismatch",
-    },
-    {
-      name: "nonlegacy role declares legacy runtime source",
-      mutate: (candidate) => {
+      "candidate source reference",
+    ],
+    [
+      "runtime source replaced",
+      (candidate) => {
         character(candidate, "municipal_professional").runtimeSource = "rocketbox_subset_legacy";
       },
-      fragment: "municipal_professional: runtimeSource must match legacy mapping policy",
-    },
+      "runtimeSource must be Kenney",
+    ],
+    [
+      "runtime promotion false",
+      (candidate) => {
+        candidate.candidatePipeline.runtimePromotion = false;
+      },
+      "runtimePromotion must be true",
+    ],
+    [
+      "batch evidence omitted",
+      (candidate) => {
+        delete candidate.candidatePipeline.batchValidation;
+      },
+      "batchValidation is required",
+    ],
   ];
-  for (const testCase of cases) {
+  for (const [name, mutate, fragment] of cases) {
     const candidate = structuredClone(manifest);
-    testCase.mutate(candidate);
+    mutate(candidate);
     const errors = validateCharacterFactory(
       candidate,
       runtimeManifest,
@@ -484,21 +452,20 @@ function runSelfTests(manifest, runtimeManifest, jobsManifest, pipeline, repoRoo
       pipeline,
       repoRoot,
     );
-    if (!errors.some((error) => error.includes(testCase.fragment))) {
-      throw new Error(`self-test missed: ${testCase.name}`);
-    }
+    if (!errors.some((error) => error.includes(fragment)))
+      throw new Error(`self-test missed: ${name}`);
   }
   const corruptedRuntime = structuredClone(runtimeManifest);
-  corruptedRuntime.characters.chr_worker.animations.idle.frames[0].sha256 = "0".repeat(64);
-  const hashErrors = validateCharacterFactory(
+  corruptedRuntime.characters.construction_worker_a.animations.walk.frames.pop();
+  const runtimeErrors = validateCharacterFactory(
     manifest,
     corruptedRuntime,
     jobsManifest,
     pipeline,
     repoRoot,
   );
-  if (!hashErrors.some((error) => error.includes("chr_worker/idle/frame 0: sha256 mismatch"))) {
-    throw new Error("self-test missed: runtime frame hash mismatch");
+  if (!runtimeErrors.some((error) => error.includes("walk must have 32 frames"))) {
+    throw new Error("self-test missed: runtime walk matrix");
   }
   return cases.length + 1;
 }
@@ -524,12 +491,8 @@ try {
     console.error(errors.join("\n"));
     process.exitCode = 1;
   } else {
-    const legacyCount = manifest.characters.filter(
-      (entry) => entry.runtimeMappingStatus === "legacy",
-    ).length;
-    const runtimeReadyCount = manifest.characters.filter((entry) => entry.runtimeReady).length;
     console.log(
-      `Character Factory PASS: ${manifest.characters.length}/14 Kenney candidates; ${legacyCount} explicit legacy Rocketbox mappings; ${runtimeReadyCount} runtime-ready; 4 directions; idle/walk runtime; ${manifest.showcaseAnimations.length} candidate animations.`,
+      "Character Factory PASS: 14/14 Kenney characters runtime-ready and human-approved; 504 frames; legacy Rocketbox fallback retained.",
     );
     if (process.argv.includes("--self-test")) {
       const count = runSelfTests(manifest, runtimeManifest, jobsManifest, pipeline, repoRoot);

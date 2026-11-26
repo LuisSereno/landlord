@@ -38,7 +38,6 @@ const LAYOUT: IsometricLayout = {
   mapHeight: 18,
 };
 
-const ROLES = ["worker", "supervisor", "enforcer", "police", "firefighter"] as const;
 const MOVE_CELLS_PER_SECOND = 1.4;
 
 type RuntimeManifest = {
@@ -90,6 +89,7 @@ function groupKey(frame: LabSpriteFrame): string {
 
 export class CharacterScaleLabScene extends Phaser.Scene {
   private readonly manifest: LabSpriteManifest;
+  private readonly roles: string[];
   private readonly onState: (state: LabState) => void;
   private readonly runtime = runtimeManifest as unknown as RuntimeManifest;
   private readonly framesByKey = new Map<string, LabSpriteFrame>();
@@ -122,6 +122,7 @@ export class CharacterScaleLabScene extends Phaser.Scene {
   constructor(manifest: LabSpriteManifest, onState: (state: LabState) => void) {
     super("CharacterScaleLab");
     this.manifest = manifest;
+    this.roles = [...new Set(manifest.frames.map((frame) => frame.role))].sort();
     this.onState = onState;
     for (const frame of manifest.frames) {
       this.framesByKey.set(textureKey(frame), frame);
@@ -167,7 +168,7 @@ export class CharacterScaleLabScene extends Phaser.Scene {
     this.references = this.add.graphics().setDepth(20);
     this.pivots = this.add.graphics().setDepth(5000);
     this.selection = this.add.graphics().setDepth(5001);
-    for (const role of ROLES) {
+    for (const role of this.roles) {
       const sprite = this.add.image(0, 0, "missing").setVisible(false);
       this.characters.set(role, {
         role,
@@ -405,7 +406,7 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       this.positionVisual(visual);
     }
     for (const building of this.labBuildings) {
-      building.image.setVisible(!building.denseOnly || id === "dense");
+      building.image.setVisible(!building.denseOnly || id === "dense" || id === "catalog");
     }
     this.centerCamera();
     this.drawPivots();
@@ -461,10 +462,19 @@ export class CharacterScaleLabScene extends Phaser.Scene {
   }
 
   setCharacterDirection(role: string, direction: number): void {
+    this.setCharacterPose(role, "idle", direction, 0);
+  }
+
+  setCharacterPose(
+    role: string,
+    animation: "idle" | "walk",
+    direction: number,
+    sampleIndex: number,
+  ): void {
     const visual = this.characters.get(role);
     if (!visual || !visual.sprite.visible) return;
     const normalized = ((direction % 4) + 4) % 4;
-    this.applyVisual(visual, "idle", normalized, 0);
+    this.applyVisual(visual, animation, normalized, sampleIndex);
     this.positionVisual(visual);
     this.emitState();
   }
@@ -636,11 +646,14 @@ export class CharacterScaleLabScene extends Phaser.Scene {
       );
       this.calibrations.set(key, calibration);
     }
-    const frame = frames[sampleIndex % frames.length]!;
-    const calibrated = calibration[sampleIndex % calibration.length]!;
+    const requestedSample = ((sampleIndex % 8) + 8) % 8;
+    const matchedIndex = frames.findIndex((frame) => frame.sampleIndex === requestedSample);
+    const resolvedIndex = matchedIndex >= 0 ? matchedIndex : 0;
+    const frame = frames[resolvedIndex]!;
+    const calibrated = calibration[resolvedIndex]!;
     visual.animation = animation;
     visual.direction = direction;
-    visual.sampleIndex = sampleIndex % frames.length;
+    visual.sampleIndex = frame.sampleIndex;
     visual.scale = calibrated.scale;
     visual.originX = calibrated.originX;
     visual.originY = calibrated.originY;

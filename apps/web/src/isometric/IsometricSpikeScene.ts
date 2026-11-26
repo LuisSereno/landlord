@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { CHARACTER_LIFT_LUT, CHARACTER_RENDER_SCALE } from "./visual-scale";
+import { CHARACTER_LIFT_LUT } from "./visual-scale";
 import { readVisualMood } from "../visual-mood";
 import {
   type AgentId,
@@ -49,7 +49,7 @@ import {
 } from "./property-grounds";
 import { constructionStageMassing, constructionVisualStage } from "./construction-stages";
 import {
-  crewAnimationFrameKey,
+  crewAnimationSlot,
   crewSpriteObservations,
   type CrewSpriteObservation,
 } from "./crew-presence";
@@ -72,6 +72,7 @@ import {
   depthForFootprintCells,
   footprintCenter,
   footprintVisualCenter,
+  framesPerDirection,
   originFromPivot,
   resolveBuildingVisual,
   selectBuildingTextureKey,
@@ -80,6 +81,8 @@ import {
   spriteScaleForDomainFootprint,
 } from "./building-sprites";
 import { FACILITY_COURTYARD_SPECS } from "./facility-courtyards";
+import { actorCharacterFor } from "./character-selection";
+import { CharacterTextureCache, type CharacterAssetMetrics } from "./character-texture-cache";
 import {
   gridToScreen,
   pickGridCell,
@@ -520,6 +523,7 @@ declare global {
     };
     /** V.j.6 · métricas de carga/memoria de variantes por distrito (D-102). */
     __districtAssetStats?: () => DistrictAssetMetrics;
+    __characterAssetStats?: () => CharacterAssetMetrics;
     /** V.j.8 · sólo evidencia QA: estado visual forzado para captura 9×3×4 (no gameplay). */
     __landlordQaState?: "complete" | "construction" | "damaged" | "burning";
     __landlordQaRefresh?: () => void;
@@ -574,6 +578,15 @@ declare global {
       groundBakeMaxMs: number;
     };
     __landlordQaVariantReady?: (type: string, mood: BuildingVisualMood) => boolean;
+    __landlordQaVariantStatus?: (
+      type: string,
+      mood: BuildingVisualMood,
+    ) => {
+      found: boolean;
+      key: string | null;
+      textureExists: boolean;
+      src: string | null;
+    };
     __landlordQaCourtyardReady?: (type: string) => boolean;
     __landlordQaCourtyardStatus?: (type: string) => { expected: string[]; present: string[] };
   }
@@ -711,6 +724,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
   private crewSprites = new Map<AgentId, CrewSpriteEntry>();
   /** Lectura pura de la última proyección: también es la memoria de rumbo entre proyecciones. */
   private crewObservations = new Map<AgentId, CrewSpriteObservation>();
+  private characterTextureCache: CharacterTextureCache | null = null;
 
   public constructor(options: IsometricSceneOptions = {}) {
     super({ key: "IsometricSpikeScene" });
@@ -724,6 +738,12 @@ export class IsometricSpikeScene extends Phaser.Scene {
 
   public create(): void {
     this.buildScreenCenterCache();
+    this.characterTextureCache = new CharacterTextureCache(
+      this.textures,
+      CHARACTER_LIFT_LUT,
+      96 * 1024 * 1024,
+      () => this.sceneDestroyed,
+    );
     this.groundPlan = this.sliceLayout
       ? planGround(this.sliceLayout, this.layout.mapWidth, this.layout.mapHeight)
       : null;
@@ -810,18 +830,62 @@ export class IsometricSpikeScene extends Phaser.Scene {
       groundBakeMaxMs: this.groundBakeMaxMs,
     });
     window.__districtAssetStats = () => this.variantCache.metrics();
+    window.__characterAssetStats = () =>
+      this.characterTextureCache?.metrics() ?? {
+        loadedBytesTotal: 0,
+        loadedCount: 0,
+        cacheBytes: 0,
+        cacheCount: 0,
+        evictedCount: 0,
+        evictedBytes: 0,
+        budgetBytes: 96 * 1024 * 1024,
+      };
     window.__landlordQaRefresh = () => this.syncBuildingSprites();
     window.__landlordQaVariantReady = (type, mood) => {
       if (this.sceneDestroyed || !this.assetsReady || this.buildingVisualMood !== mood)
         return false;
-      const building = this.projection?.economy?.buildings.find((entry) => entry.type === type);
-      if (!building) return false;
-      const state = buildingAssetStateFor(building.state, building.condition);
-      const key = variantTextureKey(type, state, building.orientation, null, mood);
+      const economy = this.projection?.economy;
+      const building = economy?.buildings.find(
+        (entry) =>
+          entry.type === type || this.buildingArchetypes.get(`building:${entry.id}`) === type,
+      );
+      if (building) {
+        const archetype = this.buildingArchetypes.get(`building:${building.id}`) ?? building.type;
+        const state = buildingAssetStateFor(building.state, building.condition);
+        const key = variantTextureKey(archetype, state, building.orientation, null, mood);
+        return (
+          this.textures.exists(key) &&
+          this.buildingSprites.get(`building:${building.id}`)?.texture.key === key
+        );
+      }
+      const site = economy?.constructionSites.find(
+        (entry) =>
+          entry.buildingType === type || this.buildingArchetypes.get(`site:${entry.id}`) === type,
+      );
+      if (!site) return false;
+      const archetype = this.buildingArchetypes.get(`site:${site.id}`) ?? site.buildingType;
+      const stage = constructionVisualStage(site.progress, site.workRequired);
+      const key = variantTextureKey(
+        archetype,
+        "construction",
+        site.orientation,
+        stage === "complete" ? null : stage,
+        mood,
+      );
       return (
         this.textures.exists(key) &&
-        this.buildingSprites.get(`building:${building.id}`)?.texture.key === key
+        this.buildingSprites.get(`construction:${site.id}`)?.texture.key === key
       );
+    };
+    window.__landlordQaVariantStatus = (type, mood) => {
+      const variant = resolveBuildingVariant(type, "complete", 0, null, mood);
+      const key = variant ? variantTextureKey(type, "complete", 0, null, mood) : null;
+      return {
+        found: Boolean(variant),
+        key,
+        textureExists: key ? this.textures.exists(key) : false,
+        src: variant?.image.src ?? null,
+      };
     };
     window.__landlordQaCourtyardStatus = (type) => {
       if (this.sceneDestroyed || !this.assetsReady) return { expected: [], present: [] };
@@ -860,6 +924,7 @@ export class IsometricSpikeScene extends Phaser.Scene {
      */
     this.events.once(Phaser.Scenes.Events.DESTROY, () => {
       this.sceneDestroyed = true;
+      this.characterTextureCache?.destroy();
       /** V.d-UX.S · los pulsos y destellos son tweens externos al display list: hay que pararlos. */
       this.stopStatusTweens();
       this.parcelMarks.clear();
@@ -951,6 +1016,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
     if (!this.sys.isActive()) return;
     const moodChanged = this.buildingVisualMood !== mood;
     this.buildingVisualMood = mood;
+    const staleMoodKeys = this.variantCache.evictWhere(
+      (entry) => !entry.key.includes(`blender-variant-${mood}-`),
+    );
+    for (const key of staleMoodKeys) this.textures.remove(key);
     this.cameras.main.setBackgroundColor(mood === "day" ? "#2b3542" : "#101827");
     this.repaintGround();
     if (moodChanged) this.syncBuildingSprites();
@@ -1379,21 +1448,44 @@ export class IsometricSpikeScene extends Phaser.Scene {
     // V.h.7/V.h.11: actores ambientales + profesionales contextuales (avatares Rocketbox horneados).
     const seenActors = new Set<string>();
     for (const actor of [...(model.ambientActors ?? []), ...(model.contextActors ?? [])]) {
-      const key = `blender-character-${actor.character}-${actor.animation}-d${actor.direction}-${actor.slot}`;
-      if (!this.textures.exists(key)) continue;
+      const character = actorCharacterFor(
+        ASSETS_BLENDER,
+        actor.character,
+        actor.id,
+        "actorClass" in actor && typeof actor.actorClass === "string"
+          ? actor.actorClass
+          : undefined,
+      );
+      const asset = ASSETS_BLENDER.characters[character];
+      if (!asset || !this.characterTextureCache) continue;
+      const perDirection = framesPerDirection(asset, actor.animation);
+      const slot = actor.slot % perDirection;
+      const frame = this.characterTextureCache.getFrame(
+        character,
+        actor.animation,
+        actor.direction,
+        slot,
+      );
+      if (!frame) {
+        void this.characterTextureCache
+          .ensure(ASSETS_BLENDER, character, actor.animation, actor.direction)
+          .catch(() => undefined);
+        seenActors.add(actor.id);
+        continue;
+      }
       const renderCell =
         "curbEdge" in actor && "lateralOffset" in actor
           ? contextActorRenderCell(actor as GameplayContextActor)
           : actor.cell;
       const center = gridToScreen(renderCell, this.layout);
       const image =
-        this.ambientActorSprites.get(actor.id) ?? this.add.image(center.x, center.y, key);
+        this.ambientActorSprites.get(actor.id) ?? this.add.image(center.x, center.y, frame.key);
       this.ambientActorSprites.set(actor.id, image);
       image
-        .setTexture(key)
+        .setTexture(frame.key)
         .setPosition(center.x, center.y)
-        .setOrigin(0.5, 0.94)
-        .setScale(CHARACTER_RENDER_SCALE)
+        .setOrigin(frame.calibration.originX, frame.calibration.originY)
+        .setScale(frame.calibration.scale)
         .setDepth(depthForAsset(renderCell, { width: 1, height: 1 }));
       image.setVisible(this.isInViewport(image.x, image.y, this.cameras.main.worldView, 96));
       seenActors.add(actor.id);
@@ -1474,7 +1566,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
       this.clearCrewSprites();
       return;
     }
-    this.crewObservations = crewSpriteObservations(projection, this.crewObservations);
+    this.crewObservations = crewSpriteObservations(
+      projection,
+      this.crewObservations,
+      ASSETS_BLENDER,
+    );
     if (!this.assetsReady) return;
     for (const [agentId, entry] of this.crewSprites) {
       if (this.crewObservations.has(agentId)) continue;
@@ -1489,23 +1585,37 @@ export class IsometricSpikeScene extends Phaser.Scene {
         existing.cell = observation.renderCell;
         continue;
       }
-      const key = crewAnimationFrameKey(
-        ASSETS_BLENDER,
+      const asset = ASSETS_BLENDER.characters[observation.character];
+      const clip = asset?.animations[observation.animation];
+      if (!asset || !clip || !this.characterTextureCache) continue;
+      const perDirection = framesPerDirection(asset, observation.animation);
+      const slot = crewAnimationSlot(this.time.now, clip.frameDurationMs, perDirection);
+      const frame = this.characterTextureCache.getFrame(
         observation.character,
         observation.animation,
         observation.direction,
-        this.time.now,
+        slot,
       );
-      if (!this.textures.exists(key)) continue;
+      if (!frame) {
+        void this.characterTextureCache
+          .ensure(
+            ASSETS_BLENDER,
+            observation.character,
+            observation.animation,
+            observation.direction,
+          )
+          .catch(() => undefined);
+        continue;
+      }
       const image = this.add
-        .image(target.x, target.y, key)
-        .setOrigin(0.5, 0.94)
-        .setScale(CHARACTER_RENDER_SCALE)
+        .image(target.x, target.y, frame.key)
+        .setOrigin(frame.calibration.originX, frame.calibration.originY)
+        .setScale(frame.calibration.scale)
         .setDepth(depthForAsset(observation.renderCell, { width: 1, height: 1 }));
       image.setVisible(this.isInViewport(target.x, target.y, this.cameras.main.worldView, 96));
       this.crewSprites.set(observation.agentId, {
         image,
-        key,
+        key: frame.key,
         target,
         cell: observation.renderCell,
       });
@@ -1530,16 +1640,34 @@ export class IsometricSpikeScene extends Phaser.Scene {
     for (const [agentId, entry] of this.crewSprites) {
       const observation = this.crewObservations.get(agentId);
       if (!observation) continue;
-      const key = crewAnimationFrameKey(
-        ASSETS_BLENDER,
+      const asset = ASSETS_BLENDER.characters[observation.character];
+      const clip = asset?.animations[observation.animation];
+      if (!asset || !clip || !this.characterTextureCache) continue;
+      const perDirection = framesPerDirection(asset, observation.animation);
+      const slot = crewAnimationSlot(time, clip.frameDurationMs, perDirection);
+      const frame = this.characterTextureCache.getFrame(
         observation.character,
         observation.animation,
         observation.direction,
-        time,
+        slot,
       );
-      if (key !== entry.key) {
-        entry.image.setTexture(key);
-        entry.key = key;
+      if (!frame) {
+        void this.characterTextureCache
+          .ensure(
+            ASSETS_BLENDER,
+            observation.character,
+            observation.animation,
+            observation.direction,
+          )
+          .catch(() => undefined);
+        continue;
+      }
+      if (frame.key !== entry.key) {
+        entry.image
+          .setTexture(frame.key)
+          .setOrigin(frame.calibration.originX, frame.calibration.originY)
+          .setScale(frame.calibration.scale);
+        entry.key = frame.key;
       }
       entry.image.setDepth(depthForAsset(entry.cell, { width: 1, height: 1 }));
       if (entry.image.x === entry.target.x && entry.image.y === entry.target.y) continue;
@@ -2286,29 +2414,6 @@ export class IsometricSpikeScene extends Phaser.Scene {
         }
       }
     }
-    // Personajes horneados (V.h.7): el array de frames viene como direction*framesPerDir+slot.
-    // Se aclaran al rasterizar (V.k.3): el bake es más oscuro que el suelo que pisa.
-    for (const [id, character] of Object.entries(manifest.characters ?? {})) {
-      for (const [animation, anim] of Object.entries(character.animations)) {
-        const framesPerDirection = Math.max(
-          1,
-          Math.round(anim.frames.length / character.directions),
-        );
-        for (let i = 0; i < anim.frames.length; i += 1) {
-          const direction = Math.floor(i / framesPerDirection);
-          const slot = i % framesPerDirection;
-          const image = anim.frames[i];
-          if (!image) continue;
-          await this.registerImageTexture(
-            `${keyPrefix}character-${id}-${animation}-d${direction}-${slot}`,
-            image.src,
-            image.width,
-            image.height,
-            CHARACTER_LIFT_LUT,
-          );
-        }
-      }
-    }
   }
 
   /** Rasteriza un src (data URI o ruta) en una textura de Phaser; un fallo no bloquea al resto. */
@@ -2808,7 +2913,9 @@ export class IsometricSpikeScene extends Phaser.Scene {
     // registra quién falló y con qué URL, nunca se deja el hueco sin decirlo.
     this.load.once("loaderror", (file: { key: string; src: string }) => {
       if (!file.key.startsWith("qa-candidate-")) return;
-      this.candidateQaLoadErrors.push(`${file.key.slice("qa-candidate-".length)}: PNG no cargó (${file.src})`);
+      this.candidateQaLoadErrors.push(
+        `${file.key.slice("qa-candidate-".length)}: PNG no cargó (${file.src})`,
+      );
     });
     const placeAll = (): void => {
       if (this.sceneDestroyed) return;
@@ -2817,14 +2924,19 @@ export class IsometricSpikeScene extends Phaser.Scene {
         const key = `qa-candidate-${item.name}`;
         if (!this.textures.exists(key)) {
           if (!this.candidateQaLoadErrors.some((entry) => entry.startsWith(`${item.name}:`))) {
-            this.candidateQaLoadErrors.push(`${item.name}: la textura no llegó a existir (${item.url})`);
+            this.candidateQaLoadErrors.push(
+              `${item.name}: la textura no llegó a existir (${item.url})`,
+            );
           }
           continue;
         }
         const center = gridToScreen(footprintCenter(item.cell, item.footprint), this.layout);
         const sprite = this.add.image(center.x, center.y, key);
         const origin = originFromPivot({ pivot: item.pivot });
-        const scale = spriteScaleFor({ pixelsPerMeter: item.pixelsPerMeter }, this.layout.tileWidth);
+        const scale = spriteScaleFor(
+          { pixelsPerMeter: item.pixelsPerMeter },
+          this.layout.tileWidth,
+        );
         sprite.setOrigin(origin.x, origin.y);
         sprite.setScale(scale);
         sprite.setDepth(depthForAsset(item.cell, item.footprint));
@@ -2933,6 +3045,11 @@ export class IsometricSpikeScene extends Phaser.Scene {
     this.load.once("complete", () => {
       if (this.sceneDestroyed) return;
       for (const [pendingKey, meta] of [...this.pendingVariantTextures]) {
+        if (!pendingKey.includes(`blender-variant-${this.buildingVisualMood}-`)) {
+          this.pendingVariantTextures.delete(pendingKey);
+          if (this.textures.exists(pendingKey)) this.textures.remove(pendingKey);
+          continue;
+        }
         if (this.textures.exists(pendingKey)) {
           this.variantCache.recordLoad(pendingKey, meta.bytes, meta.districtId);
           this.pendingVariantTextures.delete(pendingKey);

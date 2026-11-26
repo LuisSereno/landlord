@@ -111,6 +111,7 @@
     "coal": "#202428",
     "black": "#171A1D",
     "slate": "#465463",
+    "light_slate": "#718699",
     "muted_blue": "#5E7180",
     "protective_charcoal": "#343A3D",
     "fire_yellow": "#E3B83F",
@@ -118,6 +119,7 @@
     "paper": "#D8CFB5",
     "metal": "#7C858A",
     "sand": "#C8A56A",
+    "safety_orange": "#D88342",
     "dark_blue": "#243446",
     "badge_gold": "#D5AD4A",
     "teal": "#2F6F73",
@@ -153,7 +155,7 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-e.glb",
       "sourceSha256": "7b67dbd3b1873a8182e78b1764db008496e4c3b871db59f45ed224852c238fd4",
       "coverage": "MINOR_ADAPTATION",
-      "technicalCorrection": "WP-CHAR-02C/03: local hair treatment, remove glasses component 2, conical supervisor helmet and lowered clipboard.",
+      "technicalCorrection": "Local hair treatment, remove glasses component 2 and fitted conical supervisor helmet; embedded clipboard candidate removed.",
       "paletteMode": "regions",
       "headRemoveComponents": [2],
       "headComponents": [1, 5],
@@ -165,10 +167,7 @@
         "reflective": "pale_yellow",
         "hair": "dark_brown",
         "helmet": "sand",
-        "helmet_band": "charcoal",
-        "clipboard": "leather",
-        "paper": "paper",
-        "metal": "metal"
+        "helmet_band": "charcoal"
       },
       "bodyBands": {
         "bootRatio": 0.2,
@@ -180,9 +179,9 @@
           { "range": [0.78, 0.9], "material": "reflective" }
         ]
       },
-      "accessories": ["supervisor_helmet_v2", "clipboard_lowered"],
+      "accessories": ["supervisor_helmet_v2"],
       "visualRisks": [
-        "Helmet and clipboard need small-scale human review.",
+        "Helmet needs small-scale human review.",
         "Single idle pose; no full idle cycle."
       ]
     },
@@ -194,10 +193,11 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-f.glb",
       "sourceSha256": "83fa60802557199778ab606e5ee3b2da2140ef35839ac4fb557ef95dbac9c5d4",
       "coverage": "MINOR_ADAPTATION",
-      "technicalCorrection": "WP-CHAR-02B mapping: distinct male-f base, work palette, simple hard hat and belt.",
+      "technicalCorrection": "Distinct male-f base, orange work jacket, reflective bands, simple hard hat and belt; separated from the ochre site supervisor.",
+      "headRemoveComponents": [1],
       "paletteMode": "regions",
       "palette": {
-        "torso": "ochre",
+        "torso": "safety_orange",
         "arms": "navy",
         "legs": "denim",
         "boots": "dark_brown",
@@ -227,7 +227,7 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-f.glb",
       "sourceSha256": "67ec9b7d30a59f292dbd9a864cc4ef118f98b156203f2285addb1ab6997f9106",
       "coverage": "MINOR_ADAPTATION",
-      "technicalCorrection": "WP-CHAR-02B mapping: female-f base, teal service palette, cap and rigid wrench.",
+      "technicalCorrection": "Female-f base with teal service palette and fitted work cap; wrist-mounted tool candidate removed after visual review.",
       "paletteMode": "regions",
       "palette": {
         "torso": "teal",
@@ -235,8 +235,7 @@
         "legs": "denim",
         "boots": "dark_brown",
         "shirt": "cream",
-        "cap": "navy",
-        "metal": "metal"
+        "cap": "navy"
       },
       "bodyBands": {
         "bootRatio": 0.2,
@@ -245,8 +244,8 @@
         "armBands": [],
         "torsoBands": [{ "range": [0.76, 0.92], "material": "shirt" }]
       },
-      "accessories": ["work_cap", "wrench"],
-      "visualRisks": ["Wrench is a rigid role prop; fine grip animation is outside this WP."]
+      "accessories": ["work_cap"],
+      "visualRisks": ["Work cap needs small-scale human review."]
     },
     "enforcer_male": {
       "canonicalId": "enforcer_male",
@@ -263,7 +262,7 @@
       "mouthComponent": 5,
       "palette": {
         "torso": "slate",
-        "arms": "charcoal",
+        "arms": "slate",
         "legs": "coal",
         "boots": "black",
         "shirt": "muted_blue",
@@ -302,8 +301,8 @@
         "arms": "jacket",
         "legs": "slate",
         "boots": "black",
-        "jacket": "charcoal",
-        "jacket_trim": "slate",
+        "jacket": "slate",
+        "jacket_trim": "light_slate",
         "belt": "leather",
         "metal": "metal",
         "hair": "black"
@@ -367,15 +366,13 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-male-d.glb",
       "sourceSha256": "bded80fb516310186bf151b040696295395043b520a77d09533e20445dd4c02a",
       "coverage": "DIRECT",
-      "technicalCorrection": "WP-CHAR-02B direct formal base; optional rigid folder.",
+      "technicalCorrection": "Direct formal base; floating folder candidate removed after visual review.",
       "paletteMode": "source_atlas",
       "palette": {
-        "source": "kenney_colormap",
-        "folder": "navy",
-        "paper": "paper"
+        "source": "kenney_colormap"
       },
-      "accessories": ["folder"],
-      "visualRisks": ["Folder is small and may not read at 28 px."]
+      "accessories": [],
+      "visualRisks": []
     },
     "civilian_female_a": {
       "canonicalId": "civilian_female_a",
@@ -487,16 +484,13 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-e.glb",
       "sourceSha256": "265a52129eb18106c16aa25863ef691c97eb959a19b43f63857df933f6439b58",
       "coverage": "DIRECT",
-      "technicalCorrection": "WP-CHAR-02B direct medical base with integrated light coat; optional medical bag.",
+      "technicalCorrection": "Direct medical base with integrated light coat; floating bag candidate removed after visual review.",
       "paletteMode": "source_atlas",
       "palette": {
-        "source": "kenney_colormap",
-        "bag": "cream",
-        "trim": "teal",
-        "leather": "leather"
+        "source": "kenney_colormap"
       },
-      "accessories": ["medical_bag"],
-      "visualRisks": ["Medical bag is small; integrated coat remains the primary identity."]
+      "accessories": [],
+      "visualRisks": []
     },
     "municipal_professional": {
       "canonicalId": "municipal_professional",
@@ -506,15 +500,13 @@
       "sourcePath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-d.glb",
       "sourceSha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf",
       "coverage": "DIRECT",
-      "technicalCorrection": "WP-CHAR-02B direct formal base; optional rigid folder.",
+      "technicalCorrection": "Direct formal base; floating folder candidate removed after visual review.",
       "paletteMode": "source_atlas",
       "palette": {
-        "source": "kenney_colormap",
-        "folder": "navy",
-        "paper": "paper"
+        "source": "kenney_colormap"
       },
-      "accessories": ["folder"],
-      "visualRisks": ["Folder is small and may not read at 28 px."]
+      "accessories": [],
+      "visualRisks": []
     }
   },
   "enforcerFemaleDiagnostics": {

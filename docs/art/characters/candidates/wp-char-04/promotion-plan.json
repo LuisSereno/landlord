@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "planId": "kenney-characters-runtime-promotion-v1",
+  "status": "approved_for_manual_promotion",
+  "approvalStatus": "approved_human",
+  "approvalReference": "docs/execution/phase-4/catalog-closure/04-human-review.md",
+  "approvedBy": "luis",
+  "approvedAt": "2026-11-26",
+  "runRoot": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03",
+  "targetHeightPixels": 34,
+  "frameDurationMs": {
+    "idle": 400,
+    "walk": 180
+  },
+  "roles": [
+    "civilian_male_a",
+    "civilian_male_b",
+    "civilian_female_a",
+    "civilian_female_b",
+    "supervisor",
+    "construction_worker_a",
+    "construction_worker_b",
+    "maintenance_technician",
+    "enforcer_male",
+    "enforcer_female",
+    "police",
+    "firefighter",
+    "medical_professional",
+    "municipal_professional"
+  ]
+}

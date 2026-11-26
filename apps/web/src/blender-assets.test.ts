@@ -80,8 +80,45 @@ describe("WP4.15-H ruta Blender E2E", () => {
       "chr_medical",
       "chr_police",
       "chr_worker",
+      "civilian_female_a",
+      "civilian_female_b",
+      "civilian_male_a",
+      "civilian_male_b",
+      "construction_worker_a",
+      "construction_worker_b",
+      "enforcer_female",
+      "enforcer_male",
+      "firefighter",
+      "maintenance_technician",
+      "medical_professional",
+      "municipal_professional",
+      "police",
+      "supervisor",
       "vecino_variante",
     ]);
+    for (const id of [
+      "civilian_male_a",
+      "civilian_male_b",
+      "civilian_female_a",
+      "civilian_female_b",
+      "supervisor",
+      "construction_worker_a",
+      "construction_worker_b",
+      "maintenance_technician",
+      "enforcer_male",
+      "enforcer_female",
+      "police",
+      "firefighter",
+      "medical_professional",
+      "municipal_professional",
+    ]) {
+      const character = bundle.characters[id]!;
+      expect(character.directions).toBe(4);
+      expect(character.animations.idle.frames).toHaveLength(4);
+      expect(character.animations.walk.frames).toHaveLength(32);
+      expect(character.provenance?.sourceId).toBe("src_kenney_mini_characters");
+      expect(character.provenance?.license).toBe("CC0-1.0");
+    }
     for (const id of [
       "chr_citizen",
       "chr_police",
@@ -136,6 +173,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
       "prp_tree_oak",
       "prp_tree_pine",
       "prp_tree_small",
+      "prp_waste_heap",
       "prp_wild_bull",
       "prp_wild_camel",
       "prp_wild_chicken_brown",
@@ -208,7 +246,7 @@ describe("WP4.15-H ruta Blender E2E", () => {
     // incluidos vía runtime-promotions; el override manual de courtyard quedó retirado).
     // V.j.4: +18 vistas de orientación de vehículo; entorno vivo: +64 sprites;
     // patios de equipamientos (WP-D): +9 props originales (juegos, puesto, asta).
-    expect(images.length).toBe(263);
+    expect(images.length).toBe(771);
     let totalBytes = 0;
     for (const image of images) {
       const buffer = readFileSync(join(PUBLIC_DIR, image.src));
@@ -221,7 +259,17 @@ describe("WP4.15-H ruta Blender E2E", () => {
     // V.i quality pass: los 15 edificios se re-renderizan a renderScale 2 (densidad x2 para zoom x4
     // nítido). El bundle runtime pasa de ~9.4 MB a ~22.7 MB medidos.
     // V.j.4 + entorno vivo: 64 sprites adicionales mantienen el atlas por debajo de 25 MiB.
-    expect(totalBytes).toBeLessThan(25_000_000);
+    const legacyBytes = images
+      .filter((image) => !image.src.startsWith("/assets/runtime/characters-kenney/"))
+      .reduce((total, image) => total + readFileSync(join(PUBLIC_DIR, image.src)).length, 0);
+    const kenneyImages = images.filter((image) =>
+      image.src.startsWith("/assets/runtime/characters-kenney/"),
+    );
+    const kenneyBytes = totalBytes - legacyBytes;
+    expect(kenneyImages).toHaveLength(504);
+    expect(kenneyBytes).toBeLessThan(96 * 1024 * 1024);
+    expect(legacyBytes).toBeLessThan(25_000_000);
+    expect(totalBytes).toBeLessThan(112 * 1024 * 1024);
   });
 
   it("el pivote queda dentro de la imagen recortada y la huella es positiva", () => {

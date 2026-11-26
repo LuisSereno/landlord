@@ -1,7 +1,7 @@
 {
  "schemaVersion": 1,
  "matrixId": "organization-headquarters-candidate-matrix-v1",
- "status": "candidate_only_pending_human_visual_approval",
+ "status": "approved_promoted_runtime",
  "totalAssets": 96,
  "expectedAssets": 96,
  "summary": {

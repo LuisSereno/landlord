@@ -414,8 +414,22 @@ Sigue abierto:
   desde que se refirmó el golden (`71d4f22`, 2026-11-16). Se **no regenera** hasta saber la causa.
 - **`art:coverage:audit:check` rojo en HEAD** con sus cuatro entradas y sus dos salidas
   byte-idénticas a HEAD: el informe está desfasado respecto al catálogo actual, no lo empeoró esta fase.
-- **`art:staging:validate` rojo** por 7 fuentes `src_original_*` con procedencia incompleta y el PNG de
-  spike irrecuperable desde la limpieza del 2026-11-04. Heredado de V.j.2 y V.e.
+- **`art:staging:validate` rojo; baseline medido el 2026-11-25.** Registra 18 fuentes
+  `src_original_*` con procedencia incompleta (siete históricas y once incorporadas después) y
+  `blender_artist/generated/concepts/visual_direction_spike_original_01.png` ausente desde la
+  limpieza del 2026-11-04. `art:sources:audit:check` informa que el inventario visual no coincide
+  con staging. Ambos son diagnósticos globales: para reproducir el cierre de catálogo, comparar
+  IDs y causas con este baseline; bloquear ante fallos nuevos, fuentes consumidas ausentes o hashes
+  divergentes. El procedimiento está en `docs/art/ART-PIPELINE.md` §44.2.
+  Los 18 IDs de procedencia incompleta son `src_original_civic_pediment`,
+  `src_original_school_cupola`, `src_original_construction_scaffold`,
+  `src_original_construction_barrier`, `src_original_damage_debris`,
+  `src_original_fire_flame`, `src_original_fire_smoke`, `src_original_gn_window_bay`,
+  `src_original_gn_shopfront_bay`, `src_original_gn_plinth`, `src_original_gn_cornice`,
+  `src_original_gn_balcony_door_bay`, `src_original_gn_metal_siding_bay`,
+  `src_original_gn_metal_window_bay`, `src_original_gn_truck_dock_bay`,
+  `src_original_gn_metal_parapet`, `src_original_neoclassical_column` y
+  `src_original_neoclassical_wall`.
 - **24 PNG huérfanos `vf_town_hall_1006*` retirados** el 2026-11-25, junto con otros 630 PNG de
   variantes runtime sin referencia. La guarda `art:runtime-references:check` queda en 1.173 referencias,
   1.173 archivos y 0 huérfanos.

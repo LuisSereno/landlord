@@ -21,8 +21,8 @@ describe("VisualCatalog", () => {
     expect(markup).toContain(`${buildingCount}/${buildingCount}`);
     expect(markup).toContain(`${buildingStateCount}/${buildingCount * 6}`);
     expect(markup).toContain(`${characterCount}/${characterCount}`);
-    expect(markup).toContain(`0/${characterCount}`);
-    expect(markup).toContain("Role specification — visual production pending");
+    expect(markup).toContain(`${characterCount}/${characterCount}`);
+    expect(markup).toContain("Approved Kenney runtime sprites");
     expect(markup).toContain('data-testid="showcase-mount"');
   });
 });

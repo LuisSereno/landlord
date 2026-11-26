@@ -1,0 +1,726 @@
+{
+  "schemaVersion": 1,
+  "runId": "2026-11-25-smoke-15",
+  "role": "enforcer_female",
+  "canonicalId": "enforcer_female",
+  "stage": "smoke",
+  "direction": 0,
+  "animation": "walk",
+  "sampleIndex": 2,
+  "actionFrame": 4,
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-a.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-a.glb",
+    "sha256": "10e4f70e4279913b4f78134c9eeb699a11091cd4b452ecccf9d2b27b32206320",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710",
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "0ab6949ee62182ab8ed333bc39c15b7fda3d57130fca9eab82095e6a609dcf36"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "declaredAccessoryOrder": [],
+  "accessoryObjectCount": 0,
+  "accessories": [],
+  "maxAccessoryDrift": 0.0,
+  "skinnedClothing": {
+    "type": "skinned_padded_jacket_v2",
+    "volumeObject": "body-mesh",
+    "volumeComponents": [
+      11,
+      12,
+      15,
+      16,
+      17
+    ],
+    "volumeComponentEvidence": [
+      {
+        "component": 11,
+        "polygons": 28,
+        "vertices": 48,
+        "dominantGroups": {
+          "arm-right": 28
+        },
+        "localBounds": {
+          "min": [
+            -0.300981,
+            -0.087885,
+            0.20725
+          ],
+          "max": [
+            -0.174876,
+            0.084399,
+            0.36825
+          ]
+        }
+      },
+      {
+        "component": 12,
+        "polygons": 28,
+        "vertices": 48,
+        "dominantGroups": {
+          "arm-left": 28
+        },
+        "localBounds": {
+          "min": [
+            0.174876,
+            -0.087885,
+            0.20725
+          ],
+          "max": [
+            0.300981,
+            0.084399,
+            0.36825
+          ]
+        }
+      },
+      {
+        "component": 15,
+        "polygons": 22,
+        "vertices": 42,
+        "dominantGroups": {
+          "arm-right": 22
+        },
+        "localBounds": {
+          "min": [
+            -0.23364,
+            -0.03825,
+            0.23225
+          ],
+          "max": [
+            -0.049897,
+            0.07275,
+            0.34325
+          ]
+        }
+      },
+      {
+        "component": 16,
+        "polygons": 22,
+        "vertices": 42,
+        "dominantGroups": {
+          "arm-left": 22
+        },
+        "localBounds": {
+          "min": [
+            0.049897,
+            -0.03825,
+            0.23225
+          ],
+          "max": [
+            0.23364,
+            0.07275,
+            0.34325
+          ]
+        }
+      },
+      {
+        "component": 17,
+        "polygons": 22,
+        "vertices": 40,
+        "dominantGroups": {
+          "torso": 22
+        },
+        "localBounds": {
+          "min": [
+            -0.126121,
+            -0.080361,
+            0.17625
+          ],
+          "max": [
+            0.126121,
+            0.137861,
+            0.34325
+          ]
+        }
+      }
+    ],
+    "volumeSourcePolygons": 122,
+    "expandedVertexCounts": {
+      "arm-left": 318,
+      "arm-right": 318,
+      "torso": 88
+    },
+    "collarObject": "wp04_enforcer_female_jacket_collar",
+    "collarSourceComponents": [
+      17
+    ],
+    "collarSourceEvidence": [
+      {
+        "component": 17,
+        "polygons": 22,
+        "vertices": 40,
+        "dominantGroups": {
+          "torso": 22
+        },
+        "localBounds": {
+          "min": [
+            -0.150581,
+            -0.098423,
+            0.172992
+          ],
+          "max": [
+            0.150481,
+            0.160523,
+            0.354021
+          ]
+        }
+      }
+    ],
+    "collarSourcePolygons": 2,
+    "collarVertices": 10,
+    "collarPolygons": 8,
+    "collarModifiers": [
+      {
+        "name": "Soft collar edges",
+        "type": "BEVEL"
+      },
+      {
+        "name": "Kenney collar skinning",
+        "type": "ARMATURE"
+      }
+    ],
+    "shellOffsetMeters": 0.025,
+    "volumeMethod": "Expand the existing skinned torso/upper-arm vertices, assign jacket materials, and add a skinned high collar; no rigid panels and no full-torso occluding shell.",
+    "bevelMeters": 0.012,
+    "collarHeightMeters": 0.075,
+    "torsoWidthScale": 1.1,
+    "torsoDepthScale": 1.08,
+    "armWidthScale": 1.04,
+    "justification": "The source pistols are multi-piece blue geometry around both hands. The correction retains and animates the original clothed body, expands its torso and upper arms for padded jacket volume, recolors those skinned regions, and adds a high collar copied from the top torso polygons. This avoids fake rigid coat panels and preserves visible walk deformation.",
+    "rigidPanels": false,
+    "sourceModified": false,
+    "poseBounds": {
+      "idle": {
+        "frame": 0,
+        "boundsMeters": {
+          "min": [
+            -0.256529,
+            -0.300688,
+            0.821609
+          ],
+          "max": [
+            0.255003,
+            0.190145,
+            0.896681
+          ]
+        },
+        "sizeMeters": [
+          0.511532,
+          0.490833,
+          0.075073
+        ]
+      },
+      "walk04": {
+        "frame": 8,
+        "boundsMeters": {
+          "min": [
+            -0.256529,
+            -0.300688,
+            0.821609
+          ],
+          "max": [
+            0.255003,
+            0.190145,
+            0.896681
+          ]
+        },
+        "sizeMeters": [
+          0.511532,
+          0.490833,
+          0.075073
+        ]
+      }
+    }
+  },
+  "geometryChanges": [
+    {
+      "mesh": "body-mesh",
+      "operation": "identified_incompatible_weapon_components",
+      "components": [
+        8,
+        9,
+        13,
+        14,
+        18,
+        19,
+        20,
+        21
+      ],
+      "polygons": 176,
+      "componentEvidence": [
+        {
+          "component": 8,
+          "polygons": 28,
+          "vertices": 56,
+          "dominantGroups": {
+            "arm-right": 28
+          },
+          "localBounds": {
+            "min": [
+              -0.549394,
+              -0.053529,
+              0.256531
+            ],
+            "max": [
+              -0.244442,
+              0.129491,
+              0.318969
+            ]
+          }
+        },
+        {
+          "component": 9,
+          "polygons": 28,
+          "vertices": 56,
+          "dominantGroups": {
+            "arm-left": 28
+          },
+          "localBounds": {
+            "min": [
+              0.244442,
+              -0.053529,
+              0.256531
+            ],
+            "max": [
+              0.549394,
+              0.129491,
+              0.318969
+            ]
+          }
+        },
+        {
+          "component": 13,
+          "polygons": 22,
+          "vertices": 40,
+          "dominantGroups": {
+            "arm-right": 22
+          },
+          "localBounds": {
+            "min": [
+              -0.292269,
+              -0.137409,
+              0.253063
+            ],
+            "max": [
+              -0.214356,
+              -0.065339,
+              0.322437
+            ]
+          }
+        },
+        {
+          "component": 14,
+          "polygons": 22,
+          "vertices": 40,
+          "dominantGroups": {
+            "arm-left": 22
+          },
+          "localBounds": {
+            "min": [
+              0.214357,
+              -0.137409,
+              0.253063
+            ],
+            "max": [
+              0.292269,
+              -0.065339,
+              0.322437
+            ]
+          }
+        },
+        {
+          "component": 18,
+          "polygons": 20,
+          "vertices": 36,
+          "dominantGroups": {
+            "arm-right": 20
+          },
+          "localBounds": {
+            "min": [
+              -0.370169,
+              -0.061463,
+              0.185515
+            ],
+            "max": [
+              -0.258805,
+              0.067781,
+              0.389985
+            ]
+          }
+        },
+        {
+          "component": 19,
+          "polygons": 20,
+          "vertices": 36,
+          "dominantGroups": {
+            "arm-left": 20
+          },
+          "localBounds": {
+            "min": [
+              0.258805,
+              -0.061463,
+              0.185515
+            ],
+            "max": [
+              0.370169,
+              0.067781,
+              0.389985
+            ]
+          }
+        },
+        {
+          "component": 20,
+          "polygons": 18,
+          "vertices": 32,
+          "dominantGroups": {
+            "arm-right": 18
+          },
+          "localBounds": {
+            "min": [
+              -0.381516,
+              0.034251,
+              0.23775
+            ],
+            "max": [
+              -0.317024,
+              0.117261,
+              0.34325
+            ]
+          }
+        },
+        {
+          "component": 21,
+          "polygons": 18,
+          "vertices": 32,
+          "dominantGroups": {
+            "arm-left": 18
+          },
+          "localBounds": {
+            "min": [
+              0.317024,
+              0.034251,
+              0.23775
+            ],
+            "max": [
+              0.381516,
+              0.117261,
+              0.34325
+            ]
+          }
+        }
+      ],
+      "sourceModified": false
+    },
+    {
+      "mesh": "body-mesh",
+      "operation": "expand_existing_skinned_torso_and_upper_arms_for_padded_jacket",
+      "components": [
+        11,
+        12,
+        15,
+        16,
+        17
+      ],
+      "expandedVertexCounts": {
+        "arm-left": 318,
+        "arm-right": 318,
+        "torso": 88
+      },
+      "sourceModified": false
+    },
+    {
+      "mesh": "body-mesh",
+      "operation": "add_skinned_high_collar_from_top_torso_polygons",
+      "sourceComponents": [
+        17
+      ],
+      "polygons": 2,
+      "replacementObject": "wp04_enforcer_female_jacket_collar",
+      "sourceModified": false
+    },
+    {
+      "mesh": "body-mesh",
+      "operation": "delete_weapon_components",
+      "components": [
+        8,
+        9,
+        13,
+        14,
+        18,
+        19,
+        20,
+        21
+      ],
+      "polygons": 176,
+      "componentEvidence": [
+        {
+          "component": 8,
+          "polygons": 28,
+          "vertices": 56,
+          "dominantGroups": {
+            "arm-right": 28
+          },
+          "localBounds": {
+            "min": [
+              -0.549394,
+              -0.053529,
+              0.256531
+            ],
+            "max": [
+              -0.244442,
+              0.129491,
+              0.318969
+            ]
+          }
+        },
+        {
+          "component": 9,
+          "polygons": 28,
+          "vertices": 56,
+          "dominantGroups": {
+            "arm-left": 28
+          },
+          "localBounds": {
+            "min": [
+              0.244442,
+              -0.053529,
+              0.256531
+            ],
+            "max": [
+              0.549394,
+              0.129491,
+              0.318969
+            ]
+          }
+        },
+        {
+          "component": 13,
+          "polygons": 22,
+          "vertices": 40,
+          "dominantGroups": {
+            "arm-right": 22
+          },
+          "localBounds": {
+            "min": [
+              -0.292269,
+              -0.137409,
+              0.253063
+            ],
+            "max": [
+              -0.214356,
+              -0.065339,
+              0.322437
+            ]
+          }
+        },
+        {
+          "component": 14,
+          "polygons": 22,
+          "vertices": 40,
+          "dominantGroups": {
+            "arm-left": 22
+          },
+          "localBounds": {
+            "min": [
+              0.214357,
+              -0.137409,
+              0.253063
+            ],
+            "max": [
+              0.292269,
+              -0.065339,
+              0.322437
+            ]
+          }
+        },
+        {
+          "component": 18,
+          "polygons": 20,
+          "vertices": 36,
+          "dominantGroups": {
+            "arm-right": 20
+          },
+          "localBounds": {
+            "min": [
+              -0.370169,
+              -0.061463,
+              0.185515
+            ],
+            "max": [
+              -0.258805,
+              0.067781,
+              0.389985
+            ]
+          }
+        },
+        {
+          "component": 19,
+          "polygons": 20,
+          "vertices": 36,
+          "dominantGroups": {
+            "arm-left": 20
+          },
+          "localBounds": {
+            "min": [
+              0.258805,
+              -0.061463,
+              0.185515
+            ],
+            "max": [
+              0.370169,
+              0.067781,
+              0.389985
+            ]
+          }
+        },
+        {
+          "component": 20,
+          "polygons": 18,
+          "vertices": 32,
+          "dominantGroups": {
+            "arm-right": 18
+          },
+          "localBounds": {
+            "min": [
+              -0.381516,
+              0.034251,
+              0.23775
+            ],
+            "max": [
+              -0.317024,
+              0.117261,
+              0.34325
+            ]
+          }
+        },
+        {
+          "component": 21,
+          "polygons": 18,
+          "vertices": 32,
+          "dominantGroups": {
+            "arm-left": 18
+          },
+          "localBounds": {
+            "min": [
+              0.317024,
+              0.034251,
+              0.23775
+            ],
+            "max": [
+              0.381516,
+              0.117261,
+              0.34325
+            ]
+          }
+        }
+      ],
+      "sourceModified": false
+    }
+  ],
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "cameraBounds": {
+    "minX": 0.11574,
+    "maxX": 0.821501,
+    "minY": 0.099865,
+    "maxY": 0.902332,
+    "clipped": false
+  },
+  "ground": {
+    "minZ": -0.0,
+    "groundingOffsetMeters": -0.104158,
+    "toleranceMeters": 1e-06
+  },
+  "output": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_female/enforcer_female-d0-walk-02.png",
+    "sha256": "14a38176534ee689d31c2f02d57ec3ac684c97e1908411997ede9b133fe2de24",
+    "width": 512,
+    "height": 512
+  },
+  "metadata": {
+    "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/enforcer_female/enforcer_female-prototype.json",
+    "sha256": "ccde5f10cb9cf1bab365d1e5b0553415259cc3744c037ebbfc514ee40b8229aa"
+  },
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap_WP02A_source/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false
+}

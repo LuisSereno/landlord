@@ -13,8 +13,9 @@ const errors = [];
 const factoryIds = factory.characters.map((entry) => entry.id).sort();
 const generatedIds = generated.characters.map((entry) => entry.id).sort();
 const operational = factory.characters.filter((entry) => entry.category === "operational");
-const legacyMappings = factory.characters.filter(
-  (entry) => entry.runtimeMappingStatus === "legacy",
+const legacyMappings = factory.characters.filter((entry) => entry.legacyRuntimeCharacterId);
+const kenneyMappings = factory.characters.filter(
+  (entry) => entry.runtimeMappingStatus === "kenney",
 );
 const candidates = factory.characters.filter((entry) => entry.productionStatus === "candidate");
 const runtimeReady = factory.characters.filter((entry) => entry.runtimeReady);
@@ -24,8 +25,10 @@ if (characterCount !== 14) errors.push("Character Factory must contain 14 varian
 if (operational.length !== 6) errors.push("Character Factory must contain 6 operational variants");
 if (legacyMappings.length !== 5)
   errors.push("Character Factory must contain 5 explicit legacy runtime mappings");
-if (candidates.length !== 14) errors.push("All 14 variants must be Kenney candidates");
-if (runtimeReady.length !== 0) errors.push("Kenney candidates must not be runtime-ready");
+if (kenneyMappings.length !== 14) errors.push("All 14 variants must map to Kenney runtime IDs");
+if (candidates.length !== 0) errors.push("No approved variant may remain a candidate");
+if (runtimeReady.length !== 14)
+  errors.push("All 14 approved Kenney variants must be runtime-ready");
 if (generated.characters.length !== 14) {
   errors.push(
     `Generated visual catalog contains ${generated.characters.length} characters, expected 14`,
@@ -38,7 +41,7 @@ for (const id of generatedIds) {
   if (!factoryIds.includes(id)) errors.push(`Generated visual catalog has unknown character ${id}`);
 }
 const expectedDefinitions = `${characterCount}/${characterCount}`;
-const expectedRendered = `0/${characterCount}`;
+const expectedRendered = `${characterCount}/${characterCount}`;
 if (generated.coverage?.characterDefinitions !== expectedDefinitions) {
   errors.push(
     `characterDefinitions is ${generated.coverage?.characterDefinitions ?? "missing"}, expected ${expectedDefinitions}`,
@@ -46,7 +49,7 @@ if (generated.coverage?.characterDefinitions !== expectedDefinitions) {
 }
 if (generated.coverage?.characterRenderedRoles !== expectedRendered) {
   errors.push(
-    `characterRenderedRoles is ${generated.coverage?.characterRenderedRoles ?? "missing"}, expected ${expectedRendered} until previews are integrated`,
+    `characterRenderedRoles is ${generated.coverage?.characterRenderedRoles ?? "missing"}, expected ${expectedRendered}`,
   );
 }
 for (const entry of factory.characters) {
@@ -65,6 +68,7 @@ if (errors.length) {
         generatedVariants: generated.characters.length,
         operationalVariants: operational.length,
         candidateVariants: candidates.length,
+        kenneyRuntimeMappings: kenneyMappings.length,
         legacyRuntimeMappings: legacyMappings.length,
         runtimeReadyVariants: runtimeReady.length,
         errors,
@@ -76,6 +80,6 @@ if (errors.length) {
   process.exitCode = 1;
 } else {
   console.log(
-    `Character catalog coherence PASS: ${characterCount} Kenney candidate definitions, ${operational.length} operational, ${legacyMappings.length} explicit legacy runtime mappings, ${runtimeReady.length} runtime-ready, coverage ${expectedDefinitions} and ${expectedRendered} previews.`,
+    `Character catalog coherence PASS: ${characterCount} approved Kenney runtime definitions, ${operational.length} operational, ${legacyMappings.length} explicit legacy fallback mappings, ${runtimeReady.length} runtime-ready, coverage ${expectedDefinitions} and ${expectedRendered}.`,
   );
 }

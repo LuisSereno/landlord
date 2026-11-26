@@ -18,13 +18,13 @@
   "sourceDecision": {
     "quaternius": "Offline design and silhouette reference only; not an approved in-game actor source.",
     "rocketbox": "Legacy runtime source only. Existing mappings remain explicitly legacy until a separately authorized human-approved promotion.",
-    "kenney": "Canonical candidate family for all 14 presentations; WP-CHAR-04 SMOKE is technical evidence, not human artistic approval.",
+    "kenney": "Canonical candidate family for all 14 presentations; WP-CHAR-04 smoke-15 and the complete 504-frame batch are technical evidence, not human artistic approval.",
     "winner": "kenney_candidate_family_pending_human_review; rocketbox_legacy_runtime_only",
-    "runtimeRule": "Runtime remains the existing Rocketbox subset until explicit human approval and a separate promotion WP. Candidate status never implies runtime readiness."
+    "runtimeRule": "All 14 Kenney presentations are human-approved and promoted from batch-03; Rocketbox remains only as an explicit legacy fallback in the runtime bundle."
   },
   "productionStateDefinitions": {
     "runtime_existing": "Sprites exist in the runtime manifest and pass file/hash validation; this is not human art approval.",
-    "candidate": "Isolated Kenney WP-CHAR-04 SMOKE candidate; not promoted to runtime, not human-approved, and not production-ready.",
+    "candidate": "Isolated Kenney WP-CHAR-04 smoke-15 plus complete 504-frame technical batch; not promoted to runtime, not human-approved, and not production-ready.",
     "planned": "Canonical visual specification without a validated runtime sprite.",
     "blocked": "Production cannot continue without a named external dependency or decision."
   },
@@ -37,19 +37,19 @@
       "scope": "ambient",
       "priority": "P1",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "rocketbox_subset_legacy",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_a",
       "hair": "short",
       "clothing": "casual",
       "palette": "green_navy_yellow",
       "roleProp": "none",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "runtimeCharacterId": "chr_citizen",
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "legacyRuntimeCharacterId": "chr_citizen",
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Legacy Rocketbox mapping is retained only as fallback; the canonical runtime mapping is Kenney."
       ],
       "sourceReferences": [
         {
@@ -67,7 +67,7 @@
           "usage": "legacy_runtime"
         }
       ],
-      "runtimeMappingStatus": "legacy",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke",
       "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
@@ -80,18 +80,18 @@
       "scope": "ambient",
       "priority": "P1",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_b",
       "hair": "short",
       "clothing": "formal_suit",
       "palette": "navy_cream",
       "roleProp": "folder",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -102,7 +102,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -114,18 +114,18 @@
       "scope": "ambient",
       "priority": "P1",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "feminine_a",
       "hair": "tied",
       "clothing": "casual",
       "palette": "yellow_violet",
       "roleProp": "none",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -136,7 +136,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -148,18 +148,18 @@
       "scope": "ambient",
       "priority": "P1",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "feminine_b",
       "hair": "bob",
       "clothing": "casual",
       "palette": "blue_red_brown",
       "roleProp": "none",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -170,7 +170,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -183,18 +183,18 @@
       "priority": "P0",
       "domainSpecialty": "supervisor",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_a",
       "hair": "helmet",
       "clothing": "high_visibility",
       "palette": "sand_ochre_navy",
       "roleProp": "clipboard",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -205,7 +205,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -218,19 +218,19 @@
       "priority": "P0",
       "domainSpecialty": "construction_worker",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "rocketbox_subset_legacy",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_a",
       "hair": "helmet",
       "clothing": "workwear",
       "palette": "yellow_blue_brown",
       "roleProp": "toolbox",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "runtimeCharacterId": "chr_worker",
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "legacyRuntimeCharacterId": "chr_worker",
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Legacy Rocketbox mapping is retained only as fallback; the canonical runtime mapping is Kenney."
       ],
       "sourceReferences": [
         {
@@ -248,7 +248,7 @@
           "usage": "legacy_runtime"
         }
       ],
-      "runtimeMappingStatus": "legacy",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke",
       "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
@@ -262,18 +262,18 @@
       "priority": "P0",
       "domainSpecialty": "construction_worker",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_b",
       "hair": "helmet",
       "clothing": "workwear",
       "palette": "ochre_denim",
       "roleProp": "tool_belt",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -284,7 +284,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -297,18 +297,18 @@
       "priority": "P0",
       "domainSpecialty": "maintenance_technician",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "feminine_a",
       "hair": "cap",
       "clothing": "coveralls",
       "palette": "teal_denim_cream",
       "roleProp": "wrench",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -319,7 +319,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -332,18 +332,18 @@
       "priority": "P0",
       "domainSpecialty": "enforcer",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_b",
       "hair": "short",
       "clothing": "heavy_jacket",
       "palette": "slate_charcoal",
       "roleProp": "none",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -354,7 +354,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -367,19 +367,19 @@
       "priority": "P0",
       "domainSpecialty": "enforcer",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "feminine_b",
       "hair": "tied",
       "clothing": "padded_jacket",
       "palette": "charcoal_slate",
       "roleProp": "none",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate.",
-        "Skinned padded jacket/collar and the near-neutral grounded walk-04 pose require human review; no rigid jacket panels are used."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only.",
+        "Skinned padded jacket/collar requires full-cycle human review; the source walk-0 pose is identical to idle and remains a visual-review warning; no rigid jacket panels are used."
       ],
       "sourceReferences": [
         {
@@ -390,7 +390,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     },
@@ -402,19 +402,19 @@
       "scope": "ambient",
       "priority": "P1",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "rocketbox_subset_legacy",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_c",
       "hair": "integrated_cap",
       "clothing": "uniform",
       "palette": "navy_blue",
       "roleProp": "badge",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "runtimeCharacterId": "chr_police",
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "legacyRuntimeCharacterId": "chr_police",
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Legacy Rocketbox mapping is retained only as fallback; the canonical runtime mapping is Kenney."
       ],
       "sourceReferences": [
         {
@@ -432,7 +432,7 @@
           "usage": "legacy_runtime"
         }
       ],
-      "runtimeMappingStatus": "legacy",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke",
       "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
@@ -445,19 +445,19 @@
       "scope": "ambient",
       "priority": "P1",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "rocketbox_subset_legacy",
+      "runtimeSource": "kenney_mini_characters",
       "body": "masculine_a",
       "hair": "helmet",
       "clothing": "protective",
       "palette": "fire_yellow_charcoal",
       "roleProp": "belt",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "runtimeCharacterId": "chr_firefighter",
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "legacyRuntimeCharacterId": "chr_firefighter",
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Legacy Rocketbox mapping is retained only as fallback; the canonical runtime mapping is Kenney."
       ],
       "sourceReferences": [
         {
@@ -475,7 +475,7 @@
           "usage": "legacy_runtime"
         }
       ],
-      "runtimeMappingStatus": "legacy",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke",
       "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
@@ -488,19 +488,19 @@
       "scope": "ambient",
       "priority": "P1",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "rocketbox_subset_legacy",
+      "runtimeSource": "kenney_mini_characters",
       "body": "feminine_a",
       "hair": "short",
       "clothing": "medical_coat",
       "palette": "cream_teal",
       "roleProp": "medical_bag",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "runtimeCharacterId": "chr_medical",
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "legacyRuntimeCharacterId": "chr_medical",
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "Legacy Rocketbox runtime mapping remains unchanged and is not a Kenney runtime promotion."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Legacy Rocketbox mapping is retained only as fallback; the canonical runtime mapping is Kenney."
       ],
       "sourceReferences": [
         {
@@ -518,7 +518,7 @@
           "usage": "legacy_runtime"
         }
       ],
-      "runtimeMappingStatus": "legacy",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke",
       "legacyRuntimeNote": "Explicit legacy mapping retained for runtime compatibility only; runtimeReady is false for this Kenney candidate."
@@ -531,18 +531,18 @@
       "scope": "ambient",
       "priority": "P2",
       "baseSource": "kenney_mini_characters",
-      "runtimeSource": "none",
+      "runtimeSource": "kenney_mini_characters",
       "body": "feminine_c",
       "hair": "short",
       "clothing": "office_suit",
       "palette": "navy_cream",
       "roleProp": "folder",
-      "productionStatus": "candidate",
-      "runtimeReady": false,
-      "artReview": "pending_role_fidelity",
+      "productionStatus": "runtime_existing",
+      "runtimeReady": true,
+      "artReview": "approved",
       "blockers": [
-        "Kenney WP-CHAR-04 SMOKE passed 14/14 roles and 28/28 frames; human visual approval and the full 504-frame batch are pending.",
-        "No canonical runtime mapping exists for this Kenney candidate."
+        "Kenney WP-CHAR-04 smoke-15 and batch-03 passed technical validation; luis approved all 14 presentations on 2026-11-26 and the 504-frame runtime promotion is complete.",
+        "Runtime mapping is the canonical Kenney ID; legacy Rocketbox assets remain fallback-only."
       ],
       "sourceReferences": [
         {
@@ -553,7 +553,7 @@
           "usage": "candidate"
         }
       ],
-      "runtimeMappingStatus": "none",
+      "runtimeMappingStatus": "kenney",
       "candidatePipeline": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
       "candidateStage": "smoke"
     }
@@ -561,9 +561,17 @@
   "candidatePipeline": {
     "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
     "stage": "smoke",
-    "status": "technical_smoke_pending_human_review",
-    "humanApproval": "pending",
-    "runtimePromotion": false,
-    "batchRendered": false
+    "status": "runtime_promoted_approved_human",
+    "humanApproval": "approved",
+    "runtimePromotion": true,
+    "batchRendered": true,
+    "batchRunRoot": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03",
+    "batchExecution": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03/execution.json",
+    "batchFrameValidation": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03/batch-frame-validation.json",
+    "batchValidation": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03/batch-validation.json",
+    "batchSheet": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03/final-sheet.json",
+    "scaleLabManifest": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03/scale-lab-manifest.json",
+    "scaleCaptureManifest": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03/scale-captures/manifest.json",
+    "runtimePromotionManifest": "blender_artist/manifests/runtime-character-promotions.json"
   }
 }

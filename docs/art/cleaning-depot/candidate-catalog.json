@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "catalogId": "cleaning-depot-candidates-v1",
   "domainType": "cleaning_depot",
-  "status": "candidate_only_pending_human_visual_approval",
+  "status": "approved_promoted_runtime",
   "variantSeed": 5101,
   "footprintCells": { "width": 3, "height": 1 },
   "stateTokens": ["complete", "foundation", "structure", "finishing", "damaged", "burning"],

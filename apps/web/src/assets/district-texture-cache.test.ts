@@ -50,6 +50,17 @@ describe("V.j.6 caché de texturas por distrito", () => {
     expect(cache.metrics().loadedCount).toBe(1);
     expect(cache.cacheBytes()).toBe(40);
   });
+
+  it("purga el mood opuesto sin tocar las claves del mood activo", () => {
+    const cache = new DistrictTextureCache(1000);
+    cache.recordLoad("blender-variant-day-a", 40, "d1");
+    cache.recordLoad("blender-variant-night-a", 60, "d1");
+    expect(cache.evictWhere((entry) => !entry.key.includes("blender-variant-night-"))).toEqual([
+      "blender-variant-day-a",
+    ]);
+    expect(cache.cacheBytes()).toBe(60);
+    expect(cache.metrics().evictedBytes).toBe(40);
+  });
 });
 
 describe("V.j.6 vecinos para preload", () => {

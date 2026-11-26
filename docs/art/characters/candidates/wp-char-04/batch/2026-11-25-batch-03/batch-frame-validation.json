@@ -1,0 +1,541 @@
+{
+  "schemaVersion": 1,
+  "stage": "batch",
+  "status": "passed",
+  "runId": "2026-11-25-batch-03",
+  "runRoot": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710",
+  "checkCount": 13353,
+  "errorCount": 0,
+  "warningCount": 14,
+  "errors": [],
+  "warnings": [
+    "construction_worker_a: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "supervisor: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "construction_worker_b: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "maintenance_technician: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "enforcer_male: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "enforcer_female: D0 walk sample 0 vs idle pixel MAD 0.00000429 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "civilian_male_a: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "civilian_male_b: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "civilian_female_a: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "civilian_female_b: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "police: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "firefighter: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "medical_professional: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval.",
+    "municipal_professional: D0 walk sample 0 vs idle pixel MAD 0.00000000 is below 0.01; source pose needs visual review, not automatic walk approval."
+  ],
+  "roles": [
+    {
+      "role": "construction_worker_a",
+      "canonicalId": "construction_worker_a",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 33.584754943847656,
+          "maxAdjacentWalkPixelMad": 33.584754943847656
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.2717704772949219,
+          "idleToWalkMaxPixelMad": 23.227773666381836,
+          "maxAdjacentWalkPixelMad": 31.18360137939453
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.28358548879623413,
+          "idleToWalkMaxPixelMad": 23.325193405151367,
+          "maxAdjacentWalkPixelMad": 31.89188575744629
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.2699867784976959,
+          "idleToWalkMaxPixelMad": 22.366867065429688,
+          "maxAdjacentWalkPixelMad": 33.340606689453125
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "supervisor",
+      "canonicalId": "supervisor",
+      "frames": 36,
+      "maxAccessoryDrift": 5.960464477539063e-08,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 24.3304443359375,
+          "maxAdjacentWalkPixelMad": 24.3304443359375
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.22923767566680908,
+          "idleToWalkMaxPixelMad": 15.661931991577148,
+          "maxAdjacentWalkPixelMad": 22.775272369384766
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.2556357681751251,
+          "idleToWalkMaxPixelMad": 17.80945587158203,
+          "maxAdjacentWalkPixelMad": 25.4920711517334
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.2745978832244873,
+          "idleToWalkMaxPixelMad": 17.630020141601562,
+          "maxAdjacentWalkPixelMad": 26.7456111907959
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "construction_worker_b",
+      "canonicalId": "construction_worker_b",
+      "frames": 36,
+      "maxAccessoryDrift": 5.960464477539063e-08,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 20.233997344970703,
+          "maxAdjacentWalkPixelMad": 20.233997344970703
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.18614043295383453,
+          "idleToWalkMaxPixelMad": 12.658832550048828,
+          "maxAdjacentWalkPixelMad": 18.70448875427246
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.21131953597068787,
+          "idleToWalkMaxPixelMad": 13.363741874694824,
+          "maxAdjacentWalkPixelMad": 19.934295654296875
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.20843851566314697,
+          "idleToWalkMaxPixelMad": 12.933012962341309,
+          "maxAdjacentWalkPixelMad": 20.570329666137695
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "maintenance_technician",
+      "canonicalId": "maintenance_technician",
+      "frames": 36,
+      "maxAccessoryDrift": 1.1920928955078125e-07,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 17.755712509155273,
+          "maxAdjacentWalkPixelMad": 17.43231201171875
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.15028680860996246,
+          "idleToWalkMaxPixelMad": 12.62012004852295,
+          "maxAdjacentWalkPixelMad": 16.293790817260742
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.129365012049675,
+          "idleToWalkMaxPixelMad": 13.695928573608398,
+          "maxAdjacentWalkPixelMad": 16.5784854888916
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.1444217413663864,
+          "idleToWalkMaxPixelMad": 13.745282173156738,
+          "maxAdjacentWalkPixelMad": 15.563027381896973
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "enforcer_male",
+      "canonicalId": "enforcer_male",
+      "frames": 36,
+      "maxAccessoryDrift": 8.940696716308594e-08,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 17.432964324951172,
+          "maxAdjacentWalkPixelMad": 17.20818328857422
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.14236442744731903,
+          "idleToWalkMaxPixelMad": 11.641642570495605,
+          "maxAdjacentWalkPixelMad": 15.3494234085083
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.09019886702299118,
+          "idleToWalkMaxPixelMad": 9.0977201461792,
+          "maxAdjacentWalkPixelMad": 11.43894100189209
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.09563272446393967,
+          "idleToWalkMaxPixelMad": 10.15933895111084,
+          "maxAdjacentWalkPixelMad": 11.3510103225708
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "enforcer_female",
+      "canonicalId": "enforcer_female",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 4.291164259484503e-06,
+          "idleToWalkMaxPixelMad": 15.158100128173828,
+          "maxAdjacentWalkPixelMad": 13.940142631530762
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.12493658810853958,
+          "idleToWalkMaxPixelMad": 11.387202262878418,
+          "maxAdjacentWalkPixelMad": 12.150497436523438
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.13370506465435028,
+          "idleToWalkMaxPixelMad": 11.644420623779297,
+          "maxAdjacentWalkPixelMad": 13.728423118591309
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.16945968568325043,
+          "idleToWalkMaxPixelMad": 12.988459587097168,
+          "maxAdjacentWalkPixelMad": 12.71217155456543
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_male_a",
+      "canonicalId": "civilian_male_a",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 33.285804748535156,
+          "maxAdjacentWalkPixelMad": 33.285804748535156
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.27473628520965576,
+          "idleToWalkMaxPixelMad": 23.44931983947754,
+          "maxAdjacentWalkPixelMad": 32.268863677978516
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.28773194551467896,
+          "idleToWalkMaxPixelMad": 22.623573303222656,
+          "maxAdjacentWalkPixelMad": 28.671375274658203
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.30156272649765015,
+          "idleToWalkMaxPixelMad": 25.34922218322754,
+          "maxAdjacentWalkPixelMad": 32.689205169677734
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_male_b",
+      "canonicalId": "civilian_male_b",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 35.162113189697266,
+          "maxAdjacentWalkPixelMad": 33.950218200683594
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.21782711148262024,
+          "idleToWalkMaxPixelMad": 26.75151824951172,
+          "maxAdjacentWalkPixelMad": 30.604867935180664
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.18668733537197113,
+          "idleToWalkMaxPixelMad": 20.34723663330078,
+          "maxAdjacentWalkPixelMad": 26.743101119995117
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.21000739932060242,
+          "idleToWalkMaxPixelMad": 22.264787673950195,
+          "maxAdjacentWalkPixelMad": 27.16130828857422
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_female_a",
+      "canonicalId": "civilian_female_a",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 44.73942184448242,
+          "maxAdjacentWalkPixelMad": 42.927127838134766
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.3374212384223938,
+          "idleToWalkMaxPixelMad": 32.25092315673828,
+          "maxAdjacentWalkPixelMad": 37.674617767333984
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.3122185170650482,
+          "idleToWalkMaxPixelMad": 32.72556686401367,
+          "maxAdjacentWalkPixelMad": 42.35453414916992
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.34934622049331665,
+          "idleToWalkMaxPixelMad": 33.55732345581055,
+          "maxAdjacentWalkPixelMad": 41.54693603515625
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "civilian_female_b",
+      "canonicalId": "civilian_female_b",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 39.36162567138672,
+          "maxAdjacentWalkPixelMad": 39.36162567138672
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.29412218928337097,
+          "idleToWalkMaxPixelMad": 25.526626586914062,
+          "maxAdjacentWalkPixelMad": 35.525455474853516
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.31935176253318787,
+          "idleToWalkMaxPixelMad": 26.65554428100586,
+          "maxAdjacentWalkPixelMad": 39.454524993896484
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.35716089606285095,
+          "idleToWalkMaxPixelMad": 28.161861419677734,
+          "maxAdjacentWalkPixelMad": 39.95609664916992
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "police",
+      "canonicalId": "police",
+      "frames": 36,
+      "maxAccessoryDrift": 4.470348358154297e-08,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 24.036026000976562,
+          "maxAdjacentWalkPixelMad": 24.036026000976562
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.19355502724647522,
+          "idleToWalkMaxPixelMad": 14.702698707580566,
+          "maxAdjacentWalkPixelMad": 21.72159767150879
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.17753049731254578,
+          "idleToWalkMaxPixelMad": 13.936990737915039,
+          "maxAdjacentWalkPixelMad": 20.50748062133789
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.21103335916996002,
+          "idleToWalkMaxPixelMad": 14.521720886230469,
+          "maxAdjacentWalkPixelMad": 22.437658309936523
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "firefighter",
+      "canonicalId": "firefighter",
+      "frames": 36,
+      "maxAccessoryDrift": 8.940696716308594e-08,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 27.12535858154297,
+          "maxAdjacentWalkPixelMad": 27.12535858154297
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.26871949434280396,
+          "idleToWalkMaxPixelMad": 17.65253448486328,
+          "maxAdjacentWalkPixelMad": 24.53618812561035
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.2895238697528839,
+          "idleToWalkMaxPixelMad": 17.950925827026367,
+          "maxAdjacentWalkPixelMad": 25.930831909179688
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.293962687253952,
+          "idleToWalkMaxPixelMad": 18.158720016479492,
+          "maxAdjacentWalkPixelMad": 27.37458038330078
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "medical_professional",
+      "canonicalId": "medical_professional",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 41.01345443725586,
+          "maxAdjacentWalkPixelMad": 39.77049255371094
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.2623865604400635,
+          "idleToWalkMaxPixelMad": 30.410367965698242,
+          "maxAdjacentWalkPixelMad": 34.5399055480957
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.24388134479522705,
+          "idleToWalkMaxPixelMad": 25.637182235717773,
+          "maxAdjacentWalkPixelMad": 32.06748580932617
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.2585066258907318,
+          "idleToWalkMaxPixelMad": 27.971181869506836,
+          "maxAdjacentWalkPixelMad": 30.943769454956055
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    },
+    {
+      "role": "municipal_professional",
+      "canonicalId": "municipal_professional",
+      "frames": 36,
+      "maxAccessoryDrift": 0.0,
+      "cameraClipped": false,
+      "groundMaxAbsMinZ": 0.0,
+      "directions": [
+        {
+          "direction": 0,
+          "idleToWalkMinPixelMad": 0.0,
+          "idleToWalkMaxPixelMad": 37.177276611328125,
+          "maxAdjacentWalkPixelMad": 36.097476959228516
+        },
+        {
+          "direction": 1,
+          "idleToWalkMinPixelMad": 0.2498331367969513,
+          "idleToWalkMaxPixelMad": 27.00982093811035,
+          "maxAdjacentWalkPixelMad": 32.08247756958008
+        },
+        {
+          "direction": 2,
+          "idleToWalkMinPixelMad": 0.22200405597686768,
+          "idleToWalkMaxPixelMad": 24.104206085205078,
+          "maxAdjacentWalkPixelMad": 32.660972595214844
+        },
+        {
+          "direction": 3,
+          "idleToWalkMinPixelMad": 0.24001601338386536,
+          "idleToWalkMaxPixelMad": 25.845096588134766,
+          "maxAdjacentWalkPixelMad": 29.49017906188965
+        }
+      ],
+      "technicalStatus": "passed_pending_human_visual_review"
+    }
+  ],
+  "counts": {
+    "roles": 14,
+    "frames": 504,
+    "uniqueFrameHashes": 504,
+    "duplicateHashGroups": 0,
+    "directions": 4,
+    "idleFramesPerRole": 4,
+    "walkFramesPerRole": 32,
+    "finalSheetInputs": 0,
+    "roleSheets": 0
+  },
+  "duplicateHashGroups": [],
+  "walkDeltaReviewThreshold": 0.01,
+  "walkSequenceMinThreshold": 0.005,
+  "technicalValidation": "passed",
+  "artisticApproval": "pending_human",
+  "humanApprovalClaimed": false,
+  "runtimePromotion": false,
+  "productionReady": false,
+  "batchRendered": true
+}

@@ -15,12 +15,11 @@ introduce roles nuevos en simulación; los cuatro specialties operativos siguen 
 
 ## Estado del cierre
 
-WP-CHAR-04 produjo el smoke técnico de los 14: 28 frames, 1.528 comprobaciones, 0 errores y 0
-advertencias. Los cinco prototipos anteriores se reutilizaron y los nueve restantes ya tienen
-candidato Kenney. La comparación B/D en ciudad densa recomienda técnicamente B (`zoom 1×`, 34 px):
-D aumenta un 15 % la altura pero reduce un 24,4 % el área visible. La validación técnica no equivale
-a aprobación artística: el batch completo de 504 frames y la promoción runtime siguen pendientes de
-revisión humana.
+WP-CHAR-04 produjo el smoke técnico de los 14 y el batch completo 14×4×(1 idle+8 walk)=504.
+El batch pasó 13.894 comprobaciones con 0 errores y 504 hashes únicos; las 14 advertencias son la
+pose walk-0 idéntica a idle en la fuente. Luis aprobó globalmente los 14 personajes y la
+configuración B (`zoom 1×`, 34 px) el 2026-11-26. Los 504 frames están promovidos en los bundles
+runtime diurno y nocturno; Rocketbox permanece sólo como fallback legacy.
 
 ```bash
 pnpm art:character-factory:validate
@@ -30,9 +29,8 @@ pnpm art:catalog:generate
 pnpm art:catalog:check
 ```
 
-La regeneración del smoke y de la evidencia PNG local está descrita en
-[ART-PIPELINE §44](ART-PIPELINE.md). El batch de 504 frames sigue bloqueado por revisión visual humana
-y por un runner de batch autorizado; no se promueve ningún frame desde el smoke.
+La regeneración del smoke, el batch de 504 frames y la captura de los 14 a escala de juego está
+descrita en [ART-PIPELINE §44](ART-PIPELINE.md). La promoción runtime se ejecuta con
+`scripts/promote-character-batch.mjs` y exige el plan aprobado, el batch validado y el acta humana.
 
-El catálogo generado declara 14/14 definiciones y no presenta candidatos como sprites runtime
-aprobados.
+El catálogo generado declara 14/14 definiciones y 14/14 personajes runtime-ready.

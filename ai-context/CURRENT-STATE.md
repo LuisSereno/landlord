@@ -40,10 +40,10 @@ Actualizado: 2026-11-25. Leer este archivo antes de la historia extensa de `PROJ
 
 ## Edificios y solar
 
-- Hay 17 BuildingTypes: 15 con política `runtime_exact`, `headquarters` con dos variantes Composer
-  y 288 capturas validadas, y `cleaning_depot` con fallback semántico, 48 candidatas Composer y 144
-  capturas validadas. Ninguno de los dos está promovido; los assets legacy `bld_*` no son ruta de
-  gameplay.
+- Hay 17 BuildingTypes: 15 baseline `runtime_exact`, `headquarters` resuelto a
+  `headquarters_cupola/courtyard` y `cleaning_depot`; los tres nuevos tipos visuales están promovidos
+  con seis estados, cuatro orientaciones y dos moods (432 variantes por manifiesto). Los assets
+  legacy `bld_*` no son ruta de gameplay.
 - Un complejo multi-parcela conserva `parcelIds` canónicos: permisos, ruina, venta, colateral,
   snapshot y proyección usan el conjunto completo.
 - Si `siteRequirements.requiredParcels > 1`, cada candidata legal ocupa físicamente cada parcela
@@ -51,12 +51,12 @@ Actualizado: 2026-11-25. Leer este archivo antes de la historia extensa de `PROJ
 
 ## Personajes
 
-- Catálogo canónico: 14 variantes Kenney; WP-CHAR-04 completó smoke 14/14 roles y 28/28 frames con
-  1.528 comprobaciones, 0 errores y 0 advertencias. El catálogo visual generado cubre 17/17 edificios
-  y 14/14 personajes, sin promover previews Kenney.
-- La comparación B/D en ciudad densa recomienda técnicamente B (34 px/zoom 1×); el batch de 504
-  frames y la ratificación visual/promoción runtime siguen pendientes. Rocketbox es runtime legado,
-  no la fuente de nueva producción.
+- Catálogo canónico: 14 variantes Kenney, 14/14 runtime-ready. WP-CHAR-04 completó smoke 14/14 roles
+  y 28/28 frames con 1.528 comprobaciones, y `batch-03` validó 504 frames con 13.894 comprobaciones,
+  0 errores y 504 hashes únicos. El catálogo visual generado cubre 17/17 edificios y 14/14 personajes.
+- Luis aprobó globalmente los 14 personajes y la configuración B (34 px/zoom 1×) el 2026-11-26. Los
+  504 frames están promovidos en día/noche y verificados en la ciudad real; la escena usa caché
+  LRU de 96 MiB y calibración por frame. Rocketbox permanece sólo como fallback legacy.
 
 ## Sistemas implementados
 
@@ -131,10 +131,10 @@ Actualizado: 2026-11-25. Leer este archivo antes de la historia extensa de `PROJ
   queda en `day_civic` porque no recorta.
 - El lote nocturno quedó íntegro (360 PNG, concat-SHA `3b5614f1…`, 407 433 618 B) y la reversión sigue
   siendo un comando: promocionar `docs/art/quality-vj/batch`.
-- **El selector Día/Noche no toca los sprites.** `IsometricSpikeScene.setVisualMood` cambia el fondo de
-  cámara y repinta el terreno; con una sola marca horneada por variante, la opción «Noche» deja
-  edificios diurnos sobre fondo nocturno. Horneados duales duplicarían el presupuesto de binarios de
-  D-101 y la descarga por distrito de D-102: **decisión abierta del responsable.**
+- **Corrección de estado (2026-11-26):** `IsometricSpikeScene.setVisualMood` sí conmuta sprites.
+  Los manifiestos diurno y nocturno contienen 432 variantes reales cada uno, incluidas sedes y
+  depósito, y el selector vuelve a resolver la variante del mood elegido. La afirmación anterior de
+  que sólo cambiaba fondo/terreno quedó obsoleta.
 - Tres gates de arte siguen rojos y **no son de esta fase**: `art:external:check` (drift del golden ya
   versionado), `art:coverage:audit:check` (informe desfasado en HEAD) y `art:staging:validate`
   (procedencia de 7 fuentes originales + el PNG de spike irrecuperable). Detalle en KNOWN-GAPS.md.

@@ -28,7 +28,9 @@ export function buildingThumbnailSource(
   },
 ): string | null {
   // El catálogo sólo solicita `complete`; no fingimos una etapa de obra al no disponer de su stage.
-  const variant = state === "complete" ? bundles.variants?.variants[`${type}:complete:-:0`] : null;
+  const variantType = type === "headquarters" ? "headquarters_cupola" : type;
+  const variant =
+    state === "complete" ? bundles.variants?.variants[`${variantType}:complete:-:0`] : null;
   if (variant) return variant.image.src;
   const blender = bundles.blender?.buildings[type]?.states?.[state]?.src;
   if (blender) return blender;

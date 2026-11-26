@@ -1,0 +1,14 @@
+$ /home/luis/.local/blender/blender-5.2.2-linux-x64/blender --background --factory-startup --python-exit-code 1 --python /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py -- --manifest /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json --source-root /home/luis/RepositorioGitHub/landlord --output /home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter --runtime-asset /home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py --role firefighter --run-id 2026-11-25-smoke-15
+runId=2026-11-25-smoke-15
+startedAt=2026-11-25T19:19:52.545Z
+20:19:53 | INFO: Data are loaded, start creating Blender stuff
+20:19:53 | INFO: Blender create Mesh node body-mesh
+20:19:53 | INFO: Blender create Mesh node head-mesh
+20:19:53 | INFO: glTF import finished in 0.15s
+00:05.043  render           | Saved: '/home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-d0-idle-00.png'
+00:08.642  render           | Saved: '/home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-d0-walk-04.png'
+{"status": "smoke_rendered", "role": "firefighter", "canonicalId": "firefighter", "frames": 2, "report": "/home/luis/RepositorioGitHub/landlord/docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/firefighter/firefighter-prototype.json"}
+WP_CHAR_04_SMOKE_OK firefighter 2026-11-25-smoke-15
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:34:58)
+
+Blender quit

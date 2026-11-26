@@ -679,6 +679,10 @@
     {
       "path": "docs/art/world-visual-foundation/pixel-qa/district-vega-del-cauce-10x.png",
       "reason": "Gate D (2026-11-12): captura pixel-qa de distrito regenerada >1 MiB; evidencia de revisión de píxeles."
+    },
+    {
+      "path": "docs/art/characters/candidates/wp-char-04/batch/2026-11-25-batch-03/final-sheet.png",
+      "reason": "WP-CHAR-04: lámina permanente de revisión de los 504 frames Kenney; pendiente de aprobación humana, sin promoción runtime."
     }
   ]
 }

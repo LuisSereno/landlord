@@ -1,0 +1,585 @@
+{
+  "schemaVersion": 1,
+  "status": "smoke_technical_complete_pending_human_review",
+  "stage": "smoke",
+  "pipelineVersion": "1.0.0",
+  "revision": "wp-char-04-smoke-1",
+  "runId": "2026-11-25-smoke-15",
+  "role": "municipal_professional",
+  "canonicalId": "municipal_professional",
+  "worktree": "/home/luis/RepositorioGitHub/landlord",
+  "branch": "wip/organization-headquarters",
+  "manifest": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+  "manifestSha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710",
+  "blender": "5.2.2 LTS",
+  "buildHash": "d13f752e3b9c",
+  "source": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-d.glb",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/Models/GLB format/character-female-d.glb",
+    "sha256": "788767a12ed89cea1c6b2617be1a9b7ddd999e9ed283baaac7cddfbe69720ccf",
+    "license": "CC0-1.0"
+  },
+  "license": {
+    "path": "/home/luis/RepositorioGitHub/landlord/blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "repositoryPath": "blender_artist/staging/third_party/cc0/extracted/kenney/mini-characters/License.txt",
+    "sha256": "92aba6c40f4d09ea7c637c50b36147946632e5ade3c0296ca78be1effcd81661"
+  },
+  "coverage": "DIRECT",
+  "technicalCorrection": "Direct formal base; floating folder candidate removed after visual review.",
+  "normalization": {
+    "sourceBounds": {
+      "width": 0.7672,
+      "depth": 0.4995,
+      "height": 0.7755,
+      "minZ": 0.0
+    },
+    "importScale": 2.320998393212005,
+    "importOffset": [
+      -0.0,
+      -0.0978,
+      -0.0
+    ],
+    "hierarchy": {
+      "armatures": [
+        {
+          "name": "character-female-d",
+          "bones": 7
+        }
+      ],
+      "skinnedMeshes": 2
+    },
+    "normalizedSize": {
+      "width": 1.7806,
+      "depth": 1.1594,
+      "height": 1.8
+    }
+  },
+  "unitScale": 2.32099839,
+  "materialTreatment": {
+    "mode": "source",
+    "materials": [
+      {
+        "mesh": "body-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      },
+      {
+        "mesh": "head-mesh",
+        "originalMaterial": "colormap",
+        "localMaterial": "colormap_WP02A_source.001",
+        "metallic": 0.0,
+        "roughness": 0.9,
+        "specular": 0.22
+      }
+    ]
+  },
+  "bodyMaterials": {
+    "mode": "source_atlas",
+    "polygonCounts": {
+      "original": 523
+    },
+    "materials": {}
+  },
+  "headMaterials": {
+    "mode": "source_atlas",
+    "modifiedComponents": [],
+    "material": null,
+    "removedComponents": [],
+    "removedPolygonCount": 0,
+    "geometryChanges": []
+  },
+  "geometryChanges": [],
+  "skinnedClothing": null,
+  "accessories": [],
+  "declaredAccessoryOrder": [],
+  "anchors": [],
+  "maxAccessoryDrift": 0.0,
+  "rig": {
+    "armature": "character-female-d",
+    "bones": 7,
+    "boneNames": [
+      "root",
+      "leg-left",
+      "leg-right",
+      "torso",
+      "arm-left",
+      "arm-right",
+      "head"
+    ],
+    "actions": 32
+  },
+  "animations": {
+    "idle": {
+      "name": "idle",
+      "frameRange": [
+        0.0,
+        32.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 16,
+      "keyframeCount": 640,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 32.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": []
+    },
+    "walk": {
+      "name": "walk",
+      "frameRange": [
+        0.0,
+        16.0
+      ],
+      "layerCount": 1,
+      "slotCount": 1,
+      "fcurveCount": 27,
+      "keyframeCount": 540,
+      "firstKeyframe": 0.0,
+      "lastKeyframe": 16.0,
+      "interpolation": [
+        "LINEAR"
+      ],
+      "cyclicCurves": 0,
+      "locationCurves": [
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 0,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 1,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        },
+        {
+          "path": "pose.bones[\"root\"].location",
+          "index": 2,
+          "frameRange": [
+            0.0,
+            16.0
+          ]
+        }
+      ]
+    },
+    "walkFrames": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+    ]
+  },
+  "camera": {
+    "projection": "orthographic",
+    "orthoScale": 2.3,
+    "targetZ": 0.95,
+    "azimuthBaseDegrees": 45,
+    "azimuthStepDegrees": 90,
+    "elevationDegrees": 30
+  },
+  "render": {
+    "width": 512,
+    "height": 512,
+    "colorMode": "RGBA",
+    "colorDepth": 8,
+    "background": "transparent",
+    "compression": 15,
+    "visibleHeightMeters": 1.8,
+    "materialMetallic": 0.0,
+    "materialRoughness": 0.9,
+    "materialSpecular": 0.22
+  },
+  "headDimensionsMeters": [
+    1.052577,
+    1.159409,
+    1.003318
+  ],
+  "atlasHashesBefore": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "atlasHashesAfter": {
+    "body-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95",
+    "head-mesh/colormap/colormap": "3aba07b39c13e9fa9a02cba6246fdd9d711bb15702e00e10ad84595b25452f95"
+  },
+  "dependencies": {
+    "manifest": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/manifest.json",
+      "sha256": "58f006db43b0f9e34ebedfe03a76ed01e736a41f97deff44200134e19493c710"
+    },
+    "renderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_04/render_smoke.py",
+      "sha256": "0ab6949ee62182ab8ed333bc39c15b7fda3d57130fca9eab82095e6a609dcf36"
+    },
+    "animationCommon": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/diagnose_rocketbox_animation.py",
+      "sha256": "ed36abede3b961a02133291e14f35d31f433fccce6e1f7bf5ff0e0076cbd6b09"
+    },
+    "workerRenderer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02a/render_worker_reference.py",
+      "sha256": "522cf3bbffe85df672fdc656ca36dacc91911387cf0abad31ffc4edc39555cbf"
+    },
+    "prototypeHelpers": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/wp_char_02b/render_profession_prototypes.py",
+      "sha256": "5dd8df8f0c95938851a076ac8e337327693af77dab7bebb2aea912e236ab4d58"
+    },
+    "compositor": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/characters/character_compositor.py",
+      "repositoryPath": "tools/art-pipeline/blender/characters/character_compositor.py",
+      "sha256": "3715e4e7eb041f39cd607b285b95b862b766bac3521e9f757963183fdbefd5ca"
+    },
+    "runtimeAsset": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/runtime_asset.py",
+      "repositoryPath": "tools/art-pipeline/blender/runtime_asset.py",
+      "sha256": "222af1e6f1c7578832716ef3e119a204ebbc3e8f31937d0c74584b131a9626e4"
+    },
+    "sourceImport": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/source_import.py",
+      "repositoryPath": "tools/art-pipeline/blender/source_import.py",
+      "sha256": "0e693b052aca7f9f065bddff4cf8aeda295a11f5c1792af467e013d7cf521b53"
+    },
+    "styleLayer": {
+      "path": "/home/luis/RepositorioGitHub/landlord/tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "repositoryPath": "tools/art-pipeline/blender/style_layer_graphic_civic.json",
+      "sha256": "b3a9a142946d56a271ae6d83707da172ccc66bb3294177efe4540237aa46a8da"
+    }
+  },
+  "batchRendered": false,
+  "runtimePromotion": false,
+  "approval": "pending_human",
+  "humanApprovalClaimed": false,
+  "visualRisks": [],
+  "outputs": [
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "idle",
+      "sampleIndex": 0,
+      "frame": 0,
+      "phase": 0.0,
+      "action": "idle",
+      "actionSlot": "OBcharacter-female-d",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.097775,
+        -0.0
+      ],
+      "groundingOffsetMeters": -0.0,
+      "worldSizeMeters": [
+        1.541145,
+        1.159409,
+        1.8
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.181906,
+        "maxX": 0.71158,
+        "minY": 0.052495,
+        "maxY": 0.877342,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-idle-00.png",
+        "sha256": "f5e0840e4c3faadfaeb4b4b5cf3f06ede0c5a23adcab2d41adef0ad923d4a005",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-15",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.097775,
+            -0.0
+          ],
+          "tail": [
+            0.0,
+            -0.097775,
+            0.414482
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.193968,
+            -0.031046,
+            0.409076
+          ],
+          "tail": [
+            0.193968,
+            -0.031046,
+            0.823558
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.191009,
+            -0.031046,
+            0.409076
+          ],
+          "tail": [
+            -0.191009,
+            -0.031046,
+            0.823558
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            -0.031046,
+            0.409076
+          ],
+          "tail": [
+            -0.0,
+            -0.031046,
+            0.757565
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.23186,
+            -0.057738,
+            0.667867
+          ],
+          "tail": [
+            0.478279,
+            -0.057738,
+            0.914286
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.23186,
+            -0.057738,
+            0.667867
+          ],
+          "tail": [
+            -0.478279,
+            -0.057738,
+            0.914286
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            -0.092295,
+            0.796682
+          ],
+          "tail": [
+            0.0,
+            -0.092295,
+            1.145171
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-idle-00.composition.json",
+      "actionReport": {
+        "name": "idle",
+        "frameRange": [
+          0.0,
+          32.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 16,
+        "keyframeCount": 640,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 32.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": []
+      }
+    },
+    {
+      "direction": 0,
+      "azimuthDegrees": 45,
+      "animation": "walk",
+      "sampleIndex": 4,
+      "frame": 8,
+      "phase": 0.5,
+      "action": "walk",
+      "actionSlot": "OBcharacter-female-d",
+      "rootBone": "root",
+      "rootPositionBeforeGrounding": [
+        0.0,
+        -0.097775,
+        -0.0
+      ],
+      "groundingOffsetMeters": 0.058409,
+      "worldSizeMeters": [
+        1.541145,
+        1.159409,
+        1.858409
+      ],
+      "minZ": 0.0,
+      "cameraBounds": {
+        "minX": 0.181906,
+        "maxX": 0.71158,
+        "minY": 0.071688,
+        "maxY": 0.899335,
+        "clipped": false
+      },
+      "materialMode": "source",
+      "image": {
+        "path": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-walk-04.png",
+        "sha256": "9e66201bed92580e5f923b0f112ef6ffd3b317472ad732016156705761609840",
+        "width": 512,
+        "height": 512
+      },
+      "runId": "2026-11-25-smoke-15",
+      "bonePositions": {
+        "root": {
+          "head": [
+            0.0,
+            -0.097775,
+            0.058409
+          ],
+          "tail": [
+            0.0,
+            -0.097775,
+            0.472892
+          ]
+        },
+        "leg-left": {
+          "head": [
+            0.193968,
+            -0.031046,
+            0.467485
+          ],
+          "tail": [
+            0.193968,
+            -0.130757,
+            0.869795
+          ]
+        },
+        "leg-right": {
+          "head": [
+            -0.191009,
+            -0.031046,
+            0.467485
+          ],
+          "tail": [
+            -0.191009,
+            0.068664,
+            0.869795
+          ]
+        },
+        "torso": {
+          "head": [
+            -0.0,
+            -0.031046,
+            0.467485
+          ],
+          "tail": [
+            -0.0,
+            -0.031046,
+            0.815974
+          ]
+        },
+        "arm-left": {
+          "head": [
+            0.23186,
+            -0.057738,
+            0.726276
+          ],
+          "tail": [
+            0.478279,
+            -0.057738,
+            0.972695
+          ]
+        },
+        "arm-right": {
+          "head": [
+            -0.23186,
+            -0.057738,
+            0.726276
+          ],
+          "tail": [
+            -0.478279,
+            -0.057738,
+            0.972695
+          ]
+        },
+        "head": {
+          "head": [
+            0.0,
+            -0.092295,
+            0.855092
+          ],
+          "tail": [
+            0.0,
+            -0.092295,
+            1.20358
+          ]
+        }
+      },
+      "compositionSidecar": "docs/art/characters/candidates/wp-char-04/smoke/2026-11-25-smoke-15/roles/municipal_professional/municipal_professional-d0-walk-04.composition.json",
+      "actionReport": {
+        "name": "walk",
+        "frameRange": [
+          0.0,
+          16.0
+        ],
+        "layerCount": 1,
+        "slotCount": 1,
+        "fcurveCount": 27,
+        "keyframeCount": 540,
+        "firstKeyframe": 0.0,
+        "lastKeyframe": 16.0,
+        "interpolation": [
+          "LINEAR"
+        ],
+        "cyclicCurves": 0,
+        "locationCurves": [
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 0,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 1,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          },
+          {
+            "path": "pose.bones[\"root\"].location",
+            "index": 2,
+            "frameRange": [
+              0.0,
+              16.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

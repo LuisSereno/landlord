@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "status": "promoted_approved_human",
+  "matrix": "docs/art/organization-headquarters/candidate-matrix.json",
+  "matrixSha256": "bf4e1ff4ded9d2ef19b2bc4af2e927f8acbfcdf4ed0b7b20f86db3109826531d",
+  "plan": "docs/art/organization-headquarters/promotion-plan.json",
+  "planSha256": "5fd120b06d3db06ad7ee1cfead79c48367ed13f9edebae7c46b2e3d408a7a126",
+  "approvalStatus": "approved_human",
+  "approvedBy": "luis",
+  "approvedAt": "2026-11-26",
+  "mood": "night_civic",
+  "types": [
+    "headquarters_courtyard",
+    "headquarters_cupola"
+  ],
+  "promoted": 48,
+  "totalVariants": 432,
+  "output": "apps/web/src/generated/runtime-building-variants-night.json",
+  "outputSha256": "fc38c8512d54adf3afc8f5fc9f4aee05e3afc8eba7e980e9a9c65ba4adc94d72"
+}

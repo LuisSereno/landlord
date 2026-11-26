@@ -1,3 +1,5 @@
+import type { DevelopmentAvailabilityRejection } from "@landlord/shared";
+
 import type { Economy } from "./types";
 
 /**
@@ -65,6 +67,38 @@ export function constructionBlockedReasons(input: {
   if (freeCrews === 0)
     reasons.push({ code: "no_free_crew", message: "No tienes una cuadrilla libre." });
   return reasons;
+}
+
+const AVAILABILITY_MESSAGES: Record<DevelopmentAvailabilityRejection, string> = {
+  NO_BUILDABLE_ENVELOPE:
+    "El conjunto de solares no deja ninguna huella legal que ocupe todas las parcelas requeridas.",
+  COVERAGE_LIMIT: "La huella supera la cobertura máxima del código urbanístico.",
+  FAR_LIMIT: "La edificabilidad supera el FAR máximo del código urbanístico.",
+  DUPLICATE_PARCELS: "El proyecto no puede repetir una misma parcela.",
+  WRONG_PARCEL_COUNT: "El proyecto necesita exactamente el número de parcelas indicado.",
+  PARCEL_NOT_FOUND: "El solar seleccionado ya no está disponible.",
+  PARCELS_DIFFERENT_DISTRICT: "Todas las parcelas del proyecto deben estar en el mismo distrito.",
+  MIXED_DEVELOPMENT_CODES:
+    "Aunque sean de la misma familia, los solares deben tener exactamente el mismo código urbanístico.",
+  USE_NOT_ALLOWED: "El código urbanístico no permite este uso en el solar ancla.",
+  ACTIVE_SITE_ON_PARCEL: "El solar ancla ya tiene una obra activa.",
+  PARCEL_OCCUPIED: "El solar ancla ya está ocupado por un edificio o una ruina.",
+  PARCELS_NOT_EDGE_CONTIGUOUS:
+    "Los solares deben compartir un borde; una calle o un contacto en esquina no valen.",
+  SITE_AREA_TOO_SMALL: "La superficie combinada es insuficiente para este proyecto.",
+  PUBLIC_LAND_NOT_BUILDABLE: "La empresa no puede construir sobre suelo municipal.",
+  ACTOR_NOT_AUTHORIZED: "Necesitas ser propietario del solar ancla.",
+  NO_COMPATIBLE_SITE:
+    "No hay ningún solar propio o comprable que complete un proyecto legal contiguo.",
+  BUILDING_CAPACITY_FULL: "Tu organización ya tiene una sede operativa o en obra.",
+  INVALID_AGENT_ACTION:
+    "No hay un acceso peatonal válido desde el local provisional hasta la sede.",
+};
+
+export function developmentAvailabilityReason(
+  rejection: DevelopmentAvailabilityRejection,
+): DisabledReason {
+  return { code: "no_legal_site", message: AVAILABILITY_MESSAGES[rejection] };
 }
 
 export function upgradeBlockedReasons(input: {

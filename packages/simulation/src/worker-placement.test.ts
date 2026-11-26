@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  developmentAvailabilitySchema,
   developmentPlacementCandidatesSchema,
   parseMoney,
   type WorkerResponse,
@@ -191,6 +192,35 @@ describe("V.d-7C · petición de candidatos del worker", () => {
     expect(developmentPlacementCandidatesSchema.safeParse(result).success).toBe(true);
     expect(result.candidates).toHaveLength(0);
     expect(result.rejection).toBe("ACTOR_NOT_AUTHORIZED");
+  });
+
+  it("la disponibilidad de construcción es de sólo lectura y valida su contrato", () => {
+    const runtime = started();
+    const { state, districtId, parcelIds } = ownedSite(runtime);
+    const before = canonicalizeState(state);
+    const responses = runtime.handle({
+      protocolVersion: 3,
+      requestId: "request-availability-ok",
+      type: "GetDevelopmentAvailability",
+      payload: {
+        districtId,
+        anchorParcelId: parcelIds[0]!,
+        buildingType: "courtyard_home",
+      },
+    });
+    expect(responses.map((response) => response.type)).toEqual(["RequestSucceeded"]);
+    const result = (responses[0] as { payload: { result: unknown } }).payload.result;
+    expect(developmentAvailabilitySchema.safeParse(result).success).toBe(true);
+    expect(result).toMatchObject({ available: true, rejection: null });
+    expect(canonicalizeState(runtime.getState()!)).toBe(before);
+    expect(
+      runtime.handle({
+        protocolVersion: 3,
+        requestId: "request-availability-malformed",
+        type: "GetDevelopmentAvailability",
+        payload: { districtId, buildingType: "courtyard_home" },
+      }),
+    ).toMatchObject([{ type: "RequestFailed", payload: { code: "INVALID_PAYLOAD" } }]);
   });
 
   it("el candidato confirmado por el comando es exactamente el devuelto por la petición", () => {

@@ -12,7 +12,10 @@ import {
   type WorkerResponse,
 } from "@landlord/shared";
 import { dispatchPlaceTestStructure, dispatchProductCommand } from "./commands";
-import { developmentPlacementCandidatesFor } from "./development-placement";
+import {
+  developmentAvailabilityFor,
+  developmentPlacementCandidatesFor,
+} from "./development-placement";
 import { PLAYER_ORGANIZATION_ID } from "./game-data";
 import { createViewProjection } from "./projection";
 import { restoreStateFromSnapshot, serializeSnapshot } from "./snapshot";
@@ -275,6 +278,23 @@ export class SimulationWorkerRuntime {
             developmentPlacementCandidatesFor(this.state, {
               districtId: request.payload.districtId,
               parcelIds: request.payload.parcelIds,
+              buildingType: request.payload.buildingType,
+              organizationId: PLAYER_ORGANIZATION_ID,
+            }),
+          ),
+        ];
+      }
+      case "GetDevelopmentAvailability": {
+        if (!this.state) return [failed(request.requestId, "INVALID_PAYLOAD")];
+        if (!this.state.world.districts.has(request.payload.districtId))
+          return [failed(request.requestId, "DISTRICT_NOT_FOUND")];
+        return [
+          succeeded(
+            request.requestId,
+            this.state.clock.tick,
+            developmentAvailabilityFor(this.state, {
+              districtId: request.payload.districtId,
+              anchorParcelId: request.payload.anchorParcelId,
               buildingType: request.payload.buildingType,
               organizationId: PLAYER_ORGANIZATION_ID,
             }),

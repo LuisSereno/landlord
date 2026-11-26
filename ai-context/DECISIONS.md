@@ -1477,6 +1477,11 @@ Fase V.d-7C (2026-11-02). El jugador recupera la decisión espacial sin crear un
 - **Petición de sólo lectura**: `GetDevelopmentPlacementCandidates` (técnica, como
   `SetObservedDistrict`) responde candidatas canónicas recortadas a 24 con `totalCandidates`. No avanza
   tick, no toca el PRNG, no emite permisos y no deja estado: verificado contra la cadena canónica.
+- **Preflight de catálogo (2026-11-26)**: `GetDevelopmentAvailability` consulta al motor si el solar
+  ancla participa en un conjunto propio o comprable con contrato de solar y huella legal. El catálogo
+  no habilita la acción hasta confirmarlo; devuelve parcelas a comprar, coste de adquisición con tasas
+  y un rechazo autoritativo traducible. Durante el ensamblado el catálogo desaparece: sólo hay un
+  flujo de añadir/comprar solares y elegir ubicación, sin botones que reinicien la selección.
 - **Sin colocación libre**: el puntero elige la candidata más cercana con la MISMA función pura que usa
   la ficha; nunca crea geometría.
 - **Cancelación y obsoleto**: cancelar no despacha comando; un candidato obsoleto no gasta caja,

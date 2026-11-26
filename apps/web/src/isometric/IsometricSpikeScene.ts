@@ -338,6 +338,7 @@ export type MapSelectionTarget =
       kind: "site-assembly";
       parcelIds: readonly string[];
       candidateParcelIds: readonly string[];
+      purchasableParcelIds?: readonly string[];
     };
 
 /**
@@ -1740,6 +1741,10 @@ export class IsometricSpikeScene extends Phaser.Scene {
         target.candidateParcelIds.includes(entry.id),
       ) ?? [])
         this.drawParcelGeometry(parcel.cells, COLORS.parcelPlayer, 0.05, 0.45, 2);
+      for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
+        target.purchasableParcelIds?.includes(entry.id),
+      ) ?? [])
+        this.drawParcelGeometry(parcel.cells, COLORS.parcelAvailable, 0.08, 0.7, 2);
       for (const parcel of this.projection?.economy?.parcels.filter((entry) =>
         target.parcelIds.includes(entry.id),
       ) ?? [])

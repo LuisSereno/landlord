@@ -4,6 +4,8 @@ import {
   type Building,
   type BuildingDefinition,
   type BuildingType,
+  type DevelopmentAvailability,
+  type DevelopmentAvailabilityRejection,
   type DevelopmentCode,
   type DevelopmentPlacementCandidate,
   type DevelopmentPlacementId,
@@ -33,10 +35,13 @@ import {
   type FootprintCandidate,
   type FootprintPlacementInput,
 } from "./footprints";
-import { BUILDING_DEFINITIONS } from "./game-data";
+import { districtObstacles, interactionCellCandidates } from "./district-obstacles";
+import { enumerateCompatibleDevelopmentSites } from "./development-site";
+import { BUILDING_DEFINITIONS, calculateTax, effectiveTaxRateBps } from "./game-data";
+import { findDeterministicPath } from "./navigation";
 import { activePermitFor } from "./permitting";
 import type { GameState } from "./state";
-import { canonicalGridCells, fnv1a32 } from "./urban-fabric";
+import { canonicalGridCells, cellKey, fnv1a32 } from "./urban-fabric";
 
 /**
  * V.d-7C · única fuente autoritativa de colocaciones legales (D-097).
@@ -63,6 +68,233 @@ export type DevelopmentPlacementSite = {
 
 export type PlacementSiteResult =
   { ok: true; site: DevelopmentPlacementSite } | { ok: false; rejection: PlacementRejection };
+
+export function organizationHasHeadquartersProject(
+  state: GameState,
+  organizationId: OrganizationId,
+): boolean {
+  return (
+    [...state.phase2.constructionSites.values()].some(
+      (site) => site.ownerOrganizationId === organizationId && site.buildingType === "headquarters",
+    ) ||
+    [...state.phase2.buildings.values()].some(
+      (building) =>
+        building.ownerOrganizationId === organizationId &&
+        building.type === "headquarters" &&
+        building.state !== "ruin",
+    )
+  );
+}
+
+export function headquartersAccessForPlacement(
+  state: GameState,
+  districtId: DistrictId,
+  footprintCells: readonly GridCell[],
+  organizationId: OrganizationId,
+): { main: GridCell; service: GridCell } | null {
+  const obstacles = districtObstacles(state, districtId);
+  const blocked = new Set(obstacles.impassable);
+  for (const cell of footprintCells) blocked.add(cellKey(cell));
+  const access = interactionCellCandidates(
+    footprintCells,
+    {
+      occupied: new Set([...obstacles.occupied, ...footprintCells.map(cellKey)]),
+      impassable: blocked,
+    },
+    64,
+    64,
+  );
+  const provisionalEntry = state.organizationBases.get(organizationId)?.serviceEntranceCell;
+  const service = access.find(
+    (cell) =>
+      !provisionalEntry ||
+      (provisionalEntry.x === cell.x && provisionalEntry.y === cell.y) ||
+      findDeterministicPath(provisionalEntry, cell, blocked).length > 0,
+  );
+  const main = access.find((cell) => cell.x !== service?.x || cell.y !== service?.y);
+  return main && service ? { main, service } : null;
+}
+
+export function developmentAvailabilityFor(
+  state: GameState,
+  input: {
+    districtId: DistrictId;
+    anchorParcelId: ParcelId;
+    buildingType: BuildingType;
+    organizationId: OrganizationId;
+  },
+): DevelopmentAvailability {
+  const definition = BUILDING_DEFINITIONS[input.buildingType];
+  const unavailable = (rejection: DevelopmentAvailabilityRejection): DevelopmentAvailability => ({
+    districtId: input.districtId,
+    anchorParcelId: input.anchorParcelId,
+    buildingType: input.buildingType,
+    available: false,
+    parcelIds: [],
+    purchaseParcelIds: [],
+    acquisitionCost: 0,
+    rejection,
+  });
+  const anchor = state.phase2.parcels.get(input.anchorParcelId);
+  if (!anchor) return unavailable("PARCEL_NOT_FOUND");
+  if (anchor.districtId !== input.districtId) return unavailable("PARCELS_DIFFERENT_DISTRICT");
+  if (anchor.disposition !== "marketable") return unavailable("PUBLIC_LAND_NOT_BUILDABLE");
+  if (anchor.ownerOrganizationId !== input.organizationId)
+    return unavailable("ACTOR_NOT_AUTHORIZED");
+  const buildingIndex = buildBuildingIndex(state);
+  if (activeSiteOnParcel(state, anchor.id)) return unavailable("ACTIVE_SITE_ON_PARCEL");
+  if (buildingsOnParcel(buildingIndex, anchor.id).length > 0) return unavailable("PARCEL_OCCUPIED");
+  if (!isParcelUseAllowed(anchor, definition)) return unavailable("USE_NOT_ALLOWED");
+  if (definition.headquarters && organizationHasHeadquartersProject(state, input.organizationId))
+    return unavailable("BUILDING_CAPACITY_FULL");
+
+  const eligible = [...state.phase2.parcels.values()].filter(
+    (parcel) =>
+      parcel.disposition === "marketable" &&
+      parcel.districtId === anchor.districtId &&
+      (parcel.ownerOrganizationId === input.organizationId ||
+        parcel.ownerOrganizationId === null) &&
+      buildingsOnParcel(buildingIndex, parcel.id).length === 0 &&
+      activeSiteOnParcel(state, parcel.id) === undefined &&
+      isParcelUseAllowed(parcel, definition),
+  );
+  const candidateSets = enumerateCompatibleDevelopmentSites({
+    parcels: eligible,
+    definition,
+    seedParcelId: anchor.id,
+  });
+  if (candidateSets.length === 0) {
+    if (definition.siteRequirements.requiredParcels === 1)
+      return unavailable("SITE_AREA_TOO_SMALL");
+    const adjacent = [...state.phase2.parcels.values()].filter(
+      (parcel) =>
+        parcel.id !== anchor.id &&
+        parcel.districtId === anchor.districtId &&
+        parcel.disposition === "marketable" &&
+        areCellGroupsEdgeConnected([anchor.cells, parcel.cells]),
+    );
+    if (adjacent.length === 0) return unavailable("PARCELS_NOT_EDGE_CONTIGUOUS");
+    if (!adjacent.some((parcel) => parcel.developmentCodeId === anchor.developmentCodeId))
+      return unavailable("MIXED_DEVELOPMENT_CODES");
+    const compatibleAdjacent = adjacent.filter(
+      (parcel) =>
+        parcel.developmentCodeId === anchor.developmentCodeId &&
+        (parcel.ownerOrganizationId === input.organizationId ||
+          parcel.ownerOrganizationId === null) &&
+        isParcelUseAllowed(parcel, definition) &&
+        buildingsOnParcel(buildingIndex, parcel.id).length === 0 &&
+        activeSiteOnParcel(state, parcel.id) === undefined,
+    );
+    if (compatibleAdjacent.length === 0) return unavailable("NO_COMPATIBLE_SITE");
+    if (
+      definition.siteRequirements.requiredParcels === 2 &&
+      compatibleAdjacent.every(
+        (parcel) =>
+          anchor.cells.length + parcel.cells.length <
+          definition.siteRequirements.minCombinedAreaCells,
+      )
+    )
+      return unavailable("SITE_AREA_TOO_SMALL");
+    return unavailable("NO_COMPATIBLE_SITE");
+  }
+
+  const transferRateBps = effectiveTaxRateBps(
+    state.phase2.taxation.transferRateBps,
+    state.phase2.ordinance.status === "active"
+      ? state.phase2.ordinance.transferTaxModifierPercent
+      : 0,
+  );
+  const ranked = candidateSets
+    .map((parcelIds) => {
+      const parcels = parcelIds.map((id) => state.phase2.parcels.get(id)!);
+      const purchaseParcelIds = canonicalParcelIds(
+        parcels.filter((parcel) => parcel.ownerOrganizationId === null).map((parcel) => parcel.id),
+      );
+      const acquisitionCost = parcels
+        .filter((parcel) => parcel.ownerOrganizationId === null)
+        .reduce(
+          (total, parcel) =>
+            total + parcel.marketValue + calculateTax(parcel.marketValue, transferRateBps),
+          0,
+        );
+      return { parcelIds, parcels, purchaseParcelIds, acquisitionCost };
+    })
+    .sort(
+      (left, right) =>
+        left.purchaseParcelIds.length - right.purchaseParcelIds.length ||
+        left.acquisitionCost - right.acquisitionCost ||
+        left.parcelIds.join(",").localeCompare(right.parcelIds.join(",")),
+    );
+  const district = state.world.districts.get(anchor.districtId)!;
+  const avenueSegmentIds = new Set(
+    district.map.roads.segments
+      .filter((segment) => segment.class === "avenue")
+      .map((segment) => segment.id as string),
+  );
+  let rejection: DevelopmentAvailabilityRejection = "NO_BUILDABLE_ENVELOPE";
+  for (const candidate of ranked) {
+    const frontages = siteFrontagesFor(candidate.parcels, avenueSegmentIds);
+    const site: DevelopmentPlacementSite = {
+      districtId: anchor.districtId,
+      parcelIds: candidate.parcelIds,
+      parcels: candidate.parcels,
+      buildingType: input.buildingType,
+      definition,
+      frontages: frontages.frontages,
+      principalFrontageCells: frontages.principalFrontageCells,
+      occupiedBy: [],
+    };
+    const siteRejection = siteContractRejection({
+      parcelIds: candidate.parcelIds,
+      parcels: candidate.parcels,
+      definition,
+      authorize: (parcels) =>
+        parcels.some(
+          (parcel) =>
+            parcel.ownerOrganizationId !== input.organizationId &&
+            parcel.ownerOrganizationId !== null,
+        )
+          ? "ACTOR_NOT_AUTHORIZED"
+          : null,
+    });
+    if (siteRejection) {
+      rejection = siteRejection;
+      continue;
+    }
+    const enumeration = enumerateFootprintCandidates(
+      footprintInputFor(site, placementCodeFor(state, site)),
+    );
+    if (enumeration.candidates.length === 0) {
+      rejection = enumeration.rejection ?? "NO_BUILDABLE_ENVELOPE";
+      continue;
+    }
+    if (
+      definition.headquarters &&
+      !enumeration.candidates.some((placement) =>
+        headquartersAccessForPlacement(
+          state,
+          anchor.districtId,
+          placement.footprintCells,
+          input.organizationId,
+        ),
+      )
+    ) {
+      rejection = "INVALID_AGENT_ACTION";
+      continue;
+    }
+    return {
+      districtId: input.districtId,
+      anchorParcelId: input.anchorParcelId,
+      buildingType: input.buildingType,
+      available: true,
+      parcelIds: candidate.parcelIds,
+      purchaseParcelIds: candidate.purchaseParcelIds,
+      acquisitionCost: candidate.acquisitionCost,
+      rejection: null,
+    };
+  }
+  return unavailable(rejection);
+}
 
 /**
  * Contrato de solar puro (D-106): la misma secuencia de reglas que `StartConstruction`, sin

@@ -67,6 +67,7 @@ import type {
   ProjectedParcel,
   ProjectedPublicSpace,
   ProjectedSite,
+  DevelopmentAvailabilityChecker,
 } from "./types";
 import { facilityMetricsSummary } from "../facility-metrics";
 import type { ContextSelection } from "./selection";
@@ -74,7 +75,9 @@ import {
   addParcelToSite,
   removeParcelFromSite,
   siteAssemblyCandidates,
+  siteAssemblyIssueMessage,
   siteAssemblyIssues,
+  siteAssemblyPurchaseCandidates,
   siteRequirementsFor,
   type PendingDevelopmentSite,
 } from "./site-assembly";
@@ -95,6 +98,8 @@ export type PanelContext = {
   onBeginSite: (site: PendingDevelopmentSite) => void;
   onUpdateSite: (site: PendingDevelopmentSite | null) => void;
   onCancelSite: () => void;
+  checkAvailability: DevelopmentAvailabilityChecker;
+  availabilityKey: string;
   /**
    * V.d-7C · la colocación es estado de React (transitorio, nunca persistido). El panel la enseña y
    * pide acciones; quién decide qué es legal sigue siendo el motor.
@@ -291,12 +296,13 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
         />
       ) : (
         <>
-          {context.pendingSite ? <SiteAssemblyPanel context={context} parcel={parcel} /> : null}
-
-          {/* Un solar propio y vacío prioriza construir: el catálogo va antes que el detalle. */}
-          {owned && vacant ? (
+          {context.pendingSite ? (
+            <SiteAssemblyPanel context={context} parcel={parcel} />
+          ) : owned && vacant ? (
             <BuildCatalog
+              availabilityKey={context.availabilityKey}
               calendar={calendar}
+              checkAvailability={context.checkAvailability}
               economy={economy}
               onBeginPlacement={context.onBeginPlacement}
               onBeginSite={context.onBeginSite}
@@ -384,7 +390,7 @@ function ParcelPanel({ parcel, context }: { parcel: ProjectedParcel; context: Pa
         </dl>
       </details>
 
-      {!owned && parcel.disposition === "marketable" ? (
+      {!owned && parcel.disposition === "marketable" && !context.pendingSite ? (
         <button
           className="primary-action"
           onClick={() => actions.buyParcel(parcel.id)}
@@ -418,7 +424,9 @@ function SiteAssemblyPanel({
   if (!requirements) return null;
   const selected = pending.parcelIds.includes(parcel.id);
   const candidates = siteAssemblyCandidates(context.economy, pending);
+  const purchaseCandidates = siteAssemblyPurchaseCandidates(context.economy, pending);
   const canAdd = candidates.some((candidate) => candidate.id === parcel.id);
+  const canPurchase = purchaseCandidates.some((candidate) => candidate.id === parcel.id);
   const issues = siteAssemblyIssues(context.economy, pending);
   const area = pending.parcelIds.reduce(
     (total, id) =>
@@ -448,10 +456,19 @@ function SiteAssemblyPanel({
         </button>
       ) : canAdd ? (
         <button
+          className="primary-action"
           onClick={() => context.onUpdateSite(addParcelToSite(context.economy, pending, parcel.id))}
           type="button"
         >
-          Añadir este solar
+          <UiIcon name="construction" /> Añadir este solar
+        </button>
+      ) : canPurchase ? (
+        <button
+          className="primary-action"
+          onClick={() => context.actions.buyParcel(parcel.id)}
+          type="button"
+        >
+          <UiIcon name="money" /> Comprar para ampliar · {parcel.marketValue} u.
         </button>
       ) : null}
       {ready ? (
@@ -469,7 +486,20 @@ function SiteAssemblyPanel({
           <UiIcon name="construction" /> Elegir ubicación para {pending.parcelIds.length} solares
         </button>
       ) : (
-        <p className="muted">Selecciona los solares contiguos que faltan para iniciar la obra.</p>
+        <>
+          <ul className="blocked-reasons" role="list">
+            {issues.map((issue) => (
+              <li key={issue}>
+                <UiIcon name="warning" size={14} /> {siteAssemblyIssueMessage(issue)}
+              </li>
+            ))}
+          </ul>
+          <p className="muted">
+            {purchaseCandidates.length > 0
+              ? "Selecciona un solar marcado como disponible para comprarlo y añadirlo al proyecto."
+              : "Selecciona los solares contiguos que faltan para iniciar la obra."}
+          </p>
+        </>
       )}
       <button className="text-action" onClick={context.onCancelSite} type="button">
         Cancelar proyecto

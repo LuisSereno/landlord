@@ -51,8 +51,17 @@ import {
   selectionTargetForCell,
   type SpatialSelection,
 } from "./ui/selection";
-import type { GameActions, HubKind, ProjectedParcel } from "./ui/types";
-import { siteAssemblyCandidates, type PendingDevelopmentSite } from "./ui/site-assembly";
+import type {
+  DevelopmentAvailabilityChecker,
+  GameActions,
+  HubKind,
+  ProjectedParcel,
+} from "./ui/types";
+import {
+  siteAssemblyCandidates,
+  siteAssemblyPurchaseCandidates,
+  type PendingDevelopmentSite,
+} from "./ui/site-assembly";
 import { constructionBlockedReasons } from "./ui/disabled-reasons";
 import { applyVisualMood, readVisualMood, type VisualMood } from "./visual-mood";
 import {
@@ -90,6 +99,37 @@ export function RootApp() {
 export function App() {
   const session = useGameSession();
   const { economy, projection, client } = session;
+  const checkAvailability = useCallback<DevelopmentAvailabilityChecker>(
+    (input) => (client ? client.getDevelopmentAvailability(input) : Promise.resolve(null)),
+    [client],
+  );
+  const availabilityKey = useMemo(() => {
+    if (!economy) return "";
+    return JSON.stringify({
+      parcels: economy.parcels.map((parcel) => [
+        parcel.id,
+        parcel.ownerOrganizationId,
+        parcel.disposition,
+        parcel.developmentCodeId,
+        parcel.buildingIds.length,
+        parcel.cells.length,
+        parcel.marketValue,
+        parcel.estimatedTransferTax,
+      ]),
+      sites: economy.constructionSites.map((site) => [site.id, site.buildingType, site.parcelIds]),
+      buildings: economy.buildings.map((building) => [
+        building.id,
+        building.type,
+        building.state,
+        building.parcelIds,
+      ]),
+      density: economy.constructionOptions.map((option) => [
+        option.type,
+        option.densityBonusFloors,
+        option.densityBonusFarPercent,
+      ]),
+    });
+  }, [economy]);
   const [selectionTarget, setSelectionTarget] = useState<SpatialSelection | null>(null);
   /** V.d-UX.S · sección pedida por un badge del mapa, con token monotónico por click. */
   const [sectionRequest, setSectionRequest] = useState<PanelSectionRequest | undefined>(undefined);
@@ -283,6 +323,9 @@ export function App() {
             candidateParcelIds: economy
               ? siteAssemblyCandidates(economy, pendingSite).map((parcel) => parcel.id)
               : [],
+            purchasableParcelIds: economy
+              ? siteAssemblyPurchaseCandidates(economy, pendingSite).map((parcel) => parcel.id)
+              : [],
           }
         : selectionTarget,
     );
@@ -421,6 +464,9 @@ export function App() {
                 buildingType: pendingSite.buildingType,
                 parcelCount: pendingSite.parcelIds.length,
                 candidateCells: siteAssemblyCandidates(economy, pendingSite).map(
+                  (parcel) => parcel.cell,
+                ),
+                purchaseCandidateCells: siteAssemblyPurchaseCandidates(economy, pendingSite).map(
                   (parcel) => parcel.cell,
                 ),
                 adjacentAvailableCells,
@@ -1025,6 +1071,8 @@ export function App() {
               onBeginSite: setPendingSite,
               onUpdateSite: setPendingSite,
               onCancelSite: () => setPendingSite(null),
+              checkAvailability,
+              availabilityKey,
             }}
             selection={selection}
           />
@@ -1071,6 +1119,7 @@ declare global {
         buildingType: string;
         parcelCount: number;
         candidateCells: GridCell[];
+        purchaseCandidateCells: GridCell[];
         adjacentAvailableCells: GridCell[];
       } | null;
       constructionStatus: () => Array<{

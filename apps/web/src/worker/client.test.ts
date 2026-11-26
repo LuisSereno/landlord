@@ -288,6 +288,46 @@ describe("V.d-7C · colocación interactiva en el cliente del Worker", () => {
     await expect(garbage).resolves.toBeNull();
   });
 
+  it("envía y valida la consulta de disponibilidad sin tratarla como un comando", async () => {
+    const worker = new FakeWorker();
+    const client = new SimulationWorkerClient(
+      worker,
+      () => undefined,
+      () => undefined,
+    );
+    const result = {
+      districtId: "district_00000001",
+      anchorParcelId: "parcel_00000001",
+      buildingType: "headquarters",
+      available: false,
+      parcelIds: [],
+      purchaseParcelIds: [],
+      acquisitionCost: 0,
+      rejection: "PARCELS_NOT_EDGE_CONTIGUOUS",
+    };
+    const pending = client.getDevelopmentAvailability({
+      buildingType: "headquarters",
+      districtId: "district_00000001",
+      anchorParcelId: "parcel_00000001",
+    });
+    expect(worker.sent[0]).toMatchObject({
+      protocolVersion: 3,
+      type: "GetDevelopmentAvailability",
+      payload: {
+        districtId: "district_00000001",
+        anchorParcelId: "parcel_00000001",
+        buildingType: "headquarters",
+      },
+    });
+    worker.emit({
+      protocolVersion: 3,
+      requestId: "request-1",
+      type: "RequestSucceeded",
+      payload: { acceptedAtTick: 0, result },
+    });
+    await expect(pending).resolves.toEqual(result);
+  });
+
   it("sólo añade placementId al comando cuando el jugador confirmó una colocación", async () => {
     const worker = new FakeWorker();
     const client = new SimulationWorkerClient(

@@ -1,6 +1,8 @@
 import type { BuildingType, DistrictId } from "@landlord/shared";
 import {
+  developmentAvailabilitySchema,
   developmentPlacementCandidatesSchema,
+  getDevelopmentAvailabilityRequestSchema,
   getDevelopmentPlacementCandidatesRequestSchema,
   initializeGameRequestSchema,
   loadSnapshotRequestSchema,
@@ -25,6 +27,7 @@ import {
   submitCommandRequestSchema,
   viewProjectionV3Schema,
   workerResponseSchema,
+  type DevelopmentAvailability,
   type DevelopmentPlacementCandidates,
   type SnapshotV3,
   type IntelKind,
@@ -203,6 +206,28 @@ export class SimulationWorkerClient {
     if (response.type !== "RequestSucceeded") return null;
     const parsed = developmentPlacementCandidatesSchema.safeParse(response.payload.result);
     return parsed.success ? (parsed.data as DevelopmentPlacementCandidates) : null;
+  }
+
+  public async getDevelopmentAvailability(input: {
+    districtId: string;
+    anchorParcelId: string;
+    buildingType: BuildingType;
+  }): Promise<DevelopmentAvailability | null> {
+    const response = await this.send(
+      getDevelopmentAvailabilityRequestSchema.parse({
+        protocolVersion: 3,
+        requestId: this.nextRequestId(),
+        type: "GetDevelopmentAvailability",
+        payload: {
+          districtId: parseDistrictId(input.districtId),
+          anchorParcelId: parseParcelId(input.anchorParcelId),
+          buildingType: input.buildingType,
+        },
+      }) as WorkerRequest,
+    );
+    if (response.type !== "RequestSucceeded") return null;
+    const parsed = developmentAvailabilitySchema.safeParse(response.payload.result);
+    return parsed.success ? parsed.data : null;
   }
 
   public assignTenant(buildingId: string, tenantId: string) {

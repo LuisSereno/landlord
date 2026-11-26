@@ -1,13 +1,19 @@
 import { describe, expect, it } from "vitest";
 import {
+  parseBlockId,
   parseCommandId,
+  parseMoney,
   parseOrganizationId,
   parseParcelId,
   parsePersonId,
+  type GridCell,
+  type Parcel,
   type ProductCommand,
 } from "@landlord/shared";
 import { createInitialState } from "./state";
 import { BUILDING_DEFINITIONS } from "./game-data";
+import { DEVELOPMENT_CODES } from "./development-codes";
+import { developmentAvailabilityFor } from "./development-placement";
 import { enumeratePurchasableDevelopmentSites } from "./development-site";
 import { developmentPlacementCandidatesFor } from "./development-placement";
 import { districtObstacles, interactionCellCandidates } from "./district-obstacles";
@@ -24,7 +30,122 @@ const PLAYERS = [
   { organizationId: parseOrganizationId("org_00000002"), districtId: RIVAL_HOME_DISTRICT_ID },
 ] as const;
 
+function rectangle(x: number, y: number, width: number, height: number): GridCell[] {
+  const cells: GridCell[] = [];
+  for (let row = 0; row < height; row += 1)
+    for (let column = 0; column < width; column += 1) cells.push({ x: x + column, y: y + row });
+  return cells;
+}
+
+function headquartersParcel(
+  id: string,
+  cells: GridCell[],
+  ownerOrganizationId: Parcel["ownerOrganizationId"],
+  developmentCodeId: Parcel["developmentCodeId"] = DEVELOPMENT_CODES.mixed_core_5f!.id,
+): Parcel {
+  return {
+    id: parseParcelId(id),
+    districtId: PLAYER_HOME_DISTRICT_ID,
+    blockId: parseBlockId("block_00000001"),
+    cells,
+    anchorCell: cells[0]!,
+    roadFrontages: [{ roadSegmentId: "road_fixture", cells: [cells[0]!] }],
+    disposition: "marketable",
+    baseLandValue: parseMoney(100),
+    marketValue: parseMoney(100),
+    developmentCodeId,
+    currentUses: [],
+    ownerOrganizationId,
+    productionSuitability: { cement: 100, brick: 100, steel: 100 },
+  };
+}
+
+function headquartersState(first: Parcel, second: Parcel) {
+  const state = createInitialState(1);
+  state.phase2.parcels.clear();
+  state.phase2.parcels.set(first.id, first);
+  state.phase2.parcels.set(second.id, second);
+  return state;
+}
+
 describe("organization headquarters", () => {
+  it("rechaza 61+16 celdas cuando ninguna huella legal ocupa ambas parcelas", () => {
+    const organizationId = PLAYERS[0].organizationId;
+    const strip = headquartersParcel(
+      "parcel_00000001",
+      Array.from({ length: 61 }, (_, y) => ({ x: 20, y })),
+      organizationId,
+    );
+    const block = headquartersParcel("parcel_00000002", rectangle(21, 0, 16, 1), organizationId);
+    const state = headquartersState(strip, block);
+    expect(strip.cells).toHaveLength(61);
+    expect(block.cells).toHaveLength(16);
+    expect(
+      developmentAvailabilityFor(state, {
+        districtId: PLAYER_HOME_DISTRICT_ID,
+        anchorParcelId: strip.id,
+        buildingType: "headquarters",
+        organizationId,
+      }),
+    ).toMatchObject({ available: false, rejection: "NO_BUILDABLE_ENVELOPE" });
+  });
+
+  it("acepta 61+16 celdas comprables cuando la geometría sí permite una huella compartida", () => {
+    const organizationId = PLAYERS[0].organizationId;
+    const large = headquartersParcel(
+      "parcel_00000001",
+      [...rectangle(20, 10, 4, 15), { x: 24, y: 10 }],
+      organizationId,
+    );
+    const purchasable = headquartersParcel("parcel_00000002", rectangle(20, 6, 4, 4), null);
+    const state = headquartersState(large, purchasable);
+    expect(
+      developmentAvailabilityFor(state, {
+        districtId: PLAYER_HOME_DISTRICT_ID,
+        anchorParcelId: large.id,
+        buildingType: "headquarters",
+        organizationId,
+      }),
+    ).toMatchObject({
+      available: true,
+      parcelIds: [large.id, purchasable.id],
+      purchaseParcelIds: [purchasable.id],
+      acquisitionCost: 102,
+      rejection: null,
+    });
+  });
+
+  it("distingue códigos de la misma familia y solares separados por una calle", () => {
+    const organizationId = PLAYERS[0].organizationId;
+    const anchor = headquartersParcel("parcel_00000001", rectangle(20, 10, 4, 15), organizationId);
+    const otherCode = headquartersParcel(
+      "parcel_00000002",
+      rectangle(20, 6, 4, 4),
+      organizationId,
+      DEVELOPMENT_CODES.commercial_corridor_4f!.id,
+    );
+    const mixedState = headquartersState(anchor, otherCode);
+    expect(
+      developmentAvailabilityFor(mixedState, {
+        districtId: PLAYER_HOME_DISTRICT_ID,
+        anchorParcelId: anchor.id,
+        buildingType: "headquarters",
+        organizationId,
+      }).rejection,
+    ).toBe("MIXED_DEVELOPMENT_CODES");
+
+    const separated = headquartersParcel("parcel_00000002", rectangle(25, 6, 4, 4), organizationId);
+    const separatedState = headquartersState(anchor, separated);
+    expect(
+      developmentAvailabilityFor(separatedState, {
+        districtId: PLAYER_HOME_DISTRICT_ID,
+        anchorParcelId: anchor.id,
+        buildingType: "headquarters",
+        organizationId,
+      }).rejection,
+    ).toBe("PARCELS_NOT_EDGE_CONTIGUOUS");
+  });
+
   it("keeps at least one legal, reachable headquarters site in both initial districts across 60 seeds", () => {
     for (let seed = 1; seed <= 60; seed += 1) {
       const state = createInitialState(seed);

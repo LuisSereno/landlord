@@ -90,3 +90,28 @@ export const developmentPlacementCandidatesSchema = z.object({
 });
 
 export type DevelopmentPlacementCandidates = z.infer<typeof developmentPlacementCandidatesSchema>;
+
+export const developmentAvailabilityRejectionSchema = z.enum([
+  ...placementRejectionSchema.options,
+  "NO_COMPATIBLE_SITE",
+  "BUILDING_CAPACITY_FULL",
+  "INVALID_AGENT_ACTION",
+]);
+export type DevelopmentAvailabilityRejection = z.infer<
+  typeof developmentAvailabilityRejectionSchema
+>;
+
+export const developmentAvailabilitySchema = z
+  .object({
+    districtId: districtIdSchema,
+    anchorParcelId: parcelIdSchema,
+    buildingType: buildingTypeSchema,
+    available: z.boolean(),
+    parcelIds: z.array(parcelIdSchema),
+    purchaseParcelIds: z.array(parcelIdSchema),
+    acquisitionCost: z.number().int().nonnegative(),
+    rejection: developmentAvailabilityRejectionSchema.nullable(),
+  })
+  .strict();
+
+export type DevelopmentAvailability = z.infer<typeof developmentAvailabilitySchema>;

@@ -33,7 +33,11 @@ const projectionOf = (e: ReturnType<typeof economy>) =>
     agents: [],
   }) as unknown as ViewProjectionV3;
 
-function contextFor(e: ReturnType<typeof economy>, request?: PanelSectionRequest): PanelContext {
+function contextFor(
+  e: ReturnType<typeof economy>,
+  request?: PanelSectionRequest,
+  pendingSite: PanelContext["pendingSite"] = null,
+): PanelContext {
   return {
     economy: e,
     projection: projectionOf(e),
@@ -43,10 +47,12 @@ function contextFor(e: ReturnType<typeof economy>, request?: PanelSectionRequest
     onClose: () => {},
     onOpenHub: () => {},
     onSelectBuilding: () => {},
-    pendingSite: null,
+    pendingSite,
     onBeginSite: () => {},
     onUpdateSite: () => {},
     onCancelSite: () => {},
+    availabilityKey: "test",
+    checkAvailability: () => Promise.resolve(null),
     pendingPlacement: null,
     placementHandlers: null,
     placementBlockers: [],
@@ -169,6 +175,63 @@ describe("V.d-UX.S · routing reactivo de la pestaña del edificio", () => {
     expect(chips.join(" | ")).toContain("sin inquilinos");
     expect(chips.join(" | ")).toContain("póliza vencida");
     expect(chips.join(" | ")).toContain("Atraso 360 u.");
+  });
+
+  it("el ensamblado sustituye al catálogo y ofrece comprar la candidata autoritativa", () => {
+    const anchor = parcel({
+      id: "parcel_00000001",
+      cells: [
+        { x: 10, y: 10 },
+        { x: 11, y: 10 },
+      ],
+      developmentCodeId: "mixed_core_5f",
+      permittedBuildingTypes: ["headquarters"],
+      productionSuitability: { cement: 100, brick: 100, steel: 100 },
+    });
+    const candidate = parcel({
+      id: "parcel_00000002",
+      cell: { x: 12, y: 10 },
+      cells: [{ x: 12, y: 10 }],
+      ownerOrganizationId: null,
+      developmentCodeId: "mixed_core_5f",
+      permittedBuildingTypes: ["headquarters"],
+      marketValue: 100,
+      productionSuitability: { cement: 100, brick: 100, steel: 100 },
+    });
+    const e = economy({
+      parcels: [anchor, candidate],
+      constructionOptions: [
+        {
+          type: "headquarters",
+          siteRequirements: {
+            requiredParcels: 2,
+            minCombinedAreaCells: 16,
+            requireEdgeContiguous: true,
+          },
+        },
+      ],
+    });
+    const pendingSite = {
+      buildingType: "headquarters" as const,
+      anchorParcelId: "parcel_00000001",
+      parcelIds: ["parcel_00000001"],
+      targetParcelIds: ["parcel_00000001", "parcel_00000002"],
+      purchaseParcelIds: ["parcel_00000002"],
+    };
+    const selection = resolveContextSelection({
+      economy: e,
+      projection: projectionOf(e),
+      target: { kind: "parcel", parcelId: "parcel_00000002" },
+    });
+    act(() => {
+      root.render(
+        <ContextPanel selection={selection!} context={contextFor(e, undefined, pendingSite)} />,
+      );
+    });
+    expect(container.textContent).toContain("Proyecto en preparación");
+    expect(container.textContent).toContain("Comprar para ampliar");
+    expect(container.textContent).not.toContain("Qué construir");
+    expect(container.textContent).not.toContain("Añadir 1 solar");
   });
 
   it("finanzas separa la hipoteca del activo de la deuda de la cartera", () => {

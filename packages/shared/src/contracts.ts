@@ -118,6 +118,21 @@ export const getDevelopmentPlacementCandidatesRequestSchema = requestEnvelopeSch
     .strict(),
 );
 
+export type GetDevelopmentAvailabilityRequest = RequestEnvelope<
+  "GetDevelopmentAvailability",
+  { districtId: DistrictId; anchorParcelId: ParcelId; buildingType: BuildingType }
+>;
+export const getDevelopmentAvailabilityRequestSchema = requestEnvelopeSchema(
+  "GetDevelopmentAvailability",
+  z
+    .object({
+      districtId: districtIdSchema,
+      anchorParcelId: parcelIdSchema,
+      buildingType: buildingTypeSchema,
+    })
+    .strict(),
+);
+
 export const workerRequestSchemas = [
   initializeGameRequestSchema,
   submitCommandRequestSchema,
@@ -127,6 +142,7 @@ export const workerRequestSchemas = [
   getMetricsRequestSchema,
   setObservedDistrictRequestSchema,
   getDevelopmentPlacementCandidatesRequestSchema,
+  getDevelopmentAvailabilityRequestSchema,
 ] as const;
 
 export const workerRequestSchema = z.discriminatedUnion("type", [
@@ -138,6 +154,7 @@ export const workerRequestSchema = z.discriminatedUnion("type", [
   getMetricsRequestSchema,
   setObservedDistrictRequestSchema,
   getDevelopmentPlacementCandidatesRequestSchema,
+  getDevelopmentAvailabilityRequestSchema,
 ]);
 
 export type WorkerRequest = z.infer<typeof workerRequestSchema>;

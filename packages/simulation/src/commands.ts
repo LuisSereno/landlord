@@ -57,7 +57,12 @@ import {
   effectiveDevelopmentCode,
   isParcelUseAllowed,
 } from "./development-codes";
-import { choosePlacementFrom, resolveDevelopmentPlacementSite } from "./development-placement";
+import {
+  choosePlacementFrom,
+  headquartersAccessForPlacement,
+  organizationHasHeadquartersProject,
+  resolveDevelopmentPlacementSite,
+} from "./development-placement";
 import { activePermitFor, permitsFor } from "./permitting";
 import { buildingCollateralContribution, collateralBuildingValue } from "./collateral";
 import {
@@ -781,19 +786,8 @@ export function dispatchProductCommand(
         command.payload.headquartersVariantId !== "courtyard"
       )
         return { accepted: false, code: "INVALID_BUILDING_VARIANT" };
-      const existing =
-        [...state.phase2.constructionSites.values()].some(
-          (site) =>
-            site.ownerOrganizationId === command.actingAsOrganizationId &&
-            site.buildingType === "headquarters",
-        ) ||
-        [...state.phase2.buildings.values()].some(
-          (building) =>
-            building.ownerOrganizationId === command.actingAsOrganizationId &&
-            building.type === "headquarters" &&
-            building.state !== "ruin",
-        );
-      if (existing) return { accepted: false, code: "BUILDING_CAPACITY_FULL" };
+      if (organizationHasHeadquartersProject(state, command.actingAsOrganizationId))
+        return { accepted: false, code: "BUILDING_CAPACITY_FULL" };
     } else if (command.payload.headquartersVariantId !== undefined) {
       return { accepted: false, code: "INVALID_BUILDING_VARIANT" };
     }
@@ -834,30 +828,12 @@ export function dispatchProductCommand(
     if (!chosen.ok) return { accepted: false, code: chosen.rejection };
     const placement = chosen.placement;
     const headquartersAccess = definition.headquarters
-      ? (() => {
-          const obstacles = districtObstacles(state, site.districtId);
-          const blocked = new Set(obstacles.impassable);
-          for (const cell of placement.footprintCells) blocked.add(cellKey(cell));
-          const access = interactionCellCandidates(
-            placement.footprintCells,
-            {
-              occupied: new Set([...obstacles.occupied, ...placement.footprintCells.map(cellKey)]),
-              impassable: blocked,
-            },
-            64,
-            64,
-          );
-          const base = state.organizationBases.get(command.actingAsOrganizationId);
-          const provisionalEntry = base?.serviceEntranceCell;
-          const service = access.find(
-            (cell) =>
-              !provisionalEntry ||
-              (provisionalEntry.x === cell.x && provisionalEntry.y === cell.y) ||
-              findDeterministicPath(provisionalEntry, cell, blocked).length > 0,
-          );
-          const main = access.find((cell) => cell.x !== service?.x || cell.y !== service?.y);
-          return main && service ? { main, service } : null;
-        })()
+      ? headquartersAccessForPlacement(
+          state,
+          site.districtId,
+          placement.footprintCells,
+          command.actingAsOrganizationId,
+        )
       : null;
     if (definition.headquarters && !headquartersAccess)
       return { accepted: false, code: "INVALID_AGENT_ACTION" };

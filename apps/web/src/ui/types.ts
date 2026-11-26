@@ -1,4 +1,9 @@
-import type { BuildingType, HeadquartersVariantId, ViewProjectionV3 } from "@landlord/shared";
+import type {
+  BuildingType,
+  DevelopmentAvailability,
+  HeadquartersVariantId,
+  ViewProjectionV3,
+} from "@landlord/shared";
 
 /** Alias del contrato de proyección que consumen los componentes del shell. */
 export type Economy = NonNullable<ViewProjectionV3["economy"]>;
@@ -9,6 +14,11 @@ export type ProjectedFacility = ViewProjectionV3["facilities"][number];
 export type ProjectedPublicSpace = ViewProjectionV3["publicSpaces"][number];
 export type ProjectedDistrict = ViewProjectionV3["city"]["districts"][number];
 export type GameCalendar = Economy["gameTime"];
+export type DevelopmentAvailabilityChecker = (input: {
+  districtId: string;
+  anchorParcelId: string;
+  buildingType: BuildingType;
+}) => Promise<DevelopmentAvailability | null>;
 
 export type HubKind = "government" | "finance" | "portfolio" | "city";
 export type SurfaceKind =

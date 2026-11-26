@@ -97,6 +97,12 @@ Select owned parcel
 → create ConstructionSite with canonical parcelIds + chosen placement
 ```
 
+The catalog first asks the simulation whether the anchor can belong to any legal parcel set, using
+owned or purchasable parcels. If none exists, the action stays disabled and the panel explains the
+authoritative reason. During assembly the catalog is replaced by the assembly panel: the player can
+only add an owned candidate, buy a marked purchasable candidate, remove a selected parcel, cancel,
+or proceed to placement. No catalog action may recreate the initial one-parcel selection.
+
 The existing parcel assembly UX remains. Placement begins only after the parcel set is valid.
 
 ## 5. Development Placement Mode
@@ -335,7 +341,9 @@ Player-facing examples:
 - “El proyecto necesita acceso válido a la calle.”
 - “La combinación de parcelas no admite una huella legal.”
 
-Do not expose raw codes as the primary message.
+Do not expose raw codes as the primary message. Catalog preflight must distinguish at least mixed
+development codes, missing edge contiguity, occupied or unavailable parcels, insufficient combined
+area, and a legal parcel union with no footprint that occupies every required parcel.
 
 Simulation may keep technical codes such as coverage/FAR/buildable-envelope violations.
 

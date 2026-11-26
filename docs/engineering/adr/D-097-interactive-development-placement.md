@@ -445,6 +445,24 @@ Rejected because parcel boundaries already have authoritative urban meaning and 
 
 Rejected because presentation value can be validated first without increasing simulation scope.
 
+## Catalog preflight amendment (2026-11-26)
+
+`GetDevelopmentAvailability` is an additive read-only request for the active human organization. It
+uses the same site contract, development code, footprint enumeration and headquarters-access rules
+as construction, and may include unowned marketable parcels as a purchase plan. The answer carries
+the canonical parcel set, parcels to purchase, acquisition cost including transfer tax, and the
+authoritative rejection when no legal set exists.
+
+The construction catalog must not enable a project until that answer confirms a legal set. Economic
+and material blockers remain separate and visible. Multi-parcel assembly replaces the catalog while
+active, so no catalog button can reset the pending parcel selection. Owned candidates and purchasable
+candidates are distinct map highlights and panel actions; confirmation still revalidates everything
+in simulation.
+
+This closes the failure mode where a two-parcel headquarters was offered on an anchor that could not
+form any legal two-parcel site, while the visible “add one parcel” button merely recreated the same
+one-parcel intent.
+
 ## Consequences
 
 Positive:

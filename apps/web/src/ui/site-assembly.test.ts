@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { parseOrganizationId } from "@landlord/shared";
 
 import {
   addParcelToSite,
@@ -6,6 +7,7 @@ import {
   removeParcelFromSite,
   siteAssemblyCandidates,
   siteAssemblyIssues,
+  siteAssemblyPurchaseCandidates,
 } from "./site-assembly";
 import type { Economy, ProjectedParcel } from "./types";
 
@@ -49,6 +51,66 @@ describe("site assembly", () => {
     ).toBe(false);
   });
 
+  it("separa las candidatas comprables de las que ya pueden añadirse", () => {
+    const first = parcel("parcel_a", [
+      { x: 0, y: 0 },
+      { x: 0, y: 1 },
+    ]);
+    const purchasable: ProjectedParcel = {
+      ...parcel("parcel_b", [
+        { x: 1, y: 0 },
+        { x: 1, y: 1 },
+      ]),
+      ownerOrganizationId: null,
+    };
+    const state = economy([first, purchasable]);
+    const pending = {
+      buildingType: "apartment_block" as const,
+      anchorParcelId: first.id,
+      parcelIds: [first.id],
+      targetParcelIds: [first.id, purchasable.id],
+      purchaseParcelIds: [purchasable.id],
+    };
+    expect(siteAssemblyCandidates(state, pending)).toEqual([]);
+    expect(siteAssemblyPurchaseCandidates(state, pending).map((entry) => entry.id)).toEqual([
+      purchasable.id,
+    ]);
+    expect(addParcelToSite(state, pending, purchasable.id)).toBeNull();
+    purchasable.ownerOrganizationId = parseOrganizationId("org_00000001");
+    expect(siteAssemblyCandidates(state, pending).map((entry) => entry.id)).toEqual([
+      purchasable.id,
+    ]);
+  });
+
+  it("no permite sustituir el conjunto legal confirmado por otro contiguo", () => {
+    const first = parcel("parcel_a", [
+      { x: 0, y: 0 },
+      { x: 0, y: 1 },
+    ]);
+    const target = parcel("parcel_b", [
+      { x: 1, y: 0 },
+      { x: 1, y: 1 },
+    ]);
+    const other = parcel("parcel_c", [
+      { x: 0, y: 2 },
+      { x: 0, y: 3 },
+    ]);
+    const state = economy([first, target, other]);
+    const pending = {
+      buildingType: "apartment_block" as const,
+      anchorParcelId: first.id,
+      parcelIds: [first.id],
+      targetParcelIds: [first.id, target.id],
+    };
+    expect(siteAssemblyCandidates(state, pending).map((entry) => entry.id)).toEqual([target.id]);
+    const assembled = addParcelToSite(state, pending, target.id)!;
+    expect(
+      siteAssemblyCandidates(state, removeParcelFromSite(assembled, first.id)!).map(
+        (entry) => entry.id,
+      ),
+    ).toEqual([first.id]);
+  });
+
   it("sólo propone solares propios, vacíos, compatibles y contiguos", () => {
     const first = parcel("parcel_a", [
       { x: 0, y: 0 },
@@ -64,6 +126,7 @@ describe("site assembly", () => {
       buildingType: "apartment_block" as const,
       anchorParcelId: first.id,
       parcelIds: [first.id],
+      targetParcelIds: [first.id, adjacent.id],
     };
     expect(siteAssemblyCandidates(state, pending).map((entry) => entry.id)).toEqual([adjacent.id]);
     expect(addParcelToSite(state, pending, adjacent.id)?.parcelIds).toEqual([

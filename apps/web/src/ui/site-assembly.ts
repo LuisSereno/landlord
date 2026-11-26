@@ -9,6 +9,8 @@ export type PendingDevelopmentSite = {
   /** Punto de partida de la intención del jugador; no es geometría autoritativa. */
   anchorParcelId: string;
   parcelIds: readonly string[];
+  targetParcelIds: readonly string[];
+  purchaseParcelIds?: readonly string[];
   headquartersVariantId?: HeadquartersVariantId;
 };
 
@@ -56,9 +58,12 @@ export function isParcelEligibleForSite(
   parcel: ProjectedParcel,
   buildingType: BuildingType,
   anchor: ProjectedParcel,
+  ownership: "owned" | "purchasable" = "owned",
 ): boolean {
   return (
-    parcel.ownerOrganizationId === PLAYER &&
+    (ownership === "owned"
+      ? parcel.ownerOrganizationId === PLAYER
+      : parcel.ownerOrganizationId === null) &&
     parcel.disposition === "marketable" &&
     parcel.buildingIds.length === 0 &&
     parcel.developmentCodeId === anchor.developmentCodeId &&
@@ -102,6 +107,7 @@ export function siteAssemblyCandidates(
 ): ProjectedParcel[] {
   const requirements = siteRequirementsFor(economy, pending.buildingType);
   const selected = new Set(pending.parcelIds);
+  const target = new Set(pending.targetParcelIds);
   const anchor = economy.parcels.find((parcel) => parcel.id === pending.anchorParcelId);
   if (!requirements || !anchor || pending.parcelIds.length >= requirements.requiredParcels)
     return [];
@@ -110,10 +116,46 @@ export function siteAssemblyCandidates(
     .filter(
       (parcel) =>
         !selected.has(parcel.id) &&
+        target.has(parcel.id) &&
         isParcelEligibleForSite(economy, parcel, pending.buildingType, anchor) &&
         (!requirements.requireEdgeContiguous || parcelsAreEdgeConnected([...current, parcel])),
     )
     .sort((left, right) => left.id.localeCompare(right.id));
+}
+
+export function siteAssemblyPurchaseCandidates(
+  economy: Economy,
+  pending: PendingDevelopmentSite,
+): ProjectedParcel[] {
+  const requirements = siteRequirementsFor(economy, pending.buildingType);
+  const selected = new Set(pending.parcelIds);
+  const purchaseIds = new Set(pending.purchaseParcelIds ?? []);
+  const anchor = economy.parcels.find((parcel) => parcel.id === pending.anchorParcelId);
+  if (!requirements || !anchor || pending.parcelIds.length >= requirements.requiredParcels)
+    return [];
+  const current = economy.parcels.filter((parcel) => selected.has(parcel.id));
+  return economy.parcels
+    .filter(
+      (parcel) =>
+        !selected.has(parcel.id) &&
+        purchaseIds.has(parcel.id) &&
+        isParcelEligibleForSite(economy, parcel, pending.buildingType, anchor, "purchasable") &&
+        (!requirements.requireEdgeContiguous || parcelsAreEdgeConnected([...current, parcel])),
+    )
+    .sort((left, right) => left.id.localeCompare(right.id));
+}
+
+export function siteAssemblyIssueMessage(issue: SiteAssemblyIssue): string {
+  switch (issue) {
+    case "wrong-parcel-count":
+      return "Faltan solares para completar el número de parcelas del proyecto.";
+    case "area-too-small":
+      return "La superficie combinada no alcanza el mínimo del proyecto.";
+    case "not-edge-contiguous":
+      return "Los solares seleccionados deben compartir un borde; una calle o una esquina no valen.";
+    case "parcel-not-eligible":
+      return "Cada solar debe ser propio, estar vacío, compartir el código urbanístico y permitir este uso.";
+  }
 }
 
 export function addParcelToSite(

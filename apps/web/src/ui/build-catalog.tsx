@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import type { BuildingType, HeadquartersVariantId } from "@landlord/shared";
+import type {
+  BuildingType,
+  DevelopmentAvailability,
+  HeadquartersVariantId,
+} from "@landlord/shared";
 
 import { BuildingThumbnail } from "./building-thumbnail";
-import { constructionBlockedReasons, reasonSummary } from "./disabled-reasons";
+import {
+  constructionBlockedReasons,
+  developmentAvailabilityReason,
+  reasonSummary,
+} from "./disabled-reasons";
 import { HelpPopover, HelpTooltip } from "./help";
 import { ResourceIcon, UiIcon } from "./icons";
 import { buildingTypeLabel, formatGameDuration, resourceLabel } from "./labels";
-import type { Economy, GameCalendar, ProjectedParcel } from "./types";
+import type {
+  DevelopmentAvailabilityChecker,
+  Economy,
+  GameCalendar,
+  ProjectedParcel,
+} from "./types";
 import type { PendingDevelopmentSite } from "./site-assembly";
 import { placementEntryIssues } from "./placement";
 
@@ -69,10 +82,14 @@ export function BuildCatalog({
   calendar,
   onBeginPlacement,
   onBeginSite,
+  checkAvailability,
+  availabilityKey,
 }: {
   economy: Economy;
   parcel: ProjectedParcel;
   calendar: GameCalendar;
+  checkAvailability: DevelopmentAvailabilityChecker;
+  availabilityKey: string;
   /** V.d-7C · una parcela entra directo en colocación; el catálogo ya no construye a ciegas. */
   onBeginPlacement: (
     buildingType: BuildingType,
@@ -159,7 +176,7 @@ export function BuildCatalog({
                         </span>
                       ) : (
                         <span className="build-card-ready">
-                          <UiIcon name="success" size={13} /> Disponible
+                          <UiIcon name="success" size={13} /> Comprobar solar
                         </span>
                       )}
                     </span>
@@ -179,6 +196,8 @@ export function BuildCatalog({
           option={selectedOption}
           onBeginSite={onBeginSite}
           parcel={parcel}
+          checkAvailability={checkAvailability}
+          availabilityKey={availabilityKey}
         />
       ) : null}
     </section>
@@ -193,11 +212,15 @@ function BuildDetail({
   onBeginPlacement,
   onBeginSite,
   onClose,
+  checkAvailability,
+  availabilityKey,
 }: {
   option: Economy["constructionOptions"][number];
   economy: Economy;
   parcel: ProjectedParcel;
   calendar: GameCalendar;
+  checkAvailability: DevelopmentAvailabilityChecker;
+  availabilityKey: string;
   onBeginPlacement: (
     buildingType: BuildingType,
     parcelIds: readonly string[],
@@ -207,16 +230,68 @@ function BuildDetail({
   onClose: () => void;
 }) {
   const [headquartersVariant, setHeadquartersVariant] = useState<HeadquartersVariantId>("cupola");
-  const reasons = constructionBlockedReasons({
+  const requestKey = `${economy.district.id}|${parcel.id}|${option.type}|${availabilityKey}`;
+  const [availabilityAnswer, setAvailabilityAnswer] = useState<{
+    key: string;
+    value: DevelopmentAvailability | null;
+  } | null>(null);
+  const availability =
+    availabilityAnswer?.key === requestKey ? availabilityAnswer.value : undefined;
+  useEffect(() => {
+    let discarded = false;
+    setAvailabilityAnswer(null);
+    void checkAvailability({
+      districtId: economy.district.id,
+      anchorParcelId: parcel.id,
+      buildingType: option.type,
+    })
+      .then((value) => {
+        if (!discarded) setAvailabilityAnswer({ key: requestKey, value });
+      })
+      .catch(() => {
+        if (!discarded) setAvailabilityAnswer({ key: requestKey, value: null });
+      });
+    return () => {
+      discarded = true;
+    };
+  }, [availabilityKey, checkAvailability, economy.district.id, option.type, parcel.id, requestKey]);
+  const blockedReasons = constructionBlockedReasons({
     option,
     economy,
     parcelOwned: true,
     hasBuilding: parcel.buildingIds.length > 0,
     permitted: parcel.permittedBuildingTypes.includes(option.type),
   });
+  const availabilityIssue =
+    availability?.rejection !== null && availability?.rejection !== undefined
+      ? developmentAvailabilityReason(availability.rejection)
+      : null;
+  const requestIssue =
+    availability === null
+      ? {
+          code: "availability_check_failed",
+          message: "No se pudo comprobar la legalidad del solar. Inténtalo de nuevo.",
+        }
+      : null;
+  const acquisitionCost = availability?.available ? availability.acquisitionCost : 0;
+  const requiredCash = option.cost + acquisitionCost;
+  const reasons = blockedReasons.filter(
+    (reason) => !(availability?.available && reason.code === "not_enough_cash"),
+  );
+  if (availability?.available && economy.cash < requiredCash)
+    reasons.push({
+      code: "not_enough_cash",
+      message: `Te faltan ${requiredCash - economy.cash} u. entre la compra de solares y el inicio de la obra.`,
+    });
+  if (availabilityIssue) reasons.push(availabilityIssue);
+  if (requestIssue) reasons.push(requestIssue);
   const isPlanningMultiParcel = option.siteRequirements.requiredParcels > 1;
   /** Entrar a ver el mapa sólo lo impide lo que invalida el solar, no la tesorería (§33). */
-  const entryIssues = placementEntryIssues(reasons);
+  const entryIssues = [
+    ...placementEntryIssues(blockedReasons),
+    ...(availabilityIssue ? [availabilityIssue.message] : []),
+    ...(requestIssue ? [requestIssue.message] : []),
+  ];
   return (
     <div
       aria-label={`Detalle de ${buildingTypeLabel(option.type)}`}
@@ -300,6 +375,16 @@ function BuildDetail({
           </dd>
         </div>
       </dl>
+      {availability?.available ? (
+        <p className="positive-note">
+          <UiIcon name="success" size={14} /> Solar legal confirmado por el motor.
+        </p>
+      ) : null}
+      {availability === undefined ? (
+        <p aria-live="polite" className="muted" role="status">
+          Comprobando si este solar puede formar un proyecto legal…
+        </p>
+      ) : null}
       {reasons.length > 0 ? (
         <ul className="blocked-reasons" role="list">
           {reasons.map((reason) => (
@@ -308,11 +393,7 @@ function BuildDetail({
             </li>
           ))}
         </ul>
-      ) : (
-        <p className="positive-note">
-          <UiIcon name="success" size={14} /> Todo listo para empezar.
-        </p>
-      )}
+      ) : null}
       {option.type === "headquarters" ? (
         <fieldset className="detail-grid">
           <legend>Arquitectura de la sede</legend>
@@ -338,7 +419,7 @@ function BuildDetail({
       ) : null}
       <button
         className="primary-action"
-        disabled={entryIssues.length > 0}
+        disabled={entryIssues.length > 0 || !availability?.available}
         onClick={() =>
           option.siteRequirements.requiredParcels === 1
             ? onBeginPlacement(
@@ -350,6 +431,8 @@ function BuildDetail({
                 buildingType: option.type,
                 anchorParcelId: parcel.id,
                 parcelIds: [parcel.id],
+                targetParcelIds: availability?.parcelIds ?? [parcel.id],
+                purchaseParcelIds: availability?.purchaseParcelIds ?? [],
                 ...(option.type === "headquarters"
                   ? { headquartersVariantId: headquartersVariant }
                   : {}),
@@ -358,12 +441,16 @@ function BuildDetail({
         type="button"
       >
         <UiIcon name="construction" />{" "}
-        {constructionActionLabel(option.siteRequirements.requiredParcels)}
+        {availability === undefined
+          ? "Comprobando solar…"
+          : constructionActionLabel(option.siteRequirements.requiredParcels)}
       </button>
       {isPlanningMultiParcel ? (
         <p aria-live="polite" className="multi-parcel-notice" role="status">
           <UiIcon name="success" size={14} />{" "}
-          {multiParcelSelectionNotice(option.siteRequirements.requiredParcels)}
+          {availability?.available && availability.purchaseParcelIds.length > 0
+            ? `Solar seleccionado incluido. Compra ${availability.purchaseParcelIds.length} solar${availability.purchaseParcelIds.length === 1 ? "" : "es"} contiguo${availability.purchaseParcelIds.length === 1 ? "" : "s"} para completar el proyecto.`
+            : multiParcelSelectionNotice(option.siteRequirements.requiredParcels)}
         </p>
       ) : null}
       <p className="muted">
